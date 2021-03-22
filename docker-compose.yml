@@ -1,0 +1,96 @@
+services:
+    postgres:
+        image: postgres:13-alpine
+        container_name: postgres
+        networks:
+            - internal
+        volumes:
+            - persistent:/var/lib/postgres/data
+        env_file:
+            - .env
+        environment:
+            - PGDATA=/var/lib/postgres/data
+        ports:
+            - "5432:5432"
+
+    pgadmin:
+        image: dpage/pgadmin4
+        links:
+            - postgres:postgres
+        networks:
+            - internal
+        depends_on:
+            - postgres
+
+        env_file:
+            - .env
+        ports:
+            - "5050:5050"
+
+    mailhog:
+        image: mailhog/mailhog:latest
+        logging:
+            driver: "none"
+        networks:
+            - internal
+        ports:
+            - "8025:8025"
+
+    redis:
+        image: redis:6-alpine
+        env_file:
+            - .env
+        command: redis-server --requirepass ${REDIS_PASS}
+        networks:
+            - internal
+
+    rabbitmq:
+        image: rabbitmq:3.8-alpine
+
+    backend:
+        depends_on:
+            - postgres
+            - redis
+
+        env_file:
+            - .env
+
+        build:
+            context: ./backend
+            dockerfile: backend.dockerfile
+
+        ports:
+            - "8888:8888"
+
+        volumes:
+            - ./backend/app:/app
+
+    # celery:
+    #     depends_on:
+    #         - postgres
+    #         - redis
+    #         - rabbitmq
+
+    #     volumes:
+    #         - "./backend/app:/app"
+
+    #     environment:
+    #         - RUN=celery worker -A app.worker -l info -Q main-queue -c 1
+
+    #     build:
+    #         context: ./backend
+    #         dockerfile: celery.dockerfile
+
+    frontend:
+        ports:
+            - "3000:3000"
+        build:
+            context: ./frontend
+            dockerfile: frontend.dockerfile
+
+volumes:
+    persistent:
+
+networks:
+    internal:
+        driver: bridge
