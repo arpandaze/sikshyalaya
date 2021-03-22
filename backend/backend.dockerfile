@@ -15,6 +15,7 @@ RUN poetry install --no-dev --no-root
 COPY ./app /app
 
 
+RUN echo Hello
 COPY ./start.sh /start.sh
 RUN chmod +x /start.sh
 

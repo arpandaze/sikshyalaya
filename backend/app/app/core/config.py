@@ -16,10 +16,15 @@ class Settings(BaseSettings):
     # BACKEND_CORS_ORIGINS is a JSON-formatted list of origins
     # e.g: '["http://localhost", "http://localhost:4200", "http://localhost:3000", \
     # "http://localhost:8080", "http://local.dockertoolbox.tiangolo.com"]'
-    BACKEND_CORS_ORIGINS: List[AnyHttpUrl] = ["http://localhost:3001", "http://localhost"]
+    BACKEND_CORS_ORIGINS: List[AnyHttpUrl] = [
+        "http://localhost:3001",
+        "http://localhost",
+    ]
 
     @validator("BACKEND_CORS_ORIGINS", pre=True)
-    def assemble_cors_origins(cls, v: Union[str, List[str]]) -> Union[List[str], str]:
+    def assemble_cors_origins(
+        self, cls, v: Union[str, List[str]]
+    ) -> Union[List[str], str]:
         if isinstance(v, str) and not v.startswith("["):
             return [i.strip() for i in v.split(",")]
         elif isinstance(v, (list, str)):
@@ -30,7 +35,7 @@ class Settings(BaseSettings):
     SENTRY_DSN: Optional[HttpUrl] = None
 
     @validator("SENTRY_DSN", pre=True)
-    def sentry_dsn_can_be_blank(cls, v: str) -> Optional[str]:
+    def sentry_dsn_can_be_blank(self, cls, v: str) -> Optional[str]:
         if len(v) == 0:
             return None
         return v
@@ -45,11 +50,13 @@ class Settings(BaseSettings):
     REDIS_PORT: str = "6379"
     REDIS_PASSWORD: str = "test"
 
-    GOOGLE_CLIENT_ID: str = "819983468733-d3v07c4p06bsl0msekni7c7gqplrq5f3.apps.googleusercontent.com"
-    GOOGLE_CLIENT_SECRET: str = "swPtGmos5K7RPLeJ6UysYMWo"
+    GOOGLE_CLIENT_ID: str = ""
+    GOOGLE_CLIENT_SECRET: str = ""
 
     @validator("SQLALCHEMY_DATABASE_URI", pre=True)
-    def assemble_db_connection(cls, v: Optional[str], values: Dict[str, Any]) -> Any:
+    def assemble_db_connection(
+        self, cls, v: Optional[str], values: Dict[str, Any]
+    ) -> Any:
         if isinstance(v, str):
             return v
         return PostgresDsn.build(
@@ -69,7 +76,7 @@ class Settings(BaseSettings):
     EMAILS_FROM_NAME: Optional[str] = None
 
     @validator("EMAILS_FROM_NAME")
-    def get_project_name(cls, v: Optional[str], values: Dict[str, Any]) -> str:
+    def get_project_name(self, cls, v: Optional[str], values: Dict[str, Any]) -> str:
         if not v:
             return values["PROJECT_NAME"]
         return v
@@ -79,7 +86,7 @@ class Settings(BaseSettings):
     EMAILS_ENABLED: bool = False
 
     @validator("EMAILS_ENABLED", pre=True)
-    def get_emails_enabled(cls, v: bool, values: Dict[str, Any]) -> bool:
+    def get_emails_enabled(self, cls, v: bool, values: Dict[str, Any]) -> bool:
         return bool(
             values.get("SMTP_HOST")
             and values.get("SMTP_PORT")
@@ -92,11 +99,11 @@ class Settings(BaseSettings):
     USERS_OPEN_REGISTRATION: bool = False
 
     class AuthProviders(enum.Enum):
-        EMAIL : int = 1
-        PHONE : int = 2
-        GOOGLE : int = 3
-        FACEBOOK : int = 4
-        TWITTER : int = 5
+        EMAIL: int = 1
+        PHONE: int = 2
+        GOOGLE: int = 3
+        FACEBOOK: int = 4
+        TWITTER: int = 5
 
     class Config:
         case_sensitive = True

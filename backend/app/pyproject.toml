@@ -10,7 +10,6 @@ fastapi = "^0.63.0"
 passlib = {version = "^1.7.4", extras = ["bcrypt"]}
 python-jose = {version = "^3.2.0", extras = ["cryptography"]}
 alembic = "^1.5.7"
-uvicorn = "^0.13.4"
 python-multipart = "^0.0.5"
 email-validator = "^1.1.2"
 requests = "^2.25.1"
@@ -25,6 +24,7 @@ psycopg2-binary = "^2.8.6"
 SQLAlchemy = "^1.4.2"
 pytest = "^6.2.2"
 redis = "^3.5.3"
+uvicorn = {version = "^0.13.4", extras = ["standard"]}
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.812"
