@@ -16,18 +16,3 @@ class Item(Base):
     description = Column(String, index=True)
     owner_id = Column(Integer, ForeignKey("user.id"))
     owner = relationship("User", back_populates="items")
-
-class Category(Base):
-    __tablename__ = "categories"
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String(50))
-
-class Ticker(Base):
-    __tablename__ = "tickers"
-    id = Column(Integer, primary_key=True, index=True)
-    symbol = Column(String(15), unique=True, index=True)
-    name = Column(String(100))
-    category_id = Column(Integer, ForeignKey("category.id"))
-    category = relationship("Category", back_populates="tickers")
-
-

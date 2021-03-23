@@ -8,7 +8,6 @@ authors = ["Daze <dazehere@yandex.com>"]
 python = "^3.9"
 fastapi = "^0.63.0"
 passlib = {version = "^1.7.4", extras = ["bcrypt"]}
-python-jose = {version = "^3.2.0", extras = ["cryptography"]}
 alembic = "^1.5.7"
 python-multipart = "^0.0.5"
 email-validator = "^1.1.2"
@@ -25,6 +24,9 @@ SQLAlchemy = "^1.4.2"
 pytest = "^6.2.2"
 redis = "^3.5.3"
 uvicorn = {version = "^0.13.4", extras = ["standard"]}
+google-auth = "^1.28.0"
+cryptography = "3.3.1"
+python-jose = "^3.2.0"
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.812"
@@ -42,3 +44,6 @@ jedi = "^0.18.0"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pylint.'MESSAGES CONTROL']
+extension-pkg-whitelist = "pydantic"
