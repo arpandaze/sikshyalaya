@@ -67,26 +67,41 @@ services:
             dockerfile: backend.dockerfile
 
         ports:
-            - "8888:8888"
+            - "80:80"
 
         volumes:
             - ./backend/app:/app
 
-    # celery:
-    #     depends_on:
-    #         - postgres
-    #         - redis
-    #         - rabbitmq
+        
+        command: alembic upgrade head
+        command: python app/main.py 
 
-    #     volumes:
-    #         - "./backend/app:/app"
+    celery:
+        container_name: celery
+        depends_on:
+            - postgres
+            - redis
+            - rabbitmq
 
-    #     environment:
-    #         - RUN=celery worker -A app.worker -l info -Q main-queue -c 1
+        volumes:
+            - "./backend/app:/app"
 
-    #     build:
-    #         context: ./backend
-    #         dockerfile: celery.dockerfile
+        environment:
+            - RUN=celery worker -A app.worker -l info -Q main-queue -c 1
+
+        build:
+            context: ./backend
+            dockerfile: celery.dockerfile
+
+        command: bash -c "while true; do sleep 1; done"
+    
+    flower:
+        container_name: flower
+        image: mher/flower
+        networks:
+            - internal
+        env_file:
+            - .env
 
     frontend:
         container_name: frontend
@@ -95,6 +110,7 @@ services:
         build:
             context: ./frontend
             dockerfile: frontend.dockerfile
+
 
 volumes:
     persistent:

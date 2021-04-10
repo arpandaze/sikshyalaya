@@ -17,4 +17,4 @@ ENV PYTHONPATH=/app
 
 ENV C_FORCE_ROOT=1
 
-RUN celery -A worker app.worker -l info -Q main -c 1
+# RUN celery -A worker app.worker -l info -Q main -c 1

@@ -1,7 +1,16 @@
 from datetime import timedelta
 from typing import Any
 
-from fastapi import APIRouter, Body, Depends, HTTPException, Response, Form, status, Request
+from fastapi import (
+    APIRouter,
+    Body,
+    Depends,
+    HTTPException,
+    Response,
+    Form,
+    status,
+    Request,
+)
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from starlette.responses import JSONResponse
@@ -55,6 +64,7 @@ async def test_token(current_user: models.User = Depends(deps.get_current_user))
     """
     return current_user
 
+
 # FIXME GET Request only for testing. Need to change to POST later!
 @router.get("/auth/blacklist/{token}")
 async def blacklist_token(token: str) -> Any:
@@ -84,15 +94,14 @@ async def login_web_session(
         raise HTTPException(status_code=401, detail="Inactive user")
     session_token = create_sesssion_token(user.id)
     response = JSONResponse({"status": "success"})
-    response.set_cookie(
-        "session",
-        session_token,
-        httponly=True
-    )
+    response.set_cookie("session", session_token, httponly=True)
     return response
 
+
 @router.get("/auth/web/test")
-async def test_session_token(current_user: models.User = Depends(deps.get_current_user)) -> Any:
+async def test_session_token(
+    current_user: models.User = Depends(deps.get_current_user),
+) -> Any:
     return current_user.email
 
 
@@ -141,20 +150,30 @@ async def reset_password(
     db.commit()
     return {"msg": "Password updated successfully"}
 
+
 @router.post("/social-auth/app/google")
-async def google_app_social_auth(idtoken: str = Form(...), db: Session = Depends(deps.get_db)):
+async def google_app_social_auth(
+    idtoken: str = Form(...), db: Session = Depends(deps.get_db)
+):
     try:
-        idinfo = id_token.verify_oauth2_token(idtoken, requests.Request(), settings.GOOGLE_CLIENT_ID)
-        user_email = idinfo['email']
-        user_name = idinfo['name']
+        idinfo = id_token.verify_oauth2_token(
+            idtoken, requests.Request(), settings.GOOGLE_CLIENT_ID
+        )
+        user_email = idinfo["email"]
+        user_name = idinfo["name"]
         user = crud.user.get_by_email(db, email=user_email)
 
     except ValueError:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid token!")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid token!"
+        )
 
     if user:
         if user.auth_provider != settings.AuthProviders.GOOGLE.value:
-            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Different authentication provider was used to register!")
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Different authentication provider was used to register!",
+            )
     else:
         user_info = schemas.user.UserCreate(
             email=user_email,
@@ -164,7 +183,7 @@ async def google_app_social_auth(idtoken: str = Form(...), db: Session = Depends
             full_name=user_name,
             auth_provider=settings.AuthProviders.GOOGLE.value,
         )
-        user = crud.user.create(db,obj_in=user_info)
+        user = crud.user.create(db, obj_in=user_info)
 
     if not user.is_active:
         raise HTTPException(status_code=400, detail="Inactive user")
@@ -178,19 +197,28 @@ async def google_app_social_auth(idtoken: str = Form(...), db: Session = Depends
 
 
 @router.post("/social-auth/web/google")
-async def google_web_social_auth(db: Session = Depends(deps.get_db), idtoken: str = Form(...)):
+async def google_web_social_auth(
+    db: Session = Depends(deps.get_db), idtoken: str = Form(...)
+):
     try:
-        idinfo = id_token.verify_oauth2_token(idtoken, requests.Request(), settings.GOOGLE_CLIENT_ID)
-        user_email = idinfo['email']
-        user_name = idinfo['name']
+        idinfo = id_token.verify_oauth2_token(
+            idtoken, requests.Request(), settings.GOOGLE_CLIENT_ID
+        )
+        user_email = idinfo["email"]
+        user_name = idinfo["name"]
         user = crud.user.get_by_email(db, email=user_email)
 
     except ValueError:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid token!")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid token!"
+        )
 
     if user:
         if user.auth_provider != settings.AuthProviders.GOOGLE.value:
-            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Different authentication provider was used to register!")
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Different authentication provider was used to register!",
+            )
     else:
         user_info = schemas.user.UserCreate(
             email=user_email,
@@ -198,29 +226,34 @@ async def google_web_social_auth(db: Session = Depends(deps.get_db), idtoken: st
             is_active=True,
             is_superuser=False,
             full_name=user_name,
-            auth_provider= settings.AuthProviders.GOOGLE.value,
+            auth_provider=settings.AuthProviders.GOOGLE.value,
         )
-        user = crud.user.create(db,obj_in=user_info)
+        user = crud.user.create(db, obj_in=user_info)
 
     if not user.is_active:
         raise HTTPException(status_code=400, detail="Inactive user")
 
     session_token = create_sesssion_token(user.id)
     response = Response()
-    response.set_cookie(
-        "session",
-        session_token,
-        httponly=True
-    )
+    response.set_cookie("session", session_token, httponly=True)
     return response
 
 
 @router.get("/thtest1")
 @throttle.ip_throttle(rate=10, per=60)
-async def throttle_test(request: Request, db: Session = Depends(deps.get_db), current_user: models.User = Depends(deps.get_current_user)):
-    return "Throttle test endpoint 1"
+async def throttle_test(
+    request: Request,
+    db: Session = Depends(deps.get_db),
+    current_user: models.User = Depends(deps.get_current_user),
+):
+    return "Throttle test endpoint 1 Hello"
+
 
 @router.get("/thtest2")
 @throttle.user_throttle(rate=20, per=60)
-async def throttle_test1(request: Request, db: Session = Depends(deps.get_db), current_user: models.User = Depends(deps.get_current_user)):
+async def throttle_test1(
+    request: Request,
+    db: Session = Depends(deps.get_db),
+    current_user: models.User = Depends(deps.get_current_user),
+):
     return "Throttle test endpoint 2"

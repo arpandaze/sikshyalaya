@@ -11,18 +11,12 @@ COPY ./app/pyproject.toml ./app/poetry.lock /app/
 
 RUN poetry install --no-dev --no-root
 
-
 COPY ./app /app
 
-
-RUN echo Hello
 COPY ./start.sh /start.sh
 RUN chmod +x /start.sh
 
 COPY ./gunicorn_conf.py /gunicorn_conf.py
-
-COPY ./start-reload.sh /start-reload.sh
-RUN chmod +x /start-reload.sh
 
 ENV PYTHONPATH=/app
 EXPOSE 80
