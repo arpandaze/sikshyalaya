@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 
 from app.db.base_class import Base
@@ -12,7 +12,9 @@ if TYPE_CHECKING:
 
 class TeacherNote(Base):
     id = Column(Integer, primary_key=True)
-    user = Column()
-    student = Column()
+    user_id = Column(Integer, ForeignKey("user.id"))
+    user = relationship("User", backref="teachernote")
+    student_id = Column(Integer, ForeignKey("user.id"))
+    student = relationship("User")
     message = Column(String(length=512))
     __tablename__ = "teachernote"
