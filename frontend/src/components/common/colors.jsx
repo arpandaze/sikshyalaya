@@ -23,3 +23,5 @@ const theme = {
   purple2: "#8977E6",
   purple3: "#9999FF",
 };
+
+export default theme;
