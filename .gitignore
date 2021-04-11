@@ -1,6 +1,6 @@
-.vscode
-.mypy_cache
+.vim/
+.vscode/
+.mypy_cache/
 docker-stack.yml
-.vim/*
 __pycache__/
 app.egg-info
