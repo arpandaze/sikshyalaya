@@ -1,13 +1,9 @@
 from typing import TYPE_CHECKING
 
-from sqlalchemy import Boolean, Column, Integer, String, Enum, DateTime
+from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 
 from app.db.base_class import Base
-
-import enum
-
-from app.core.config import settings
 
 
 if TYPE_CHECKING:
@@ -17,5 +13,6 @@ if TYPE_CHECKING:
 class Program(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(length=64))
-    school = Column()
+    department_id = Column(Integer, ForeignKey("department.id"))
+    department = relationship("Department")
     __tablename__ = "program"

@@ -18,8 +18,6 @@ class User(Base):
     is_active = Column(Boolean(), default=True)
     is_superuser = Column(Boolean(), default=False, nullable=True)
     is_teacher = Column(Boolean(), default=False, nullable=True)
-    teacher_details = Column()
-    student_details = Column()
     auth_provider = Column(Integer)
 
     items = relationship("Item", back_populates="owner")
