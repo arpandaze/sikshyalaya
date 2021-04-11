@@ -11,20 +11,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #f2f5f9;
+  height: 100vh;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
-}
-
-#container {
-}
-
-.button_primary {
-  width: 400px;
-  height: 63px;
-  outline: none;
-  border: none;
-  border-radius: 10px;
 }
