@@ -1,13 +1,9 @@
 from typing import TYPE_CHECKING
 
-from sqlalchemy import Boolean, Column, Integer, String, Enum
+from sqlalchemy import Boolean, Column, Integer, String
 from sqlalchemy.orm import relationship
 
 from app.db.base_class import Base
-
-import enum
-
-from app.core.config import settings
 
 
 if TYPE_CHECKING:
@@ -20,7 +16,10 @@ class User(Base):
     email = Column(String, unique=True, index=True, nullable=False)
     hashed_password = Column(String, nullable=False)
     is_active = Column(Boolean(), default=True)
-    is_superuser = Column(Boolean(), default=False)
+    is_superuser = Column(Boolean(), default=False, nullable=True)
+    is_teacher = Column(Boolean(), default=False, nullable=True)
+    teacher_details = Column()
+    student_details = Column()
     auth_provider = Column(Integer)
 
     items = relationship("Item", back_populates="owner")
