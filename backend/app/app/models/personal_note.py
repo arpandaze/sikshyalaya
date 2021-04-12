@@ -15,8 +15,8 @@ if TYPE_CHECKING:
 class PersonalNote(Base):
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("user.id"))
-    user = relationship("User", backref="personalnote")
-    course_id = Column(Integer, ForeignKey("user.id"))
-    course = relationship("Course")
+    user = relationship("User", backref="personalnote", foreign_keys=[user_id])
+    course_id = Column(Integer, ForeignKey("course.id"))
+    course = relationship("Course", foreign_keys=[course_id])
     message = Column(String(length=32768))
     __tablename__ = "personalnote"

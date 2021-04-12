@@ -16,8 +16,6 @@ if TYPE_CHECKING:
 
 class Course(Base):
     id = Column(Integer, primary_key=True)
-    course_code = Column(
-        String,
-        index=True,
-    )
+    course_code = Column(String, index=True, unique=True)
+    course_name = Column(String(128), nullable=False)
     __tablename__ = "course"

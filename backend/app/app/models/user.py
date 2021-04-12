@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 
-from sqlalchemy import Boolean, Column, Integer, String
+from sqlalchemy import Boolean, Column, Integer, String, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
 
 from app.db.base_class import Base
@@ -13,7 +13,16 @@ if TYPE_CHECKING:
 class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     full_name = Column(String, index=True)
-    email = Column(String, unique=True, index=True, nullable=False)
+    email = Column(String, index=True, nullable=False)
+    enrolled_course_id = Column(Integer, ForeignKey("course.id"))
+    enrolled_course = relationship("Course")
+    dob = Column(DateTime, nullable=False)
+    address = Column(String(length=64), nullable=False)
+    contact_number = Column(String(length=16), index=True, nullable=False)
+    # department = Column()
+    sem = Column(Integer)
+    # test_result = Column()
+
     hashed_password = Column(String, nullable=False)
     is_active = Column(Boolean(), default=True)
     is_superuser = Column(Boolean(), default=False, nullable=True)
