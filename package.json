@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "react-addons-css-transition-group": "^15.6.2",
-    "react-transition-group": "^4.4.1"
-  }
-}
