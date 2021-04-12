@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class Department(Base):
     id = Column(Integer, primary_key=True)
-    name = Column(String(length=128, unique=True))
+    name = Column(String(length=128))
     school_id = Column(Integer, ForeignKey("school.id"))
-    school = relationship("School", backref="department")
+    school = relationship("School", back_populates="department")
     __tablename__ = "department"
