@@ -4,3 +4,4 @@
 docker-stack.yml
 __pycache__/
 app.egg-info
+node_modules/
