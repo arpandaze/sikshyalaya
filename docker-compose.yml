@@ -43,13 +43,15 @@ services:
         container_name: redis
         env_file:
             - .env
-        command: redis-server --requirepass ${REDIS_PASS}
+        command: redis-server --requirepass test
         networks:
             - internal
 
     rabbitmq:
         image: rabbitmq:3.8-alpine
         container_name: rabbitmq
+        logging:
+            driver: none
 
     backend:
         container_name: backend
@@ -72,9 +74,10 @@ services:
         volumes:
             - ./backend/app:/app
 
-        
+
         command: alembic upgrade head
-        command: python app/main.py 
+        command: python app/main.py
+        #command: bash -c "while true; do sleep 1; done"
 
     celery:
         container_name: celery
@@ -94,7 +97,7 @@ services:
             dockerfile: celery.dockerfile
 
         command: bash -c "while true; do sleep 1; done"
-    
+
     flower:
         container_name: flower
         image: mher/flower
