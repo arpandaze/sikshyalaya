@@ -3,6 +3,7 @@ import React from "react";
 const buttonStyles = {
   outline: "none",
   border: "none",
+  cursor: "pointer",
 };
 
 const Button = ({ name, colorStyles, ...rest }) => {

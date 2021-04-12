@@ -4,18 +4,42 @@ import Button from "../../components/Button";
 import theme from "../../utils/colors";
 import * as yup from "yup";
 import Tab from "../../components/Tab";
+import StudentLoginBox from "./StudentLoginBox";
+import TeacherLoginBox from "./TeacherLoginBox";
+import Grid from "@material-ui/core/Grid";
+import logo from "../../assets/logo.png";
+import Image from "../../components/Image";
 
 const styleSheet = {
-  tabButton: {
-    width: "80px",
-    height: "30px",
-    backgroundColor: "transparent",
+  root: {
+    flexGrow: "1",
   },
-  tabActiveButton: {
-    width: "80px",
-    height: "30px",
-    backgroundColor: "transparent",
-    borderBottom: "2px solid " + theme.red4,
+  logoBox: {
+    width: "200px",
+    position: "absolute",
+    top: "50px",
+    left: "150px",
+  },
+  copyrightText: {
+    width: "250px",
+    position: "absolute",
+    left: "150px",
+    bottom: "20px",
+    fontSize: "0.8em",
+  },
+  loginBoxContainer: {
+    minHeight: "100vh",
+  },
+  loginBox: {
+    width: "450px",
+    height: "600px",
+  },
+  loginLabel: {
+    fontWeight: "normal",
+    fontSize: "2.2em",
+  },
+  tabs: {
+    display: "flex",
   },
   loginButton: {
     width: "400px",
@@ -41,75 +65,96 @@ const styleSheet = {
     background: "transparent",
   },
   inputLabel: { fontSize: "1.2em" },
+  lineVertical: {
+    width: "1px",
+    height: "30px",
+    backgroundColor: theme.grey2,
+    margin: "0px auto",
+  },
 };
-const validationSchema = yup.object({
-  email: yup
-    .string("Enter your email")
-    .email("Enter a valid email")
-    .required("Email is required"),
-  password: yup
-    .string("Enter your password")
-    .min(4, "Minimum 4 characters")
-    .required("Password is required"),
-});
+
 const Login = () => {
-  const [active, setActive] = useState(1);
+  const [active, setActive] = useState(0);
   return (
-    <div>
-      <div>
-        <div>
-          <Button
-            name="Student"
-            onClick={() => {
-              setActive(active ? 0 : 1);
-            }}
-            colorStyles={
-              active ? styleSheet.tabActiveButton : styleSheet.tabButton
-            }
-          />
-          <Button
-            name="Teacher"
-            onClick={() => {
-              setActive(active ? 0 : 1);
-            }}
-            colorStyles={
-              active ? styleSheet.tabButton : styleSheet.tabActiveButton
-            }
-          />
-        </div>
-        <h1>Login</h1>
-        <Formik
-          initialValues={{
-            email: "",
-            password: "",
-          }}
-          validationSchema={validationSchema}
-          //   onSubmit={async (values) => {
-          //     await new Promise((r) => setTimeout(r, 500));
-          //     alert(JSON.stringify(values, null, 2));
-          //   }}
+    <Grid
+      container
+      direction="row"
+      justify="center"
+      alignItems="center"
+      style={styleSheet.root}
+    >
+      <Grid item sm={4}>
+        <Grid
+          container
+          direction="column"
+          justify="flex-start"
+          alignItems="center"
+          spacing={0}
         >
-          <Form>
-            <Field
-              id="email"
-              name="email"
-              placeholder="Email"
-              style={styleSheet.inputButton}
-            />
-            <br />
-            <Field
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Password"
-              style={styleSheet.inputButton}
-            />
-            <Button name="Login" colorStyles={styleSheet.loginButton} />
-            <Button name="Guest" colorStyles={styleSheet.guestButton} />
-          </Form>
-        </Formik>
-      </div>
-    </div>
+          <Grid item style={styleSheet.logoBox}>
+            <Image src={logo} alt={{ logo }} />
+          </Grid>
+          <Grid container item style={styleSheet.copyrightText}>
+            <a>©2021 Sikshyalaya</a>
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid item sm={4}>
+        <Grid
+          container
+          direction="column"
+          justify="center"
+          alignItems="center"
+          style={styleSheet.loginBoxContainer}
+        >
+          <Grid item style={styleSheet.loginBox}>
+            <Grid
+              container
+              direction="row"
+              justify="flex-start"
+              alignItems="center"
+            >
+              <Grid item>
+                <Tab
+                  name="Student"
+                  active={active ? 0 : 1}
+                  onButtonClick={() => {
+                    setActive(active ? 0 : 0);
+                  }}
+                />
+              </Grid>
+
+              <Grid item>
+                <div style={styleSheet.lineVertical}></div>
+              </Grid>
+              <Grid item>
+                <Tab
+                  name="Teacher"
+                  active={active ? 1 : 0}
+                  onButtonClick={() => {
+                    setActive(active ? 1 : 1);
+                  }}
+                />
+              </Grid>
+            </Grid>
+            <Grid
+              container
+              spacing={4}
+              direction="row"
+              justify="center"
+              alignItems="center"
+            >
+              <Grid item>
+                <h1 style={styleSheet.loginLabel}>Login</h1>
+              </Grid>
+            </Grid>
+
+            {active ? <TeacherLoginBox /> : <StudentLoginBox />}
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid item sm={4}></Grid>
+    </Grid>
   );
 };
 
