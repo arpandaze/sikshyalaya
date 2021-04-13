@@ -11,7 +11,7 @@ from app.core.config import settings
 from app.utils import send_new_account_email
 
 
-from crud.crud_school import crud_school
+from app.crud.crud_school import crud_school
 
 router = APIRouter()
 
