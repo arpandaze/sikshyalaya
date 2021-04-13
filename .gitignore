@@ -1,5 +1,6 @@
 .vim/
 .vscode/
+.idea/
 .mypy_cache/
 docker-stack.yml
 __pycache__/
