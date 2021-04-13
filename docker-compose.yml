@@ -27,6 +27,8 @@ services:
             - .env
         ports:
             - "5050:5050"
+        logging:
+            driver: none
 
     mailhog:
         image: mailhog/mailhog:latest
