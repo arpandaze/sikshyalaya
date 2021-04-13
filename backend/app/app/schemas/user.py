@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 
 from pydantic import BaseModel, EmailStr
 
@@ -9,6 +9,12 @@ class UserBase(BaseModel):
     is_active: Optional[bool] = True
     is_superuser: bool = False
     full_name: Optional[str] = None
+    address: str = None
+    sem: int = None
+    is_teacher: bool = None
+    contact_number: str = None
+    dob: str = None
+    course: List[int] = None
     auth_provider: int = 1 #app.core.config.settings.AuthProviders.EMAIL
 
 
