@@ -6,7 +6,7 @@ from pydantic import BaseModel
 # shared properties
 class PersonalNoteBase(BaseModel):
     user_id: int
-    student_id: int
+    course_id: int
     message: str
 
 
