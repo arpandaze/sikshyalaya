@@ -1,24 +1,30 @@
-from pydantic import BaseModel
 from datetime import datetime
-from typing import Optional
+from typing import Optional, List
 
-#shared properties
+from pydantic import BaseModel
+
+
+# shared properties
 class ClassSessionBase(BaseModel):
     dateTime: datetime
-    instructor: int #finalize this
+    instructor: List[int]
     course_id: int
     description: str
 
-#properties to recieve via
+
+# properties to recieve via
 class ClassSessionCreate(ClassSessionBase):
     pass
 
-#properties to recive via API on Update
+
+# properties to recive via API on Update
 class ClassSessionUpdate(ClassSessionBase):
     pass
 
-#properties to return via the api
+
+# properties to return via the api
 class ClassSession(ClassSessionBase):
     id: Optional[int]
+
     class Config:
         orm_mode = True

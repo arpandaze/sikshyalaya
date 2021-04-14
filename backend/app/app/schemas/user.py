@@ -15,7 +15,7 @@ class UserBase(BaseModel):
     contact_number: str = None
     dob: str = None
     course: List[int] = None
-    auth_provider: int = 1 #app.core.config.settings.AuthProviders.EMAIL
+    auth_provider: int = 1  # app.core.config.settings.AuthProviders.EMAIL
 
 
 # Properties to receive via API on creation
