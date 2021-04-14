@@ -25,9 +25,8 @@ def get_course(db: Session = Depends(deps.get_db)):
 
 @router.post("/", response_model=Course)
 def create_user(
-        *,
-        db: Session = Depends(deps.get_db),
-        user_in: CourseCreate,
+    *,
+    db: Session = Depends(deps.get_db),
+    user_in: CourseCreate,
 ) -> Any:
     create_user.create()
-
