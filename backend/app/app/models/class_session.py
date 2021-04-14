@@ -4,7 +4,7 @@ from sqlalchemy import Boolean, Column, Integer, String, Enum, DateTime, Foreign
 from sqlalchemy.orm import relationship
 
 from app.db.base_class import Base
-from association_tables import user_class_session_association_table
+from app.models.association_tables import user_class_session_association_table
 
 import enum
 

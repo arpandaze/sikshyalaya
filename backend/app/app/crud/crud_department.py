@@ -3,11 +3,11 @@ from app.models.department import Department
 from app.schemas.department import (
     DepartmentCreate,
     DepartmentUpdate,
-    DepartmentRetrieve,
+    Department,
 )
 
 
-class CRUDDepartment(CRUDBase[DepartmentRetrieve, DepartmentCreate, DepartmentUpdate]):
+class CRUDDepartment(CRUDBase[Department, DepartmentCreate, DepartmentUpdate]):
     pass
 
 
