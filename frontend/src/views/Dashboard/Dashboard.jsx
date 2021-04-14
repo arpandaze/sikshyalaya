@@ -23,6 +23,9 @@ import SideBar from "../../components/SideBar";
 
 const Dashboard = () => {
 	return (
+		<div>
+			<SideBar />
+		</div>
 		// <Grid
 		//   container
 		//   direction="row"
@@ -36,7 +39,6 @@ const Dashboard = () => {
 		//   <Grid item xs={9} style={styleSheet.mainArea}></Grid>
 		//   <Grid item xs={2} style={styleSheet.notification}></Grid>
 		// </Grid>
-		<SideBar />
 	);
 };
 
