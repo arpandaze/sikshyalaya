@@ -3,24 +3,29 @@ from typing import Optional  # noqa
 from pydantic import BaseModel
 
 
-class SchoolCreate(BaseModel):
+class SchoolBase(BaseModel):
     name: str
     address: int
 
 
-class SchoolCreate(BaseModel):
-    name: str
-    address: int
+class SchoolCreate(SchoolBase):
+    pass
 
 
-class SchoolRetrieve(BaseModel):
-    id: int
+class SchoolUpdate(SchoolBase):
+    pass
 
 
-class SchoolUpdate(BaseModel):
-    name: str
-    address: int
+class SchoolInDBBase(SchoolBase):
+    id: Optional[int]
+
+    class Config:
+        orm_mode = True
 
 
-class SchoolDelete(BaseModel):
-    id: int
+class SchoolInDB(SchoolInDBBase):
+    pass
+
+
+class School(SchoolInDBBase):
+    pass

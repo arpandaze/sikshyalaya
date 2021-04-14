@@ -26,7 +26,7 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
             contact_number=obj_in.contact_number,  # noqa
             address=obj_in.address,  # noqa
             is_teacher=obj_in.is_teacher,  # noqa
-            sem=obj_in.sem  # noqa
+            sem=obj_in.sem,  # noqa
         )
         db.add(db_obj)
         db.commit()
@@ -34,7 +34,7 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         return db_obj
 
     def update(
-            self, db: Session, *, db_obj: User, obj_in: Union[UserUpdate, Dict[str, Any]]
+        self, db: Session, *, db_obj: User, obj_in: Union[UserUpdate, Dict[str, Any]]
     ) -> User:
         if isinstance(obj_in, dict):
             update_data = obj_in
