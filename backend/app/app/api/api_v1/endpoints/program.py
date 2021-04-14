@@ -14,5 +14,3 @@ from app.utils import send_new_account_email
 from app.crud.crud_school import crud_school
 
 router = APIRouter()
-
-
