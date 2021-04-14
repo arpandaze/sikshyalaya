@@ -1,23 +1,27 @@
 from pydantic import BaseModel
-from typing import Optional
 
-#shared properties
+
+# shared properties
 class CourseBase(BaseModel):
     course_code: str
     course_name: str
 
-#properties to  recieve via API on creation
+
+# properties to  recieve via API on creation
 class CourseCreate(CourseBase):
     pass
 
-#properties that is stored on the DB
+
+# properties that is stored on the DB
 class CourseOnDB(CourseBase):
     id: int
 
-#properties to recieve via API on update
+
+# properties to recieve via API on update
 class CourseUpdate(CourseOnDB):
     pass
 
-#additional properties to return via API
+
+# additional properties to return via API
 class Course(CourseOnDB):
     pass

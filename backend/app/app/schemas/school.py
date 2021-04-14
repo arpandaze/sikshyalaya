@@ -8,11 +8,6 @@ class SchoolCreate(BaseModel):
     address: int
 
 
-class SchoolCreate(BaseModel):
-    name: str
-    address: int
-
-
 class SchoolRetrieve(BaseModel):
     id: int
 
