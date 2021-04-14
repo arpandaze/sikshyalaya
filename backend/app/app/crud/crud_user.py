@@ -14,7 +14,11 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         return db.query(User).filter(User.email == email).first()
 
     def create(self, db: Session, *, obj_in: UserCreate) -> User:
-        courses = list(map(lambda id: crud_course.get(db=db, id=id), obj_in.course))
+        if obj_in.course:
+            courses = list(map(lambda id: crud_course.get(db=db, id=id), obj_in.course))
+        else:
+            courses = []
+
         db_obj = User(
             email=obj_in.email,  # noqa
             hashed_password=get_password_hash(obj_in.password),  # noqa

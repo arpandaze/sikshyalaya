@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 from app.api import deps
 from app.crud import crud_course
-from app.schemas import Course, CourseUpdate
+from app.schemas.course import Course, CourseCreate, CourseUpdate
 
 router = APIRouter()
 
@@ -19,7 +19,7 @@ def get_course(
 
 
 @router.post("/course", response_model=Course)
-def create_course(db: Session = Depends(deps.get_db), *, obj_in: CourseUpdate) -> Any:
+def create_course(db: Session = Depends(deps.get_db), *, obj_in: CourseCreate) -> Any:
     course = crud_course.create(db, obj_in=obj_in)
     return course
 

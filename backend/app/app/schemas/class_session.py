@@ -2,12 +2,15 @@ from datetime import datetime
 from typing import Optional, List
 
 from pydantic import BaseModel
+from typing import Any
+from .user import UserReturn
 
 
 # shared properties
 class ClassSessionBase(BaseModel):
-    dateTime: datetime
-    instructor: List[int]
+    datetime: datetime
+    is_active: bool
+    instructors: List[int]
     course_id: int
     description: str
 
@@ -31,6 +34,7 @@ class ClassSessionInDBBase(ClassSessionBase):
 
 
 class ClassSession(ClassSessionInDBBase):
+    instructors: List[UserReturn]
     pass
 
 
