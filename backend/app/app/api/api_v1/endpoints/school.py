@@ -10,7 +10,7 @@ from app.api import deps
 from app.core.config import settings
 from app.utils import send_new_account_email
 
-from schemas.school import School, SchoolCreate, SchoolUpdate
+from app.schemas import School, SchoolCreate, SchoolUpdate
 from app.crud.crud_school import crud_school
 
 router = APIRouter()
