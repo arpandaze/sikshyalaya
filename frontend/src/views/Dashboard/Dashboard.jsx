@@ -9,34 +9,37 @@ import Grid from "@material-ui/core/Grid";
 import Image from "../../components/Image";
 import SideBar from "../../components/SideBar";
 
-const styleSheet = {
-  sideBar: {
-    height: "100vh",
-    boxShadow: "2px 2px 13px -3px rgba(0,0,0,0.32)",
-  },
-  mainArea: { height: "100vh" },
-  notification: {
-    height: "100vh",
-    border: "1px solid black",
-  },
-};
+// const styleSheet = {
+//   sideBar: {
+//     height: "100vh",
+//     boxShadow: "2px 2px 13px -3px rgba(0,0,0,0.32)",
+//   },
+//   mainArea: { height: "100vh" },
+//   notification: {
+//     height: "100vh",
+//     border: "1px solid black",
+//   },
+// };
 
 const Dashboard = () => {
-  return (
-    <Grid
-      container
-      direction="row"
-      justify="flex-start"
-      alignItems="center"
-      style={styleSheet.root}
-    >
-      <Grid item xs={1} style={styleSheet.sideBar}>
-        <SideBar style={styleSheet.sideBar} />
-      </Grid>
-      <Grid item xs={9} style={styleSheet.mainArea}></Grid>
-      <Grid item xs={2} style={styleSheet.notification}></Grid>
-    </Grid>
-  );
+	return (
+		<div>
+			<SideBar />
+		</div>
+		// <Grid
+		//   container
+		//   direction="row"
+		//   justify="flex-start"
+		//   alignItems="center"
+		//   style={styleSheet.root}
+		// >
+		//   <Grid item xs={1} style={styleSheet.sideBar}>
+		//     <SideBar style={styleSheet.sideBar} />
+		//   </Grid>
+		//   <Grid item xs={9} style={styleSheet.mainArea}></Grid>
+		//   <Grid item xs={2} style={styleSheet.notification}></Grid>
+		// </Grid>
+	);
 };
 
 export default Dashboard;
