@@ -1,3 +1,5 @@
+from typing import Optional
+
 from pydantic import BaseModel
 
 
@@ -12,16 +14,21 @@ class CourseCreate(CourseBase):
     pass
 
 
-# properties that is stored on the DB
-class CourseOnDB(CourseBase):
-    id: int
-
-
 # properties to recieve via API on update
-class CourseUpdate(CourseOnDB):
+class CourseUpdate(CourseBase):
     pass
 
 
-# additional properties to return via API
-class Course(CourseOnDB):
+class CourseInDBBase(CourseBase):
+    id: Optional[int]
+
+    class Config:
+        orm_mode = True
+
+
+class CourseInDB(CourseInDBBase):
+    pass
+
+
+class Course(CourseInDBBase):
     pass

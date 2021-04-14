@@ -20,8 +20,16 @@ class ProgramUpdate(ProgramBase):
 
 
 # properties to return via the api
-class Program(ProgramBase):
+class ProgramInDBBase(ProgramBase):
     id: Optional[int]
 
     class Config:
         orm_mode = True
+
+
+class ProgramInDB(ProgramInDBBase):
+    pass
+
+
+class Program(ProgramInDBBase):
+    pass

@@ -21,8 +21,16 @@ class PersonalNoteUpdate(PersonalNoteBase):
 
 
 # properties to return via the api
-class PersonalNote(PersonalNoteBase):
+class PersonalNoteInDBBase(PersonalNoteBase):
     id: Optional[int]
 
     class Config:
         orm_mode = True
+
+
+class PersonalNoteInDB(PersonalNoteInDBBase):
+    pass
+
+
+class PersonalNote(PersonalNoteInDBBase):
+    pass
