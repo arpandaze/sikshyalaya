@@ -10,31 +10,35 @@ from app.api import deps
 from app.core.config import settings
 from app.utils import send_new_account_email
 
-from schemas.school import
+from schemas import school
 from app.crud.crud_school import crud_school
 
 router = APIRouter()
 
 
-@router.get("/school", response_model=List[Program])
-def get_programs(db: Session = Depends(deps.get_db), skip: int = 0, limit: int = 100):
-    programs = crud_program.get_multi(db, skip = skip, limit = limit)
-    return programs
+@router.get("/school", response_model=List[school.School])
+#retrieve 100 schools
+def get_schools(db: Session = Depends(deps.get_db), skip: int = 0, limit: int = 100):
+    schools = crud_school.get_multi(db, skip = skip, limit = limit)
+    return schools
 
 
-@router.post("/school", response_model= Program)
-def create_program(db: Session = Depends(deps.get_db), program_in: ProgramCreate):
-    program = crud_program.create(db, obj_in = program_in)
+@router.post("/school", response_model= school.School)
+#create a school
+def create_school(db: Session = Depends(deps.get_db), school_in: school.SchoolCreate):
+    school = crud_school.create(db, obj_in = school_in)
     return program
 
-@router.get("/school/{program_id}", response_model = Program)
-def get_program(db: Session = Depends(deps.get_db), program_id: int):
-    program = crud_program.get(db, program_id)
-    return program
+@router.get("/school/{school_id}", response_model = school.School)
+#get a school by id
+def get_school(db: Session = Depends(deps.get_db), school_id: int):
+    school = crud_school.get(db, school_id)
+    return school
 
 
-@router.put("/school/{program_id}", response_model = Program)
-def update_program(db: Session = Depends(deps.get_db), program_id: int, program_update: ProgramUpdate):
-    program = crud_school.get(db, program_id)
-    program = crud_school.update(db, db_obj = program, obj_in = program_update)
-    return program
+@router.put("/school/{school_id}", response_model = school.School)
+#update a school given its id
+def update_school(db: Session = Depends(deps.get_db), school_update: int, program_update: school.SchoolUpdate):
+    school = crud_school.get(db, school_id)
+    school = crud_school.update(db, db_obj = school, obj_in = school_update)
+    return school
