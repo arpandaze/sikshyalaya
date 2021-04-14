@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Button from "../components/Button";
-import theme from "../utils/colors";
+import colorscheme from "../utils/colors";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -8,32 +9,36 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiFillDashboard } from "react-icons/ai";
-import { FaArrowLeft } from "react-icons/fa";
+import { BiChevronsLeft } from "react-icons/bi";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 
-const styleSheet = {
-	sidebarClose: {
+const useStyles = makeStyles((theme) => ({
+	root: {
 		width: "60px",
 		height: "100vh",
-		backgroundColor: theme.white,
+	},
+	sidebarClose: {
 		display: "flex",
-		backgroundColor: "transparent",
-		transition: "500ms",
-		boxShadow: "2px 2px 13px -3px rgba(0,0,0,0.32)",
+		margin: "0px",
+		width: "60px",
+		height: "100vh",
+		backgroundColor: colorscheme.white,
+		display: "flex",
+		transition: "300ms",
+		boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
 	},
 	sidebarOpen: {
+		margin: "0px",
+		display: "flex",
 		width: "150px",
 		height: "100vh",
-		backgroundColor: theme.white,
+		backgroundColor: colorscheme.white,
 		display: "flex",
-		backgroundColor: "transparent",
-		justifyContent: "right",
-		boxShadow: "2px 2px 13px -3px rgba(0,0,0,0.32)",
-		transition: "500ms",
+		boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
+		transition: "300ms",
 	},
-	iconStyle: {},
-};
+}));
 
 const sidebarItems = [
 	{
@@ -54,31 +59,38 @@ const sidebarItems = [
 ];
 
 const SideBar = () => {
+	const theme = useTheme();
+	const classes = useStyles(theme);
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 	const sidebarHandler = () => {
 		!sidebarOpen ? setSidebarOpen(true) : setSidebarOpen(false);
 	};
 	return (
-		<Grid
-			container
-			direction="column"
-			justify="center"
-			alignItems="flex-start"
-			style={styleSheet.sidebarClose}
-		>
-			<Box>
-				<GiHamburgerMenu size="25" onClick={sidebarHandler} />
-				{console.log(sidebarOpen)}
-			</Box>
-		</Grid>
-
-		// {/* <List display="flex-start">
-		//       <ListItem button onClick={sidebarHandler} style={sidebarOpen?styleSheet.sidebarOpen:styleSheet.sidebarClose}>
-		//             <ListItemIcon disableRipple={true}>
-		//                   {sidebarOpen?<FaArrowLeft size="25" style={styleSheet.hamburgerIcon}/>:<GiHamburgerMenu size="25"/>}
-		//             </ListItemIcon>
-		//       </ListItem>
-		// </List> */}
+		<div className={classes.root}>
+			<Grid
+				container
+				direction="column"
+				alignItems="flex-start"
+				className={classes.sidebarClose}
+				spacing={2}
+			>
+				<Grid
+					container
+					item
+					justify="center"
+					onClick={sidebarHandler}
+					className={
+						sidebarOpen ? classes.sidebarOpen : classes.sidebarClose
+					}
+				>
+					{sidebarOpen ? (
+						<BiChevronsLeft size="25" color={colorscheme.black} />
+					) : (
+						<GiHamburgerMenu size="25" color={colorscheme.black} />
+					)}
+				</Grid>
+			</Grid>
+		</div>
 	);
 };
 
