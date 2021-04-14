@@ -19,7 +19,9 @@ class ClassSession(Base):
     id = Column(Integer, primary_key=True)
     datetime = Column(DateTime)
     is_active = Column(Boolean)
-    instructors = relationship("User", secondary=user_class_session_association_table, backref="class_session")
+    instructors = relationship(
+        "User", secondary=user_class_session_association_table, backref="class_session"
+    )
     course_id = Column(Integer, ForeignKey("course.id"))
     course = relationship("Course", backref="session")
     description = Column(String(length=128))

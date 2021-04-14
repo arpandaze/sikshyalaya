@@ -16,7 +16,9 @@ class User(Base):
     full_name = Column(String, index=True)
     email = Column(String, index=True, nullable=False)
     # enrolled_course_id = Column(Integer, ForeignKey("course.id"))
-    enrolled_course = relationship("Course", secondary=user_course_association_table, backref="users")
+    enrolled_course = relationship(
+        "Course", secondary=user_course_association_table, backref="users"
+    )
     dob = Column(DateTime, nullable=False)
     address = Column(String(length=64), nullable=False)
     contact_number = Column(String(length=16), index=True, nullable=False)
