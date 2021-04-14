@@ -12,6 +12,8 @@ import { AiFillDashboard } from "react-icons/ai";
 import { BiChevronsLeft } from "react-icons/bi";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
+import icon from "../assets/icon.png";
+import Image from "../components/Image";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -61,10 +63,6 @@ const sidebarItems = [
 const SideBar = () => {
 	const theme = useTheme();
 	const classes = useStyles(theme);
-	const [sidebarOpen, setSidebarOpen] = useState(false);
-	const sidebarHandler = () => {
-		!sidebarOpen ? setSidebarOpen(true) : setSidebarOpen(false);
-	};
 	return (
 		<div className={classes.root}>
 			<Grid
@@ -74,20 +72,8 @@ const SideBar = () => {
 				className={classes.sidebarClose}
 				spacing={2}
 			>
-				<Grid
-					container
-					item
-					justify="center"
-					onClick={sidebarHandler}
-					className={
-						sidebarOpen ? classes.sidebarOpen : classes.sidebarClose
-					}
-				>
-					{sidebarOpen ? (
-						<BiChevronsLeft size="25" color={colorscheme.black} />
-					) : (
-						<GiHamburgerMenu size="25" color={colorscheme.black} />
-					)}
+				<Grid container item justify="center">
+					<Image src={icon} alt={{ icon }} />
 				</Grid>
 			</Grid>
 		</div>
