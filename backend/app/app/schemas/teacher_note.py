@@ -21,8 +21,16 @@ class TeacherNoteUpdate(TeacherNoteBase):
 
 
 # properties to return via the api
-class TeacherNote(TeacherNoteBase):
+class TeacherNoteInDBBase(TeacherNoteBase):
     id: Optional[int]
 
     class Config:
         orm_mode = True
+
+
+class TeacherNoteInDB(TeacherNoteInDBBase):
+    pass
+
+
+class TeacherNote(TeacherNoteInDBBase):
+    pass

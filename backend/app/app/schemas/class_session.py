@@ -23,8 +23,16 @@ class ClassSessionUpdate(ClassSessionBase):
 
 
 # properties to return via the api
-class ClassSession(ClassSessionBase):
+class ClassSessionInDBBase(ClassSessionBase):
     id: Optional[int]
 
     class Config:
         orm_mode = True
+
+
+class ClassSession(ClassSessionInDBBase):
+    pass
+
+
+class ClassSessionInDB(ClassSessionInDBBase):
+    pass
