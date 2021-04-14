@@ -11,7 +11,7 @@ from app.core.config import settings
 from app.utils import send_new_account_email
 
 from app.crud.crud_teacher_note import crud_teacher_note
-from schemas.teacher_note import TeacherNote, TeacherNoteUpdate, TeacherNoteCreate
+from schemas.teacher_note import TeacherNote, TeacherNoteCreate, TeacherNoteUpdate
 
 router = APIRouter()
 
