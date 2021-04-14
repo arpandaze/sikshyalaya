@@ -1,32 +1,39 @@
 from typing import Any, List
 
-from fastapi import APIRouter, Body, Depends, HTTPException
-from fastapi.encoders import jsonable_encoder
-from pydantic.networks import EmailStr
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from app import crud, models, schemas
 from app.api import deps
-from app.core.config import settings
-from app.utils import send_new_account_email
-from app.schemas.course import Course, CourseUpdate, CourseCreate, CourseOnDB
-
-
-from app.crud.crud_course import crud_course
+from app.crud import crud_course
+from app.schemas import Course, CourseUpdate
 
 router = APIRouter()
 
 
-@router.get("/course")
-def get_course(db: Session = Depends(deps.get_db)):
-    school = crud_course.get(db=db, id=2)
-    return school
-
-
-@router.post("/", response_model=Course)
-def create_user(
-    *,
-    db: Session = Depends(deps.get_db),
-    user_in: CourseCreate,
+@router.get("/course", response_model=List[Course])
+def get_course(
+    db: Session = Depends(deps.get_db), skip: int = 0, limit: int = 100
 ) -> Any:
-    create_user.create()
+    course = crud_course.get_multi(db, skip=skip, limit=limit)
+    return course
+
+
+@router.post("/course", response_model=Course)
+def create_course(db: Session = Depends(deps.get_db), *, obj_in: CourseUpdate) -> Any:
+    course = crud_course.create(db, obj_in=obj_in)
+    return course
+
+
+@router.get("/course/{id}", response_model=Course)
+def get_specific_course(db: Session = Depends(deps.get_db), *, id: int) -> Any:
+    course = crud_course.get(db, id)
+    return course
+
+
+@router.put("/course/{id}", response_model=Course)
+def update_course(
+    db: Session = Depends(deps.get_db), *, id: int, obj_in: CourseUpdate
+) -> Any:
+    course = crud_course.get(db, id)
+    course = crud_course.update(db, db_obj=course, obj_in=obj_in)
+    return course
