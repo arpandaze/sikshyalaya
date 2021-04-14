@@ -15,16 +15,15 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     full_name = Column(String, index=True)
     email = Column(String, index=True, nullable=False)
-    # enrolled_course_id = Column(Integer, ForeignKey("course.id"))
     enrolled_course = relationship(
         "Course", secondary=user_course_association_table, backref="users"
     )
     dob = Column(DateTime, nullable=False)
     address = Column(String(length=64), nullable=False)
     contact_number = Column(String(length=16), index=True, nullable=False)
-    # department = Column()
+    department_id = Column(Integer, ForeignKey("department.id"))
+    department = relationship("Department", backref="students")
     sem = Column(Integer)
-    # test_result = Column()
 
     hashed_password = Column(String, nullable=False)
     is_active = Column(Boolean(), default=True)
