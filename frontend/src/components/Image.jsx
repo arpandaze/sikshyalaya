@@ -7,8 +7,9 @@ const styleSheet = {
   },
 };
 
-const Image = ({ src, alt, ...rest }) => {
-  return <img {...rest} src={src} alt={alt} style={styleSheet.image} />;
+const Image = ({ src, alt, addStyles, ...rest }) => {
+  const finalStyles = { ...styleSheet.image, ...addStyles };
+  return <img {...rest} src={src} alt={alt} style={finalStyles} />;
 };
 
 export default Image;
