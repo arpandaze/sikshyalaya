@@ -29,5 +29,10 @@ class CRUDClassSession(CRUDBase[ClassSession, ClassSessionCreate, ClassSessionUp
         db.refresh(db_obj)
         return db_obj
 
+    def get_multi(
+            self, db: Session, *, skip: int = 0, limit: int = 100, filter: int
+    ) -> List[ModelType]:
+        return db.query(self.model).offset(skip).limit(limit).all()
+
 
 crud_class_session = CRUDClassSession(ClassSession)
