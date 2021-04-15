@@ -71,6 +71,14 @@ def get_current_active_user(
         raise HTTPException(status_code=400, detail="Inactive user")
     return current_user
 
+def get_current_active_teacher(
+        current_user: models.User = Depends(get_current_user),
+) -> models.User:
+    if current_user.user_type == settings.UserType.TEACHER:
+        return current_user
+    else:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+
 
 def get_current_active_superuser(
     current_user: models.User = Depends(get_current_user),
