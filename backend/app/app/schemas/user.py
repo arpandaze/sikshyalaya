@@ -1,4 +1,5 @@
 from typing import Optional, List
+from datetime import datetime
 
 from pydantic import BaseModel, EmailStr
 
@@ -13,15 +14,22 @@ class UserBase(BaseModel):
     sem: int = None
     is_teacher: bool = None
     contact_number: str = None
-    dob: str = None
+    dob: datetime = None
     course: List[int] = None
-    auth_provider: int = 1 #app.core.config.settings.AuthProviders.EMAIL
+    auth_provider: int = 1  # app.core.config.settings.AuthProviders.EMAIL
 
 
 # Properties to receive via API on creation
 class UserCreate(UserBase):
     email: EmailStr
     password: str
+
+
+class UserReturn(BaseModel):
+    id: int
+
+    class Config:
+        orm_mode = True
 
 
 # Properties to receive via API on update

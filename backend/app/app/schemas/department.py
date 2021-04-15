@@ -3,19 +3,29 @@ from typing import Optional  # noqa
 from pydantic import BaseModel
 
 
-class DepartmentCreate(BaseModel):
+class DepartmentBase(BaseModel):
     name: str
-    school: int
+    school_id: int
 
 
-class DepartmentRetrieve(BaseModel):
-    id: int
+class DepartmentCreate(DepartmentBase):
+    pass
 
 
-class DepartmentUpdate(BaseModel):
-    name: str
-    school: int
+class DepartmentUpdate(DepartmentBase):
+    pass
 
 
-class DepartmentDelete(BaseModel):
-    id: int
+class DepartmentInDBBase(DepartmentBase):
+    id: Optional[int]
+
+    class Config:
+        orm_mode = True
+
+
+class DepartmentInDB(DepartmentInDBBase):
+    pass
+
+
+class Department(DepartmentInDBBase):
+    pass
