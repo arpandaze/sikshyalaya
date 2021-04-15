@@ -33,7 +33,7 @@ const styleSheet = {
     padding: "2px",
   },
   courseTextCode: {
-    fontSize: "1.5em",
+    fontSize: "1.4em",
     fontWeight: "bold",
     position: "relative",
     top: "20px",
@@ -42,7 +42,7 @@ const styleSheet = {
     listStyleType: "none",
   },
   courseTextCodeSelected: {
-    fontSize: "1.5em",
+    fontSize: "1.4em",
     fontWeight: "bold",
     position: "relative",
     top: "20px",
