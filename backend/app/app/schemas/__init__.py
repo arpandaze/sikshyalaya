@@ -6,6 +6,7 @@ from .class_session import (
 )
 from .course import Course, CourseCreate, CourseUpdate, CourseInDB
 from .department import Department, DepartmentCreate, DepartmentUpdate, DepartmentInDB
+from .group import Group, GroupCreate, GroupInDB, GroupUpdate
 from .item import Item, ItemCreate, ItemInDB, ItemUpdate
 from .msg import Msg
 from .personal_note import (
