@@ -7,6 +7,7 @@ from app.crud.base import CRUDBase
 from app.crud.crud_course import crud_course
 from app.models.user import User
 from app.schemas.user import UserCreate, UserUpdate
+from app.core.config import settings
 
 
 class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
@@ -29,7 +30,6 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
             enrolled_course=courses,  # noqa
             contact_number=obj_in.contact_number,  # noqa
             address=obj_in.address,  # noqa
-            is_teacher=obj_in.is_teacher,  # noqa
             sem=obj_in.sem,  # noqa
         )
         db.add(db_obj)
@@ -62,7 +62,10 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         return user.is_active
 
     def is_superuser(self, user: User) -> bool:
-        return user.is_superuser
+        if user.user_type == settings.UserType.SUPERADMIN:
+            return True
+        else:
+            return False
 
 
 user = CRUDUser(User)
