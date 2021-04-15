@@ -2,44 +2,47 @@ import React, { useState } from "react";
 import { Formik, Field, Form } from "formik";
 import { Route, Switch, Redirect } from "react-router-dom";
 import Button from "../../components/Button";
-import theme from "../../utils/colors";
 import * as yup from "yup";
 import Tab from "../../components/Tab";
 import Grid from "@material-ui/core/Grid";
 import Image from "../../components/Image";
+import profile from "../../assets/pp.jpg";
 import SideBar from "../../components/SideBar";
+import colorscheme from "../../utils/colors";
+import ProfileBar from "../../components/ProfileBar";
 
-// const styleSheet = {
-//   sideBar: {
-//     height: "100vh",
-//     boxShadow: "2px 2px 13px -3px rgba(0,0,0,0.32)",
-//   },
-//   mainArea: { height: "100vh" },
-//   notification: {
-//     height: "100vh",
-//     border: "1px solid black",
-//   },
-// };
+const styleSheet = {
+  root: { flexGrow: "1" },
+  sideBar: {
+    width: "70px",
+    height: "100vh",
+  },
+  mainArea: { height: "100vh" },
+  profileBar: {
+    height: "100vh",
+    cursor: "pointer",
+  },
+};
 
 const Dashboard = () => {
-	return (
-		<div>
-			<SideBar />
-		</div>
-		// <Grid
-		//   container
-		//   direction="row"
-		//   justify="flex-start"
-		//   alignItems="center"
-		//   style={styleSheet.root}
-		// >
-		//   <Grid item xs={1} style={styleSheet.sideBar}>
-		//     <SideBar style={styleSheet.sideBar} />
-		//   </Grid>
-		//   <Grid item xs={9} style={styleSheet.mainArea}></Grid>
-		//   <Grid item xs={2} style={styleSheet.notification}></Grid>
-		// </Grid>
-	);
+  return (
+    <Grid
+      container
+      direction="row"
+      justify="flex-start"
+      alignItems="center"
+      style={styleSheet.root}
+      wrap="nowrap"
+    >
+      <Grid item style={styleSheet.sideBar}>
+        <SideBar />
+      </Grid>
+      <Grid xs={8} item style={styleSheet.mainArea}></Grid>
+      <Grid xs={3} item style={styleSheet.profileBar}>
+        <ProfileBar />
+      </Grid>
+    </Grid>
+  );
 };
 
 export default Dashboard;
