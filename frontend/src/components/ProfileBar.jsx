@@ -6,40 +6,30 @@ import Box from "@material-ui/core/Box";
 import Image from "./Image";
 import CourseBox from "./CourseBox";
 import profile from "../assets/pp.jpg";
+import ProfileBox from "./ProfileBox";
 
 const styleSheet = {
   root: { flexGrow: "1" },
   profileBar: {
     height: "100vh",
-    cursor: "pointer",
   },
   profileBox: {
-    width: "85%",
-    height: "22vh",
+    width: "90%",
+    height: "20vh",
     position: "relative",
     top: "60px",
     borderRadius: "25px",
     background: colorscheme.white,
     boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
-    cursor: "pointer",
   },
   courseBox: {
-    width: "85%",
+    width: "90%",
     height: "62vh",
     position: "relative",
     top: "11vh",
     borderRadius: "25px",
     background: colorscheme.white,
     boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
-  },
-  profileImage: {
-    width: "12vh",
-    position: "relative",
-    top: "2vh",
-    left: "2vh",
-  },
-  image: {
-    borderRadius: "50%",
   },
   courseTextTitle: {
     fontSize: "2em",
@@ -93,6 +83,15 @@ const styleSheet = {
   },
 };
 const ProfileBar = ({ selected }) => {
+  const user = [
+    {
+      name: "Yugesh Upadhyaya Luitel",
+      department: "Computer Science",
+      year: "II",
+      semester: "I",
+      image: profile,
+    },
+  ];
   const courses = [
     {
       sn: "1",
@@ -120,9 +119,7 @@ const ProfileBar = ({ selected }) => {
   return (
     <Grid container direction="column" justify="center" alignItems="flex-end">
       <Grid item style={styleSheet.profileBox}>
-        <div style={styleSheet.profileImage}>
-          <Image src={profile} alt={{ profile }} addStyles={styleSheet.image} />
-        </div>
+        <ProfileBox user={user} />
       </Grid>
       <Grid item style={styleSheet.courseBox}>
         <CourseBox courseList={courses} selected={1} />
