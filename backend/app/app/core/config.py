@@ -28,6 +28,10 @@ class Settings(BaseSettings):
         "http://localhost",
     ]
 
+    ALLOWED_EMAIL_HOST: List[str] = [
+
+    ]
+
     @validator("BACKEND_CORS_ORIGINS", pre=True)
     def assemble_cors_origins(cls, v: Union[str, List[str]]) -> Union[List[str], str]:
         if isinstance(v, str) and not v.startswith("["):
@@ -101,12 +105,11 @@ class Settings(BaseSettings):
     FIRST_SUPERUSER_PASSWORD: str
     USERS_OPEN_REGISTRATION: bool = False
 
-    class AuthProviders(enum.Enum):
-        EMAIL: int = 1
-        PHONE: int = 2
-        GOOGLE: int = 3
-        FACEBOOK: int = 4
-        TWITTER: int = 5
+    class UserType(enum.Enum):
+        SUPERADMIN: int = 1
+        TEACHER: int = 2
+        STUDENT: int = 3
+
 
     class Config:
         case_sensitive = True
