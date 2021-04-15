@@ -5,6 +5,7 @@ from sqlalchemy.orm import relationship
 
 from app.db.base_class import Base
 from .association_tables import user_course_association_table
+from app.core.config import settings
 
 
 if TYPE_CHECKING:
@@ -27,8 +28,6 @@ class User(Base):
 
     hashed_password = Column(String, nullable=False)
     is_active = Column(Boolean(), default=True)
-    is_superuser = Column(Boolean(), default=False, nullable=True)
-    is_teacher = Column(Boolean(), default=False, nullable=True)
-    auth_provider = Column(Integer)
+    user_type = Column(Integer, default=settings.UserType.STUDENT, nullable=False)
 
     items = relationship("Item", back_populates="owner")
