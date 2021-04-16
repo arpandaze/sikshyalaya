@@ -17,7 +17,7 @@ const styleSheet = {
 };
 
 const Dashboard = () => {
-  return <DashboardLayout>Rushab Good Boy</DashboardLayout>;
+  return <DashboardLayout>Yugesh Good Boy</DashboardLayout>;
 };
 
 export default Dashboard;
