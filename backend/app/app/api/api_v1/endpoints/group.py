@@ -20,7 +20,7 @@ def get_group(
 
 @router.post("/group", response_model=Group)
 def create_group(
-        db: Session = Depends(deps.get_db), *, obj_in: group
+        db: Session = Depends(deps.get_db), *, obj_in: GroupUpdate
 ) -> Any:
     group = crud_group.create(db, obj_in=obj_in)
     return group
