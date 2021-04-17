@@ -2,15 +2,14 @@ import React, { useState } from "react";
 import colorscheme from "../utils/colors";
 import Grid from "@material-ui/core/Grid";
 import { Tooltip } from "@material-ui/core";
+import { IconContext } from "react-icons";
 
 const styleSheet = {
 	iconStyle: {
-		display: "flex",
 		marginTop: "30px",
 		cursor: "pointer",
 	},
 	verticalLine: {
-		display: "flex",
 		width: "5px",
 		height: "10px",
 		backgroundColor: colorscheme.red3,
@@ -18,9 +17,8 @@ const styleSheet = {
 	},
 };
 
-const NavIcons = ({ name, title, icon, iconHovered, ...rest }) => {
+const NavIcons = ({ title, path, icon, ...rest }) => {
 	const [hovered, setHovered] = useState(false);
-	const [clicked, setClicked] = useState(false);
 	const tooltip = false;
 
 	return (
@@ -34,12 +32,20 @@ const NavIcons = ({ name, title, icon, iconHovered, ...rest }) => {
 					onMouseLeave={() => {
 						setHovered(false);
 					}}
-					onClick={() => {
-						setClicked(true);
-					}}
 					style={styleSheet.iconStyle}
 				>
-					{hovered ? iconHovered : icon}
+					<IconContext.Provider
+						value={{
+							color:
+								window.location.pathname === path
+									? colorscheme.red3
+									: hovered
+									? colorscheme.grey2
+									: colorscheme.grey1,
+						}}
+					>
+						{icon}
+					</IconContext.Provider>
 				</div>
 			</Grid>
 		</Tooltip>
