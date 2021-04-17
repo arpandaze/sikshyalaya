@@ -48,13 +48,13 @@ def get_current_user(
                 status_code=status.HTTP_403_FORBIDDEN,
                 detail="Could not validate credentials",
             )
-        user = crud.user.get(db, id=token_data.sub)
+        user = crud.crud_user.get(db, id=token_data.sub)
 
     else:
         try:
             user_id = redis_session_client.get(token).encode("utf-8")
             assert user_id != "", "Invalid Session Token"
-            user = crud.user.get(db, id=user_id)
+            user = crud.crud_user.get(db, id=user_id)
 
         except AssertionError:
             raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Invalid Session Token!")
@@ -67,7 +67,7 @@ def get_current_user(
 def get_current_active_user(
     current_user: models.User = Depends(get_current_user),
 ) -> models.User:
-    if not crud.user.is_active(current_user):
+    if not crud.crud_user.is_active(current_user):
         raise HTTPException(status_code=400, detail="Inactive user")
     return current_user
 
@@ -83,7 +83,7 @@ def get_current_active_teacher(
 def get_current_active_superuser(
     current_user: models.User = Depends(get_current_user),
 ) -> models.User:
-    if not crud.user.is_superuser(current_user):
+    if not crud.crud_user.is_superuser(current_user):
         raise HTTPException(
             status_code=400, detail="The user doesn't have enough privileges"
         )

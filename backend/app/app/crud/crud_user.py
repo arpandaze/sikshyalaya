@@ -14,6 +14,9 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
     def get_by_email(self, db: Session, *, email: str) -> Optional[User]:
         return db.query(User).filter(User.email == email).first()
 
+    def get_by_id(self, db: Session, *, id: id) -> Optional[User]:
+        return db.query(User).filter(User.id == id).first()
+
     def create(self, db: Session, *, obj_in: UserCreate) -> User:
         if obj_in.course:
             courses = list(map(lambda id: crud_course.get(db=db, id=id), obj_in.course))
@@ -68,4 +71,4 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
             return False
 
 
-user = CRUDUser(User)
+crud_user = CRUDUser(User)

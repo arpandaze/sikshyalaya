@@ -41,12 +41,12 @@ async def login_access_token(
     """
     OAuth2 compatible token login, get an access token for future requests
     """
-    user = crud.user.authenticate(
+    user = crud.crud_user.authenticate(
         db, email=form_data.username, password=form_data.password
     )
     if not user:
         raise HTTPException(status_code=400, detail="Incorrect email or password")
-    elif not crud.user.is_active(user):
+    elif not crud.crud_user.is_active(user):
         raise HTTPException(status_code=400, detail="Inactive user")
     access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     return {
@@ -85,7 +85,7 @@ async def login_web_session(
     if not form_data.username:
         form_data.username = form_data.email
 
-    user = crud.user.authenticate(
+    user = crud.crud_user.authenticate(
         db, email=form_data.username, password=form_data.password
     )
     if not user:
@@ -110,7 +110,7 @@ async def recover_password(email: str, db: Session = Depends(deps.get_db)) -> An
     """
     Password Recovery
     """
-    user = crud.user.get_by_email(db, email=email)
+    user = crud.crud_user.get_by_email(db, email=email)
 
     if not user:
         raise HTTPException(
@@ -136,13 +136,13 @@ async def reset_password(
     email = verify_password_reset_token(token)
     if not email:
         raise HTTPException(status_code=400, detail="Invalid token")
-    user = crud.user.get_by_email(db, email=email)
+    user = crud.crud_user.get_by_email(db, email=email)
     if not user:
         raise HTTPException(
             status_code=404,
             detail="The user with this username does not exist in the system.",
         )
-    elif not crud.user.is_active(user):
+    elif not crud.crud_user.is_active(user):
         raise HTTPException(status_code=400, detail="Inactive user")
     hashed_password = get_password_hash(new_password)
     user.hashed_password = hashed_password
@@ -161,7 +161,7 @@ async def google_app_social_auth(
         )
         user_email = idinfo["email"]
         user_name = idinfo["name"]
-        user = crud.user.get_by_email(db, email=user_email)
+        user = crud.crud_user.get_by_email(db, email=user_email)
 
     except ValueError:
         raise HTTPException(
@@ -183,7 +183,7 @@ async def google_app_social_auth(
             full_name=user_name,
             auth_provider=settings.AuthProviders.GOOGLE.value,
         )
-        user = crud.user.create(db, obj_in=user_info)
+        user = crud.crud_user.create(db, obj_in=user_info)
 
     if not user.is_active:
         raise HTTPException(status_code=400, detail="Inactive user")
@@ -206,7 +206,7 @@ async def google_web_social_auth(
         )
         user_email = idinfo["email"]
         user_name = idinfo["name"]
-        user = crud.user.get_by_email(db, email=user_email)
+        user = crud.crud_user.get_by_email(db, email=user_email)
 
     except ValueError:
         raise HTTPException(
@@ -228,7 +228,7 @@ async def google_web_social_auth(
             full_name=user_name,
             auth_provider=settings.AuthProviders.GOOGLE.value,
         )
-        user = crud.user.create(db, obj_in=user_info)
+        user = crud.crud_user.create(db, obj_in=user_info)
 
     if not user.is_active:
         raise HTTPException(status_code=400, detail="Inactive user")
