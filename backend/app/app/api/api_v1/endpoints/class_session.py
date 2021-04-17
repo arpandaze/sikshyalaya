@@ -4,8 +4,9 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from app.api import deps
-from app.crud import crud_class_session
+from app.crud import crud_class_session, crud_user
 from app.schemas import ClassSession, ClassSessionUpdate
+from app.models import ClassSession as ClassSessionModel
 
 router = APIRouter()
 
@@ -14,7 +15,8 @@ router = APIRouter()
 def get_class_session(
     db: Session = Depends(deps.get_db), skip: int = 0, limit: int = 100
 ) -> Any:
-    class_sessions = crud_class_session.get_multi(db, skip=skip, limit=limit)
+    user = crud_user.get_by_id(db, id=1)
+    class_sessions = crud_class_session.get_user_class_sessions(db, user=user)
     return class_sessions
 
 
