@@ -1,5 +1,4 @@
-from .crud_item import item
-from .crud_user import user
+from .crud_user import crud_user
 
 from .crud_course import crud_course
 from .crud_school import crud_school
