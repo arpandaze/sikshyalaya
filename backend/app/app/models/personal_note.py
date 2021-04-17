@@ -7,7 +7,6 @@ from app.db.base_class import Base
 
 
 if TYPE_CHECKING:
-    from .item import Item  # noqa: F401
     from .user import User  # noqa: F401
     from .course import Course  # noqa: F401
 

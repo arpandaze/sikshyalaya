@@ -4,8 +4,6 @@ from app.db.base_class import Base
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 
-if TYPE_CHECKING:
-    from .item import Item  # noqa: F401
 
 
 class Group(Base):
