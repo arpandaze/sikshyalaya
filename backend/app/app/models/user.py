@@ -2,14 +2,13 @@ from typing import TYPE_CHECKING
 
 from sqlalchemy import Boolean, Column, Integer, String, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
+from sqlalchemy.ext.hybrid import hybrid_property
 
 from app.db.base_class import Base
 from .association_tables import user_course_association_table
 from app.core.config import settings
 
 
-if TYPE_CHECKING:
-    from .item import Item  # noqa: F401
 
 
 class User(Base):
@@ -33,3 +32,10 @@ class User(Base):
     user_type = Column(Integer, default=settings.UserType.STUDENT, nullable=False)
 
     items = relationship("Item", back_populates="owner")
+
+    @hybrid_property
+    def is_superuser(self):
+        if self.user_type == settings.UserType.SUPERADMIN:
+            return True
+        else:
+            return False

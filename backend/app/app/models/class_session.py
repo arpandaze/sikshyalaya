@@ -11,9 +11,6 @@ import enum
 from app.core.config import settings
 
 
-if TYPE_CHECKING:
-    from .item import Item  # noqa: F401
-
 
 class ClassSession(Base):
     id = Column(Integer, primary_key=True)
