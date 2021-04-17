@@ -30,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
 
 	sidebarLink: {
 		textDecoration: "none",
-		color: colorscheme.black,
 	},
 	iconStyle: {
 		marginTop: "30px",
@@ -42,27 +41,23 @@ const sidebarItems = [
 	{
 		title: "Dashboard",
 		route: "/dashboard",
-		icon: <AiOutlineDashboard size={30} color={colorscheme.grey1} />,
-		iconHovered: <AiOutlineDashboard size={30} color={colorscheme.red3} />,
+		icon: <AiOutlineDashboard size={30} />,
 	},
 	{
 		title: "Quiz",
 		route: "/quiz",
-		icon: <AiOutlineDashboard size={30} color={colorscheme.grey1} />,
-		iconHovered: <AiOutlineDashboard size={30} color={colorscheme.red3} />,
+		icon: <AiOutlineDashboard size={30} />,
 	},
 	{
 		title: "Note",
 		route: "/note",
-		icon: <AiOutlineDashboard size={30} color={colorscheme.grey1} />,
-		iconHovered: <AiOutlineDashboard size={30} color={colorscheme.red3} />,
+		icon: <AiOutlineDashboard size={30} />,
 	},
 ];
 
 const SideBar = () => {
 	const theme = useTheme();
 	const classes = useStyles(theme);
-	const [hovered, setHovered] = useState(false);
 	return (
 		<div className={classes.root}>
 			<Grid
@@ -73,21 +68,24 @@ const SideBar = () => {
 				spacing={2}
 			>
 				<Grid item>
-					<Image src={icon} alt={{ icon }} />
+					<Link to="/">
+						<Image src={icon} alt={{ icon }} />
+					</Link>
 				</Grid>
 				<div className={classes.horizontalLine}></div>
 				<Grid
 					container
+					item
 					direction="column"
 					alignItems="center"
 					justify="center"
 				>
-					{sidebarItems.map((item, index) => (
+					{sidebarItems.map((item) => (
 						<Link to={item.route} className={classes.sidebarLink}>
 							<NavIcons
 								title={item.title}
+								path={item.route}
 								icon={item.icon}
-								iconHovered={item.iconHovered}
 							/>
 						</Link>
 					))}
