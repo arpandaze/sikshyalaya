@@ -16,8 +16,8 @@ const styleSheet = {
 	root: { flexGrow: "1" },
 };
 
-const Dashboard = () => {
-	return <DashboardLayout>Abhijeet Good Boy</DashboardLayout>;
+const Profile = () => {
+	return <DashboardLayout>Yugesh</DashboardLayout>;
 };
 
-export default Dashboard;
+export default Profile;

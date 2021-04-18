@@ -7,16 +7,16 @@ import Quiz from "./views/Quiz/Quiz";
 import Landing from "./views/Landing/Landing";
 
 const Routes = () => {
-  return (
-    <Switch>
-      <Route path="/login" component={Login} />
-      <Route path="/dashboard" component={Dashboard} />
-      <Route path="/quiz" component={Quiz} />
-      <Route path="/note" component={Notes} />
-      <Route path="/landing" component={Landing} />
-      <Redirect from="/" to="landing" />
-    </Switch>
-  );
+	return (
+		<Switch>
+			<Route path="/login" component={Login} />
+			<Route path="/dashboard" component={Dashboard} />
+			<Route path="/quiz" component={Quiz} />
+			<Route path="/note" component={Notes} />
+			<Route path="/landing" component={Landing} />
+			<Redirect from="/" to="landing" />
+		</Switch>
+	);
 };
 
 export default Routes;
