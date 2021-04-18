@@ -11,13 +11,16 @@ import SideBar from "../../components/SideBar";
 import colorscheme from "../../utils/colors";
 import ProfileBar from "../../components/ProfileBar";
 import DashboardLayout from "../../components/DashboardLayout";
+import Note from "../../components/Note";
 
 const styleSheet = {
 	root: { flexGrow: "1" },
 };
 
 const Dashboard = () => {
-	return <DashboardLayout>Abhijeet Good Boy</DashboardLayout>;
+	return (<DashboardLayout>
+		<Note />
+	</DashboardLayout>);
 };
 
 export default Dashboard;
