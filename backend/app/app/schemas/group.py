@@ -4,8 +4,8 @@ from pydantic import BaseModel
 
 
 class GroupBase(BaseModel):
-    name: str
-    school_id: int
+    program_id: int
+    sem: int
 
 
 class GroupCreate(GroupBase):

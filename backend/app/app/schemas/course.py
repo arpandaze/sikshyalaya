@@ -7,6 +7,7 @@ from pydantic import BaseModel
 class CourseBase(BaseModel):
     course_code: str
     course_name: str
+    department_id: int
 
 
 # properties to  recieve via API on creation
