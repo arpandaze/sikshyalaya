@@ -27,13 +27,11 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
             email=obj_in.email,  # noqa
             hashed_password=get_password_hash(obj_in.password),  # noqa
             full_name=obj_in.full_name,  # noqa
-            is_superuser=obj_in.is_superuser,  # noqa
-            auth_provider=obj_in.auth_provider,  # noqa
             dob=obj_in.dob,  # noqa
             enrolled_course=courses,  # noqa
+            group_id=obj_in.group_id,
             contact_number=obj_in.contact_number,  # noqa
             address=obj_in.address,  # noqa
-            sem=obj_in.sem,  # noqa
         )
         db.add(db_obj)
         db.commit()
@@ -65,7 +63,7 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         return user.is_active
 
     def is_superuser(self, user: User) -> bool:
-        if user.user_type == settings.UserType.SUPERADMIN:
+        if user.user_type == settings.UserType.SUPERADMIN.value:
             return True
         else:
             return False

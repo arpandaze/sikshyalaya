@@ -11,7 +11,7 @@ class UserBase(BaseModel):
     full_name: Optional[str] = None
     user_type: int
     address: str = None
-    sem: int = None
+    group_id: int = None
     contact_number: str = None
     dob: datetime = None
     course: List[int] = None
