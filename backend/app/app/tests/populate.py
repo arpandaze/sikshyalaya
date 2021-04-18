@@ -133,11 +133,11 @@ def populate_personal_note():
 
 
 if __name__ == "__main__":
-    # populate_school()
-    # populate_department()
-    # populate_course()
-    # populate_program()
-    # populate_group()
-    # populate_user()
+    populate_school()
+    populate_department()
+    populate_course()
+    populate_program()
+    populate_group()
+    populate_user()
     populate_personal_note()
-    # populate_teacher_note()
+    populate_teacher_note()

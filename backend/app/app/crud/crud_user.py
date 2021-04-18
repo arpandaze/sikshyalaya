@@ -29,7 +29,7 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
             full_name=obj_in.full_name,  # noqa
             dob=obj_in.dob,  # noqa
             enrolled_course=courses,  # noqa
-            group_id=obj_in.group_id,
+            group_id=obj_in.group_id, # noqa
             contact_number=obj_in.contact_number,  # noqa
             address=obj_in.address,  # noqa
         )
