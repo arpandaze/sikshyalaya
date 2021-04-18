@@ -28,9 +28,7 @@ class Settings(BaseSettings):
         "http://localhost",
     ]
 
-    ALLOWED_EMAIL_HOST: List[str] = [
-
-    ]
+    ALLOWED_EMAIL_HOST: List[str] = []
 
     @validator("BACKEND_CORS_ORIGINS", pre=True)
     def assemble_cors_origins(cls, v: Union[str, List[str]]) -> Union[List[str], str]:
@@ -109,7 +107,6 @@ class Settings(BaseSettings):
         SUPERADMIN: int = 1
         TEACHER: int = 2
         STUDENT: int = 3
-
 
     class Config:
         case_sensitive = True

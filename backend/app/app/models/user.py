@@ -17,19 +17,16 @@ class User(Base):
         "Course", secondary=user_course_association_table, backref="users"
     )
     dob = Column(DateTime, nullable=False)
-    address = Column(String(length=64), nullable=False)
-    contact_number = Column(String(length=16), index=True, nullable=False)
-    # department_id = Column(Integer, ForeignKey("department.id"))
-    # department = relationship("Department", backref="students")
-    # sem = Column(Integer)
+    address = Column(String(length=128), nullable=False)
+    contact_number = Column(String(length=32), index=True, nullable=False)
 
     hashed_password = Column(String, nullable=False)
     is_active = Column(Boolean(), default=True)
-    user_type = Column(Integer, default=settings.UserType.STUDENT, nullable=False)
+    user_type = Column(Integer, default=settings.UserType.STUDENT.value, nullable=False)
 
     @hybrid_property
     def is_superuser(self):
-        if self.user_type == settings.UserType.SUPERADMIN:
+        if self.user_type == settings.UserType.SUPERADMIN.value:
             return True
         else:
             return False
