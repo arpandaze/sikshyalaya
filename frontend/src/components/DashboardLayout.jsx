@@ -16,12 +16,18 @@ const styleSheet = {
   root: { flexGrow: "1" },
   sideBar: {
     width: "70px",
-    height: "100vh",
+    position: "fixed",
   },
-  mainArea: { height: "100vh" },
+  mainArea: {
+    height: "100vh",
+    position: "relative",
+    left: "60px",
+  },
   profileBar: {
     height: "100vh",
     cursor: "pointer",
+    position: "relative",
+    left: "-40px",
   },
 };
 
@@ -38,7 +44,7 @@ const DashboardLayout = ({ children }) => {
       <Grid item style={styleSheet.sideBar}>
         <SideBar />
       </Grid>
-      <Grid xs={8} item style={styleSheet.mainArea}>
+      <Grid xs={9} item style={styleSheet.mainArea}>
         {children}
       </Grid>
       <Grid xs={3} item style={styleSheet.profileBar}>
