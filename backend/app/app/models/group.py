@@ -11,4 +11,4 @@ class Group(Base):
     program_id = Column(Integer, ForeignKey("program.id"))
     program = relationship("Program", backref="groups")
     sem = Column(Integer)
-    __tablename__ = "department"
+    __tablename__ = "group"
