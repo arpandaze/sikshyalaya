@@ -5,6 +5,8 @@ import Dashboard from "./views/Dashboard/Dashboard";
 import Notes from "./views/Notes/Notes";
 import Quiz from "./views/Quiz/Quiz";
 import Landing from "./views/Landing/Landing";
+import Quiz from "./views/Quiz/Quiz";
+import Profile from "./views/Profile/Profile";
 
 const Routes = () => {
 	return (
@@ -14,7 +16,9 @@ const Routes = () => {
 			<Route path="/quiz" component={Quiz} />
 			<Route path="/note" component={Notes} />
 			<Route path="/landing" component={Landing} />
-			<Redirect from="/" to="landing" />
+			<Route path="/profile" component={Profile} />
+
+			<Redirect exact from="/" to="landing" />
 		</Switch>
 	);
 };
