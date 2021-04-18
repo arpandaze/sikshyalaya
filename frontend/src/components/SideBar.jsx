@@ -40,18 +40,21 @@ const useStyles = makeStyles((theme) => ({
 
 const sidebarItems = [
   {
+    id: 1,
     title: "Dashboard",
     route: "/dashboard",
     icon: <AiOutlineDashboard size={30} color={colorscheme.grey1} />,
     iconHovered: <AiOutlineDashboard size={30} color={colorscheme.red3} />,
   },
   {
+    id: 2,
     title: "Quiz",
     route: "/quiz",
     icon: <AiOutlineDashboard size={30} color={colorscheme.grey1} />,
     iconHovered: <AiOutlineDashboard size={30} color={colorscheme.red3} />,
   },
   {
+    id: 3,
     title: "Note",
     route: "/note",
     icon: <AiOutlineDashboard size={30} color={colorscheme.grey1} />,
@@ -78,7 +81,7 @@ const SideBar = () => {
         <div className={classes.horizontalLine}></div>
         <Grid container direction="column" alignItems="center" justify="center">
           {sidebarItems.map((item, index) => (
-            <Link to={item.route} className={classes.sidebarLink}>
+            <Link to={item.route} className={classes.sidebarLink} key={item.id}>
               <NavIcons
                 title={item.title}
                 icon={item.icon}

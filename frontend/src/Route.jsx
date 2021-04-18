@@ -4,6 +4,7 @@ import Login from "./views/Login/Login";
 import Dashboard from "./views/Dashboard/Dashboard";
 import Notes from "./views/Notes/Notes";
 import Quiz from "./views/Quiz/Quiz";
+import Landing from "./views/Landing/Landing";
 
 const Routes = () => {
   return (
@@ -11,8 +12,9 @@ const Routes = () => {
       <Route path="/login" component={Login} />
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/quiz" component={Quiz} />
-      <Route path="/notes" component={Notes} />
-      <Redirect from="/" to="dashboard" />
+      <Route path="/note" component={Notes} />
+      <Route path="/landing" component={Landing} />
+      <Redirect from="/" to="landing" />
     </Switch>
   );
 };
