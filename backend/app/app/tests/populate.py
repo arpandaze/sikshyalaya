@@ -1,4 +1,5 @@
 from faker import Faker
+from app.core import settings
 
 from app.api.deps import get_db
 from random import randint
@@ -43,13 +44,15 @@ def populate_school():
         crud_school.create(db, obj_in=school)
 
 
-def populate_departments():
+def populate_department():
     for i in range(5):
         try:
             department = DepartmentCreate(name=fake.company(), school_id=randint(1, 2))
             crud_department.create(db, obj_in=department)
         except Exception:  # noqa
             pass
+        except Exception as e:  # noqa
+            print(e)
 
 
 def populate_course():
@@ -61,17 +64,17 @@ def populate_course():
                 department_id=randint(1, 5),
             )
             crud_course.create(db, obj_in=course)
-        except Exception:  # noqa
-            pass
+        except Exception as e:  # noqa
+            print(e)
 
 
 def populate_program():
     for i in range(10):
         try:
-            program = ProgramCreate(name=fake.job(), department_id=randint(2, 6))
+            program = ProgramCreate(name=fake.job(), department_id=randint(1, 5))
             crud_program.create(db, obj_in=program)
-        except Exception:  # noqa
-            pass
+        except Exception as e:  # noqa
+            print(e)
 
 
 def populate_group():
@@ -79,26 +82,27 @@ def populate_group():
         try:
             group = GroupCreate(program_id=randint(1, 10), sem=randint(1, 8))
             crud_group.create(db, obj_in=group)
-        except Exception:  # noqa
-            pass
+        except Exception as e:  # noqa
+            print(e)
 
 
 def populate_user():
     for i in range(50):
         try:
             user = UserCreate(
-                full_name=fake.full_name(),
+                full_name=fake.name(),
                 email=fake.email(),
                 group_id=randint(1, 10),
                 enrolled_course=range(randint(1, 9), randint(10, 20)),
-                dob=fake.datetime(),
+                dob=fake.date_time(),
                 address=fake.address(),
-                contact=fake.contact(),
+                contact_number=fake.phone_number(),
                 password=fake.password(),
+                user_type=randint(1, 3),
             )
             crud_user.create(db, obj_in=user)
-        except Exception:  # noqa
-            pass
+        except Exception as e:  # noqa
+            print(e)
     pass
 
 
@@ -108,11 +112,11 @@ def populate_teacher_note():
             teacher_note = TeacherNoteCreate(
                 user_id=randint(1, 50),
                 student_id=randint(1, 50),
-                message=fake.paragraph,
+                message=fake.paragraph(),
             )
             crud_teacher_note.create(db, obj_in=teacher_note)
-        except Exception:  # noqa
-            pass
+        except Exception as e:  # noqa
+            print(e)
 
 
 def populate_personal_note():
@@ -123,14 +127,17 @@ def populate_personal_note():
                 course_id=randint(1, 20),
                 message=fake.paragraph(),
             )
-            crud_personal_note(db, personal_note)
-        except Exception:  # noqa
-            pass
+            crud_personal_note.create(db, obj_in=personal_note)
+        except Exception as e:  # noqa
+            print(e)
 
 
 if __name__ == "__main__":
     # populate_school()
-    # populate_departments()
-    # populate_program()
-    populate_group()
+    # populate_department()
     # populate_course()
+    # populate_program()
+    # populate_group()
+    # populate_user()
+    populate_personal_note()
+    # populate_teacher_note()
