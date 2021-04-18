@@ -14,12 +14,33 @@ import DashboardLayout from "../../components/DashboardLayout";
 import Note from "../../components/Note";
 
 const styleSheet = {
-	root: { flexGrow: "1" },
+	root: {
+		flexGrow: "1",
+	 	width: "95%",
+		margin: "0px auto",
+		position: "relative",
+		left: "37%",
+		top:"15.5%",
+	},
 };
-
+const typing = true;
+const note = {
+	title: "hello hi there",
+	content: "loresaddsaasjdhkjashdkhaskdjhkajshdkjhakdjskaasdddddddjsd",
+	state: typing?"Typing...":"Saved",
+}
 const Dashboard = () => {
+	const [typing,setTyping] =useState(false)
 	return (<DashboardLayout>
-		<Note />
+		<Grid container
+			direction="column"
+			justify="center"
+			alignItems="flex-start"
+			style={styleSheet.root}
+			spacing={10}
+			>
+			<Note title={note.title} content={note.content} />
+			</Grid>
 	</DashboardLayout>);
 };
 

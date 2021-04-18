@@ -11,24 +11,27 @@ import SideBar from "../components/SideBar";
 import colorscheme from "../utils/colors";
 import ProfileBar from "../components/ProfileBar";
 import DashboardLayout from "../components/DashboardLayout";
+import { ImCross } from "react-icons/im";
+import { FiTrash } from "react-icons/fi";
+
 
 const styleSheet = {
     root: {
         flexGrow: "1",
-        border: "1px solid black",
         position: "relative",
         left: "0%",
         top:"20%",
-        margin: "3 px auto",
-        padding:"10px 10px"
-        
     },
+    
     line: {
-        color: colorscheme.grey1,
-        
-        width :"80%",
+        backgroundColor: colorscheme.grey1,
+        opacity:"80%",
+        position:"relative",
+        left: "40px",
+        top:"-65px",
+        width: "550px",
         height:"2px",
-        borderRadius:"20px",
+      
 
     },
     notepad: {
@@ -38,40 +41,103 @@ const styleSheet = {
         background: colorscheme.white,
         borderRadius: "20px",
         boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
-        border: "1px solid black",
     },
     titleText: {
-        margin:"7px auto",
-        padding:"10px",
+        position: "relative",
+        left:"20%",
         fontWeight: "bold",
         fontSize: "1.7em",
-        
-
+        cursor:"text",
     },
     contentText: {
-        padding: "10px",
-        border: "1px solid black",
-        width:"100%",
+        position: "relative",
+        left: "5%",
+        top:"-40px",
+        width: "100%",
+        cursor: "text",
+        wordWrap:"normal",
         
+    },
+    closeButton: {
+        position: "absolute",
+        top: "20%",
+        left: "650px",
+        width: "35px",
+        height:"35px",
+        borderRadius: "50%",
+        color: colorscheme.red4,
+        cursor:"pointer",
         
+    },
+    trashButton: {
+        position:"absolute",top:"93%",left:"700px",
+        width: "35px",
+        height:"35px",
+        borderRadius: "50%",
+        color: colorscheme.red4,
+        cursor: "pointer",     
     }
+
 
     }
 
-const Note = ({title, content,...rest}) => {
+const Note = ({title, content,state,...rest}) => {
     return (
         <div>
-        <Grid container direction="row" justify="flex-end" align="flex-end"style={ styleSheet.root }>
+            <Grid
+                container
+                direction="row"
+                justify="flex-end"
+                align="flex-end"
+                style={styleSheet.root}>
 
-        <div style={styleSheet.notepad}>
+                <div style={styleSheet.notepad}>
             
-            <Grid item xs={3}  container direction="column" justify="flex-end" align="flex-end">
-                        <a style={styleSheet.titleText}>hey</a>
-                        <div style={styleSheet.line}></div>
+                    <Grid
+                        item
+                        xs={4}
+                        direction="row"
+                        justify="flex-end"
+                        alignItems="flex-end">
+                        <a style={styleSheet.titleText}>
+                            <br />{title}
+                            <Grid
+                                xs={2}
+                                
+                                direction="column"
+                                justify="flex-end"
+                                alignItems="flex-end"
+                                >
+                                <div style={styleSheet.closeButton}>
+                                    <ImCross size={20} color={colorscheme.red4} />
+                                </div>
+                            </Grid>
+                            <br />
+                            <br />
+                        </a>
+                        <Grid
+                            item
+                            direction="row"
+                            justify="center"
+                            alignItems="flex-start">
+                            <div style={styleSheet.line}></div></Grid>
+                      
         
                     </Grid >
-                    <Grid item xs={8} >
-                        <a style={styleSheet.contentText}>mog jsdhaskjakshdkjashdkjasd</a>
+                    <Grid item
+                    >
+                        <a style={styleSheet.contentText}>{content}</a>
+                    </Grid>
+                    <Grid
+                                xs={8}
+                                
+                                direction="column"
+                                justify="flex-center"
+                                alignItems="flex-center"
+                                >
+                                <div style={styleSheet.trashButton}>
+                                    <FiTrash size={20} color={colorscheme.red4} />
+                                </div>
                     </Grid>
         </div>
          </Grid >
