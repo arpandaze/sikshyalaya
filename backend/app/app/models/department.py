@@ -6,11 +6,12 @@ from sqlalchemy.orm import relationship
 from app.db.base_class import Base
 
 
-
-
 class Department(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(length=128))
-    school_id = Column(Integer, ForeignKey("school.id"))
-    school = relationship("School", backref="departments")
+    school_id = Column(
+        Integer,
+        ForeignKey("school.id", on_delete="CASCADE"), nullable=True,
+    )
+    school = relationship("School", backref="departments", passive_deletes=True)
     __tablename__ = "department"
