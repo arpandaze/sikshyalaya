@@ -16,70 +16,66 @@ import { FiTrash } from "react-icons/fi";
 
 
 const styleSheet = {
-    root: {
-        flexGrow: "1",
-        position: "relative",
-        left: "0%",
-        top:"20%",
-    },
-    
-    line: {
-        backgroundColor: colorscheme.grey1,
-        opacity:"80%",
-        position:"relative",
-        left: "40px",
-        top:"-65px",
-        width: "550px",
-        height:"2px",
-      
+	root: {
+		flexGrow: "1",
+		position: "relative",
+		left: "0%",
+		top: "20%",
+	},
 
-    },
-    notepad: {
-        width: "750px",
-        height: "750px",
-        left:"10vh",
-        background: colorscheme.white,
-        borderRadius: "20px",
-        boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
-    },
-    titleText: {
-        position: "relative",
-        left:"20%",
-        fontWeight: "bold",
-        fontSize: "1.7em",
-        cursor:"text",
-    },
-    contentText: {
-        position: "relative",
-        left: "5%",
-        top:"-40px",
-        width: "100%",
-        cursor: "text",
-        wordWrap:"normal",
-        
-    },
-    closeButton: {
-        position: "absolute",
-        top: "20%",
-        left: "650px",
-        width: "35px",
-        height:"35px",
-        borderRadius: "50%",
-        color: colorscheme.red4,
-        cursor:"pointer",
-        
-    },
-    trashButton: {
-        position:"absolute",top:"93%",left:"700px",
-        width: "35px",
-        height:"35px",
-        borderRadius: "50%",
-        color: colorscheme.red4,
-        cursor: "pointer",     
-    }
-
-
-    }
+	line: {
+		backgroundColor: colorscheme.grey1,
+		opacity: "30%",
+		position: "relative",
+		left: "40px",
+		top: "-65px",
+		width: "550px",
+		height: "2px",
+	},
+	notepad: {
+		width: "750px",
+		height: "750px",
+		left: "10vh",
+		background: colorscheme.white,
+		borderRadius: "20px",
+		boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
+	},
+	titleText: {
+		position: "relative",
+		left: "20%",
+		fontWeight: "bold",
+		fontSize: "1.7em",
+		cursor: "text",
+	},
+	contentText: {
+		position: "relative",
+		left: "7%",
+		top: "-40px",
+		width: "100%",
+		cursor: "text",
+		wordWrap: "normal",
+	},
+	closeButton: {
+		position: "absolute",
+		top: "20%",
+		left: "650px",
+		width: "35px",
+		height: "35px",
+		borderRadius: "50%",
+		color: colorscheme.red4,
+		cursor: "pointer",
+	},
+	trashButton: {
+		position: "absolute",
+		top: "93%",
+		left: "700px",
+		width: "35px",
+		height: "35px",
+		borderRadius: "50%",
+		color: colorscheme.red4,
+		cursor: "pointer",
+	},
+};
 
 const Note = ({title, content,state,...rest}) => {
     return (
