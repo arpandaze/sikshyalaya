@@ -1,6 +1,14 @@
 from app.core.config import settings
 from app.db.base_class import Base
-from sqlalchemy import Boolean, Column, Integer, String, ForeignKey, DateTime
+from sqlalchemy import (
+    Boolean,
+    Column,
+    Integer,
+    SmallInteger,
+    String,
+    ForeignKey,
+    DateTime,
+)
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
 
@@ -22,7 +30,9 @@ class User(Base):
 
     hashed_password = Column(String, nullable=False)
     is_active = Column(Boolean(), default=True)
-    user_type = Column(Integer, default=settings.UserType.STUDENT.value, nullable=False)
+    user_type = Column(
+        SmallInteger, default=settings.UserType.STUDENT.value, nullable=False
+    )
 
     @hybrid_property
     def is_superuser(self):
