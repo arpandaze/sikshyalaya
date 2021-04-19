@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import colorscheme from "../utils/colors";
 import { AiOutlineDashboard } from "react-icons/ai";
+import { BiNotepad } from "react-icons/bi";
+import { FaChalkboardTeacher } from "react-icons/fa";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import icon from "../assets/icon.png";
@@ -48,13 +50,13 @@ const sidebarItems = [
 		id: 2,
 		title: "Quiz",
 		route: "/quiz",
-		icon: <AiOutlineDashboard size={30} />,
+		icon: <FaChalkboardTeacher size={30} />,
 	},
 	{
 		id: 3,
 		title: "Note",
 		route: "/note",
-		icon: <AiOutlineDashboard size={30} />,
+		icon: <BiNotepad size={30} />,
 	},
 ];
 
