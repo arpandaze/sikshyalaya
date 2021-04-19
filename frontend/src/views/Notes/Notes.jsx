@@ -29,15 +29,14 @@ const styleSheet = {
 	sideNotes: {
 		position: "relative",
 		left: "30%",
-		
 	},
 	sideNoteContainer: {
-		position:"absolute",
+		position: "absolute",
 		top: "15.5% ",
 	},
 	notesText: {
 		position: "absolute",
-		top:"8%",
+		top: "8%",
 		left: "6%",
 		fontWeight: "bold",
 		fontSize: "2.5em",
@@ -47,20 +46,15 @@ const styleSheet = {
 		position: "absolute",
 		top: "6%",
 		left: "28%",
-		cursor:"pointer",
+		cursor: "pointer",
 	},
 	gridIconsContainer: {
-		flexGrow:"1",
+		flexGrow: "1",
 		position: "absolute",
-		right:"10%",
+		right: "10%",
 		top: "11%",
-		cursor:"pointer"
-		
-		
-	}
-	
-	
-
+		cursor: "pointer",
+	},
 };
 const typing = true;
 const note = {
@@ -120,13 +114,15 @@ const Dashboard = () => {
 					;
 				</Grid>
 			</Grid>
-			<Grid container
+			<Grid
+				container
 				xs={1}
 				direction="row"
 				justify="flex-end"
 				alignItems="flex-start"
 				spacing={1}
-				style={styleSheet.gridIconsContainer}>
+				style={styleSheet.gridIconsContainer}
+			>
 				<Grid item>
 					<BiSquare size={30} color={colorscheme.grey1} />
 				</Grid>
