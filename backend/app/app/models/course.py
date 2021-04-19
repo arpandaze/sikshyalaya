@@ -7,6 +7,6 @@ class Course(Base):
     id = Column(Integer, primary_key=True)
     course_code = Column(String, index=True, unique=True)
     course_name = Column(String(128), nullable=False)
-    department_id = Column(Integer, ForeignKey("department.id"))
+    department_id = Column(Integer, ForeignKey("department.id", ondelete="CASCADE"))
     department = relationship("Department", backref="courses")
     __tablename__ = "course"
