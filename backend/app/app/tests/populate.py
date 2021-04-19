@@ -132,6 +132,23 @@ def populate_personal_note():
             print(e)
 
 
+def populate_class_session():
+    for i in range(100):
+        try:
+            class_session = ClassSessionCreate(
+                datetime=fake.date_time(),
+                instructors=[i for i in range(randint(0, 20), randint(21, 50))],
+                is_active=True,
+                course_id=randint(1, 20),
+                group_id=randint(1, 10),
+                description=fake.paragraph(),
+                duration=randint(60, 120),
+            )
+            crud_class_session.create(db, obj_in=class_session)
+        except Exception as e: # noqa
+            print(e)
+
+
 if __name__ == "__main__":
     populate_school()
     populate_department()
@@ -141,3 +158,4 @@ if __name__ == "__main__":
     populate_user()
     populate_personal_note()
     populate_teacher_note()
+    populate_class_session()
