@@ -7,16 +7,26 @@ from app.api import deps
 from app.crud import crud_class_session, crud_user
 from app.schemas import ClassSession, ClassSessionUpdate
 from app.models import ClassSession as ClassSessionModel
+from app.api.deps import *
+from app.models import User
 
 router = APIRouter()
 
 
 @router.get("/class_session", response_model=List[ClassSession])
 def get_class_session(
-    db: Session = Depends(deps.get_db), skip: int = 0, limit: int = 100
+    db: Session = Depends(deps.get_db),
+    skip: int = 0,
+    limit: int = 100,
+    current_user: User = Depends(deps.get_current_user),
 ) -> Any:
-    user = crud_user.get_by_id(db, id=1)
-    class_sessions = crud_class_session.get_user_class_sessions(db, user=user)
+    if current_user.user_type == settings.UserType.STUDENT.value:
+        class_sessions = crud_class_session.get_student_class_sessions()
+        return class_sessions
+    if current_user.user_type == settings.UserType.TEACHER.value:
+        class_sessions = crud_class_session.get_multi(db).filter()
+        return class_sessions
+    class_sessions = crud_class_session.get_student_class_sessions(db, user=user)
     return class_sessions
 
 
