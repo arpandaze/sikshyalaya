@@ -105,8 +105,9 @@ class Settings(BaseSettings):
 
     class UserType(enum.Enum):
         SUPERADMIN: int = 1
-        TEACHER: int = 2
-        STUDENT: int = 3
+        ADMIN: int = 2
+        TEACHER: int = 3
+        STUDENT: int = 4
 
     class Config:
         case_sensitive = True
