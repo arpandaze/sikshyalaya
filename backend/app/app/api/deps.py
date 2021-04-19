@@ -80,6 +80,27 @@ def get_current_active_teacher(
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
 
 
+def get_current_active_teacher_and_above(
+        current_user: models.User = Depends(get_current_user),
+) -> models.User:
+    user_type = current_user.user_type
+    if user_type <= settings.UserType.TEACHER.value:
+        return current_user
+    else:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+
+def get_current_admin_and_above(
+        current_user: models.User = Depends(get_current_user),
+) -> models.User:
+    user_type = current_user.user_type
+    if user_type <= settings.UserType.ADMIN.value:
+        return current_user
+    else:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+
+
+
+
 def get_current_active_superuser(
     current_user: models.User = Depends(get_current_user),
 ) -> models.User:
