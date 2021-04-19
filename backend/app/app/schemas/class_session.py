@@ -11,8 +11,10 @@ class ClassSessionBase(BaseModel):
     datetime: datetime
     is_active: bool
     instructors: List[int]
+    group_id: int
     course_id: int
     description: str
+    duration: int
 
 
 # properties to recieve via

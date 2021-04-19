@@ -24,14 +24,19 @@ class CRUDClassSession(CRUDBase[ClassSession, ClassSessionCreate, ClassSessionUp
             instructors=instructors,  # noqa
             course_id=obj_in.course_id,  # noqa
             description=obj_in.description,  # noqa
+            duration=obj_in.duration,  # noqa
+            group_id=obj_in.group_id,  # noqa
         )
         db.add(db_obj)
         db.commit()
         db.refresh(db_obj)
         return db_obj
 
-    def get_user_class_sessions(self, db: Session, user: User) -> List[ClassSession]:
+    def get_student_class_sessions(self, db: Session, user: User) -> List[ClassSession]:
         return db.query(self.model).filter(ClassSession.group_id == user.group_id).all()
+
+    def get_teacher_class_sessions(self, db: Session, user: User) -> List[ClassSession]:
+        return db.query(self.model).filter(ClassSession.instructors == user.id).all()
 
 
 crud_class_session = CRUDClassSession(ClassSession)
