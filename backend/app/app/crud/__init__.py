@@ -8,6 +8,7 @@ from .crud_personal_note import crud_personal_note
 from .crud_program import crud_program
 from .crud_teacher_note import crud_teacher_note
 from .crud_class_session import crud_class_session
+from .crud_user_permission import crud_user_permission
 
 
 # For a new basic set of CRUD operations you could just do

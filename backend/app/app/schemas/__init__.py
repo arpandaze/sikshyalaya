@@ -22,5 +22,12 @@ from .teacher_note import (
     TeacherNoteCreate,
     TeacherNoteInDB,
 )
+
+from .user_permission import (
+    UserPermission,
+    UserPermissionCreate,
+    UserPermissionUpdate,
+    UserPermissionInDB,
+)
 from .token import Token, TokenPayload
 from .user import User, UserCreate, UserInDB, UserUpdate

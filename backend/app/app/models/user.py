@@ -12,7 +12,10 @@ from sqlalchemy import (
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
 
-from .association_tables import user_course_association_table
+from .association_tables import (
+    user_course_association_table,
+    user_permission_association_table,
+)
 
 
 class User(Base):
@@ -21,6 +24,9 @@ class User(Base):
     email = Column(String, index=True, nullable=False)
     group_id = Column(Integer, ForeignKey("group.id"))
     group = relationship("Group", backref="users")
+    permission = relationship(
+        "UserPermission", secondary=user_permission_association_table
+    )
     enrolled_course = relationship(
         "Course", secondary=user_course_association_table, backref="users"
     )

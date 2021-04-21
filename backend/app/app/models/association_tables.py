@@ -15,3 +15,10 @@ user_class_session_association_table = Table(
     Column("class_session_id", Integer, ForeignKey("class_session.id")),
     Column("user_id", Integer, ForeignKey("user.id")),
 )
+
+user_permission_association_table = Table(
+    "user_permission_association",
+    Base.metadata,
+    Column("permission_id", Integer, ForeignKey("userpermission.id")),
+    Column("user_id", Integer, ForeignKey("user.id")),
+)
