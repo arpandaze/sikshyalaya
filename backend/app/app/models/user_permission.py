@@ -1,9 +1,7 @@
 from sqlalchemy import Column, Integer, String
 
-from db import Base
+from app.db.base_class import Base
 from sqlalchemy import Column, Integer, String
-
-from db import Base
 
 
 class UserPermission(Base):
