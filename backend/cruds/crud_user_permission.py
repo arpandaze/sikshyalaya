@@ -1,6 +1,6 @@
-from app.crud.base import CRUDBase
-from app.schemas.user_permission import UserPermissionCreate, UserPermissionUpdate
-from app.models.user_permission import UserPermission
+from cruds.base import CRUDBase
+from schemas.user_permission import UserPermissionCreate, UserPermissionUpdate
+from models.user_permission import UserPermission
 
 
 class CRUDUserPermission(

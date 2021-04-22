@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, ForeignKey, Table
 
-from app.db.base_class import Base
+from core.db import Base
 
 user_course_association_table = Table(
     "user_course_association",

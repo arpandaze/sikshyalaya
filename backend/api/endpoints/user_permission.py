@@ -3,9 +3,9 @@ from typing import Any, List
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from app.api import deps
-from app.crud import crud_user_permission
-from app.schemas.user_permission import (
+from utils import deps
+from cruds import crud_user_permission
+from schemas.user_permission import (
     UserPermission,
     UserPermissionCreate,
     UserPermissionUpdate,

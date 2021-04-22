@@ -1,5 +1,5 @@
-from app.core.config import settings
-from app.db.base_class import Base
+from core.config import settings
+from core.db import Base
 from sqlalchemy import (
     Boolean,
     Column,
