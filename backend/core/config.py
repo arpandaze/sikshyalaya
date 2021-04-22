@@ -48,7 +48,7 @@ class Settings(BaseSettings):
     POSTGRES_DB: str = os.environ.get("POSTGRES_DB")
     SQLALCHEMY_DATABASE_URI: Optional[PostgresDsn] = None
 
-    REDIS_SERVER: str = os.environ.get("REDIS_SERVER")
+    REDIS_HOST: str = os.environ.get("REDIS_HOST")
     REDIS_PORT: str = os.environ.get("REDIS_PORT")
     REDIS_PASSWORD: str = os.environ.get("REDIS_PASSWORD")
 
