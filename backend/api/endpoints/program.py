@@ -3,7 +3,6 @@ from typing import Any, List
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from core.db import redis_cache_client
 from cruds.crud_program import crud_program
 from schemas import Program, ProgramCreate, ProgramUpdate
 from utils import deps
@@ -45,17 +44,3 @@ async def update_program(
     return program
 
 
-@router.get("/redis/1")
-async def redis_test(
-        db: Session = Depends(deps.get_db),
-) -> Any:
-    res = await redis_cache_client.get("test", "utf-8")
-    return {"msg": res}
-
-
-@router.get("/redis/2", response_model=Program)
-async def redis_test(
-        db: Session = Depends(deps.get_db),
-) -> Any:
-    res = await redis_cache_client.set("test", "daze123")
-    return res
