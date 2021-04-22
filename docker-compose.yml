@@ -10,8 +10,6 @@ services:
             - .env
         environment:
             - PGDATA=/var/lib/postgres/data
-        ports:
-            - "5432:5432"
 
     pgadmin:
         image: dpage/pgadmin4
@@ -48,74 +46,6 @@ services:
         command: redis-server --requirepass test
         networks:
             - internal
-
-    rabbitmq:
-        image: rabbitmq:3.8-alpine
-        container_name: rabbitmq
-        logging:
-            driver: none
-
-    backend:
-        container_name: backend
-        networks:
-            - internal
-        depends_on:
-            - postgres
-            - redis
-
-        env_file:
-            - .env
-
-        build:
-            context: ./backend
-            dockerfile: backend.dockerfile
-
-        ports:
-            - "81:80"
-
-        volumes:
-            - ./backend/app:/app
-
-
-        command: alembic upgrade head
-        command: python app/main.py
-        #command: bash -c "while true; do sleep 1; done"
-
-    celery:
-        container_name: celery
-        depends_on:
-            - postgres
-            - redis
-            - rabbitmq
-
-        volumes:
-            - "./backend/app:/app"
-
-        environment:
-            - RUN=celery worker -A app.worker -l info -Q main-queue -c 1
-
-        build:
-            context: ./backend
-            dockerfile: celery.dockerfile
-
-        command: bash -c "while true; do sleep 1; done"
-
-    flower:
-        container_name: flower
-        image: mher/flower
-        networks:
-            - internal
-        env_file:
-            - .env
-
-    frontend:
-        container_name: frontend
-        ports:
-            - "3000:3000"
-        build:
-            context: ./frontend
-            dockerfile: frontend.dockerfile
-
 
 volumes:
     persistent:

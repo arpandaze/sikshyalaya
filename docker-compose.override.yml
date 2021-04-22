@@ -1,0 +1,12 @@
+services:
+    postgres:
+        ports:
+            - "5432:5432"
+    redis:
+        ports:
+            - "6379:6379"
+    pgadmin:
+        environment:
+            - PGADMIN_LISTEN_PORT=5050
+            - PGADMIN_DEFAULT_EMAIL=test@test.com
+            - PGADMIN_DEFAULT_PASSWORD=test
