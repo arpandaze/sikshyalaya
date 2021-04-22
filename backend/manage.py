@@ -98,11 +98,11 @@ def crud(name):
 def start():
     uvicorn.run(
         "manage:app",
-        host="127.0.0.1",
-        port=int("8080"),
-        reload=True,
-        debug=True,
-        workers=4,
+        host=settings.UVICORN_HOST,
+        port=settings.UVICORN_PORT,
+        reload=True if settings.DEV_MODE else False,
+        debug=True if settings.DEV_MODE else False,
+        workers=settings.UVICORN_WORKERS,
     )
 
 
