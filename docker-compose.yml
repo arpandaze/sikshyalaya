@@ -28,22 +28,12 @@ services:
         logging:
             driver: none
 
-    mailhog:
-        image: mailhog/mailhog:latest
-        container_name: mailhog
-        logging:
-            driver: "none"
-        networks:
-            - internal
-        ports:
-            - "8025:8025"
-
     redis:
         image: redis:6-alpine
         container_name: redis
         env_file:
             - .env
-        command: redis-server --requirepass test
+        command: redis-server --requirepass ${REDIS_PASS}
         networks:
             - internal
 

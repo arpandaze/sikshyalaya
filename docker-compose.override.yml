@@ -10,3 +10,12 @@ services:
             - PGADMIN_LISTEN_PORT=5050
             - PGADMIN_DEFAULT_EMAIL=test@test.com
             - PGADMIN_DEFAULT_PASSWORD=test
+    mailhog:
+        image: mailhog/mailhog:latest
+        container_name: mailhog
+        logging:
+            driver: "none"
+        networks:
+            - internal
+        ports:
+            - "8025:8025"
