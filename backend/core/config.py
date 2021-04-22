@@ -1,12 +1,12 @@
-import secrets
 import enum
+import os
+import secrets
 from typing import Any, Dict, List, Optional, Union
 
 from pydantic import (
     AnyHttpUrl,
     BaseSettings,
     EmailStr,
-    HttpUrl,
     PostgresDsn,
     validator,
 )
@@ -17,8 +17,14 @@ class Settings(BaseSettings):
     SECRET_KEY: str = secrets.token_urlsafe(32)
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 8
     SESSION_EXPIRE_MINUTES: int = 60 * 24 * 20
-    SERVER_NAME: str
-    SERVER_HOST: AnyHttpUrl
+    SERVER_NAME: str = os.environ.get("SERVER_NAME")
+    SERVER_HOST: AnyHttpUrl = os.environ.get("SERVER_HOST")
+
+    UVICORN_HOST: str = os.environ.get("UVICORN_HOST")
+    UVICORN_PORT: int = os.environ.get("UVICORN_PORT")
+    UVICORN_WORKERS: int = os.environ.get("UVICORN_WORKERS")
+    DEV_MODE: bool = True if os.environ.get("MODE") == "DEV" else False
+
     BACKEND_CORS_ORIGINS: List[AnyHttpUrl] = [
         "http://localhost:3001",
         "http://localhost",
@@ -36,18 +42,15 @@ class Settings(BaseSettings):
 
     PROJECT_NAME: str
 
-    POSTGRES_SERVER: str
-    POSTGRES_USER: str
-    POSTGRES_PASSWORD: str
-    POSTGRES_DB: str
+    POSTGRES_SERVER: str = os.environ.get("POSTGRES_SERVER")
+    POSTGRES_USER: str = os.environ.get("POSTGRES_USER")
+    POSTGRES_PASSWORD: str = os.environ.get("POSTGRES_PASSWORD")
+    POSTGRES_DB: str = os.environ.get("POSTGRES_DB")
     SQLALCHEMY_DATABASE_URI: Optional[PostgresDsn] = None
 
-    REDIS_SERVER: str = "redis"
-    REDIS_PORT: str = "6379"
-    REDIS_PASSWORD: str = "test"
-
-    GOOGLE_CLIENT_ID: str = ""
-    GOOGLE_CLIENT_SECRET: str = ""
+    REDIS_SERVER: str = os.environ.get("REDIS_SERVER")
+    REDIS_PORT: str = os.environ.get("REDIS_PORT")
+    REDIS_PASSWORD: str = os.environ.get("REDIS_PASSWORD")
 
     @validator("SQLALCHEMY_DATABASE_URI", pre=True)
     def assemble_db_connection(cls, v: Optional[str], values: Dict[str, Any]) -> Any:
@@ -76,7 +79,7 @@ class Settings(BaseSettings):
         return v
 
     EMAIL_RESET_TOKEN_EXPIRE_HOURS: int = 48
-    EMAIL_TEMPLATES_DIR: str = "/app/app/email-templates/build"
+    EMAIL_TEMPLATES_DIR: str = "/templates/email-templates/build"
     EMAILS_ENABLED: bool = False
 
     @validator("EMAILS_ENABLED", pre=True)
@@ -88,8 +91,8 @@ class Settings(BaseSettings):
         )
 
     EMAIL_TEST_USER: EmailStr = "test@example.com"  # type: ignore
-    FIRST_SUPERUSER: EmailStr
-    FIRST_SUPERUSER_PASSWORD: str
+    FIRST_SUPERUSER: EmailStr = os.environ.get("FIRST_SUPERUSER")
+    FIRST_SUPERUSER_PASSWORD: str = os.environ.get("FIRST_SUPERUSER_PASSWORD")
     USERS_OPEN_REGISTRATION: bool = False
 
     class UserType(enum.Enum):
