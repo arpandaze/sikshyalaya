@@ -1,5 +1,6 @@
-import click
 import os
+
+import click
 import uvicorn
 from alembic import command
 from alembic.config import Config
@@ -15,10 +16,30 @@ from utils import populate
 from utils import generator
 from api import router
 from core.config import settings
+from core.db import redis_cache_client, redis_blacklist_client, redis_throttle_client, redis_session_client, redis_general
 
 app = FastAPI(
     title=settings.PROJECT_NAME, openapi_url=f"{settings.API_V1_STR}/openapi.json"
 )
+
+
+@app.on_event("startup")
+async def startup():
+    await redis_cache_client.initialize()
+    await redis_blacklist_client.initialize()
+    await redis_throttle_client.initialize()
+    await redis_session_client.initialize()
+    await redis_general.initialize()
+
+
+@app.on_event("shutdown")
+async def shutdown():
+    await redis_cache_client.close()
+    await redis_blacklist_client.close()
+    await redis_throttle_client.close()
+    await redis_session_client.close()
+    await redis_general.close()
+
 
 if settings.BACKEND_CORS_ORIGINS:
     app.add_middleware(
