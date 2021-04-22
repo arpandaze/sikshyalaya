@@ -15,53 +15,47 @@ import { ImCross } from "react-icons/im";
 import { FiTrash } from "react-icons/fi";
 
 const styleSheet = {
-	container: {
-		width: "400px",
-		height: "220px",
-		background: colorscheme.white,
-		borderRadius: "20px",
-		boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
-	},
-	titleText: {
-		position: "absolute",
-		top: "12%",
-		left: "10%",
-		fontWeight: "bold",
-		fontSize: "1.7em",
-		cursor: "text",
-	},
-	contentText: {
-		position: "absolute",
-		left: "10%",
-		top: "30%",
-		width: "100%",
-		cursor: "text",
-		wordWrap: "normal",
-	},
-	root: {
-		flexGrow: "1",
-	},
+  container: {
+    width: "400px",
+    height: "220px",
+    background: colorscheme.white,
+    borderRadius: "20px",
+    boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
+  },
+  titleText: {
+    fontWeight: "bold",
+    fontSize: "1.7em",
+    cursor: "text",
+  },
+  contentText: {
+    width: "100%",
+    cursor: "text",
+    wordWrap: "normal",
+  },
+  root: {
+    flexGrow: "1",
+  },
 };
 
 const SideNotes = ({ title, content, ...rest }) => {
-	return (
-		<div style={styleSheet.container}>
-			<Grid
-				container
-				direction="column"
-				justify="flex-start"
-				alignItems="flex-start"
-				style={styleSheet.root}
-			>
-				<Grid item xs={7}>
-					<div style={styleSheet.titleText}>{title}</div>
-				</Grid>
-				<Grid item>
-					<div style={styleSheet.contentText}>{content}</div>
-				</Grid>
-			</Grid>
-		</div>
-	);
+  return (
+    <div style={styleSheet.container}>
+      <Grid
+        container
+        direction="column"
+        justify="flex-start"
+        alignItems="flex-start"
+        style={styleSheet.root}
+      >
+        <Grid item xs={7}>
+          <div style={styleSheet.titleText}>{title}</div>
+        </Grid>
+        <Grid item>
+          <div style={styleSheet.contentText}>{content}</div>
+        </Grid>
+      </Grid>
+    </div>
+  );
 };
 
 export default SideNotes;

@@ -18,129 +18,174 @@ import { BiSquare } from "react-icons/bi";
 import { CgMenuGridR } from "react-icons/cg";
 
 const styleSheet = {
-	notepad: {
-		flexGrow: "1",
-		width: "95%",
-		margin: "0px auto",
-		position: "absolute",
-		left: "39%",
-		top: "15.5%",
-	},
-	sideNotes: {
-		position: "relative",
-		left: "30%",
-	},
-	sideNoteContainer: {
-		position: "absolute",
-		top: "15.5% ",
-	},
-	notesText: {
-		position: "absolute",
-		top: "8%",
-		left: "6%",
-		fontWeight: "bold",
-		fontSize: "2.5em",
-		cursor: "text",
-	},
-	plusIcon: {
-		position: "absolute",
-		top: "6%",
-		left: "28%",
-		cursor: "pointer",
-	},
-	gridIconsContainer: {
-		flexGrow: "1",
-		position: "absolute",
-		right: "10%",
-		top: "11%",
-		cursor: "pointer",
-	},
+  root: {
+    width: "92%",
+    margin: "0px auto",
+    position: "relative",
+    left: "-20px",
+    flexGrow: "1",
+  },
+  noteCreator: {
+    height: "90vh",
+    overflow: "clip",
+  },
+  notePad: {
+    height: "100vh",
+    border: "1px solid black",
+  },
+  sideNoteContainer: {},
+  sideNotes: {
+    padding: "10px",
+  },
+  notesTextContainer: {
+    cursor: "text",
+  },
+  notesText: {
+    fontWeight: "bold",
+    fontSize: "2.5em",
+    cursor: "text",
+  },
+  noteCreatorTop: {
+    width: "80%",
+  },
+  notePadTop: {
+    border: "1px solid black",
+  },
+  notePadArea: {},
+  notePadBot: {
+    border: "1px solid black",
+  },
+  noteCreatorTopInside: {},
+  noteCreatorBot: {
+    position: "relative",
+    top: "15px",
+  },
+  plusIcon: {
+    cursor: "pointer",
+    height: "30px",
+  },
+  gridIconsContainer: {
+    cursor: "pointer",
+  },
 };
 const typing = true;
 const note = {
-	title: "Title goes here.",
-	content: "Content goes here",
-	state: typing ? "Typing..." : "Saved",
+  title: "Title goes here.",
+  content: "Content goes here",
+  state: typing ? "Typing..." : "Saved",
 };
 const sideNotes = [
-	{
-		id:"1",
-		title: "Test",
-		content: "hello hi there",
-	},
-	{
-		id:"2",
-		title: "Hello",
-		content:"heeeeelllo",
-		
-	},
-	
-]
+  {
+    id: "1",
+    title: "Test",
+    content: "hello hi there",
+  },
+  {
+    id: "2",
+    title: "Hello",
+    content: "heeeeelllo",
+  },
+  {
+    id: "3",
+    title: "Hello",
+    content: "heeeeelllo",
+  },
+  {
+    id: "4",
+    title: "Hello",
+    content: "heeeeelllo",
+  },
+];
 const Dashboard = () => {
-	const [typing,setTyping] =useState(false)
-	return (
-		<DashboardLayout>
-			<Grid container style={styleSheet.sideBarSuperContainer}>
-				<Grid
-					container
-					xs={2}
-					spacing={8}
-					direction="row"
-					justify="flex-start"
-				>
-					<Grid item>
-						<div style={styleSheet.notesText}>Notes</div>
-					</Grid>
-					<Grid item style={styleSheet.plusIcon}>
-						<GoPlus size={30} color={colorscheme.green2} />
-					</Grid>
-				</Grid>
-				<Grid
-					container
-					xs={2}
-					spacing={4}
-					direction="column"
-					justify="flex-start"
-					style={styleSheet.sideNoteContainer}
-				>
-					{sideNotes.map((notes) => (
-						<Grid item key={notes.id} style={styleSheet.sideNotes}>
-							<SideNotes
-								title={notes.title}
-								content={notes.content}
-							/>
-						</Grid>
-					))}
-					;
-				</Grid>
-			</Grid>
-			<Grid
-				container
-				xs={1}
-				direction="row"
-				justify="flex-end"
-				alignItems="flex-start"
-				spacing={1}
-				style={styleSheet.gridIconsContainer}
-			>
-				<Grid item>
-					<BiSquare size={30} color={colorscheme.grey1} />
-				</Grid>
-				<Grid item>
-					<CgMenuGridR size={30} color={colorscheme.grey1} />
-				</Grid>
-			</Grid>
-			<Grid
-				container
-				direction="column"
-				justify="center"
-				alignItems="flex-start"
-				style={styleSheet.notepad}
-			>
-				<Note title={note.title} content={note.content} />
-			</Grid>
-		</DashboardLayout>
-	);
+  const [typing, setTyping] = useState(false);
+  return (
+    <DashboardLayout>
+      <Grid
+        container
+        direction="row"
+        justify="flex-start"
+        alignItems="center"
+        style={styleSheet.root}
+      >
+        <Grid item xs={4} style={styleSheet.noteCreator}>
+          <Grid
+            container
+            direction="column"
+            justify="flex-start"
+            alignItems="center"
+          >
+            <Grid item style={styleSheet.noteCreatorTop}>
+              <Grid
+                container
+                direction="row"
+                alignItems="center"
+                justify="center"
+                style={styleSheet.noteCreatorTopInside}
+              >
+                <Grid xs={11} item style={styleSheet.notesTextContainer}>
+                  <a style={styleSheet.notesText}>Notes</a>
+                </Grid>
+                <Grid xs={1} item style={styleSheet.plusIcon}>
+                  <GoPlus size={30} color={colorscheme.green2} />
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item style={styleSheet.noteCreatorBot}>
+              <Grid
+                container
+                direction="column"
+                justify="flex-start"
+                style={styleSheet.sideNoteContainer}
+              >
+                {sideNotes.map((notes) => (
+                  <Grid item key={notes.id} style={styleSheet.sideNotes}>
+                    <SideNotes title={notes.title} content={notes.content} />
+                  </Grid>
+                ))}
+                ;
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item xs={8} style={styleSheet.notePad}>
+          <Grid
+            container
+            direction="column"
+            justify="flex-start"
+            alignItems="center"
+          >
+            <Grid item style={styleSheet.notePadTop}>
+              <Grid
+                container
+                direction="row"
+                justify="flex-end"
+                alignItems="flex-start"
+                style={styleSheet.gridIconsContainer}
+              >
+                <Grid item>
+                  <BiSquare size={30} color={colorscheme.grey1} />
+                </Grid>
+                <Grid item>
+                  <CgMenuGridR size={30} color={colorscheme.grey1} />
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item style={styleSheet.notePadBot}>
+              <Grid
+                container
+                direction="column"
+                justify="center"
+                alignItems="flex-start"
+                style={styleSheet.notePadArea}
+              >
+                <Note title={note.title} content={note.content} />
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    </DashboardLayout>
+  );
 };
 
 export default Dashboard;
