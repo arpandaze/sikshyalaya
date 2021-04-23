@@ -8,6 +8,7 @@ from passlib.context import CryptContext
 
 from core.config import settings
 from core.db import redis_session_client
+from models import User
 
 # from redis import Redis
 
@@ -30,9 +31,9 @@ def create_access_token(
     return encoded_jwt
 
 
-async def create_sesssion_token(uid: int) -> str:
+async def create_sesssion_token(user: User) -> str:
     session_token = binascii.hexlify(os.urandom(20)).decode()
-    await redis_session_client.set(name=session_token, value=uid, ex=settings.SESSION_EXPIRE_MINUTES * 60)
+    await redis_session_client.client.set(session_token, user.id, expire=settings.SESSION_EXPIRE_MINUTES * 60)
     return session_token
 
 
