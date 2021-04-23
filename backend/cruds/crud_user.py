@@ -2,16 +2,22 @@ from typing import Any, Dict, Optional, Union
 
 from sqlalchemy.orm import Session
 
+from core.config import settings
 from core.security import get_password_hash, verify_password
 from cruds.base import CRUDBase
 from cruds.crud_course import crud_course
 from models.user import User
 from schemas.user import UserCreate, UserUpdate
-from core.config import settings
+from core.permission import check_permission
 
 
 class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
+
     def get_by_email(self, db: Session, *, email: str) -> Optional[User]:
+        return db.query(User).filter(User.email == email).first()
+
+    @check_permission
+    def get_by_email_test(self, db: Session, *, email: str, req_user: int) -> Optional[User]:
         return db.query(User).filter(User.email == email).first()
 
     def get_by_id(self, db: Session, *, id: id) -> Optional[User]:
@@ -29,7 +35,8 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
             full_name=obj_in.full_name,  # noqa
             dob=obj_in.dob,  # noqa
             enrolled_course=courses,  # noqa
-            group_id=obj_in.group_id,
+            group_id=obj_in.group_id,  # noqa
+            user_type=obj_in.user_type,  # noqa
             contact_number=obj_in.contact_number,  # noqa
             address=obj_in.address,  # noqa
         )
@@ -39,7 +46,7 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         return db_obj
 
     def update(
-        self, db: Session, *, db_obj: User, obj_in: Union[UserUpdate, Dict[str, Any]]
+            self, db: Session, *, db_obj: User, obj_in: Union[UserUpdate, Dict[str, Any]]
     ) -> User:
         if isinstance(obj_in, dict):
             update_data = obj_in
