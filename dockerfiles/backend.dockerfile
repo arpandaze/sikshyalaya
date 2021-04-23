@@ -1,14 +1,10 @@
-FROM python:3.9-alpine
+FROM python:3.9
 
 WORKDIR /backend
-
-RUN apk --no-cache add curl
 
 COPY . /backend
 
 RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | POETRY_HOME=/opt/poetry python -
-
-RUN apk add --update --no-cache g++ gcc libxslt-dev libffi-dev
 
 RUN cd /usr/local/bin && \
     ln -s /opt/poetry/bin/poetry && \
