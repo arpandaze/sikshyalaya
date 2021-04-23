@@ -95,7 +95,7 @@ async def login_web_session(
         raise HTTPException(status_code=401, detail="Incorrect email or password")
     elif not user.is_active:
         raise HTTPException(status_code=401, detail="Inactive user")
-    session_token = create_sesssion_token(user.id)
+    session_token = await create_sesssion_token(user)
     response = JSONResponse({"status": "success"})
     response.set_cookie("session", session_token, httponly=True)
     return response
