@@ -77,8 +77,9 @@ const styleSheet = {
 };
 const typing = true;
 const note = {
-  title: "Title goes here.",
-  content: "Content goes here",
+  title: "Lorem Ipsum",
+  content:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor imperdiet elit, ut consectetur tortor fringilla id. Quisque mollis, nisi porta porttitor vehicula, ipsum lacus blandit felis, vel mattis quam urna eget tellus. Vestibulum euismod risus sit amet leo dignissim accumsan. Phasellus aliquam tortor vel lacus gravida pharetra. Suspendisse commodo dolor a nunc scelerisque interdum auctor sed eros. Vestibulum sit amet sem fringilla ante rhoncus cursus. Pellentesque mattis venenatis vehicula. Nulla sit amet dapibus erat. Integer sit amet lectus sit amet urna facilisis volutpat nec eu lacus. Nulla id nulla lectus. In congue suscipit dui sit amet elementum. Cras at lacus ac metus interdum rutrum ullamcorper malesuada sapien. In sed mollis est, in volutpat sem. Proin ut pharetra libero. Nunc in leo vel urna varius varius. Nullam tempor aliquet semper.Nunc dapibus ac metus in interdum. Nulla at justo commodo arcu imperdiet blandit. Pellentesque sit amet rutrum neque. Donec pharetra, mauris posuere mollis fermentum, nisi quam congue eros, in congue lectus elit eu purus. Suspendisse facilisis imperdiet neque, at tincidunt felis vestibulum sed. Sed eget consequat nisl. Suspendisse sollicitudin, mi sed condimentum consequat, ipsum nisi hendrerit erat, sed scelerisque velit quam eu enim. Fusce nisl nunc, lacinia et odio nec, porta ultricies sem. Fusce et tortor posuere, mollis lacus vel, pretium purus. Duis scelerisque facilisis mollis. Sed elementum metus eu ligula condimentum interdum. Phasellus sit amet sem convallis, imperdiet tellus aliquam, lacinia est. Nullam vitae molestie orci, nec rhoncus mi. Morbi orci erat, tincidunt id auctor nec, ornare nec quam.",
   state: typing ? "Typing..." : "Saved",
 };
 const sideNotes = [

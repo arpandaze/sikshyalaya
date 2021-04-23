@@ -39,6 +39,10 @@ const styleSheet = {
     borderRadius: "20px",
     boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
   },
+  contentTextContainer: {
+    width: "85%",
+    textAlign: "justify",
+  },
   titleText: {
     position: "relative",
     left: "20%",
@@ -114,7 +118,7 @@ const Note = ({ title, content, state, ...rest }) => {
               <div style={styleSheet.line}></div>
             </Grid>
           </Grid>
-          <Grid item>
+          <Grid item style={styleSheet.contentTextContainer}>
             <a style={styleSheet.contentText}>{content}</a>
           </Grid>
           <Grid
