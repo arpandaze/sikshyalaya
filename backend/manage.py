@@ -17,6 +17,7 @@ from utils import generator
 from api import router
 from core.config import settings
 from core.db import redis_cache_client, redis_blacklist_client, redis_throttle_client, redis_session_client, redis_general
+from core.db import init
 
 app = FastAPI(
     title=settings.PROJECT_NAME, openapi_url=f"{settings.API_V1_STR}/openapi.json"
@@ -30,6 +31,8 @@ async def startup():
     await redis_throttle_client.initialize()
     await redis_session_client.initialize()
     await redis_general.initialize()
+    init.init_db()
+    init.init_permissions()
 
 
 @app.on_event("shutdown")
