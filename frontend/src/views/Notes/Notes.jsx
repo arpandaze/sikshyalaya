@@ -26,12 +26,20 @@ const styleSheet = {
     flexGrow: "1",
   },
   noteCreator: {
-    height: "90vh",
-    overflow: "clip",
+    height: "94vh",
+  },
+  noteCreatorTop: {
+    width: "400px",
+  },
+  noteCreatorBot: {
+    position: "relative",
+    height: "86vh",
+    top: "15px",
+    overflow: "scroll",
+    overflowX: "hidden",
   },
   notePad: {
     height: "100vh",
-    border: "1px solid black",
   },
   sideNoteContainer: {},
   sideNotes: {
@@ -45,27 +53,26 @@ const styleSheet = {
     fontSize: "2.5em",
     cursor: "text",
   },
-  noteCreatorTop: {
-    width: "80%",
-  },
   notePadTop: {
-    border: "1px solid black",
+    width: "86%",
   },
-  notePadArea: {},
-  notePadBot: {
-    border: "1px solid black",
+  notePadArea: {
+    marginTop: "10px",
+  },
+  notePadBot: {},
+  notePadContainer: {
+    position: "relative",
+    top: "5%",
   },
   noteCreatorTopInside: {},
-  noteCreatorBot: {
-    position: "relative",
-    top: "15px",
-  },
   plusIcon: {
     cursor: "pointer",
     height: "30px",
   },
   gridIconsContainer: {
+    width: "70px",
     cursor: "pointer",
+    float: "right",
   },
 };
 const typing = true;
@@ -77,23 +84,27 @@ const note = {
 const sideNotes = [
   {
     id: "1",
-    title: "Test",
-    content: "hello hi there",
+    title: "Lorem Ipsum",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor imperdiet elit, ut consectetur tortor fringilla id. Quisque mollis, nisi porta porttitor vehicula, ipsum lacus blandit felis, vel mattis quam urna eget tellus. Vestibulum euismod risus sit amet leo dignissim accumsan. Phasellus aliquam tortor vel lacus gravida pharetra. Suspendisse commodo dolor a nunc scelerisque interdum auctor sed eros. Vestibulum sit amet sem fringilla ante rhoncus cursus. Pellentesque mattis venenatis vehicula. Nulla sit amet dapibus erat. Integer sit amet lectus sit amet urna facilisis volutpat nec eu lacus. Nulla id nulla lectus. In congue suscipit dui sit amet elementum. Cras at lacus ac metus interdum rutrum ullamcorper malesuada sapien. In sed mollis est, in volutpat sem. Proin ut pharetra libero. Nunc in leo vel urna varius varius. Nullam tempor aliquet semper.",
   },
   {
     id: "2",
-    title: "Hello",
-    content: "heeeeelllo",
+    title: "Lorem Ipsum",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor imperdiet elit, ut consectetur tortor fringilla id. Quisque mollis, nisi porta porttitor vehicula, ipsum lacus blandit felis, vel mattis quam urna eget tellus. Vestibulum euismod risus sit amet leo dignissim accumsan. Phasellus aliquam tortor vel lacus gravida pharetra. Suspendisse commodo dolor a nunc scelerisque interdum auctor sed eros. Vestibulum sit amet sem fringilla ante rhoncus cursus. Pellentesque mattis venenatis vehicula. Nulla sit amet dapibus erat. Integer sit amet lectus sit amet urna facilisis volutpat nec eu lacus. Nulla id nulla lectus. In congue suscipit dui sit amet elementum. Cras at lacus ac metus interdum rutrum ullamcorper malesuada sapien. In sed mollis est, in volutpat sem. Proin ut pharetra libero. Nunc in leo vel urna varius varius. Nullam tempor aliquet semper.",
   },
   {
     id: "3",
-    title: "Hello",
-    content: "heeeeelllo",
+    title: "Lorem Ipsum",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor imperdiet elit, ut consectetur tortor fringilla id. Quisque mollis, nisi porta porttitor vehicula, ipsum lacus blandit felis, vel mattis quam urna eget tellus. Vestibulum euismod risus sit amet leo dignissim accumsan. Phasellus aliquam tortor vel lacus gravida pharetra. Suspendisse commodo dolor a nunc scelerisque interdum auctor sed eros. Vestibulum sit amet sem fringilla ante rhoncus cursus. Pellentesque mattis venenatis vehicula. Nulla sit amet dapibus erat. Integer sit amet lectus sit amet urna facilisis volutpat nec eu lacus. Nulla id nulla lectus. In congue suscipit dui sit amet elementum. Cras at lacus ac metus interdum rutrum ullamcorper malesuada sapien. In sed mollis est, in volutpat sem. Proin ut pharetra libero. Nunc in leo vel urna varius varius. Nullam tempor aliquet semper.",
   },
   {
     id: "4",
-    title: "Hello",
-    content: "heeeeelllo",
+    title: "Lorem Ipsum",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor imperdiet elit, ut consectetur tortor fringilla id. Quisque mollis, nisi porta porttitor vehicula, ipsum lacus blandit felis, vel mattis quam urna eget tellus. Vestibulum euismod risus sit amet leo dignissim accumsan. Phasellus aliquam tortor vel lacus gravida pharetra. Suspendisse commodo dolor a nunc scelerisque interdum auctor sed eros. Vestibulum sit amet sem fringilla ante rhoncus cursus. Pellentesque mattis venenatis vehicula. Nulla sit amet dapibus erat. Integer sit amet lectus sit amet urna facilisis volutpat nec eu lacus. Nulla id nulla lectus. In congue suscipit dui sit amet elementum. Cras at lacus ac metus interdum rutrum ullamcorper malesuada sapien. In sed mollis est, in volutpat sem. Proin ut pharetra libero. Nunc in leo vel urna varius varius. Nullam tempor aliquet semper.",
   },
 ];
 const Dashboard = () => {
@@ -142,7 +153,6 @@ const Dashboard = () => {
                     <SideNotes title={notes.title} content={notes.content} />
                   </Grid>
                 ))}
-                ;
               </Grid>
             </Grid>
           </Grid>
@@ -151,15 +161,15 @@ const Dashboard = () => {
           <Grid
             container
             direction="column"
-            justify="flex-start"
             alignItems="center"
+            style={styleSheet.notePadContainer}
           >
             <Grid item style={styleSheet.notePadTop}>
               <Grid
                 container
                 direction="row"
                 justify="flex-end"
-                alignItems="flex-start"
+                alignItems="center"
                 style={styleSheet.gridIconsContainer}
               >
                 <Grid item>

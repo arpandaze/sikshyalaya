@@ -15,7 +15,8 @@ import { ImCross } from "react-icons/im";
 import { FiTrash } from "react-icons/fi";
 
 const styleSheet = {
-  container: {
+  root: {
+    flexGrow: "1",
     width: "400px",
     height: "220px",
     background: colorscheme.white,
@@ -26,35 +27,39 @@ const styleSheet = {
     fontWeight: "bold",
     fontSize: "1.7em",
     cursor: "text",
+    position: "relative",
+    top: "10px",
+    left: "20px",
   },
   contentText: {
-    width: "100%",
+    width: "90%",
+    height: "38%",
     cursor: "text",
     wordWrap: "normal",
-  },
-  root: {
-    flexGrow: "1",
+    textAlign: "justify",
+    overflow: "hidden",
+    position: "relative",
+    top: "16px",
+    left: "20px",
   },
 };
 
 const SideNotes = ({ title, content, ...rest }) => {
   return (
-    <div style={styleSheet.container}>
-      <Grid
-        container
-        direction="column"
-        justify="flex-start"
-        alignItems="flex-start"
-        style={styleSheet.root}
-      >
-        <Grid item xs={7}>
-          <div style={styleSheet.titleText}>{title}</div>
-        </Grid>
-        <Grid item>
-          <div style={styleSheet.contentText}>{content}</div>
-        </Grid>
+    <Grid
+      container
+      direction="column"
+      alignItems="flex-start"
+      style={styleSheet.root}
+      wrap="nowrap"
+    >
+      <Grid item>
+        <div style={styleSheet.titleText}>{title}</div>
       </Grid>
-    </div>
+      <Grid item>
+        <div style={styleSheet.contentText}>{content}</div>
+      </Grid>
+    </Grid>
   );
 };
 

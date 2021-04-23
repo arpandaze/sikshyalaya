@@ -1,1 +1,11 @@
 /* Login Page */
+::-webkit-scrollbar {
+  width: 6px; /* width of the entire scrollbar */
+}
+::-webkit-scrollbar-track {
+  /* color of the tracking area */
+}
+::-webkit-scrollbar-thumb {
+  /* background-color: #a0a6ac; color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+}
