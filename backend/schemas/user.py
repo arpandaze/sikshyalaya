@@ -13,6 +13,7 @@ class UserBase(BaseModel):
     address: str = None
     group_id: int = None
     contact_number: str = None
+    permission: List[int]
     dob: datetime = None
     course: List[int] = None
 
