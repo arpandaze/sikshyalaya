@@ -18,11 +18,40 @@ const styleSheet = {
     left: "-20px",
     flexGrow: "1",
   },
+  longInputButton: {
+    outline: "none",
+    width: "750px",
+    height: "50px",
+    fontSize: "1.3em",
+    marginTop: "30px",
+    borderTop: "0px",
+    borderLeft: "0px",
+    borderRight: "0px",
+    borderBottom: "2px solid " + colorscheme.grey2,
+    background: colorscheme.white,
+  },
+  middleInputButton: {
+    outline: "none",
+    width: "340px",
+    height: "50px",
+    marginTop: "30px",
+    marginLeft: "25px",
+    borderTop: "0px",
+    borderLeft: "0px",
+    borderRight: "0px",
+    borderBottom: "2px solid " + colorscheme.grey2,
+    fontSize: "1.3em",
+    background: colorscheme.white,
+  },
   inputButton: {
     outline: "none",
     width: "340px",
     height: "50px",
-    border: "1px solid " + colorscheme.grey2,
+    marginTop: "30px",
+    borderTop: "0px",
+    borderLeft: "0px",
+    borderRight: "0px",
+    borderBottom: "2px solid " + colorscheme.grey2,
     fontSize: "1.3em",
     background: colorscheme.white,
   },
@@ -39,7 +68,7 @@ const styleSheet = {
     left: "30px",
   },
   titleContainer: {
-    width: "1300px",
+    width: "1200px",
     margin: "0px auto",
     position: "relative",
     top: "50px",
@@ -47,17 +76,17 @@ const styleSheet = {
   activeTitle: {
     display: "inline-block",
     marginBottom: "20px",
+    marginLeft: "10px",
   },
   formBoxContainer: {
     height: "800px",
-    border: "1px solid black",
   },
   formBox: {
-    width: "100%",
-    margin: "0px",
+    width: "92%",
+    margin: "20px auto",
   },
   profileBoxContainer: {
-    width: "1300px",
+    width: "1200px",
     height: "800px",
     margin: "0px auto",
     position: "relative",
@@ -69,12 +98,15 @@ const styleSheet = {
     boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
   },
   saveButton: {
-    width: "300px",
+    width: "200px",
     height: "50px",
     backgroundColor: colorscheme.red4,
     color: colorscheme.white,
-    borderRadius: "15px",
+    marginTop: "20px",
+    position: "relative",
+    left: "125%",
     fontSize: "1.2em",
+    borderRadius: "15px",
   },
 };
 
@@ -159,7 +191,7 @@ const Profile = () => {
                         id="middlename"
                         name="middlename"
                         placeholder="Middle Name"
-                        style={styleSheet.inputButton}
+                        style={styleSheet.middleInputButton}
                       />
                     </Grid>
                     <Grid item>
@@ -175,7 +207,7 @@ const Profile = () => {
                         id="email"
                         name="email"
                         placeholder="Email Address"
-                        style={styleSheet.inputButton}
+                        style={styleSheet.longInputButton}
                       />
                     </Grid>
                     <Grid item>
@@ -184,7 +216,7 @@ const Profile = () => {
                         type="password"
                         name="password"
                         placeholder="Password"
-                        style={styleSheet.inputButton}
+                        style={styleSheet.longInputButton}
                       />
                     </Grid>
                     <Grid item>
@@ -193,7 +225,7 @@ const Profile = () => {
                         type="password"
                         name="confirmpassword"
                         placeholder="Confirm Password"
-                        style={styleSheet.inputButton}
+                        style={styleSheet.longInputButton}
                       />
                     </Grid>
                     <Grid item>
