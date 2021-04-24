@@ -1,22 +1,16 @@
-from typing import Any, Optional
 from typing import Generator
+from typing import Optional
 
+from fastapi import Cookie
 from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
-from jose import jwt
-from pydantic import ValidationError
 from sqlalchemy.orm import Session
 
 import cruds
 import models
-import schemas
-from core import security
 from core import settings
 from core.db import SessionLocal
-from core.db import redis_blacklist_client
 from core.db import redis_session_client
-from asyncio import run
-from fastapi import Cookie
+
 
 def get_db() -> Generator:
     try:
@@ -27,8 +21,8 @@ def get_db() -> Generator:
 
 
 async def get_current_user(
-    db: Session = Depends(get_db),
-    session: Optional[str] = Cookie(None),
+        db: Session = Depends(get_db),
+        session: Optional[str] = Cookie(None),
 ) -> models.User:
     try:
         user_id = await redis_session_client.client.get(session, encoding="utf-8")
@@ -47,7 +41,7 @@ async def get_current_user(
 
 
 def get_current_active_user(
-    current_user: models.User = Depends(get_current_user),
+        current_user: models.User = Depends(get_current_user),
 ) -> models.User:
     if not cruds.crud_user.is_active(current_user):
         raise HTTPException(status_code=400, detail="Inactive user")
@@ -55,7 +49,7 @@ def get_current_active_user(
 
 
 def get_current_active_teacher(
-    current_user: models.User = Depends(get_current_user),
+        current_user: models.User = Depends(get_current_user),
 ) -> models.User:
     if current_user.user_type == settings.UserType.TEACHER:
         return current_user
@@ -64,7 +58,7 @@ def get_current_active_teacher(
 
 
 def get_current_active_superuser(
-    current_user: models.User = Depends(get_current_user),
+        current_user: models.User = Depends(get_current_user),
 ) -> models.User:
     if not cruds.crud_user.is_superuser(current_user):
         raise HTTPException(
