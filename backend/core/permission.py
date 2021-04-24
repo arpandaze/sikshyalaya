@@ -9,7 +9,7 @@ def check_permission(func) -> Callable:
         from cruds import crud_user
 
         model_name = args[0].model.__name__
-        req_user = crud_user.get_by_id(args[1], id=kwargs.get('req_user'))
+        req_user = kwargs.get("req_user")
 
     return inner_wrapper
 
