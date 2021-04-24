@@ -1,6 +1,6 @@
 import { Formik, Field, Form } from "formik";
 import Button from "../../components/Button";
-import theme from "../../utils/colors";
+import colorscheme from "../../utils/colors";
 import * as yup from "yup";
 import Grid from "@material-ui/core/Grid";
 
@@ -10,16 +10,16 @@ const styleSheet = {
 	loginButton: {
 		width: "300px",
 		height: "50px",
-		backgroundColor: theme.red4,
-		color: theme.white,
+		backgroundColor: colorscheme.red4,
+		color: colorscheme.white,
 		borderRadius: "15px",
 		fontSize: "1.2em",
 	},
 	guestButton: {
 		width: "300px",
 		height: "50px",
-		backgroundColor: theme.black,
-		color: theme.white,
+		backgroundColor: colorscheme.black,
+		color: colorscheme.white,
 		borderRadius: "15px",
 		fontSize: "1.2em",
 	},
@@ -28,14 +28,14 @@ const styleSheet = {
 		border: "none",
 		width: "300px",
 		height: "50px",
-		borderBottom: "1px solid " + theme.grey2,
+		borderBottom: "1px solid " + colorscheme.grey2,
 		fontSize: "1.3em",
 		background: "transparent",
 	},
 	line: {
 		width: "130px",
 		height: "1px",
-		backgroundColor: theme.grey2,
+		backgroundColor: colorscheme.grey2,
 		margin: "0px auto",
 	},
 	inputLabel: { fontSize: "1.2em" },
@@ -106,10 +106,7 @@ const StudentLoginBox = () => {
 							alignItems="center"
 						>
 							<Grid item spacing={10}>
-								<Button
-									name="Login"
-									colorStyles={styleSheet.loginButton}
-								/>
+								<Button name="Login" colorStyles={styleSheet.loginButton} />
 							</Grid>
 							<Grid item spacing={10}>
 								<Grid
