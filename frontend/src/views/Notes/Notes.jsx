@@ -19,7 +19,7 @@ import { CgMenuGridR } from "react-icons/cg";
 
 const styleSheet = {
   root: {
-    width: "92%",
+    width: "95%",
     margin: "0px auto",
     position: "relative",
     left: "-20px",
