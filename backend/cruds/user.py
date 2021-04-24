@@ -5,7 +5,8 @@ from sqlalchemy.orm import Session
 from core.config import settings
 from core.security import get_password_hash, verify_password
 from cruds.base import CRUDBase
-from cruds.crud_course import crud_course
+from cruds.course import crud_course
+from cruds.user_permission import crud_user_permission
 from models.user import User
 from schemas.user import UserCreate, UserUpdate
 from core.permission import check_permission
@@ -17,7 +18,7 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         return db.query(User).filter(User.email == email).first()
 
     @check_permission
-    def get_by_email_test(self, db: Session, *, email: str, req_user: int) -> Optional[User]:
+    def get_by_email_test(self, db: Session, *, email: str, req_user: User) -> Optional[User]:
         return db.query(User).filter(User.email == email).first()
 
     def get_by_id(self, db: Session, *, id: id) -> Optional[User]:
@@ -29,6 +30,11 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         else:
             courses = []
 
+        if obj_in.permission:
+            permission = list(map(lambda id: crud_user_permission.get(db=db, id=id), obj_in.permission))
+        else:
+            permission = []
+
         db_obj = User(
             email=obj_in.email,  # noqa
             hashed_password=get_password_hash(obj_in.password),  # noqa
@@ -39,6 +45,7 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
             user_type=obj_in.user_type,  # noqa
             contact_number=obj_in.contact_number,  # noqa
             address=obj_in.address,  # noqa
+            permission=permission,  # noqa
         )
         db.add(db_obj)
         db.commit()
