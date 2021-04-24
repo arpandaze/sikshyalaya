@@ -1,3 +1,4 @@
+from typing import Any, Optional
 from typing import Generator
 
 from fastapi import Depends, HTTPException, status
@@ -9,15 +10,12 @@ from sqlalchemy.orm import Session
 import cruds
 import models
 import schemas
-
 from core import security
 from core import settings
 from core.db import SessionLocal
 from core.db import redis_blacklist_client
 from core.db import redis_session_client
-from typing import Any, Optional
-
-
+from asyncio import run
 
 reusable_oauth2 = OAuth2PasswordBearer(
     tokenUrl=f"{settings.API_V1_STR}/login/access-token"
@@ -33,14 +31,16 @@ def get_db() -> Generator:
 
 
 def get_current_user(
-    db: Session = Depends(get_db), token: Optional[str] = Depends(reusable_oauth2), session: Optional[str] = None
+    db: Session = Depends(get_db),
+    token: Optional[str] = Depends(reusable_oauth2),
+    session: Optional[str] = None,
 ) -> models.User:
     if len(token) != 40:
-        if(redis_blacklist_client.get(token) != None):
+        if run(redis_blacklist_client.client.get(token)) != None:
             raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Account blocked. Contact support!",
-        )
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Account blocked. Contact support!",
+            )
         try:
             payload = jwt.decode(
                 token, settings.SECRET_KEY, algorithms=[security.ALGORITHM]
@@ -55,12 +55,14 @@ def get_current_user(
 
     else:
         try:
-            user_id = redis_session_client.get(token).encode("utf-8")
+            user_id = redis_session_client.client.get(token, "utf-8")
             assert user_id != "", "Invalid Session Token"
             user = cruds.crud_user.get(db, id=user_id)
 
         except AssertionError:
-            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Invalid Session Token!")
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN, detail="Invalid Session Token!"
+            )
 
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
@@ -74,8 +76,9 @@ def get_current_active_user(
         raise HTTPException(status_code=400, detail="Inactive user")
     return current_user
 
+
 def get_current_active_teacher(
-        current_user: models.User = Depends(get_current_user),
+    current_user: models.User = Depends(get_current_user),
 ) -> models.User:
     if current_user.user_type == settings.UserType.TEACHER:
         return current_user
@@ -91,6 +94,7 @@ def get_current_active_superuser(
             status_code=400, detail="The user doesn't have enough privileges"
         )
     return current_user
+
 
 def blacklist_token(token: str = Depends(reusable_oauth2)) -> Any:
     try:
