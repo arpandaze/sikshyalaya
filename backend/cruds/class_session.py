@@ -1,7 +1,7 @@
 from typing import Any, List
 
 from cruds.base import CRUDBase
-from cruds.crud_user import crud_user
+from cruds.user import crud_user
 from models import ClassSession
 from models import User
 from schemas import ClassSessionCreate, ClassSessionUpdate

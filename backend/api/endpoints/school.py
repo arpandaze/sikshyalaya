@@ -3,7 +3,7 @@ from typing import List
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from cruds.crud_school import crud_school
+from cruds.school import crud_school
 from schemas import School, SchoolCreate, SchoolUpdate
 from utils import deps
 

@@ -1,20 +1,22 @@
+import binascii
 import logging
-from datetime import datetime, timedelta
+import os
 from pathlib import Path
 from typing import Any, Dict, Optional
 
 import emails
 from emails.template import JinjaTemplate
-from jose import jwt
+from fastapi import HTTPException
 
 from core.config import settings
+from core.db import redis_session_client
 
 
 def send_email(
-    email_to: str,
-    subject_template: str = "",
-    html_template: str = "",
-    environment: Dict[str, Any] = {},
+        email_to: str,
+        subject_template: str = "",
+        html_template: str = "",
+        environment: Dict[str, Any] = {},
 ) -> None:
     assert settings.EMAILS_ENABLED, "no provided configuration for email variables"
     message = emails.Message(
@@ -87,20 +89,14 @@ def send_new_account_email(email_to: str, username: str, password: str) -> None:
     )
 
 
-def generate_password_reset_token(email: str) -> str:
-    delta = timedelta(hours=settings.EMAIL_RESET_TOKEN_EXPIRE_HOURS)
-    now = datetime.utcnow()
-    expires = now + delta
-    exp = expires.timestamp()
-    encoded_jwt = jwt.encode(
-        {"exp": exp, "nbf": now, "sub": email}, settings.SECRET_KEY, algorithm="HS256",
-    )
-    return encoded_jwt
+async def generate_password_reset_token(uid: str) -> str:
+    reset_token = binascii.hexlify(os.urandom(20)).decode()
+    await redis_session_client.client.set(f"pwr_token_{reset_token}", uid)
+    return reset_token
 
 
-def verify_password_reset_token(token: str) -> Optional[str]:
-    try:
-        decoded_token = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
-        return decoded_token["email"]
-    except jwt.JWTError:
-        return None
+async def verify_password_reset_token(token: str) -> Optional[int]:
+    uid = redis_session_client.client.get(f"pwr_token_{token}", encoding="utf-8")
+    if not uid:
+        raise HTTPException(status_code=401, detail="Invalid token")
+    return int(uid)

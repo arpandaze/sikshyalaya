@@ -1,4 +1,18 @@
 services:
+    backend:
+        container_name: backend
+        depends_on:
+            - postgres
+            - redis
+        env_file:
+            - .env
+        build:
+            context: ./backend
+            dockerfile: ../dockerfiles/backend.dockerfile
+        networks:
+            - internal
+
+
     postgres:
         image: postgres:13-alpine
         container_name: postgres
@@ -33,7 +47,7 @@ services:
         container_name: redis
         env_file:
             - .env
-        command: redis-server --requirepass ${REDIS_PASS}
+        command: redis-server --requirepass ${REDIS_PASSWORD}
         networks:
             - internal
 
