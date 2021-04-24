@@ -94,7 +94,9 @@ def populate_user():
                 contact_number=fake.phone_number(),
                 password=fake.password(),
                 user_type=randint(1, 3),
+                permission=list(range(randint(1, 9), randint(10, 20)))
             )
+            print(user)
             crud_user.create(db, obj_in=user)
         except Exception as e:  # noqa
             print(e)
