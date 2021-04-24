@@ -5,6 +5,7 @@ from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
 from core.db import Base
+from core.permission import check_permission
 
 ModelType = TypeVar("ModelType", bound=Base)
 CreateSchemaType = TypeVar("CreateSchemaType", bound=BaseModel)
@@ -23,14 +24,17 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         """
         self.model = model
 
+    @check_permission
     def get(self, db: Session, id: Any) -> Optional[ModelType]:
         return db.query(self.model).filter(self.model.id == id).first()
 
+    @check_permission
     def get_multi(
         self, db: Session, *, skip: int = 0, limit: int = 100
     ) -> List[ModelType]:
         return db.query(self.model).offset(skip).limit(limit).all()
 
+    @check_permission
     def create(self, db: Session, *, obj_in: CreateSchemaType) -> ModelType:
         obj_in_data = jsonable_encoder(obj_in)
         db_obj = self.model(**obj_in_data)  # type: ignore
@@ -39,6 +43,7 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         db.refresh(db_obj)
         return db_obj
 
+    @check_permission
     def update(
         self,
         db: Session,
