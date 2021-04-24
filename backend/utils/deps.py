@@ -16,11 +16,7 @@ from core.db import SessionLocal
 from core.db import redis_blacklist_client
 from core.db import redis_session_client
 from asyncio import run
-
-reusable_oauth2 = OAuth2PasswordBearer(
-    tokenUrl=f"{settings.API_V1_STR}/login/access-token"
-)
-
+from fastapi import Cookie
 
 def get_db() -> Generator:
     try:
@@ -30,39 +26,20 @@ def get_db() -> Generator:
         db.close()
 
 
-def get_current_user(
+async def get_current_user(
     db: Session = Depends(get_db),
-    token: Optional[str] = Depends(reusable_oauth2),
-    session: Optional[str] = None,
+    session: Optional[str] = Cookie(None),
 ) -> models.User:
-    if len(token) != 40:
-        if run(redis_blacklist_client.client.get(token)) != None:
-            raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN,
-                detail="Account blocked. Contact support!",
-            )
-        try:
-            payload = jwt.decode(
-                token, settings.SECRET_KEY, algorithms=[security.ALGORITHM]
-            )
-            token_data = schemas.TokenPayload(**payload)
-        except (jwt.JWTError, ValidationError):
-            raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN,
-                detail="Could not validate credentials",
-            )
-        user = cruds.crud_user.get(db, id=token_data.sub)
+    try:
+        user_id = await redis_session_client.client.get(session, encoding="utf-8")
+        print(user_id)
+        assert user_id != "", "Invalid Session Token"
+        user = cruds.crud_user.get(db, id=user_id)
 
-    else:
-        try:
-            user_id = redis_session_client.client.get(token, "utf-8")
-            assert user_id != "", "Invalid Session Token"
-            user = cruds.crud_user.get(db, id=user_id)
-
-        except AssertionError:
-            raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN, detail="Invalid Session Token!"
-            )
+    except AssertionError:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Invalid Session Token!"
+        )
 
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
@@ -94,17 +71,3 @@ def get_current_active_superuser(
             status_code=400, detail="The user doesn't have enough privileges"
         )
     return current_user
-
-
-def blacklist_token(token: str = Depends(reusable_oauth2)) -> Any:
-    try:
-        payload = jwt.decode(
-            token, settings.SECRET_KEY, algorithms=[security.ALGORITHM]
-        )
-        redis_blacklist_client.set(token, 1)
-        redis_blacklist_client.expireat(token, payload.get("exp"))
-    except (jwt.JWTError, ValidationError):
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Could not validate credentials",
-        )

@@ -29,53 +29,10 @@ from utils.utils import (
     send_reset_password_email,
     verify_password_reset_token,
 )
-from google.oauth2 import id_token
-from google.auth.transport import requests
 from forms.login import LoginForm
 
 
 router = APIRouter()
-
-
-@router.post("/auth/app", response_model=schemas.Token)
-async def login_access_token(
-    db: Session = Depends(deps.get_db), form_data: OAuth2PasswordRequestForm = Depends()
-) -> Any:
-    """
-    OAuth2 compatible token login, get an access token for future requests
-    """
-    user = cruds.crud_user.authenticate(
-        db, email=form_data.username, password=form_data.password
-    )
-    if not user:
-        raise HTTPException(status_code=400, detail="Incorrect email or password")
-    elif not cruds.crud_user.is_active(user):
-        raise HTTPException(status_code=400, detail="Inactive user")
-    access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
-    return {
-        "access_token": security.create_access_token(
-            user.id, expires_delta=access_token_expires
-        ),
-        "token_type": "bearer",
-    }
-
-
-@router.post("/auth/test-token", response_model=schemas.User)
-async def test_token(current_user: models.User = Depends(deps.get_current_user)) -> Any:
-    """
-    Test access token
-    """
-    return current_user
-
-
-# FIXME GET Request only for testing. Need to change to POST later!
-@router.get("/auth/blacklist/{token}")
-async def blacklist_token(token: str) -> Any:
-    try:
-        deps.blacklist_token(token)
-        return Response(status_code=200)
-    except Exception as e:
-        raise e
 
 
 @router.post("/auth/web", response_model=schemas.Token)
