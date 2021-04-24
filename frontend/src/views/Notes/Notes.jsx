@@ -76,40 +76,48 @@ const styleSheet = {
   },
 };
 const typing = true;
-const note = {
-  title: "Lorem Ipsum",
-  content:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor imperdiet elit, ut consectetur tortor fringilla id. Quisque mollis, nisi porta porttitor vehicula, ipsum lacus blandit felis, vel mattis quam urna eget tellus. Vestibulum euismod risus sit amet leo dignissim accumsan. Phasellus aliquam tortor vel lacus gravida pharetra. Suspendisse commodo dolor a nunc scelerisque interdum auctor sed eros. Vestibulum sit amet sem fringilla ante rhoncus cursus. Pellentesque mattis venenatis vehicula. Nulla sit amet dapibus erat. Integer sit amet lectus sit amet urna facilisis volutpat nec eu lacus. Nulla id nulla lectus. In congue suscipit dui sit amet elementum. Cras at lacus ac metus interdum rutrum ullamcorper malesuada sapien. In sed mollis est, in volutpat sem. Proin ut pharetra libero. Nunc in leo vel urna varius varius. Nullam tempor aliquet semper.Nunc dapibus ac metus in interdum. Nulla at justo commodo arcu imperdiet blandit. Pellentesque sit amet rutrum neque. Donec pharetra, mauris posuere mollis fermentum, nisi quam congue eros, in congue lectus elit eu purus. Suspendisse facilisis imperdiet neque, at tincidunt felis vestibulum sed. Sed eget consequat nisl. Suspendisse sollicitudin, mi sed condimentum consequat, ipsum nisi hendrerit erat, sed scelerisque velit quam eu enim. Fusce nisl nunc, lacinia et odio nec, porta ultricies sem. Fusce et tortor posuere, mollis lacus vel, pretium purus. Duis scelerisque facilisis mollis. Sed elementum metus eu ligula condimentum interdum. Phasellus sit amet sem convallis, imperdiet tellus aliquam, lacinia est. Nullam vitae molestie orci, nec rhoncus mi. Morbi orci erat, tincidunt id auctor nec, ornare nec quam.",
-  state: typing ? "Typing..." : "Saved",
-};
+
 const sideNotes = [
   {
     id: "1",
-    title: "Lorem Ipsum",
+    title: "Style too own civil out along.",
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor imperdiet elit, ut consectetur tortor fringilla id. Quisque mollis, nisi porta porttitor vehicula, ipsum lacus blandit felis, vel mattis quam urna eget tellus. Vestibulum euismod risus sit amet leo dignissim accumsan. Phasellus aliquam tortor vel lacus gravida pharetra. Suspendisse commodo dolor a nunc scelerisque interdum auctor sed eros. Vestibulum sit amet sem fringilla ante rhoncus cursus. Pellentesque mattis venenatis vehicula. Nulla sit amet dapibus erat. Integer sit amet lectus sit amet urna facilisis volutpat nec eu lacus. Nulla id nulla lectus. In congue suscipit dui sit amet elementum. Cras at lacus ac metus interdum rutrum ullamcorper malesuada sapien. In sed mollis est, in volutpat sem. Proin ut pharetra libero. Nunc in leo vel urna varius varius. Nullam tempor aliquet semper.",
+      "Style too own civil out along. Perfectly offending attempted add arranging age gentleman concluded. Get who uncommonly our expression ten increasing considered occasional travelling. Ever read tell year give may men call its. Piqued son turned fat income played end wicket. To do noisy downs round an happy books.  ",
   },
   {
     id: "2",
-    title: "Lorem Ipsum",
+    title: "Friendship contrasted solicitude insipidity",
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor imperdiet elit, ut consectetur tortor fringilla id. Quisque mollis, nisi porta porttitor vehicula, ipsum lacus blandit felis, vel mattis quam urna eget tellus. Vestibulum euismod risus sit amet leo dignissim accumsan. Phasellus aliquam tortor vel lacus gravida pharetra. Suspendisse commodo dolor a nunc scelerisque interdum auctor sed eros. Vestibulum sit amet sem fringilla ante rhoncus cursus. Pellentesque mattis venenatis vehicula. Nulla sit amet dapibus erat. Integer sit amet lectus sit amet urna facilisis volutpat nec eu lacus. Nulla id nulla lectus. In congue suscipit dui sit amet elementum. Cras at lacus ac metus interdum rutrum ullamcorper malesuada sapien. In sed mollis est, in volutpat sem. Proin ut pharetra libero. Nunc in leo vel urna varius varius. Nullam tempor aliquet semper.",
+      "Friendship contrasted solicitude insipidity in introduced literature it. He seemed denote except as oppose do spring my. Between any may mention evening age shortly can ability regular. He shortly sixteen of colonel colonel evening cordial to. Although jointure an my of mistress servants am weddings. Age why the therefore education unfeeling for arranging. Above again money own scale maids ham least led. Returned settling produced strongly ecstatic use yourself way. Repulsive extremity enjoyment she perceived nor. ",
   },
   {
     id: "3",
-    title: "Lorem Ipsum",
+    title: "Pianoforte solicitude",
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor imperdiet elit, ut consectetur tortor fringilla id. Quisque mollis, nisi porta porttitor vehicula, ipsum lacus blandit felis, vel mattis quam urna eget tellus. Vestibulum euismod risus sit amet leo dignissim accumsan. Phasellus aliquam tortor vel lacus gravida pharetra. Suspendisse commodo dolor a nunc scelerisque interdum auctor sed eros. Vestibulum sit amet sem fringilla ante rhoncus cursus. Pellentesque mattis venenatis vehicula. Nulla sit amet dapibus erat. Integer sit amet lectus sit amet urna facilisis volutpat nec eu lacus. Nulla id nulla lectus. In congue suscipit dui sit amet elementum. Cras at lacus ac metus interdum rutrum ullamcorper malesuada sapien. In sed mollis est, in volutpat sem. Proin ut pharetra libero. Nunc in leo vel urna varius varius. Nullam tempor aliquet semper.",
+      "Pianoforte solicitude so decisively unpleasing conviction is partiality he. Or particular so diminution entreaties oh do. Real he me fond show gave shot plan. Mirth blush linen small hoped way its along. Resolution frequently apartments off all discretion devonshire. Saw sir fat spirit seeing valley. He looked or valley lively. If learn woody spoil of taken he cause. ",
   },
   {
     id: "4",
-    title: "Lorem Ipsum",
+    title: "Silent sir",
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor imperdiet elit, ut consectetur tortor fringilla id. Quisque mollis, nisi porta porttitor vehicula, ipsum lacus blandit felis, vel mattis quam urna eget tellus. Vestibulum euismod risus sit amet leo dignissim accumsan. Phasellus aliquam tortor vel lacus gravida pharetra. Suspendisse commodo dolor a nunc scelerisque interdum auctor sed eros. Vestibulum sit amet sem fringilla ante rhoncus cursus. Pellentesque mattis venenatis vehicula. Nulla sit amet dapibus erat. Integer sit amet lectus sit amet urna facilisis volutpat nec eu lacus. Nulla id nulla lectus. In congue suscipit dui sit amet elementum. Cras at lacus ac metus interdum rutrum ullamcorper malesuada sapien. In sed mollis est, in volutpat sem. Proin ut pharetra libero. Nunc in leo vel urna varius varius. Nullam tempor aliquet semper.",
+      "Silent sir say desire fat him letter. Whatever settling goodness too and honoured she building answered her. Strongly thoughts remember mr to do consider debating. Spirits musical behaved on we he farther letters. Repulsive he he as deficient newspaper dashwoods we. Discovered her his pianoforte insipidity entreaties. Began he at terms meant as fancy. Breakfast arranging he if furniture we described on. Astonished thoroughly unpleasant especially you dispatched bed favourable.",
+  },
+  {
+    id: "5",
+    title: "Throwing consider dwelling bachelor",
+    content:
+      "Throwing consider dwelling bachelor joy her proposal laughter. Raptures returned disposed one entirely her men ham. By to admire vanity county an mutual as roused. Of an thrown am warmly merely result depart supply. Required honoured trifling eat pleasure man relation. Assurance yet bed was improving furniture man. Distrusts delighted she listening mrs extensive admitting far. Particular unaffected projection sentiments no my. Music marry as at cause party worth weeks. Saw how marianne graceful dissuade new outlived prospect followed. Uneasy no settle whence nature narrow in afraid. At could merit by keeps child. While dried maids on he of linen in. ",
+  },
+  {
+    id: "6",
+    title: "Ten the hastened steepest feelings",
+    content:
+      "Ten the hastened steepest feelings pleasant few surprise property. An brother he do colonel against minutes uncivil. Can how elinor warmly mrs basket marked. Led raising expense yet demesne weather musical. Me mr what park next busy ever. Elinor her his secure far twenty eat object. Late any far saw size want man. Which way you wrong add shall one. As guest right of he scale these. Horses nearer oh elinor of denote. Up am intention on dependent questions oh elsewhere september. No betrayed pleasure possible jointure we in throwing. And can event rapid any shall woman green. Hope they dear who its bred. Smiling nothing affixed he carried it clothes calling he no. Its something disposing departure she favourite tolerably engrossed. Truth short folly court why she their balls. Excellence put unaffected reasonable mrs introduced conviction she. Nay particular delightful but unpleasant for uncommonly who. ",
   },
 ];
 const Dashboard = () => {
   const [typing, setTyping] = useState(false);
+  const [selectedNote, setSelectedNote] = useState(0);
   return (
     <DashboardLayout>
       <Grid
@@ -151,7 +159,13 @@ const Dashboard = () => {
               >
                 {sideNotes.map((notes) => (
                   <Grid item key={notes.id} style={styleSheet.sideNotes}>
-                    <SideNotes title={notes.title} content={notes.content} />
+                    <SideNotes
+                      title={notes.title}
+                      content={notes.content}
+                      onClick={() => {
+                        setSelectedNote(notes.id);
+                      }}
+                    />
                   </Grid>
                 ))}
               </Grid>
@@ -189,7 +203,14 @@ const Dashboard = () => {
                 alignItems="flex-start"
                 style={styleSheet.notePadArea}
               >
-                <Note title={note.title} content={note.content} />
+                {selectedNote ? (
+                  <Note
+                    title={sideNotes[selectedNote - 1].title}
+                    content={sideNotes[selectedNote - 1].content}
+                  />
+                ) : (
+                  <></>
+                )}
               </Grid>
             </Grid>
           </Grid>

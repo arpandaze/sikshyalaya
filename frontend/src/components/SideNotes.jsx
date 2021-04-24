@@ -22,42 +22,57 @@ const styleSheet = {
     background: colorscheme.white,
     borderRadius: "20px",
     boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
+    cursor: "pointer",
+    color: colorscheme.black,
   },
-  titleText: {
-    fontWeight: "bold",
-    fontSize: "1.7em",
-    cursor: "text",
+  innerContainer: {
+    overflow: "hidden",
+    height: "80%",
     position: "relative",
-    top: "10px",
-    left: "20px",
+    top: "8%",
   },
-  contentText: {
-    width: "90%",
-    height: "38%",
-    cursor: "text",
+  titleTextContainer: {
+    fontWeight: "bold",
+    fontSize: "1.4em",
+    position: "relative",
+    top: "12%",
+    left: "7%",
+    width: "85%",
+    maxHeight: "30%",
+  },
+  contentTextContainer: {
+    width: "80%",
+    position: "relative",
+    top: "8px",
+    left: "7%",
     wordWrap: "normal",
     textAlign: "justify",
-    overflow: "hidden",
-    position: "relative",
-    top: "16px",
-    left: "20px",
+    lineHeight: "1.7em",
   },
 };
 
-const SideNotes = ({ title, content, ...rest }) => {
+const SideNotes = ({ title, content, onClick, ...rest }) => {
   return (
     <Grid
       container
       direction="column"
-      alignItems="flex-start"
       style={styleSheet.root}
-      wrap="nowrap"
+      onClick={onClick}
     >
-      <Grid item>
-        <div style={styleSheet.titleText}>{title}</div>
-      </Grid>
-      <Grid item>
-        <div style={styleSheet.contentText}>{content}</div>
+      <Grid item style={styleSheet.innerContainer}>
+        <Grid
+          container
+          direction="column"
+          alignItems="flex-start"
+          wrap="nowrap"
+        >
+          <Grid item style={styleSheet.titleTextContainer}>
+            <a style={styleSheet.titleText}>{title}</a>
+          </Grid>
+          <Grid item style={styleSheet.contentTextContainer}>
+            <a style={styleSheet.contentText}>{content}</a>
+          </Grid>
+        </Grid>
       </Grid>
     </Grid>
   );
