@@ -12,7 +12,7 @@ if __name__ == '__main__':
     load_dotenv("../.env")
 
 from core.db import engine
-from utils import populate
+from utils import populate as db_populate
 from utils import generator
 from api import router
 from core.config import settings
@@ -159,7 +159,7 @@ def cleandb():
 
 @click.command()
 def populate():
-    populate.populate_all()
+    db_populate.populate_all()
 
 
 main.add_command(create)
