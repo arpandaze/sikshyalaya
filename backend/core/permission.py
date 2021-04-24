@@ -1,13 +1,13 @@
 from functools import wraps
 
 from typing import Callable
-from cruds import crud_user_permission
 
 
 def check_permission(func) -> Callable:
     @wraps(func)
     def inner_wrapper(*args, **kwargs):
         # from cruds import crud_user
+        from cruds import crud_user_permission
 
         model_name = args[0].model.__name__
         req_user = kwargs.get("req_user")
@@ -23,10 +23,10 @@ def check_permission(func) -> Callable:
 
                 operation = inner_func_name[0:4]
                 if operation & permission_name_sub:
-                    return await func(*args, **kwargs)
+                    return func(*args, **kwargs)
 
                 operation = inner_func_name[0:7]
                 if operation == permission_name_sub:
-                    return await func(*args, **kwargs)
+                    return func(*args, **kwargs)
 
     return inner_wrapper
