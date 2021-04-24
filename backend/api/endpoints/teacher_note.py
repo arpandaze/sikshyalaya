@@ -12,7 +12,7 @@ from utils import deps
 from core.config import settings
 from utils.utils import send_new_account_email
 
-from cruds.crud_teacher_note import crud_teacher_note
+from cruds.teacher_note import crud_teacher_note
 from schemas.teacher_note import TeacherNote, TeacherNoteCreate, TeacherNoteUpdate
 
 router = APIRouter()

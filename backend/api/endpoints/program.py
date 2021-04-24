@@ -3,7 +3,7 @@ from typing import Any, List
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from cruds.crud_program import crud_program
+from cruds.program import crud_program
 from schemas import Program, ProgramCreate, ProgramUpdate
 from utils import deps
 
