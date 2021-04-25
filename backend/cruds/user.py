@@ -1,37 +1,43 @@
 from typing import Any, Dict, Optional, Union
 
+from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
 from core.config import settings
+from core.permission.permission import check_permission
 from core.security import get_password_hash, verify_password
 from cruds.base import CRUDBase
 from cruds.course import crud_course
 from cruds.user_permission import crud_user_permission
 from models.user import User
 from schemas.user import UserCreate, UserUpdate
-from core.permission import check_permission
 
 
 class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
-
     def get_by_email(self, db: Session, *, email: str) -> Optional[User]:
         return db.query(User).filter(User.email == email).first()
 
     @check_permission
-    def get_by_email_test(self, db: Session, *, email: str, req_user: User) -> Optional[User]:
+    def get_by_email_test(
+        self, db: Session, *, email: str, req_user: User
+    ) -> Optional[User]:
         return db.query(User).filter(User.email == email).first()
 
     def get_by_id(self, db: Session, *, id: id) -> Optional[User]:
         return db.query(User).filter(User.id == id).first()
 
-    def create(self, db: Session, *, obj_in: UserCreate) -> User:
+    def create(self, db: Session, *, obj_in: UserCreate, req_user:User) -> User:
         if obj_in.course:
             courses = list(map(lambda id: crud_course.get(db=db, id=id), obj_in.course))
         else:
             courses = []
 
         if obj_in.permission:
-            permission = list(map(lambda id: crud_user_permission.get(db=db, id=id), obj_in.permission))
+            permission = list(
+                map(
+                    lambda id: crud_user_permission.get(db=db, id=id), obj_in.permission
+                )
+            )
         else:
             permission = []
 
@@ -53,7 +59,12 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         return db_obj
 
     def update(
-            self, db: Session, *, db_obj: User, obj_in: Union[UserUpdate, Dict[str, Any]]
+        self,
+        db: Session,
+        *,
+        db_obj: User,
+        obj_in: Union[UserUpdate, Dict[str, Any]],
+        req_user: User,
     ) -> User:
         if isinstance(obj_in, dict):
             update_data = obj_in
@@ -63,6 +74,11 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
             hashed_password = get_password_hash(update_data["password"])
             del update_data["password"]
             update_data["hashed_password"] = hashed_password
+        if (
+            update_data.get("permissions")
+            and db_obj.user_type > settings.UserType.ADMIN.value
+        ):
+            raise HTTPException(401, detail="Request denied")
         return super().update(db, db_obj=db_obj, obj_in=update_data)
 
     def authenticate(self, db: Session, *, email: str, password: str) -> Optional[User]:

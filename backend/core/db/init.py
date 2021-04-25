@@ -6,8 +6,8 @@ import cruds
 import schemas
 from core import settings
 from core.db import Base, SessionLocal
-from models import *  # noqa: F401
 from cruds import crud_user
+from models import *  # noqa: F401
 
 
 def pascal_case_to_snake(name):
@@ -55,6 +55,23 @@ def init_permissions(db: Session = SessionLocal()) -> None:
         try:
             name = pascal_case_to_snake(model.__name__)
             permission_retrieve = schemas.UserPermissionCreate(name=f"{name}_get")
+            permission_retrieve = cruds.crud_user_permission.create(
+                db, obj_in=permission_retrieve, req_user=super_user
+            )
+        except Exception:  # noqa
+            pass
+        try:
+            name = pascal_case_to_snake(model.__name__)
+            permission_retrieve = schemas.UserPermissionCreate(name=f"{name}_get_self")
+            permission_retrieve = cruds.crud_user_permission.create(
+                db, obj_in=permission_retrieve, req_user=super_user
+            )
+        except Exception:  # noqa
+            pass
+
+        try:
+            name = pascal_case_to_snake(model.__name__)
+            permission_retrieve = schemas.UserPermissionCreate(name=f"{name}_update_self")
             permission_retrieve = cruds.crud_user_permission.create(
                 db, obj_in=permission_retrieve, req_user=super_user
             )
