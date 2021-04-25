@@ -10,6 +10,9 @@ from fastapi import HTTPException
 
 from core.config import settings
 from core.db import redis_session_client
+from models import User
+from cruds import crud_user
+from core.db import SessionLocal
 
 
 def send_email(
@@ -100,3 +103,6 @@ async def verify_password_reset_token(token: str) -> Optional[int]:
     if not uid:
         raise HTTPException(status_code=401, detail="Invalid token")
     return int(uid)
+
+def get_super_admin() -> User:
+    return crud_user.get_by_id(db=SessionLocal(), id=1)
