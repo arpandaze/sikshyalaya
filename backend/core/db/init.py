@@ -7,6 +7,7 @@ import schemas
 from core import settings
 from core.db import Base, SessionLocal
 from models import *  # noqa: F401
+from cruds import crud_user
 
 
 def pascal_case_to_snake(name):
@@ -31,12 +32,13 @@ def init_db(db: Session = SessionLocal()) -> None:
 
 
 def init_permissions(db: Session = SessionLocal()) -> None:
+    super_user = crud_user.get_by_id(db, id=1)
     for model in Base.__subclasses__():
         try:
             name = pascal_case_to_snake(model.__name__)
             permission_create = schemas.UserPermissionCreate(name=f"{name}_create")
             permission_create = cruds.crud_user_permission.create(
-                db, obj_in=permission_create
+                db, obj_in=permission_create, req_user=super_user
             )
         except Exception:  # noqa
             pass
@@ -45,7 +47,7 @@ def init_permissions(db: Session = SessionLocal()) -> None:
             name = pascal_case_to_snake(model.__name__)
             permission_update = schemas.UserPermissionCreate(name=f"{name}_update")
             permission_update = cruds.crud_user_permission.create(
-                db, obj_in=permission_update
+                db, obj_in=permission_update, req_user=super_user
             )
         except Exception:  # noqa
             pass
@@ -54,7 +56,7 @@ def init_permissions(db: Session = SessionLocal()) -> None:
             name = pascal_case_to_snake(model.__name__)
             permission_retrieve = schemas.UserPermissionCreate(name=f"{name}_get")
             permission_retrieve = cruds.crud_user_permission.create(
-                db, obj_in=permission_retrieve
+                db, obj_in=permission_retrieve, req_user=super_user
             )
         except Exception:  # noqa
             pass
