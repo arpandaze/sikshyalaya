@@ -40,3 +40,12 @@ def update_class_session(
     class_session = crud_class_session.get(db, id)
     class_session = crud_class_session.update(db, db_obj=class_session, obj_in=obj_in)
     return class_session
+
+
+@router.get("/class_session/{id}/files/{file_id}", response_model=ClassSession)
+def update_class_session(
+        db: Session = Depends(deps.get_db), *, id: int, file_id:int
+) -> Any:
+    class_session = crud_class_session.get(db, id)
+    class_session = crud_class_session.update(db, db_obj=class_session, obj_in=obj_in)
+    return class_session
