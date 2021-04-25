@@ -14,96 +14,97 @@ import DashboardLayout from "../../components/DashboardLayout";
 import { IoMdNotificationsOutline } from "react-icons/io";
 
 const styleSheet = {
-  root: {
-    width: "95%",
-    height: "100vh",
-    margin: "0px auto",
-    position: "relative",
-    left: "-20px",
-    flexGrow: "1",
-  },
-  notificationButtonContainer: {
-    width: "35px",
-    height: "35px",
-    float: "right",
-    position: "relative",
-    top: "5px",
-    right: "20px",
-  },
-  notificationIcon: {
-    position: "absolute",
-  },
-  notificationButton: {
-    width: "35px",
-    height: "35px",
-    borderRadius: "50%",
-    backgroundColor: colorscheme.red6,
-  },
-  topBar: {
-    width: "1350px",
-    height: "50px",
-    marginTop: "50px",
-  },
-  botBar: {
-    width: "1350px",
-    height: "810px",
-    marginTop: "20px",
-  },
-  leftContainer: {
-    height: "810px",
-  },
-  middleContainer: {
-    height: "810px",
-  },
-  rightContainer: {
-    height: "810px",
-  },
-  activeClassBoxContainer: {
-    width: "400px",
-    height: "250px",
-    background: colorscheme.white,
-    borderRadius: "15px",
-    boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
-  },
-  classResourcesBoxContainer: {
-    width: "400px",
-    height: "510px",
-    marginTop: "40px",
-    background: colorscheme.white,
-    borderRadius: "15px",
-    boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
-  },
-  discussionBoxContainer: {
-    width: "400px",
-    height: "800px",
-    margin: "0px auto",
-    background: colorscheme.white,
-    borderRadius: "15px",
-    boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
-  },
-  postBoxContainer: {
-    width: "400px",
-    height: "250px",
-    background: colorscheme.white,
-    borderRadius: "15px",
-    boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
-  },
-  quizBoxContainer: {
-    width: "400px",
-    height: "250px",
-    background: colorscheme.white,
-    borderRadius: "15px",
-    marginTop: "25px",
-    boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
-  },
-  tbdBoxContainer: {
-    width: "400px",
-    height: "250px",
-    background: colorscheme.white,
-    borderRadius: "15px",
-    marginTop: "25px",
-    boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
-  },
+	root: {
+		width: "95%",
+		height: "100vh",
+		margin: "0px auto",
+		position: "relative",
+		left: "-20px",
+		flexGrow: "1",
+	},
+	notificationButtonContainer: {
+		width: "35px",
+		height: "35px",
+		float: "right",
+		position: "relative",
+		top: "5px",
+		right: "20px",
+	},
+	notificationIcon: {
+		position: "absolute",
+		cursor: "pointer",
+	},
+	notificationButton: {
+		width: "35px",
+		height: "35px",
+		borderRadius: "50%",
+		backgroundColor: colorscheme.red6,
+	},
+	topBar: {
+		width: "1350px",
+		height: "50px",
+		marginTop: "50px",
+	},
+	botBar: {
+		width: "1350px",
+		height: "810px",
+		marginTop: "20px",
+	},
+	leftContainer: {
+		height: "810px",
+	},
+	middleContainer: {
+		height: "810px",
+	},
+	rightContainer: {
+		height: "810px",
+	},
+	activeClassBoxContainer: {
+		width: "400px",
+		height: "250px",
+		background: colorscheme.white,
+		borderRadius: "15px",
+		boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
+	},
+	classResourcesBoxContainer: {
+		width: "400px",
+		height: "510px",
+		marginTop: "40px",
+		background: colorscheme.white,
+		borderRadius: "15px",
+		boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
+	},
+	discussionBoxContainer: {
+		width: "400px",
+		height: "800px",
+		margin: "0px auto",
+		background: colorscheme.white,
+		borderRadius: "15px",
+		boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
+	},
+	postBoxContainer: {
+		width: "400px",
+		height: "250px",
+		background: colorscheme.white,
+		borderRadius: "15px",
+		boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
+	},
+	quizBoxContainer: {
+		width: "400px",
+		height: "250px",
+		background: colorscheme.white,
+		borderRadius: "15px",
+		marginTop: "25px",
+		boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
+	},
+	tbdBoxContainer: {
+		width: "400px",
+		height: "250px",
+		background: colorscheme.white,
+		borderRadius: "15px",
+		marginTop: "25px",
+		boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
+	},
 };
 
 const Dashboard = () => {

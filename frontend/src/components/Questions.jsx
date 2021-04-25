@@ -17,7 +17,7 @@ import { FiTrash } from "react-icons/fi";
 const styleSheet = {
 	root: {
 		flexGrow: "1",
-		marginTop: "20px",
+		marginTop: "5px",
 		width: "100%",
 		height: "10vh",
 		background: colorscheme.white,
@@ -38,8 +38,9 @@ const styleSheet = {
 		position: "relative",
 		top: "12%",
 		left: "5%",
-		width: "85%",
-		maxHeight: "30%",
+		width: "75%",
+        maxHeight: "30%",
+        
 	},
 	contentTextContainer: {
 		width: "90%",
@@ -48,6 +49,7 @@ const styleSheet = {
 		left: "7%",
 		textAlign: "right",
 		wordWrap: "normal",
+		color: colorscheme.grey2,
 		lineHeight: "1.7em",
 	},
 };

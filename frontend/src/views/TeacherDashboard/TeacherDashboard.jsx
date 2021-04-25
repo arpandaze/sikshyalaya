@@ -35,6 +35,7 @@ const styleSheet = {
 	},
 	notificationIcon: {
 		position: "absolute",
+		cursor: "pointer",
 	},
 	classQuestionText: {
 		position: "relative",
@@ -87,8 +88,8 @@ const styleSheet = {
 		background: colorscheme.white,
 		borderRadius: "15px",
 		boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
-		overflow: "scroll",
-		overflowX: "hidden",
+		overflow: "auto",
+		overflowX:  "hidden",
 	},
 	activeContainer: {
 		width: "400px",
