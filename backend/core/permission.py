@@ -1,6 +1,7 @@
 from functools import wraps
 
 from typing import Callable
+from core.config import settings
 
 
 def check_permission(func) -> Callable:
@@ -14,19 +15,23 @@ def check_permission(func) -> Callable:
 
         inner_func_name = func.__name__
 
-        for permission in req_user.permission:
+        if req_user.user_type == settings.UserType.SUPERADMIN.value:
+            return func(*args, **kwargs)
 
-            permission_name = crud_user_permission.get_by_id(args[1], id=permission)
-            permission_name_sub = permission_name[-8:]
+        else:
+            for permission in req_user.permission:
 
-            if model_name == permission_name[: len(model_name) + 1]:
+                permission_name = crud_user_permission.get_by_id(args[1], id=permission)
+                permission_name_sub = permission_name[-8:]
 
-                operation = inner_func_name[0:4]
-                if operation & permission_name_sub:
-                    return func(*args, **kwargs)
+                if model_name == permission_name[: len(model_name) + 1]:
 
-                operation = inner_func_name[0:7]
-                if operation == permission_name_sub:
-                    return func(*args, **kwargs)
+                    operation = inner_func_name[0:4]
+                    if operation == permission_name_sub:
+                        return func(*args, **kwargs)
+
+                    operation = inner_func_name[0:7]
+                    if operation == permission_name_sub:
+                        return func(*args, **kwargs)
 
     return inner_wrapper
