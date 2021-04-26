@@ -17,7 +17,7 @@ import { FiTrash } from "react-icons/fi";
 const styleSheet = {
 	root: {
 		flexGrow: "1",
-		marginTop: "5px",
+		marginTop: "20px",
 		width: "100%",
 		height: "10vh",
 		background: colorscheme.white,
@@ -32,17 +32,16 @@ const styleSheet = {
 		position: "relative",
 		top: "8%",
 	},
-	titleTextContainer: {
+	questionContainer: {
 		fontWeight: "bold",
 		fontSize: "1.3em",
 		position: "relative",
 		top: "12%",
 		left: "5%",
 		width: "75%",
-        maxHeight: "30%",
-        
+		maxHeight: "30%",
 	},
-	contentTextContainer: {
+	studentContainer: {
 		width: "90%",
 		position: "absolute",
 		bottom: "8px",
@@ -64,10 +63,10 @@ const Questions = ({ question, student, ...rest }) => {
 					alignItems="flex-start"
 					wrap="nowrap"
 				>
-					<Grid item style={styleSheet.titleTextContainer}>
+					<Grid item style={styleSheet.questionContainer}>
 						<a style={styleSheet.titleText}>{question}</a>
 					</Grid>
-					<Grid item style={styleSheet.contentTextContainer}>
+					<Grid item style={styleSheet.studentContainer}>
 						<a style={styleSheet.contentText}>{student}</a>
 					</Grid>
 				</Grid>

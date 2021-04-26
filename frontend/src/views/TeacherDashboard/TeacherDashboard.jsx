@@ -190,48 +190,48 @@ const activeClass = [
 const questions = [
 	{
 		id: "1",
-		question: "Toilet break 10 min please!?",
+		question: "Please explain group theory?",
 		student: "Aatish Shrestha  ",
 	},
 	{
 		id: "2",
-		question: "Toilet break 10 min please!?",
+		question: "Please explain group theory?",
 		student: "Aatish Shrestha  ",
 	},
 	{
 		id: "3",
 		question:
-			"Toilet break 10 min please!?Toilet break 10 min please!?Toilet break 10 min please!?Toilet break 10 min please!?",
+			"Please explain group theory?Please explain group theory?Please explain group theory?Please explain group theory?",
 		student: "Aatish Shrestha  ",
 	},
 	{
 		id: "4",
-		question: "Toilet break 10 min please!?",
+		question: "Please explain group theory?",
 		student: "Aatish Shrestha  ",
 	},
 	{
 		id: "5",
-		question: "Toilet break 10 min please!?",
+		question: "Please explain group theory?",
 		student: "Aatish Shrestha  ",
 	},
 	{
 		id: "6",
-		question: "Toilet break 10 min please!?",
+		question: "Please explain group theory?",
 		student: "Aatish Shrestha  ",
 	},
 	{
 		id: "7",
-		question: "Toilet break 10 min please!?",
+		question: "Please explain group theory?",
 		student: "Aatish Shrestha  ",
 	},
 	{
 		id: "8",
-		question: "Toilet break 10 min please!?",
+		question: "Please explain group theory?",
 		student: "Aatish Shrestha  ",
 	},
 	{
 		id: "9",
-		question: "Toilet break 10 min please!?",
+		question: "Please explain group theory?",
 		student: "Aatish Shrestha  ",
 	},
 ];
