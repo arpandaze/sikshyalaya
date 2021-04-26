@@ -15,6 +15,7 @@ import DashboardLayout from "../../components/DashboardLayout";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { RiQuestionAnswerLine } from "react-icons/ri";
 import { GiBookshelf } from "react-icons/gi";
+import NotificationButton from "../../components/NotificationButton";
 
 const styleSheet = {
 	root: {
@@ -25,18 +26,7 @@ const styleSheet = {
 		left: "-20px",
 		flexGrow: "1",
 	},
-	notificationButtonContainer: {
-		width: "35px",
-		height: "35px",
-		float: "right",
-		position: "relative",
-		top: "5px",
-		right: "20px",
-	},
-	notificationIcon: {
-		position: "absolute",
-		cursor: "pointer",
-	},
+
 	classQuestionText: {
 		position: "relative",
 		fontWeight: "bold",
@@ -45,12 +35,7 @@ const styleSheet = {
 		position: "relative",
 		left: "500px",
 	},
-	notificationButton: {
-		width: "35px",
-		height: "35px",
-		borderRadius: "50%",
-		backgroundColor: colorscheme.red6,
-	},
+
 	topBar: {
 		width: "1350px",
 		height: "50px",
@@ -89,7 +74,7 @@ const styleSheet = {
 		borderRadius: "15px",
 		boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
 		overflow: "auto",
-		overflowX:  "hidden",
+		overflowX: "hidden",
 	},
 	activeContainer: {
 		width: "400px",
@@ -249,22 +234,10 @@ const TeacherDashboard = () => {
 			>
 				<Grid item style={styleSheet.topBar}>
 					<a style={styleSheet.classQuestionText}>Class Questions</a>
-					<div style={styleSheet.notificationButtonContainer}>
-						<IoMdNotificationsOutline
-							size={35}
-							color={colorscheme.red4}
-							style={styleSheet.notificationIcon}
-						></IoMdNotificationsOutline>
-						<Button colorStyles={styleSheet.notificationButton} />
-					</div>
+					<NotificationButton />
 				</Grid>
 				<Grid item style={styleSheet.botBar}>
-					<Grid
-						container
-						direction="row"
-						justify="center"
-						alignItems="center"
-					>
+					<Grid container direction="row" justify="center" alignItems="center">
 						<Grid item style={styleSheet.leftContainer} xs={4}>
 							<Grid
 								container
@@ -280,10 +253,7 @@ const TeacherDashboard = () => {
 									alignItems="center"
 									style={styleSheet.xdd}
 								>
-									<Grid
-										item
-										style={styleSheet.activeContainer}
-									>
+									<Grid item style={styleSheet.activeContainer}>
 										<Grid
 											container
 											direction="column"
@@ -292,18 +262,8 @@ const TeacherDashboard = () => {
 											wrap="nowrap"
 										>
 											<Grid item xs={12}>
-												<div
-													style={
-														styleSheet.smallRedBox
-													}
-												></div>
-												<a
-													style={
-														styleSheet.activeclassText
-													}
-												>
-													Active class
-												</a>
+												<div style={styleSheet.smallRedBox}></div>
+												<a style={styleSheet.activeclassText}>Active class</a>
 											</Grid>
 											<Grid item xs={12}>
 												<a style={styleSheet.classText}>
@@ -311,11 +271,7 @@ const TeacherDashboard = () => {
 												</a>
 											</Grid>
 											<Grid item xs={12}>
-												<a
-													style={
-														styleSheet.classTextInner
-													}
-												>
+												<a style={styleSheet.classTextInner}>
 													{activeClass[0].className}
 												</a>
 											</Grid>
@@ -326,51 +282,31 @@ const TeacherDashboard = () => {
 											</Grid>
 										</Grid>
 									</Grid>
-									<Grid
-										item
-										style={styleSheet.quizBoxContainer}
-									>
+									<Grid item style={styleSheet.quizBoxContainer}>
 										<Grid item>
 											<RiQuestionAnswerLine
 												size={25}
 												color={colorscheme.grey1}
 												style={styleSheet.sideBoxIcons}
 											/>
-											<a style={styleSheet.quizText}>
-												Quizzes
-											</a>
+											<a style={styleSheet.quizText}>Quizzes</a>
 										</Grid>
 									</Grid>
-									<Grid
-										item
-										style={
-											styleSheet.classResourceContainer
-										}
-									>
+									<Grid item style={styleSheet.classResourceContainer}>
 										<Grid item>
 											<GiBookshelf
 												size={25}
 												color={colorscheme.grey1}
 												style={styleSheet.sideBoxIcons}
 											/>
-											<a
-												style={
-													styleSheet.rescourcesText
-												}
-											>
-												Resources
-											</a>
+											<a style={styleSheet.rescourcesText}>Resources</a>
 										</Grid>
 									</Grid>
 								</Grid>
 							</Grid>
 						</Grid>
 						<Grid item style={styleSheet.questionsContainer}>
-							<Grid
-								container
-								direction="column"
-								justify="flex-start"
-							>
+							<Grid container direction="column" justify="flex-start">
 								{questions.map((quest) => (
 									<Grid>
 										<Questions
