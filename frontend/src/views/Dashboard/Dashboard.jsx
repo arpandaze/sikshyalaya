@@ -1,17 +1,9 @@
 import React, { useState } from "react";
-import { Formik, Field, Form } from "formik";
-import { Route, Switch, Redirect } from "react-router-dom";
 import Button from "../../components/Button";
-import * as yup from "yup";
-import Tab from "../../components/Tab";
 import Grid from "@material-ui/core/Grid";
-import Image from "../../components/Image";
-import profile from "../../assets/pp.jpg";
-import SideBar from "../../components/SideBar";
 import colorscheme from "../../utils/colors";
-import ProfileBar from "../../components/ProfileBar";
 import DashboardLayout from "../../components/DashboardLayout";
-import { IoMdNotificationsOutline } from "react-icons/io";
+import NotificationButton from "../../components/NotificationButton";
 
 const styleSheet = {
 	root: {
@@ -22,24 +14,7 @@ const styleSheet = {
 		left: "-20px",
 		flexGrow: "1",
 	},
-	notificationButtonContainer: {
-		width: "35px",
-		height: "35px",
-		float: "right",
-		position: "relative",
-		top: "5px",
-		right: "20px",
-	},
-	notificationIcon: {
-		position: "absolute",
-		cursor: "pointer",
-	},
-	notificationButton: {
-		width: "35px",
-		height: "35px",
-		borderRadius: "50%",
-		backgroundColor: colorscheme.red6,
-	},
+
 	topBar: {
 		width: "1350px",
 		height: "50px",
@@ -108,61 +83,55 @@ const styleSheet = {
 };
 
 const Dashboard = () => {
-  return (
-    <DashboardLayout>
-      <Grid
-        container
-        direction="column"
-        justify="flex-start"
-        alignItems="center"
-        style={styleSheet.root}
-        wrap="nowrap"
-      >
-        <Grid item style={styleSheet.topBar}>
-          <div style={styleSheet.notificationButtonContainer}>
-            <IoMdNotificationsOutline
-              size={35}
-              color={colorscheme.red4}
-              style={styleSheet.notificationIcon}
-            ></IoMdNotificationsOutline>
-            <Button colorStyles={styleSheet.notificationButton} />
-          </div>
-        </Grid>
-        <Grid item style={styleSheet.botBar}>
-          <Grid container direction="row" justify="center" alignItems="center">
-            <Grid item style={styleSheet.leftContainer} xs={4}>
-              <Grid
-                container
-                direction="column"
-                justify="center"
-                alignItems="center"
-                style={styleSheet.xdd}
-              >
-                <Grid item style={styleSheet.activeClassBoxContainer}></Grid>
-                <Grid item style={styleSheet.classResourcesBoxContainer}></Grid>
-              </Grid>
-            </Grid>
-            <Grid item style={styleSheet.middleContainer} xs={4}>
-              <div style={styleSheet.discussionBoxContainer}></div>
-            </Grid>
-            <Grid item style={styleSheet.rightContainer} xs={4}>
-              <Grid
-                container
-                direction="column"
-                justify="center"
-                alignItems="center"
-                style={styleSheet.xdd}
-              >
-                <Grid item style={styleSheet.postBoxContainer}></Grid>
-                <Grid item style={styleSheet.quizBoxContainer}></Grid>
-                <Grid item style={styleSheet.tbdBoxContainer}></Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
-    </DashboardLayout>
-  );
+	const [clicked, setClicked] = useState(false);
+	return (
+		<DashboardLayout>
+			<Grid
+				container
+				direction="column"
+				justify="flex-start"
+				alignItems="center"
+				style={styleSheet.root}
+				wrap="nowrap"
+			>
+				<Grid item style={styleSheet.topBar}>
+					<NotificationButton />
+				</Grid>
+				<Grid item style={styleSheet.botBar}>
+					<Grid container direction="row" justify="center" alignItems="center">
+						<Grid item style={styleSheet.leftContainer} xs={4}>
+							<Grid
+								container
+								direction="column"
+								justify="center"
+								alignItems="center"
+								style={styleSheet.xdd}
+							>
+								<Grid item style={styleSheet.activeClassBoxContainer}></Grid>
+								<Grid item style={styleSheet.classResourcesBoxContainer}></Grid>
+							</Grid>
+						</Grid>
+						<Grid item style={styleSheet.middleContainer} xs={4}>
+							<div style={styleSheet.discussionBoxContainer}></div>
+						</Grid>
+						<Grid item style={styleSheet.rightContainer} xs={4}>
+							<Grid
+								container
+								direction="column"
+								justify="center"
+								alignItems="center"
+								style={styleSheet.xdd}
+							>
+								<Grid item style={styleSheet.postBoxContainer}></Grid>
+								<Grid item style={styleSheet.quizBoxContainer}></Grid>
+								<Grid item style={styleSheet.tbdBoxContainer}></Grid>
+							</Grid>
+						</Grid>
+					</Grid>
+				</Grid>
+			</Grid>
+		</DashboardLayout>
+	);
 };
 
 export default Dashboard;
