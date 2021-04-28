@@ -8,6 +8,7 @@ from cruds import crud_class_session, crud_user
 from schemas import ClassSession, ClassSessionUpdate
 
 from fastapi import FastAPI, File, UploadFile
+from fastapi.responses import FileResponse
 
 router = APIRouter()
 
@@ -59,5 +60,6 @@ async def create_upload_files(files: List[UploadFile] = File(...)):
 
 
 @router.get("/class_session/files/")
-async def get_upload_files():
-    return {"file": "got"}
+async def get_upload_files(filename: str):
+    file = FileResponse(f"file/{filename}")
+    return file
