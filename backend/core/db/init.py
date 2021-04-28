@@ -38,7 +38,9 @@ def init_permissions(db: Session = SessionLocal()) -> None:
             name = pascal_case_to_snake(model.__name__)
             permission_create = schemas.UserPermissionCreate(name=f"{name}_create")
             permission_create = cruds.crud_user_permission.create(
-                db, obj_in=permission_create, req_user=super_user
+                db,
+                obj_in=permission_create,
+                # req_user=super_user
             )
         except Exception:  # noqa
             pass
@@ -47,7 +49,9 @@ def init_permissions(db: Session = SessionLocal()) -> None:
             name = pascal_case_to_snake(model.__name__)
             permission_update = schemas.UserPermissionCreate(name=f"{name}_update")
             permission_update = cruds.crud_user_permission.create(
-                db, obj_in=permission_update, req_user=super_user
+                db,
+                obj_in=permission_update,
+                # req_user=super_user
             )
         except Exception:  # noqa
             pass
@@ -56,7 +60,9 @@ def init_permissions(db: Session = SessionLocal()) -> None:
             name = pascal_case_to_snake(model.__name__)
             permission_retrieve = schemas.UserPermissionCreate(name=f"{name}_get")
             permission_retrieve = cruds.crud_user_permission.create(
-                db, obj_in=permission_retrieve, req_user=super_user
+                db,
+                obj_in=permission_retrieve,
+                # req_user=super_user
             )
         except Exception:  # noqa
             pass
@@ -64,16 +70,22 @@ def init_permissions(db: Session = SessionLocal()) -> None:
             name = pascal_case_to_snake(model.__name__)
             permission_retrieve = schemas.UserPermissionCreate(name=f"{name}_get_self")
             permission_retrieve = cruds.crud_user_permission.create(
-                db, obj_in=permission_retrieve, req_user=super_user
+                db,
+                obj_in=permission_retrieve,
+                # req_user=super_user
             )
         except Exception:  # noqa
             pass
 
         try:
             name = pascal_case_to_snake(model.__name__)
-            permission_retrieve = schemas.UserPermissionCreate(name=f"{name}_update_self")
+            permission_retrieve = schemas.UserPermissionCreate(
+                name=f"{name}_update_self"
+            )
             permission_retrieve = cruds.crud_user_permission.create(
-                db, obj_in=permission_retrieve, req_user=super_user
+                db,
+                obj_in=permission_retrieve,
+                # req_user=super_user
             )
         except Exception:  # noqa
             pass
