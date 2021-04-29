@@ -57,15 +57,10 @@ def update_class_session(
 
 @router.post("/uploadfiles/")
 async def create_upload_files(files: List[UploadFile] = File(...)):
-<<<<<<< HEAD
     two_up = os.path.abspath(os.path.join(__file__, "../../.."))
     file_folder = os.path.join(two_up, "file")
     return_data = {}
     x = 0
-=======
-    # current_folder = os.path.dirname(os.path.abspath(f"../../{__file__}")
-    p = {}
->>>>>>> daze
     for file in files:
         file_location = os.path.join(file_folder, file.filename)
         with open(file_location, "wb+") as file_object:
