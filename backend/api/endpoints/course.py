@@ -10,7 +10,7 @@ from schemas.course import Course, CourseCreate, CourseUpdate
 router = APIRouter()
 
 
-@router.get("/course", response_model=List[Course])
+@router.get("/", response_model=List[Course])
 def get_course(
     db: Session = Depends(deps.get_db), skip: int = 0, limit: int = 100
 ) -> Any:
@@ -18,19 +18,19 @@ def get_course(
     return course
 
 
-@router.post("/course", response_model=Course)
+@router.post("/", response_model=Course)
 def create_course(db: Session = Depends(deps.get_db), *, obj_in: CourseCreate) -> Any:
     course = crud_course.create(db, obj_in=obj_in)
     return course
 
 
-@router.get("/course/{id}", response_model=Course)
+@router.get("/{id}", response_model=Course)
 def get_specific_course(db: Session = Depends(deps.get_db), *, id: int) -> Any:
     course = crud_course.get(db, id)
     return course
 
 
-@router.put("/course/{id}", response_model=Course)
+@router.put("/{id}", response_model=Course)
 def update_course(
     db: Session = Depends(deps.get_db), *, id: int, obj_in: CourseUpdate
 ) -> Any:

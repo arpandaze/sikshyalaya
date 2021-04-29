@@ -10,7 +10,7 @@ from schemas import Department, DepartmentUpdate
 router = APIRouter()
 
 
-@router.get("/department", response_model=List[Department])
+@router.get("/", response_model=List[Department])
 def get_department(
     db: Session = Depends(deps.get_db), skip: int = 0, limit: int = 100
 ) -> Any:
@@ -18,7 +18,7 @@ def get_department(
     return department
 
 
-@router.post("/department", response_model=Department)
+@router.post("/", response_model=Department)
 def create_department(
     db: Session = Depends(deps.get_db), *, obj_in: DepartmentUpdate
 ) -> Any:
@@ -26,13 +26,13 @@ def create_department(
     return department
 
 
-@router.get("/department/{id}", response_model=Department)
+@router.get("/{id}", response_model=Department)
 def get_specific_department(db: Session = Depends(deps.get_db), *, id: int) -> Any:
     department = crud_department.get(db, id)
     return department
 
 
-@router.put("/department/{id}", response_model=Department)
+@router.put("/{id}", response_model=Department)
 def update_department(
     db: Session = Depends(deps.get_db), *, id: int, obj_in: DepartmentUpdate
 ) -> Any:

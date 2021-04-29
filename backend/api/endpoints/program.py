@@ -10,7 +10,7 @@ from utils import deps
 router = APIRouter()
 
 
-@router.get("/program", response_model=List[Program])
+@router.get("/", response_model=List[Program])
 async def get_programs(
         db: Session = Depends(deps.get_db), skip: int = 0, limit: int = 100
 ) -> Any:
@@ -18,7 +18,7 @@ async def get_programs(
     return programs
 
 
-@router.post("/program", response_model=Program)
+@router.post("/", response_model=Program)
 async def create_program(
         db: Session = Depends(deps.get_db), *, program_in: ProgramCreate
 ) -> Any:
@@ -26,13 +26,13 @@ async def create_program(
     return program
 
 
-@router.get("/program/{program_id}", response_model=Program)
+@router.get("/{program_id}", response_model=Program)
 async def get_program(db: Session = Depends(deps.get_db), *, program_id: int) -> Any:
     program = crud_program.get(db, program_id)
     return program
 
 
-@router.put("/program/{program_id}", response_model=Program)
+@router.put("/{program_id}", response_model=Program)
 async def update_program(
         db: Session = Depends(deps.get_db),
         *,

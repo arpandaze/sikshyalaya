@@ -14,7 +14,7 @@ from schemas.user_permission import (
 router = APIRouter()
 
 
-@router.get("/userpermission", response_model=List[UserPermission])
+@router.get("/", response_model=List[UserPermission])
 def get_user_permission(
     db: Session = Depends(deps.get_db), skip: int = 0, limit: int = 100
 ) -> Any:
@@ -22,7 +22,7 @@ def get_user_permission(
     return user_permission
 
 
-@router.post("/userpermission", response_model=UserPermission)
+@router.post("/", response_model=UserPermission)
 def create_user_permission(
     db: Session = Depends(deps.get_db), *, obj_in: UserPermissionCreate
 ) -> Any:
@@ -30,13 +30,13 @@ def create_user_permission(
     return user_permission
 
 
-@router.get("/userpermission/{id}", response_model=UserPermission)
+@router.get("/{id}", response_model=UserPermission)
 def get_specific_user_permission(db: Session = Depends(deps.get_db), *, id: int) -> Any:
     user_permission = crud_user_permission.get(db, id)
     return user_permission
 
 
-@router.put("/userpermission/{id}", response_model=UserPermission)
+@router.put("/{id}", response_model=UserPermission)
 def update_user_permission(
     db: Session = Depends(deps.get_db), *, id: int, obj_in: UserPermissionUpdate
 ) -> Any:

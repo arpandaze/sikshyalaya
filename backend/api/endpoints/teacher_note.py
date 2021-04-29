@@ -18,7 +18,7 @@ from schemas.teacher_note import TeacherNote, TeacherNoteCreate, TeacherNoteUpda
 router = APIRouter()
 
 
-@router.get("/teachernote", response_model=List[TeacherNote])
+@router.get("/", response_model=List[TeacherNote])
 def get_programs(
     db: Session = Depends(deps.get_db), *, skip: int = 0, limit: int = 100
 ) -> Any:
@@ -27,7 +27,7 @@ def get_programs(
     return teacher_notes
 
 
-@router.post("/teachernote", response_model=TeacherNote)
+@router.post("/", response_model=TeacherNote)
 def create_program(
     db: Session = Depends(deps.get_db), *, teacherNote_in: TeacherNoteCreate
 ) -> Any:
@@ -36,14 +36,14 @@ def create_program(
     return teacher_note
 
 
-@router.get("/teachernote/{teachernote_id}", response_model=TeacherNote)
+@router.get("/{teachernote_id}", response_model=TeacherNote)
 def get_program(db: Session = Depends(deps.get_db), *, teachernote_id: int) -> Any:
     # get the teacher note by id
     teacher_note = crud_teacher_note.get(db, teachernote_id)
     return teacher_note
 
 
-@router.put("/teachernote/{teachernote_id}", response_model=TeacherNote)
+@router.put("/{teachernote_id}", response_model=TeacherNote)
 def update_program(
     db: Session = Depends(deps.get_db),
     *,
