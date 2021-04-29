@@ -1,3 +1,4 @@
+import os
 from typing import Any, List
 
 from fastapi import APIRouter, Depends
@@ -6,6 +7,9 @@ from sqlalchemy.orm import Session
 from utils import deps
 from cruds import crud_class_session, crud_user
 from schemas import ClassSession, ClassSessionUpdate
+
+from fastapi import FastAPI, File, UploadFile
+from fastapi.responses import FileResponse
 
 router = APIRouter()
 
@@ -44,8 +48,29 @@ def update_class_session(
 
 @router.get("/class_session/{id}/files/{file_id}", response_model=ClassSession)
 def update_class_session(
-        db: Session = Depends(deps.get_db), *, id: int, file_id:int
+    db: Session = Depends(deps.get_db), *, id: int, file_id: int
 ) -> Any:
     class_session = crud_class_session.get(db, id)
     class_session = crud_class_session.update(db, db_obj=class_session, obj_in=obj_in)
     return class_session
+
+
+@router.post("/class_session/uploadfiles/")
+async def create_upload_files(files: List[UploadFile] = File(...)):
+    current_folder = os.path.dirname(os.path.abspath(f"../../{__file__}")
+    print(current_folder)
+    p = {}
+    for file in files:
+        x = 0
+        file_location = os.path.join(current_folder, file.filename)
+        with open(file_location, "wb+") as file_object:
+            file_object.write(file.file.read())
+        p["info" + str(x)] = f"file '{file.filename}' saved at '{file_location}'"
+        x = x + 1
+    return p
+
+
+@router.get("/class_session/files/")
+async def get_upload_files(filename: str):
+    file = FileResponse(f"file/{filename}")
+    return file

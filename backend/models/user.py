@@ -46,3 +46,5 @@ class User(Base):
             return True
         else:
             return False
+
+    __tablename__ = "user"

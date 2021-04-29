@@ -17,16 +17,26 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
     def get_by_email(self, db: Session, *, email: str) -> Optional[User]:
         return db.query(User).filter(User.email == email).first()
 
-    @check_permission
+    # @check_permission
     def get_by_email_test(
-        self, db: Session, *, email: str, req_user: User
+        self,
+        db: Session,
+        *,
+        email: str,
+        # req_user: User
     ) -> Optional[User]:
         return db.query(User).filter(User.email == email).first()
 
     def get_by_id(self, db: Session, *, id: id) -> Optional[User]:
         return db.query(User).filter(User.id == id).first()
 
-    def create(self, db: Session, *, obj_in: UserCreate, req_user:User) -> User:
+    def create(
+        self,
+        db: Session,
+        *,
+        obj_in: UserCreate,
+        # req_user:User
+    ) -> User:
         if obj_in.course:
             courses = list(map(lambda id: crud_course.get(db=db, id=id), obj_in.course))
         else:
@@ -64,7 +74,7 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         *,
         db_obj: User,
         obj_in: Union[UserUpdate, Dict[str, Any]],
-        req_user: User,
+        # req_user: User,
     ) -> User:
         if isinstance(obj_in, dict):
             update_data = obj_in
