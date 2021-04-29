@@ -40,7 +40,6 @@ def init_permissions(db: Session = SessionLocal()) -> None:
             permission_create = cruds.crud_user_permission.create(
                 db,
                 obj_in=permission_create,
-                # req_user=super_user
             )
         except Exception:  # noqa
             pass
@@ -51,7 +50,6 @@ def init_permissions(db: Session = SessionLocal()) -> None:
             permission_update = cruds.crud_user_permission.create(
                 db,
                 obj_in=permission_update,
-                # req_user=super_user
             )
         except Exception:  # noqa
             pass
@@ -62,7 +60,6 @@ def init_permissions(db: Session = SessionLocal()) -> None:
             permission_retrieve = cruds.crud_user_permission.create(
                 db,
                 obj_in=permission_retrieve,
-                # req_user=super_user
             )
         except Exception:  # noqa
             pass
@@ -72,7 +69,6 @@ def init_permissions(db: Session = SessionLocal()) -> None:
             permission_retrieve = cruds.crud_user_permission.create(
                 db,
                 obj_in=permission_retrieve,
-                # req_user=super_user
             )
         except Exception:  # noqa
             pass
@@ -85,7 +81,6 @@ def init_permissions(db: Session = SessionLocal()) -> None:
             permission_retrieve = cruds.crud_user_permission.create(
                 db,
                 obj_in=permission_retrieve,
-                # req_user=super_user
             )
         except Exception:  # noqa
             pass
