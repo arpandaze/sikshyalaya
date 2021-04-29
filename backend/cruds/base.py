@@ -25,43 +25,36 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         """
         self.model = model
 
-    # @check_permission
     def get(
         self,
         db: Session,
         id: Any,
-        # req_user: User
     ) -> Optional[ModelType]:
         return db.query(self.model).filter(self.model.id == id).first()
 
     def get_self(
         self,
         db: Session,
-        # req_user: User
     ) -> Optional[ModelType]:
         return db.query(self.model).filter(self.model.id == req_user.id).first()
 
-    # @check_permission
     def get_multi(
         self,
         db: Session,
         *,
         skip: int = 0,
         limit: int = 100,
-        # req_user: User,
     ) -> List[ModelType]:
         if limit == -1:
             return db.query(self.model).offset(skip).all()
         else:
             return db.query(self.model).offset(skip).limit(limit).all()
 
-    # @check_permission
     def create(
         self,
         db: Session,
         *,
         obj_in: CreateSchemaType,
-        # req_user: User
     ) -> ModelType:
         obj_in_data = jsonable_encoder(obj_in)
         db_obj = self.model(**obj_in_data)  # type: ignore
@@ -77,7 +70,6 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         *,
         db_obj: ModelType,
         obj_in: Union[UpdateSchemaType, Dict[str, Any]],
-        # req_user: User,
     ) -> ModelType:
         obj_data = jsonable_encoder(db_obj)
         if isinstance(obj_in, dict):
@@ -97,7 +89,6 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         db: Session,
         *,
         id: int,
-        # req_user: User
     ) -> ModelType:
         obj = db.query(self.model).get(id)
         db.delete(obj)

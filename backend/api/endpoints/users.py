@@ -39,7 +39,7 @@ def read_users(
     """
     Retrieve users.
     """
-    users = cruds.crud_user.get_by_email_test(db, email="test@test.com", req_user=3)
+    users = cruds.crud_user.get_by_email_test(db, email="test@test.com")
     return users
 
 

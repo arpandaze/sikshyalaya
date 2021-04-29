@@ -9,7 +9,7 @@ class CRUDUserPermission(
     CRUDBase[UserPermission, UserPermissionCreate, UserPermissionUpdate]
 ):
     def get_by_name(
-        self, db: Session, *, name: str, req_user:User,
+        self, db: Session, *, name: str
     ):
         return db.query(self.model).filter(self.model.name == name).first()
 
