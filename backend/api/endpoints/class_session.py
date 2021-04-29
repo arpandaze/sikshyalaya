@@ -57,17 +57,20 @@ def update_class_session(
 
 @router.post("/class_session/uploadfiles/")
 async def create_upload_files(files: List[UploadFile] = File(...)):
-    current_folder = os.path.dirname(os.path.abspath(f"../../{__file__}")
-    print(current_folder)
-    p = {}
+    two_up = os.path.abspath(os.path.join(__file__, "../../.."))
+    file_folder = os.path.join(two_up, "file")
+    return_data = {}
+    x = 0
     for file in files:
-        x = 0
-        file_location = os.path.join(current_folder, file.filename)
+        file_location = os.path.join(file_folder, file.filename)
         with open(file_location, "wb+") as file_object:
             file_object.write(file.file.read())
-        p["info" + str(x)] = f"file '{file.filename}' saved at '{file_location}'"
+        return_data[
+            "info" + str(x)
+        ] = f"file '{file.filename}' saved at '{file_location}'"
         x = x + 1
-    return p
+
+    return return_data
 
 
 @router.get("/class_session/files/")
