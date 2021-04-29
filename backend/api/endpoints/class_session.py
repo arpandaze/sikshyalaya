@@ -14,7 +14,7 @@ from fastapi.responses import FileResponse
 router = APIRouter()
 
 
-@router.get("/class_session", response_model=List[ClassSession])
+@router.get("/", response_model=List[ClassSession])
 def get_class_session(
     db: Session = Depends(deps.get_db), skip: int = 0, limit: int = 100
 ) -> Any:
@@ -23,7 +23,7 @@ def get_class_session(
     return class_sessions
 
 
-@router.post("/class_session", response_model=ClassSession)
+@router.post("/", response_model=ClassSession)
 def create_class_session(
     db: Session = Depends(deps.get_db), *, obj_in: ClassSessionUpdate
 ) -> Any:
@@ -31,13 +31,13 @@ def create_class_session(
     return class_session
 
 
-@router.get("/class_session/{id}", response_model=ClassSession)
+@router.get("/{id}", response_model=ClassSession)
 def get_specific_class_session(db: Session = Depends(deps.get_db), *, id: int) -> Any:
     class_session = crud_class_session.get(db, id)
     return class_session
 
 
-@router.put("/class_session/{id}", response_model=ClassSession)
+@router.put("/{id}", response_model=ClassSession)
 def update_class_session(
     db: Session = Depends(deps.get_db), *, id: int, obj_in: ClassSessionUpdate
 ) -> Any:
@@ -46,7 +46,7 @@ def update_class_session(
     return class_session
 
 
-@router.get("/class_session/{id}/files/{file_id}", response_model=ClassSession)
+@router.get("/{id}/files/{file_id}", response_model=ClassSession)
 def update_class_session(
     db: Session = Depends(deps.get_db), *, id: int, file_id: int
 ) -> Any:
@@ -55,10 +55,9 @@ def update_class_session(
     return class_session
 
 
-@router.post("/class_session/uploadfiles/")
+@router.post("/uploadfiles/")
 async def create_upload_files(files: List[UploadFile] = File(...)):
-    current_folder = os.path.dirname(os.path.abspath(f"../../{__file__}")
-    print(current_folder)
+    # current_folder = os.path.dirname(os.path.abspath(f"../../{__file__}")
     p = {}
     for file in files:
         x = 0
@@ -70,7 +69,7 @@ async def create_upload_files(files: List[UploadFile] = File(...)):
     return p
 
 
-@router.get("/class_session/files/")
+@router.get("/files/")
 async def get_upload_files(filename: str):
     file = FileResponse(f"file/{filename}")
     return file
