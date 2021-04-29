@@ -14,6 +14,13 @@ router = APIRouter()
 
 # Get:
 # All
+<<<<<<< HEAD
+=======
+
+# Post, Update:
+# Only admin and above
+
+>>>>>>> 142d31122b6800caa4e0c1e882bbbac247fec7e0
 
 # Post, Update:
 # Only admin and above
