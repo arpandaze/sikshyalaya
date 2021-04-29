@@ -1,3 +1,4 @@
+import os
 from typing import Any, List
 
 from fastapi import APIRouter, Depends
@@ -56,7 +57,17 @@ def update_class_session(
 
 @router.post("/class_session/uploadfiles/")
 async def create_upload_files(files: List[UploadFile] = File(...)):
-    return {"filenames": [file.filename for file in files]}
+    current_folder = os.path.dirname(os.path.abspath(f"../../{__file__}")
+    print(current_folder)
+    p = {}
+    for file in files:
+        x = 0
+        file_location = os.path.join(current_folder, file.filename)
+        with open(file_location, "wb+") as file_object:
+            file_object.write(file.file.read())
+        p["info" + str(x)] = f"file '{file.filename}' saved at '{file_location}'"
+        x = x + 1
+    return p
 
 
 @router.get("/class_session/files/")
