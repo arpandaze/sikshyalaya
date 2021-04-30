@@ -10,9 +10,11 @@ from .user import UserReturn
 class ClassSessionBase(BaseModel):
     datetime: datetime
     is_active: bool
-    instructors: List[int]
+    instructor: List[int]
     course_id: int
     description: str
+    duration: int
+    file: List[str]
 
 
 # properties to recieve via
@@ -22,7 +24,13 @@ class ClassSessionCreate(ClassSessionBase):
 
 # properties to recive via API on Update
 class ClassSessionUpdate(ClassSessionBase):
-    pass
+    datetime: datetime = None
+    is_active: bool = None
+    instructor: List[int] = None
+    course_id: int = None
+    description: str = None
+    duration: int = None
+    file: List[str] = None
 
 
 # properties to return via the api
@@ -34,7 +42,7 @@ class ClassSessionInDBBase(ClassSessionBase):
 
 
 class ClassSession(ClassSessionInDBBase):
-    instructors: List[UserReturn]
+    instructor: List[UserReturn]
     pass
 
 
