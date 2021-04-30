@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     load_dotenv("../.env")
 
 from core.db import engine
@@ -16,7 +16,13 @@ from utils import populate as db_populate
 from utils import generator
 from api import router
 from core.config import settings
-from core.db import redis_cache_client, redis_blacklist_client, redis_throttle_client, redis_session_client, redis_general
+from core.db import (
+    redis_cache_client,
+    redis_blacklist_client,
+    redis_throttle_client,
+    redis_session_client,
+    redis_general,
+)
 from core.db import init
 
 app = FastAPI(

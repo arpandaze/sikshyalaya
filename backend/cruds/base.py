@@ -63,7 +63,6 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         db.refresh(db_obj)
         return db_obj
 
-    # @check_permission
     def update(
         self,
         db: Session,
