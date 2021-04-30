@@ -20,6 +20,8 @@ class Settings(BaseSettings):
     SERVER_NAME: str = os.environ.get("SERVER_NAME")
     SERVER_HOST: AnyHttpUrl = os.environ.get("SERVER_HOST")
 
+    UPLOAD_DIR_ROOT: str = "uploaded_files"
+
     UVICORN_HOST: str = os.environ.get("UVICORN_HOST")
     UVICORN_PORT: int = os.environ.get("UVICORN_PORT")
     UVICORN_WORKERS: int = os.environ.get("UVICORN_WORKERS")
