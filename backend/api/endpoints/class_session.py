@@ -1,4 +1,5 @@
 import os
+import aiofiles
 from typing import Any, List
 
 from fastapi import APIRouter, Depends
@@ -7,9 +8,12 @@ from sqlalchemy.orm import Session
 from utils import deps
 from cruds import crud_class_session, crud_user
 from schemas import ClassSession, ClassSessionUpdate
+from utils.deps import get_current_active_teacher_or_above, get_current_active_user
 
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.responses import FileResponse
+from core.config import settings
+from models import ClassSession as ClassSessionModel
 
 router = APIRouter()
 
@@ -46,34 +50,48 @@ def update_class_session(
     return class_session
 
 
-@router.get("/{id}/files/{file_id}", response_model=ClassSession)
-def update_class_session(
-    db: Session = Depends(deps.get_db), *, id: int, file_id: int
-) -> Any:
-    class_session = crud_class_session.get(db, id)
-    class_session = crud_class_session.update(db, db_obj=class_session, obj_in=obj_in)
-    return class_session
+@router.post("/{id}/file/")
+async def create_upload_files(
+    db: Session = Depends(deps.get_db),
+    files: List[UploadFile] = File(...),
+    current_teacher=Depends(
+        get_current_active_teacher_or_above
+    ),  # FIXME : Get current user ?
+    *,
+    id: int,
+):
+    class_session = crud_class_session.get_user_class_session(
+        db=db, user=current_teacher, id=id
+    )
 
+    if not class_session:
+        raise HTTPException(status_code=401, detail="Access denied!")
 
-@router.post("/uploadfiles/")
-async def create_upload_files(files: List[UploadFile] = File(...)):
-    two_up = os.path.abspath(os.path.join(__file__, "../../.."))
-    file_folder = os.path.join(two_up, "file")
-    return_data = {}
-    x = 0
     for file in files:
-        file_location = os.path.join(file_folder, file.filename)
-        with open(file_location, "wb+") as file_object:
-            file_object.write(file.file.read())
-        return_data[
-            "info" + str(x)
-        ] = f"file '{file.filename}' saved at '{file_location}'"
-        x = x + 1
+        filename = f"{settings.UPLOAD_DIR_ROOT}/{id}/{file.filename}"
+        async with aiofiles.open(filename, mode="wb") as f:
+            content = await file.read()
+            await f.write(content)
 
-    return return_data
+    obj_in = ClassSessionUpdate(file=[file.filename for file in files])
+    print(obj_in)
+    crud_class_session.update(db=db, db_obj=class_session, obj_in=obj_in)
+
+    return {"msg": "success"}
 
 
-@router.get("/files/")
-async def get_upload_files(filename: str):
-    file = FileResponse(f"file/{filename}")
+@router.get("{id}/file/{filename}")
+async def get_upload_files(
+    db: Session = Depends(deps.get_db),
+    req_user=Depends(get_current_active_user),
+    *,
+    filename: str,
+    id: int,
+):
+    class_session = crud_class_session.get_user_class_session(
+        db=db, user=req_user, id=id
+    )
+    if not class_session:
+        raise HTTPException(status_code=401, detail="Access denied!")
+    file = FileResponse(f"{settings.UPLOAD_DIR_ROOT}/{id}/{filename}")
     return file
