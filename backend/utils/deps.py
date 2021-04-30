@@ -21,19 +21,20 @@ def get_db() -> Generator:
 
 
 async def get_current_user(
-        db: Session = Depends(get_db),
-        session: Optional[str] = Cookie(None),
+    db: Session = Depends(get_db),
+    session: str = Cookie(None),
 ) -> models.User:
-    try:
-        user_id = await redis_session_client.client.get(session, encoding="utf-8")
-        print(user_id)
-        assert user_id != "", "Invalid Session Token"
-        user = cruds.crud_user.get(db, id=user_id)
-
-    except AssertionError:
+    if not session:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN, detail="Invalid Session Token!"
         )
+
+    user_id = await redis_session_client.client.get(session, encoding="utf-8")
+    if not user_id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Invalid Session Token!"
+        )
+    user = cruds.crud_user.get(db, id=user_id)
 
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
@@ -41,7 +42,7 @@ async def get_current_user(
 
 
 def get_current_active_user(
-        current_user: models.User = Depends(get_current_user),
+    current_user: models.User = Depends(get_current_user),
 ) -> models.User:
     if not cruds.crud_user.is_active(current_user):
         raise HTTPException(status_code=400, detail="Inactive user")
@@ -49,16 +50,25 @@ def get_current_active_user(
 
 
 def get_current_active_teacher(
-        current_user: models.User = Depends(get_current_user),
+    current_user: models.User = Depends(get_current_active_user),
 ) -> models.User:
-    if current_user.user_type == settings.UserType.TEACHER:
+    if current_user.user_type == settings.UserType.TEACHER.value:
+        return current_user
+    else:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+
+
+def get_current_active_teacher_or_above(
+    current_user: models.User = Depends(get_current_active_user),
+) -> models.User:
+    if current_user.user_type <= settings.UserType.TEACHER.value:
         return current_user
     else:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
 
 
 def get_current_active_superuser(
-        current_user: models.User = Depends(get_current_user),
+    current_user: models.User = Depends(get_current_active_user),
 ) -> models.User:
     if not cruds.crud_user.is_superuser(current_user):
         raise HTTPException(
