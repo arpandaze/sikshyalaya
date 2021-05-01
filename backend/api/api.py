@@ -2,11 +2,8 @@ from fastapi import APIRouter
 
 from api.endpoints import program, teacher_note, users, group
 from api.endpoints import (
-<<<<<<< HEAD
     program,
     users,
-=======
->>>>>>> yug
     login,
     utils,
     course,
@@ -15,10 +12,7 @@ from api.endpoints import (
     class_session,
     personal_note,
     user_permission,
-<<<<<<< HEAD
     teacher_note,
-=======
->>>>>>> yug
 )
 
 api_router = APIRouter()
@@ -35,12 +29,6 @@ api_router.include_router(
     personal_note.router, prefix="/personal_note", tags=["Personal Notes"]
 )
 api_router.include_router(program.router, prefix="/program", tags=["Programs"])
-<<<<<<< HEAD
-=======
-api_router.include_router(
-    user_permission.router, prefix="/user_permission", tags=["User Permission"]
-)
->>>>>>> yug
 api_router.include_router(
     teacher_note.router, prefix="/teacher_note", tags=["Teacher Note"]
 )
