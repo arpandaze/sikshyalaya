@@ -15,7 +15,7 @@ router = APIRouter()
 
 
 @router.get("/", response_model=List[UserPermission])
-def get_user_permission(
+async def get_user_permission(
     db: Session = Depends(deps.get_db), skip: int = 0, limit: int = 100
 ) -> Any:
     user_permission = crud_user_permission.get_multi(db, skip=skip, limit=limit)
@@ -23,7 +23,7 @@ def get_user_permission(
 
 
 @router.post("/", response_model=UserPermission)
-def create_user_permission(
+async def create_user_permission(
     db: Session = Depends(deps.get_db), *, obj_in: UserPermissionCreate
 ) -> Any:
     user_permission = crud_user_permission.create(db, obj_in=obj_in)
@@ -31,13 +31,15 @@ def create_user_permission(
 
 
 @router.get("/{id}", response_model=UserPermission)
-def get_specific_user_permission(db: Session = Depends(deps.get_db), *, id: int) -> Any:
+async def get_specific_user_permission(
+    db: Session = Depends(deps.get_db), *, id: int
+) -> Any:
     user_permission = crud_user_permission.get(db, id)
     return user_permission
 
 
 @router.put("/{id}", response_model=UserPermission)
-def update_user_permission(
+async def update_user_permission(
     db: Session = Depends(deps.get_db), *, id: int, obj_in: UserPermissionUpdate
 ) -> Any:
     user_permission = crud_user_permission.get(db, id)

@@ -37,7 +37,10 @@ class User(Base):
     hashed_password = Column(String, nullable=False)
     is_active = Column(Boolean(), default=True)
     user_type = Column(
-        SmallInteger, default=settings.UserType.STUDENT.value, nullable=False
+        SmallInteger,
+        default=settings.UserType.STUDENT.value,
+        nullable=False,
+        index=True,
     )
 
     @hybrid_property

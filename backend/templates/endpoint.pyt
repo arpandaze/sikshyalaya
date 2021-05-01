@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from utils import deps
-from crud import crud_${snake_case_name}
+from cruds import crud_${snake_case_name}
 from schemas import ${PascalCaseName}, ${PascalCaseName}Update, ${PascalCaseName}Create
 
 router = APIRouter()
