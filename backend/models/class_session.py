@@ -2,7 +2,7 @@ from sqlalchemy import Boolean, Column, Integer, String, DateTime, ForeignKey, A
 from sqlalchemy.orm import relationship
 
 from core.db import Base
-from models.association_tables import user_class_session_association_table
+from .association_tables import user_class_session_association_table
 
 
 class ClassSession(Base):
