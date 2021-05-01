@@ -14,9 +14,9 @@ from core.config import settings
 
 
 class CRUDTeacherNote(CRUDBase[TeacherNote, TeacherNoteCreate, TeacherNoteUpdate]):
-    def create(self, db: Session, *, obj_in: TeacherNoteCreate, user: User):
+    def create_with_user(self, db: Session, *, obj_in: TeacherNoteCreate, user: User):
         obj_in = TeacherNoteSchema(user_id=user.id, **obj_in)
-        super().create(db=db, obj_in=obj_in)
+        return self.create(db=db, obj_in=obj_in)
 
     def get_user_teacher_note(self, db: Session, user: User, id: int = None):
         teacher_notes = db.query(self.model)

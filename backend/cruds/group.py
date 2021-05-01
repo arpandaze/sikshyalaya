@@ -2,6 +2,7 @@ from cruds.base import CRUDBase
 from models.group import Group
 from schemas.group import GroupCreate, GroupUpdate
 from sqlalchemy.orm import Session
+from cruds.course import crud_course
 
 
 class CRUDGroup(CRUDBase[Group, GroupCreate, GroupUpdate]):
@@ -12,7 +13,7 @@ class CRUDGroup(CRUDBase[Group, GroupCreate, GroupUpdate]):
         obj_in: GroupCreate,
     ) -> Group:
         if obj_in.course:
-            course = list(map(lambda id: crud_group.get(db=db, id=id), obj_in.course))
+            course = [crud_course.get(db=db, id=id) for id in obj_in.course]
 
         else:
             course = []

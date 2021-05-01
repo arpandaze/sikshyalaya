@@ -38,7 +38,6 @@ async def startup():
     await redis_session_client.initialize()
     await redis_general.initialize()
     init.init_db()
-    init.init_permissions()
 
 
 @app.on_event("shutdown")

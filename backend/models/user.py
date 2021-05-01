@@ -27,9 +27,6 @@ class User(Base):
     teacher_group = relationship(
         "Group", secondary=teacher_group_association_table, backref="teachers"
     )
-    permission = relationship(
-        "UserPermission", secondary=user_permission_association_table
-    )
     dob = Column(DateTime, nullable=False)
     address = Column(String(length=128), nullable=False)
     contact_number = Column(String(length=32), index=True, nullable=False)

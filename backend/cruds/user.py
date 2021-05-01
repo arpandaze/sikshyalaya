@@ -8,7 +8,6 @@ from core.permission.permission import check_permission
 from core.security import get_password_hash, verify_password
 from cruds.base import CRUDBase
 from cruds.group import crud_group
-from cruds.user_permission import crud_user_permission
 from models.user import User
 from schemas.user import UserCreate, UserUpdate
 
@@ -17,7 +16,6 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
     def get_by_email(self, db: Session, *, email: str) -> Optional[User]:
         return db.query(User).filter(User.email == email).first()
 
-    # @check_permission
     def get_by_email_test(
         self,
         db: Session,
@@ -42,15 +40,6 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         else:
             teacher_group = []
 
-        if obj_in.permission:
-            permission = list(
-                map(
-                    lambda id: crud_user_permission.get(db=db, id=id), obj_in.permission
-                )
-            )
-        else:
-            permission = []
-
         db_obj = User(
             email=obj_in.email,  # noqa
             hashed_password=get_password_hash(obj_in.password),  # noqa
@@ -61,7 +50,6 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
             user_type=obj_in.user_type,  # noqa
             contact_number=obj_in.contact_number,  # noqa
             address=obj_in.address,  # noqa
-            permission=permission,  # noqa
             join_year=obj_in.join_year,  # noqa
         )
         db.add(db_obj)
@@ -84,11 +72,11 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
             hashed_password = get_password_hash(update_data["password"])
             del update_data["password"]
             update_data["hashed_password"] = hashed_password
-        if (
-            update_data.get("permissions")
-            and db_obj.user_type > settings.UserType.ADMIN.value
-        ):
-            raise HTTPException(401, detail="Error ID: 136")  # Request denied
+        # if (
+        #     update_data.get("permissions")
+        #     and db_obj.user_type > settings.UserType.ADMIN.value
+        # ):
+        #     raise HTTPException(401, detail="Error ID: 136")  # Request denied
         return super().update(db, db_obj=db_obj, obj_in=update_data)
 
     def authenticate(self, db: Session, *, email: str, password: str) -> Optional[User]:
