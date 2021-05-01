@@ -15,7 +15,8 @@ class UserBase(BaseModel):
     contact_number: str = None
     permission: List[int] = None
     dob: datetime = None
-    course: List[int] = None
+    teacher_group: List[int] = None
+    join_year: Optional[int] = None
 
 
 # Properties to receive via API on creation

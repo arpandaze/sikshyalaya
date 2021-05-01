@@ -13,7 +13,7 @@ from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
 
 from .association_tables import (
-    user_course_association_table,
+    teacher_group_association_table,
     user_permission_association_table,
 )
 
@@ -24,11 +24,11 @@ class User(Base):
     email = Column(String, index=True, nullable=False)
     group_id = Column(Integer, ForeignKey("group.id"))
     group = relationship("Group", backref="users")
+    teacher_group = relationship(
+        "Group", secondary=teacher_group_association_table, backref="teachers"
+    )
     permission = relationship(
         "UserPermission", secondary=user_permission_association_table
-    )
-    enrolled_course = relationship(
-        "Course", secondary=user_course_association_table, backref="users"
     )
     dob = Column(DateTime, nullable=False)
     address = Column(String(length=128), nullable=False)
@@ -42,6 +42,8 @@ class User(Base):
         nullable=False,
         index=True,
     )
+
+    join_year = Column(SmallInteger)
 
     @hybrid_property
     def is_superuser(self):

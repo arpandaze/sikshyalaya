@@ -7,7 +7,7 @@ from core.config import settings
 from core.permission.permission import check_permission
 from core.security import get_password_hash, verify_password
 from cruds.base import CRUDBase
-from cruds.course import crud_course
+from cruds.group import crud_group
 from cruds.user_permission import crud_user_permission
 from models.user import User
 from schemas.user import UserCreate, UserUpdate
@@ -35,10 +35,12 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         *,
         obj_in: UserCreate,
     ) -> User:
-        if obj_in.course:
-            courses = list(map(lambda id: crud_course.get(db=db, id=id), obj_in.course))
+        if obj_in.teacher_group:
+            teacher_group = list(
+                map(lambda id: crud_group.get(db=db, id=id), obj_in.teacher_group)
+            )
         else:
-            courses = []
+            teacher_group = []
 
         if obj_in.permission:
             permission = list(
@@ -54,12 +56,13 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
             hashed_password=get_password_hash(obj_in.password),  # noqa
             full_name=obj_in.full_name,  # noqa
             dob=obj_in.dob,  # noqa
-            enrolled_course=courses,  # noqa
+            teacher_group=teacher_group,  # noqa
             group_id=obj_in.group_id,  # noqa
             user_type=obj_in.user_type,  # noqa
             contact_number=obj_in.contact_number,  # noqa
             address=obj_in.address,  # noqa
             permission=permission,  # noqa
+            join_year=obj_in.join_year,  # noqa
         )
         db.add(db_obj)
         db.commit()
