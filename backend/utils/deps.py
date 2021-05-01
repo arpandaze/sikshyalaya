@@ -75,3 +75,13 @@ def get_current_active_superuser(
             status_code=400, detail="The user doesn't have enough privileges"
         )
     return current_user
+
+
+def get_current_admin_or_above(
+    current_user: models.User = Depends(get_current_active_user),
+) -> models.User:
+    if not current_user.user_type <= settings.UserType.ADMIN.value:
+        raise HTTPException(
+            status_code=400, detail="The user doesn't have enough privileges"
+        )
+    return current_user
