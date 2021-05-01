@@ -85,7 +85,7 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
             update_data.get("permissions")
             and db_obj.user_type > settings.UserType.ADMIN.value
         ):
-            raise HTTPException(401, detail="Request denied")
+            raise HTTPException(401, detail="Error ID: 136")  # Request denied
         return super().update(db, db_obj=db_obj, obj_in=update_data)
 
     def authenticate(self, db: Session, *, email: str, password: str) -> Optional[User]:

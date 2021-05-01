@@ -26,18 +26,18 @@ async def get_current_user(
 ) -> models.User:
     if not session:
         raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN, detail="Invalid Session Token!"
-        )
+            status_code=status.HTTP_403_FORBIDDEN, detail="Error ID: 137"
+        )  # Invalid Session Token!
 
     user_id = await redis_session_client.client.get(session, encoding="utf-8")
     if not user_id:
         raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN, detail="Invalid Session Token!"
-        )
+            status_code=status.HTTP_403_FORBIDDEN, detail="Error ID: 138"
+        )  # Invalid Session Token!
     user = cruds.crud_user.get(db, id=user_id)
 
     if not user:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise HTTPException(status_code=404, detail="Error ID: 139")  # User not found
     return user
 
 
@@ -45,7 +45,7 @@ def get_current_active_user(
     current_user: models.User = Depends(get_current_user),
 ) -> models.User:
     if not cruds.crud_user.is_active(current_user):
-        raise HTTPException(status_code=400, detail="Inactive user")
+        raise HTTPException(status_code=400, detail="Error ID: 140")  # Inactive user
     return current_user
 
 
@@ -72,8 +72,8 @@ def get_current_active_superuser(
 ) -> models.User:
     if not cruds.crud_user.is_superuser(current_user):
         raise HTTPException(
-            status_code=400, detail="The user doesn't have enough privileges"
-        )
+            status_code=400, detail="Error ID: 141"
+        )  # The user doesn't have enough privileges
     return current_user
 
 
@@ -82,6 +82,6 @@ def get_current_admin_or_above(
 ) -> models.User:
     if not current_user.user_type <= settings.UserType.ADMIN.value:
         raise HTTPException(
-            status_code=400, detail="The user doesn't have enough privileges"
-        )
+            status_code=400, detail="Error ID: 142"
+        )  # The user doesn't have enough privileges
     return current_user

@@ -28,7 +28,7 @@ router = APIRouter()
 
 @router.post("/auth/web", response_model=schemas.Token)
 async def login_web_session(
-        db: Session = Depends(deps.get_db), form_data: LoginForm = Depends()
+    db: Session = Depends(deps.get_db), form_data: LoginForm = Depends()
 ) -> Any:
     if not form_data.username:
         form_data.username = form_data.email
@@ -38,9 +38,11 @@ async def login_web_session(
     )
 
     if not user:
-        raise HTTPException(status_code=401, detail="Incorrect email or password")
+        raise HTTPException(
+            status_code=401, detail="Error ID: 111"
+        )  # Incorrect email or password
     elif not user.is_active:
-        raise HTTPException(status_code=401, detail="Inactive user")
+        raise HTTPException(status_code=401, detail="Error ID: 112")  # Inactive user
     session_token = await create_sesssion_token(user, form_data.remember_me)
     response = JSONResponse({"status": "success"})
     response.set_cookie("session", session_token, httponly=True)
@@ -49,7 +51,7 @@ async def login_web_session(
 
 @router.get("/auth/web/test")
 async def test_session_token(
-        current_user: models.User = Depends(deps.get_current_user),
+    current_user: models.User = Depends(deps.get_current_user),
 ) -> Any:
     return current_user.email
 
@@ -64,8 +66,8 @@ async def recover_password(email: str, db: Session = Depends(deps.get_db)) -> An
     if not user:
         raise HTTPException(
             status_code=404,
-            detail="The user with this username does not exist in the system.",
-        )
+            detail="Error ID: 113",
+        )  # The user with this username does not exist in the system.
     password_reset_token = await generate_password_reset_token(uid=user.id)
     send_reset_password_email(
         email_to=user.email, email=user.email, token=password_reset_token
@@ -75,9 +77,9 @@ async def recover_password(email: str, db: Session = Depends(deps.get_db)) -> An
 
 @router.post("auth/reset-password/", response_model=schemas.Msg)
 async def reset_password(
-        token: str = Body(...),
-        new_password: str = Body(...),
-        db: Session = Depends(deps.get_db),
+    token: str = Body(...),
+    new_password: str = Body(...),
+    db: Session = Depends(deps.get_db),
 ) -> Any:
     """
     Reset password
@@ -87,10 +89,10 @@ async def reset_password(
     if not user:
         raise HTTPException(
             status_code=404,
-            detail="The user with this username does not exist in the system.",
-        )
+            detail="Error ID: 114",
+        )  # The user with this username does not exist in the system.
     elif not cruds.crud_user.is_active(user):
-        raise HTTPException(status_code=400, detail="Inactive user")
+        raise HTTPException(status_code=400, detail="Error ID: 115")  # Inactive user
     hashed_password = get_password_hash(new_password)
     user.hashed_password = hashed_password
     db.add(user)
@@ -101,9 +103,9 @@ async def reset_password(
 @router.get("/thtest1")
 @throttle.ip_throttle(rate=10, per=60)
 async def throttle_test(
-        request: Request,
-        db: Session = Depends(deps.get_db),
-        current_user: models.User = Depends(deps.get_current_user),
+    request: Request,
+    db: Session = Depends(deps.get_db),
+    current_user: models.User = Depends(deps.get_current_user),
 ):
     return "Throttle test endpoint 1 Hello"
 
@@ -111,8 +113,8 @@ async def throttle_test(
 @router.get("/thtest2")
 @throttle.user_throttle(rate=20, per=60)
 async def throttle_test1(
-        request: Request,
-        db: Session = Depends(deps.get_db),
-        current_user: models.User = Depends(deps.get_current_user),
+    request: Request,
+    db: Session = Depends(deps.get_db),
+    current_user: models.User = Depends(deps.get_current_user),
 ):
     return "Throttle test endpoint 2"

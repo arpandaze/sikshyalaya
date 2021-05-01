@@ -75,7 +75,7 @@ async def create_upload_files(
     )
 
     if not class_session:
-        raise HTTPException(status_code=401, detail="Access denied!")
+        raise HTTPException(status_code=401, detail="Error ID: 100")  # Access denied!
 
     for file in files:
         filename = f"{settings.UPLOAD_DIR_ROOT}/{id}/{file.filename}"
@@ -102,6 +102,6 @@ async def get_upload_files(
         db=db, user=req_user, id=id
     )
     if not class_session:
-        raise HTTPException(status_code=401, detail="Access denied!")
+        raise HTTPException(status_code=401, detail="Error ID: 101")  # Access denied!
     file = FileResponse(f"{settings.UPLOAD_DIR_ROOT}/{id}/{filename}")
     return file

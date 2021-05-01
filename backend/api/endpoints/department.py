@@ -29,15 +29,10 @@ def create_department(
     obj_in: DepartmentUpdate,
     current_user: User = Depends(deps.get_current_active_user)
 ) -> Any:
-
-    if not current_user:
-        raise HTTPException(status_code=404, detail="user not found!")
-
     if current_user.user_type > settings.UserType.ADMIN.value:
         raise HTTPException(
-            status_code=401,
-            detail="user has no authorization for creating departments",
-        )
+            status_code=401, detail="Error ID: 104"
+        )  # user has no authorization for creating departments
     else:
         crud_department.create(db, obj_in=obj_in)
         return {"status": "success"}
@@ -59,15 +54,10 @@ def update_department(
     obj_in: DepartmentUpdate,
     current_user: User = Depends(deps.get_current_active_user)
 ) -> Any:
-
-    if not current_user:
-        raise HTTPException(status_code=404, detail="user not found!")
-
     if current_user.user_type > settings.UserType.ADMIN.value:
         raise HTTPException(
-            status_code=401,
-            detail="user has no authorization for updating departments",
-        )
+            status_code=401, detail="Error ID: 105"
+        )  # user has no authorization for updating departments
     else:
         department = crud_department.get(db, id)
         crud_department.update(db, db_obj=department, obj_in=obj_in)

@@ -57,8 +57,8 @@ def create_user(
     if user:
         raise HTTPException(
             status_code=400,
-            detail="The user with this username already exists in the system.",
-        )
+            detail="Error ID: 128",
+        )  # The user with this username already exists in the system.
     user = cruds.crud_user.create(db, obj_in=user_in)
     if settings.EMAILS_ENABLED and user_in.email:
         send_new_account_email(
@@ -117,14 +117,14 @@ def create_user_open(
     if not settings.USERS_OPEN_REGISTRATION:
         raise HTTPException(
             status_code=403,
-            detail="Open user registration is forbidden on this server",
-        )
+            detail="Error ID: 129",
+        )  # Open user registration is forbidden on this server
     user = cruds.crud_user.get_by_email(db, email=email)
     if user:
         raise HTTPException(
             status_code=400,
-            detail="The user with this username already exists in the system",
-        )
+            detail="Error ID: 130",
+        )  # The user with this username already exists in the system
     user_in = schemas.UserCreate(password=password, email=email, full_name=full_name)
     user = cruds.crud_user.create(db, obj_in=user_in)
     return user
@@ -144,8 +144,8 @@ def read_user_by_id(
         return user
     if not cruds.crud_user.is_superuser(current_user):
         raise HTTPException(
-            status_code=400, detail="The user doesn't have enough privileges"
-        )
+            status_code=400, detail="Error ID: 131"
+        )  # The user doesn't have enough privileges
     return user
 
 
@@ -164,7 +164,7 @@ def update_user(
     if not user:
         raise HTTPException(
             status_code=404,
-            detail="The user with this username does not exist in the system",
-        )
+            detail="Error ID: 132",
+        )  # The user with this username does not exist in the system
     user = cruds.crud_user.update(db, db_obj=user, obj_in=user_in)
     return user

@@ -16,10 +16,10 @@ from core.db import SessionLocal
 
 
 def send_email(
-        email_to: str,
-        subject_template: str = "",
-        html_template: str = "",
-        environment: Dict[str, Any] = {},
+    email_to: str,
+    subject_template: str = "",
+    html_template: str = "",
+    environment: Dict[str, Any] = {},
 ) -> None:
     assert settings.EMAILS_ENABLED, "no provided configuration for email variables"
     message = emails.Message(
@@ -101,8 +101,9 @@ async def generate_password_reset_token(uid: str) -> str:
 async def verify_password_reset_token(token: str) -> Optional[int]:
     uid = redis_session_client.client.get(f"pwr_token_{token}", encoding="utf-8")
     if not uid:
-        raise HTTPException(status_code=401, detail="Invalid token")
+        raise HTTPException(status_code=401, detail="Error ID: 143")  # Invalid token
     return int(uid)
+
 
 def get_super_admin() -> User:
     return crud_user.get_by_id(db=SessionLocal(), id=1)

@@ -30,15 +30,10 @@ def create_course(
     obj_in: CourseCreate,
     current_user: User = Depends(deps.get_current_active_user)
 ) -> Any:
-
-    if not current_user:
-        raise HTTPException(status_code=404, detail="user not found!")
-
     if current_user.user_type > settings.UserType.ADMIN.value:
         raise HTTPException(
-            status_code=401,
-            detail="user has no authorization for creating courses",
-        )
+            status_code=401, detail="Error ID: 102"
+        )  # user has no authorization for creating courses
     else:
         crud_course.create(db, obj_in=obj_in)
         return {"status": "success"}
@@ -60,15 +55,10 @@ def update_course(
     obj_in: CourseUpdate,
     current_user: User = Depends(deps.get_current_active_user)
 ) -> Any:
-
-    if not current_user:
-        raise HTTPException(status_code=404, detail="user not found!")
-
     if current_user.user_type > settings.UserType.ADMIN.value:
         raise HTTPException(
-            status_code=401,
-            detail="user has no authorization for updating courses",
-        )
+            status_code=401, detail="Error ID: 103"
+        )  # user has no authorization for updating courses
     else:
         course = crud_course.get(db, id)
         crud_course.update(db, db_obj=course, obj_in=obj_in)

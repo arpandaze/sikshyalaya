@@ -4,8 +4,9 @@ from core.db import redis_throttle_client
 from fastapi import HTTPException
 from typing import Callable
 
+
 def ip_throttle(rate: int, per: int = 86400) -> Callable:
-    '''
+    """
     Decorater used to throttle incoming requests based on IP Address
 
     Parameters
@@ -21,26 +22,33 @@ def ip_throttle(rate: int, per: int = 86400) -> Callable:
     ------
     HTTPException(status_code=403)
         If throttle limit is reached and the request is blocked
-    '''
+    """
 
     def outer_wrapper(func):
         @wraps(func)
         async def inner_wrapper(*args, **kwargs):
-            client_ip = kwargs.get("request").client.host # FIXME - Proxy might mess up this. Might need to look X-HTTP-FORWARDED. Works locally
+            client_ip = kwargs.get(
+                "request"
+            ).client.host  # FIXME - Proxy might mess up this. Might need to look X-HTTP-FORWARDED. Works locally
             identifier = f"ip_th_{client_ip}_{func.__name__}"
-            current_count = redis_throttle_client.get(identifier)
-            if (current_count == None):
-                redis_throttle_client.set(identifier, 1, ex=per)
-            elif(int(current_count.decode('utf-8')) < rate):
-                redis_throttle_client.incr(identifier, amount=1)
+            current_count = redis_throttle_client.client.get(identifier)
+            if current_count == None:
+                redis_throttle_client.client.set(identifier, 1, ex=per)
+            elif int(current_count.decode("utf-8")) < rate:
+                redis_throttle_client.client.incr(identifier, amount=1)
             else:
-                raise HTTPException(status_code=403, detail="Too many requests!")
+                raise HTTPException(
+                    status_code=403, detail="Error ID: 133"
+                )  # Too many requests!
             return await func(*args, **kwargs)
+
         return inner_wrapper
+
     return outer_wrapper
 
+
 def user_throttle(rate: int, per: int = 86400) -> Callable:
-    '''
+    """
     Decorater used to throttle incoming requests based on User
 
     Parameters
@@ -56,24 +64,30 @@ def user_throttle(rate: int, per: int = 86400) -> Callable:
     ------
     HTTPException(status_code=403)
         If throttle limit is reached and the request is blocked
-    '''
+    """
+
     def outer_wrapper(func):
         @wraps(func)
         async def inner_wrapper(*args, **kwargs):
             client = kwargs.get("current_user")
 
-            if(not client):
-                raise HTTPException(status_code=401, detail="User not logged in!")
+            if not client:
+                raise HTTPException(
+                    status_code=401, detail="Error ID: 134"
+                )  # User not logged in!
 
             identifier = f"user_th_{client}_{func.__name__}"
-            current_count = redis_throttle_client.get(identifier)
-            if (current_count == None):
-                redis_throttle_client.set(identifier, 1, ex=per)
-            elif(int(current_count.decode('utf-8')) < rate):
-                redis_throttle_client.incr(identifier, amount=1)
+            current_count = redis_throttle_client.client.get(identifier)
+            if current_count == None:
+                redis_throttle_client.client.set(identifier, 1, ex=per)
+            elif int(current_count.decode("utf-8")) < rate:
+                redis_throttle_client.client.incr(identifier, amount=1)
             else:
-                raise HTTPException(status_code=403, detail="Too many requests!")
+                raise HTTPException(
+                    status_code=403, detail="Error ID: 135"
+                )  # Too many requests!
             return await func(*args, **kwargs)
-        return inner_wrapper
-    return outer_wrapper
 
+        return inner_wrapper
+
+    return outer_wrapper

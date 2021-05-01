@@ -23,10 +23,6 @@ def get_group(
     limit: int = 100,
     current_user: User = Depends(deps.get_current_active_user),
 ) -> Any:
-
-    if not current_user:
-        raise HTTPException(status_code=404, detail="user not found!")
-
     if current_user.user_type == settings.UserType.STUDENT.value:
         group = crud_group.get(db, current_user.group_id)
         return group
@@ -57,13 +53,10 @@ def create_group(
     obj_in: GroupUpdate,
     current_user: User = Depends(deps.get_current_active_user)
 ) -> Any:
-    if not current_user:
-        raise HTTPException(status_code=404, detail="user not found!")
-
     if current_user.user_type >= settings.UserType.TEACHER.value:
         raise HTTPException(
             status_code=401,
-            detail="user has no authorization for creating groups",
+            detail="Error ID: 106",  # user has no authorization for creating groups
         )
     else:
         crud_group.create(db, obj_in=obj_in)
@@ -82,7 +75,7 @@ def get_specific_group(
     current_user: User = Depends(deps.get_current_active_user)
 ) -> Any:
     if not current_user:
-        raise HTTPException(status_code=404, detail="user not found!")
+        raise HTTPException(status_code=404, detail="Error ID: 107")  # user not found!
 
     if current_user.user_type == settings.UserType.STUDENT.value:
         if current_user.group_id == id:
@@ -90,8 +83,8 @@ def get_specific_group(
         else:
             raise HTTPException(
                 status_code=401,
-                detail="user has no authorization to access this group",
-            )
+                detail="Error ID: 108",
+            )  # user has no authorization to access this group
 
     if current_user.user_type == settings.UserType.TEACHER.value:
         group_list = get_group(db, current_user=current_user)
@@ -100,8 +93,8 @@ def get_specific_group(
                 return group
         raise HTTPException(
             status_code=401,
-            detail="user has no authorization to access this group",
-        )
+            detail="Error ID: 109",
+        )  # user has no authorization to access this group
 
     if current_user.user_type >= settings.UserType.ADMIN.value:
         group = crud_group.get(db, id)
@@ -117,14 +110,12 @@ def update_group(
     obj_in: GroupUpdate,
     current_user: User = Depends(deps.get_current_active_user)
 ) -> Any:
-    if not current_user:
-        raise HTTPException(status_code=404, detail="user not found!")
 
     if current_user.user_type >= settings.UserType.TEACHER.value:
         raise HTTPException(
             status_code=401,
-            detail="user has no authorization for updating groups",
-        )
+            detail="Error ID: 110",
+        )  # user has no authorization for updating groups
     else:
         group = crud_group.get(db, id)
         crud_group.update(db, db_obj=group, obj_in=obj_in)

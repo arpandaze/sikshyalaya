@@ -27,7 +27,7 @@ def get_personal_note(
 ) -> Any:
 
     if not current_user:
-        raise HTTPException(status_code=404, detail="user not found!")
+        raise HTTPException(status_code=404, detail="Error ID: 116")  # user not found!
 
     if current_user.user_type >= settings.UserType.TEACHER.value:
         personal_note_list = []
@@ -40,8 +40,8 @@ def get_personal_note(
     if current_user.user_type == settings.UserType.ADMIN.value:
         raise HTTPException(
             status_code=401,
-            detail="user has no authorization for retrieving personal notes, cause they personal fam!",
-        )
+            detail="Error ID: 117",
+        )  # user has no authorization for retrieving personal notes, cause they personal fam!
 
     if current_user.user_type == settings.UserType.SUPERADMIN.value:
         personal_note = crud_personal_note.get_multi(db, skip=skip, limit=limit)
@@ -61,14 +61,14 @@ def create_personal_note(
     current_user: User = Depends(deps.get_current_active_user)
 ) -> Any:
     if not current_user:
-        raise HTTPException(status_code=404, detail="user not found!")
+        raise HTTPException(status_code=404, detail="Error ID: 119")  # user not found!
 
     if current_user.user_type >= settings.UserType.TEACHER.value:
         if obj_in.user_id != current_user.id:
             raise HTTPException(
                 status_code=401,
-                detail="user has no authorization to create personal note for another user",
-            )
+                detail="Error ID: 118",
+            )  # user has no authorization to create personal note for another user
         else:
             personal_note = crud_personal_note.create(db, obj_in=obj_in)
             return personal_note
@@ -76,8 +76,8 @@ def create_personal_note(
     if current_user.user_type == settings.UserType.ADMIN.value:
         raise HTTPException(
             status_code=401,
-            detail="user has no authorization to create personal notes",
-        )
+            detail="Error ID: 120",
+        )  # user has no authorization to create personal notes
 
     if current_user.user_type == settings.UserType.SUPERADMIN.value:
         personal_note = crud_personal_note.create(db, obj_in=obj_in)
@@ -96,15 +96,15 @@ def get_specific_personal_note(
     current_user: User = Depends(deps.get_current_active_user)
 ) -> Any:
     if not current_user:
-        raise HTTPException(status_code=404, detail="user not found!")
+        raise HTTPException(status_code=404, detail="Error ID: 121")  # user not found!
 
     if current_user.user_type == settings.UserType.ADMIN.value:
         raise HTTPException(
             status_code=401,
-            detail="user has no authorization to get personal notes",
-        )
+            detail="Error ID: 122",
+        )  # user has no authorization to get personal notes
 
-    if current_user.user_type >= settings.TEACHER.value:
+    if current_user.user_type >= settings.UserType.TEACHER.value:
         personal_notes = get_personal_note(db, current_user=current_user)
         for notes in personal_notes:
             if id == notes.id:
@@ -113,8 +113,8 @@ def get_specific_personal_note(
 
         raise HTTPException(
             status_code=401,
-            detail="user has no authorization to get other user's personal notes",
-        )
+            detail="Error ID: 123",
+        )  # user has no authorization to get other user's personal notes
 
     if current_user.user_type == settings.UserType.SUPERADMIN.value:
         personal_note = crud_personal_note.get(db, id)
@@ -130,13 +130,13 @@ def update_personal_note(
     current_user: User = Depends(deps.get_current_active_user)
 ) -> Any:
     if not current_user:
-        raise HTTPException(status_code=404, detail="user not found!")
+        raise HTTPException(status_code=404, detail="Error ID: 124")  # user not found!
 
     if current_user.user_type == settings.UserType.ADMIN.value:
         raise HTTPException(
             status_code=401,
-            detail="user has no authorization to edit personal notes",
-        )
+            detail="Error ID: 125",
+        )  # user has no authorization to edit personal notes
 
     if current_user.user_type >= settings.UserType.TEACHER.value:
         if obj_in.user_id == current_user.id:
@@ -146,8 +146,8 @@ def update_personal_note(
         else:
             raise HTTPException(
                 status_code=401,
-                detail="user has no authorization to get other user's personal notes",
-            )
+                detail="Error ID: 126",
+            )  # user has no authorization to get other user's personal notes
 
     if current_user.user_type == settings.UserType.SUPERADMIN.value:
         personal_note = crud_personal_note.get(db, id)
