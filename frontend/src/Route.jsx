@@ -7,20 +7,22 @@ import Landing from "./views/Landing/Landing";
 import Quiz from "./views/Quiz/Quiz";
 import Profile from "./views/Profile/Profile";
 import TeacherDashboard from "./views/TeacherDashboard/TeacherDashboard";
+import AdminDashboard from "./views/AdminDashboard/AdminDashboard";
 
 const Routes = () => {
   return (
-		<Switch>
-			<Route path="/login" component={Login} />
-			<Route path="/dashboard" component={Dashboard} />
-			<Route path="/quiz" component={Quiz} />
-			<Route path="/note" component={Notes} />
-			<Route path="/landing" component={Landing} />
-			<Route path="/profile" component={Profile} />
-			<Route path="/teacherdashboard" component={TeacherDashboard} />
+    <Switch>
+      <Route path="/login" component={Login} />
+      <Route path="/dashboard" component={Dashboard} />
+      <Route path="/quiz" component={Quiz} />
+      <Route path="/note" component={Notes} />
+      <Route path="/landing" component={Landing} />
+      <Route path="/profile" component={Profile} />
+      <Route path="/teacherdashboard" component={TeacherDashboard} />
+      <Route path="/admin" component={AdminDashboard} />
 
-			<Redirect exact from="/" to="landing" />
-		</Switch>
+      <Redirect exact from="/" to="landing" />
+    </Switch>
   );
 };
 

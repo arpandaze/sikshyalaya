@@ -117,7 +117,7 @@ const sideNotes = [
 ];
 const Dashboard = () => {
   const [typing, setTyping] = useState(false);
-  const [selectedNote, setSelectedNote] = useState(0);
+  const [selectedNote, setSelectedNote] = useState("0");
   return (
     <DashboardLayout>
       <Grid
@@ -157,13 +157,13 @@ const Dashboard = () => {
                 justify="flex-start"
                 style={styleSheet.sideNoteContainer}
               >
-                {sideNotes.map((notes) => (
+                {sideNotes.map((notes, index) => (
                   <Grid item key={notes.id} style={styleSheet.sideNotes}>
                     <SideNotes
                       title={notes.title}
                       content={notes.content}
                       onClick={() => {
-                        setSelectedNote(notes.id);
+                        setSelectedNote(index.toString());
                       }}
                     />
                   </Grid>
@@ -203,10 +203,18 @@ const Dashboard = () => {
                 alignItems="flex-start"
                 style={styleSheet.notePadArea}
               >
-                {selectedNote ? (
+                {selectedNote && sideNotes.length != 0 ? (
                   <Note
-                    title={sideNotes[selectedNote - 1].title}
-                    content={sideNotes[selectedNote - 1].content}
+                    title={sideNotes[parseInt(selectedNote)].title}
+                    content={sideNotes[parseInt(selectedNote)].content}
+                    onClose={() => {
+                      setSelectedNote("");
+                    }}
+                    onDelete={() => {
+                      sideNotes.splice(parseInt(selectedNote), 1);
+                      setSelectedNote(() => (selectedNote == "0" ? "" : "0"));
+                      setSelectedNote("");
+                    }}
                   />
                 ) : (
                   <></>

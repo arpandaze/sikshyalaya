@@ -18,310 +18,311 @@ import { GiBookshelf } from "react-icons/gi";
 import NotificationButton from "../../components/NotificationButton";
 
 const styleSheet = {
-	root: {
-		width: "95%",
-		height: "100vh",
-		margin: "0px auto",
-		position: "relative",
-		left: "-20px",
-		flexGrow: "1",
-	},
+  root: {
+    width: "95%",
+    height: "100vh",
+    margin: "0px auto",
+    position: "relative",
+    left: "-20px",
+    flexGrow: "1",
+  },
 
-	classQuestionText: {
-		position: "relative",
-		fontWeight: "bold",
-		fontSize: "2.5em",
-		cursor: "text",
-		position: "relative",
-		left: "500px",
-	},
+  classQuestionText: {
+    position: "relative",
+    fontWeight: "bold",
+    fontSize: "2.5em",
+    cursor: "text",
+    position: "relative",
+    left: "500px",
+  },
 
-	topBar: {
-		width: "1350px",
-		height: "50px",
-		marginTop: "50px",
-	},
-	botBar: {
-		width: "1350px",
-		height: "810px",
-		marginTop: "20px",
-	},
-	leftContainer: {
-		height: "810px",
-	},
+  topBar: {
+    width: "1350px",
+    height: "50px",
+    marginTop: "50px",
+  },
+  botBar: {
+    width: "1350px",
+    height: "810px",
+    marginTop: "20px",
+  },
+  leftContainer: {
+    height: "810px",
+  },
 
-	activeClassBoxContainer: {
-		width: "400px",
-		height: "250px",
-		background: colorscheme.white,
-		borderRadius: "15px",
-		boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
-	},
-	classResourcesBoxContainer: {
-		width: "400px",
-		height: "510px",
-		marginTop: "40px",
-		background: colorscheme.white,
-		borderRadius: "15px",
-		boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
-	},
-	questionsContainer: {
-		padding: "20px",
-		width: "850px",
-		height: "800px",
-		margin: "0px auto",
-		background: colorscheme.white,
-		borderRadius: "15px",
-		boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
-		overflow: "auto",
-		overflowX: "hidden",
-	},
-	activeContainer: {
-		width: "400px",
-		height: "250px",
-		background: colorscheme.white,
-		borderRadius: "15px",
-		boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
-	},
-	quizBoxContainer: {
-		width: "400px",
-		height: "250px",
-		background: colorscheme.white,
-		borderRadius: "15px",
-		marginTop: "25px",
-		boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
-	},
-	classResourceContainer: {
-		width: "400px",
-		height: "250px",
-		background: colorscheme.white,
-		borderRadius: "15px",
-		marginTop: "25px",
-		boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
-	},
+  activeClassBoxContainer: {
+    width: "400px",
+    height: "250px",
+    background: colorscheme.white,
+    borderRadius: "15px",
+    boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
+  },
+  classResourcesBoxContainer: {
+    width: "400px",
+    height: "510px",
+    marginTop: "40px",
+    background: colorscheme.white,
+    borderRadius: "15px",
+    boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
+  },
+  questionsContainer: {
+    padding: "20px",
+    width: "850px",
+    height: "800px",
+    margin: "0px auto",
+    borderRadius: "15px",
+    overflow: "auto",
+    overflowX: "hidden",
+  },
+  activeContainer: {
+    width: "400px",
+    height: "250px",
+    background: colorscheme.white,
+    borderRadius: "15px",
+    boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
+  },
+  quizBoxContainer: {
+    width: "400px",
+    height: "250px",
+    background: colorscheme.white,
+    borderRadius: "15px",
+    marginTop: "25px",
+    boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
+  },
+  classResourceContainer: {
+    width: "400px",
+    height: "250px",
+    background: colorscheme.white,
+    borderRadius: "15px",
+    marginTop: "25px",
+    boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
+  },
 
-	activeclassText: {
-		height: "100%",
-		position: "relative",
-		fontWeight: "500",
-		fontSize: "1.5em",
-		cursor: "text",
-		marginLeft: "10px",
-	},
-	classText: {
-		height: "100%",
-		float: "left",
-		marginTop: "30px",
-		marginLeft: "30px",
-		position: "relative",
-		fontWeight: "bold",
-		fontSize: "3.2em",
-		cursor: "text",
-	},
-	classTextInner: {
-		height: "100%",
-		float: "left",
-		marginTop: "10px",
-		marginLeft: "30px",
-		position: "relative",
-		fontWeight: "500",
-		color: colorscheme.grey2,
-		fontSize: "0.9em",
-		cursor: "text",
-		wordwrap: "normal",
-		overflow: "hidden",
-	},
-	batchText: {
-		position: "relative",
-		float: "right",
-		fontSize: "1.5em",
-		fontWeight: "10",
-		color: colorscheme.green3,
-		marginRight: "40px",
-		marginTop: "20px",
-	},
-	sideBoxIcons: {
-		marginLeft: "20px",
-		marginTop: "20px",
-	},
-	smallRedBox: {
-		marginLeft: "20px",
-		marginTop: "20px",
-		display: "inline-block",
-		width: "20px",
-		height: "20px",
-		borderRadius: "50%",
-		background: colorscheme.red4,
-	},
-	quizText: {
-		marginLeft: "10px",
-		fontWeight: "500",
-		fontSize: "1.5em",
-	},
-	rescourcesText: {
-		marginLeft: "10px",
-		fontWeight: "500",
-		fontSize: "1.5em",
-	},
+  activeclassText: {
+    height: "100%",
+    position: "relative",
+    fontWeight: "500",
+    fontSize: "1.5em",
+    cursor: "text",
+    marginLeft: "10px",
+  },
+  classText: {
+    height: "100%",
+    float: "left",
+    marginTop: "30px",
+    marginLeft: "30px",
+    position: "relative",
+    fontWeight: "bold",
+    fontSize: "3.2em",
+    cursor: "text",
+  },
+  classTextInner: {
+    height: "100%",
+    float: "left",
+    marginTop: "10px",
+    marginLeft: "30px",
+    position: "relative",
+    fontWeight: "500",
+    color: colorscheme.grey2,
+    fontSize: "0.9em",
+    cursor: "text",
+    wordwrap: "normal",
+    overflow: "hidden",
+  },
+  batchText: {
+    position: "relative",
+    float: "right",
+    fontSize: "1.5em",
+    fontWeight: "10",
+    color: colorscheme.green3,
+    marginRight: "40px",
+    marginTop: "20px",
+  },
+  sideBoxIcons: {
+    marginLeft: "20px",
+    marginTop: "20px",
+  },
+  smallRedBox: {
+    marginLeft: "20px",
+    marginTop: "20px",
+    display: "inline-block",
+    width: "20px",
+    height: "20px",
+    borderRadius: "50%",
+    background: colorscheme.red4,
+  },
+  quizText: {
+    marginLeft: "10px",
+    fontWeight: "500",
+    fontSize: "1.5em",
+  },
+  rescourcesText: {
+    marginLeft: "10px",
+    fontWeight: "500",
+    fontSize: "1.5em",
+  },
 };
 const activeClass = [
-	{
-		id: "1",
-		classCode: "MCSC401",
-		className: "Discrete Mathematics",
-		batch: "CS2019",
-	},
+  {
+    id: "1",
+    classCode: "MCSC401",
+    className: "Discrete Mathematics",
+    batch: "CS2019",
+  },
 ];
 const questions = [
-	{
-		id: "1",
-		question: "Please explain group theory?",
-		student: "Aatish Shrestha  ",
-	},
-	{
-		id: "2",
-		question: "Please explain group theory?",
-		student: "Aatish Shrestha  ",
-	},
-	{
-		id: "3",
-		question:
-			"Please explain group theory?Please explain group theory?Please explain group theory?Please explain group theory?",
-		student: "Aatish Shrestha  ",
-	},
-	{
-		id: "4",
-		question: "Please explain group theory?",
-		student: "Aatish Shrestha  ",
-	},
-	{
-		id: "5",
-		question: "Please explain group theory?",
-		student: "Aatish Shrestha  ",
-	},
-	{
-		id: "6",
-		question: "Please explain group theory?",
-		student: "Aatish Shrestha  ",
-	},
-	{
-		id: "7",
-		question: "Please explain group theory?",
-		student: "Aatish Shrestha  ",
-	},
-	{
-		id: "8",
-		question: "Please explain group theory?",
-		student: "Aatish Shrestha  ",
-	},
-	{
-		id: "9",
-		question: "Please explain group theory?",
-		student: "Aatish Shrestha  ",
-	},
+  {
+    id: "1",
+    question: "Please explain group theory?",
+    student: "Aatish Shrestha  ",
+  },
+  {
+    id: "2",
+    question: "If You Had Three Wishes, What Would You Wish For?",
+    student: "Daisy Hinton ",
+  },
+  {
+    id: "3",
+    question: "What weird food combinations do you really enjoy?",
+    student: "Ema Macias",
+  },
+  {
+    id: "4",
+    question: "What food have you never eaten but would really like to try?",
+    student: "Aatish Shrestha  ",
+  },
+  {
+    id: "5",
+    question: "Do you think that aliens exist?",
+    student: "Anabia Brown",
+  },
+  {
+    id: "6",
+    question:
+      "When you are old, what do you think children will ask you to tell stories about?",
+    student: "Aviana Dudley",
+  },
+  {
+    id: "7",
+    question:
+      "If you could switch two movie characters, what switch would lead to the most inappropriate movies?",
+    student: "Eleri Amin",
+  },
+  {
+    id: "8",
+    question:
+      "How would your country change if everyone, regardless of age, could vote?",
+    student: "Clarence Xiong",
+  },
+  {
+    id: "9",
+    question:
+      "If you couldn’t be convicted of any one type of crime, what criminal charge would you like to be immune to?",
+    student: "Rueben Levine",
+  },
 ];
 
 const TeacherDashboard = () => {
-	return (
-		<DashboardLayout>
-			<Grid
-				container
-				direction="column"
-				justify="flex-start"
-				alignItems="center"
-				style={styleSheet.root}
-				wrap="nowrap"
-			>
-				<Grid item style={styleSheet.topBar}>
-					<a style={styleSheet.classQuestionText}>Class Questions</a>
-					<NotificationButton />
-				</Grid>
-				<Grid item style={styleSheet.botBar}>
-					<Grid container direction="row" justify="center" alignItems="center">
-						<Grid item style={styleSheet.leftContainer} xs={4}>
-							<Grid
-								container
-								direction="column"
-								justify="center"
-								alignItems="center"
-								style={styleSheet.xdd}
-							>
-								<Grid
-									container
-									direction="column"
-									justify="center"
-									alignItems="center"
-									style={styleSheet.xdd}
-								>
-									<Grid item style={styleSheet.activeContainer}>
-										<Grid
-											container
-											direction="column"
-											justify="flex-start"
-											alignitems="center"
-											wrap="nowrap"
-										>
-											<Grid item xs={12}>
-												<div style={styleSheet.smallRedBox}></div>
-												<a style={styleSheet.activeclassText}>Active class</a>
-											</Grid>
-											<Grid item xs={12}>
-												<a style={styleSheet.classText}>
-													{activeClass[0].classCode}
-												</a>
-											</Grid>
-											<Grid item xs={12}>
-												<a style={styleSheet.classTextInner}>
-													{activeClass[0].className}
-												</a>
-											</Grid>
-											<Grid item xs={12}>
-												<a style={styleSheet.batchText}>
-													{activeClass[0].batch}
-												</a>
-											</Grid>
-										</Grid>
-									</Grid>
-									<Grid item style={styleSheet.quizBoxContainer}>
-										<Grid item>
-											<RiQuestionAnswerLine
-												size={25}
-												color={colorscheme.grey1}
-												style={styleSheet.sideBoxIcons}
-											/>
-											<a style={styleSheet.quizText}>Quizzes</a>
-										</Grid>
-									</Grid>
-									<Grid item style={styleSheet.classResourceContainer}>
-										<Grid item>
-											<GiBookshelf
-												size={25}
-												color={colorscheme.grey1}
-												style={styleSheet.sideBoxIcons}
-											/>
-											<a style={styleSheet.rescourcesText}>Resources</a>
-										</Grid>
-									</Grid>
-								</Grid>
-							</Grid>
-						</Grid>
-						<Grid item style={styleSheet.questionsContainer}>
-							<Grid container direction="column" justify="flex-start">
-								{questions.map((quest) => (
-									<Grid>
-										<Questions
-											question={quest.question}
-											student={quest.student}
-										/>
-									</Grid>
-								))}
-							</Grid>
-						</Grid>
-					</Grid>
-				</Grid>
-			</Grid>
-		</DashboardLayout>
-	);
+  return (
+    <DashboardLayout>
+      <Grid
+        container
+        direction="column"
+        justify="flex-start"
+        alignItems="center"
+        style={styleSheet.root}
+        wrap="nowrap"
+      >
+        <Grid item style={styleSheet.topBar}>
+          <a style={styleSheet.classQuestionText}>Class Questions</a>
+          <NotificationButton />
+        </Grid>
+        <Grid item style={styleSheet.botBar}>
+          <Grid container direction="row" justify="center" alignItems="center">
+            <Grid item style={styleSheet.leftContainer} xs={4}>
+              <Grid
+                container
+                direction="column"
+                justify="center"
+                alignItems="center"
+                style={styleSheet.xdd}
+              >
+                <Grid
+                  container
+                  direction="column"
+                  justify="center"
+                  alignItems="center"
+                  style={styleSheet.xdd}
+                >
+                  <Grid item style={styleSheet.activeContainer}>
+                    <Grid
+                      container
+                      direction="column"
+                      justify="flex-start"
+                      alignitems="center"
+                      wrap="nowrap"
+                    >
+                      <Grid item xs={12}>
+                        <div style={styleSheet.smallRedBox}></div>
+                        <a style={styleSheet.activeclassText}>Active class</a>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <a style={styleSheet.classText}>
+                          {activeClass[0].classCode}
+                        </a>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <a style={styleSheet.classTextInner}>
+                          {activeClass[0].className}
+                        </a>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <a style={styleSheet.batchText}>
+                          {activeClass[0].batch}
+                        </a>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Grid item style={styleSheet.quizBoxContainer}>
+                    <Grid item>
+                      <RiQuestionAnswerLine
+                        size={25}
+                        color={colorscheme.grey1}
+                        style={styleSheet.sideBoxIcons}
+                      />
+                      <a style={styleSheet.quizText}>Quizzes</a>
+                    </Grid>
+                  </Grid>
+                  <Grid item style={styleSheet.classResourceContainer}>
+                    <Grid item>
+                      <GiBookshelf
+                        size={25}
+                        color={colorscheme.grey1}
+                        style={styleSheet.sideBoxIcons}
+                      />
+                      <a style={styleSheet.rescourcesText}>Resources</a>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item style={styleSheet.questionsContainer}>
+              <Grid container direction="column" justify="flex-start">
+                {questions.map((quest) => (
+                  <Grid>
+                    <Questions
+                      question={quest.question}
+                      student={quest.student}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    </DashboardLayout>
+  );
 };
 
 export default TeacherDashboard;
