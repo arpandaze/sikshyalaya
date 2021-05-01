@@ -1,4 +1,4 @@
-from typing import Optional  # noqa
+from typing import Optional, List  # noqa
 
 from pydantic import BaseModel
 
@@ -6,6 +6,7 @@ from pydantic import BaseModel
 class GroupBase(BaseModel):
     program_id: int
     sem: int
+    course: List[int]
 
 
 class GroupCreate(GroupBase):
