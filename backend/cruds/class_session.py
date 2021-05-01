@@ -34,33 +34,29 @@ class CRUDClassSession(CRUDBase[ClassSession, ClassSessionCreate, ClassSessionUp
         self, db: Session, user: User, id: int = None
     ) -> List[ClassSession]:
         if user.user_type == settings.UserType.STUDENT.value:
-            if not id:
-                class_sessions = (
-                    db.query(self.model)
-                    .filter(ClassSession.group_id == user.group_id)
-                    .all()
-                )
+            class_sessions = db.query(self.model)
+
+            if id:
+                class_sessions = class_sessions.filter(ClassSession.id == id)
+
+            class_sessions = class_sessions.filter(
+                ClassSession.group_id == user.group_id
+            )
+
+            if id:
+                return class_sessions.first()
             else:
-                class_sessions = (
-                    db.query(self.model)
-                    .filter(ClassSession.id == id)
-                    .filter(ClassSession.group_id == user.group_id)
-                    .first()
-                )
+                return class_sessions.all()
+
         else:  # if user.user_type == settings.UserType.TEACHER.value:
+            # TODO Fix ^^
+            class_sessions = db.query(self.model).filter(
+                ClassSession.instructor.contains(user)
+            )
             if not id:
-                class_sessions = (
-                    db.query(self.model)
-                    .filter(ClassSession.instructor.contains(user))
-                    .all()
-                )
+                return class_sessions.all()
             else:
-                class_sessions = (
-                    db.query(self.model)
-                    .filter(ClassSession.id == id)
-                    .filter(ClassSession.instructor.contains(user))
-                    .first()
-                )
+                return class_sessions.filter(ClassSession.id == id).first()
 
         return class_sessions
 

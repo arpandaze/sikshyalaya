@@ -1,61 +1,61 @@
 from typing import Any, List
 
-from fastapi import APIRouter, Body, Depends, HTTPException
-from fastapi.encoders import jsonable_encoder
-from pydantic.networks import EmailStr
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-import cruds
-import models
-import schemas
 from utils import deps
-from core.config import settings
-from utils.utils import send_new_account_email
+from cruds import crud_teacher_note
+from schemas import TeacherNote, TeacherNoteUpdate, TeacherNoteCreate
 
-from cruds.teacher_note import crud_teacher_note
-from schemas.teacher_note import TeacherNote, TeacherNoteCreate, TeacherNoteUpdate
 
 router = APIRouter()
 
 
-@router.get("/", response_model=List[TeacherNote])
-def get_programs(
-    db: Session = Depends(deps.get_db), *, skip: int = 0, limit: int = 100
+# TODO: Search by student ??
+@router.get("/teacher_note", response_model=List[TeacherNote])
+async def get_teacher_note(
+    user=Depends(deps.get_current_active_teacher),
+    db: Session = Depends(deps.get_db),
+    skip: int = 0,
+    limit: int = 100,
 ) -> Any:
-    # retrieve 100 teacher notes
-    teacher_notes = crud_teacher_note.get_multi(db, skip=skip, limit=limit)
-    return teacher_notes
-
-
-@router.post("/", response_model=TeacherNote)
-def create_program(
-    db: Session = Depends(deps.get_db), *, teacherNote_in: TeacherNoteCreate
-) -> Any:
-    # create a teacher note
-    teacher_note = crud_teacher_note.create(db, obj_in=teacherNote_in)
+    teacher_note = crud_teacher_note.get_user_teacher_note(db, user=user)
     return teacher_note
 
 
-@router.get("/{teachernote_id}", response_model=TeacherNote)
-def get_program(db: Session = Depends(deps.get_db), *, teachernote_id: int) -> Any:
-    # get the teacher note by id
-    teacher_note = crud_teacher_note.get(db, teachernote_id)
-    return teacher_note
-
-
-@router.put("/{teachernote_id}", response_model=TeacherNote)
-def update_program(
+# TODO: Teacher can only post notes on students that are his student
+@router.post("/teacher_note", response_model=TeacherNote)
+async def create_teacher_note(
+    user=Depends(deps.get_current_active_teacher),
     db: Session = Depends(deps.get_db),
     *,
-    teachernote_id: int,
-    teacherNote_update: TeacherNoteUpdate
+    obj_in: TeacherNoteCreate
 ) -> Any:
+    teacher_note = crud_teacher_note.create(db, obj_in=obj_in)
+    return teacher_note
 
-    # get the teacher note by id
-    teacher_note = crud_teacher_note.get(db, teachernote_id)
 
-    # update the teacher note
-    teacher_note = crud_teacher_note.update(
-        db, db_obj=teacher_note, obj_in=teacherNote_update
-    )
+@router.get("/teacher_note/{id}", response_model=TeacherNote)
+async def get_specific_teacher_note(
+    user=Depends(deps.get_current_active_teacher),
+    db: Session = Depends(deps.get_db),
+    *,
+    id: int
+) -> Any:
+    teacher_note = crud_teacher_note.get_user_teacher_note(db=db, user=user, id=id)
+    return teacher_note
+
+
+@router.put("/teacher_note/{id}", response_model=TeacherNote)
+async def update_teacher_note(
+    user=Depends(deps.get_current_active_teacher),
+    db: Session = Depends(deps.get_db),
+    *,
+    id: int,
+    obj_in: TeacherNoteUpdate
+) -> Any:
+    teacher_note = crud_teacher_note.get_user_teacher_note(db=db, user=user, id=id)
+    if not teacher_note:
+        raise HTTPException(status_code=401, detail="Access denied!")
+    teacher_note = crud_teacher_note.update(db, db_obj=teacher_note, obj_in=obj_in)
     return teacher_note
