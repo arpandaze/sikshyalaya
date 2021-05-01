@@ -1,6 +1,7 @@
 from core.db import Base
 from sqlalchemy import Column, Integer, ForeignKey, SmallInteger
 from sqlalchemy.orm import relationship
+from .association_tables import group_course_association_table
 
 
 class Group(Base):
@@ -8,5 +9,8 @@ class Group(Base):
     program_id = Column(Integer, ForeignKey("program.id"))
     program = relationship("Program", backref="groups")
     sem = Column(SmallInteger)
-    # join_year = Column(SmallInteger)
+    course = relationship(
+        "Course", secondary=group_course_association_table, backref="groups"
+    )
+
     __tablename__ = "group"
