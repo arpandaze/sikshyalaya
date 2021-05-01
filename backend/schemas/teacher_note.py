@@ -12,7 +12,8 @@ class TeacherNoteBase(BaseModel):
 
 # properties to recieve via
 class TeacherNoteCreate(TeacherNoteBase):
-    pass
+    student_id: int
+    message: str
 
 
 # properties to recive via API on Update

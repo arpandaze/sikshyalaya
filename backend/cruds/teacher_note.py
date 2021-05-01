@@ -1,5 +1,6 @@
 from cruds.base import CRUDBase
-from schemas.teacher_note import TeacherNoteCreate, TeacherNoteUpdate
+from schemas import TeacherNoteCreate, TeacherNoteUpdate
+from schemas.teacher_note import TeacherNoteBase as TeacherNoteSchema
 from models.teacher_note import TeacherNote
 from typing import Any, List
 
@@ -13,6 +14,10 @@ from core.config import settings
 
 
 class CRUDTeacherNote(CRUDBase[TeacherNote, TeacherNoteCreate, TeacherNoteUpdate]):
+    def create(self, db: Session, *, obj_in: TeacherNoteCreate, user: User):
+        obj_in = TeacherNoteSchema(user_id=user.id, **obj_in)
+        super().create(db=db, obj_in=obj_in)
+
     def get_user_teacher_note(self, db: Session, user: User, id: int = None):
         teacher_notes = db.query(self.model)
         if id:
