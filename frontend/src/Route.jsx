@@ -7,6 +7,7 @@ import Landing from "./views/Landing/Landing";
 import Quiz from "./views/Quiz/Quiz";
 import Profile from "./views/Profile/Profile";
 import TeacherDashboard from "./views/TeacherDashboard/TeacherDashboard";
+import StudentView from "./views/Admin/StudentView";
 
 const Routes = () => {
   return (
@@ -18,6 +19,7 @@ const Routes = () => {
 			<Route path="/landing" component={Landing} />
 			<Route path="/profile" component={Profile} />
 			<Route path="/teacherdashboard" component={TeacherDashboard} />
+			<Route path="/student" component={StudentView} />
 
 			<Redirect exact from="/" to="landing" />
 		</Switch>
