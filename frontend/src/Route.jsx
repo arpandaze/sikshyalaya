@@ -8,9 +8,10 @@ import Quiz from "./views/Quiz/Quiz";
 import Profile from "./views/Profile/Profile";
 import TeacherDashboard from "./views/TeacherDashboard/TeacherDashboard";
 import StudentView from "./views/Admin/StudentView";
+import AdminForm from "./views/Admin/AdminForm";
 
 const Routes = () => {
-  return (
+	return (
 		<Switch>
 			<Route path="/login" component={Login} />
 			<Route path="/dashboard" component={Dashboard} />
@@ -20,10 +21,11 @@ const Routes = () => {
 			<Route path="/profile" component={Profile} />
 			<Route path="/teacherdashboard" component={TeacherDashboard} />
 			<Route path="/student" component={StudentView} />
+			<Route path="/adminForm" component={AdminForm} />
 
 			<Redirect exact from="/" to="landing" />
 		</Switch>
-  );
+	);
 };
 
 export default Routes;
