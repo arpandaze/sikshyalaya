@@ -115,7 +115,7 @@ const sideNotes = [
       "Ten the hastened steepest feelings pleasant few surprise property. An brother he do colonel against minutes uncivil. Can how elinor warmly mrs basket marked. Led raising expense yet demesne weather musical. Me mr what park next busy ever. Elinor her his secure far twenty eat object. Late any far saw size want man. Which way you wrong add shall one. As guest right of he scale these. Horses nearer oh elinor of denote. Up am intention on dependent questions oh elsewhere september. No betrayed pleasure possible jointure we in throwing. And can event rapid any shall woman green. Hope they dear who its bred. Smiling nothing affixed he carried it clothes calling he no. Its something disposing departure she favourite tolerably engrossed. Truth short folly court why she their balls. Excellence put unaffected reasonable mrs introduced conviction she. Nay particular delightful but unpleasant for uncommonly who. ",
   },
 ];
-const Dashboard = () => {
+const Quiz = () => {
   const [typing, setTyping] = useState(false);
   const [selectedNote, setSelectedNote] = useState("0");
   return (
@@ -228,4 +228,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Quiz;
