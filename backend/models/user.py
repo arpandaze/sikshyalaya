@@ -21,7 +21,7 @@ from .association_tables import (
 class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     full_name = Column(String, index=True)
-    email = Column(String, index=True, nullable=False)
+    email = Column(String, index=True, nullable=False, unique=True)
     group_id = Column(Integer, ForeignKey("group.id"))
     group = relationship("Group", backref="users")
     teacher_group = relationship(
