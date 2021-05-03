@@ -14,11 +14,13 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 async def create_sesssion_token(user: User, remember_me: bool) -> str:
     session_token = binascii.hexlify(os.urandom(20)).decode()
-    expire_time = settings.SESSION_EXPIRE_TIME_EXTENDED if remember_me else settings.SESSION_EXPIRE_TIME
-    permissions = list(map(lambda x: x.name, user.permission))
+    expire_time = (
+        settings.SESSION_EXPIRE_TIME_EXTENDED
+        if remember_me
+        else settings.SESSION_EXPIRE_TIME
+    )
     data = {
         session_token: user.id,
-        f"{user.id}_permissions": json.dumps(permissions),
     }
     await redis_session_client.client.mset(data)
     await redis_session_client.client.expire(session_token, expire_time)
