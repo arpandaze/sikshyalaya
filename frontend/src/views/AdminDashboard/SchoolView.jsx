@@ -1,0 +1,121 @@
+import React, { useState } from "react";
+import Button from "../../components/Button";
+import Grid from "@material-ui/core/Grid";
+import colorscheme from "../../utils/colors";
+import DashboardLayout from "../../components/DashboardLayout";
+import NotificationButton from "../../components/NotificationButton";
+import AdminBoxSmall from "../../components/AdminBoxSmall";
+import { GoPlus } from "react-icons/go";
+const styleSheet = {
+  root: {
+    width: "95%",
+    height: "100vh",
+    margin: "0px auto",
+    position: "relative",
+    left: "-20px",
+    flexGrow: "1",
+  },
+  topBar: {
+    width: "1300px",
+    height: "50px",
+    marginTop: "50px",
+  },
+  titleText: {
+    fontSize: "2.3em",
+    fontWeight: "bold",
+  },
+  botBar: {
+    width: "1200px",
+    height: "800px",
+    marginTop: "30px",
+  },
+  notesTextContainer: {
+    cursor: "text",
+  },
+  notesText: {
+    fontWeight: "bold",
+    fontSize: "2.5em",
+    cursor: "text",
+  },
+  plusIcon: {
+    cursor: "pointer",
+    height: "30px",
+  },
+};
+
+const schools = [
+  {
+    id: 1,
+    title: "School of Science",
+    bottomText: "Dr. Kanhaiya Jha",
+    button: true,
+  },
+  {
+    id: 2,
+    title: "School of Engineering",
+    bottomText: "Prof. Manish Pokharel",
+    button: true,
+  },
+  {
+    id: 3,
+    title: "School of Law",
+    bottomText: "Dr. Rishikesh Wagle",
+    button: true,
+  },
+  {
+    id: 4,
+    title: "School of Arts",
+    bottomText: "Dr. Sagar Raj Sharma",
+    button: true,
+  },
+];
+const SchoolView = () => {
+  const [clicked, setClicked] = useState(false);
+  return (
+    <DashboardLayout>
+      <Grid
+        container
+        direction="column"
+        justify="flex-start"
+        alignItems="center"
+        style={styleSheet.root}
+        wrap="nowrap"
+      >
+        <Grid item style={styleSheet.topBar}>
+          <Grid
+            container
+            direction="row"
+            justify="flex-start"
+            alignItems="center"
+          >
+            <Grid xs={11} item style={styleSheet.notesTextContainer}>
+              <a style={styleSheet.notesText}>
+                Computer Science and Engineering
+              </a>
+            </Grid>
+            <Grid xs={1} item style={styleSheet.plusIcon}>
+              <GoPlus size={30} color={colorscheme.green2} />
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item style={styleSheet.botBar}>
+          <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+            spacing={5}
+          >
+            {schools.map((school) => (
+              <Grid item key={school.id} xs={6}>
+                <AdminBoxSmall cardData={school} />
+              </Grid>
+            ))}
+          </Grid>
+        </Grid>
+      </Grid>
+    </DashboardLayout>
+  );
+};
+
+export default SchoolView;

@@ -95,7 +95,7 @@ const styleSheet = {
   },
 };
 
-const Note = ({ title, content, state, ...rest }) => {
+const Note = ({ title, content, state, onClose, onDelete, ...rest }) => {
   return (
     <Grid
       container
@@ -113,7 +113,7 @@ const Note = ({ title, content, state, ...rest }) => {
           </Grid>
           <Grid item xs={1} style={styleSheet.closeButtonContainer}>
             <div style={styleSheet.closeButton}>
-              <ImCross size={20} color={colorscheme.red4} />
+              <ImCross size={20} color={colorscheme.red4} onClick={onClose} />
             </div>
           </Grid>
         </Grid>
@@ -125,7 +125,7 @@ const Note = ({ title, content, state, ...rest }) => {
           </Grid>
           <Grid item style={styleSheet.trashButtonContainer}>
             <div style={styleSheet.trashButton}>
-              <FiTrash size={20} color={colorscheme.red4} />
+              <FiTrash size={20} color={colorscheme.red4} onClick={onDelete} />
             </div>
           </Grid>
         </Grid>
