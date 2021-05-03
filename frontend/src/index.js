@@ -4,9 +4,13 @@ import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { Helmet } from "react-helmet";
 
 ReactDOM.render(
   <BrowserRouter>
+    <Helmet>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </Helmet>
     <App />
   </BrowserRouter>,
   document.getElementById("root")

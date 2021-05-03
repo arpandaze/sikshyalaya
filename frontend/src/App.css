@@ -3,6 +3,7 @@
   width: 6px; /* width of the entire scrollbar */
 }
 ::-webkit-scrollbar-track {
+  background-color: #000000;
   /* color of the tracking area */
 }
 ::-webkit-scrollbar-thumb {

@@ -16,10 +16,8 @@ import { BsCalendar } from "react-icons/bs";
 
 const styleSheet = {
   root: {
-    width: "95%",
     margin: "0px auto",
     position: "relative",
-    left: "-20px",
     flexGrow: "1",
   },
   activeCourseBar: {
@@ -45,6 +43,11 @@ const styleSheet = {
     display: "inline-block",
     position: "relative",
     left: "15px",
+  },
+  upCommingContainer: {
+    height: "480px",
+    overflow: "hidden",
+    overflowY: "scroll  ",
   },
 };
 
@@ -78,6 +81,46 @@ const Landing = () => {
       button: false,
       time: "9:00 am",
     },
+    {
+      id: 2,
+      title: "EEEG 202",
+      titleDescription: "Digital Logic",
+      title2: "Today's Topic",
+      title2Description: "Floating Point Binary Numbers",
+      bottomText: "Prof. Anand Gacchadar",
+      button: false,
+      time: "9:00 am",
+    },
+    {
+      id: 2,
+      title: "EEEG 202",
+      titleDescription: "Digital Logic",
+      title2: "Today's Topic",
+      title2Description: "Floating Point Binary Numbers",
+      bottomText: "Prof. Anand Gacchadar",
+      button: false,
+      time: "9:00 am",
+    },
+    {
+      id: 2,
+      title: "EEEG 202",
+      titleDescription: "Digital Logic",
+      title2: "Today's Topic",
+      title2Description: "Floating Point Binary Numbers",
+      bottomText: "Prof. Anand Gacchadar",
+      button: false,
+      time: "9:00 am",
+    },
+    {
+      id: 2,
+      title: "EEEG 202",
+      titleDescription: "Digital Logic",
+      title2: "Today's Topic",
+      title2Description: "Floating Point Binary Numbers",
+      bottomText: "Prof. Anand Gacchadar",
+      button: false,
+      time: "9:00 am",
+    },
   ];
   return (
     <DashboardLayout>
@@ -87,7 +130,6 @@ const Landing = () => {
         justify="center"
         alignItems="flex-start"
         style={styleSheet.root}
-        spacing={10}
         wrap="nowrap"
       >
         <Grid item style={styleSheet.row}>
@@ -112,6 +154,7 @@ const Landing = () => {
             justify="flex-start"
             alignItems="flex-start"
             spacing={4}
+            style={styleSheet.upCommingContainer}
           >
             {upCommingClasses.map((course) => (
               <Grid item key={course.id}>
