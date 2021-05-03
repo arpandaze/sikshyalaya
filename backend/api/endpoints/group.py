@@ -27,17 +27,13 @@ def get_group(
         group = crud_group.get(db, current_user.group_id)
         return group
 
-    # FIXME: fix this -> add group in course direct?
+    # FIXME: fix this -> add group in course direct? #XXX: Test this
     if current_user.user_type == settings.UserType.TEACHER.value:
-        teacher_courses = current_user.enrolled_course
+        teacher_group = current_user.teacher_group
         group_list = []
-        for course in teacher_courses:
-            teacher_programs = course.department.programs
-            for program in teacher_programs:
-                groups = program.groups
-                for group in groups:
-                    group_get = crud_group.get(db, group.id)
-                    group_list.append(group_get)
+        for group in teacher_group:
+            group_get = crud_group.get(db, group)
+            group_list.append(group_get)
         return group_list
 
     if current_user.user_type <= settings.UserType.ADMIN.value:
