@@ -18,21 +18,21 @@ const styleSheet = {
     width: "100vw",
     maxWidth: "1920px",
     margin: "0px auto",
-    border: "1px solid black",
   },
   sideBar: {
     height: "100vh",
-    border: "1px solid black",
+    borderRight: "1px solid rgba(127,127,127,0.2)",
   },
   mainArea: {
     height: "100vh",
     position: "relative",
-    border: "1px solid black",
+    overflow: "hidden",
+    overflowY: "scroll",
+    borderRight: "1px solid rgba(127,127,127,0.2)",
   },
   profileBar: {
     height: "100vh",
     cursor: "pointer",
-    border: "1px solid black",
   },
 };
 
@@ -43,7 +43,7 @@ const DashboardLayout = ({ children }) => {
         <SideBar />
       </Grid>
       <Grid xs={8} item style={styleSheet.mainArea}>
-        {/* {children} */}
+        {children}
       </Grid>
       <Grid xs={3} item style={styleSheet.profileBar}>
         <ProfileBar />

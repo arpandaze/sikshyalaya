@@ -14,26 +14,26 @@ import NavIcons from "../components/NavIcons";
 
 const useStyles = makeStyles((theme) => ({
   root: { flexGrow: "1" },
-  sideBar: {
-    margin: "0px",
-    height: "100vh",
-    backgroundColor: colorscheme.white,
-    boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
+  sideBar: {},
+  logoContainer: {
+    width: "85%",
+    margin: "20px auto",
   },
   horizontalLine: {
     width: "60px",
     height: "1.5px",
     backgroundColor: colorscheme.grey2,
     opacity: "0.3",
-    marginTop: "3px",
-    marginBottom: "5px",
+    margin: "-10px auto",
   },
-
+  iconContainer: {
+    marginTop: "40px",
+  },
   sidebarLink: {
     textDecoration: "none",
   },
   iconStyle: {
-    marginTop: "30px",
+    marginTop: "20px",
     cursor: "pointer",
   },
 }));
@@ -71,7 +71,7 @@ const SideBar = () => {
         className={classes.sideBar}
         spacing={2}
       >
-        <Grid item>
+        <Grid item className={classes.logoContainer}>
           <Link to="/">
             <Image src={icon} alt={{ icon }} />
           </Link>
@@ -81,8 +81,8 @@ const SideBar = () => {
           container
           item
           direction="column"
-          alignItems="center"
           justify="center"
+          className={classes.iconContainer}
         >
           {sidebarItems.map((item) => (
             <Link to={item.route} className={classes.sidebarLink} key={item.id}>

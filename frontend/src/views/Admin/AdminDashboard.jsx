@@ -11,16 +11,15 @@ const styleSheet = {
     height: "100vh",
     margin: "0px auto",
     position: "relative",
-    left: "-20px",
     flexGrow: "1",
   },
   topBar: {
-    width: "1350px",
+    width: "100%",
     height: "50px",
     marginTop: "50px",
   },
   botBar: {
-    width: "1350px",
+    width: "100%",
     height: "810px",
     marginTop: "20px",
   },

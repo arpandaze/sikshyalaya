@@ -8,15 +8,14 @@ import AdminBoxSmall from "../../components/AdminBoxSmall";
 import { GoPlus } from "react-icons/go";
 const styleSheet = {
   root: {
-    width: "95%",
+    width: "100%",
     height: "100vh",
     margin: "0px auto",
     position: "relative",
-    left: "-20px",
     flexGrow: "1",
   },
   topBar: {
-    width: "1300px",
+    width: "95%",
     height: "50px",
     marginTop: "50px",
   },
@@ -25,7 +24,7 @@ const styleSheet = {
     fontWeight: "bold",
   },
   botBar: {
-    width: "1200px",
+    width: "95%",
     height: "800px",
     marginTop: "30px",
   },

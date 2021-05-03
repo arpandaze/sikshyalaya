@@ -11,7 +11,9 @@ import ProfileBox from "./ProfileBox";
 const styleSheet = {
   root: { flexGrow: "1" },
   profileBar: {},
-  profileBox: {},
+  profileBox: {
+    marginTop: "10%",
+  },
   courseBox: {},
   courseTextTitle: {
     fontSize: "2em",

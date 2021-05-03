@@ -5,7 +5,7 @@ import FancyButton from "./FancyButton";
 
 const styleSheet = {
   container: {
-    width: "400px",
+    width: "360px",
     height: "220px",
     background: colorscheme.white,
     borderRadius: "20px",
