@@ -11,7 +11,6 @@ from api.endpoints import (
     department,
     class_session,
     personal_note,
-    user_permission,
     teacher_note,
 )
 

@@ -12,7 +12,6 @@ services:
         networks:
             - internal
 
-
     postgres:
         image: postgres:13-alpine
         container_name: postgres

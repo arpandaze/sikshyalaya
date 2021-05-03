@@ -21,14 +21,11 @@ from .association_tables import (
 class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     full_name = Column(String, index=True)
-    email = Column(String, index=True, nullable=False)
+    email = Column(String, index=True, nullable=False, unique=True)
     group_id = Column(Integer, ForeignKey("group.id"))
     group = relationship("Group", backref="users")
     teacher_group = relationship(
         "Group", secondary=teacher_group_association_table, backref="teachers"
-    )
-    permission = relationship(
-        "UserPermission", secondary=user_permission_association_table
     )
     dob = Column(DateTime, nullable=False)
     address = Column(String(length=128), nullable=False)

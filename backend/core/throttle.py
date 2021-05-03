@@ -31,11 +31,11 @@ def ip_throttle(rate: int, per: int = 86400) -> Callable:
                 "request"
             ).client.host  # FIXME - Proxy might mess up this. Might need to look X-HTTP-FORWARDED. Works locally
             identifier = f"ip_th_{client_ip}_{func.__name__}"
-            current_count = redis_throttle_client.client.get(identifier)
-            if current_count == None:
-                redis_throttle_client.client.set(identifier, 1, ex=per)
+            current_count = await redis_throttle_client.client.get(identifier)
+            if not current_count:
+                await redis_throttle_client.client.set(identifier, 1, ex=per)
             elif int(current_count.decode("utf-8")) < rate:
-                redis_throttle_client.client.incr(identifier, amount=1)
+                await redis_throttle_client.client.incr(identifier, amount=1)
             else:
                 raise HTTPException(
                     status_code=403, detail="Error ID: 133"
@@ -77,11 +77,11 @@ def user_throttle(rate: int, per: int = 86400) -> Callable:
                 )  # User not logged in!
 
             identifier = f"user_th_{client}_{func.__name__}"
-            current_count = redis_throttle_client.client.get(identifier)
+            current_count = await redis_throttle_client.client.get(identifier)
             if current_count == None:
-                redis_throttle_client.client.set(identifier, 1, ex=per)
+                await redis_throttle_client.client.set(identifier, 1, ex=per)
             elif int(current_count.decode("utf-8")) < rate:
-                redis_throttle_client.client.incr(identifier, amount=1)
+                await redis_throttle_client.client.incr(identifier, amount=1)
             else:
                 raise HTTPException(
                     status_code=403, detail="Error ID: 135"
