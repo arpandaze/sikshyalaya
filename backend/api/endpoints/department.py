@@ -15,7 +15,10 @@ router = APIRouter()
 # get all Departments, can be called by all users (1 through 4)
 @router.get("/", response_model=List[Department])
 def get_department(
-    db: Session = Depends(deps.get_db), skip: int = 0, limit: int = 100
+    db: Session = Depends(deps.get_db),
+    skip: int = 0,
+    limit: int = 100,
+    current_user: User = Depends(deps.get_current_active_user),
 ) -> Any:
     department = crud_department.get_multi(db, skip=skip, limit=limit)
     return department
@@ -27,7 +30,7 @@ def create_department(
     db: Session = Depends(deps.get_db),
     *,
     obj_in: DepartmentUpdate,
-    current_user: User = Depends(deps.get_current_active_user)
+    current_user: User = Depends(deps.get_current_active_user),
 ) -> Any:
     if current_user.user_type > settings.UserType.ADMIN.value:
         raise HTTPException(
@@ -40,7 +43,12 @@ def create_department(
 
 # get a specific department, can be called by all user types (1 through 4)
 @router.get("/{id}", response_model=Department)
-def get_specific_department(db: Session = Depends(deps.get_db), *, id: int) -> Any:
+def get_specific_department(
+    db: Session = Depends(deps.get_db),
+    *,
+    id: int,
+    current_user: User = Depends(deps.get_current_active_user),
+) -> Any:
     department = crud_department.get(db, id)
     return department
 
@@ -52,7 +60,7 @@ def update_department(
     *,
     id: int,
     obj_in: DepartmentUpdate,
-    current_user: User = Depends(deps.get_current_active_user)
+    current_user: User = Depends(deps.get_current_active_user),
 ) -> Any:
     if current_user.user_type > settings.UserType.ADMIN.value:
         raise HTTPException(
