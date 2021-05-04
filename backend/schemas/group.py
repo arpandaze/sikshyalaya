@@ -1,6 +1,7 @@
 from typing import Optional, List  # noqa
 
 from pydantic import BaseModel
+from .course import Course
 
 
 class GroupBase(BaseModel):
@@ -29,4 +30,4 @@ class GroupInDB(GroupInDBBase):
 
 
 class Group(GroupInDBBase):
-    pass
+    course: List[Course]
