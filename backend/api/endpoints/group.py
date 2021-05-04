@@ -27,14 +27,9 @@ def get_group(
         group = crud_group.get(db, current_user.group_id)
         return group
 
-    # FIXME: fix this -> add group in course direct? #XXX: Test this
+    # FIXME: schema sanga milaunu parcha
     if current_user.user_type == settings.UserType.TEACHER.value:
-        teacher_group = current_user.teacher_group
-        group_list = []
-        for group in teacher_group:
-            group_get = crud_group.get(db, group)
-            group_list.append(group_get)
-        return group_list
+        return current_user.teacher_group
 
     if current_user.user_type <= settings.UserType.ADMIN.value:
         group = crud_group.get_multi(db, skip=skip, limit=limit)
@@ -83,8 +78,7 @@ def get_specific_group(
             )  # user has no authorization to access this group
 
     if current_user.user_type == settings.UserType.TEACHER.value:
-        group_list = get_group(db, current_user=current_user)
-        for group in group_list:
+        for group in current_user.teacher_group:
             if group.id == id:
                 return group
         raise HTTPException(
