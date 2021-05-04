@@ -13,38 +13,36 @@ import ProfileBar from "../components/ProfileBar";
 import Dashboard from "../views/Dashboard/Dashboard";
 
 const styleSheet = {
-  root: { flexGrow: "1" },
+  mainRoot: {
+    flexGrow: "1",
+    width: "100vw",
+    maxWidth: "1920px",
+    margin: "0px auto",
+  },
   sideBar: {
-    width: "70px",
-    position: "fixed",
+    height: "100vh",
+    borderRight: "1px solid rgba(127,127,127,0.2)",
   },
   mainArea: {
     height: "100vh",
     position: "relative",
-    left: "60px",
+    overflow: "hidden",
+    overflowY: "scroll",
   },
   profileBar: {
     height: "100vh",
     cursor: "pointer",
-    position: "relative",
-    left: "-40px",
+    borderLeft: "1px solid rgba(127,127,127,0.2)",
   },
 };
 
 const DashboardLayout = ({ children }) => {
   return (
-    <Grid
-      container
-      direction="row"
-      justify="flex-start"
-      alignItems="center"
-      style={styleSheet.root}
-      wrap="nowrap"
-    >
-      <Grid item style={styleSheet.sideBar}>
+    <Grid container direction="row" style={styleSheet.mainRoot}>
+      <Grid xs={1} item style={styleSheet.sideBar}>
         <SideBar />
       </Grid>
-      <Grid xs={9} item style={styleSheet.mainArea}>
+      <Grid xs={8} item style={styleSheet.mainArea}>
         {children}
       </Grid>
       <Grid xs={3} item style={styleSheet.profileBar}>

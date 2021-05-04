@@ -1,80 +1,14 @@
 import React, { useState } from "react";
-import { Formik, Field, Form } from "formik";
-import { Route, Switch, Redirect } from "react-router-dom";
-import Button from "../../components/Button";
-import * as yup from "yup";
-import Tab from "../../components/Tab";
 import Grid from "@material-ui/core/Grid";
-import Image from "../../components/Image";
-import profile from "../../assets/pp.jpg";
-import SideBar from "../../components/SideBar";
 import colorscheme from "../../utils/colors";
-import ProfileBar from "../../components/ProfileBar";
 import DashboardLayout from "../../components/DashboardLayout";
 import Note from "../../components/Note";
 import SideNotes from "../../components/SideNotes";
 import { GoPlus } from "react-icons/go";
 import { BiSquare } from "react-icons/bi";
 import { CgMenuGridR } from "react-icons/cg";
+import "./statics/css/Notes.css";
 
-const styleSheet = {
-  root: {
-    width: "95%",
-    margin: "0px auto",
-    position: "relative",
-    left: "-20px",
-    flexGrow: "1",
-  },
-  noteCreator: {
-    height: "94vh",
-  },
-  noteCreatorTop: {
-    width: "400px",
-  },
-  noteCreatorBot: {
-    position: "relative",
-    height: "86vh",
-    top: "15px",
-    overflow: "scroll",
-    overflowX: "hidden",
-  },
-  notePad: {
-    height: "100vh",
-  },
-  sideNoteContainer: {},
-  sideNotes: {
-    padding: "10px",
-  },
-  notesTextContainer: {
-    cursor: "text",
-  },
-  notesText: {
-    fontWeight: "bold",
-    fontSize: "2.5em",
-    cursor: "text",
-  },
-  notePadTop: {
-    width: "86%",
-  },
-  notePadArea: {
-    marginTop: "10px",
-  },
-  notePadBot: {},
-  notePadContainer: {
-    position: "relative",
-    top: "5%",
-  },
-  noteCreatorTopInside: {},
-  plusIcon: {
-    cursor: "pointer",
-    height: "30px",
-  },
-  gridIconsContainer: {
-    width: "70px",
-    cursor: "pointer",
-    float: "right",
-  },
-};
 const typing = true;
 
 const sideNotes = [
@@ -125,40 +59,29 @@ const Dashboard = () => {
         direction="row"
         justify="flex-start"
         alignItems="center"
-        style={styleSheet.root}
+        className="root"
       >
-        <Grid item xs={4} style={styleSheet.noteCreator}>
+        <Grid item xs={4} className="noteCreator">
           <Grid
             container
             direction="column"
             justify="flex-start"
             alignItems="center"
           >
-            <Grid item style={styleSheet.noteCreatorTop}>
-              <Grid
-                container
-                direction="row"
-                alignItems="center"
-                justify="center"
-                style={styleSheet.noteCreatorTopInside}
-              >
-                <Grid xs={11} item style={styleSheet.notesTextContainer}>
-                  <a style={styleSheet.notesText}>Notes</a>
+            <Grid item className="noteCreatorTop">
+              <Grid container direction="row" className="noteCreatorTopInside">
+                <Grid xs item className="notesTextContainer">
+                  <a className="notesText">Notes</a>
                 </Grid>
-                <Grid xs={1} item style={styleSheet.plusIcon}>
+                <Grid xs={1} item className="plusIcon">
                   <GoPlus size={30} color={colorscheme.green2} />
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item style={styleSheet.noteCreatorBot}>
-              <Grid
-                container
-                direction="column"
-                justify="flex-start"
-                style={styleSheet.sideNoteContainer}
-              >
+            <Grid item className="noteCreatorBot">
+              <Grid container direction="column" className="sideNoteContainer">
                 {sideNotes.map((notes, index) => (
-                  <Grid item key={notes.id} style={styleSheet.sideNotes}>
+                  <Grid item key={notes.id} className="sideNotes">
                     <SideNotes
                       title={notes.title}
                       content={notes.content}
@@ -172,20 +95,20 @@ const Dashboard = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={8} style={styleSheet.notePad}>
+        <Grid item xs={8} className="notePad">
           <Grid
             container
             direction="column"
             alignItems="center"
-            style={styleSheet.notePadContainer}
+            className="notePadContainer"
           >
-            <Grid item style={styleSheet.notePadTop}>
+            <Grid item className="notePadTop">
               <Grid
                 container
                 direction="row"
                 justify="flex-end"
                 alignItems="center"
-                style={styleSheet.gridIconsContainer}
+                className="gridIconsContainer"
               >
                 <Grid item>
                   <BiSquare size={30} color={colorscheme.grey1} />
@@ -195,13 +118,13 @@ const Dashboard = () => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item style={styleSheet.notePadBot}>
+            <Grid item className="notePadBot">
               <Grid
                 container
                 direction="column"
                 justify="center"
                 alignItems="flex-start"
-                style={styleSheet.notePadArea}
+                className="notePadArea"
               >
                 {selectedNote && sideNotes.length != 0 ? (
                   <Note

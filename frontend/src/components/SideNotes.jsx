@@ -17,7 +17,7 @@ import { FiTrash } from "react-icons/fi";
 const styleSheet = {
   root: {
     flexGrow: "1",
-    width: "400px",
+    width: "350px",
     height: "220px",
     background: colorscheme.white,
     borderRadius: "20px",

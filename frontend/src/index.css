@@ -2,15 +2,14 @@
   font-family: '';
   src: local(''), url(./fonts/Rajdhani/Rajdhani-Regular.ttf) format('truetype');
 } */
-* {
-  margin: 0px;
-}
 
 body {
+  padding: 0;
   margin: 0;
   font-family: "Segoe UI";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f2f5f9;
+  background-color: #ffffff;
   height: 100vh;
+  overflow: hidden;
 }

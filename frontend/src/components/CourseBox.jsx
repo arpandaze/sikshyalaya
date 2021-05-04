@@ -7,46 +7,51 @@ import Image from "./Image";
 import profile from "../assets/pp.jpg";
 
 const styleSheet = {
-  courseBox: {
+  container: {
     width: "85%",
-    height: "62vh",
-    position: "relative",
-    top: "11vh",
     borderRadius: "25px",
+    height: "63vh",
+    maxHeight: "630px",
+    position: "relative",
+    top: "50px",
+    margin: "0px auto",
     background: colorscheme.white,
     boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
   },
-
   courseTextTitle: {
     fontSize: "2em",
+    height: "2em",
     fontWeight: "bold",
     position: "relative",
-    top: "25px",
-    left: "40px",
+    top: "15px",
+    left: "30px",
   },
   courseDetailBoxContainer: {
+    width: "100%",
+    height: "10%",
     position: "relative",
-    top: "40px",
   },
   courseDetailBox: {
     height: "3.4vw",
     padding: "2px",
   },
   courseTextCode: {
+    width: "85%",
     fontSize: "1.4em",
     fontWeight: "bold",
     position: "relative",
-    top: "20px",
-    left: "40px",
+    top: "10px",
+    left: "30px",
     lineHeight: "0.95em",
     listStyleType: "none",
   },
   courseTextCodeSelected: {
+    width: "85%",
     fontSize: "1.4em",
     fontWeight: "bold",
     position: "relative",
-    top: "20px",
-    left: "40px",
+    top: "10px",
+    left: "30px",
     lineHeight: "0.95em",
     listStyleType: "none",
     color: colorscheme.red4,
@@ -63,34 +68,36 @@ const styleSheet = {
     fontWeight: "400",
     position: "absolute",
     top: "15px",
-    right: "80px",
+    right: "10px",
     listStyleType: "none",
     color: colorscheme.grey1,
   },
 };
 const CourseBox = ({ courseList, selected, ...rest }) => {
   return (
-    <>
-      <p style={styleSheet.courseTextTitle}>Your Courses</p>
-      {courseList.map((course) => (
-        <div style={styleSheet.courseDetailBoxContainer}>
-          <div style={styleSheet.courseDetailBox}>
-            <li
-              key={course.sn}
-              style={
-                selected == course.sn
-                  ? styleSheet.courseTextCodeSelected
-                  : styleSheet.courseTextCode
-              }
-            >
-              {course.code} <br></br>
-              <a style={styleSheet.courseTextName}>{course.name}</a>
-              <a style={styleSheet.courseTextCredit}>{course.credit}</a>
-            </li>
+    <div style={styleSheet.root}>
+      <Grid container style={styleSheet.container}>
+        <a style={styleSheet.courseTextTitle}>Your Courses</a>
+        {courseList.map((course) => (
+          <div style={styleSheet.courseDetailBoxContainer}>
+            <div style={styleSheet.courseDetailBox}>
+              <li
+                key={course.sn}
+                style={
+                  selected == course.sn
+                    ? styleSheet.courseTextCodeSelected
+                    : styleSheet.courseTextCode
+                }
+              >
+                {course.code} <br></br>
+                <a style={styleSheet.courseTextName}>{course.name}</a>
+                <a style={styleSheet.courseTextCredit}>{course.credit}</a>
+              </li>
+            </div>
           </div>
-        </div>
-      ))}
-    </>
+        ))}
+      </Grid>
+    </div>
   );
 };
 

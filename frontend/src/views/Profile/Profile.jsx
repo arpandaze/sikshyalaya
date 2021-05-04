@@ -11,11 +11,10 @@ import DashboardLayout from "../../components/DashboardLayout";
 
 const styleSheet = {
   root: {
-    width: "95%",
+    width: "100%",
     height: "100vh",
     margin: "0px auto",
     position: "relative",
-    left: "-20px",
     flexGrow: "1",
   },
   longInputButton: {

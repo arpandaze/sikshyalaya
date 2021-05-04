@@ -1,77 +1,11 @@
 import React, { useState } from "react";
-import { Formik, Field, Form } from "formik";
-import Button from "../../components/Button";
-import colorscheme from "../../utils/colors";
-import * as yup from "yup";
 import Tab from "../../components/Tab";
 import StudentLoginBox from "./StudentLoginBox";
 import TeacherLoginBox from "./TeacherLoginBox";
 import Grid from "@material-ui/core/Grid";
 import logo from "../../assets/logo.png";
 import Image from "../../components/Image";
-
-const styleSheet = {
-	root: {
-		flexGrow: "1",
-	},
-	logoBox: {
-		width: "200px",
-		position: "absolute",
-		top: "50px",
-		left: "150px",
-	},
-	copyrightText: {
-		width: "250px",
-		position: "absolute",
-		left: "150px",
-		bottom: "20px",
-		fontSize: "0.8em",
-	},
-	loginBoxContainer: {
-		minHeight: "100vh",
-	},
-	loginBox: {
-		width: "450px",
-		height: "600px",
-	},
-	loginLabel: {
-		fontWeight: "normal",
-		fontSize: "2.2em",
-	},
-	tabs: {
-		display: "flex",
-	},
-	loginButton: {
-		width: "400px",
-		height: "65px",
-		backgroundColor: colorscheme.red4,
-		color: colorscheme.white,
-		borderRadius: "15px",
-		fontSize: "1.2em",
-	},
-	guestButton: {
-		width: "400px",
-		height: "65px",
-		backgroundColor: colorscheme.black,
-		color: colorscheme.white,
-		borderRadius: "15px",
-		fontSize: "1.2em",
-	},
-	inputButton: {
-		outline: "none",
-		border: "none",
-		borderBottom: "2px solid " + colorscheme.grey1,
-		fontSize: "1.2em",
-		background: "transparent",
-	},
-	inputLabel: { fontSize: "1.2em" },
-	lineVertical: {
-		width: "1px",
-		height: "30px",
-		backgroundColor: colorscheme.grey2,
-		margin: "0px auto",
-	},
-};
+import "./statics/css/login.css";
 
 const Login = () => {
 	const [active, setActive] = useState(0);
@@ -81,7 +15,7 @@ const Login = () => {
 			direction="row"
 			justify="center"
 			alignItems="center"
-			style={styleSheet.root}
+			className="root"
 		>
 			<Grid item sm={4}>
 				<Grid
@@ -91,10 +25,10 @@ const Login = () => {
 					alignItems="center"
 					spacing={0}
 				>
-					<Grid item style={styleSheet.logoBox}>
+					<Grid item className="logoBox">
 						<Image src={logo} alt={{ logo }} />
 					</Grid>
-					<Grid container item style={styleSheet.copyrightText}>
+					<Grid container item className="copyrightText">
 						<a>©2021 Sikshyalaya</a>
 					</Grid>
 				</Grid>
@@ -105,9 +39,9 @@ const Login = () => {
 					direction="column"
 					justify="center"
 					alignItems="center"
-					style={styleSheet.loginBoxContainer}
+					className="loginBoxContainer"
 				>
-					<Grid item style={styleSheet.loginBox}>
+					<Grid item className="loginBox">
 						<Grid
 							container
 							direction="row"
@@ -125,7 +59,7 @@ const Login = () => {
 							</Grid>
 
 							<Grid item>
-								<div style={styleSheet.lineVertical}></div>
+								<div className="lineVertical"></div>
 							</Grid>
 							<Grid item>
 								<Tab
@@ -145,7 +79,7 @@ const Login = () => {
 							alignItems="center"
 						>
 							<Grid item>
-								<h1 style={styleSheet.loginLabel}>Login</h1>
+								<h1 className="loginLabel">Login</h1>
 							</Grid>
 						</Grid>
 
