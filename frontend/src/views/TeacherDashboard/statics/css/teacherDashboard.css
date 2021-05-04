@@ -1,0 +1,140 @@
+@import "../../../../utils/colors.css";
+
+.root {
+  width: 95%;
+  height: 100vh;
+  margin: 0px auto !important;
+  position: relative;
+  flex-grow: 1;
+}
+.classQuestionText {
+  position: relative;
+  font-weight: bold;
+  font-size: 2.5em;
+  cursor: text;
+  position: relative !important;
+  left: 500px !important;
+}
+.topBar {
+  width: 100%;
+  height: 50px;
+  margin-top: 50px !important;
+}
+.botBar {
+  width: 100%;
+  height: 810px;
+  margin-top: 20px !important;
+}
+.leftContainer {
+  height: 810px;
+}
+.activeClassBoxContainer {
+  width: 400px;
+  height: 250px;
+  background: var(--white);
+  border-radius: 15px;
+  box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);
+}
+.classResourcesBoxContainer {
+  width: 400px;
+  height: 510px;
+  margin-top: 40px !important;
+  background: var(--white);
+  border-radius: 15px;
+  box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);
+}
+.questionsContainer {
+  padding: 20px;
+  width: 850px;
+  height: 800px;
+  margin: 0px auto;
+  border-radius: 15px;
+  overflow: auto;
+  overflow-x: hidden;
+}
+.activeContainer {
+  width: 400px;
+  height: 250px;
+  background: var(--white);
+  border-radius: 15px;
+  box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);
+}
+.quizBoxContainer {
+  width: 400px;
+  height: 250px;
+  background: var(--white);
+  border-radius: 15px;
+  margin-top: 25px !important;
+  box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);
+}
+.classResourceContainer {
+  width: 400px;
+  height: 250px;
+  background: var(--white);
+  border-radius: 15px;
+  margin-top: 25px !important;
+  box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);
+}
+.activeclassText {
+  height: 100%;
+  position: relative;
+  font-weight: 500;
+  font-size: 1.5em;
+  cursor: text;
+  margin-left: 10px !important;
+}
+.sideBoxIcons {
+  margin-left: 20px;
+  margin-top: 20px;
+}
+.classText {
+  height: 100%;
+  float: left;
+  margin-top: 30px !important;
+  margin-left: 30px !important;
+  position: relative;
+  font-weight: bold;
+  font-size: 3.2em;
+  cursor: text;
+}
+.classTextInner {
+  height: 100%;
+  float: left;
+  margin-top: 10px !important;
+  margin-left: 30px !important;
+  position: relative;
+  font-weight: 500;
+  color: var(--grey2);
+  font-size: 0.9em;
+  cursor: text;
+  word-wrap: normal;
+  overflow: hidden;
+}
+.batchText {
+  position: relative;
+  float: right;
+  font-size: 1.5em;
+  font-weight: 10;
+  color: var(--green3);
+  margin-right: 40px !important;
+  margin-top: 20px !important;
+}
+.smallRedBox {
+  margin-left: 20px !important;
+  margin-top: 20px !important;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--red4);
+}
+.quizText {
+  margin-left: 10px !important;
+  font-weight: 500;
+  font-size: 1.5em;
+}
+.rescourcesText {
+  margin-left: 10px !important;
+  font-weight: 500;
+  font-size: 1.5em;
+}

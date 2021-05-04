@@ -16,152 +16,8 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 import { RiQuestionAnswerLine } from "react-icons/ri";
 import { GiBookshelf } from "react-icons/gi";
 import NotificationButton from "../../components/NotificationButton";
+import "./statics/css/teacherDashboard.css";
 
-const styleSheet = {
-  root: {
-    width: "95%",
-    height: "100vh",
-    margin: "0px auto",
-    position: "relative",
-    left: "-20px",
-    flexGrow: "1",
-  },
-
-  classQuestionText: {
-    position: "relative",
-    fontWeight: "bold",
-    fontSize: "2.5em",
-    cursor: "text",
-    position: "relative",
-    left: "500px",
-  },
-
-  topBar: {
-    width: "1350px",
-    height: "50px",
-    marginTop: "50px",
-  },
-  botBar: {
-    width: "1350px",
-    height: "810px",
-    marginTop: "20px",
-  },
-  leftContainer: {
-    height: "810px",
-  },
-
-  activeClassBoxContainer: {
-    width: "400px",
-    height: "250px",
-    background: colorscheme.white,
-    borderRadius: "15px",
-    boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
-  },
-  classResourcesBoxContainer: {
-    width: "400px",
-    height: "510px",
-    marginTop: "40px",
-    background: colorscheme.white,
-    borderRadius: "15px",
-    boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
-  },
-  questionsContainer: {
-    padding: "20px",
-    width: "850px",
-    height: "800px",
-    margin: "0px auto",
-    borderRadius: "15px",
-    overflow: "auto",
-    overflowX: "hidden",
-  },
-  activeContainer: {
-    width: "400px",
-    height: "250px",
-    background: colorscheme.white,
-    borderRadius: "15px",
-    boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
-  },
-  quizBoxContainer: {
-    width: "400px",
-    height: "250px",
-    background: colorscheme.white,
-    borderRadius: "15px",
-    marginTop: "25px",
-    boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
-  },
-  classResourceContainer: {
-    width: "400px",
-    height: "250px",
-    background: colorscheme.white,
-    borderRadius: "15px",
-    marginTop: "25px",
-    boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
-  },
-
-  activeclassText: {
-    height: "100%",
-    position: "relative",
-    fontWeight: "500",
-    fontSize: "1.5em",
-    cursor: "text",
-    marginLeft: "10px",
-  },
-  classText: {
-    height: "100%",
-    float: "left",
-    marginTop: "30px",
-    marginLeft: "30px",
-    position: "relative",
-    fontWeight: "bold",
-    fontSize: "3.2em",
-    cursor: "text",
-  },
-  classTextInner: {
-    height: "100%",
-    float: "left",
-    marginTop: "10px",
-    marginLeft: "30px",
-    position: "relative",
-    fontWeight: "500",
-    color: colorscheme.grey2,
-    fontSize: "0.9em",
-    cursor: "text",
-    wordwrap: "normal",
-    overflow: "hidden",
-  },
-  batchText: {
-    position: "relative",
-    float: "right",
-    fontSize: "1.5em",
-    fontWeight: "10",
-    color: colorscheme.green3,
-    marginRight: "40px",
-    marginTop: "20px",
-  },
-  sideBoxIcons: {
-    marginLeft: "20px",
-    marginTop: "20px",
-  },
-  smallRedBox: {
-    marginLeft: "20px",
-    marginTop: "20px",
-    display: "inline-block",
-    width: "20px",
-    height: "20px",
-    borderRadius: "50%",
-    background: colorscheme.red4,
-  },
-  quizText: {
-    marginLeft: "10px",
-    fontWeight: "500",
-    fontSize: "1.5em",
-  },
-  rescourcesText: {
-    marginLeft: "10px",
-    fontWeight: "500",
-    fontSize: "1.5em",
-  },
-};
 const activeClass = [
   {
     id: "1",
@@ -230,83 +86,70 @@ const TeacherDashboard = () => {
         direction="column"
         justify="flex-start"
         alignItems="center"
-        style={styleSheet.root}
         wrap="nowrap"
+        className="root"
       >
-        <Grid item style={styleSheet.topBar}>
-          <a style={styleSheet.classQuestionText}>Class Questions</a>
+        <Grid item className="topBar">
+          <a className="classQuestionText">Class Questions</a>
           <NotificationButton />
         </Grid>
-        <Grid item style={styleSheet.botBar}>
+        <Grid item className="botBar">
           <Grid container direction="row" justify="center" alignItems="center">
-            <Grid item style={styleSheet.leftContainer} xs={4}>
+            <Grid item className="leftContainer" xs={4}>
               <Grid
                 container
                 direction="column"
                 justify="center"
                 alignItems="center"
-                style={styleSheet.xdd}
               >
-                <Grid
-                  container
-                  direction="column"
-                  justify="center"
-                  alignItems="center"
-                  style={styleSheet.xdd}
-                >
-                  <Grid item style={styleSheet.activeContainer}>
-                    <Grid
-                      container
-                      direction="column"
-                      justify="flex-start"
-                      alignitems="center"
-                      wrap="nowrap"
-                    >
-                      <Grid item xs={12}>
-                        <div style={styleSheet.smallRedBox}></div>
-                        <a style={styleSheet.activeclassText}>Active class</a>
-                      </Grid>
-                      <Grid item xs={12}>
-                        <a style={styleSheet.classText}>
-                          {activeClass[0].classCode}
-                        </a>
-                      </Grid>
-                      <Grid item xs={12}>
-                        <a style={styleSheet.classTextInner}>
-                          {activeClass[0].className}
-                        </a>
-                      </Grid>
-                      <Grid item xs={12}>
-                        <a style={styleSheet.batchText}>
-                          {activeClass[0].batch}
-                        </a>
-                      </Grid>
+                <Grid item className="activeContainer">
+                  <Grid
+                    container
+                    direction="column"
+                    justify="flex-start"
+                    alignitems="center"
+                    wrap="nowrap"
+                  >
+                    <Grid item xs={12}>
+                      <div className="smallRedBox"></div>
+                      <a className="activeclassText">Active class</a>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <a className="classText">{activeClass[0].classCode}</a>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <a className="classTextInner">
+                        {activeClass[0].className}
+                      </a>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <a className="batchText">{activeClass[0].batch}</a>
                     </Grid>
                   </Grid>
-                  <Grid item style={styleSheet.quizBoxContainer}>
-                    <Grid item>
-                      <RiQuestionAnswerLine
-                        size={25}
-                        color={colorscheme.grey1}
-                        style={styleSheet.sideBoxIcons}
-                      />
-                      <a style={styleSheet.quizText}>Quizzes</a>
-                    </Grid>
+                </Grid>
+                <Grid item className="quizBoxContainer">
+                  <Grid item>
+                    <RiQuestionAnswerLine
+                      size={25}
+                      color={colorscheme.grey1}
+                      className="sideBoxIcons"
+                    />
+                    <a className="quizText">Quizzes</a>
                   </Grid>
-                  <Grid item style={styleSheet.classResourceContainer}>
-                    <Grid item>
-                      <GiBookshelf
-                        size={25}
-                        color={colorscheme.grey1}
-                        style={styleSheet.sideBoxIcons}
-                      />
-                      <a style={styleSheet.rescourcesText}>Resources</a>
-                    </Grid>
+                </Grid>
+                <Grid item className="classResourceContainer">
+                  <Grid item>
+                    <GiBookshelf
+                      size={25}
+                      color={colorscheme.grey1}
+                      className="sideBoxIcons"
+                    />
+                    <a className="rescourcesText">Resources</a>
                   </Grid>
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item style={styleSheet.questionsContainer}>
+            <Grid item className="questionsContainer" xs={8}>
               <Grid container direction="column" justify="flex-start">
                 {questions.map((quest) => (
                   <Grid>

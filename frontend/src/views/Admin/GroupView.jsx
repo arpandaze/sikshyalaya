@@ -6,6 +6,7 @@ import DashboardLayout from "../../components/DashboardLayout";
 import NotificationButton from "../../components/NotificationButton";
 import AdminBoxSmall from "../../components/AdminBoxSmall";
 import { GoPlus } from "react-icons/go";
+import "./statics/css/commonView.css";
 const styleSheet = {
   root: {
     width: "100%",
@@ -77,27 +78,25 @@ const DepartmentView = () => {
         direction="column"
         justify="flex-start"
         alignItems="center"
-        style={styleSheet.root}
+        className="root"
         wrap="nowrap"
       >
-        <Grid item style={styleSheet.topBar}>
+        <Grid item className="topBar">
           <Grid
             container
             direction="row"
             justify="flex-start"
             alignItems="center"
           >
-            <Grid xs={11} item style={styleSheet.notesTextContainer}>
-              <a style={styleSheet.notesText}>
-                Computer Science and Engineering
-              </a>
+            <Grid xs={11} item className="notesTextContainer">
+              <a className="notesText">Computer Science and Engineering</a>
             </Grid>
-            <Grid xs={1} item style={styleSheet.plusIcon}>
+            <Grid xs={1} item className="plusIcon">
               <GoPlus size={30} color={colorscheme.green2} />
             </Grid>
           </Grid>
         </Grid>
-        <Grid item style={styleSheet.botBar}>
+        <Grid item className="botBar">
           <Grid
             container
             direction="row"

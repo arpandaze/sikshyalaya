@@ -13,7 +13,7 @@ import ProfileBar from "../components/ProfileBar";
 import Dashboard from "../views/Dashboard/Dashboard";
 
 const styleSheet = {
-  root: {
+  mainRoot: {
     flexGrow: "1",
     width: "100vw",
     maxWidth: "1920px",
@@ -38,7 +38,7 @@ const styleSheet = {
 
 const DashboardLayout = ({ children }) => {
   return (
-    <Grid container direction="row" style={styleSheet.root}>
+    <Grid container direction="row" style={styleSheet.mainRoot}>
       <Grid xs={1} item style={styleSheet.sideBar}>
         <SideBar />
       </Grid>

@@ -1,0 +1,39 @@
+@import "../../../../utils/colors.css";
+.root {
+  width: 95% !important;
+  height: 100vh;
+  margin: 0px auto !important;
+  position: relative !important;
+  flex-grow: 1;
+}
+.topBar {
+  width: 100%;
+  margin-top: 50px !important;
+}
+.botBar {
+  width: 100%;
+  height: 810px;
+  margin-top: 30px !important;
+}
+.mainContainer {
+  width: 100%;
+}
+.innerContainer {
+  width: 95% !important;
+  height: 780px;
+  margin: 0px auto !important;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+.departText {
+  font-weight: bold;
+  font-size: 3em;
+  float: left;
+  margin-left: 40px;
+}
+.plusIcon {
+  float: right;
+  margin-right: 100px !important;
+  margin-top: 10px !important;
+  cursor: pointer;
+}
