@@ -1,10 +1,6 @@
-import React, { useState } from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import React from "react";
 import colorscheme from "../utils/colors";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import Image from "./Image";
-import profile from "../assets/pp.jpg";
 
 const styleSheet = {
   container: {
@@ -90,8 +86,8 @@ const CourseBox = ({ courseList, selected, ...rest }) => {
                 }
               >
                 {course.code} <br></br>
-                <a style={styleSheet.courseTextName}>{course.name}</a>
-                <a style={styleSheet.courseTextCredit}>{course.credit}</a>
+                <p style={styleSheet.courseTextName}>{course.name}</p>
+                <p style={styleSheet.courseTextCredit}>{course.credit}</p>
               </li>
             </div>
           </div>

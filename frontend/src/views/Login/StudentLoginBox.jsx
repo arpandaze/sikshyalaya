@@ -6,106 +6,102 @@ import "./statics/css/studentLoginBox.css";
 
 import React from "react";
 
-
 const validationSchema = yup.object({
-	email: yup
-		.string("Enter your email")
-		.email("Enter a valid email")
-		.required("Email is required"),
-	password: yup
-		.string("Enter your password")
-		.min(4, "Minimum 4 characters")
-		.required("Password is required"),
+  email: yup
+    .string("Enter your email")
+    .email("Enter a valid email")
+    .required("Email is required"),
+  password: yup
+    .string("Enter your password")
+    .min(4, "Minimum 4 characters")
+    .required("Password is required"),
 });
 const StudentLoginBox = () => {
-	return (
-		<Grid
-			container
-			direction="column"
-			justify="center"
-			alignItems="center"
-			className="loginBoxContainer"
-		>
-			<Grid item>
-				<Formik
-					initialValues={{
-						email: "",
-						password: "",
-					}}
-					validationSchema={validationSchema}
-					//   onSubmit={async (values) => {
-					//     await new Promise((r) => setTimeout(r, 500));
-					//     alert(JSON.stringify(values, null, 2));
-					//   }}
-				>
-					<Form>
-						<Grid
-							container
-							spacing={5}
-							direction="column"
-							justify="center"
-							alignItems="center"
-						>
-							<Grid item spacing={10}>
-								<Field
-									id="email"
-									name="email"
-									placeholder="Email"
-									className="inputButton"
-								/>
-							</Grid>
+  return (
+    <Grid
+      container
+      direction="column"
+      justify="center"
+      alignItems="center"
+      className="loginBoxContainer"
+    >
+      <Grid item>
+        <Formik
+          initialValues={{
+            email: "",
+            password: "",
+          }}
+          validationSchema={validationSchema}
+          //   onSubmit={async (values) => {
+          //     await new Promise((r) => setTimeout(r, 500));
+          //     alert(JSON.stringify(values, null, 2));
+          //   }}
+        >
+          <Form>
+            <Grid
+              container
+              spacing={5}
+              direction="column"
+              justify="center"
+              alignItems="center"
+            >
+              <Grid item spacing={10}>
+                <Field
+                  id="email"
+                  name="email"
+                  placeholder="Email"
+                  className="inputButton"
+                />
+              </Grid>
 
-							<Grid item spacing={10}>
-								<Field
-									type="password"
-									id="password"
-									name="password"
-									placeholder="Password"
-									className="inputButton"
-								/>
-							</Grid>
-						</Grid>
-						<Grid
-							container
-							spacing={5}
-							direction="column"
-							justify="center"
-							alignItems="center"
-						>
-							<Grid item spacing={10}>
-								<Button name="Login" className="loginButton" />
-							</Grid>
-							<Grid item spacing={10}>
-								<Grid
-									container
-									spacing={2}
-									direction="row"
-									justify="center"
-									alignItems="center"
-								>
-									<Grid item>
-										<div className="line"></div>
-									</Grid>
-									<Grid item>
-										<a style={{ fontSize: "1.2em" }}>or</a>
-									</Grid>
-									<Grid item>
-										<div className="line"></div>
-									</Grid>
-								</Grid>
-							</Grid>
-							<Grid item spacing={10}>
-								<Button
-									name="Conitnue as Guest"
-									className="guestButton"
-								/>
-							</Grid>
-						</Grid>
-					</Form>
-				</Formik>
-			</Grid>
-		</Grid>
-	);
+              <Grid item spacing={10}>
+                <Field
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="Password"
+                  className="inputButton"
+                />
+              </Grid>
+            </Grid>
+            <Grid
+              container
+              spacing={5}
+              direction="column"
+              justify="center"
+              alignItems="center"
+            >
+              <Grid item spacing={10}>
+                <Button name="Login" className="loginButton" />
+              </Grid>
+              <Grid item spacing={10}>
+                <Grid
+                  container
+                  spacing={2}
+                  direction="row"
+                  justify="center"
+                  alignItems="center"
+                >
+                  <Grid item>
+                    <div className="line"></div>
+                  </Grid>
+                  <Grid item>
+                    <p style={{ fontSize: "1.2em" }}>or</p>
+                  </Grid>
+                  <Grid item>
+                    <div className="line"></div>
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item spacing={10}>
+                <Button name="Conitnue as Guest" className="guestButton" />
+              </Grid>
+            </Grid>
+          </Form>
+        </Formik>
+      </Grid>
+    </Grid>
+  );
 };
 
 export default StudentLoginBox;
