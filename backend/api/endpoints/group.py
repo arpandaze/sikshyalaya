@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 from utils import deps
 from cruds import crud_group, crud_department, crud_course
-from schemas import Group, GroupUpdate
+from schemas import Group, GroupUpdate, GroupCreate
 from models import User
 from core import settings
 from fastapi import HTTPException
@@ -37,7 +37,7 @@ def get_group(
 
 
 # create new group, can be done by only admin and super admin
-@router.post("/", response_model=Group)
+@router.post("/", response_model=GroupCreate)
 def create_group(
     db: Session = Depends(deps.get_db),
     *,
@@ -92,7 +92,7 @@ def get_specific_group(
 
 
 # update group, can be called by only the superadmin and admin
-@router.put("/{id}", response_model=Group)
+@router.put("/{id}", response_model=GroupUpdate)
 def update_group(
     db: Session = Depends(deps.get_db),
     *,
