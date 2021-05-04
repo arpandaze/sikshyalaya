@@ -28,11 +28,11 @@ const styleSheet = {
     position: "relative",
     overflow: "hidden",
     overflowY: "scroll",
-    borderRight: "1px solid rgba(127,127,127,0.2)",
   },
   profileBar: {
     height: "100vh",
     cursor: "pointer",
+    borderLeft: "1px solid rgba(127,127,127,0.2)",
   },
 };
 

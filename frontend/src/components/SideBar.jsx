@@ -27,13 +27,13 @@ const useStyles = makeStyles((theme) => ({
     margin: "-10px auto",
   },
   iconContainer: {
-    marginTop: "40px",
+    width: "85%",
+    margin: "40px auto",
   },
   sidebarLink: {
     textDecoration: "none",
   },
   iconStyle: {
-    marginTop: "20px",
     cursor: "pointer",
   },
 }));

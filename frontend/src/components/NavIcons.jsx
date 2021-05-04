@@ -5,6 +5,10 @@ import { Tooltip } from "@material-ui/core";
 import { IconContext } from "react-icons";
 
 const styleSheet = {
+  icons: {
+    position: "relative",
+    left: "-8px",
+  },
   iconStyle: {
     cursor: "pointer",
   },
@@ -20,10 +24,10 @@ const styleSheet = {
   },
   navText: {
     textDecoration: "none",
-    fontSize: "1.2em",
-    lineHeight: "1.4em",
+    fontSize: "1.0em",
+    lineHeight: "1.8em",
     position: "relative",
-    left: "10px",
+    left: "5px",
     color: colorscheme.black,
   },
 };
@@ -35,7 +39,7 @@ const NavIcons = ({ title, path, icon, ...rest }) => {
   return (
     <Tooltip title={title} disableHoverListener={tooltip} placement="right">
       <Grid container direction="row" style={styleSheet.container}>
-        <Grid item>
+        <Grid item style={styleSheet.icons}>
           <div
             {...rest}
             onMouseEnter={() => {
