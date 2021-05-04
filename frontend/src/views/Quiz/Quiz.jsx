@@ -19,21 +19,20 @@ import { CgMenuGridR } from "react-icons/cg";
 
 const styleSheet = {
   root: {
-    width: "95%",
+    width: "98%",
     margin: "0px auto",
     position: "relative",
-    left: "-20px",
     flexGrow: "1",
   },
   noteCreator: {
-    height: "94vh",
+    height: "96vh",
   },
   noteCreatorTop: {
     width: "400px",
   },
   noteCreatorBot: {
+    height: "88vh",
     position: "relative",
-    height: "86vh",
     top: "15px",
     overflow: "scroll",
     overflowX: "hidden",
@@ -55,11 +54,15 @@ const styleSheet = {
   },
   notePadTop: {
     width: "86%",
+    position: "relative",
+    left: "45px",
   },
-  notePadArea: {
-    marginTop: "10px",
+  notePadArea: {},
+  notePadBot: {
+    position: "relative",
+    top: "10px",
+    left: "20px",
   },
-  notePadBot: {},
   notePadContainer: {
     position: "relative",
     top: "5%",
