@@ -8,47 +8,47 @@ import Students from "../../components/Student";
 import { GoPlus } from "react-icons/go";
 
 const styleSheet = {
-  root: {
-    width: "95%",
-    height: "100vh",
-    margin: "0px auto",
-    position: "relative",
-    left: "-20px",
-    flexGrow: "1",
-  },
+	root: {
+		width: "95%",
+		height: "100vh",
+		margin: "0px auto",
+		position: "relative",
+		left: "20px",
+		flexGrow: "1",
+	},
 
-  topBar: {
-    width: "1350px",
-    height: "50px",
-    marginTop: "50px",
-  },
-  botBar: {
-    width: "1350px",
-    height: "810px",
-    marginTop: "20px",
-  },
-  mainContainer: {
-    height: "810px",
-  },
-  innerContainer: {
-    width: "95%",
-    height: "780px",
-    marginLeft: "35px",
-    overflow: "scroll",
-    overflowX: "hidden",
-  },
-  departText: {
-    fontWeight: "bold",
-    fontSize: "3em",
-    float: "left",
-    marginLeft: "40px",
-  },
-  plusIcon: {
-    float: "right",
-    marginRight: "100px",
-    marginTop: "10px",
-    cursor: "pointer",
-  },
+	topBar: {
+		width: "1350px",
+		height: "50px",
+		marginTop: "50px",
+	},
+	botBar: {
+		width: "1350px",
+		height: "810px",
+		marginTop: "20px",
+	},
+	mainContainer: {
+		height: "810px",
+	},
+	innerContainer: {
+		width: "95%",
+		height: "780px",
+		marginLeft: "35px",
+		overflow: "scroll",
+		overflowX: "hidden",
+	},
+	departText: {
+		fontWeight: "bold",
+		fontSize: "3em",
+		float: "left",
+		marginLeft: "40px",
+	},
+	plusIcon: {
+		float: "right",
+		marginRight: "100px",
+		marginTop: "10px",
+		cursor: "pointer",
+	},
 };
 const selectedCLass = [
   {

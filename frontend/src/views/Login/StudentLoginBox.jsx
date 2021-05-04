@@ -1,45 +1,12 @@
 import { Formik, Field, Form } from "formik";
 import Button from "../../components/Button";
-import colorscheme from "../../utils/colors";
 import * as yup from "yup";
 import Grid from "@material-ui/core/Grid";
+import "./statics/css/studentLoginBox.css";
 
 import React from "react";
 
-const styleSheet = {
-	loginButton: {
-		width: "300px",
-		height: "50px",
-		backgroundColor: colorscheme.red4,
-		color: colorscheme.white,
-		borderRadius: "15px",
-		fontSize: "1.2em",
-	},
-	guestButton: {
-		width: "300px",
-		height: "50px",
-		backgroundColor: colorscheme.black,
-		color: colorscheme.white,
-		borderRadius: "15px",
-		fontSize: "1.2em",
-	},
-	inputButton: {
-		outline: "none",
-		border: "none",
-		width: "300px",
-		height: "50px",
-		borderBottom: "1px solid " + colorscheme.grey2,
-		fontSize: "1.3em",
-		background: "transparent",
-	},
-	line: {
-		width: "130px",
-		height: "1px",
-		backgroundColor: colorscheme.grey2,
-		margin: "0px auto",
-	},
-	inputLabel: { fontSize: "1.2em" },
-};
+
 const validationSchema = yup.object({
 	email: yup
 		.string("Enter your email")
@@ -57,7 +24,7 @@ const StudentLoginBox = () => {
 			direction="column"
 			justify="center"
 			alignItems="center"
-			style={styleSheet.loginBoxContainer}
+			className="loginBoxContainer"
 		>
 			<Grid item>
 				<Formik
@@ -84,7 +51,7 @@ const StudentLoginBox = () => {
 									id="email"
 									name="email"
 									placeholder="Email"
-									style={styleSheet.inputButton}
+									className="inputButton"
 								/>
 							</Grid>
 
@@ -94,7 +61,7 @@ const StudentLoginBox = () => {
 									id="password"
 									name="password"
 									placeholder="Password"
-									style={styleSheet.inputButton}
+									className="inputButton"
 								/>
 							</Grid>
 						</Grid>
@@ -106,7 +73,7 @@ const StudentLoginBox = () => {
 							alignItems="center"
 						>
 							<Grid item spacing={10}>
-								<Button name="Login" colorStyles={styleSheet.loginButton} />
+								<Button name="Login" className="loginButton" />
 							</Grid>
 							<Grid item spacing={10}>
 								<Grid
@@ -117,20 +84,20 @@ const StudentLoginBox = () => {
 									alignItems="center"
 								>
 									<Grid item>
-										<div style={styleSheet.line}></div>
+										<div className="line"></div>
 									</Grid>
 									<Grid item>
 										<a style={{ fontSize: "1.2em" }}>or</a>
 									</Grid>
 									<Grid item>
-										<div style={styleSheet.line}></div>
+										<div className="line"></div>
 									</Grid>
 								</Grid>
 							</Grid>
 							<Grid item spacing={10}>
 								<Button
 									name="Conitnue as Guest"
-									colorStyles={styleSheet.guestButton}
+									className="guestButton"
 								/>
 							</Grid>
 						</Grid>

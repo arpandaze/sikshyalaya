@@ -1,0 +1,34 @@
+@import "../../../../utils/colors.css";
+
+	.loginButton {
+		width: 300px;
+		height: 50px;
+		background-color: var(--red4);
+		color: var(--white);
+		border-radius: 15px;
+		font-size: 1.2em;border: 1px solid black;
+	}
+	.guestButton {
+		width: 300px;
+		height: 50px;
+		background-color: var(--black);
+		color: var(--white);
+		border-radius: 15px;
+		font-size: 1.2em;border: 1px solid black;
+	}
+	.inputButton {
+		outline: none;
+		border: 1px solid black;
+		width: 300px;
+		height: 50px;
+		border-bottom: 1px solid var(--grey2);
+		font-size: 1.3em;
+		background: transparent;border: 1px solid black;
+	}
+	.line{
+		width: 130px;
+		height: 1px;
+		background-color: var(--grey2);
+		margin: 0px auto;
+	}
+	.inputLabel { font-size: 1.2em; };
