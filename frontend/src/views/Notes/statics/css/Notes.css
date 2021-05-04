@@ -1,0 +1,58 @@
+@import "../../../../utils/colors.css";
+
+#root {
+	width: 98%;
+	margin: 0px auto !important;
+	position: relative;
+	flex-grow: 1;
+}
+.noteCreator {
+	height: 96vh;
+}
+.noteCreatorTop {
+	width: 400px;
+}
+.noteCreatorBot {
+	height: 88vh;
+	position: relative;
+	top: 15px;
+	overflow: scroll;
+	overflow-x: hidden;
+}
+.notePad {
+	height: 100vh;
+}
+.sideNotes {
+	padding: 10px;
+}
+.notesTextContainer {
+	cursor: text;
+}
+.notesText {
+	font-weight: bold;
+	font-size: 2.5em;
+	cursor: text;
+}
+.notePadTop {
+	width: 86%;
+	position: relative;
+	left: 45px;
+}
+.notePadBot {
+	position: relative;
+	top: 10px;
+	left: 20px;
+}
+.notePadContainer {
+	position: relative;
+	top: 5%;
+}
+.plusIcon {
+	cursor: pointer;
+	height: 30px;
+}
+.gridIconsContainer {
+	width: 70px;
+	cursor: pointer;
+	float: right;
+}

@@ -1,0 +1,57 @@
+@import "../../../../utils/colors.css";
+
+.root {
+	flex-grow: 1;
+	height: 100vh;
+	margin: 0px auto !important;
+	position: relative;
+}
+.activeCourseBar {
+	position: relative;
+}
+.row {
+	position: relative;
+	top: 20px;
+}
+.row2 {
+	position: relative;
+	top: 50px;
+}
+.smallRedBox {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background: var(--red4);
+	position: relative;
+	margin-left: 30px !important;
+}
+.currentContainer {
+	width: 95%;
+	margin: 0px auto !important;
+}
+.activeTitle {
+	display: inline-block;
+	position: relative;
+	left: 15px;
+}
+.upCommingCourseBar {
+	position: relative;
+	margin-left: 30px !important;
+	margin-bottom: 30px !important;
+}
+.upcomingIcon {
+	display: inline-block;
+	position: relative;
+	margin-left: 30px !important;
+}
+.upcomingText {
+	display: inline-block;
+	position: relative;
+	left: 15px;
+}
+.upCommingContainer {
+	width: 98%;
+	height: 500px;
+	margin: 0px auto !important;
+}
