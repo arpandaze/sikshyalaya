@@ -1,15 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import colorscheme from "../utils/colors";
 import { AiOutlineDashboard } from "react-icons/ai";
 import { BiNotepad } from "react-icons/bi";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 import icon from "../assets/icon.png";
 import Image from "../components/Image";
 import { Link } from "react-router-dom";
-import { IconContext } from "react-icons";
 import NavIcons from "../components/NavIcons";
 
 const useStyles = makeStyles((theme) => ({

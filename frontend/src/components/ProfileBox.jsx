@@ -1,10 +1,7 @@
-import React, { useState } from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import React from "react";
 import colorscheme from "../utils/colors";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 import Image from "./Image";
-import profile from "../assets/pp.jpg";
 import Button from "./Button";
 import { BsArrowRightShort } from "react-icons/bs";
 import { Link } from "react-router-dom";
@@ -106,7 +103,7 @@ const ProfileBox = ({ user, ...rest }) => {
               alignItems="flex-start"
             >
               <Grid xs={9} item style={styleSheet.textBox1}>
-                <a style={styleSheet.profileText}>{user[0].name}</a>
+                <p style={styleSheet.profileText}>{user[0].name}</p>
               </Grid>
               <Grid xs={2} item style={styleSheet.buttonContainer}>
                 <Link to="/profile">
@@ -120,12 +117,12 @@ const ProfileBox = ({ user, ...rest }) => {
               </Grid>
             </Grid>
             <Grid item style={styleSheet.textBox3}>
-              <a style={styleSheet.departmentText}>
+              <p style={styleSheet.departmentText}>
                 {user[0].department}
                 <br />
                 {user[0].year} Year / 
                 {user[0].semester} Semester
-              </a>
+              </p>
             </Grid>
           </Grid>
         </Grid>

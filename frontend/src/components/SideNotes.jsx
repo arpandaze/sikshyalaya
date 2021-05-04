@@ -1,18 +1,6 @@
-import React, { useState } from "react";
-import { Formik, Field, Form } from "formik";
-import { Route, Switch, Redirect } from "react-router-dom";
-import Button from "../components/Button";
-import * as yup from "yup";
-import Tab from "../components/Tab";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
-import Image from "../components/Image";
-import profile from "../assets/pp.jpg";
-import SideBar from "../components/SideBar";
 import colorscheme from "../utils/colors";
-import ProfileBar from "../components/ProfileBar";
-import DashboardLayout from "../components/DashboardLayout";
-import { ImCross } from "react-icons/im";
-import { FiTrash } from "react-icons/fi";
 
 const styleSheet = {
   root: {
@@ -67,10 +55,10 @@ const SideNotes = ({ title, content, onClick, ...rest }) => {
           wrap="nowrap"
         >
           <Grid item style={styleSheet.titleTextContainer}>
-            <a style={styleSheet.titleText}>{title}</a>
+            <p style={styleSheet.titleText}>{title}</p>
           </Grid>
           <Grid item style={styleSheet.contentTextContainer}>
-            <a style={styleSheet.contentText}>{content}</a>
+            <p style={styleSheet.contentText}>{content}</p>
           </Grid>
         </Grid>
       </Grid>

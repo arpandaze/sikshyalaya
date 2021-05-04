@@ -93,7 +93,7 @@ const AdminBoxSmall = ({ cardData, addStyles, ...rest }) => {
               style={styleSheet.row_col_box}
             >
               <Grid item style={styleSheet.row_col_1}>
-                <a style={styleSheet.row_col_1_bold}>{data.title}</a> <br />
+                <p style={styleSheet.row_col_1_bold}>{data.title}</p> <br />
               </Grid>
             </Grid>
           </Grid>
@@ -110,7 +110,7 @@ const AdminBoxSmall = ({ cardData, addStyles, ...rest }) => {
               </Grid>
 
               <Grid item style={styleSheet.row2_bot}>
-                <a style={styleSheet.row2_bot_text}>{data.bottomText}</a>
+                <p style={styleSheet.row2_bot_text}>{data.bottomText}</p>
               </Grid>
             </Grid>
           </Grid>

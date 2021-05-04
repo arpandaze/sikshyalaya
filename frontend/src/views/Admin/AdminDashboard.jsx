@@ -1,13 +1,10 @@
-import React, { useState } from "react";
-import Button from "../../components/Button";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
-import colorscheme from "../../utils/colors";
 import DashboardLayout from "../../components/DashboardLayout";
 import NotificationButton from "../../components/NotificationButton";
 import "./statics/css/adminDashboard.css";
 
 const Dashboard = () => {
-  const [clicked, setClicked] = useState(false);
   return (
     <DashboardLayout>
       <Grid

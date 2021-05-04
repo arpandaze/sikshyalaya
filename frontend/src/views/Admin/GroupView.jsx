@@ -1,47 +1,10 @@
-import React, { useState } from "react";
-import Button from "../../components/Button";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
 import colorscheme from "../../utils/colors";
 import DashboardLayout from "../../components/DashboardLayout";
-import NotificationButton from "../../components/NotificationButton";
 import AdminBoxSmall from "../../components/AdminBoxSmall";
 import { GoPlus } from "react-icons/go";
 import "./statics/css/commonView.css";
-const styleSheet = {
-  root: {
-    width: "100%",
-    height: "100vh",
-    margin: "0px auto",
-    position: "relative",
-    flexGrow: "1",
-  },
-  topBar: {
-    width: "95%",
-    height: "50px",
-    marginTop: "50px",
-  },
-  titleText: {
-    fontSize: "2.3em",
-    fontWeight: "bold",
-  },
-  botBar: {
-    width: "95%",
-    height: "800px",
-    marginTop: "30px",
-  },
-  notesTextContainer: {
-    cursor: "text",
-  },
-  notesText: {
-    fontWeight: "bold",
-    fontSize: "2.5em",
-    cursor: "text",
-  },
-  plusIcon: {
-    cursor: "pointer",
-    height: "30px",
-  },
-};
 
 const schools = [
   {
@@ -70,7 +33,6 @@ const schools = [
   },
 ];
 const DepartmentView = () => {
-  const [clicked, setClicked] = useState(false);
   return (
     <DashboardLayout>
       <Grid
@@ -88,8 +50,8 @@ const DepartmentView = () => {
             justify="flex-start"
             alignItems="center"
           >
-            <Grid xs={11} item className="notesTextContainer">
-              <a className="notesText">Computer Science and Engineering</a>
+            <Grid xs item className="notesTextContainer">
+              <p className="notesText">Computer Science and Engineering</p>
             </Grid>
             <Grid xs={1} item className="plusIcon">
               <GoPlus size={30} color={colorscheme.green2} />

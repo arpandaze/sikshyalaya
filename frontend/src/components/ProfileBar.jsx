@@ -1,9 +1,6 @@
-import React, { useState } from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import React from "react";
 import colorscheme from "../utils/colors";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import Image from "./Image";
 import CourseBox from "./CourseBox";
 import profile from "../assets/pp.jpg";
 import ProfileBox from "./ProfileBox";

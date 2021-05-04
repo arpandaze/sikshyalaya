@@ -1,6 +1,5 @@
 import React from "react";
 import theme from "../utils/colors";
-import Button from "./Button";
 
 const styleSheet = {
   container: {

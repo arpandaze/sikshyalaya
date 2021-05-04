@@ -1,18 +1,8 @@
-import React, { useState } from "react";
-import { Formik, Field, Form } from "formik";
-import { Route, Switch, Redirect } from "react-router-dom";
-import Button from "../../components/Button";
-import * as yup from "yup";
-import Tab from "../../components/Tab";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
-import Image from "../../components/Image";
-import profile from "../../assets/pp.jpg";
-import SideBar from "../../components/SideBar";
 import Questions from "../../components/Questions";
 import colorscheme from "../../utils/colors";
-import ProfileBar from "../../components/ProfileBar";
 import DashboardLayout from "../../components/DashboardLayout";
-import { IoMdNotificationsOutline } from "react-icons/io";
 import { RiQuestionAnswerLine } from "react-icons/ri";
 import { GiBookshelf } from "react-icons/gi";
 import NotificationButton from "../../components/NotificationButton";
@@ -90,7 +80,7 @@ const TeacherDashboard = () => {
         className="root"
       >
         <Grid item className="topBar">
-          <a className="classQuestionText">Class Questions</a>
+          <p className="classQuestionText">Class Questions</p>
           <NotificationButton />
         </Grid>
         <Grid item className="botBar">
@@ -112,18 +102,18 @@ const TeacherDashboard = () => {
                   >
                     <Grid item xs={12}>
                       <div className="smallRedBox"></div>
-                      <a className="activeclassText">Active class</a>
+                      <p className="activeclassText">Active class</p>
                     </Grid>
                     <Grid item xs={12}>
-                      <a className="classText">{activeClass[0].classCode}</a>
+                      <p className="classText">{activeClass[0].classCode}</p>
                     </Grid>
                     <Grid item xs={12}>
-                      <a className="classTextInner">
+                      <p className="classTextInner">
                         {activeClass[0].className}
-                      </a>
+                      </p>
                     </Grid>
                     <Grid item xs={12}>
-                      <a className="batchText">{activeClass[0].batch}</a>
+                      <p className="batchText">{activeClass[0].batch}</p>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -134,7 +124,7 @@ const TeacherDashboard = () => {
                       color={colorscheme.grey1}
                       className="sideBoxIcons"
                     />
-                    <a className="quizText">Quizzes</a>
+                    <p className="quizText">Quizzes</p>
                   </Grid>
                 </Grid>
                 <Grid item className="classResourceContainer">
@@ -144,7 +134,7 @@ const TeacherDashboard = () => {
                       color={colorscheme.grey1}
                       className="sideBoxIcons"
                     />
-                    <a className="rescourcesText">Resources</a>
+                    <p className="rescourcesText">Resources</p>
                   </Grid>
                 </Grid>
               </Grid>

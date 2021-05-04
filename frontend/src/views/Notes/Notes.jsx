@@ -71,7 +71,7 @@ const Dashboard = () => {
             <Grid item className="noteCreatorTop">
               <Grid container direction="row" className="noteCreatorTopInside">
                 <Grid xs item className="notesTextContainer">
-                  <a className="notesText">Notes</a>
+                  <p className="notesText">Notes</p>
                 </Grid>
                 <Grid xs={1} item className="plusIcon">
                   <GoPlus size={30} color={colorscheme.green2} />

@@ -92,13 +92,13 @@ const SmallCards = ({ cardData, addStyles, ...rest }) => {
             style={styleSheet.row_col_box}
           >
             <Grid item style={styleSheet.row_col_1}>
-              <a style={styleSheet.row_col_1_bold}>{data.title}</a> <br />
-              <a style={styleSheet.row_col_1_light}>{data.titleDescription}</a>
+              <p style={styleSheet.row_col_1_bold}>{data.title}</p> <br />
+              <p style={styleSheet.row_col_1_light}>{data.titleDescription}</p>
             </Grid>
             <Grid item style={styleSheet.row_col_2}>
-              <a style={styleSheet.row_col_2_bold}>{data.title2}</a> <br />
+              <p style={styleSheet.row_col_2_bold}>{data.title2}</p> <br />
               <br />
-              <a style={styleSheet.row_col_2_light}>{data.title2Description}</a>
+              <p style={styleSheet.row_col_2_light}>{data.title2Description}</p>
             </Grid>
           </Grid>
         </Grid>
@@ -116,11 +116,11 @@ const SmallCards = ({ cardData, addStyles, ...rest }) => {
               </Grid>
             ) : (
               <Grid item style={styleSheet.buttonContainer}>
-                <a style={styleSheet.timeText}>{data.time}</a>
+                <p style={styleSheet.timeText}>{data.time}</p>
               </Grid>
             )}
             <Grid item style={styleSheet.row2_bot}>
-              <a style={styleSheet.row2_bot_text}>{data.bottomText}</a>
+              <p style={styleSheet.row2_bot_text}>{data.bottomText}</p>
             </Grid>
           </Grid>
         </Grid>
