@@ -24,7 +24,9 @@ def get_group(
     current_user: User = Depends(deps.get_current_active_user),
 ) -> Any:
     if current_user.user_type == settings.UserType.STUDENT.value:
-        group = crud_group.get(db, current_user.group_id)
+        got_group = crud_group.get(db, current_user.group_id)
+        group = []
+        group.append(got_group)
         return group
 
     if current_user.user_type == settings.UserType.TEACHER.value:
@@ -69,7 +71,7 @@ def get_specific_group(
 
     if current_user.user_type == settings.UserType.STUDENT.value:
         if current_user.group_id == id:
-            return get_group(db, current_user=current_user)
+            return get_group(db, current_user=current_user).pop()
         else:
             raise HTTPException(
                 status_code=401,
