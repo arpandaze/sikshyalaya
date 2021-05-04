@@ -27,7 +27,6 @@ def get_group(
         group = crud_group.get(db, current_user.group_id)
         return group
 
-    # FIXME: schema sanga milaunu parcha
     if current_user.user_type == settings.UserType.TEACHER.value:
         return current_user.teacher_group
 
