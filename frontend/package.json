@@ -16,7 +16,11 @@
     "react-joi-validation": "^1.7.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+<<<<<<< HEAD
     "saas": "^1.0.0",
+=======
+    "sass": "^1.32.12",
+>>>>>>> rush
     "web-vitals": "^1.0.1",
     "yup": "^0.32.9"
   },
