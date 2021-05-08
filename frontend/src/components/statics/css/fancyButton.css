@@ -1,11 +1,13 @@
-.buttonIcon {
-  width: 35px;
-  height: 35px;
-  position: absolute;
-  cursor: pointer;
-}
-.button {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
+@media only screen and (min-width: 1920px) {
+  .buttonIcon {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    cursor: pointer;
+  }
+  .button {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+  }
 }

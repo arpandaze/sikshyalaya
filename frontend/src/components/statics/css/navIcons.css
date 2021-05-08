@@ -1,27 +1,28 @@
 @import "../../../utils/colors.css";
-
-.navIcons_icons {
-  position: relative;
-  left: -8px;
-}
-.navIcons_iconStyle {
-  cursor: pointer;
-}
-.navIcons_container {
-  width: 85% !important;
-  margin: 0px auto !important;
-  position: relative !important;
-}
-.navIcons_verticalLine {
-  width: 5px;
-  height: 10px;
-  background-color: var(--red3);
-}
-.navIcons_navText {
-  text-decoration: none;
-  font-size: 1em;
-  line-height: 1.8em;
-  position: relative;
-  left: 5px;
-  color: var(--black);
+@media only screen and (min-width: 1920px) {
+  .navIcons_icons {
+    position: relative;
+    left: -8px;
+  }
+  .navIcons_iconStyle {
+    cursor: pointer;
+  }
+  .navIcons_container {
+    width: 85% !important;
+    margin: 0px auto !important;
+    position: relative !important;
+  }
+  .navIcons_verticalLine {
+    width: 5px;
+    height: 10px;
+    background-color: var(--red3);
+  }
+  .navIcons_navText {
+    text-decoration: none;
+    font-size: 1em;
+    line-height: 1.8em;
+    position: relative;
+    left: 5px;
+    color: var(--black);
+  }
 }

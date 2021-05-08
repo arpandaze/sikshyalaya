@@ -1,8 +1,9 @@
 @import "../../../utils/colors.css";
-
-.profileBar_root {
-  flex-grow: 1;
-}
-.profileBar_profileBox {
-  margin-top: 10% !important;
+@media only screen and (min-width: 1920px) {
+  .profileBar_root {
+    flex-grow: 1;
+  }
+  .profileBar_profileBox {
+    margin-top: 10% !important;
+  }
 }

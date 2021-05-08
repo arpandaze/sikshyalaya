@@ -1,67 +1,68 @@
 @import "../../../../utils/colors.css";
-
-.note_root {
-  width: 96% !important;
-  margin: 0px auto !important;
-  position: relative;
-  flex-grow: 1;
-}
-.note_creator {
-  height: 96vh;
-  overflow: scroll;
-  overflow-x: hidden;
-}
-.note_creatorInside {
-  margin: 0px auto !important;
-}
-.note_creatorTop {
-  width: 400px;
-  height: 120px;
-}
-.note_creatorTopInside {
-  height: 120px;
-}
-.note_textContainer {
-  height: 120px;
-}
-.note_text {
-  font-weight: bold;
-  font-size: 2.5em;
-}
-.note_creatorBot {
-  position: relative;
-}
-.note_pad {
-  height: 100vh;
-}
-.note_sidebarComponent {
-  padding: 10px;
-}
-.note_padArea {
-}
-.note_padTop {
-  width: 86%;
-  position: relative;
-  left: 25px;
-}
-.note_padBot {
-  position: relative;
-  top: 10px;
-  left: 0px;
-}
-.note_sidebarcontainer {
-}
-.note_padContainer {
-  position: relative;
-  top: 5%;
-}
-.note_plusIcon {
-  cursor: pointer;
-  height: 30px;
-  position: relative;
-  left: 20px;
-}
-.note_gridIconsContainer {
-  width: 70px;
-  cursor: pointer;
+@media only screen and (min-width: 1920px) {
+  .note_root {
+    width: 96% !important;
+    margin: 0px auto !important;
+    position: relative;
+    flex-grow: 1;
+  }
+  .note_creator {
+    height: 96vh;
+    overflow: scroll;
+    overflow-x: hidden;
+  }
+  .note_creatorInside {
+    margin: 0px auto !important;
+  }
+  .note_creatorTop {
+    width: 400px;
+    height: 120px;
+  }
+  .note_creatorTopInside {
+    height: 120px;
+  }
+  .note_textContainer {
+    height: 120px;
+  }
+  .note_text {
+    font-weight: bold;
+    font-size: 2.5em;
+  }
+  .note_creatorBot {
+    position: relative;
+  }
+  .note_pad {
+    height: 100vh;
+  }
+  .note_sidebarComponent {
+    padding: 10px;
+  }
+  .note_padArea {
+  }
+  .note_padTop {
+    width: 86%;
+    position: relative;
+    left: 25px;
+  }
+  .note_padBot {
+    position: relative;
+    top: 10px;
+    left: 0px;
+  }
+  .note_sidebarcontainer {
+  }
+  .note_padContainer {
+    position: relative;
+    top: 5%;
+  }
+  .note_plusIcon {
+    cursor: pointer;
+    height: 30px;
+    position: relative;
+    left: 20px;
+  }
+  .note_gridIconsContainer {
+    width: 70px;
+    cursor: pointer;
+  }
 }

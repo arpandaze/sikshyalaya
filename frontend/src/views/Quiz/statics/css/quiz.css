@@ -1,67 +1,68 @@
 @import "../../../../utils/colors.css";
-
-.quiz_root {
-  width: 96% !important;
-  margin: 0px auto !important;
-  position: relative;
-  flex-grow: 1;
-}
-.quiz_creator {
-  height: 96vh;
-  overflow: scroll;
-  overflow-x: hidden;
-}
-.quiz_creatorInside {
-  margin: 0px auto !important;
-}
-.quiz_creatorTop {
-  width: 400px;
-  height: 120px;
-}
-.quiz_creatorTopInside {
-  height: 120px;
-}
-.quiz_textContainer {
-  height: 120px;
-}
-.quiz_text {
-  font-weight: bold;
-  font-size: 2.5em;
-}
-.quiz_creatorBot {
-  position: relative;
-}
-.quiz_pad {
-  height: 100vh;
-}
-.quiz_sidebarComponent {
-  padding: 10px;
-}
-.quiz_padArea {
-}
-.quiz_padTop {
-  width: 86%;
-  position: relative;
-  left: 25px;
-}
-.quiz_padBot {
-  position: relative;
-  top: 10px;
-  left: 0px;
-}
-.quiz_sidebarcontainer {
-}
-.quiz_padContainer {
-  position: relative;
-  top: 5%;
-}
-.quiz_plusIcon {
-  cursor: pointer;
-  height: 30px;
-  position: relative;
-  left: 20px;
-}
-.quiz_gridIconsContainer {
-  width: 70px;
-  cursor: pointer;
+@media only screen and (min-width: 1920px) {
+  .quiz_root {
+    width: 96% !important;
+    margin: 0px auto !important;
+    position: relative;
+    flex-grow: 1;
+  }
+  .quiz_creator {
+    height: 96vh;
+    overflow: scroll;
+    overflow-x: hidden;
+  }
+  .quiz_creatorInside {
+    margin: 0px auto !important;
+  }
+  .quiz_creatorTop {
+    width: 400px;
+    height: 120px;
+  }
+  .quiz_creatorTopInside {
+    height: 120px;
+  }
+  .quiz_textContainer {
+    height: 120px;
+  }
+  .quiz_text {
+    font-weight: bold;
+    font-size: 2.5em;
+  }
+  .quiz_creatorBot {
+    position: relative;
+  }
+  .quiz_pad {
+    height: 100vh;
+  }
+  .quiz_sidebarComponent {
+    padding: 10px;
+  }
+  .quiz_padArea {
+  }
+  .quiz_padTop {
+    width: 86%;
+    position: relative;
+    left: 25px;
+  }
+  .quiz_padBot {
+    position: relative;
+    top: 10px;
+    left: 0px;
+  }
+  .quiz_sidebarcontainer {
+  }
+  .quiz_padContainer {
+    position: relative;
+    top: 5%;
+  }
+  .quiz_plusIcon {
+    cursor: pointer;
+    height: 30px;
+    position: relative;
+    left: 20px;
+  }
+  .quiz_gridIconsContainer {
+    width: 70px;
+    cursor: pointer;
+  }
 }

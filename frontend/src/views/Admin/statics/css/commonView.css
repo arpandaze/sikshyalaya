@@ -1,29 +1,32 @@
 @import "../../../../utils/colors.css";
-.adminCommon_root {
-  width: 100%;
-  height: 100vh;
-  margin: 0px auto !important;
-  flex-grow: 1;
-}
-.adminCommon_topBarContainer {
-  width: 95%;
-  margin-top: 20px !important;
-}
-.adminCommon_topBar {
-}
-.adminCommon_textContainer {
-  cursor: text;
-}
-.adminCommon_text {
-  font-weight: bold;
-  font-size: 2.5em;
-  cursor: text;
-}
-.adminCommon_botBar {
-  width: 95%;
-  margin-top: 0px !important;
-}
-.adminCommon_plusIcon {
-  cursor: pointer;
-  height: 30px;
+
+@media only screen and (min-width: 1920px) {
+  .adminCommon_root {
+    width: 100%;
+    height: 100vh;
+    margin: 0px auto !important;
+    flex-grow: 1;
+  }
+  .adminCommon_topBarContainer {
+    width: 95%;
+    margin-top: 20px !important;
+  }
+  .adminCommon_topBar {
+  }
+  .adminCommon_textContainer {
+    cursor: text;
+  }
+  .adminCommon_text {
+    font-weight: bold;
+    font-size: 2.5em;
+    cursor: text;
+  }
+  .adminCommon_botBar {
+    width: 95%;
+    margin-top: 0px !important;
+  }
+  .adminCommon_plusIcon {
+    cursor: pointer;
+    height: 30px;
+  }
 }
