@@ -101,3 +101,6 @@
     border-radius: 15px !important;
   }
 }
+
+@media only screen and (min-width: 1366px) {
+}
