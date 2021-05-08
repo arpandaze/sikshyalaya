@@ -32,7 +32,7 @@ const schools = [
     button: true,
   },
 ];
-const DepartmentView = () => {
+const GroupView = () => {
   return (
     <DashboardLayout>
       <Grid
@@ -40,25 +40,28 @@ const DepartmentView = () => {
         direction="column"
         justify="flex-start"
         alignItems="center"
-        className="root"
+        className="adminCommon_root"
         wrap="nowrap"
       >
-        <Grid item className="topBar">
+        <Grid item className="adminCommon_topBarContainer">
           <Grid
             container
             direction="row"
             justify="flex-start"
             alignItems="center"
+            className="adminCommon_topBar"
           >
-            <Grid xs item className="notesTextContainer">
-              <p className="notesText">Computer Science and Engineering</p>
+            <Grid xs item className="adminCommon_textContainer">
+              <p className="adminCommon_text">
+                Computer Science and Engineering
+              </p>
             </Grid>
-            <Grid xs={1} item className="plusIcon">
+            <Grid xs={1} item className="adminCommon_plusIcon">
               <GoPlus size={30} color={colorscheme.green2} />
             </Grid>
           </Grid>
         </Grid>
-        <Grid item className="botBar">
+        <Grid item className="adminCommon_botBar">
           <Grid
             container
             direction="row"
@@ -78,4 +81,4 @@ const DepartmentView = () => {
   );
 };
 
-export default DepartmentView;
+export default GroupView;

@@ -1,9 +1,9 @@
+import React from "react";
 import { Formik, Field, Form } from "formik";
 import Button from "../../components/Button";
 import * as yup from "yup";
 import Grid from "@material-ui/core/Grid";
-import "./statics/css/teacherLoginBox.css";
-import React from "react";
+import "./statics/css/loginCommon.css";
 
 const validationSchema = yup.object({
   email: yup
@@ -26,7 +26,7 @@ const TeacherLoginBox = () => {
       direction="column"
       justify="center"
       alignItems="center"
-      className="loginBoxContainer"
+      className="loginCommon_loginBoxContainer"
     >
       <Grid item>
         <Formik
@@ -53,7 +53,7 @@ const TeacherLoginBox = () => {
                   id="email"
                   name="email"
                   placeholder="Email"
-                  className="inputButton"
+                  className="loginCommon_inputButton"
                 />
               </Grid>
 
@@ -63,7 +63,7 @@ const TeacherLoginBox = () => {
                   id="password"
                   name="password"
                   placeholder="Password"
-                  className="inputButton"
+                  className="loginCommon_inputButton"
                 />
               </Grid>
 
@@ -73,7 +73,7 @@ const TeacherLoginBox = () => {
                   id="classCode"
                   name="classCode"
                   placeholder="Class Code"
-                  className="inputButton"
+                  className="loginCommon_inputButton"
                 />
               </Grid>
             </Grid>
@@ -85,7 +85,7 @@ const TeacherLoginBox = () => {
               alignItems="center"
             >
               <Grid item spacing={10}>
-                <Button name="Login" className="loginButton" />
+                <Button name="Login" className="loginCommon_loginButton" />
               </Grid>
               <Grid item spacing={10}>
                 <Grid
@@ -96,18 +96,21 @@ const TeacherLoginBox = () => {
                   alignItems="center"
                 >
                   <Grid item>
-                    <div className="line"></div>
+                    <div className="loginCommon_line"></div>
                   </Grid>
                   <Grid item>
                     <p style={{ fontSize: "1.2em" }}>or</p>
                   </Grid>
                   <Grid item>
-                    <div className="line"></div>
+                    <div className="loginCommon_line"></div>
                   </Grid>
                 </Grid>
               </Grid>
               <Grid item spacing={10}>
-                <Button name="Conitnue as Guest" className="guestButton" />
+                <Button
+                  name="Conitnue as Guest"
+                  className="loginCommon_guestButton"
+                />
               </Grid>
             </Grid>
           </Form>

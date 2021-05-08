@@ -2,7 +2,7 @@ import { Formik, Field, Form } from "formik";
 import Button from "../../components/Button";
 import * as yup from "yup";
 import Grid from "@material-ui/core/Grid";
-import "./statics/css/studentLoginBox.css";
+import "./statics/css/loginCommon.css";
 
 import React from "react";
 
@@ -23,7 +23,7 @@ const StudentLoginBox = () => {
       direction="column"
       justify="center"
       alignItems="center"
-      className="loginBoxContainer"
+      className="loginCommon__loginBoxContainer"
     >
       <Grid item>
         <Formik
@@ -50,7 +50,7 @@ const StudentLoginBox = () => {
                   id="email"
                   name="email"
                   placeholder="Email"
-                  className="inputButton"
+                  className="loginCommon_inputButton"
                 />
               </Grid>
 
@@ -60,7 +60,7 @@ const StudentLoginBox = () => {
                   id="password"
                   name="password"
                   placeholder="Password"
-                  className="inputButton"
+                  className="loginCommon_inputButton"
                 />
               </Grid>
             </Grid>
@@ -72,7 +72,7 @@ const StudentLoginBox = () => {
               alignItems="center"
             >
               <Grid item spacing={10}>
-                <Button name="Login" className="loginButton" />
+                <Button name="Login" className="loginCommon_loginButton" />
               </Grid>
               <Grid item spacing={10}>
                 <Grid
@@ -83,18 +83,21 @@ const StudentLoginBox = () => {
                   alignItems="center"
                 >
                   <Grid item>
-                    <div className="line"></div>
+                    <div className="loginCommon_line"></div>
                   </Grid>
                   <Grid item>
                     <p style={{ fontSize: "1.2em" }}>or</p>
                   </Grid>
                   <Grid item>
-                    <div className="line"></div>
+                    <div className="loginCommon_line"></div>
                   </Grid>
                 </Grid>
               </Grid>
               <Grid item spacing={10}>
-                <Button name="Conitnue as Guest" className="guestButton" />
+                <Button
+                  name="Conitnue as Guest"
+                  className="loginCommon_guestButton"
+                />
               </Grid>
             </Grid>
           </Form>

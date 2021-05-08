@@ -1,33 +1,29 @@
 @import "../../../../utils/colors.css";
-.root {
+.adminCommon_root {
   width: 100%;
   height: 100vh;
   margin: 0px auto !important;
   flex-grow: 1;
 }
-.topBar {
+.adminCommon_topBarContainer {
   width: 95%;
-  height: 50px;
-  margin-top: 50px !important;
+  margin-top: 20px !important;
 }
-.titleText {
-  font-size: 2.3em;
-  font-weight: bold;
+.adminCommon_topBar {
 }
-.botBar {
-  width: 95%;
-  height: 800px;
-  margin-top: 30px !important;
-}
-.notesTextContainer {
+.adminCommon_textContainer {
   cursor: text;
 }
-.notesText {
+.adminCommon_text {
   font-weight: bold;
   font-size: 2.5em;
   cursor: text;
 }
-.plusIcon {
+.adminCommon_botBar {
+  width: 95%;
+  margin-top: 0px !important;
+}
+.adminCommon_plusIcon {
   cursor: pointer;
   height: 30px;
 }

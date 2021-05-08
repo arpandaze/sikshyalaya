@@ -95,36 +95,46 @@ const StudentView = ({ depart, ...rest }) => {
         direction="column"
         justify="flex-start"
         alignItems="center"
-        className="root"
+        className="adminStudent_root"
         wrap="nowrap"
       >
-        <Grid item className="topBar">
-          <Grid item xs stlye="departContainer">
-            <p className="departText">{selectedCLass[0].name}</p>
-          </Grid>
-          <Grid item xs={1} className="plusIcon">
-            <GoPlus size={30} color={colorscheme.green3} />
-          </Grid>
-        </Grid>
-
-        <Grid item className="botBar">
-          <Grid item className="mainContainer" xs={12}>
-            <Grid
-              container
-              direction="row"
-              justify="flex-start"
-              alignItems="Flex-start"
-              spacing={1}
-              className="innerContainer"
-            >
-              {students.map((item) => (
-                <Grid item>
-                  <Students name={item.name} />
-                </Grid>
-              ))}
+        <Grid item className="adminStudent_topBarContainer">
+          <Grid
+            container
+            direction="row"
+            justify="flex-start"
+            alignItems="center"
+            className="adminStudent_topBar"
+          >
+            <Grid xs item className="adminStudent_textContainer">
+              <p className="adminStudent_text">
+                Computer Science and Engineering
+              </p>
+            </Grid>
+            <Grid xs={1} item className="adminStudent_plusIcon">
+              <GoPlus size={30} color={colorscheme.green2} />
             </Grid>
           </Grid>
         </Grid>
+
+        <Grid item className="adminStudent_botBar">
+          <Grid
+            container
+            direction="row"
+            justify="flex-start"
+            alignItems="Flex-start"
+            spacing={1}
+            className="adminStudent_innerContainer"
+          >
+            {students.map((item) => (
+              <Grid item>
+                <Students name={item.name} />
+              </Grid>
+            ))}
+          </Grid>
+        </Grid>
+        <br />
+        <br />
       </Grid>
     </DashboardLayout>
   );

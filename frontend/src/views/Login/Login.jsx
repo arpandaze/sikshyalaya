@@ -15,9 +15,9 @@ const Login = () => {
       direction="row"
       justify="center"
       alignItems="center"
-      className="root"
+      className="login_root"
     >
-      <Grid item sm={4}>
+      <Grid item xs={4}>
         <Grid
           container
           direction="column"
@@ -25,23 +25,23 @@ const Login = () => {
           alignItems="center"
           spacing={0}
         >
-          <Grid item className="logoBox">
+          <Grid item className="login_logoBox">
             <Image src={logo} alt={{ logo }} />
           </Grid>
-          <Grid container item className="copyrightText">
-            <p>©2021 Sikshyalaya</p>
+          <Grid container item className="login_copyrightContainer">
+            <p className="login_copyrightText">©2021 Sikshyalaya</p>
           </Grid>
         </Grid>
       </Grid>
-      <Grid item sm={4}>
+      <Grid item xs={4}>
         <Grid
           container
           direction="column"
           justify="center"
           alignItems="center"
-          className="loginBoxContainer"
+          className="login_loginBoxContainer"
         >
-          <Grid item className="loginBox">
+          <Grid item className="login_loginBox">
             <Grid
               container
               direction="row"
@@ -59,7 +59,7 @@ const Login = () => {
               </Grid>
 
               <Grid item>
-                <div className="lineVertical"></div>
+                <div className="login_lineVertical"></div>
               </Grid>
               <Grid item>
                 <Tab
@@ -79,7 +79,7 @@ const Login = () => {
               alignItems="center"
             >
               <Grid item>
-                <h1 className="loginLabel">Login</h1>
+                <h1 className="login_loginLabel">Login</h1>
               </Grid>
             </Grid>
 
@@ -87,7 +87,7 @@ const Login = () => {
           </Grid>
         </Grid>
       </Grid>
-      <Grid item sm={4}></Grid>
+      <Grid item xs={4}></Grid>
     </Grid>
   );
 };

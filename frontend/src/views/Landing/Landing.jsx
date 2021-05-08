@@ -190,26 +190,26 @@ const Landing = () => {
   ];
   return (
     <DashboardLayout>
-      <Grid container direction="column" className="root" wrap="nowrap">
-        <Grid item className="row">
-          <div className="smallRedBox"></div>
-          <h1 className="activeTitle">Active Course in Network</h1>
+      <Grid container direction="column" className="landing_root" wrap="nowrap">
+        <Grid item className="landing_row">
+          <div className="landing_smallRedBox"></div>
+          <h1 className="landing_activeTitle">Active Course in Network</h1>
           <br />
           <br />
-          <div className="currentContainer">
+          <div className="landing_currentContainer">
             <SmallCards
               cardData={card1}
               addStyles={styleSheet.activeCourseBar}
             />
           </div>
         </Grid>
-        <Grid item className="row2">
+        <Grid item className="landing_row2">
           <BsCalendar
             size={35}
             color={colorscheme.black}
-            className="upcomingIcon"
+            className="landing_upcomingIcon"
           />
-          <h1 className="upcomingText">Upcoming Classes</h1>
+          <h1 className="landing_upcomingText">Upcoming Classes</h1>
           <br />
           <br />
           <Grid
@@ -217,7 +217,7 @@ const Landing = () => {
             direction="row"
             justify="flex-start"
             alignItems="flex-start"
-            className="upCommingContainer"
+            className="landing_upCommingContainer"
           >
             {upCommingClasses.map((course) => (
               <Grid item key={course.id}>

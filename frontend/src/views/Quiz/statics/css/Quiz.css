@@ -1,60 +1,64 @@
 @import "../../../../utils/colors.css";
 
-.root {
+.quiz_root {
   width: 98%;
   margin: 0px auto !important;
   position: relative;
   flex-grow: 1;
 }
-.noteCreator {
+.quiz_creator {
   height: 96vh;
-}
-.noteCreatorTop {
-  width: 400px;
-}
-.noteCreatorBot {
-  height: 88vh;
-  position: relative;
-  top: 15px;
   overflow: scroll;
   overflow-x: hidden;
 }
-.notePad {
-  height: 100vh;
+.quiz_creatorTop {
+  width: 400px;
+  height: 120px;
 }
-.sideNotes {
-  padding: 10px;
+.quiz_creatorTopInside {
+  height: 120px;
 }
-.notesTextContainer {
-  cursor: text;
+.quiz_textContainer {
+  height: 120px;
 }
-.notesText {
+.quiz_text {
   font-weight: bold;
   font-size: 2.5em;
-  cursor: text;
 }
-.notePadTop {
+.quiz_creatorBot {
+  position: relative;
+}
+.quiz_pad {
+  height: 100vh;
+}
+.quiz_sidebarComponent {
+  padding: 10px;
+}
+.quiz_padArea {
+}
+.quiz_padTop {
   width: 86%;
   position: relative;
   left: 25px;
 }
-.notePadBot {
+.quiz_padBot {
   position: relative;
   top: 10px;
   left: 0px;
 }
-.notePadContainer {
+.quiz_sidebarcontainer {
+}
+.quiz_padContainer {
   position: relative;
   top: 5%;
 }
-.plusIcon {
+.quiz_plusIcon {
   cursor: pointer;
-
   height: 30px;
   position: relative;
-  left: 0px;
+  left: 20px;
 }
-.gridIconsContainer {
+.quiz_gridIconsContainer {
   width: 70px;
   cursor: pointer;
   float: right;

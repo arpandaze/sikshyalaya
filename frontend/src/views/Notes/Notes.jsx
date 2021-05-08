@@ -49,7 +49,7 @@ const sideNotes = [
       "Ten the hastened steepest feelings pleasant few surprise property. An brother he do colonel against minutes uncivil. Can how elinor warmly mrs basket marked. Led raising expense yet demesne weather musical. Me mr what park next busy ever. Elinor her his secure far twenty eat object. Late any far saw size want man. Which way you wrong add shall one. As guest right of he scale these. Horses nearer oh elinor of denote. Up am intention on dependent questions oh elsewhere september. No betrayed pleasure possible jointure we in throwing. And can event rapid any shall woman green. Hope they dear who its bred. Smiling nothing affixed he carried it clothes calling he no. Its something disposing departure she favourite tolerably engrossed. Truth short folly court why she their balls. Excellence put unaffected reasonable mrs introduced conviction she. Nay particular delightful but unpleasant for uncommonly who. ",
   },
 ];
-const Dashboard = () => {
+const Notes = () => {
   const [typing, setTyping] = useState(false);
   const [selectedNote, setSelectedNote] = useState("0");
   return (
@@ -59,29 +59,39 @@ const Dashboard = () => {
         direction="row"
         justify="flex-start"
         alignItems="center"
-        className="root"
+        className="note_root"
       >
-        <Grid item xs={4} className="noteCreator">
+        <Grid item xs={4} className="note_creator">
           <Grid
             container
             direction="column"
             justify="flex-start"
             alignItems="center"
           >
-            <Grid item className="noteCreatorTop">
-              <Grid container direction="row" className="noteCreatorTopInside">
-                <Grid xs item className="notesTextContainer">
-                  <p className="notesText">Notes</p>
+            <Grid item className="note_creatorTop">
+              <Grid
+                container
+                direction="row"
+                justify="center"
+                alignItems="center"
+                className="note_creatorTopInside"
+              >
+                <Grid xs={9} item className="note_textContainer">
+                  <p className="note_text">Notes</p>
                 </Grid>
-                <Grid xs={1} item className="plusIcon">
+                <Grid xs={1} item className="note_plusIcon">
                   <GoPlus size={30} color={colorscheme.green2} />
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item className="noteCreatorBot">
-              <Grid container direction="column" className="sideNoteContainer">
+            <Grid item className="note_creatorBot">
+              <Grid
+                container
+                direction="column"
+                className="note_sidebarContainer"
+              >
                 {sideNotes.map((notes, index) => (
-                  <Grid item key={notes.id} className="sideNotes">
+                  <Grid item key={notes.id} className="note_sidebarComponent">
                     <SideNotes
                       title={notes.title}
                       content={notes.content}
@@ -95,20 +105,20 @@ const Dashboard = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={8} className="notePad">
+        <Grid item xs={8} className="note_pad">
           <Grid
             container
             direction="column"
             alignItems="center"
-            className="notePadContainer"
+            className="note_padContainer"
           >
-            <Grid item className="notePadTop">
+            <Grid item className="note_padTop">
               <Grid
                 container
                 direction="row"
                 justify="flex-end"
                 alignItems="center"
-                className="gridIconsContainer"
+                className="note_gridIconsContainer"
               >
                 <Grid item>
                   <BiSquare size={30} color={colorscheme.grey1} />
@@ -118,13 +128,13 @@ const Dashboard = () => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item className="notePadBot">
+            <Grid item className="note_padBot">
               <Grid
                 container
                 direction="column"
                 justify="center"
                 alignItems="flex-start"
-                className="notePadArea"
+                className="note_padArea"
               >
                 {selectedNote && sideNotes.length != 0 ? (
                   <Note
@@ -151,4 +161,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Notes;

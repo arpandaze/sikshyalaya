@@ -4,7 +4,7 @@ import DashboardLayout from "../../components/DashboardLayout";
 import NotificationButton from "../../components/NotificationButton";
 import "./statics/css/adminDashboard.css";
 
-const Dashboard = () => {
+const AdminDashboard = () => {
   return (
     <DashboardLayout>
       <Grid
@@ -12,38 +12,37 @@ const Dashboard = () => {
         direction="column"
         justify="flex-start"
         alignItems="center"
-        className="root"
         wrap="nowrap"
       >
-        <Grid item className="topBar">
+        <Grid item className="admin_topBar">
           <NotificationButton />
         </Grid>
-        <Grid item className="botBar">
+        <Grid item className="admin_botBar">
           <Grid container direction="row" justify="center" alignItems="center">
-            <Grid item className="leftContainer" xs={4}>
+            <Grid item className="admin_leftContainer" xs={4}>
               <Grid
                 container
                 direction="column"
                 justify="center"
                 alignItems="center"
               >
-                <Grid item className="activeClassBoxContainer"></Grid>
-                <Grid item className="classResourcesBoxContainer"></Grid>
+                <Grid item className="admin_activeClassBoxContainer"></Grid>
+                <Grid item className="admin_classResourcesBoxContainer"></Grid>
               </Grid>
             </Grid>
-            <Grid item className="middleContainer" xs={4}>
-              <div className="discussionBoxContainer"></div>
+            <Grid item className="admin_middleContainer" xs={4}>
+              <div className="admin_discussionBoxContainer"></div>
             </Grid>
-            <Grid item className="rightContainer" xs={4}>
+            <Grid item className="admin_rightContainer" xs={4}>
               <Grid
                 container
                 direction="column"
                 justify="center"
                 alignItems="center"
               >
-                <Grid item className="postBoxContainer"></Grid>
-                <Grid item className="quizBoxContainer"></Grid>
-                <Grid item className="tbdBoxContainer"></Grid>
+                <Grid item className="admin_postBoxContainer"></Grid>
+                <Grid item className="admin_quizBoxContainer"></Grid>
+                <Grid item className="admin_tbdBoxContainer"></Grid>
               </Grid>
             </Grid>
           </Grid>
@@ -53,4 +52,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default AdminDashboard;

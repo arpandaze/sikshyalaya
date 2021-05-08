@@ -1,60 +1,64 @@
 @import "../../../../utils/colors.css";
 
-.root {
+.note_root {
   width: 98%;
   margin: 0px auto !important;
   position: relative;
   flex-grow: 1;
 }
-.noteCreator {
+.note_creator {
   height: 96vh;
-}
-.noteCreatorTop {
-  width: 400px;
-}
-.noteCreatorBot {
-  height: 88vh;
-  position: relative;
-  top: 15px;
   overflow: scroll;
   overflow-x: hidden;
 }
-.notePad {
-  height: 100vh;
+.note_creatorTop {
+  width: 400px;
+  height: 120px;
 }
-.sideNotes {
-  padding: 10px;
+.note_creatorTopInside {
+  height: 120px;
 }
-.notesTextContainer {
-  cursor: text;
+.note_textContainer {
+  height: 120px;
 }
-.notesText {
+.note_text {
   font-weight: bold;
   font-size: 2.5em;
-  cursor: text;
 }
-.notePadTop {
+.note_creatorBot {
+  position: relative;
+}
+.note_pad {
+  height: 100vh;
+}
+.note_sidebarComponent {
+  padding: 10px;
+}
+.note_padArea {
+}
+.note_padTop {
   width: 86%;
   position: relative;
   left: 25px;
 }
-.notePadBot {
+.note_padBot {
   position: relative;
   top: 10px;
   left: 0px;
 }
-.notePadContainer {
+.note_sidebarcontainer {
+}
+.note_padContainer {
   position: relative;
   top: 5%;
 }
-.plusIcon {
+.note_plusIcon {
   cursor: pointer;
-
   height: 30px;
   position: relative;
-  left: 80px;
+  left: 20px;
 }
-.gridIconsContainer {
+.note_gridIconsContainer {
   width: 70px;
   cursor: pointer;
   float: right;
