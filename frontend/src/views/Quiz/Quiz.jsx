@@ -7,7 +7,7 @@ import SideNotes from "../../components/SideNotes";
 import { GoPlus } from "react-icons/go";
 import { BiSquare } from "react-icons/bi";
 import { CgMenuGridR } from "react-icons/cg";
-import "./statics/css/quiz.css";
+import "./statics/css/Quiz.css";
 
 const typing = true;
 
@@ -136,7 +136,7 @@ const Quiz = () => {
                 alignItems="flex-start"
                 className="quiz_padArea"
               >
-                {selectedNote && sideNotes.length != 0 ? (
+                {selectedNote && sideNotes.length !== 0 ? (
                   <Note
                     title={sideNotes[parseInt(selectedNote)].title}
                     content={sideNotes[parseInt(selectedNote)].content}
@@ -145,7 +145,7 @@ const Quiz = () => {
                     }}
                     onDelete={() => {
                       sideNotes.splice(parseInt(selectedNote), 1);
-                      setSelectedNote(() => (selectedNote == "0" ? "" : "0"));
+                      setSelectedNote(() => (selectedNote === "0" ? "" : "0"));
                       setSelectedNote("");
                     }}
                   />

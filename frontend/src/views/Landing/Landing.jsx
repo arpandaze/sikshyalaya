@@ -4,7 +4,7 @@ import colorscheme from "../../utils/colors";
 import DashboardLayout from "../../components/DashboardLayout";
 import SmallCards from "../../components/SmallCards";
 import { BsCalendar } from "react-icons/bs";
-import "./statics/css/landing.css";
+import "./statics/css/Landing.css";
 
 const styleSheet = {
   activeCourseBar: {
