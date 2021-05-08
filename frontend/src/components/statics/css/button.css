@@ -1,0 +1,7 @@
+@import "../../../utils/colors.css";
+
+.main_button {
+  outline: none;
+  border: none;
+  cursor: pointer !important;
+}

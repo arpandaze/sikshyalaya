@@ -2,29 +2,16 @@ import React from "react";
 import Button from "./Button";
 import colorscheme from "../utils/colors";
 import { BsArrowRightShort } from "react-icons/bs";
+import "./statics/css/fancyButton.css";
+import { IconContext } from "react-icons";
 
-const styleSheet = {
-  buttonStyles: { outline: "none", border: "none", cursor: "pointer" },
-  button: {
-    width: "35px",
-    height: "35px",
-    borderRadius: "50%",
-  },
-  buttonIcon: {
-    position: "absolute",
-  },
-};
-
-const FancyButton = ({ name, colorStyles, children, ...rest }) => {
-  const finalStyles = { ...styleSheet.buttonStyles, ...colorStyles };
+const FancyButton = ({ name, color, children, ...rest }) => {
   return (
     <div>
-      <BsArrowRightShort
-        size={35}
-        color={colorscheme.purple}
-        style={styleSheet.buttonIcon}
-      />
-      <Button colorStyles={styleSheet.button} />
+      <IconContext.Provider value={{ color: color, className: "buttonIcon" }}>
+        <BsArrowRightShort />
+      </IconContext.Provider>
+      <Button addStyles="button" />
     </div>
   );
 };

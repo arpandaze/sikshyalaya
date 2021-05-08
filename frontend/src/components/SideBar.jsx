@@ -9,32 +9,7 @@ import icon from "../assets/icon.png";
 import Image from "../components/Image";
 import { Link } from "react-router-dom";
 import NavIcons from "../components/NavIcons";
-
-const useStyles = makeStyles((theme) => ({
-  root: { flexGrow: "1" },
-  sideBar: {},
-  logoContainer: {
-    width: "85%",
-    margin: "20px auto",
-  },
-  horizontalLine: {
-    width: "60px",
-    height: "1.5px",
-    backgroundColor: colorscheme.grey2,
-    opacity: "0.3",
-    margin: "-10px auto",
-  },
-  iconContainer: {
-    width: "85%",
-    margin: "40px auto",
-  },
-  sidebarLink: {
-    textDecoration: "none",
-  },
-  iconStyle: {
-    cursor: "pointer",
-  },
-}));
+import "./statics/css/sideBar.css";
 
 const sidebarItems = [
   {
@@ -58,32 +33,30 @@ const sidebarItems = [
 ];
 
 const SideBar = () => {
-  const theme = useTheme();
-  const classes = useStyles(theme);
   return (
-    <div className={classes.root}>
+    <div className="sideBar_root">
       <Grid
         container
         direction="column"
         alignItems="flex-center"
-        className={classes.sideBar}
+        className="sideBar_sideBar"
         spacing={2}
       >
-        <Grid item className={classes.logoContainer}>
+        <Grid item className="sideBar_logoContainer">
           <Link to="/">
             <Image src={icon} alt={{ icon }} />
           </Link>
         </Grid>
-        <div className={classes.horizontalLine}></div>
+        <div className="sideBar_horizontalLine"></div>
         <Grid
           container
           item
           direction="column"
           justify="center"
-          className={classes.iconContainer}
+          className="sideBar_iconContainer"
         >
           {sidebarItems.map((item) => (
-            <Link to={item.route} className={classes.sidebarLink} key={item.id}>
+            <Link to={item.route} className="sideBar_sidebarLink" key={item.id}>
               <NavIcons title={item.title} path={item.route} icon={item.icon} />
             </Link>
           ))}

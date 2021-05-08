@@ -7,7 +7,7 @@ import SideNotes from "../../components/SideNotes";
 import { GoPlus } from "react-icons/go";
 import { BiSquare } from "react-icons/bi";
 import { CgMenuGridR } from "react-icons/cg";
-import "./statics/css/Quiz.css";
+import "./statics/css/quiz.css";
 
 const typing = true;
 
@@ -64,9 +64,10 @@ const Quiz = () => {
         <Grid item xs={4} className="quiz_creator">
           <Grid
             container
-            direction="column"
-            justify="flex-start"
+            direction="row"
+            justify="center"
             alignItems="center"
+            className="quiz_creatorInside"
           >
             <Grid item className="quiz_creatorTop">
               <Grid

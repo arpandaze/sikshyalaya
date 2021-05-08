@@ -1,7 +1,7 @@
 @import "../../../../utils/colors.css";
 
 .note_root {
-  width: 98%;
+  width: 96% !important;
   margin: 0px auto !important;
   position: relative;
   flex-grow: 1;
@@ -10,6 +10,9 @@
   height: 96vh;
   overflow: scroll;
   overflow-x: hidden;
+}
+.note_creatorInside {
+  margin: 0px auto !important;
 }
 .note_creatorTop {
   width: 400px;
@@ -61,5 +64,4 @@
 .note_gridIconsContainer {
   width: 70px;
   cursor: pointer;
-  float: right;
 }

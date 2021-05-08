@@ -1,0 +1,8 @@
+@import "../../../utils/colors.css";
+
+.profileBar_root {
+  flex-grow: 1;
+}
+.profileBar_profileBox {
+  margin-top: 10% !important;
+}

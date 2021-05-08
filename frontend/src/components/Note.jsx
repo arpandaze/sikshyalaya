@@ -4,6 +4,7 @@ import colorscheme from "../utils/colors";
 import { ImCross } from "react-icons/im";
 import { FiTrash } from "react-icons/fi";
 import "./statics/css/notes.css";
+
 const Note = ({ title, content, state, onClose, onDelete, ...rest }) => {
   return (
     <Grid

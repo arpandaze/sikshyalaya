@@ -4,12 +4,6 @@ import Grid from "@material-ui/core/Grid";
 import FancyButton from "./FancyButton";
 import "./statics/css/adminBoxSmall.css";
 
-const styleSheet = {
-  button: {
-    backgroundColor: colorscheme.purple4,
-  },
-};
-
 const AdminBoxSmall = ({ cardData, ...rest }) => {
   const data = cardData;
   return (
@@ -45,7 +39,7 @@ const AdminBoxSmall = ({ cardData, ...rest }) => {
               spacing={2}
             >
               <Grid item className="adminBoxSmall_buttonContainer">
-                <FancyButton colorStyles={styleSheet.button}></FancyButton>
+                <FancyButton color={colorscheme.purple} />
               </Grid>
 
               <Grid item className="adminBoxSmall_row2_bot">

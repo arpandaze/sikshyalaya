@@ -1,80 +1,102 @@
 @import "../../../../utils/colors.css";
 
 .profile_root {
-  width: 100%;
-  height: 100vh;
-  margin: 0px auto;
-  position: relative;
-  flex-grow: 1;
+  width: 100% !important;
+  height: 100vh !important;
+  margin: 0px auto !important;
+  position: relative !important;
+  flex-grow: 1 !important;
 }
 .profile_longInputButton {
-  outline: none;
-  width: 750px;
-  height: 50px;
-  font-size: 1.3em;
-  margin-top: 30px;
-  border-top: 0px;
-  border-left: 0px;
-  border-right: 0px;
-  border-bottom: 2px solid var(--grey2);
-  background: var(--white);
+  outline: none !important;
+  width: 750px !important;
+  height: 50px !important;
+  font-size: 1.3em !important;
+  margin-top: 30px !important;
+  border-top: 0px !important;
+  border-left: 0px !important;
+  border-right: 0px !important;
+  border-bottom: 2px solid var(--grey2) !important;
+  background: var(--white) !important;
 }
 .profile_middleInputButton {
-  outline: none;
-  width: 340px;
-  height: 50px;
-  margin-top: 30px;
-  margin-left: 25px;
-  border-top: 0px;
-  border-left: 0px;
-  border-right: 0px;
-  border-bottom: 2px solid var(--grey2);
-  font-size: 1.3em;
-  background: var(--white);
+  outline: none !important;
+  width: 340px !important;
+  height: 50px !important;
+  margin-top: 30px !important;
+  margin-left: 25px !important;
+  border-top: 0px !important;
+  border-left: 0px !important;
+  border-right: 0px !important;
+  border-bottom: 2px solid var(--grey2) !important;
+  font-size: 1.3em !important;
+  background: var(--white) !important;
 }
 .profile_inputButton {
-  outline: none;
-  width: 340px;
-  height: 50px;
-  margin-top: 30px;
-  border-top: 0px;
-  border-left: 0px;
-  border-right: 0px;
-  border-bottom: 2px solid var(--grey2);
-  font-size: 1.3em;
-  background: var(--white);
+  outline: none !important;
+  width: 340px !important;
+  height: 50px !important;
+  margin-top: 30px !important;
+  border-top: 0px !important;
+  border-left: 0px !important;
+  border-right: 0px !important;
+  border-bottom: 2px solid var(--grey2) !important;
+  font-size: 1.3em !important;
+  background: var(--white) !important;
 }
 .profile_imageContainer {
-  position: relative;
-  height: 800px;
+  position: relative !important;
+  height: 800px !important;
 }
+
+.profile_image {
+  border-radius: 50% !important;
+  width: 200px !important;
+  height: 200px !important;
+  position: relative !important;
+  top: 60px !important;
+  left: 30px !important;
+}
+
 .profile_titleContainer {
-  width: 1200px;
-  margin: 0px auto;
-  position: relative;
-  top: 50px;
+  width: 1200px !important;
+  margin: 0px auto !important;
+  position: relative !important;
+  top: 50px !important;
 }
 .profile_activeTitle {
-  display: inline-block;
-  margin-bottom: 20px;
-  margin-left: 10px;
+  display: inline-block !important;
+  margin-bottom: 20px !important;
+  margin-left: 10px !important;
 }
 .profile_formBoxContainer {
-  height: 800px;
+  height: 800px !important;
 }
 .profile_formBox {
-  width: 92%;
-  margin: 20px auto;
+  width: 92% !important;
+  margin: 20px auto !important;
 }
 .profile_profileBoxContainer {
-  width: 1200px;
-  height: 800px;
-  margin: 0px auto;
-  position: relative;
-  top: 50px;
+  width: 1200px !important;
+  height: 800px !important;
+  margin: 0px auto !important;
+  position: relative !important;
+  top: 50px !important;
 }
 .profile_profileBox {
-  border-radius: 25px;
-  background: var(--white);
-  box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);
+  border-radius: 25px !important;
+  background: var(--white) !important;
+  box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2) !important;
+}
+
+.profileBox_saveButton {
+  width: 200px !important;
+  height: 50px !important;
+  background-color: var(--red4) !important;
+  color: var(--white) !important;
+  margin-top: 20px !important;
+  position: relative !important;
+  left: 125% !important;
+  font-size: 1.2em !important;
+  border-radius: 15px !important;
 }

@@ -7,7 +7,7 @@ import SideNotes from "../../components/SideNotes";
 import { GoPlus } from "react-icons/go";
 import { BiSquare } from "react-icons/bi";
 import { CgMenuGridR } from "react-icons/cg";
-import "./statics/css/Notes.css";
+import "./statics/css/notes.css";
 
 const typing = true;
 
@@ -62,12 +62,7 @@ const Notes = () => {
         className="note_root"
       >
         <Grid item xs={4} className="note_creator">
-          <Grid
-            container
-            direction="column"
-            justify="flex-start"
-            alignItems="center"
-          >
+          <Grid container direction="column" className="note_creatorInside">
             <Grid item className="note_creatorTop">
               <Grid
                 container

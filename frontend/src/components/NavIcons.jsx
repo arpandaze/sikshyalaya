@@ -5,8 +5,6 @@ import { Tooltip } from "@material-ui/core";
 import { IconContext } from "react-icons";
 import "./statics/css/navIcons.css";
 
-const styleSheet = {};
-
 const NavIcons = ({ title, path, icon, ...rest }) => {
   const [hovered, setHovered] = useState(false);
   const tooltip = false;

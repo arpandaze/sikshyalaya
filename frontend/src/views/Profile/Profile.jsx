@@ -9,28 +9,6 @@ import colorscheme from "../../utils/colors";
 import DashboardLayout from "../../components/DashboardLayout";
 import "./statics/css/profile.css";
 
-const styleSheet = {
-  saveButton: {
-    width: "200px",
-    height: "50px",
-    backgroundColor: colorscheme.red4,
-    color: colorscheme.white,
-    marginTop: "20px",
-    position: "relative",
-    left: "125%",
-    fontSize: "1.2em",
-    borderRadius: "15px",
-  },
-  image: {
-    borderRadius: "50%",
-    width: "200px",
-    height: "200px",
-    position: "relative",
-    top: "60px",
-    left: "30px",
-  },
-};
-
 const validationSchema = yup.object({
   firstName: yup.string("Enter your name").required("First Name is required"),
   lastName: yup
@@ -76,7 +54,7 @@ const Profile = () => {
               <Image
                 src={profile}
                 alt={profile}
-                addStyles={styleSheet.image}
+                addStyles="profile_image"
               ></Image>
             </Grid>
             <Grid item xs={9} className="profile_formBoxContainer">
@@ -150,7 +128,7 @@ const Profile = () => {
                       />
                     </Grid>
                     <Grid item>
-                      <Button name="Save" colorStyles={styleSheet.saveButton} />
+                      <Button name="Save" addStyles="profileBox_saveButton" />
                     </Grid>
                   </Grid>
                 </Form>
