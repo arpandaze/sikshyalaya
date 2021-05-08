@@ -4,8 +4,8 @@ import colorscheme from "../../utils/colors";
 import DashboardLayout from "../../components/DashboardLayout";
 import SmallCards from "../../components/SmallCards";
 import { BsCalendar } from "react-icons/bs";
-import "./statics/css/Landing.css";
 import { StylesProvider } from "@material-ui/core/styles";
+import "./statics/css/landing.css";
 
 const Landing = () => {
   const card1 = {
