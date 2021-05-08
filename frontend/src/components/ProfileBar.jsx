@@ -1,5 +1,4 @@
 import React from "react";
-import colorscheme from "../utils/colors";
 import Grid from "@material-ui/core/Grid";
 import CourseBox from "./CourseBox";
 import profile from "../assets/pp.jpg";
@@ -56,7 +55,7 @@ const ProfileBar = ({ selected }) => {
         <ProfileBox user={user} />
       </Grid>
       <Grid xs={12} item>
-        <CourseBox courseList={courses} selected={1} />
+        <CourseBox courseList={courses} selected={"1"} />
       </Grid>
     </Grid>
   );

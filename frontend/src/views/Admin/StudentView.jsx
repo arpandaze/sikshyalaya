@@ -1,16 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
 import colorscheme from "../../utils/colors";
 import DashboardLayout from "../../components/DashboardLayout";
 import Students from "../../components/Student";
 import { GoPlus } from "react-icons/go";
 import "./statics/css/studentView.css";
-
-const selectedCLass = [
-  {
-    name: "CS 2019",
-  },
-];
 
 const students = [
   {

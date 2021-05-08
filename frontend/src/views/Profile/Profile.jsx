@@ -5,7 +5,6 @@ import * as yup from "yup";
 import Grid from "@material-ui/core/Grid";
 import Image from "../../components/Image";
 import profile from "../../assets/pp.jpg";
-import colorscheme from "../../utils/colors";
 import DashboardLayout from "../../components/DashboardLayout";
 import "./statics/css/profile.css";
 

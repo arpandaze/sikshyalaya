@@ -1,6 +1,4 @@
 import React from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import colorscheme from "../utils/colors";
 import { AiOutlineDashboard } from "react-icons/ai";
 import { BiNotepad } from "react-icons/bi";
 import { FaChalkboardTeacher } from "react-icons/fa";

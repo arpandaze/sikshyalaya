@@ -1,6 +1,5 @@
 import React from "react";
 import Button from "./Button";
-import colorscheme from "../utils/colors";
 import { BsArrowRightShort } from "react-icons/bs";
 import "./statics/css/fancyButton.css";
 import { IconContext } from "react-icons";

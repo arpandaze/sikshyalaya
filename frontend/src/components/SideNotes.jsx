@@ -1,6 +1,5 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import colorscheme from "../utils/colors";
 import "./statics/css/sideNotes.css";
 
 const SideNotes = ({ title, content, onClick, ...rest }) => {

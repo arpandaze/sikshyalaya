@@ -9,8 +9,6 @@ import { BiSquare } from "react-icons/bi";
 import { CgMenuGridR } from "react-icons/cg";
 import "./statics/css/quiz.css";
 
-const typing = true;
-
 const sideNotes = [
   {
     id: "1",
@@ -50,7 +48,6 @@ const sideNotes = [
   },
 ];
 const Quiz = () => {
-  const [typing, setTyping] = useState(false);
   const [selectedNote, setSelectedNote] = useState("0");
   return (
     <DashboardLayout>
