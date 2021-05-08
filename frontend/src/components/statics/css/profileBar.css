@@ -8,5 +8,11 @@
   }
 }
 
-@media only screen and (min-width: 1366px) {
+@media only screen and (max-width: 1919px) {
+  .profileBar_root {
+    flex-grow: 1;
+  }
+  .profileBar_profileBox {
+    margin-top: 10% !important;
+  }
 }

@@ -37,8 +37,8 @@ const NavIcons = ({ title, path, icon, ...rest }) => {
             </IconContext.Provider>
           </div>
         </Grid>
-        <Grid item>
-          <span className="navIcons_navText">{title}</span>
+        <Grid item className="navIcons_navTextContainer">
+          <p className="navIcons_navText">{title}</p>
         </Grid>
       </Grid>
     </Tooltip>

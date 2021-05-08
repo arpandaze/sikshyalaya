@@ -14,19 +14,19 @@ const sidebarItems = [
     id: 1,
     title: "Dashboard",
     route: "/dashboard",
-    icon: <AiOutlineDashboard size={30} />,
+    icon: <AiOutlineDashboard className="sideBar_iconStyle" />,
   },
   {
     id: 2,
     title: "Quiz",
     route: "/quiz",
-    icon: <FaChalkboardTeacher size={30} />,
+    icon: <FaChalkboardTeacher className="sideBar_iconStyle" />,
   },
   {
     id: 3,
     title: "Note",
     route: "/note",
-    icon: <BiNotepad size={30} />,
+    icon: <BiNotepad className="sideBar_iconStyle" />,
   },
 ];
 
@@ -50,6 +50,7 @@ const SideBar = () => {
           container
           item
           direction="column"
+          alignItems="center"
           justify="center"
           className="sideBar_iconContainer"
         >

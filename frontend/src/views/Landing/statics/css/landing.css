@@ -56,5 +56,59 @@
   }
 }
 
-@media only screen and (min-width: 1366px) {
+@media only screen and (max-width: 1919px) {
+  .landing_root {
+    flex-grow: 1;
+    width: 94% !important;
+    margin: 0px auto !important;
+    position: relative;
+  }
+  .landing_activeCourseBar {
+    position: relative;
+  }
+  .landing_row {
+    position: relative;
+    top: 20px;
+  }
+  .landing_row2 {
+    position: relative;
+    margin-top: 80px !important;
+  }
+  .landing_smallRedBox {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--red4);
+    position: relative;
+    margin-left: 30px !important;
+  }
+  .landing_currentContainer {
+    width: 95%;
+    margin: 0px auto !important;
+  }
+  .landing_activeTitle {
+    display: inline-block;
+    position: relative;
+    left: 15px;
+  }
+  .landing_upCommingCourseBar {
+    position: relative;
+    margin-left: 30px;
+    margin-bottom: 30px;
+  }
+  .landing_upcomingIcon {
+    display: inline-block;
+    position: relative;
+    margin-left: 30px !important;
+  }
+  .landing_upcomingText {
+    display: inline-block;
+    position: relative;
+    left: 15px;
+  }
+  .landing_upCommingContainer {
+    width: 98%;
+    margin: 0px auto !important;
+  }
 }
