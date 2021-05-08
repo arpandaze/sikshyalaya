@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import colorscheme from "../../utils/colors";
 import DashboardLayout from "../../components/DashboardLayout";
 import NotificationButton from "../../components/NotificationButton";
-import "./statics/css/Dashboard.css";
+import "./statics/css/dashboard.css";
 
 const Dashboard = () => {
   const [clicked, setClicked] = useState(false);
