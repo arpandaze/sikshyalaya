@@ -38,7 +38,16 @@ const NavIcons = ({ title, path, icon, ...rest }) => {
           </div>
         </Grid>
         <Grid item className="navIcons_navTextContainer">
-          <p className="navIcons_navText">{title}</p>
+          <p
+            style={
+              window.location.pathname === path
+                ? { color: colorscheme.red3 }
+                : { color: colorscheme.black }
+            }
+            className="navIcons_navText"
+          >
+            {title}
+          </p>
         </Grid>
       </Grid>
     </Tooltip>

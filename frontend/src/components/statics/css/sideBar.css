@@ -5,11 +5,12 @@
   }
   .sideBar_sideBar {
   }
-  .sideBar_iconStyle {
-    width: 100%;
-    height: 100%;
+  .sideBar_logoContainerBig {
+    width: 85% !important;
+    margin: 20px auto !important;
   }
-  .sideBar_logoContainer {
+  .sideBar_logoContainerSmall {
+    display: none;
     width: 85% !important;
     margin: 20px auto !important;
   }
@@ -17,15 +18,20 @@
     width: 60px !important;
     height: 1.5px !important;
     background-color: var(--grey2) !important;
-    opacity: 0.3 !important;
+    opacity: 0.4 !important;
     margin: -10px auto !important;
   }
   .sideBar_iconContainer {
-    width: 90% !important;
     margin: 40px auto !important;
+  }
+  .sideBar_iconStyle {
+    width: 100%;
+    height: 100%;
   }
   .sideBar_sidebarLink {
     width: 98% !important;
+    height: 50px;
+    margin: 15px auto;
     text-decoration: none !important;
   }
   .sideBar_iconStyle {
@@ -39,27 +45,30 @@
   }
   .sideBar_sideBar {
   }
-  .sideBar_iconStyle {
-    width: 100%;
-    height: 100%;
+  .sideBar_logoContainerBig {
+    display: none;
   }
-  .sideBar_logoContainer {
-    width: 85% !important;
+  .sideBar_logoContainerSmall {
+    width: 58% !important;
     margin: 20px auto !important;
   }
   .sideBar_horizontalLine {
     width: 60px !important;
     height: 1.5px !important;
     background-color: var(--grey2) !important;
-    opacity: 0.3 !important;
+    opacity: 0.4 !important;
     margin: -10px auto !important;
   }
   .sideBar_iconContainer {
-    width: 90% !important;
     margin: 40px auto !important;
   }
+  .sideBar_iconStyle {
+    width: 100%;
+    height: 100%;
+  }
   .sideBar_sidebarLink {
-    width: 100% !important;
+    width: 98% !important;
+    margin: 8% auto;
     text-decoration: none !important;
   }
   .sideBar_iconStyle {
