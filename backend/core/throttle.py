@@ -29,18 +29,21 @@ def ip_throttle(rate: int, per: int = 86400) -> Callable:
         async def inner_wrapper(*args, **kwargs):
             client_ip = kwargs.get(
                 "request"
-            ).client.host  # FIXME - Proxy might mess up this. Might need to look X-HTTP-FORWARDED. Works locally
-            identifier = f"ip_th_{client_ip}_{func.__name__}"
+            ).client.host  # FIXME - Proxy might mess this up. Might need to look X-HTTP-FORWARDED. Works locally
+            identifier = f"ip_th_{client_ip}_{func.__name__}_{per}"
             current_count = await redis_throttle_client.client.get(identifier)
+
             if not current_count:
-                await redis_throttle_client.client.set(identifier, 1, ex=per)
-            elif int(current_count.decode("utf-8")) < rate:
-                await redis_throttle_client.client.incr(identifier, amount=1)
-            else:
+                await redis_throttle_client.client.set(identifier, 1, expire=per)
+
+            elif not int(current_count.decode("utf-8")) <= rate:
                 raise HTTPException(
                     status_code=403, detail="Error ID: 133"
                 )  # Too many requests!
-            return await func(*args, **kwargs)
+
+            ret_val = await func(*args, **kwargs)
+            await redis_throttle_client.client.incr(identifier)
+            return ret_val
 
         return inner_wrapper
 
