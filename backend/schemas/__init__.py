@@ -31,3 +31,5 @@ from .user_permission import (
 )
 from .token import Token, TokenPayload
 from .user import User, UserCreate, UserInDB, UserUpdate
+
+from .quiz import quiz, quizCreate, quizUpdate, quizInDB

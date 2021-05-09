@@ -17,3 +17,5 @@ from .class_session import crud_class_session
 # from app.schemas.item import ItemCreate, ItemUpdate
 
 # item = CRUDBase[Item, ItemCreate, ItemUpdate](Item)
+
+from .quiz import crud_quiz
