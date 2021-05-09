@@ -57,7 +57,13 @@ async def test_session_token(
 
 
 @router.post("auth/password-recovery/{email}", response_model=schemas.Msg)
-async def recover_password(email: str, db: Session = Depends(deps.get_db)) -> Any:
+@throttle.ip_throttle(rate=3, per=1 * 60 * 60)
+@throttle.ip_throttle(rate=1, per=20)
+async def recover_password(
+    request: Request,
+    email: str,
+    db: Session = Depends(deps.get_db),
+) -> Any:
     """
     Password Recovery
     """
@@ -70,7 +76,10 @@ async def recover_password(email: str, db: Session = Depends(deps.get_db)) -> An
         )  # The user with this username does not exist in the system.
     password_reset_token = await generate_password_reset_token(uid=user.id)
     send_reset_password_email(
-        email_to=user.email, email=user.email, token=password_reset_token
+        email_to=user.email,
+        email=user.email,
+        name=user.full_name,
+        token=password_reset_token,
     )
     return {"msg": "Password recovery email sent"}
 
