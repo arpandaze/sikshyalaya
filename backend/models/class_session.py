@@ -12,6 +12,8 @@ class ClassSession(Base):
     instructor = relationship(
         "User", secondary=user_class_session_association_table, backref="class_session"
     )
+    quiz_id = Column(Integer, ForeignKey("quiz.id"))
+    quiz = relationship("Quiz", backref="session")
     course_id = Column(Integer, ForeignKey("course.id"))
     course = relationship("Course", backref="session")
     group_id = Column(Integer, ForeignKey("group.id"))
