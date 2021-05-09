@@ -13,8 +13,6 @@ services:
     mailhog:
         image: mailhog/mailhog:latest
         container_name: mailhog
-        logging:
-            driver: "none"
         networks:
             - internal
         ports:
