@@ -54,7 +54,7 @@ const ProfileBar = ({ selected }) => {
       <Grid xs={12} item className="profileBar_profileBox">
         <ProfileBox user={user} />
       </Grid>
-      <Grid xs={12} item>
+      <Grid xs={12} item className="profileBar_courseBox">
         <CourseBox courseList={courses} selected={"1"} />
       </Grid>
     </Grid>

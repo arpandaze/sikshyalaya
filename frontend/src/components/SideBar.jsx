@@ -3,7 +3,8 @@ import { AiOutlineDashboard } from "react-icons/ai";
 import { BiNotepad } from "react-icons/bi";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import Grid from "@material-ui/core/Grid";
-import icon from "../assets/icon.png";
+import iconbig from "../assets/logo-big.png";
+import iconsmall from "../assets/logo-small.png";
 import Image from "../components/Image";
 import { Link } from "react-router-dom";
 import NavIcons from "../components/NavIcons";
@@ -38,11 +39,15 @@ const SideBar = () => {
         direction="column"
         alignItems="flex-center"
         className="sideBar_sideBar"
-        spacing={2}
       >
-        <Grid item className="sideBar_logoContainer">
+        <Grid item className="sideBar_logoContainerBig">
           <Link to="/">
-            <Image src={icon} alt={{ icon }} />
+            <Image src={iconbig} alt={{ iconbig }} />
+          </Link>
+        </Grid>
+        <Grid item className="sideBar_logoContainerSmall">
+          <Link to="/">
+            <Image src={iconsmall} alt={{ iconsmall }} />
           </Link>
         </Grid>
         <div className="sideBar_horizontalLine"></div>

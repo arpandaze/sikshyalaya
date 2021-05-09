@@ -6,7 +6,6 @@
     height: 63vh;
     max-height: 630px;
     position: relative;
-    top: 50px;
     margin: 0px auto;
     background: var(--white);
     box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);
@@ -71,12 +70,9 @@
 
 @media only screen and (max-width: 1919px) {
   .courseBox_container {
-    width: 85% !important;
+    width: 80% !important;
     border-radius: 25px;
-    height: 63vh;
-    max-height: 630px;
     position: relative;
-    top: 50px;
     margin: 0px auto;
     background: var(--white);
     box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);
@@ -84,12 +80,14 @@
   .courseBox_courseTextTitle {
     margin: 0px;
     padding: 0px;
-    font-size: 2em;
+    font-size: 1.5em;
     height: 2em;
     font-weight: bold;
     position: relative;
-    top: 15px;
+    margin-top: 10px;
+    top: 10px;
     left: 30px;
+    margin-bottom: 20px;
   }
   .courseBox_courseDetailBoxContainer {
     width: 100%;
@@ -99,23 +97,22 @@
   .courseBox_courseDetailBox {
     height: 3.4vw;
     padding: 2px;
+    margin-bottom: 10px;
   }
   .courseBox_courseTextCode {
     width: 85%;
-    font-size: 1.4em;
+    font-size: 1.2em;
     font-weight: bold;
     position: relative;
-    top: 10px;
     left: 30px;
     line-height: 0.95em;
     list-style-type: none;
   }
   .courseBox_courseTextCodeSelected {
     width: 85%;
-    font-size: 1.4em;
+    font-size: 1.2em;
     font-weight: bold;
     position: relative;
-    top: 10px;
     left: 30px;
     line-height: 0.95em;
     list-style-type: none;
@@ -132,8 +129,8 @@
     font-size: 0.8em;
     font-weight: 400;
     position: absolute;
-    top: 15px;
-    right: 10px;
+    top: 0px;
+    right: 0px;
     list-style-type: none;
     color: var(--grey1);
   }

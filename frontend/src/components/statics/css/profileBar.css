@@ -6,6 +6,9 @@
   .profileBar_profileBox {
     margin-top: 10% !important;
   }
+  .profileBar_courseBox {
+    margin-top: 10% !important;
+  }
 }
 
 @media only screen and (max-width: 1919px) {
@@ -13,6 +16,9 @@
     flex-grow: 1;
   }
   .profileBar_profileBox {
-    margin-top: 10% !important;
+    margin-top: 5% !important;
+  }
+  .profileBar_courseBox {
+    margin-top: 5% !important;
   }
 }
