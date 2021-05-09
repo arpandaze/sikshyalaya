@@ -1,113 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { Formik, Field, Form } from "formik";
-import { Route, Switch, Redirect } from "react-router-dom";
 import Button from "../../components/Button";
 import * as yup from "yup";
 import Grid from "@material-ui/core/Grid";
 import Image from "../../components/Image";
 import profile from "../../assets/pp.jpg";
-import colorscheme from "../../utils/colors";
 import DashboardLayout from "../../components/DashboardLayout";
-
-const styleSheet = {
-  root: {
-    width: "100%",
-    height: "100vh",
-    margin: "0px auto",
-    position: "relative",
-    flexGrow: "1",
-  },
-  longInputButton: {
-    outline: "none",
-    width: "750px",
-    height: "50px",
-    fontSize: "1.3em",
-    marginTop: "30px",
-    borderTop: "0px",
-    borderLeft: "0px",
-    borderRight: "0px",
-    borderBottom: "2px solid " + colorscheme.grey2,
-    background: colorscheme.white,
-  },
-  middleInputButton: {
-    outline: "none",
-    width: "340px",
-    height: "50px",
-    marginTop: "30px",
-    marginLeft: "25px",
-    borderTop: "0px",
-    borderLeft: "0px",
-    borderRight: "0px",
-    borderBottom: "2px solid " + colorscheme.grey2,
-    fontSize: "1.3em",
-    background: colorscheme.white,
-  },
-  inputButton: {
-    outline: "none",
-    width: "340px",
-    height: "50px",
-    marginTop: "30px",
-    borderTop: "0px",
-    borderLeft: "0px",
-    borderRight: "0px",
-    borderBottom: "2px solid " + colorscheme.grey2,
-    fontSize: "1.3em",
-    background: colorscheme.white,
-  },
-  imageContainer: {
-    position: "relative",
-    height: "800px",
-  },
-  image: {
-    borderRadius: "50%",
-    width: "200px",
-    height: "200px",
-    position: "relative",
-    top: "60px",
-    left: "30px",
-  },
-  titleContainer: {
-    width: "1200px",
-    margin: "0px auto",
-    position: "relative",
-    top: "50px",
-  },
-  activeTitle: {
-    display: "inline-block",
-    marginBottom: "20px",
-    marginLeft: "10px",
-  },
-  formBoxContainer: {
-    height: "800px",
-  },
-  formBox: {
-    width: "92%",
-    margin: "20px auto",
-  },
-  profileBoxContainer: {
-    width: "1200px",
-    height: "800px",
-    margin: "0px auto",
-    position: "relative",
-    top: "50px",
-  },
-  profileBox: {
-    borderRadius: "25px",
-    background: colorscheme.white,
-    boxShadow: "2px 2px 10px -3px rgba(0,0,0,0.2)",
-  },
-  saveButton: {
-    width: "200px",
-    height: "50px",
-    backgroundColor: colorscheme.red4,
-    color: colorscheme.white,
-    marginTop: "20px",
-    position: "relative",
-    left: "125%",
-    fontSize: "1.2em",
-    borderRadius: "15px",
-  },
-};
+import "./statics/css/profile.css";
 
 const validationSchema = yup.object({
   firstName: yup.string("Enter your name").required("First Name is required"),
@@ -137,27 +36,27 @@ const Profile = () => {
         alignItems="flex-start"
         justify="flex-start"
         wrap="nowrap"
-        style={styleSheet.root}
+        className="profile_root"
       >
-        <Grid item style={styleSheet.titleContainer}>
-          <h1 style={styleSheet.activeTitle}>Edit your Profile</h1>
+        <Grid item className="profile_titleContainer">
+          <h1 className="profile_activeTitle">Edit your Profile</h1>
         </Grid>
-        <Grid item style={styleSheet.profileBoxContainer}>
+        <Grid item className="profile_profileBoxContainer">
           <Grid
             container
             direction="row"
             alignItems="flex-start"
             wrap="nowrap"
-            style={styleSheet.profileBox}
+            className="profile_profileBox"
           >
-            <Grid item xs={3} style={styleSheet.imageContainer}>
+            <Grid item xs={3} className="profile_imageContainer">
               <Image
                 src={profile}
                 alt={profile}
-                addStyles={styleSheet.image}
+                addStyles="profile_image"
               ></Image>
             </Grid>
-            <Grid item xs={9} style={styleSheet.formBoxContainer}>
+            <Grid item xs={9} className="profile_formBoxContainer">
               <Formik
                 initialValues={{
                   firstName: "",
@@ -174,7 +73,7 @@ const Profile = () => {
                     container
                     direction="row"
                     alignItems="flex-start"
-                    style={styleSheet.formBox}
+                    className="profile_formBox"
                     spacing={5}
                   >
                     <Grid item>
@@ -182,7 +81,7 @@ const Profile = () => {
                         id="firstname"
                         name="firstname"
                         placeholder="First Name"
-                        style={styleSheet.inputButton}
+                        className="profile_inputButton"
                       />
                     </Grid>
                     <Grid item>
@@ -190,7 +89,7 @@ const Profile = () => {
                         id="middlename"
                         name="middlename"
                         placeholder="Middle Name"
-                        style={styleSheet.middleInputButton}
+                        className="profile_middleInputButton"
                       />
                     </Grid>
                     <Grid item>
@@ -198,7 +97,7 @@ const Profile = () => {
                         id="lastname"
                         name="lastname"
                         placeholder="Last Name"
-                        style={styleSheet.inputButton}
+                        className="profile_inputButton"
                       />
                     </Grid>
                     <Grid item>
@@ -206,7 +105,7 @@ const Profile = () => {
                         id="email"
                         name="email"
                         placeholder="Email Address"
-                        style={styleSheet.longInputButton}
+                        className="profile_longInputButton"
                       />
                     </Grid>
                     <Grid item>
@@ -215,7 +114,7 @@ const Profile = () => {
                         type="password"
                         name="password"
                         placeholder="Password"
-                        style={styleSheet.longInputButton}
+                        className="profile_longInputButton"
                       />
                     </Grid>
                     <Grid item>
@@ -224,11 +123,11 @@ const Profile = () => {
                         type="password"
                         name="confirmpassword"
                         placeholder="Confirm Password"
-                        style={styleSheet.longInputButton}
+                        className="profile_longInputButton"
                       />
                     </Grid>
                     <Grid item>
-                      <Button name="Save" colorStyles={styleSheet.saveButton} />
+                      <Button name="Save" addStyles="profileBox_saveButton" />
                     </Grid>
                   </Grid>
                 </Form>

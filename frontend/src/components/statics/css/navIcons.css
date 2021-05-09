@@ -1,0 +1,60 @@
+@import "../../../utils/colors.css";
+@media only screen and (min-width: 1920px) {
+  .navIcons_container {
+    height: 50px;
+    position: relative !important;
+  }
+  .navIcons_selectedContainer {
+    height: 50px;
+    background-color: var(--grey3);
+    position: relative !important;
+  }
+  .navIcons_icons {
+    width: 22%;
+    line-height: 20%;
+    margin: 8px auto !important;
+  }
+  .navIcons_iconStyle {
+    cursor: pointer;
+  }
+  .navIcons_navTextContainer {
+    width: 60%;
+    margin: 8px auto !important;
+  }
+  .navIcons_navText {
+    margin: 0px auto !important;
+    padding: 0px;
+    line-height: 200%;
+    text-decoration: none;
+    font-size: 1.05em;
+    position: relative;
+    color: var(--black);
+  }
+}
+
+@media only screen and (max-width: 1919px) {
+  .navIcons_container {
+    position: relative !important;
+    line-height: 245%;
+  }
+  .navIcons_icons {
+    width: 22%;
+    margin: 5.5% auto !important;
+  }
+  .navIcons_iconStyle {
+    cursor: pointer;
+  }
+  .navIcons_navTextContainer {
+    width: 65%;
+    margin: 0px auto !important;
+  }
+  .navIcons_navText {
+    margin: 0px auto !important;
+    padding: 0px;
+    text-decoration: none;
+    line-height: 265%;
+    font-size: 1vw;
+    position: relative;
+    color: var(--black);
+  }
+}

@@ -1,0 +1,72 @@
+@import "../../../../utils/colors.css";
+@media only screen and (min-width: 1920px) {
+  .quiz_root {
+    width: 96% !important;
+    margin: 0px auto !important;
+    position: relative;
+    flex-grow: 1;
+  }
+  .quiz_creator {
+    height: 96vh;
+    overflow: scroll;
+    overflow-x: hidden;
+  }
+  .quiz_creatorInside {
+    margin: 0px auto !important;
+  }
+  .quiz_creatorTop {
+    width: 400px !important;
+    height: 120px !important;
+  }
+  .quiz_creatorTopInside {
+    height: 120px !important;
+  }
+  .quiz_textContainer {
+    height: 120px !important;
+  }
+  .quiz_text {
+    font-weight: bold !important;
+    font-size: 2.5em !important;
+  }
+  .quiz_creatorBot {
+    position: relative !important;
+  }
+  .quiz_pad {
+    height: 100vh !important;
+  }
+  .quiz_sidebarComponent {
+    padding: 10px !important;
+  }
+  .quiz_padArea {
+  }
+  .quiz_padTop {
+    width: 86% !important;
+    position: relative !important;
+    left: 25px !important;
+  }
+  .quiz_padBot {
+    position: relative !important;
+    top: 10px !important;
+    left: 0px !important;
+  }
+  .quiz_sidebarcontainer {
+  }
+  .quiz_padContainer {
+    position: relative !important;
+    top: 5% !important;
+  }
+  .quiz_plusIcon {
+    cursor: pointer !important;
+    height: 30px !important;
+    position: relative !important;
+    left: 20px;
+  }
+  .quiz_gridIconsContainer {
+    width: 70px;
+    float: right;
+    cursor: pointer;
+  }
+}
+
+@media only screen and (min-width: 1366px) {
+}

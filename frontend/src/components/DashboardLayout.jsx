@@ -1,51 +1,19 @@
-import React, { useState } from "react";
-import { Formik, Field, Form } from "formik";
-import { Route, Switch, Redirect } from "react-router-dom";
-import Button from "../components/Button";
-import * as yup from "yup";
-import Tab from "../components/Tab";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
-import Image from "../components/Image";
-import profile from "../assets/pp.jpg";
 import SideBar from "../components/SideBar";
-import colorscheme from "../utils/colors";
 import ProfileBar from "../components/ProfileBar";
-import Dashboard from "../views/Dashboard/Dashboard";
-
-const styleSheet = {
-  mainRoot: {
-    flexGrow: "1",
-    width: "100vw",
-    maxWidth: "1920px",
-    margin: "0px auto",
-  },
-  sideBar: {
-    height: "100vh",
-    borderRight: "1px solid rgba(127,127,127,0.2)",
-  },
-  mainArea: {
-    height: "100vh",
-    position: "relative",
-    overflow: "hidden",
-    overflowY: "scroll",
-  },
-  profileBar: {
-    height: "100vh",
-    cursor: "pointer",
-    borderLeft: "1px solid rgba(127,127,127,0.2)",
-  },
-};
+import "./statics/css/dashboardLayout.css";
 
 const DashboardLayout = ({ children }) => {
   return (
-    <Grid container direction="row" style={styleSheet.mainRoot}>
-      <Grid xs={1} item style={styleSheet.sideBar}>
+    <Grid container direction="row" className="dashboardLayout_mainRoot">
+      <Grid xs={1} item className="dashboardLayout_sideBar">
         <SideBar />
       </Grid>
-      <Grid xs={8} item style={styleSheet.mainArea}>
+      <Grid xs={8} item className="dashboardLayout_mainArea">
         {children}
       </Grid>
-      <Grid xs={3} item style={styleSheet.profileBar}>
+      <Grid xs={3} item className="dashboardLayout_profileBar">
         <ProfileBar />
       </Grid>
     </Grid>

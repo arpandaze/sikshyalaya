@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
-import Login from "./views/Login/Login";
+import Login from "./views/Login/LoginBox";
 import Dashboard from "./views/Dashboard/Dashboard";
 import Notes from "./views/Notes/Notes";
 import Landing from "./views/Landing/Landing";
@@ -14,6 +14,7 @@ import ProgramView from "./views/Admin/ProgramView";
 import GroupView from "./views/Admin/GroupView";
 import AdminForm from "./views/Admin/AdminForm";
 import StudentView from "./views/Admin/StudentView";
+import ResetPassword from "./views/Login/ResetPassword";
 
 const Routes = () => {
   return (
@@ -32,6 +33,7 @@ const Routes = () => {
       <Route path="/admin/department" component={DepartmentView} />
       <Route path="/admin/school" component={SchoolView} />
       <Route path="/admin" component={AdminDashboard} />
+      <Route path="/reset" component={ResetPassword} />
 
       <Redirect exact from="/" to="landing" />
     </Switch>

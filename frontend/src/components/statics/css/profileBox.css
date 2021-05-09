@@ -1,0 +1,126 @@
+@import "../../../utils/colors.css";
+@media only screen and (min-width: 1920px) {
+  .profileBox_root {
+    flex-grow: 1;
+  }
+  .profileBox_container {
+    margin: 0px auto;
+    width: 85% !important;
+    height: 200px;
+    max-height: 200px;
+    border-radius: 25px;
+    background: var(--white);
+    box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);
+  }
+  .profileBox_image {
+    border-radius: 50%;
+  }
+  .profileBox_imageSide {
+    height: 100%;
+    position: relative;
+  }
+  .profileBox_textSide {
+    position: relative;
+  }
+  .profileBox_profileImage {
+    width: 80%;
+    position: relative;
+    top: 30px;
+    left: 15px;
+  }
+  .profileBox_profileText {
+    font-size: 1.3em;
+    font-weight: bold;
+  }
+  .profileBox_textBox1 {
+    width: 85%;
+    position: relative;
+    top: 10px;
+  }
+  .profileBox_textBox3 {
+    width: 85%;
+    bottom: 10px;
+  }
+  .profileBox_departmentText {
+    font-weight: 400;
+    font-size: 1.2em;
+    color: var(--red4);
+  }
+  .profileBox_buttonContainer {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+  }
+  .profileBox_profileButton {
+    width: 40px;
+    height: 40px;
+    background-color: var(--yellow2);
+    border-radius: 50%;
+  }
+}
+
+@media only screen and (max-width: 1919px) {
+  .profileBox_root {
+    flex-grow: 1;
+  }
+  .profileBox_container {
+    margin: 0px auto;
+    width: 80% !important;
+    height: 180px;
+    max-height: 200px;
+    border-radius: 25px;
+    background: var(--white);
+    box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.3);
+  }
+  .profileBox_image {
+    border-radius: 50%;
+  }
+  .profileBox_imageSide {
+    position: relative;
+  }
+  .profileBox_textSide {
+    width: 95% !important;
+    margin: 0px auto !important;
+    position: relative;
+  }
+  .profileBox_profileImage {
+    width: 80%;
+    position: relative;
+    left: 10%;
+  }
+  .profileBox_textBox1 {
+    position: relative;
+    left: 2%;
+  }
+  .profileBox_profileText {
+    font-size: 0.95em;
+    font-weight: 700;
+    position: relative;
+    left: 2%;
+  }
+  .profileBox_textBox3 {
+    width: 95%;
+    position: relative;
+    left: 2%;
+  }
+  .profileBox_departmentText {
+    font-weight: 380;
+    font-size: 0.95em;
+    color: var(--red4);
+    position: relative;
+    left: 2%;
+  }
+  .profileBox_buttonContainer {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    right: 18px;
+  }
+  .profileBox_profileButtonIcon {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+  }
+}

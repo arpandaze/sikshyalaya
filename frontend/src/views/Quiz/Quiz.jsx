@@ -7,9 +7,7 @@ import SideNotes from "../../components/SideNotes";
 import { GoPlus } from "react-icons/go";
 import { BiSquare } from "react-icons/bi";
 import { CgMenuGridR } from "react-icons/cg";
-import "./statics/css/Quiz.css";
-
-const typing = true;
+import "./statics/css/quiz.css";
 
 const sideNotes = [
   {
@@ -50,7 +48,6 @@ const sideNotes = [
   },
 ];
 const Quiz = () => {
-  const [typing, setTyping] = useState(false);
   const [selectedNote, setSelectedNote] = useState("0");
   return (
     <DashboardLayout>
@@ -59,29 +56,40 @@ const Quiz = () => {
         direction="row"
         justify="flex-start"
         alignItems="center"
-        className="root"
+        className="quiz_root"
       >
-        <Grid item xs={4} className="noteCreator">
+        <Grid item xs={4} className="quiz_creator">
           <Grid
             container
-            direction="column"
-            justify="flex-start"
+            direction="row"
+            justify="center"
             alignItems="center"
+            className="quiz_creatorInside"
           >
-            <Grid item className="noteCreatorTop">
-              <Grid container direction="row" className="noteCreatorTopInside">
-                <Grid xs item className="notesTextContainer">
-                  <a className="notesText">Quiz</a>
+            <Grid item className="quiz_creatorTop">
+              <Grid
+                container
+                direction="row"
+                justify="center"
+                alignItems="center"
+                className="quiz_creatorTopInside"
+              >
+                <Grid xs={9} item className="quiz_textContainer">
+                  <p className="quiz_text">Quiz</p>
                 </Grid>
-                <Grid xs={1} item className="plusIcon">
+                <Grid xs={1} item className="quiz_plusIcon">
                   <GoPlus size={30} color={colorscheme.green2} />
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item className="noteCreatorBot">
-              <Grid container direction="column" className="sideNoteContainer">
+            <Grid item className="quiz_creatorBot">
+              <Grid
+                container
+                direction="column"
+                className="quiz_sidebarContainer"
+              >
                 {sideNotes.map((notes, index) => (
-                  <Grid item key={notes.id} className="sideNotes">
+                  <Grid item key={notes.id} className="quiz_sidebarComponent">
                     <SideNotes
                       title={notes.title}
                       content={notes.content}
@@ -95,20 +103,20 @@ const Quiz = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={8} className="notePad">
+        <Grid item xs={8} className="quiz_pad">
           <Grid
             container
             direction="column"
             alignItems="center"
-            className="notePadContainer"
+            className="quiz_padContainer"
           >
-            <Grid item className="notePadTop">
+            <Grid item className="quiz_padTop">
               <Grid
                 container
                 direction="row"
                 justify="flex-end"
                 alignItems="center"
-                className="gridIconsContainer"
+                className="quiz_gridIconsContainer"
               >
                 <Grid item>
                   <BiSquare size={30} color={colorscheme.grey1} />
@@ -118,15 +126,15 @@ const Quiz = () => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item className="notePadBot">
+            <Grid item className="quiz_padBot">
               <Grid
                 container
                 direction="column"
                 justify="center"
                 alignItems="flex-start"
-                className="notePadArea"
+                className="quiz_padArea"
               >
-                {selectedNote && sideNotes.length != 0 ? (
+                {selectedNote && sideNotes.length !== 0 ? (
                   <Note
                     title={sideNotes[parseInt(selectedNote)].title}
                     content={sideNotes[parseInt(selectedNote)].content}
@@ -135,7 +143,7 @@ const Quiz = () => {
                     }}
                     onDelete={() => {
                       sideNotes.splice(parseInt(selectedNote), 1);
-                      setSelectedNote(() => (selectedNote == "0" ? "" : "0"));
+                      setSelectedNote(() => (selectedNote === "0" ? "" : "0"));
                       setSelectedNote("");
                     }}
                   />

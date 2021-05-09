@@ -3,34 +3,7 @@ import colorscheme from "../utils/colors";
 import Grid from "@material-ui/core/Grid";
 import { Tooltip } from "@material-ui/core";
 import { IconContext } from "react-icons";
-
-const styleSheet = {
-  icons: {
-    position: "relative",
-    left: "-8px",
-  },
-  iconStyle: {
-    cursor: "pointer",
-  },
-  container: {
-    width: "85%",
-    margin: "0px auto",
-    position: "relative",
-  },
-  verticalLine: {
-    width: "5px",
-    height: "10px",
-    backgroundColor: colorscheme.red3,
-  },
-  navText: {
-    textDecoration: "none",
-    fontSize: "1.0em",
-    lineHeight: "1.8em",
-    position: "relative",
-    left: "5px",
-    color: colorscheme.black,
-  },
-};
+import "./statics/css/navIcons.css";
 
 const NavIcons = ({ title, path, icon, ...rest }) => {
   const [hovered, setHovered] = useState(false);
@@ -38,8 +11,8 @@ const NavIcons = ({ title, path, icon, ...rest }) => {
 
   return (
     <Tooltip title={title} disableHoverListener={tooltip} placement="right">
-      <Grid container direction="row" style={styleSheet.container}>
-        <Grid item style={styleSheet.icons}>
+      <Grid container direction="row" className="navIcons_container">
+        <Grid item className="navIcons_icons">
           <div
             {...rest}
             onMouseEnter={() => {
@@ -48,7 +21,7 @@ const NavIcons = ({ title, path, icon, ...rest }) => {
             onMouseLeave={() => {
               setHovered(false);
             }}
-            style={styleSheet.iconStyle}
+            className="navIcons_iconStyle"
           >
             <IconContext.Provider
               value={{
@@ -64,8 +37,17 @@ const NavIcons = ({ title, path, icon, ...rest }) => {
             </IconContext.Provider>
           </div>
         </Grid>
-        <Grid item>
-          <span style={styleSheet.navText}>{title}</span>
+        <Grid item className="navIcons_navTextContainer">
+          <p
+            style={
+              window.location.pathname === path
+                ? { color: colorscheme.red3 }
+                : { color: colorscheme.black }
+            }
+            className="navIcons_navText"
+          >
+            {title}
+          </p>
         </Grid>
       </Grid>
     </Tooltip>

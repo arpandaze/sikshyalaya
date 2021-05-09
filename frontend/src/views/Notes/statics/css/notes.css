@@ -1,0 +1,72 @@
+@import "../../../../utils/colors.css" !important;
+@media only screen and (min-width: 1920px) {
+  .note_root {
+    width: 96% !important;
+    margin: 0px auto !important;
+    position: relative;
+    flex-grow: 1;
+  }
+  .note_creator {
+    height: 96vh;
+    overflow: scroll;
+    overflow-x: hidden;
+  }
+  .note_creatorInside {
+    margin: 0px auto !important;
+  }
+  .note_creatorTop {
+    width: 400px !important;
+    height: 120px !important;
+  }
+  .note_creatorTopInside {
+    height: 120px !important;
+  }
+  .note_textContainer {
+    height: 120px !important;
+  }
+  .note_text {
+    font-weight: bold !important;
+    font-size: 2.5em !important;
+  }
+  .note_creatorBot {
+    position: relative !important;
+  }
+  .note_pad {
+    height: 100vh !important;
+  }
+  .note_sidebarComponent {
+    padding: 10px !important;
+  }
+  .note_padArea {
+  }
+  .note_padTop {
+    width: 86% !important;
+    position: relative !important;
+    left: 25px !important;
+  }
+  .note_padBot {
+    position: relative !important;
+    top: 10px !important;
+    left: 0px !important;
+  }
+  .note_sidebarcontainer {
+  }
+  .note_padContainer {
+    position: relative !important;
+    top: 5% !important;
+  }
+  .note_plusIcon {
+    cursor: pointer !important;
+    height: 30px !important;
+    position: relative !important;
+    left: 20px !important;
+  }
+  .note_gridIconsContainer {
+    width: 70px !important;
+    float: right !important;
+    cursor: pointer !important;
+  }
+}
+
+@media only screen and (min-width: 1366px) {
+}

@@ -1,9 +1,7 @@
-import React, { useState } from "react";
-import Button from "../../components/Button";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
 import colorscheme from "../../utils/colors";
 import DashboardLayout from "../../components/DashboardLayout";
-import NotificationButton from "../../components/NotificationButton";
 import AdminBoxSmall from "../../components/AdminBoxSmall";
 import { GoPlus } from "react-icons/go";
 import "./statics/css/commonView.css";
@@ -35,7 +33,6 @@ const schools = [
   },
 ];
 const SchoolView = () => {
-  const [clicked, setClicked] = useState(false);
   return (
     <DashboardLayout>
       <Grid
@@ -43,25 +40,28 @@ const SchoolView = () => {
         direction="column"
         justify="flex-start"
         alignItems="center"
-        className="root"
+        className="adminCommon_root"
         wrap="nowrap"
       >
-        <Grid item className="topBar">
+        <Grid item className="adminCommon_topBarContainer">
           <Grid
             container
             direction="row"
             justify="flex-start"
             alignItems="center"
+            className="adminCommon_topBar"
           >
-            <Grid xs={11} item className="notesTextContainer">
-              <a className="notesText">Computer Science and Engineering</a>
+            <Grid xs item className="adminCommon_textContainer">
+              <p className="adminCommon_text">
+                Computer Science and Engineering
+              </p>
             </Grid>
-            <Grid xs={1} item className="plusIcon">
+            <Grid xs={1} item className="adminCommon_plusIcon">
               <GoPlus size={30} color={colorscheme.green2} />
             </Grid>
           </Grid>
         </Grid>
-        <Grid item className="botBar">
+        <Grid item className="adminCommon_botBar">
           <Grid
             container
             direction="row"

@@ -1,64 +1,10 @@
-import React, { useState } from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import colorscheme from "../utils/colors";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import Image from "./Image";
 import CourseBox from "./CourseBox";
 import profile from "../assets/pp.jpg";
 import ProfileBox from "./ProfileBox";
+import "./statics/css/profileBar.css";
 
-const styleSheet = {
-  root: { flexGrow: "1" },
-  profileBar: {},
-  profileBox: {
-    marginTop: "10%",
-  },
-  courseBox: {},
-  courseTextTitle: {
-    fontSize: "2em",
-    fontWeight: "bold",
-    border: "1px solid black",
-  },
-  courseDetailBoxContainer: {
-    border: "1px solid black",
-  },
-  courseDetailBox: {
-    height: "3.4vw",
-    padding: "2px",
-    border: "1px solid black",
-  },
-  courseTextCode: {
-    fontSize: "1.5em",
-    fontWeight: "bold",
-    lineHeight: "0.95em",
-    listStyleType: "none",
-    border: "1px solid black",
-  },
-  courseTextCodeSelected: {
-    fontSize: "1.5em",
-    fontWeight: "bold",
-    lineHeight: "0.95em",
-    listStyleType: "none",
-    color: colorscheme.red4,
-    border: "1px solid black",
-  },
-  courseTextName: {
-    fontSize: "0.6em",
-    fontWeight: "600",
-    position: "relative",
-    listStyleType: "none",
-    color: colorscheme.grey1,
-    border: "1px solid black",
-  },
-  courseTextCredit: {
-    fontSize: "0.8em",
-    fontWeight: "400",
-    listStyleType: "none",
-    color: colorscheme.grey1,
-    border: "1px solid black",
-  },
-};
 const user = [
   {
     name: "Yugesh Upadhyaya Luitel",
@@ -103,13 +49,13 @@ const ProfileBar = ({ selected }) => {
       container
       direction="column"
       alignItems="center"
-      style={styleSheet.root}
+      className="profileBar_root"
     >
-      <Grid xs={12} item style={styleSheet.profileBox}>
+      <Grid xs={12} item className="profileBar_profileBox">
         <ProfileBox user={user} />
       </Grid>
-      <Grid xs={12} item style={styleSheet.courseBox}>
-        <CourseBox courseList={courses} selected={1} />
+      <Grid xs={12} item className="profileBar_courseBox">
+        <CourseBox courseList={courses} selected={"1"} />
       </Grid>
     </Grid>
   );

@@ -1,18 +1,8 @@
-import React, { useState } from "react";
-import { Formik, Field, Form } from "formik";
-import { Route, Switch, Redirect } from "react-router-dom";
-import Button from "../../components/Button";
-import * as yup from "yup";
-import Tab from "../../components/Tab";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
-import Image from "../../components/Image";
-import profile from "../../assets/pp.jpg";
-import SideBar from "../../components/SideBar";
 import Questions from "../../components/Questions";
 import colorscheme from "../../utils/colors";
-import ProfileBar from "../../components/ProfileBar";
 import DashboardLayout from "../../components/DashboardLayout";
-import { IoMdNotificationsOutline } from "react-icons/io";
 import { RiQuestionAnswerLine } from "react-icons/ri";
 import { GiBookshelf } from "react-icons/gi";
 import NotificationButton from "../../components/NotificationButton";
@@ -87,22 +77,22 @@ const TeacherDashboard = () => {
         justify="flex-start"
         alignItems="center"
         wrap="nowrap"
-        className="root"
+        className="teacherDash_root"
       >
-        <Grid item className="topBar">
-          <a className="classQuestionText">Class Questions</a>
+        <Grid item className="teacherDash_topBar">
+          <p className="teacherDash_classQuestionText">Class Questions</p>
           <NotificationButton />
         </Grid>
-        <Grid item className="botBar">
+        <Grid item className="teacherDash_botBar">
           <Grid container direction="row" justify="center" alignItems="center">
-            <Grid item className="leftContainer" xs={4}>
+            <Grid item className="teacherDash_leftContainer" xs={4}>
               <Grid
                 container
                 direction="column"
                 justify="center"
                 alignItems="center"
               >
-                <Grid item className="activeContainer">
+                <Grid item className="teacherDash_activeContainer">
                   <Grid
                     container
                     direction="column"
@@ -111,45 +101,51 @@ const TeacherDashboard = () => {
                     wrap="nowrap"
                   >
                     <Grid item xs={12}>
-                      <div className="smallRedBox"></div>
-                      <a className="activeclassText">Active class</a>
+                      <div className="teacherDash_smallRedBox"></div>
+                      <p className="teacherDash_activeclassText">
+                        Active class
+                      </p>
                     </Grid>
                     <Grid item xs={12}>
-                      <a className="classText">{activeClass[0].classCode}</a>
+                      <p className="teacherDash_classText">
+                        {activeClass[0].classCode}
+                      </p>
                     </Grid>
                     <Grid item xs={12}>
-                      <a className="classTextInner">
+                      <p className="teacherDash_classTextInner">
                         {activeClass[0].className}
-                      </a>
+                      </p>
                     </Grid>
                     <Grid item xs={12}>
-                      <a className="batchText">{activeClass[0].batch}</a>
+                      <p className="teacherDash_batchText">
+                        {activeClass[0].batch}
+                      </p>
                     </Grid>
                   </Grid>
                 </Grid>
-                <Grid item className="quizBoxContainer">
+                <Grid item className="teacherDash_quizBoxContainer">
                   <Grid item>
                     <RiQuestionAnswerLine
                       size={25}
                       color={colorscheme.grey1}
-                      className="sideBoxIcons"
+                      className="teacherDash_sideBoxIcons"
                     />
-                    <a className="quizText">Quizzes</a>
+                    <p className="teacherDash_quizText">Quizzes</p>
                   </Grid>
                 </Grid>
-                <Grid item className="classResourceContainer">
+                <Grid item className="teacherDash_classResourceContainer">
                   <Grid item>
                     <GiBookshelf
                       size={25}
                       color={colorscheme.grey1}
-                      className="sideBoxIcons"
+                      className="teacherDash_sideBoxIcons"
                     />
-                    <a className="rescourcesText">Resources</a>
+                    <p className="teacherDash_rescourcesText">Resources</p>
                   </Grid>
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item className="questionsContainer" xs={8}>
+            <Grid item className="teacherDash_questionsContainer" xs={8}>
               <Grid container direction="column" justify="flex-start">
                 {questions.map((quest) => (
                   <Grid>

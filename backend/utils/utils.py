@@ -51,10 +51,10 @@ def send_test_email(email_to: str) -> None:
     )
 
 
-def send_reset_password_email(email_to: str, email: str, token: str) -> None:
+def send_reset_password_email(email_to: str, email: str, name: str, token: str) -> None:
     project_name = settings.PROJECT_NAME
     subject = f"{project_name} - Password recovery for user {email}"
-    with open(Path(settings.EMAIL_TEMPLATES_DIR) / "reset_password.html") as f:
+    with open(Path(settings.EMAIL_TEMPLATES_DIR) / "reset-password.html") as f:
         template_str = f.read()
     server_host = settings.SERVER_HOST
     link = f"{server_host}/reset-password?token={token}"
@@ -65,6 +65,7 @@ def send_reset_password_email(email_to: str, email: str, token: str) -> None:
         environment={
             "project_name": settings.PROJECT_NAME,
             "username": email,
+            "name": name,
             "email": email_to,
             "valid_hours": settings.EMAIL_RESET_TOKEN_EXPIRE_HOURS,
             "link": link,
@@ -103,7 +104,7 @@ async def generate_verify_token(uid: str) -> str:
 
 
 async def verify_password_reset_token(token: str) -> Optional[int]:
-    uid = redis_session_client.client.get(f"pwr_token_{token}", encoding="utf-8")
+    uid = await redis_session_client.client.get(f"pwr_token_{token}", encoding="utf-8")
     if not uid:
         raise HTTPException(status_code=401, detail="Error ID: 143")  # Invalid token
     return int(uid)
