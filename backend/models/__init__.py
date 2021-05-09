@@ -8,4 +8,4 @@ from .school import School  # noqa: F401
 from .teacher_note import TeacherNote  # noqa: F401
 from .user import User  # noqa: F401
 from .user_permission import UserPermission
-from .quiz import quiz
+from .quiz import Quiz, QuizAnswer, QuizQuestion
