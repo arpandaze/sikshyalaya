@@ -19,9 +19,7 @@ async def get_quiz(
 
 
 @router.post("/quiz", response_model=quiz)
-async def create_quiz(
-    db: Session = Depends(deps.get_db), *, obj_in: quizCreate
-) -> Any:
+async def create_quiz(db: Session = Depends(deps.get_db), *, obj_in: quizCreate) -> Any:
     quiz = crud_quiz.create(db, obj_in=obj_in)
     return quiz
 
