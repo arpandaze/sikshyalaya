@@ -66,8 +66,17 @@ const StudentLoginBox = () => {
                     className="loginCommon_inputButton"
                   />
                 </Grid>
-                <Grid item xs={12}>
-                  <input type="checkbox" value="lsRememberMe" id="rememberMe" />
+                <Grid
+                  item
+                  xs={12}
+                  className="loginCommon_rememberMeCheckContainer"
+                >
+                  <input
+                    type="checkbox"
+                    value="lsRememberMe"
+                    id="rememberMe"
+                    className="loginCommon_rememberMeCheck"
+                  />
                   <label for="rememberMe">Remember me</label>
                 </Grid>
               </Grid>
