@@ -1,6 +1,15 @@
 from typing import TYPE_CHECKING
 
-from sqlalchemy import Column, Integer, String, DateTime, Boolean, ARRAY, JSON
+from sqlalchemy import (
+    Column,
+    Integer,
+    ForeignKey,
+    String,
+    DateTime,
+    Boolean,
+    ARRAY,
+    JSON,
+)
 import enum
 from sqlalchemy.orm import relationship
 
