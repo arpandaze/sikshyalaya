@@ -37,7 +37,7 @@
     margin-left: 40px;
   }
   .adminStudent_plusIcon {
-    margin-right: 60px !important;
+    margin-right: 30px !important;
     margin-top: 10px !important;
     cursor: pointer;
   }
@@ -81,8 +81,7 @@
     margin-left: 40px;
   }
   .adminStudent_plusIcon {
-     margin-left: 40px !important;
-    margin-right: 60px !important;
+    margin-right: 30px !important;
     margin-top: 10px !important;
     cursor: pointer;
   }

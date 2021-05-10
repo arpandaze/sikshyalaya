@@ -6,7 +6,7 @@
   }
   .adminBoxSmall_container {
     width: 550px;
-    height: 150px;
+    height: 200px;
     background: var(--white);
     border-radius: 20px;
     box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);
@@ -36,26 +36,17 @@
     position: relative;
   }
   .adminBoxSmall_row_col_1_bold {
-    font-size: 1.7em;
+    font-size: 1.7rem;
     font-weight: bold;
   }
   .adminBoxSmall_row_col_1_light {
-    font-size: 0.8em;
-    font-weight: 600;
-    color: var(--grey1);
-  }
-  .adminBoxSmall_row_col_2_bold {
-    font-size: 1.1em;
-    font-weight: bold;
-  }
-  .adminBoxSmall_row_col_2_light {
-    font-size: 0.9em;
+    font-size: 1em;
     font-weight: 600;
     color: var(--grey1);
   }
   .adminBoxSmall_row2_bot {
     position: relative;
-    top: 70px;
+    top: 105px;
     text-align: right;
   }
   .adminBoxSmall_row2_bot_text {
@@ -69,4 +60,60 @@
 }
 
 @media only screen and (max-width: 1919px) {
+  .adminBoxSmall_root {
+    flex-grow: "1";
+  }
+  .adminBoxSmall_container {
+    width: 29vw;
+    height: 200px;
+    background: var(--white);
+    border-radius: 20px;
+    box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);
+  }
+  .adminBoxSmall_image {
+    border-radius: 50%;
+  }
+  .adminBoxSmall_row_col_box {
+    height: 220px;
+    position: relative;
+  }
+  .adminBoxSmall_row1 {
+  }
+  .adminBoxSmall_row2 {
+    height: 220px;
+  }
+  .adminBoxSmall_buttonContainer {
+    height: 35px;
+    position: relative;
+    top: 20px;
+  }
+  .adminBoxSmall_row_col_1 {
+    position: relative;
+    top: 15px;
+  }
+  .adminBoxSmall_row_col_2 {
+    position: relative;
+  }
+  .adminBoxSmall_row_col_1_bold {
+    font-size: 1.7rem;
+    font-weight: bold;
+  }
+  .adminBoxSmall_row_col_1_light {
+    font-size: 0.8em;
+    font-weight: 600;
+    color: var(--grey1);
+  }
+  .adminBoxSmall_row2_bot {
+    position: relative;
+    top: 105px;
+    text-align: right;
+  }
+  .adminBoxSmall_row2_bot_text {
+    font-size: 0.9em;
+    color: var(--blue);
+  }
+  .adminBoxSmall_timeText {
+    font-size: 1em;
+    font-weight: 400;
+  }
 }

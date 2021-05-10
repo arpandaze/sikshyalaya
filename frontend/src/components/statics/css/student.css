@@ -54,8 +54,6 @@
   .adminStudentBox_innerContainer {
     height: 70px;
     position: relative;
-
-    
   }
 
   .adminStudentBox_studentName {
@@ -64,11 +62,9 @@
     font-size: 1.3em;
     position: relative;
     left: 5%;
-    width: 75%;
-    
+    width: 75%; 
   }
   .adminStudentBox_studentNameText {
-   
   }
   .adminStudentBox_editIcon {
     position: relative;
@@ -77,6 +73,5 @@
     width: 25px;
     height: 25px;
     margin:5px -8px !important;
-   
   }
 }
