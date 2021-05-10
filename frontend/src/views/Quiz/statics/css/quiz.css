@@ -15,7 +15,7 @@
         margin: 0px auto !important;
     }
     .quiz_creatorTop {
-        width: 400px !important;
+        width: 100%;
         height: 120px !important;
     }
     .quiz_creatorTopInside {
@@ -27,6 +27,7 @@
     .quiz_text {
         font-weight: bold !important;
         font-size: 2.5em !important;
+        margin-left: 5%;
     }
     .quiz_creatorBot {
         position: relative !important;
@@ -59,7 +60,6 @@
         cursor: pointer !important;
         height: 30px !important;
         position: relative !important;
-        left: 20px;
     }
     .quiz_gridIconsContainer {
         width: 70px;

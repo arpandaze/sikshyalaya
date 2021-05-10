@@ -2,7 +2,7 @@
 @media only screen and (min-width: 1920px) {
     .notes_root {
         width: 100% !important;
-        height: 900px;
+        height: 92vh;
         position: relative;
         background: var(--white);
         border-radius: 20px;
@@ -65,7 +65,7 @@
     .notes_trashButtonContainer {
         position: absolute;
         right: 20px;
-        top: 720px;
+        top: 100%;
     }
     .notes_trashButton {
         bottom: 50px;
@@ -141,7 +141,7 @@
     .notes_trashButtonContainer {
         position: absolute;
         right: 20px;
-        top: 550px;
+        top: 100%;
     }
     .notes_trashButton {
         width: 20px;
