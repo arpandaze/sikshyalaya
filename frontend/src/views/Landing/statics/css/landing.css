@@ -94,8 +94,8 @@
   }
   .landing_upCommingCourseBar {
     position: relative;
-    margin-left: 30px;
-    margin-bottom: 30px;
+    margin-right: 2vw;
+    margin-bottom: 10%;
   }
   .landing_upcomingIcon {
     display: inline-block;

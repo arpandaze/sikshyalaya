@@ -1,10 +1,10 @@
-from crud.base import CRUDBase
-from schemas.quiz import quizCreate, quizUpdate
-from models.quiz import quiz
+from cruds.base import CRUDBase
+from schemas.quiz import QuizCreate, QuizUpdate
+from models.quiz import Quiz
 
 
-class CRUDquiz(CRUDBase[quiz, quizCreate, quizUpdate]):
+class CRUDQuiz(CRUDBase[Quiz, QuizCreate, QuizUpdate]):
     pass
 
 
-crud_quiz = CRUDquiz(quiz)
+crud_quiz = CRUDQuiz(Quiz)

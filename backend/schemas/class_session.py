@@ -12,6 +12,8 @@ class ClassSessionBase(BaseModel):
     is_active: bool
     instructor: List[int]
     course_id: int
+    group_id: int
+    quiz_id: int
     description: str
     duration: int
     file: List[str]
@@ -29,8 +31,10 @@ class ClassSessionUpdate(ClassSessionBase):
     instructor: List[int] = None
     course_id: int = None
     description: str = None
+    quiz_id: int = None
     duration: int = None
     file: List[str] = None
+    group_id: int = None
 
 
 # properties to return via the api

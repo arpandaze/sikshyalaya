@@ -12,11 +12,13 @@ class ClassSession(Base):
     instructor = relationship(
         "User", secondary=user_class_session_association_table, backref="class_session"
     )
+    quiz_id = Column(Integer, ForeignKey("quiz.id"))
+    quiz = relationship("Quiz", backref="session")
     course_id = Column(Integer, ForeignKey("course.id"))
     course = relationship("Course", backref="session")
     group_id = Column(Integer, ForeignKey("group.id"))
     group = relationship("Group", backref="class_session", uselist=False)
     file = Column(ARRAY(String(100)), unique=True)
     duration = Column(Integer)
-    description = Column(String(length=128))
+    description = Column(String)
     __tablename__ = "class_session"

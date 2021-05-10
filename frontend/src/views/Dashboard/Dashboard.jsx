@@ -13,6 +13,7 @@ const Dashboard = () => {
         justify="flex-start"
         alignItems="center"
         wrap="nowrap"
+        className="mainDash_root"
       >
         <Grid item className="mainDash_topBar">
           <NotificationButton />

@@ -1,4 +1,4 @@
-@import "../../../../utils/colors.css" !important;
+@import "../../../../utils/colors.css";
 @media only screen and (min-width: 1920px) {
   .note_root {
     width: 96% !important;
@@ -68,5 +68,5 @@
   }
 }
 
-@media only screen and (min-width: 1366px) {
+@media only screen and (max-width: 1919px) {
 }
