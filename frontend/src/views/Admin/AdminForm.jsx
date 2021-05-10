@@ -55,129 +55,137 @@ const validationSchema = yup.object({
 
 const Profile = () => {
   return (
-    <DashboardLayout>
-      <Grid
-        container
-        direction="column"
-        alignItems="flex-start"
-        justify="flex-start"
-        wrap="nowrap"
-        className="root"
-      >
-        <Grid item className="titleContainer">
-          <h1 className="activeTitle">{studentName}</h1>
-        </Grid>
-        <Grid item className="profileBoxContainer">
-          <Grid
-            container
-            direction="row"
-            alignItems="center"
-            wrap="nowrap"
-            className="profileBox"
-          >
-            <Grid item className="formBoxContainer">
-              <Formik
-                initialValues={{
-                  firstName: "",
-                  middleName: "",
-                  lastName: "",
-                  email: "",
-                  password: "",
-                  confirmPassword: "",
-                  address: "",
-                }}
-                validationSchema={validationSchema}
-              >
-                <Form>
-                  <Grid
-                    container
-                    direction="row"
-                    alignItems="flex-start"
-                    className="formBox"
-                    spacing={5}
-                  >
-                    <Grid item xs={6}>
-                      <Field
-                        id="firstname"
-                        name="firstname"
-                        placeholder="First Name"
-                        className="inputButton"
-                      />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Field
-                        id="middlename"
-                        name="middlename"
-                        placeholder="Middle Name"
-                        className="inputButton"
-                      />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Field
-                        id="lastname"
-                        name="lastname"
-                        placeholder="Last Name"
-                        className="inputButton"
-                      />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Field
-                        id="email"
-                        name="email"
-                        placeholder="Email Address"
-                        className="inputButton"
-                      />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Field
-                        id="password"
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        className="inputButton"
-                      />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Field
-                        id="confirmpassword"
-                        type="password"
-                        name="confirmpassword"
-                        placeholder="Confirm Password"
-                        className="inputButton"
-                      />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Field
-                        id="address"
-                        name="address"
-                        placeholder="Address"
-                        className="inputButton"
-                      />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Field
-                        as="select"
-                        name="department"
-                        className="optionBox"
-                      >
-                        {program.map((item) => (
-                          <option value={item.name} className="optionList">
-                            {item.name}
-                          </option>
-                        ))}
-                      </Field>
-                    </Grid>
-                    <Grid item className="buttonContainer">
-                      <Button name="Save" colorStyles={styleSheet.saveButton} />
-                    </Grid>
-                  </Grid>
-                </Form>
-              </Formik>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
-    </DashboardLayout>
+		<DashboardLayout>
+			<Grid
+				container
+				direction="column"
+				alignItems="flex-start"
+				justify="flex-start"
+				wrap="nowrap"
+				className="root"
+			>
+				<Grid item className="titleContainer">
+					<h1 className="activeTitle">{studentName}</h1>
+				</Grid>
+				<Grid item className="profileBoxContainer">
+					<Grid
+						container
+						direction="row"
+						alignItems="center"
+						wrap="nowrap"
+						className="profileBox"
+					>
+						<Grid item className="formBoxContainer">
+							<Formik
+								initialValues={{
+									firstName: "",
+									middleName: "",
+									lastName: "",
+									email: "",
+									password: "",
+									confirmPassword: "",
+									address: "",
+								}}
+								validationSchema={validationSchema}
+							>
+								<Form>
+									<Grid
+										container
+										direction="row"
+										alignItems="flex-start"
+										className="formBox"
+										spacing={4}
+									>
+										<Grid item xs={6}>
+											<Field
+												id="firstname"
+												name="firstname"
+												placeholder="First Name"
+												className="inputButton"
+											/>
+										</Grid>
+										<Grid item xs={6}>
+											<Field
+												id="middlename"
+												name="middlename"
+												placeholder="Middle Name"
+												className="inputButton"
+											/>
+										</Grid>
+										<Grid item xs={6}>
+											<Field
+												id="lastname"
+												name="lastname"
+												placeholder="Last Name"
+												className="inputButton"
+											/>
+										</Grid>
+										<Grid item xs={6}>
+											<Field
+												id="email"
+												name="email"
+												placeholder="Email Address"
+												className="inputButton"
+											/>
+										</Grid>
+										<Grid item xs={6}>
+											<Field
+												id="password"
+												type="password"
+												name="password"
+												placeholder="Password"
+												className="inputButton"
+											/>
+										</Grid>
+										<Grid item xs={6}>
+											<Field
+												id="confirmpassword"
+												type="password"
+												name="confirmpassword"
+												placeholder="Confirm Password"
+												className="inputButton"
+											/>
+										</Grid>
+										<Grid item xs={6}>
+											<Field
+												id="address"
+												name="address"
+												placeholder="Address"
+												className="inputButton"
+											/>
+										</Grid>
+										<Grid item xs={6}>
+											<Field
+												as="select"
+												name="department"
+												className="optionBox"
+											>
+												{program.map((item) => (
+													<option
+														value={item.name}
+														className="optionList"
+													>
+														{item.name}
+													</option>
+												))}
+											</Field>
+										</Grid>
+										<Grid item className="buttonContainer">
+											<Button
+												name="Save"
+												colorStyles={
+													styleSheet.saveButton
+												}
+											/>
+										</Grid>
+									</Grid>
+								</Form>
+							</Formik>
+						</Grid>
+					</Grid>
+				</Grid>
+			</Grid>
+		</DashboardLayout>
   );
 };
 
