@@ -1,4 +1,5 @@
 import os
+import json
 import aiofiles
 from typing import Any, List
 
@@ -14,6 +15,10 @@ from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.responses import FileResponse
 from core.config import settings
 from models import ClassSession as ClassSessionModel
+from typing import List
+
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi.responses import HTMLResponse
 
 router = APIRouter()
 
@@ -105,3 +110,98 @@ async def get_upload_files(
         raise HTTPException(status_code=401, detail="Error ID: 101")  # Access denied!
     file = FileResponse(f"{settings.UPLOAD_DIR_ROOT}/{id}/{filename}")
     return file
+
+
+html = """
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Chat</title>
+    </head>
+    <body>
+        <h1>WebSocket Chat</h1>
+        <form action="" onsubmit="sendMessage(event)">
+            <input type="text" id="messageText" autocomplete="off"/>
+            <button>Send</button>
+        </form>
+        <ul id='messages'>
+        </ul>
+        <script>
+            var ws = new WebSocket("ws://localhost:8080/api/v1/class_session/ws/1");
+            ws.onmessage = function(event) {
+                var messages = document.getElementById('messages')
+                var message = document.createElement('li')
+                var content = document.createTextNode(event.data)
+                message.appendChild(content)
+                messages.appendChild(message)
+            };
+            function sendMessage(event) {
+                var input = document.getElementById("messageText")
+                ws.send(input.value)
+                input.value = ''
+                event.preventDefault()
+            }
+        </script>
+    </body>
+</html>
+"""
+
+
+class ConnectionManager:
+    def __init__(self):
+        self.active_connections: List[WebSocket] = []
+
+    async def connect(self, websocket: WebSocket):
+        await websocket.accept()
+        self.active_connections.append(websocket)
+
+    def disconnect(self, websocket: WebSocket):
+        self.active_connections.remove(websocket)
+
+    async def send_self_message(self, message: json, websocket: WebSocket):
+        await websocket.json(message)
+
+    async def broadcast(self, message: json):
+        for connection in self.active_connections:
+            await connection.send_text(message)
+
+
+manager = ConnectionManager()
+
+
+@router.websocket("/ws/{id}")
+async def websocket_endpoint(
+    db: Session = Depends(deps.get_db),
+    *,
+    websocket: WebSocket,
+    req_user=Depends(get_current_active_user),
+):
+    print("test")
+    class_session = crud_class_session.get_user_class_session(
+        db=db, user=req_user, id=id
+    )
+    if not class_session:
+        raise HTTPException(
+            status_code=403, detail="Error Code: 144"
+        )  # User doesn't have access to classsession
+    await manager.connect(websocket)
+    try:
+        while True:
+            data = await websocket.receive_text()
+            await manager.send_self_message(f'{"status":"success"}', websocket)
+            data = {
+                "type": "message",
+                "user": req_user.id,
+                "name": req_user.full_name,
+                "message": data,
+            }
+            await manager.broadcast(json.dumps(data))
+    except WebSocketDisconnect:
+        manager.disconnect(websocket)
+        data = {"type": "disconnect", "user": req_user.id, "name": req_user.full_name}
+        await manager.broadcast(json.dumps(data))
+
+
+@router.get("/test/test")
+async def gettestests():
+    return HTMLResponse(html)
