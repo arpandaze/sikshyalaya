@@ -62,21 +62,17 @@
     width: 94% !important;
     margin: 0px auto !important;
     position: relative;
-    border: 1px solid black;
   }
   .landing_activeCourseBar {
     position: relative;
-    border: 1px solid black;
   }
   .landing_row {
     position: relative;
     top: 20px;
-    border: 1px solid black;
   }
   .landing_row2 {
     position: relative;
     margin-top: 80px !important;
-    border: 1px solid black;
   }
   .landing_smallRedBox {
     display: inline-block;
@@ -86,40 +82,33 @@
     background: var(--red4);
     position: relative;
     margin-left: 30px !important;
-    border: 1px solid black;
   }
   .landing_currentContainer {
     width: 95%;
     margin: 0px auto !important;
-    border: 1px solid black;
   }
   .landing_activeTitle {
     display: inline-block;
     position: relative;
     left: 15px;
-    border: 1px solid black;
   }
   .landing_upCommingCourseBar {
     position: relative;
-    margin-left: 30px;
-    margin-bottom: 30px;
-    border: 1px solid black;
+    margin-right: 2vw;
+    margin-bottom: 10%;
   }
   .landing_upcomingIcon {
     display: inline-block;
     position: relative;
     margin-left: 30px !important;
-    border: 1px solid black;
   }
   .landing_upcomingText {
     display: inline-block;
     position: relative;
     left: 15px;
-    border: 1px solid black;
   }
   .landing_upCommingContainer {
     width: 98%;
     margin: 0px auto !important;
-    border: 1px solid black;
   }
 }

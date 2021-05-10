@@ -25,15 +25,13 @@ const SmallCards = ({ cardData, addStyles, ...rest }) => {
           >
             <Grid item className="smallCards_row_col_1">
               <p className="smallCards_row_col_1_bold">{data.title}</p>
-              <br />
+
               <p className="smallCards_row_col_1_light">
                 {data.titleDescription}
               </p>
             </Grid>
             <Grid item className="smallCards_row_col_2">
               <p className="smallCards_row_col_2_bold">{data.title2}</p>
-              <br />
-              <br />
               <p className="smallCards_row_col_2_light">
                 {data.title2Description}
               </p>
