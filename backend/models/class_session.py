@@ -20,5 +20,5 @@ class ClassSession(Base):
     group = relationship("Group", backref="class_session", uselist=False)
     file = Column(ARRAY(String(100)), unique=True)
     duration = Column(Integer)
-    description = Column(String(length=128))
+    description = Column(String)
     __tablename__ = "class_session"

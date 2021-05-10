@@ -12,6 +12,8 @@ from cruds import (
     crud_teacher_note,
     crud_group,
     crud_program,
+    crud_quiz,
+    crud_class_session,
 )
 
 from schemas import (
@@ -23,6 +25,8 @@ from schemas import (
     TeacherNoteCreate,
     GroupCreate,
     ProgramCreate,
+    ClassSessionCreate,
+    QuizCreate,
 )
 
 db = SessionLocal()
@@ -131,6 +135,48 @@ def populate_personal_note():
             print(e)
 
 
+def populate_quiz():
+    for i in range(10):
+        try:
+            quiz = QuizCreate(
+                end_time=fake.date_time(),
+                start_time=fake.date_time(),
+                title=fake.name(),
+                description=fake.paragraph(),
+                is_randomized=True if randint(0, 1) else False,
+                display_individual=True if randint(0, 1) else False,
+            )
+
+            crud_quiz.create(db, obj_in=quiz)
+        except Exception as e:
+            print(e)
+
+
+def populate_class_session():
+    for i in range(10):
+        try:
+            class_session = ClassSessionCreate(
+                datetime=fake.date_time(),
+                is_active=True if randint(0, 1) else False,
+                instructor=list(range(randint(1, 25), randint(26, 50))),
+                course_id=randint(1, 20),
+                quiz_id=randint(1, 10),
+                group_id=randint(1, 10),
+                description=fake.paragraph(),
+                duration=randint(1, 120),
+                file=[
+                    "file" + str(randint(1, 200)),
+                    "file" + str(randint(1, 200)),
+                    "file" + str(randint(1, 200)),
+                ],
+            )
+            print(class_session)
+            crud_class_session.create(db, obj_in=class_session)
+
+        except Exception as e:
+            print(e)
+
+
 def populate_all():
     populate_school()
     populate_department()
@@ -140,3 +186,5 @@ def populate_all():
     populate_user()
     populate_personal_note()
     populate_teacher_note()
+    populate_quiz()
+    populate_class_session()

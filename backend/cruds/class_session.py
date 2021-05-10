@@ -11,20 +11,24 @@ from core.config import settings
 
 class CRUDClassSession(CRUDBase[ClassSession, ClassSessionCreate, ClassSessionUpdate]):
     def create(self, db: Session, *, obj_in: ClassSessionCreate) -> Any:
-        if obj_in.instructors:
-            instructors = [crud_user.get(db=db, id=id) for id in obj_in.instructors]
+        if obj_in.instructor:
+            instructor = [crud_user.get(db=db, id=id) for id in obj_in.instructor]
 
         else:
-            instructors = []
+            instructor = []
 
         db_obj = ClassSession(
             datetime=obj_in.datetime,  # noqa
             is_active=obj_in.is_active,  # noqa
-            instructors=instructors,  # noqa
+            instructor=instructor,  # noqa
             course_id=obj_in.course_id,  # noqa
             description=obj_in.description,  # noqa
             duration=obj_in.duration,
+            quiz_id=obj_in.quiz_id,
+            file=obj_in.file,
+            group_id=obj_in.group_id,
         )
+
         db.add(db_obj)
         db.commit()
         db.refresh(db_obj)
