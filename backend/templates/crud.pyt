@@ -1,4 +1,4 @@
-from crud.base import CRUDBase
+from cruds.base import CRUDBase
 from schemas.${snake_case_name} import ${PascalCaseName}Create, ${PascalCaseName}Update
 from models.${snake_case_name} import ${PascalCaseName}
 
