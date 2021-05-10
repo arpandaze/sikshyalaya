@@ -6,7 +6,7 @@ from core.config import settings
 
 from models import User
 from utils import deps
-from cruds import crud_quiz
+from cruds import crud_quiz, crud_question
 from schemas import (
     Quiz,
     QuizCreate,
@@ -64,7 +64,7 @@ async def create_quiz(
     db: Session = Depends(deps.get_db),
     *,
     obj_in: QuizCreate,
-    current_user: User = Depends(deps.get_current_active_teacher_or_above)
+    current_user: User = Depends(deps.get_current_active_teacher_or_above),
 ) -> Any:
     quiz = crud_quiz.create(db, obj_in=obj_in)
     return quiz
@@ -75,11 +75,13 @@ async def get_specific_quiz(
     db: Session = Depends(deps.get_db),
     *,
     id: int,
-    current_user: User = Depends(deps.get_current_active_user)
+    current_user: User = Depends(deps.get_current_active_user),
 ) -> Any:
     if current_user.user_type == settings.UserType.STUDENT.value:
         quiz_list = get_quiz(db=db, current_user=current_user)
         for quiz in quiz_list:
+            print(quiz)
+            print(quiz.id)
             if quiz.quiz_id == id:
                 return quiz
         raise HTTPException(
@@ -89,6 +91,8 @@ async def get_specific_quiz(
     if current_user.user_type == settings.UserType.TEACHER.value:
         quiz_list = get_quiz(db=db, current_user=current_user)
         for quiz in quiz_list:
+            print(quiz)
+            print(quiz.id)
             if quiz.quiz_id == id:
                 return quiz
         raise HTTPException(
@@ -106,8 +110,24 @@ async def update_quiz(
     *,
     id: int,
     obj_in: QuizUpdate,
-    current_user: User = Depends(deps.get_current_active_teacher_or_above)
+    current_user: User = Depends(deps.get_current_active_teacher_or_above),
 ) -> Any:
     quiz = crud_quiz.get(db, id)
     quiz = crud_quiz.update(db, db_obj=quiz, obj_in=obj_in)
     return quiz
+
+
+@router.get("/questions", response_model=List[QuizQuestion])
+async def get_question(
+    db: Session = Depends(deps.get_db),
+    *,
+    skip: int = 0,
+    limit: int = 100,
+    current_user: User = Depends(deps.get_current_active_user),
+) -> Any:
+    questions = crud_question.get_multi(db, skip=skip, limit=limit)
+    quiz = get_quiz(db, current_user=current_user)
+    for question in questions:
+        for specificQuiz in quiz:
+            question.quiz_id = quiz.id
+            pass
