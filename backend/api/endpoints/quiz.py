@@ -1,5 +1,7 @@
 from typing import Any, List
 
+from random import randint
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from core.config import settings
@@ -59,6 +61,10 @@ async def get_quiz(
         return quiz
 
 
+# XXX Process of adding a quiz:
+#  create a quiz,
+# then get the quiz by name,
+# then assign that to a class session, if that class session does not have a quiz_id.
 @router.post("/", response_model=QuizCreate)
 async def create_quiz(
     db: Session = Depends(deps.get_db),
@@ -70,6 +76,24 @@ async def create_quiz(
     return quiz
 
 
+# FIXME: complete this, is incomplete
+@router.get("/questions", response_model=List[QuizQuestion])
+async def get_question(
+    db: Session = Depends(deps.get_db),
+    *,
+    skip: int = 0,
+    limit: int = 100,
+    current_user: User = Depends(deps.get_current_active_user),
+) -> Any:
+    print("hello")
+    questions = crud_question.get_multi(db, skip=skip, limit=limit)
+    # quiz = get_quiz(db, current_user=current_user)
+    # for question in questions:
+    #     for specificQuiz in quiz:
+    # print(f"{quiz.id}[2]")
+    return questions
+
+
 @router.get("/{id}", response_model=Quiz)
 async def get_specific_quiz(
     db: Session = Depends(deps.get_db),
@@ -78,22 +102,18 @@ async def get_specific_quiz(
     current_user: User = Depends(deps.get_current_active_user),
 ) -> Any:
     if current_user.user_type == settings.UserType.STUDENT.value:
-        quiz_list = get_quiz(db=db, current_user=current_user)
+        quiz_list = await get_quiz(db=db, current_user=current_user)
         for quiz in quiz_list:
-            print(quiz)
-            print(quiz.id)
-            if quiz.quiz_id == id:
+            if quiz.id == id:
                 return quiz
         raise HTTPException(
             status_code=401, detail="Error ID: 133"
         )  # not accessible by the Student user
 
     if current_user.user_type == settings.UserType.TEACHER.value:
-        quiz_list = get_quiz(db=db, current_user=current_user)
+        quiz_list = await get_quiz(db=db, current_user=current_user)
         for quiz in quiz_list:
-            print(quiz)
-            print(quiz.id)
-            if quiz.quiz_id == id:
+            if quiz.id == id:
                 return quiz
         raise HTTPException(
             status_code=401, detail="Error ID: 134"
@@ -115,19 +135,3 @@ async def update_quiz(
     quiz = crud_quiz.get(db, id)
     quiz = crud_quiz.update(db, db_obj=quiz, obj_in=obj_in)
     return quiz
-
-
-@router.get("/questions", response_model=List[QuizQuestion])
-async def get_question(
-    db: Session = Depends(deps.get_db),
-    *,
-    skip: int = 0,
-    limit: int = 100,
-    current_user: User = Depends(deps.get_current_active_user),
-) -> Any:
-    questions = crud_question.get_multi(db, skip=skip, limit=limit)
-    quiz = get_quiz(db, current_user=current_user)
-    for question in questions:
-        for specificQuiz in quiz:
-            question.quiz_id = quiz.id
-            pass
