@@ -102,7 +102,7 @@ def populate_user():
                 dob=fake.date_time(),
                 address=fake.address(),
                 contact_number=fake.phone_number(),
-                password=fake.password(),
+                password="test",
                 user_type=randint(1, 3),
             )
             crud_user.create(db, obj_in=user)
@@ -147,6 +147,9 @@ def populate_quiz():
                 description=fake.paragraph(),
                 is_randomized=True if randint(0, 1) else False,
                 display_individual=True if randint(0, 1) else False,
+                group=list(range(randint(1, 5), randint(6, 10))),
+                instructor=list(range(randint(1, 25), randint(26, 50))),
+                course_id=randint(1, 20),
             )
 
             crud_quiz.create(db, obj_in=quiz)
@@ -160,9 +163,8 @@ def populate_class_session():
             class_session = ClassSessionCreate(
                 datetime=fake.date_time(),
                 is_active=True if randint(0, 1) else False,
-                instructor=list(range(randint(1, 25), randint(26, 50))),
+                instructor=list(range(randint(1, 5), randint(6, 10))),
                 course_id=randint(1, 20),
-                quiz_id=randint(1, 10),
                 group_id=randint(1, 10),
                 description=fake.paragraph(),
                 duration=randint(1, 120),
