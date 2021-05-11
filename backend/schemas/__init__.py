@@ -6,7 +6,7 @@ from .class_session import (
 )
 from .course import Course, CourseCreate, CourseUpdate, CourseInDB
 from .department import Department, DepartmentCreate, DepartmentUpdate, DepartmentInDB
-from .group import Group, GroupCreate, GroupInDB, GroupUpdate
+from .group import Group, GroupCreate, GroupInDB, GroupUpdate, GroupReturn
 from .msg import Msg
 from .personal_note import (
     PersonalNote,
@@ -30,7 +30,7 @@ from .user_permission import (
     UserPermissionInDB,
 )
 from .token import Token, TokenPayload
-from .user import User, UserCreate, UserInDB, UserUpdate
+from .user import User, UserCreate, UserInDB, UserUpdate, UserReturn
 
 from .quiz import (
     Quiz,
