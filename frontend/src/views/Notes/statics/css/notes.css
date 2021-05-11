@@ -59,6 +59,7 @@
     .note_plusIcon {
         cursor: pointer;
         position: relative;
+        height: 30px !important;
         top: 8%;
         right: 5%;
     }

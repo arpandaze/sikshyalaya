@@ -59,7 +59,9 @@
     .quiz_plusIcon {
         cursor: pointer !important;
         height: 30px !important;
-        position: relative !important;
+        position: relative;
+        top: 8%;
+        right: 5%;
     }
     .quiz_gridIconsContainer {
         width: 70px;
