@@ -14,6 +14,7 @@ from cruds import (
     crud_program,
     crud_quiz,
     crud_class_session,
+    crud_question,
 )
 
 from schemas import (
@@ -27,6 +28,7 @@ from schemas import (
     ProgramCreate,
     ClassSessionCreate,
     QuizCreate,
+    QuizQuestionCreate,
 )
 
 db = SessionLocal()
@@ -170,8 +172,37 @@ def populate_class_session():
                     "file" + str(randint(1, 200)),
                 ],
             )
-            print(class_session)
             crud_class_session.create(db, obj_in=class_session)
+
+        except Exception as e:
+            print(e)
+
+
+def populate_quiz_question():
+    for i in range(40):
+        try:
+            quiz_question = QuizQuestionCreate(
+                question_type=randint(1, 2),
+                question_text=fake.text(),
+                question_image=[
+                    "image" + str(randint(1, 200)),
+                    "image" + str(randint(1, 200)),
+                    "image" + str(randint(1, 200)),
+                    "image" + str(randint(1, 200)),
+                ],
+                answer_type=randint(1, 4),
+                option_image=[
+                    "Optionimage" + str(randint(1, 200)),
+                    "Optionimage" + str(randint(1, 200)),
+                    "Optionimage" + str(randint(1, 200)),
+                    "Optionimage" + str(randint(1, 200)),
+                ],
+                option={randint(1, 200): "option1", randint(1, 200): "option2"},
+                answer_image="OptionImage" + str(randint(1, 200)),
+                answer=randint(11, 203),
+                quiz_id=randint(1, 10),
+            )
+            crud_question.create(db, obj_in=quiz_question)
 
         except Exception as e:
             print(e)
@@ -188,3 +219,4 @@ def populate_all():
     populate_teacher_note()
     populate_quiz()
     populate_class_session()
+    populate_quiz_question()

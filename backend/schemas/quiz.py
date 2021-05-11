@@ -1,7 +1,7 @@
 from datetime import datetime
-from typing import Optional, List  # noqa
+from typing import Optional, List, Dict  # noqa
 
-from pydantic import BaseModel, Json
+from pydantic import BaseModel
 
 
 class QuizBase(BaseModel):
@@ -43,11 +43,11 @@ class Quiz(QuizInDBBase):
 
 class QuizQuestionBase(BaseModel):
     question_type: int
-    question_text: int
+    question_text: str
     question_image: List[str]
     option_image: List[str]
-    answer_tupe: int
-    option: Json
+    answer_type: int
+    option: Dict[int, str]
     answer_image: str
     answer: int
     quiz_id: int
