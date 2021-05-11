@@ -1,7 +1,10 @@
 from core.db import Base
 from sqlalchemy import Column, Integer, ForeignKey, SmallInteger
 from sqlalchemy.orm import relationship
-from .association_tables import group_course_association_table
+from .association_tables import (
+    group_course_association_table,
+    group_quiz_association_table,
+)
 
 
 class Group(Base):

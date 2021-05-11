@@ -12,6 +12,10 @@ from sqlalchemy import (
 )
 import enum
 from sqlalchemy.orm import relationship
+from .association_tables import (
+    group_quiz_association_table,
+    instructor_quiz_association_table,
+)
 
 from core.db import Base
 
@@ -24,6 +28,14 @@ class Quiz(Base):
     description = Column(String, nullable=True)
     is_randomized = Column(Boolean, default=False)
     display_individual = Column(Boolean, default=False)
+    group = relationship(
+        "Group", secondary=group_quiz_association_table, backref="quiz"
+    )
+    instructor = relationship(
+        "User", secondary=instructor_quiz_association_table, backref="quiz"
+    )
+    course_id = Column(Integer, ForeignKey("course.id"))
+    course = relationship("Course", backref="quiz")
     __tablename__ = "quiz"  # noqa
 
 

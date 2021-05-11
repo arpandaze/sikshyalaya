@@ -1,5 +1,6 @@
 from typing import Optional, List
 from datetime import datetime
+from schemas.group import Group
 
 from pydantic import BaseModel, EmailStr
 
@@ -38,6 +39,7 @@ class UserUpdate(UserBase):
 
 class UserInDBBase(UserBase):
     id: Optional[int] = None
+    teacher_group: List[Group]
 
     class Config:
         orm_mode = True

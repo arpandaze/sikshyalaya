@@ -20,6 +20,7 @@ class GroupUpdate(GroupBase):
 
 class GroupInDBBase(GroupBase):
     id: Optional[int]
+    course: List[Course]
 
     class Config:
         orm_mode = True
@@ -30,4 +31,11 @@ class GroupInDB(GroupInDBBase):
 
 
 class Group(GroupInDBBase):
-    course: List[Course]
+    pass
+
+
+class GroupReturn(BaseModel):
+    id: Optional[int]
+
+    class Config:
+        orm_mode = True

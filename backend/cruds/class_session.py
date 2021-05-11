@@ -24,7 +24,6 @@ class CRUDClassSession(CRUDBase[ClassSession, ClassSessionCreate, ClassSessionUp
             course_id=obj_in.course_id,  # noqa
             description=obj_in.description,  # noqa
             duration=obj_in.duration,
-            quiz_id=obj_in.quiz_id,
             file=obj_in.file,
             group_id=obj_in.group_id,
         )
