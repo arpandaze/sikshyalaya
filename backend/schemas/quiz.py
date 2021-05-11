@@ -2,6 +2,7 @@ from datetime import datetime
 from typing import Optional, List, Dict  # noqa
 
 from pydantic import BaseModel
+from schemas import GroupReturn, UserReturn
 
 
 class QuizBase(BaseModel):
@@ -11,6 +12,9 @@ class QuizBase(BaseModel):
     description: str
     is_randomized: bool
     display_individual: bool
+    instructor: List[int]
+    group: List[int]
+    course_id: int
 
 
 class QuizCreate(QuizBase):
@@ -33,7 +37,8 @@ class QuizInDB(QuizInDBBase):
 
 
 class Quiz(QuizInDBBase):
-    pass
+    group: List[GroupReturn]
+    instructor: List[UserReturn]
 
 
 # XXX
@@ -63,6 +68,7 @@ class QuizQuestionUpdate(QuizQuestionBase):
 
 class QuizQuestionInDBBase(QuizQuestionBase):
     id: Optional[int]
+    option: Dict[str, str]
 
     class Config:
         orm_mode = True
