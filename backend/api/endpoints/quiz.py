@@ -138,7 +138,7 @@ async def get_specific_question(
             return questions
 
     raise HTTPException(
-        status_code=404, detail="Error ID: 135"
+        status_code=404, detail="Error ID: 136"
     )  # question specific to that id not found
 
 
@@ -170,7 +170,7 @@ async def update_question(
         return question
     else:
         raise HTTPException(
-            status_code=401, detail="Error ID = 136"
+            status_code=401, detail="Error ID = 137"
         )  # noqa Access Denied!
 
 
