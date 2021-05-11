@@ -37,3 +37,18 @@ teacher_group_association_table = Table(
     Column("teacher_id", Integer, ForeignKey("user.id")),
     Column("group_id", Integer, ForeignKey("group.id")),
 )
+
+group_quiz_association_table = Table(
+    "group_quiz_association",
+    Base.metadata,
+    Column("group_id", Integer, ForeignKey("group.id")),
+    Column("quiz_id", Integer, ForeignKey("quiz.id")),
+)
+
+
+instructor_quiz_association_table = Table(
+    "instructor_quiz_association",
+    Base.metadata,
+    Column("instructor_id", Integer, ForeignKey("user.id")),
+    Column("quiz_id", Integer, ForeignKey("quiz.id")),
+)
