@@ -34,3 +34,7 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 
 def get_password_hash(password: str) -> str:
     return pwd_context.hash(password)
+
+
+def get_uid_hash(uid: str) -> str:
+    return str(hash(f"uid_{id}"))[1:7]

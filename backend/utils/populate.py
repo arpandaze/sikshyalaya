@@ -102,7 +102,7 @@ def populate_user():
                 dob=fake.date_time(),
                 address=fake.address(),
                 contact_number=fake.phone_number(),
-                password=fake.password(),
+                password="test",
                 user_type=randint(1, 3),
             )
             crud_user.create(db, obj_in=user)
