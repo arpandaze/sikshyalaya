@@ -21,7 +21,14 @@ from schemas import (
     QuizQuestionUpdate,
 )
 
+from fastapi import FastAPI, File, UploadFile, HTTPException
+from fastapi.responses import FileResponse
+import aiofiles
+
 router = APIRouter()
+
+QUIZ_QUESTION_UPLOAD_DIR: str = "question_image"
+QUIZ_OPTION_UPLOAD_DIR: str = "option_image"
 
 
 @router.get("/", response_model=List[Quiz])
@@ -125,17 +132,18 @@ async def get_question(
     return questions
 
 
-@router.get("/{quizid}/question/{id}", response_model=List[QuizQuestion])
+@router.get("/{quizid}/question/{id}", response_model=QuizQuestion)
 async def get_specific_question(
     db: Session = Depends(deps.get_db),
     *,
     quizid: int,
+    id: int,
     current_user: User = Depends(deps.get_current_active_user),
 ) -> Any:
     questions = await get_question(db, quizid=quizid, current_user=current_user)
     for question in questions:
         if question.id == id:
-            return questions
+            return question
 
     raise HTTPException(
         status_code=404, detail="Error ID: 136"
@@ -174,4 +182,92 @@ async def update_question(
         )  # noqa Access Denied!
 
 
-# for questions to write and read files and answers to those files
+# XXX: ENDPOINTS for questions to write and read files and answers to those files
+
+
+# FIXME: Uploaded files directory fix it
+@router.post("{quizid}/question/{id}/question_image/")
+async def create_question_files(
+    db: Session = Depends(deps.get_db),
+    files: List[UploadFile] = File(...),
+    current_user=Depends(deps.get_current_active_teacher_or_above),
+    *,
+    quizid: int,
+    id: int,
+):
+
+    # TODO: check if the file is an image?
+    question = await get_specific_question(
+        db, quizid=quizid, id=id, current_user=current_user
+    )
+
+    for file in files:
+        filename = f"{QUIZ_QUESTION_UPLOAD_DIR}/{quizid}/{id}/{file.filename}"
+        async with aiofiles.open(filename, mode="wb") as f:
+            content = await file.read()
+            await f.write(content)
+
+    obj_in = QuizQuestionUpdate(question_image=[file.filename for file in files])
+    print(obj_in)
+    updated = crud_question.update(db=db, db_obj=question, obj_in=obj_in)
+
+    return updated
+
+
+@router.post("{quizid}/question/{id}/option_image/")
+async def create_option_files(
+    db: Session = Depends(deps.get_db),
+    files: List[UploadFile] = File(...),
+    current_user=Depends(deps.get_current_active_teacher_or_above),
+    *,
+    quizid: int,
+    id: int,
+):
+
+    # TODO: check if the file is an image?
+    question = await get_specific_question(
+        db, quizid=quizid, id=id, current_user=current_user
+    )
+
+    for file in files:
+        filename = f"{QUIZ_OPTION_UPLOAD_DIR}/{quizid}/{id}/{file.filename}"
+        async with aiofiles.open(filename, mode="wb") as f:
+            content = await file.read()
+            await f.write(content)
+
+    obj_in = QuizQuestionUpdate(option_image=[file.filename for file in files])
+    print(obj_in)
+    updated = crud_question.update(db=db, db_obj=question, obj_in=obj_in)
+
+    return updated
+
+
+@router.get("/{quizid}/question/{id}/{type}/{filename}")
+async def get_image(
+    db: Session = Depends(deps.get_db),
+    *,
+    quizid: int,
+    id: int,
+    filename: str,
+    type: int,
+):
+    question = await get_specific_question(
+        db, quizid=quizid, id=id, current_user=current_user
+    )
+
+    if not question:
+        raise HTTPException(status_code=404, detail="Error ID: 138")
+        # question not found error
+
+    if type == 1:
+        file = FileResponse(f"{QUIZ_QUESTION_UPLOAD_DIR}/{quizid}/{id}/{filename}")
+        return file
+
+    if type == 2:
+        file = FileResponse(f"{QUIZ_OPTION_UPLOAD_DIR}/{quizid}/{id}/{filename}")
+        return file
+
+    raise HTTPException(status_code=401, detail="Error ID: 139")
+    # no such type exists,
+    # you can either have type 1, that is question_image,
+    # type two that is option_image
