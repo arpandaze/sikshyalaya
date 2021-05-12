@@ -1,3 +1,5 @@
+from sqlalchemy.sql.expression import update
+from schemas.user import UserUpdate, VerifyUser
 from typing import Any
 
 from fastapi import (
@@ -8,6 +10,7 @@ from fastapi import (
     Request,
 )
 from sqlalchemy.orm import Session
+from sqlalchemy.sql.functions import current_user
 from starlette.responses import JSONResponse
 
 import cruds
@@ -21,6 +24,7 @@ from utils.utils import (
     generate_password_reset_token,
     send_reset_password_email,
     verify_password_reset_token,
+    verify_user_verify_token,
 )
 
 router = APIRouter()
@@ -107,6 +111,22 @@ async def reset_password(
     db.add(user)
     db.commit()
     return {"msg": "Password updated successfully"}
+
+
+@router.get("/auth/verify/", response_model=schemas.Msg)
+async def verify_account(
+    token: str,
+    db: Session = Depends(deps.get_db),
+) -> Any:
+    uid = await verify_user_verify_token(token)
+    user = cruds.crud_user.get_by_id(db, id=uid)
+    if not user:
+        raise HTTPException(
+            status_code=404,
+            detail="Error ID: 146",
+        )  # The user with this username does not exist in the system.
+    cruds.crud_user.verify_user(db=db, db_obj=user)
+    return {"msg": "Verified successfully"}
 
 
 @router.get("/thtest1")
