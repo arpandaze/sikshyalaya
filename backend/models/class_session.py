@@ -16,7 +16,9 @@ class ClassSession(Base):
     course = relationship("Course", backref="session")
     group_id = Column(Integer, ForeignKey("group.id"))
     group = relationship("Group", backref="class_session", uselist=False)
-    file = Column(ARRAY(String(100)), unique=True)
+    file = Column(
+        ARRAY(String(100))
+    )  # unique = True removed, because multiple class session can have file with same name
     duration = Column(Integer)
     description = Column(String)
     __tablename__ = "class_session"
