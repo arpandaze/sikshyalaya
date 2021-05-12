@@ -76,13 +76,12 @@ const ResetPassword = () => {
                 justify="center"
                 alignItems="center"
               >
-                <Grid item spacing={10}>
+                <Grid item>
                   <Button name="Reset" addStyles="resetCommon_resetButton" />
                 </Grid>
-                <Grid item spacing={10}>
+                <Grid item>
                   <Grid
                     container
-                    spacing={2}
                     direction="row"
                     justify="center"
                     alignItems="center"
@@ -93,6 +92,8 @@ const ResetPassword = () => {
                     <Grid item>
                       <p
                         style={{
+                          margin: "0px",
+                          padding: "0px",
                           fontSize: "1.2em",
                         }}
                       >
@@ -104,7 +105,7 @@ const ResetPassword = () => {
                     </Grid>
                   </Grid>
                 </Grid>
-                <Grid item spacing={10}>
+                <Grid item>
                   <Button
                     name="Back to Login"
                     addStyles="resetCommon_guestButton"

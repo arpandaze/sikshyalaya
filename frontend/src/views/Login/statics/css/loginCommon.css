@@ -11,6 +11,7 @@
   .loginCommon_label {
     font-weight: normal;
     font-size: 2.2em;
+    margin: 0px;
   }
   .loginCommon_guestButton {
     width: 300px;
@@ -26,7 +27,7 @@
     width: 300px;
     height: 50px;
     border-bottom: 1px solid var(--grey2);
-    font-size: 1.3em;
+    font-size: 1em;
     background: transparent;
   }
   .loginCommon_line {
@@ -37,11 +38,8 @@
   }
   .loginCommon_inputLabel {
     font-size: 1.2em;
-    border: 1px solid black;
   }
   .loginCommon_rememberMeCheckContainer {
-    position: relative;
-    top: -10px;
     line-height: 20px;
   }
   .loginCommon_rememberMeCheck {
