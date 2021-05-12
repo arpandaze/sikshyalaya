@@ -9,6 +9,7 @@ from sqlalchemy.orm import Session
 from core.config import settings
 
 from models import User
+from models.quiz import QuestionType, AnswerType
 from utils import deps
 from cruds import crud_quiz, crud_question
 from schemas import (
@@ -166,22 +167,25 @@ async def create_question(
 
     current_directory = os.getcwd()
 
-    FILE_PATH_QUESTION = os.path.join(
-        "static", QUIZ_QUESTION_UPLOAD_DIR, f"{quizid}/{question.id}"
-    )
+    # if the question is said to have a IMAGE then only create the folder to store the image
+    if question.question_type == QuestionType.IMAGE.value:
+        FILE_PATH_QUESTION = os.path.join(
+            "static", QUIZ_QUESTION_UPLOAD_DIR, f"{quizid}/{question.id}"
+        )
 
-    FILE_PATH_QUESTION = os.path.join(current_directory, FILE_PATH_QUESTION)
+        FILE_PATH_QUESTION = os.path.join(current_directory, FILE_PATH_QUESTION)
+        if not os.path.exists(FILE_PATH_QUESTION):
+            os.makedirs(FILE_PATH_QUESTION)
 
-    FILE_PATH_OPTION = os.path.join(
-        "static", QUIZ_OPTION_UPLOAD_DIR, f"{quizid}/{question.id}"
-    )
-    FILE_PATH_OPTION = os.path.join(current_directory, FILE_PATH_OPTION)
+    # if the Options in answer is said to have a IMAGE then only create the folder to store the image
+    if question.answer_type == AnswerType.IMAGE_OPTIONS.value:
+        FILE_PATH_OPTION = os.path.join(
+            "static", QUIZ_OPTION_UPLOAD_DIR, f"{quizid}/{question.id}"
+        )
+        FILE_PATH_OPTION = os.path.join(current_directory, FILE_PATH_OPTION)
 
-    if not os.path.exists(FILE_PATH_QUESTION):
-        os.makedirs(FILE_PATH_QUESTION)
-
-    if not os.path.exists(FILE_PATH_OPTION):
-        os.makedirs(FILE_PATH_OPTION)
+        if not os.path.exists(FILE_PATH_OPTION):
+            os.makedirs(FILE_PATH_OPTION)
 
     return {"msg": "success"}
 
@@ -192,10 +196,39 @@ async def update_question(
     *,
     quizid: int,
     obj_in: QuizQuestionUpdate,
+    id: int,
     current_user: User = Depends(deps.get_current_active_teacher_or_above),
 ) -> Any:
+  
     question = crud_question.get(db, id)
-    if question.quiz_id == quizid:
+
+    current_directory = os.getcwd()
+
+    # on question_type update, create folder to store image if not already present
+    if (obj_in.question_type == QuestionType.IMAGE.value) and (
+        question.question_type != obj_in.question_type
+    ):
+        FILE_PATH_QUESTION = os.path.join(
+            "static", QUIZ_QUESTION_UPLOAD_DIR, f"{quizid}/{question.id}"
+        )
+
+        FILE_PATH_QUESTION = os.path.join(current_directory, FILE_PATH_QUESTION)
+        if not os.path.exists(FILE_PATH_QUESTION):
+            os.makedirs(FILE_PATH_QUESTION)
+
+    # on option_type update, create folder to store image if not already present
+    if (obj_in.answer_type == AnswerType.IMAGE_OPTIONS.value) and (
+        question.answer_type != obj_in.answer_type
+    ):
+        FILE_PATH_OPTION = os.path.join(
+            "static", QUIZ_OPTION_UPLOAD_DIR, f"{quizid}/{question.id}"
+        )
+        FILE_PATH_OPTION = os.path.join(current_directory, FILE_PATH_OPTION)
+
+        if not os.path.exists(FILE_PATH_OPTION):
+            os.makedirs(FILE_PATH_OPTION)
+
+    if question.quiz_id == quizid == obj_in.quiz_id:
         question = crud_question.update(db, db_obj=question, obj_in=obj_in)
         return question
     else:
