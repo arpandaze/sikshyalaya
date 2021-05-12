@@ -57,6 +57,14 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         db.refresh(db_obj)
         return db_obj
 
+    def verify_user(
+        self,
+        db: Session,
+        *,
+        db_obj: User,
+    ):
+        super().update(db=db, db_obj=db_obj, obj_in={"is_active": True})
+
     def update(
         self,
         db: Session,

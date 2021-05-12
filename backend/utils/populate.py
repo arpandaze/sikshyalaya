@@ -96,7 +96,7 @@ def populate_user():
         try:
             user = UserCreate(
                 full_name=fake.name(),
-                email=fake.email(),
+                email=f"{i}@test.com",
                 group_id=randint(1, 10),
                 teacher_group=list(range(randint(1, 5), randint(6, 10))),
                 dob=fake.date_time(),
