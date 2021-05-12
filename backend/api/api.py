@@ -4,7 +4,7 @@ from api.endpoints import program, teacher_note, users, group, quiz
 from api.endpoints import (
     program,
     users,
-    login,
+    auth,
     utils,
     course,
     school,
@@ -15,7 +15,7 @@ from api.endpoints import (
 )
 
 api_router = APIRouter()
-api_router.include_router(login.router, tags=["Login"])
+api_router.include_router(auth.router, prefix="/auth", tags=["Authentication"])
 api_router.include_router(users.router, prefix="/users", tags=["Users"])
 api_router.include_router(utils.router, prefix="/utils", tags=["Utils"])
 api_router.include_router(school.router, prefix="/school", tags=["Schools"])
