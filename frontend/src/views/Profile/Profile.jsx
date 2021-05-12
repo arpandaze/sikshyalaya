@@ -50,6 +50,7 @@ const Profile = () => {
             className="profile_profileBox"
           >
             <Grid item xs={3} className="profile_imageContainer">
+              <div className="profile_imageContainerOverlay"></div>
               <Image
                 src={profile}
                 alt={profile}
@@ -74,59 +75,52 @@ const Profile = () => {
                     direction="row"
                     alignItems="flex-start"
                     className="profile_formBox"
-                    spacing={5}
                   >
-                    <Grid item>
+                    <Grid item className="profile_inputButton">
                       <Field
                         id="firstname"
                         name="firstname"
                         placeholder="First Name"
-                        className="profile_inputButton"
                       />
                     </Grid>
-                    <Grid item>
+                    <Grid item className="profile_middleInputButton">
                       <Field
                         id="middlename"
                         name="middlename"
                         placeholder="Middle Name"
-                        className="profile_middleInputButton"
                       />
                     </Grid>
-                    <Grid item>
+                    <Grid item className="profile_inputButton">
                       <Field
                         id="lastname"
                         name="lastname"
                         placeholder="Last Name"
-                        className="profile_inputButton"
                       />
                     </Grid>
-                    <Grid item>
+                    <Grid item className="profile_longInputButton">
                       <Field
                         id="email"
                         name="email"
                         placeholder="Email Address"
-                        className="profile_longInputButton"
                       />
                     </Grid>
-                    <Grid item>
+                    <Grid item className="profile_longInputButton">
                       <Field
                         id="password"
                         type="password"
                         name="password"
                         placeholder="Password"
-                        className="profile_longInputButton"
                       />
                     </Grid>
-                    <Grid item>
+                    <Grid item className="profile_longInputButton">
                       <Field
                         id="confirmpassword"
                         type="password"
                         name="confirmpassword"
                         placeholder="Confirm Password"
-                        className="profile_longInputButton"
                       />
                     </Grid>
-                    <Grid item>
+                    <Grid item className="profileBox_saveButtonContainer">
                       <Button name="Save" addStyles="profileBox_saveButton" />
                     </Grid>
                   </Grid>
