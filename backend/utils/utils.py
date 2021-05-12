@@ -73,7 +73,7 @@ def send_reset_password_email(email_to: str, email: str, name: str, token: str) 
     )
 
 
-async def send_new_account_email(email_to: str, user: User) -> None:
+async def send_verification_email(email_to: str, user: User) -> None:
     project_name = settings.PROJECT_NAME
     subject = f"{project_name} - New account for user {user.full_name}"
     with open(Path(settings.EMAIL_TEMPLATES_DIR) / "verify-account.html") as f:
@@ -94,12 +94,20 @@ async def send_new_account_email(email_to: str, user: User) -> None:
 async def generate_password_reset_token(uid: str) -> str:
     reset_token = binascii.hexlify(os.urandom(20)).decode()
     await redis_session_client.client.set(f"pwr_token_{reset_token}", uid)
+    await redis_session_client.client.expire(
+        f"pwr_token_{reset_token}",
+        settings.EMAIL_RESET_TOKEN_EXPIRE_HOURS * 60 * 60 * 1000,
+    )
     return reset_token
 
 
 async def generate_verify_token(uid: str) -> str:
     verify_token = binascii.hexlify(os.urandom(20)).decode()
     await redis_session_client.client.set(f"verify_token_{verify_token}", uid)
+    await redis_session_client.client.expire(
+        f"verify_token_{verify_token}",
+        settings.EMAIL_VERIFY_EXPIRE_HOURS * 60 * 60 * 1000,
+    )
     return verify_token
 
 
@@ -107,13 +115,17 @@ async def verify_password_reset_token(token: str) -> Optional[int]:
     uid = await redis_session_client.client.get(f"pwr_token_{token}", encoding="utf-8")
     if not uid:
         raise HTTPException(status_code=401, detail="Error ID: 143")  # Invalid token
+    await redis_session_client.client.expire(f"pwr_token_{token}", timeout=0)
     return int(uid)
 
 
 async def verify_user_verify_token(token: str) -> Optional[int]:
-    uid = redis_session_client.client.get(f"verify_token_{token}", encoding="utf-8")
+    uid = await redis_session_client.client.get(
+        f"verify_token_{token}", encoding="utf-8"
+    )
     if not uid:
-        raise HTTPException(status_code=401, detail="Error ID: 143")  # Invalid token
+        raise HTTPException(status_code=401, detail="Error ID: 145")  # Invalid token
+    await redis_session_client.client.expire(f"verify_token_{token}", timeout=0)
     return int(uid)
 
 
