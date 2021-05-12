@@ -43,7 +43,16 @@ def create_class_session(
     *,
     obj_in: ClassSessionCreate,
 ) -> Any:
+
     class_session = crud_class_session.create(db, obj_in=obj_in)
+
+    FILE_PATH = os.path.join("static", settings.UPLOAD_DIR_ROOT, f"{class_session.id}")
+    working_directory = os.getcwd()
+    FILE_PATH = os.path.join(working_directory, FILE_PATH)
+
+    if not os.path.exists(FILE_PATH):
+        os.makedirs(FILE_PATH)
+    print(FILE_PATH)
     return class_session
 
 
@@ -84,8 +93,12 @@ async def create_upload_files(
     if not class_session:
         raise HTTPException(status_code=401, detail="Error ID: 100")  # Access denied!
 
+    FILE_PATH = os.path.join("static", settings.UPLOAD_DIR_ROOT)
+    working_directory = os.getcwd()
+    FILE_PATH = os.path.join(working_directory, FILE_PATH)
+
     for file in files:
-        filename = f"{settings.UPLOAD_DIR_ROOT}/{id}/{file.filename}"
+        filename = f"{FILE_PATH}/{id}/{file.filename}"
         async with aiofiles.open(filename, mode="wb") as f:
             content = await file.read()
             await f.write(content)
@@ -110,8 +123,18 @@ async def get_upload_files(
     )
     if not class_session:
         raise HTTPException(status_code=401, detail="Error ID: 101")  # Access denied!
-    file = FileResponse(f"{settings.UPLOAD_DIR_ROOT}/{id}/{filename}")
-    return file
+
+    FILE_PATH = os.path.join("static", settings.UPLOAD_DIR_ROOT)
+    working_directory = os.getcwd()
+    FILE_PATH = os.path.join(working_directory, FILE_PATH, f"{id}", filename)
+
+    if os.path.isfile(FILE_PATH):
+        file = FileResponse(f"{FILE_PATH}")
+        return file
+    else:
+        raise HTTPException(
+            status_code=404, detail="Error ID: 145"
+        )  # no file exist in the path
 
 
 html = """

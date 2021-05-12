@@ -7,3 +7,4 @@ __pycache__/
 app.egg-info
 node_modules/
 **/migrations/versions/
+static/
