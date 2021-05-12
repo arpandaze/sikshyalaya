@@ -293,11 +293,11 @@ async def get_image(
                 status_code=401, detail="Error ID: 140"
             )  # file not of that question
 
-    BACKEND_ROOT = os.path.abspath(os.path.join(__file__, "../../.."))
-    FILE_PATH = os.path.join(BACKEND_ROOT, FILE_PATH)
+    BACKEND_ROOT = os.getcwd()
+    FILE_PATH = os.path.join(BACKEND_ROOT, FILE_PATH, filename)
 
     if os.path.isfile(FILE_PATH):
-        file = FileResponse(f"{FILE_PATH}/{filename}")
+        file = FileResponse(f"{FILE_PATH}")
         return file
     else:
         raise HTTPException(
