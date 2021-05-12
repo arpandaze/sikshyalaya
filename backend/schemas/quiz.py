@@ -63,7 +63,15 @@ class QuizQuestionCreate(QuizQuestionBase):
 
 
 class QuizQuestionUpdate(QuizQuestionBase):
-    pass
+    question_type: int = None
+    question_text: str = None
+    question_image: List[str] = None
+    option_image: List[str] = None
+    answer_type: int = None
+    option: Dict[int, str] = None
+    answer_image: str = None
+    answer: int = None
+    quiz_id: int = None
 
 
 class QuizQuestionInDBBase(QuizQuestionBase):

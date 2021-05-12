@@ -34,6 +34,23 @@
     border-radius: 15px !important;
     box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2) !important;
   }
+  .mainDash_activeClassBoxInside {
+  }
+  .mainDash_activeClassBoxTop {
+  }
+  .mainDash_smallRedBox {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--red4);
+    position: relative;
+    margin-left: 20px !important;
+  }
+  .mainDash_activeClassTitle {
+    position: relative;
+    left: 15px;
+    font-size: 1.7em;
+  }
   .mainDash_classResourcesBoxContainer {
     width: 95% !important;
     height: 510px !important;
@@ -41,6 +58,23 @@
     background: var(--white) !important;
     border-radius: 15px !important;
     box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2) !important;
+  }
+  .mainDash_classResourceBoxInside {
+  }
+  .mainDash_classResourceBoxTop {
+  }
+  .mainDash_smallPurpleBox {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--purple);
+    position: relative;
+    margin-left: 20px !important;
+  }
+  .mainDash_classResourceTitle {
+    position: relative;
+    left: 15px;
+    font-size: 1.7em;
   }
   .mainDash_discussionBoxContainer {
     width: 95% !important;
@@ -50,12 +84,46 @@
     border-radius: 15px !important;
     box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2) !important;
   }
+  .mainDash_discussionBoxInside {
+  }
+  .mainDash_discussionBoxTop {
+  }
+  .mainDash_smallBlueBox {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--blue);
+    position: relative;
+    margin-left: 20px !important;
+  }
+  .mainDash_discussionBoxTitle {
+    position: relative;
+    left: 15px;
+    font-size: 1.7em;
+  }
   .mainDash_postBoxContainer {
     width: 95% !important;
     height: 250px !important;
     background: var(--white) !important;
     border-radius: 15px !important;
     box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2) !important;
+  }
+  .mainDash_postBoxInside {
+  }
+  .mainDash_postBoxTop {
+  }
+  .mainDash_smallGreenBox {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--green2);
+    position: relative;
+    margin-left: 20px !important;
+  }
+  .mainDash_postBoxTitle {
+    position: relative;
+    left: 15px;
+    font-size: 1.7em;
   }
   .mainDash_quizBoxContainer {
     width: 95% !important;
@@ -65,6 +133,23 @@
     margin-top: 25px !important;
     box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2) !important;
   }
+  .mainDash_quizBoxInside {
+  }
+  .mainDash_quizBoxTop {
+  }
+  .mainDash_smallYellowBox {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--yellow);
+    position: relative;
+    margin-left: 20px !important;
+  }
+  .mainDash_quizBoxTitle {
+    position: relative;
+    left: 15px;
+    font-size: 1.7em;
+  }
   .mainDash_tbdBoxContainer {
     width: 95% !important;
     height: 250px !important;
@@ -72,6 +157,23 @@
     border-radius: 15px !important;
     margin-top: 25px !important;
     box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2) !important;
+  }
+  .mainDash_tbdBoxInside {
+  }
+  .mainDash_tbdBoxTop {
+  }
+  .mainDash_smallBlueBox {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--blue);
+    position: relative;
+    margin-left: 20px !important;
+  }
+  .mainDash_tbdBoxTitle {
+    position: relative;
+    left: 15px;
+    font-size: 1.7em;
   }
 }
 
@@ -111,6 +213,23 @@
     border-radius: 15px !important;
     box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2) !important;
   }
+  .mainDash_activeClassBoxInside {
+  }
+  .mainDash_activeClassBoxTop {
+  }
+  .mainDash_smallRedBox {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--red4);
+    position: relative;
+    margin-left: 20px !important;
+  }
+  .mainDash_activeClassTitle {
+    position: relative;
+    left: 15px;
+    font-size: 1.3em;
+  }
   .mainDash_classResourcesBoxContainer {
     width: 90% !important;
     height: 412px !important;
@@ -119,6 +238,23 @@
     border-radius: 15px !important;
     box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2) !important;
   }
+  .mainDash_classResourceBoxInside {
+  }
+  .mainDash_classResourceBoxTop {
+  }
+  .mainDash_smallPurpleBox {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--purple);
+    position: relative;
+    margin-left: 20px !important;
+  }
+  .mainDash_classResourceTitle {
+    position: relative;
+    left: 15px;
+    font-size: 1.3em;
+  }
   .mainDash_discussionBoxContainer {
     height: 650px !important;
     margin: 0px auto !important;
@@ -126,12 +262,46 @@
     border-radius: 15px !important;
     box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2) !important;
   }
+  .mainDash_discussionBoxInside {
+  }
+  .mainDash_discussionBoxTop {
+  }
+  .mainDash_smallBlueBox {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--blue);
+    position: relative;
+    margin-left: 20px !important;
+  }
+  .mainDash_discussionBoxTitle {
+    position: relative;
+    left: 15px;
+    font-size: 1.3em;
+  }
   .mainDash_postBoxContainer {
     width: 90% !important;
     height: 200px !important;
     background: var(--white) !important;
     border-radius: 15px !important;
     box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2) !important;
+  }
+  .mainDash_postBoxInside {
+  }
+  .mainDash_postBoxTop {
+  }
+  .mainDash_smallGreenBox {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--green2);
+    position: relative;
+    margin-left: 20px !important;
+  }
+  .mainDash_postBoxTitle {
+    position: relative;
+    left: 15px;
+    font-size: 1.3em;
   }
   .mainDash_quizBoxContainer {
     width: 90% !important;
@@ -141,6 +311,23 @@
     margin-top: 25px !important;
     box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2) !important;
   }
+  .mainDash_quizBoxInside {
+  }
+  .mainDash_quizBoxTop {
+  }
+  .mainDash_smallYellowBox {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--yellow);
+    position: relative;
+    margin-left: 20px !important;
+  }
+  .mainDash_quizBoxTitle {
+    position: relative;
+    left: 15px;
+    font-size: 1.3em;
+  }
   .mainDash_tbdBoxContainer {
     width: 90% !important;
     height: 200px !important;
@@ -148,5 +335,22 @@
     border-radius: 15px !important;
     margin-top: 25px !important;
     box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2) !important;
+  }
+  .mainDash_tbdBoxInside {
+  }
+  .mainDash_tbdBoxTop {
+  }
+  .mainDash_smallBlueBox {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--blue);
+    position: relative;
+    margin-left: 20px !important;
+  }
+  .mainDash_tbdBoxTitle {
+    position: relative;
+    left: 15px;
+    font-size: 1.3em;
   }
 }
