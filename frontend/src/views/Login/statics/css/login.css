@@ -5,64 +5,28 @@
     height: 100vh;
     flex-grow: 1;
   }
-  .login_logoBox {
-    width: 200px;
-    position: absolute;
-    top: 50px;
-    left: 150px;
+  .login_logo {
+    padding: 45px 0px 45px 45px;
   }
+
+  .login_logoBox {
+    width: 100vw;
+  }
+  .login_image {
+    width: 170px;
+    height: 100px;
+    object-fit: contain;
+  }
+
   .login_copyrightContainer {
-    width: 250px;
-    position: absolute;
-    left: 0px;
-    bottom: 15px;
-    font-size: 0.9em;
+    width: 100vw;
   }
   .login_copyrightText {
-    position: relative;
-    left: 100px;
+    font-size: 16px;
+    padding-top: 10px;
   }
   .login_loginBoxContainer {
-    min-height: 55vh;
-  }
-  .login_loginBox {
-    width: 450px;
-    height: 600px;
-  }
-  .login_tabs {
-    display: flex;
-  }
-  .login_loginButton {
-    width: 300px;
-    height: 50px;
-    background-color: var(--red4);
-    color: var(--white);
-    border-radius: 15px;
-    font-size: 1.2em;
-  }
-  .login_guestButton {
-    width: 300px;
-    height: 50px;
-    background-color: var(--black);
-    color: var(--white);
-    border-radius: 15px;
-    font-size: 1.2em;
-  }
-  .login_inputButton {
-    outline: none;
-    border: none;
-    border-bottom: 1.5px solid var(--grey2);
-    font-size: 1.2em;
-    background: transparent;
-  }
-  .login_inputLabel {
-    font-size: 1.2em;
-  }
-  .login_lineVertical {
-    width: 1px;
-    height: 30px;
-    background-color: var(--grey2);
-    margin: 0px auto;
+    width: 100vw !important;
   }
 }
 
@@ -72,63 +36,26 @@
     height: 100vh;
     flex-grow: 1;
   }
+  .login_logo {
+    padding: 0px 0px 0px 45px;
+  }
+
   .login_logoBox {
-    width: 200px;
-    position: absolute;
-    top: 50px;
-    left: 150px;
+    width: 100vw;
+  }
+  .login_image {
+    width: 170px;
+    height: 100px;
+    object-fit: contain;
   }
   .login_copyrightContainer {
-    width: 250px;
-    position: absolute;
-    left: 0px;
-    bottom: 15px;
-    font-size: 0.9em;
+    width: 100vw;
   }
   .login_copyrightText {
-    position: relative;
-    left: 100px;
+    font-size: 16px;
   }
   .login_loginBoxContainer {
-    min-height: 55vh;
-  }
-  .login_loginBox {
-    width: 450px;
-    height: 600px;
-  }
-  .login_tabs {
-    display: flex;
-  }
-  .login_loginButton {
-    width: 300px;
-    height: 50px;
-    background-color: var(--red4);
-    color: var(--white);
-    border-radius: 15px;
-    font-size: 1.2em;
-  }
-  .login_guestButton {
-    width: 300px;
-    height: 50px;
-    background-color: var(--black);
-    color: var(--white);
-    border-radius: 15px;
-    font-size: 1.2em;
-  }
-  .login_inputButton {
-    outline: none;
-    border: none;
-    border-bottom: 1.5px solid var(--grey2);
-    font-size: 1.2em;
-    background: transparent;
-  }
-  .login_inputLabel {
-    font-size: 1.2em;
-  }
-  .login_lineVertical {
-    width: 1px;
-    height: 30px;
-    background-color: var(--grey2);
-    margin: 0px auto;
+    width: 100vw !important;
+    max-height: 65vh;
   }
 }
