@@ -162,7 +162,27 @@ async def create_question(
 ) -> Any:
     # FIXME: is this needed?
     obj_in.quiz_id = quizid
-    crud_question.create(db, obj_in=obj_in)
+    question = crud_question.create(db, obj_in=obj_in)
+
+    current_directory = os.getcwd()
+
+    FILE_PATH_QUESTION = os.path.join(
+        "static", QUIZ_QUESTION_UPLOAD_DIR, f"{quizid}/{question.id}"
+    )
+
+    FILE_PATH_QUESTION = os.path.join(current_directory, FILE_PATH_QUESTION)
+
+    FILE_PATH_OPTION = os.path.join(
+        "static", QUIZ_OPTION_UPLOAD_DIR, f"{quizid}/{question.id}"
+    )
+    FILE_PATH_OPTION = os.path.join(current_directory, FILE_PATH_OPTION)
+
+    if not os.path.exists(FILE_PATH_QUESTION):
+        os.makedirs(FILE_PATH_QUESTION)
+
+    if not os.path.exists(FILE_PATH_OPTION):
+        os.makedirs(FILE_PATH_OPTION)
+
     return {"msg": "success"}
 
 
@@ -201,13 +221,9 @@ async def create_question_files(
     question = await get_specific_question(
         db, quizid=quizid, id=id, current_user=current_user
     )
-
-    FILE_PATH = os.path.join("static", QUIZ_QUESTION_UPLOAD_DIR, f"{quizid}/{id}")
     current_directory = os.getcwd()
+    FILE_PATH = os.path.join("static", QUIZ_QUESTION_UPLOAD_DIR, f"{quizid}/{id}")
     FILE_PATH = os.path.join(current_directory, FILE_PATH)
-
-    if not os.path.exists(FILE_PATH):
-        os.makedirs(FILE_PATH)
 
     for file in files:
         filename = f"{FILE_PATH}/{file.filename}"
@@ -240,9 +256,6 @@ async def create_option_files(
     FILE_PATH = os.path.join("static", QUIZ_OPTION_UPLOAD_DIR, f"{quizid}/{id}")
     current_directory = os.getcwd()
     FILE_PATH = os.path.join(current_directory, FILE_PATH)
-
-    if not os.path.exists(FILE_PATH):
-        os.makedirs(FILE_PATH)
 
     for file in files:
         filename = f"{FILE_PATH}/{file.filename}"
