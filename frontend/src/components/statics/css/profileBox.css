@@ -9,7 +9,7 @@
     height: 200px;
     max-height: 200px;
     border-radius: 25px;
-    background: var(--white);
+    background: var(--secondary);
     box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);
   }
   .profileBox_image {
@@ -71,7 +71,7 @@
     height: 180px;
     max-height: 200px;
     border-radius: 25px;
-    background: var(--white);
+    background: var(--secondary);
     box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.3);
   }
   .profileBox_image {

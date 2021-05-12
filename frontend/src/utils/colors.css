@@ -1,4 +1,11 @@
 :root {
+  --primary: #ffffff;
+  --secondary: #ffffff;
+  --accentColor: #f14b4b;
+  --primaryTextColor: #2c2e32;
+  --secondaryTextColor: #676f79;
+  --accentColor: #676f79;
+
   --red1: #ff3333;
   --red2: #e64551;
   --red3: #f24f4f;

@@ -1,3 +1,4 @@
+@import "./utils//colors.css";
 /* @font-face{
   font-family: '';
   src: local(''), url(./fonts/Rajdhani/Rajdhani-Regular.ttf) format('truetype');
@@ -12,7 +13,7 @@ body {
   font-family: "Segoe UI";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #ffffff;
+  background-color: var(--primary);
   height: 100vh;
   overflow: hidden;
 }

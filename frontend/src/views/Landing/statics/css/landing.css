@@ -34,6 +34,7 @@
     display: inline-block;
     position: relative;
     left: 15px;
+    color: var(--primaryTextColor);
   }
   .landing_upCommingCourseBar {
     position: relative;
@@ -49,6 +50,7 @@
     display: inline-block;
     position: relative;
     left: 15px;
+    color: var(--primaryTextColor);
   }
   .landing_upCommingContainer {
     width: 98%;
@@ -91,6 +93,7 @@
     display: inline-block;
     position: relative;
     left: 15px;
+    color: var(--primaryTextColor);
   }
   .landing_upCommingCourseBar {
     position: relative;
@@ -106,6 +109,7 @@
     display: inline-block;
     position: relative;
     left: 15px;
+    color: var(--primaryTextColor);
   }
   .landing_upCommingContainer {
     width: 98%;
