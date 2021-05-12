@@ -18,28 +18,27 @@ import ResetPassword from "./views/Login/ResetPassword";
 import ForgotPassword from "./views/Login/ForgotPassword";
 
 const Routes = () => {
-    return (
-        <Switch>
-            <Route path="/login" component={Login} />
-            <Route path="/dashboard" component={Dashboard} />
-            <Route path="/quiz" component={Quiz} />
-            <Route path="/note" component={Notes} />
-            <Route path="/landing" component={Landing} />
-            <Route path="/profile" component={Profile} />
-            <Route path="/teacherdashboard" component={TeacherDashboard} />
-            <Route path="/adminForm" component={AdminForm} />
-            <Route path="/admin/student" component={StudentView} />
-            <Route path="/admin/group" component={GroupView} />
-            <Route path="/admin/program" component={ProgramView} />
-            <Route path="/admin/department" component={DepartmentView} />
-            <Route path="/admin/school" component={SchoolView} />
-            <Route path="/admin" component={AdminDashboard} />
-            <Route path="/reset" component={ResetPassword} />
-            <Route path="/forgot-password" component={ForgotPassword} />
-
-            <Redirect exact from="/" to="landing" />
-        </Switch>
-    );
+  return (
+    <Switch>
+      <Route exact path="/login" component={Login} />
+      <Route exact path="/dashboard" component={Dashboard} />
+      <Route exact path="/quiz" component={Quiz} />
+      <Route exact path="/note" component={Notes} />
+      <Route exact path="/landing" component={Landing} />
+      <Route exact path="/profile" component={Profile} />
+      <Route exact path="/teacherdashboard" component={TeacherDashboard} />
+      <Route exact path="/adminForm" component={AdminForm} />
+      <Route exact path="/admin" component={AdminDashboard} />
+      <Route exact path="/admin/school" component={SchoolView} />
+      <Route exact path="/admin/department" component={DepartmentView} />
+      <Route exact path="/admin/program" component={ProgramView} />
+      <Route exact path="/admin/group" component={GroupView} />
+      <Route exact path="/admin/student" component={StudentView} />
+      <Route exact path="/reset" component={ResetPassword} />
+      <Route exact path="/forgot-password" component={ForgotPassword} />
+      <Redirect exact from="/" to="landing" />
+    </Switch>
+  );
 };
 
 export default Routes;
