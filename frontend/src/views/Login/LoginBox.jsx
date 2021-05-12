@@ -44,11 +44,11 @@ const StudentLoginBox = () => {
             <Form>
               <Grid
                 container
-                spacing={5}
+                spacing={3}
                 direction="column"
                 alignItems="flex-start"
               >
-                <Grid item spacing={10}>
+                <Grid item>
                   <Field
                     id="email"
                     name="email"
@@ -57,7 +57,7 @@ const StudentLoginBox = () => {
                   />
                 </Grid>
 
-                <Grid item spacing={10}>
+                <Grid item>
                   <Field
                     type="password"
                     id="password"
@@ -82,18 +82,17 @@ const StudentLoginBox = () => {
               </Grid>
               <Grid
                 container
-                spacing={5}
+                spacing={3}
                 direction="column"
                 justify="center"
                 alignItems="center"
               >
-                <Grid item spacing={10}>
+                <Grid item>
                   <Button name="Login" addStyles="loginCommon_loginButton" />
                 </Grid>
-                <Grid item spacing={10}>
+                <Grid item>
                   <Grid
                     container
-                    spacing={2}
                     direction="row"
                     justify="center"
                     alignItems="center"
@@ -102,16 +101,24 @@ const StudentLoginBox = () => {
                       <div className="loginCommon_line"></div>
                     </Grid>
                     <Grid item>
-                      <p style={{ fontSize: "1.2em" }}>or</p>
+                      <p
+                        style={{
+                          fontSize: "1.2em",
+                          margin: "0px",
+                          padding: "0px",
+                        }}
+                      >
+                        or
+                      </p>
                     </Grid>
                     <Grid item>
                       <div className="loginCommon_line"></div>
                     </Grid>
                   </Grid>
                 </Grid>
-                <Grid item spacing={10}>
+                <Grid item>
                   <Button
-                    name="Conitnue as Guest"
+                    name="Continue as Guest"
                     addStyles="loginCommon_guestButton"
                   />
                 </Grid>
