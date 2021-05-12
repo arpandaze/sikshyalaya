@@ -2,6 +2,8 @@ from typing import Any, List, Dict
 
 from random import randint
 
+import os
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from core.config import settings
@@ -61,7 +63,7 @@ async def get_quiz(
         return quiz
 
 
-@router.post("/", response_model=QuizCreate)
+@router.post("/")
 async def create_quiz(
     db: Session = Depends(deps.get_db),
     *,
@@ -69,7 +71,7 @@ async def create_quiz(
     current_user: User = Depends(deps.get_current_active_teacher_or_above),
 ) -> Any:
     quiz = crud_quiz.create(db, obj_in=obj_in)
-    return quiz
+    return {"msg": "success"}
 
 
 @router.get("/{id}", response_model=Quiz)
@@ -195,14 +197,20 @@ async def create_question_files(
     quizid: int,
     id: int,
 ):
-
     # TODO: check if the file is an image?
     question = await get_specific_question(
         db, quizid=quizid, id=id, current_user=current_user
     )
 
+    FILE_PATH = os.path.join("static", QUIZ_QUESTION_UPLOAD_DIR, f"{quizid}/{id}")
+    current_directory = os.getcwd()
+    FILE_PATH = os.path.join(current_directory, FILE_PATH)
+
+    if not os.path.exists(FILE_PATH):
+        os.makedirs(FILE_PATH)
+
     for file in files:
-        filename = f"{QUIZ_QUESTION_UPLOAD_DIR}/{quizid}/{id}/{file.filename}"
+        filename = f"{FILE_PATH}/{file.filename}"
         async with aiofiles.open(filename, mode="wb") as f:
             content = await file.read()
             await f.write(content)
@@ -229,8 +237,15 @@ async def create_option_files(
         db, quizid=quizid, id=id, current_user=current_user
     )
 
+    FILE_PATH = os.path.join("static", QUIZ_OPTION_UPLOAD_DIR, f"{quizid}/{id}")
+    current_directory = os.getcwd()
+    FILE_PATH = os.path.join(current_directory, FILE_PATH)
+
+    if not os.path.exists(FILE_PATH):
+        os.makedirs(FILE_PATH)
+
     for file in files:
-        filename = f"{QUIZ_OPTION_UPLOAD_DIR}/{quizid}/{id}/{file.filename}"
+        filename = f"{FILE_PATH}/{file.filename}"
         async with aiofiles.open(filename, mode="wb") as f:
             content = await file.read()
             await f.write(content)
@@ -250,6 +265,7 @@ async def get_image(
     id: int,
     filename: str,
     type: int,
+    current_user: User = Depends(deps.get_current_active_user),
 ):
     question = await get_specific_question(
         db, quizid=quizid, id=id, current_user=current_user
@@ -260,14 +276,30 @@ async def get_image(
         # question not found error
 
     if type == 1:
-        file = FileResponse(f"{QUIZ_QUESTION_UPLOAD_DIR}/{quizid}/{id}/{filename}")
-        return file
+        if filename in question.question_image:
+            FILE_PATH = os.path.join(
+                "static", QUIZ_QUESTION_UPLOAD_DIR, f"{quizid}/{id}"
+            )
+        else:
+            raise HTTPException(
+                status_code=401, detail="Error ID: 139"
+            )  # file not of that question
 
     if type == 2:
-        file = FileResponse(f"{QUIZ_OPTION_UPLOAD_DIR}/{quizid}/{id}/{filename}")
-        return file
+        if filename in question.option_image:
+            FILE_PATH = os.path.join("static", QUIZ_OPTION_UPLOAD_DIR, f"{quizid}/{id}")
+        else:
+            raise HTTPException(
+                status_code=401, detail="Error ID: 140"
+            )  # file not of that question
 
-    raise HTTPException(status_code=401, detail="Error ID: 139")
-    # no such type exists,
-    # you can either have type 1, that is question_image,
-    # type two that is option_image
+    BACKEND_ROOT = os.path.abspath(os.path.join(__file__, "../../.."))
+    FILE_PATH = os.path.join(BACKEND_ROOT, FILE_PATH)
+
+    if os.path.isfile(FILE_PATH):
+        file = FileResponse(f"{FILE_PATH}/{filename}")
+        return file
+    else:
+        raise HTTPException(
+            status_code=404, detail="Error ID: 141"
+        )  # no file exist in the path
