@@ -16,24 +16,25 @@ import AdminForm from "./views/Admin/AdminForm";
 import StudentView from "./views/Admin/StudentView";
 import ResetPassword from "./views/Login/ResetPassword";
 import ForgotPassword from "./views/Login/ForgotPassword";
+import PrivateRoute from "./components/PrivateRoute";
 
 const Routes = () => {
   return (
     <Switch>
       <Route exact path="/login" component={Login} />
-      <Route exact path="/dashboard" component={Dashboard} />
-      <Route exact path="/quiz" component={Quiz} />
-      <Route exact path="/note" component={Notes} />
-      <Route exact path="/landing" component={Landing} />
-      <Route exact path="/profile" component={Profile} />
-      <Route exact path="/teacherdashboard" component={TeacherDashboard} />
-      <Route exact path="/adminForm" component={AdminForm} />
-      <Route exact path="/admin" component={AdminDashboard} />
-      <Route exact path="/admin/school" component={SchoolView} />
-      <Route exact path="/admin/department" component={DepartmentView} />
-      <Route exact path="/admin/program" component={ProgramView} />
-      <Route exact path="/admin/group" component={GroupView} />
-      <Route exact path="/admin/student" component={StudentView} />
+      <PrivateRoute exact path="/dashboard" component={Dashboard} />
+      <PrivateRoute exact path="/quiz" component={Quiz} />
+      <PrivateRoute exact path="/note" component={Notes} />
+      <PrivateRoute exact path="/landing" component={Landing} />
+      <PrivateRoute exact path="/profile" component={Profile} />
+      <PrivateRoute exact path="/teacherdashboard" component={TeacherDashboard} />
+      <PrivateRoute exact path="/adminForm" component={AdminForm} />
+      <PrivateRoute exact path="/admin" component={AdminDashboard} />
+      <PrivateRoute exact path="/admin/school" component={SchoolView} />
+      <PrivateRoute exact path="/admin/department" component={DepartmentView} />
+      <PrivateRoute exact path="/admin/program" component={ProgramView} />
+      <PrivateRoute exact path="/admin/group" component={GroupView} />
+      <PrivateRoute exact path="/admin/student" component={StudentView} />
       <Route exact path="/reset" component={ResetPassword} />
       <Route exact path="/forgot-password" component={ForgotPassword} />
       <Redirect exact from="/" to="landing" />
