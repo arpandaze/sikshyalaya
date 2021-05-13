@@ -5,6 +5,9 @@ import * as yup from "yup";
 import Grid from "@material-ui/core/Grid";
 import Login from "./Login";
 import "./statics/css/forgotPassword.css";
+import axios from "axios";
+import configs from "../../utils/configs";
+
 
 const validationSchema = yup.object({
     email: yup
@@ -12,7 +15,33 @@ const validationSchema = yup.object({
         .email("Enter a valid email")
         .required("Email is required"),
 });
+
+
 const ForgotPassword = () => {
+    const onSubmit = (values) => {
+    
+    let email=values.email
+    axios
+    .post(`${configs.API_HOST}/api/v1/auth/password-recovery/${email}`, {
+        withCredentials: true,
+    })
+    .then((response) => {
+       
+        if (
+            !(
+                response.status === 200 &&
+                response.data.msg === "Password recovery email sent"
+            )
+        ) {
+            throw "Email Not Sent!";
+        } else {
+            document.location = "/landing"; // should show a page to suggest go and check mail
+        }
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+  };
     return (
         <Login>
             <Grid
@@ -29,9 +58,9 @@ const ForgotPassword = () => {
                     <Formik
                         initialValues={{
                             email: "",
-                            password: "",
                         }}
                         validationSchema={validationSchema}
+                        onSubmit={onSubmit}
                         //   onSubmit={async (values) => {
                         //     await new Promise((r) => setTimeout(r, 500));
                         //     alert(JSON.stringify(values, null, 2));
@@ -46,8 +75,8 @@ const ForgotPassword = () => {
                             >
                                 <Grid item spacing={10}>
                                     <Field
-                                        id="text"
-                                        name="text"
+                                        id="email"
+                                        name="email"
                                         placeholder="Enter your Email"
                                         className="forgotPassword_inputButton"
                                     />
@@ -61,6 +90,7 @@ const ForgotPassword = () => {
                             >
                                 <Grid item xs={12}>
                                     <Button
+                                        type="submit"
                                         name="Confirm your Email"
                                         addStyles="forgotPassword_Button"
                                     />
