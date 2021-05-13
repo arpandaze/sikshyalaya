@@ -1,3 +1,5 @@
+from fastapi.params import Cookie
+from fastapi import Cookie as ReqCookie
 from sqlalchemy.sql.expression import update
 from schemas.user import UserUpdate, VerifyUser
 from typing import Any
@@ -11,7 +13,8 @@ from fastapi import (
 )
 from sqlalchemy.orm import Session
 from sqlalchemy.sql.functions import current_user
-from starlette.responses import JSONResponse
+from starlette.responses import JSONResponse, Response
+from utils.utils import expire_web_session
 
 import cruds
 import models
@@ -19,7 +22,7 @@ import schemas
 from core import throttle
 from core.security import get_password_hash, create_sesssion_token
 from core.config import settings
-from forms.login import LoginForm
+from forms.login import LoginData
 from utils import deps
 from utils.utils import (
     generate_password_reset_token,
@@ -34,7 +37,7 @@ router = APIRouter()
 
 @router.post("/web", response_model=schemas.Token)
 async def login_web_session(
-    db: Session = Depends(deps.get_db), form_data: LoginForm = Depends()
+    db: Session = Depends(deps.get_db), *, form_data: LoginData
 ) -> Any:
     if not form_data.username:
         form_data.username = form_data.email
@@ -152,6 +155,16 @@ async def verify_account(
         )  # The user with this username does not exist in the system.
     cruds.crud_user.verify_user(db=db, db_obj=user)
     return {"msg": "Verified successfully"}
+
+
+@router.get("/logout", response_model=schemas.Token)
+async def session_logout(
+    session: str = ReqCookie(None),
+) -> Any:
+    await expire_web_session(session)
+    resp = JSONResponse({"status": "success"})
+    resp.delete_cookie("session")
+    return resp
 
 
 @router.get("/thtest1")

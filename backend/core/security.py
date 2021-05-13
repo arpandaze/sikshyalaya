@@ -23,7 +23,7 @@ async def create_sesssion_token(user: User, remember_me: bool) -> str:
         session_token: user.id,
     }
     await redis_session_client.client.mset(data)
-    await redis_session_client.client.expire(session_token, expire_time)
+    await redis_session_client.client.expire(f"sess_{session_token}", expire_time)
     await redis_session_client.client.expire(f"{user.id}_permissions", expire_time)
     return session_token
 
