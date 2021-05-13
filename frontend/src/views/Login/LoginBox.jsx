@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import { Formik, Field, Form } from "formik";
 import Button from "../../components/Button";
 import * as yup from "yup";
@@ -8,6 +8,8 @@ import "./statics/css/loginCommon.css";
 import axios from "axios";
 import Checkbox from "../../components/Checkbox";
 import configs from "../../utils/configs";
+import { get, set } from "idb-keyval";
+import { UserContext } from '../../utils/UserContext';
 
 const validationSchema = yup.object({
     email: yup
@@ -20,6 +22,20 @@ const validationSchema = yup.object({
         .required("Password is required"),
 });
 const StudentLoginBox = () => {
+    const { setUser, user } = useContext(UserContext)
+    useEffect(() => {
+        get("isLoggedIn")
+            .then((isLoggedIn) => {
+                console.log(isLoggedIn)
+                if (isLoggedIn) {
+                    document.location = "/landing";
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+                set("isLoggedIn", false).catch();
+            });
+    });
     const onSubmit = (values) => {
         let data = {
             username: values.email,
@@ -39,6 +55,7 @@ const StudentLoginBox = () => {
                 ) {
                     throw "Login failed!";
                 } else {
+                    set("isLoggedIn", true).catch();
                     document.location = "/landing";
                 }
             })
