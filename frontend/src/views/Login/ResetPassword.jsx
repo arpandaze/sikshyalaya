@@ -4,21 +4,67 @@ import Button from "../../components/Button";
 import * as yup from "yup";
 import Grid from "@material-ui/core/Grid";
 import logo from "../../assets/logo.png";
+import axios from "axios";
+import configs from "../../utils/configs";
+import {get, set} from "idb-keyval";
 import Image from "../../components/Image";
 import Login from "./Login";
 import "./statics/css/reset.css";
 
 const validationSchema = yup.object({
-  email: yup
-    .string("Enter your email")
-    .email("Enter a valid email")
-    .required("Email is required"),
   password: yup
     .string("Enter your password")
     .min(4, "Minimum 4 characters")
     .required("Password is required"),
+  confirm_password: yup
+    .string()
+    .when("password", {
+    is: val => (val && val.length > 0 ? true : false),
+    then: yup.string().oneOf(
+      [yup.ref("password")],
+      "Both password need to be the same"
+    )
+    })
 });
 const ResetPassword = () => {
+  const onSubmit = (values) => {
+    
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    
+    let token = urlParams.get('token')
+    
+    if (token === null){
+      token = ''
+    }
+
+    let data = {
+        token: token,
+        new_password: values.password, 
+    };
+
+    axios
+        .post(`${configs.API_HOST}/api/v1/auth/reset-password`, data, {
+            withCredentials: true,
+        })
+        .then((response) => {
+           
+            if (
+                !(
+                    response.status === 200 &&
+                    response.data.msg === "Password updated successfully"
+                )
+            ) {
+                throw "Password Reset Failed!";
+            } else {
+
+                document.location = "/landing";
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+  };
   return (
     <Login>
       <Grid
@@ -34,14 +80,11 @@ const ResetPassword = () => {
         <Grid item>
           <Formik
             initialValues={{
-              email: "",
               password: "",
+              confirm_password: "",
             }}
             validationSchema={validationSchema}
-            //   onSubmit={async (values) => {
-            //     await new Promise((r) => setTimeout(r, 500));
-            //     alert(JSON.stringify(values, null, 2));
-            //   }}
+            onSubmit={onSubmit}
           >
             <Form>
               <Grid
@@ -77,7 +120,7 @@ const ResetPassword = () => {
                 alignItems="center"
               >
                 <Grid item>
-                  <Button name="Reset" addStyles="resetCommon_resetButton" />
+                  <Button type="submit" name="Reset" addStyles="resetCommon_resetButton" />
                 </Grid>
                 <Grid item>
                   <Grid
@@ -107,6 +150,8 @@ const ResetPassword = () => {
                 </Grid>
                 <Grid item>
                   <Button
+                    type="button"
+                    onClick={()=>{console.log("Back to Login")}}
                     name="Back to Login"
                     addStyles="resetCommon_guestButton"
                   />
