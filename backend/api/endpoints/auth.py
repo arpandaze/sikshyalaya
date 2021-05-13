@@ -35,9 +35,9 @@ from utils.utils import (
 router = APIRouter()
 
 
-@router.post("/web", response_model=schemas.Token)
+@router.post("/web", response_model=schemas.user.UserLoginReturn)
 async def login_web_session(
-    db: Session = Depends(deps.get_db), *, form_data: LoginData
+    db: Session = Depends(deps.get_db), *, form_data: LoginData, response: Response
 ) -> Any:
     if not form_data.username:
         form_data.username = form_data.email
@@ -53,9 +53,8 @@ async def login_web_session(
     elif not user.is_active:
         raise HTTPException(status_code=401, detail="Error ID: 112")  # Inactive user
     session_token = await create_sesssion_token(user, form_data.remember_me)
-    response = JSONResponse({"status": "success"})
     response.set_cookie("session", session_token, httponly=True)
-    return response
+    return user
 
 
 @router.post("/signup", response_model=schemas.Msg)
