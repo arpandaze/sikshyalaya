@@ -67,6 +67,19 @@ class User(UserInDBBase):
     pass
 
 
+class UserLoginReturn(BaseModel):
+    email: Optional[EmailStr] = None
+    full_name: Optional[str] = None
+    address: str = None
+    group_id: int = None
+    contact_number: str = None
+    dob: datetime = None
+    join_year: Optional[int] = None
+
+    class Config:
+        orm_mode = True
+
+
 # Additional properties stored in DB
 class UserInDB(UserInDBBase):
     hashed_password: str
