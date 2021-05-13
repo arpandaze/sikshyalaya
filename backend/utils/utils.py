@@ -129,5 +129,9 @@ async def verify_user_verify_token(token: str) -> Optional[int]:
     return int(uid)
 
 
+async def expire_web_session(token: str) -> Any:
+    return await redis_session_client.client.expire(f"sess_{token}", 0)
+
+
 def get_super_admin() -> User:
     return crud_user.get_by_id(db=SessionLocal(), id=1)
