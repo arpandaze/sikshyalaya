@@ -2,9 +2,8 @@ import { Field } from "formik";
 
 const Checkbox = ({ id, name, className }) => {
     return (
-        <Field
-            name={name}
-            render={({ field, form }) => {
+        <Field name={name}>
+            {({ field, form }) => {
                 return (
                     <input
                         type="checkbox"
@@ -15,7 +14,7 @@ const Checkbox = ({ id, name, className }) => {
                     />
                 );
             }}
-        />
+        </Field>
     );
 };
 
