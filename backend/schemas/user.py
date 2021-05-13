@@ -68,6 +68,7 @@ class User(UserInDBBase):
 
 
 class UserLoginReturn(BaseModel):
+    id: int = None
     email: Optional[EmailStr] = None
     full_name: Optional[str] = None
     address: str = None
