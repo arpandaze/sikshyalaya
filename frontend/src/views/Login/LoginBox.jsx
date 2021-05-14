@@ -9,7 +9,8 @@ import axios from "axios";
 import Checkbox from "../../components/Checkbox";
 import configs from "../../utils/configs";
 import { get, set } from "idb-keyval";
-import { UserContext } from '../../utils/UserContext';
+import { UserContext } from "../../utils/UserContext";
+import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
 const validationSchema = yup.object({
     email: yup
@@ -22,20 +23,10 @@ const validationSchema = yup.object({
         .required("Password is required"),
 });
 const StudentLoginBox = () => {
-    const { setUser, user } = useContext(UserContext)
-    useEffect(() => {
-        get("isLoggedIn")
-            .then((isLoggedIn) => {
-                console.log(isLoggedIn)
-                if (isLoggedIn) {
-                    document.location = "/landing";
-                }
-            })
-            .catch((error) => {
-                console.log(error)
-                set("isLoggedIn", false).catch();
-            });
-    });
+    const { user, setUser } = useContext(UserContext);
+    useEffect(()=>{
+        console.log(user)
+    })
     const onSubmit = (values) => {
         let data = {
             username: values.email,
@@ -47,16 +38,10 @@ const StudentLoginBox = () => {
                 withCredentials: true,
             })
             .then((response) => {
-                if (
-                    !(
-                        response.status === 200 &&
-                        response.data.status === "success"
-                    )
-                ) {
-                    throw "Login failed!";
+                if (response.status === 200) {
+                    setUser(response.data)
                 } else {
-                    set("isLoggedIn", true).catch();
-                    document.location = "/landing";
+                    throw "Login failed!";
                 }
             })
             .catch((error) => {
@@ -64,117 +49,129 @@ const StudentLoginBox = () => {
             });
     };
     return (
-        <Login>
-            <Grid
-                container
-                direction="column"
-                justify="center"
-                alignItems="center"
-                className="loginCommon_loginBoxContainer"
-            >
-                <Grid item>
-                    <h1 className="loginCommon_label">Login</h1>
-                </Grid>
-                <Grid item>
-                    <Formik
-                        initialValues={{
-                            email: "",
-                            password: "",
-                            remember_me: false,
-                        }}
-                        validationSchema={validationSchema}
-                        onSubmit={onSubmit}
+        <div>
+            {!user || !configs.AUTO_REDIRECT ? (
+                <Login>
+                    <Grid
+                        container
+                        direction="column"
+                        justify="center"
+                        alignItems="center"
+                        className="loginCommon_loginBoxContainer"
                     >
-                        <Form>
-                            <Grid
-                                container
-                                spacing={3}
-                                direction="column"
-                                alignItems="flex-start"
+                        <Grid item>
+                            <h1 className="loginCommon_label">Login</h1>
+                        </Grid>
+                        <Grid item>
+                            <Formik
+                                initialValues={{
+                                    email: "",
+                                    password: "",
+                                    remember_me: false,
+                                }}
+                                validationSchema={validationSchema}
+                                onSubmit={onSubmit}
                             >
-                                <Grid item>
-                                    <Field
-                                        id="email"
-                                        name="email"
-                                        placeholder="Email"
-                                        className="loginCommon_inputButton"
-                                    />
-                                </Grid>
-
-                                <Grid item>
-                                    <Field
-                                        type="password"
-                                        id="password"
-                                        name="password"
-                                        placeholder="Password"
-                                        className="loginCommon_inputButton"
-                                    />
-                                </Grid>
-                                <Grid
-                                    item
-                                    xs={12}
-                                    className="loginCommon_rememberMeCheckContainer"
-                                >
-                                    <Checkbox
-                                        name="remember_me"
-                                        value="remember_me"
-                                    />
-                                    <label for="rememberMe">Remember me</label>
-                                </Grid>
-                            </Grid>
-                            <Grid
-                                container
-                                spacing={3}
-                                direction="column"
-                                justify="center"
-                                alignItems="center"
-                            >
-                                <Grid item>
-                                    <Button
-                                        type="submit"
-                                        name="Login"
-                                        addStyles="loginCommon_loginButton"
-                                    />
-                                </Grid>
-                                <Grid item>
+                                <Form>
                                     <Grid
                                         container
-                                        direction="row"
+                                        spacing={3}
+                                        direction="column"
+                                        alignItems="flex-start"
+                                    >
+                                        <Grid item>
+                                            <Field
+                                                id="email"
+                                                name="email"
+                                                placeholder="Email"
+                                                className="loginCommon_inputButton"
+                                            />
+                                        </Grid>
+
+                                        <Grid item>
+                                            <Field
+                                                type="password"
+                                                id="password"
+                                                name="password"
+                                                placeholder="Password"
+                                                className="loginCommon_inputButton"
+                                            />
+                                        </Grid>
+                                        <Grid
+                                            item
+                                            xs={12}
+                                            className="loginCommon_rememberMeCheckContainer"
+                                        >
+                                            <Checkbox
+                                                name="remember_me"
+                                                value="remember_me"
+                                            />
+                                            <label htmlFor="remember_me">
+                                                Remember me
+                                            </label>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid
+                                        container
+                                        spacing={3}
+                                        direction="column"
                                         justify="center"
                                         alignItems="center"
                                     >
                                         <Grid item>
-                                            <div className="loginCommon_line"></div>
+                                            <Button
+                                                type="submit"
+                                                name="Login"
+                                                addStyles="loginCommon_loginButton"
+                                            />
                                         </Grid>
                                         <Grid item>
-                                            <p
-                                                style={{
-                                                    fontSize: "1.2em",
-                                                    margin: "0px",
-                                                    padding: "0px",
-                                                }}
+                                            <Grid
+                                                container
+                                                direction="row"
+                                                justify="center"
+                                                alignItems="center"
                                             >
-                                                or
-                                            </p>
+                                                <Grid item>
+                                                    <div className="loginCommon_line"></div>
+                                                </Grid>
+                                                <Grid item>
+                                                    <p
+                                                        style={{
+                                                            fontSize: "1.2em",
+                                                            margin: "0px",
+                                                            padding: "0px",
+                                                        }}
+                                                    >
+                                                        or
+                                                    </p>
+                                                </Grid>
+                                                <Grid item>
+                                                    <div className="loginCommon_line"></div>
+                                                </Grid>
+                                            </Grid>
                                         </Grid>
                                         <Grid item>
-                                            <div className="loginCommon_line"></div>
+                                            <Button
+                                                type="button"
+                                                name="Continue as Guest"
+                                                addStyles="loginCommon_guestButton"
+                                            />
                                         </Grid>
                                     </Grid>
-                                </Grid>
-                                <Grid item>
-                                    <Button
-                                        type="button"
-                                        name="Continue as Guest"
-                                        addStyles="loginCommon_guestButton"
-                                    />
-                                </Grid>
-                            </Grid>
-                        </Form>
-                    </Formik>
-                </Grid>
-            </Grid>
-        </Login>
+                                </Form>
+                            </Formik>
+                        </Grid>
+                    </Grid>
+                </Login>
+            ) : 
+                    <Redirect
+                        to={{
+                            pathname: "/landing",
+                        }}
+                    />
+             }
+        </div>
     );
 };
 
