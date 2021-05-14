@@ -56,7 +56,7 @@ def send_reset_password_email(email_to: str, email: str, name: str, token: str) 
     subject = f"{project_name} - Password recovery for user {email}"
     with open(Path(settings.EMAIL_TEMPLATES_DIR) / "reset-password.html") as f:
         template_str = f.read()
-    server_host = settings.SERVER_HOST + ":3000"
+    server_host = settings.SERVER_HOST + ":3000"  # FIXME: Remove port for deployment
     link = f"{server_host}/reset?token={token}"
     send_email(
         email_to=email_to,
