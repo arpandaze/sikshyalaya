@@ -50,7 +50,7 @@ const StudentLoginBox = () => {
     };
     return (
         <div>
-            {!user && configs.AUTO_REDIRECT ? (
+            {!user || !configs.AUTO_REDIRECT ? (
                 <Login>
                     <Grid
                         container
