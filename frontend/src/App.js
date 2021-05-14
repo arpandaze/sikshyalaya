@@ -5,7 +5,14 @@ import { UserContext } from "./utils/UserContext";
 import { get, set } from "idb-keyval";
 
 function App() {
-    const [user, setUser] = useState(null);
+    const [user, setUser_s] = useState(null);
+
+    const setUser = (value) => {
+        set("user", value).catch(() => {
+            throw "Couldn't set user to IndexDB!";
+        });
+        setUser_s(value);
+    };
 
     useEffect(() => {
         console.log("writing changes to index db");
