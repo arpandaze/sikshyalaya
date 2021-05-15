@@ -14,11 +14,12 @@ const getReq = async (endpoint) => {
     return response;
 };
 
-const postReq = async (endpoint, data) => {
+const postReq = async (endpoint, data, params=null) => {
     let response = null;
     await axios
         .post(`${configs.API_HOST}${endpoint}`, data, {
             withCredentials: true,
+            params:params
         })
         .then((res) => {
             response = res;
