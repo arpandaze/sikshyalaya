@@ -11,6 +11,7 @@ import configs from "../../utils/configs";
 import { get, set } from "idb-keyval";
 import { UserContext } from "../../utils/UserContext";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
+import { getReq, postReq } from "../../utils/API";
 
 const validationSchema = yup.object({
     email: yup
@@ -24,29 +25,19 @@ const validationSchema = yup.object({
 });
 const StudentLoginBox = () => {
     const { user, setUser } = useContext(UserContext);
-    useEffect(()=>{
-        console.log(user)
-    })
-    const onSubmit = (values) => {
+    const onSubmit = async (values) => {
         let data = {
             username: values.email,
             password: values.password,
             remember_me: values.remember_me,
         };
-        axios
-            .post(`${configs.API_HOST}/api/v1/auth/web`, data, {
-                withCredentials: true,
-            })
-            .then((response) => {
-                if (response.status === 200) {
-                    setUser(response.data)
-                } else {
-                    throw "Login failed!";
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+
+        let resp = await postReq("/api/v1/auth/web", data);
+        if (resp.status === 200) {
+            setUser(resp.data);
+        } else {
+            throw "Login failed!";
+        }
     };
     return (
         <div>
@@ -164,13 +155,13 @@ const StudentLoginBox = () => {
                         </Grid>
                     </Grid>
                 </Login>
-            ) : 
-                    <Redirect
-                        to={{
-                            pathname: "/landing",
-                        }}
-                    />
-             }
+            ) : (
+                <Redirect
+                    to={{
+                        pathname: "/landing",
+                    }}
+                />
+            )}
         </div>
     );
 };
