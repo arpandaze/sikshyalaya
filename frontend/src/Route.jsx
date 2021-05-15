@@ -36,7 +36,6 @@ const Routes = () => {
       <PrivateRoute exact path="/admin/group" component={GroupView} />
       <PrivateRoute exact path="/admin/student" component={StudentView} />
       <Route exact path="/reset" component={ResetPassword} />
-      <Route exact path="/forgot-password" component={ForgotPassword} />
       <Redirect exact from="/" to="landing" />
     </Switch>
   );
