@@ -87,7 +87,7 @@ async def test_session_token(
     return current_user.email
 
 
-@router.post("/password-recovery/{email}", response_model=schemas.Msg)
+@router.post("/password-recovery", response_model=schemas.Msg)
 @throttle.ip_throttle(rate=3, per=1 * 60 * 60)
 @throttle.ip_throttle(rate=1, per=20)
 async def recover_password(
@@ -117,6 +117,7 @@ async def recover_password(
 
 @router.post("/reset-password/", response_model=schemas.Msg)
 async def reset_password(
+    request: Request,
     token: str = Body(...),
     new_password: str = Body(...),
     db: Session = Depends(deps.get_db),
