@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
-import { Formik, Field, Form } from "formik";
+import { Formik, Form } from "formik";
 import Button from "../../components/Button";
 import * as yup from "yup";
 import Grid from "@material-ui/core/Grid";
@@ -11,10 +11,11 @@ import Checkbox from "../../components/Checkbox";
 import configs from "../../utils/configs";
 import { get, set } from "idb-keyval";
 import { UserContext } from "../../utils/UserContext";
-import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
+import { Redirect, useHistory } from "react-router-dom";
 import { getReq, postReq } from "../../utils/API";
 import { Link } from "react-router-dom";
 import colorscheme from "../../utils/colors";
+import CustomTextField from "./../../components/CustomTextField";
 
 const validationSchema = yup.object({
   first_name: yup.string("Enter your name").required("First Name is required"),
@@ -26,7 +27,7 @@ const validationSchema = yup.object({
   dob: yup.string("Enter Date of Birth").required("Date of Birth is required"),
   email: yup
     .string("Enter your email")
-    .email("Enter a valid email")
+    .email("Enter a valid email!")
     .required("Email is required"),
   password: yup
     .string("Enter your password")
@@ -40,6 +41,7 @@ const validationSchema = yup.object({
   }),
 });
 const Signup = () => {
+  const history = useHistory();
   return (
     <Login>
       <Grid
@@ -75,57 +77,57 @@ const Signup = () => {
                 className="signup_formContainer"
               >
                 <Grid item xs={6} style={{ padding: "0px 20px 0px 0px" }}>
-                  <Field
+                  <CustomTextField
+                    name="first_name"
                     type="text"
+                    placeHolder="First Name"
                     id="first_name"
-                    name="name"
-                    placeholder="First Name"
-                    className="signup_inputButton"
+                    addStyles="signup_inputButton"
                   />
                 </Grid>
                 <Grid item xs={6}>
-                  <Field
-                    type="text"
-                    id="middle_name"
+                  <CustomTextField
                     name="middle_name"
-                    placeholder="Middle Name"
-                    className="signup_inputButton"
+                    type="text"
+                    placeHolder="Middle Name"
+                    id="middle_name"
+                    addStyles="signup_inputButton"
                   />
                 </Grid>
                 <Grid item xs={6} style={{ padding: "0px 20px 0px 0px" }}>
-                  <Field
-                    type="text"
-                    id="last_name"
+                  <CustomTextField
                     name="last_name"
-                    placeholder="Last Name"
-                    className="signup_inputButton"
+                    type="text"
+                    placeHolder="Last Name"
+                    id="last_name"
+                    addStyles="signup_inputButton"
                   />
                 </Grid>
                 <Grid item xs={6}>
-                  <Field
-                    type="text"
-                    id="address"
+                  <CustomTextField
                     name="address"
-                    placeholder="Address"
-                    className="signup_inputButton"
+                    type="text"
+                    placeHolder="Address"
+                    id="address"
+                    addStyles="signup_inputButton"
                   />
                 </Grid>
                 <Grid item xs={6} style={{ padding: "0px 20px 0px 0px" }}>
-                  <Field
-                    type="text"
-                    id="program"
+                  <CustomTextField
                     name="program"
-                    placeholder="Program Name"
-                    className="signup_inputButton"
+                    type="text"
+                    placeHolder="Program"
+                    id="program"
+                    addStyles="signup_inputButton"
                   />
                 </Grid>
                 <Grid item xs={6}>
-                  <Field
-                    type="text"
-                    id="semester"
+                  <CustomTextField
                     name="semester"
-                    placeholder="Semester(I/II)"
-                    className="signup_inputButton"
+                    type="text"
+                    placeHolder="Semester"
+                    id="semester"
+                    addStyles="signup_inputButton"
                   />
                 </Grid>
                 <Grid item xs={6} style={{ padding: "0px 20px 0px 0px" }}>
@@ -153,30 +155,30 @@ const Signup = () => {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <Field
-                    type="text"
-                    id="email"
+                  <CustomTextField
                     name="email"
-                    placeholder="Email"
-                    className="signup_inputButton"
+                    type="text"
+                    placeHolder="Email"
+                    id="email"
+                    addStyles="signup_inputButton"
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <Field
-                    type="password"
-                    id="password"
+                  <CustomTextField
                     name="password"
-                    placeholder="Password"
-                    className="signup_inputButton"
+                    type="password"
+                    placeHolder="Password"
+                    id="password"
+                    addStyles="signup_inputButton"
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <Field
-                    type="password"
-                    id="confirm_password"
+                  <CustomTextField
                     name="confirm_password"
-                    placeholder="Confirm Password"
-                    className="signup_inputButton"
+                    type="password"
+                    placeHolder="Confirm Password"
+                    id="confirm_password"
+                    addStyles="signup_inputButton"
                   />
                 </Grid>
                 <Grid item>
@@ -194,20 +196,23 @@ const Signup = () => {
           container
           item
           direction="row"
-          justify="flex-start"
-          alignItems="flex-start"
+          justify="center"
+          alignItems="center"
         >
           <p>Already have an account?</p>
-          <Link
-            to="/login"
+          <p
+            onClick={() => {
+              history.push("/login");
+            }}
             style={{
+              cursor: "pointer",
               textDecoration: "none",
               color: colorscheme.red4,
               margin: "1em 1em 1em 0.1em",
             }}
           >
             Login
-          </Link>
+          </p>
         </Grid>
       </Grid>
     </Login>
