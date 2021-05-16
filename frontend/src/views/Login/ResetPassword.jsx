@@ -75,7 +75,7 @@ const ResetPassword = () => {
             console.log(resp);
 
             if (resp.status === 200) {
-                setResetState(states.success);
+                setResetState(states.reset_success);
             }
         }
     };
@@ -189,7 +189,7 @@ const ResetPassword = () => {
                 ) : resetState == states.reset_success ? (
                     <h1>Password has been reset successfully!</h1>
                 ) : resetState == states.reset_email_success ? (
-                    <h1>Verification email has been sent!</h1>
+                    <h1>Password reset email has been sent!</h1>
                 ) : resetState == states.send_email ? (
                     <ForgotPassword
                         setResetState={(state) => setResetState(state)}

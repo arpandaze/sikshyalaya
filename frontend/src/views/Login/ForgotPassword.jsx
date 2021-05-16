@@ -39,7 +39,7 @@ const ForgotPassword = ({ setResetState }) => {
             className="forgotPassword_BoxContainer"
         >
             <Grid item>
-                <h1 className="forgotPassword_label">Confirm Email</h1>
+                <h1 className="forgotPassword_label">Forgot Password</h1>
             </Grid>
             <Grid item>
                 <Formik
@@ -60,7 +60,7 @@ const ForgotPassword = ({ setResetState }) => {
                                 <Field
                                     id="email"
                                     name="email"
-                                    placeholder="Enter your Email"
+                                    placeholder="Enter your email"
                                     className="forgotPassword_inputButton"
                                 />
                             </Grid>
@@ -74,7 +74,7 @@ const ForgotPassword = ({ setResetState }) => {
                             <Grid item xs={12}>
                                 <Button
                                     type="submit"
-                                    name="Confirm your Email"
+                                    name="Reset Password"
                                     addStyles="forgotPassword_Button"
                                 />
                             </Grid>
