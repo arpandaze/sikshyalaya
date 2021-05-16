@@ -76,35 +76,47 @@ const Profile = () => {
                     alignItems="flex-start"
                     className="profile_formBox"
                   >
-                    <Grid item className="profile_inputButton">
+                    <Grid item id="profile-box" className="profile_inputButton">
                       <Field
                         id="firstname"
                         name="firstname"
                         placeholder="First Name"
                       />
                     </Grid>
-                    <Grid item className="profile_middleInputButton">
+                    <Grid
+                      item
+                      id="profile-box"
+                      className="profile_middleInputButton"
+                    >
                       <Field
                         id="middlename"
                         name="middlename"
                         placeholder="Middle Name"
                       />
                     </Grid>
-                    <Grid item className="profile_inputButton">
+                    <Grid item id="profile-box" className="profile_inputButton">
                       <Field
                         id="lastname"
                         name="lastname"
                         placeholder="Last Name"
                       />
                     </Grid>
-                    <Grid item className="profile_longInputButton">
+                    <Grid
+                      item
+                      id="profile-box"
+                      className="profile_longInputButton"
+                    >
                       <Field
                         id="email"
                         name="email"
                         placeholder="Email Address"
                       />
                     </Grid>
-                    <Grid item className="profile_longInputButton">
+                    <Grid
+                      item
+                      id="profile-box"
+                      className="profile_longInputButton"
+                    >
                       <Field
                         id="password"
                         type="password"
@@ -112,7 +124,11 @@ const Profile = () => {
                         placeholder="Password"
                       />
                     </Grid>
-                    <Grid item className="profile_longInputButton">
+                    <Grid
+                      item
+                      id="profile-box"
+                      className="profile_longInputButton"
+                    >
                       <Field
                         id="confirmpassword"
                         type="password"
