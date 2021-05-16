@@ -44,7 +44,6 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
             email=obj_in.email,  # noqa
             hashed_password=get_password_hash(obj_in.password),  # noqa
             full_name=obj_in.full_name,  # noqa
-            profile_image=obj_in.profile_image,  # noqa
             dob=obj_in.dob,  # noqa
             teacher_group=teacher_group,  # noqa
             group_id=obj_in.group_id,  # noqa
@@ -77,7 +76,8 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
             update_data = obj_in
         else:
             update_data = obj_in.dict(exclude_unset=True)
-        if update_data["password"]:
+
+        if "password" in update_data:
             hashed_password = get_password_hash(update_data["password"])
             del update_data["password"]
             update_data["hashed_password"] = hashed_password
