@@ -10,6 +10,7 @@ from pydantic import BaseModel, EmailStr
 class UserBase(BaseModel):
     email: Optional[EmailStr] = None
     is_active: Optional[bool] = False
+    profile_image: Optional[str] = None
     full_name: Optional[str] = None
     user_type: int
     address: str = None
@@ -70,6 +71,7 @@ class User(UserInDBBase):
 class UserLoginReturn(BaseModel):
     id: int = None
     email: Optional[EmailStr] = None
+    profile_image: Optional[str] = None
     full_name: Optional[str] = None
     address: str = None
     group_id: int = None
