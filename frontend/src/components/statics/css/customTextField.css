@@ -3,4 +3,5 @@
 .error {
   color: red;
   font-size: 0.8em;
+  padding-top: 2px;
 }
