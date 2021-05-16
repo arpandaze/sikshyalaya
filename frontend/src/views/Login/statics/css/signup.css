@@ -1,19 +1,24 @@
 @import "../../../../utils/colors.css";
 @media only screen and (min-width: 1920px) {
-  .loginCommon_loginButton {
-    width: 200px;
+  .signup_formContainer {
+    max-width: 420px;
+  }
+  .signup_button {
+    max-width: 200px;
+    min-width: 200px;
     height: 50px;
     background-color: var(--red4);
+    margin: 30px 0px 0px 100px;
     color: var(--white);
     border-radius: 15px;
     font-size: 1.2em;
   }
-  .loginCommon_label {
+  .signup_label {
     font-weight: normal;
     font-size: 2.2em;
     margin: 0px;
   }
-  .loginCommon_guestButton {
+  .signup_guestButton {
     width: 200px;
     height: 50px;
     background-color: var(--black);
@@ -21,45 +26,41 @@
     border-radius: 15px;
     font-size: 1.2em;
   }
-  .loginCommon_inputButton {
+  .signup_inputButton {
     outline: none;
     border: none;
-    width: 250px;
+    width: 100%;
     height: 50px;
-    padding: 20px 0px 0px 0px;
     border-bottom: 2px solid var(--grey2);
     font-size: 1em;
     background: transparent;
   }
-  .loginCommon_line {
-    width: 100px;
-    height: 1px;
-    background-color: var(--grey1);
-    margin: 0px auto;
-  }
-  .loginCommon_inputLabel {
+
+  .signup_inputLabel {
     font-size: 1.2em;
-  }
-  .loginCommon_rememberMeCheckContainer {
-    line-height: 20px;
-    padding: 20px 0px 20px 0px;
   }
 }
 
 @media only screen and (max-width: 1919px) {
-  .loginCommon_loginButton {
-    width: 200px;
+  .signup_formContainer {
+    max-width: 350px;
+  }
+  .signup_button {
+    max-width: 200px;
+    min-width: 200px;
     height: 50px;
     background-color: var(--red4);
+    margin: 30px 0px 0px 75px;
     color: var(--white);
     border-radius: 15px;
     font-size: 1.2em;
   }
-  .loginCommon_label {
+  .signup_label {
     font-weight: normal;
     font-size: 2.2em;
+    margin: 0px;
   }
-  .loginCommon_guestButton {
+  .signup_guestButton {
     width: 200px;
     height: 50px;
     background-color: var(--black);
@@ -67,30 +68,16 @@
     border-radius: 15px;
     font-size: 1.2em;
   }
-  .loginCommon_inputButton {
+  .signup_inputButton {
     outline: none;
     border: none;
-    width: 280px;
+    width: 100%;
     height: 50px;
     border-bottom: 2px solid var(--grey2);
-    padding: 15px 0px 0px 0px;
-    font-size: 1.1em;
+    font-size: 1em;
     background: transparent;
   }
-  .loginCommon_line {
-    width: 130px;
-    height: 1px;
-    background-color: var(--grey1);
-    margin: 0px auto;
-  }
-  .loginCommon_inputLabel {
+  .signup_inputLabel {
     font-size: 1.2em;
-  }
-  .loginCommon_rememberMeCheckContainer {
-    line-height: 20px;
-    padding: 15px 0px 15px 0px;
-  }
-  .loginCommon_rememberMeCheck {
-    width: 20px;
   }
 }
