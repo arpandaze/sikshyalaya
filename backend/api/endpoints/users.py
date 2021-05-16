@@ -1,10 +1,14 @@
 from schemas.user import UserCreate
 from typing import Any, List
+import aiofiles
 
-from fastapi import APIRouter, Body, Depends, HTTPException
+import os
+
+from fastapi import APIRouter, Body, Depends, HTTPException, UploadFile, File
 from fastapi.encoders import jsonable_encoder
 from pydantic.networks import EmailStr
 from sqlalchemy.orm import Session
+
 
 import cruds
 import models
@@ -97,6 +101,37 @@ async def read_user_me(
     return current_user
 
 
+@router.put("/me/profile")
+async def update_my_profile_photo(
+    db: Session = Depends(deps.get_db),
+    *,
+    current_user: models.User = Depends(deps.get_current_active_user),
+    profile_photo: UploadFile = File(...),
+):
+
+    profile_image_path = os.path.join("uploaded_files", "profiles")
+    profile_image = f"{abs(hash(str(current_user.id)))}.jpg"
+    profile_image_file_path = os.path.join(profile_image_path, profile_image)
+
+    if not os.path.exists(profile_image_path):
+        os.makedirs(profile_image_path)
+
+    async with aiofiles.open(profile_image_file_path, mode="wb") as f:
+        content = await profile_photo.read()
+        await f.write(content)
+
+    if os.path.exists(os.path.join(profile_image_path, current_user.profile_image)):
+        os.remove(os.path.join(profile_image_path, current_user.profile_image))
+
+    user = cruds.crud_user.update(
+        db,
+        db_obj=current_user,
+        obj_in=schemas.UserUpdate(profile_image=profile_image),
+    )
+
+    return user
+
+
 @router.get("/{user_id}", response_model=schemas.User)
 async def read_user_by_id(
     user_id: int,
@@ -134,4 +169,37 @@ async def update_user(
             detail="Error ID: 132",
         )  # The user with this username does not exist in the system
     user = cruds.crud_user.update(db, db_obj=user, obj_in=user_in)
+    return user
+
+
+@router.put("/{user_id}/profile")
+async def update_profile_photo(
+    db: Session = Depends(deps.get_db),
+    *,
+    user_id: int,
+    current_user: models.User = Depends(deps.get_current_admin_or_above),
+    profile_photo: UploadFile = File(...),
+):
+
+    user = cruds.crud_user.get_by_id(db, id=user_id)
+    profile_image_path = os.path.join("uploaded_files", "profiles")
+    profile_image = f"{abs(hash(str(user.id)))}.jpg"
+    profile_image_file_path = os.path.join(profile_image_path, profile_image)
+
+    if not os.path.exists(profile_image_path):
+        os.makedirs(profile_image_path)
+    else:
+        if os.path.exists(os.path.join(profile_image_path, f"{user.profile_image}")):
+            os.remove(os.path.join(profile_image_path, f"{user.profile_image}"))
+
+    async with aiofiles.open(profile_image_file_path, mode="wb") as f:
+        content = await profile_photo.read()
+        await f.write(content)
+
+    user = cruds.crud_user.update(
+        db,
+        db_obj=user,
+        obj_in=schemas.UserUpdate(profile_image=profile_image),
+    )
+
     return user

@@ -1,4 +1,3 @@
-from fastapi import UploadFile, File
 import os
 from fastapi.params import Cookie
 from fastapi import Cookie as ReqCookie
@@ -65,7 +64,6 @@ async def sign_up(
     *,
     db: Session = Depends(deps.get_db),
     user_in: schemas.UserSignUp,
-    profile_pic: UploadFile = File(...),
 ) -> Any:
     if not settings.USERS_OPEN_REGISTRATION:
         raise HTTPException(
@@ -79,12 +77,12 @@ async def sign_up(
             detail="Error ID: 130",
         )  # The user with this username already exists in the system
 
-    profile_image_path = os.path.join(
-        "uploaded_files", "profiles", f"{abs(hash(str(user.id)))}.jpg"
-    )
-    async with aiofiles.open(profile_image_path, mode="wb") as f:
-        content = await profile_pic.read()
-        await f.write(content)
+    # profile_image_path = os.path.join(
+    #     "uploaded_files", "profiles", f"{abs(hash(str(user.id)))}.jpg"
+    # )
+    # async with aiofiles.open(profile_image_path, mode="wb") as f:
+    #     content = await profile_pic.read()
+    #     await f.write(content)
 
     user = cruds.crud_user.create(
         db, obj_in=schemas.UserCreate(**user_in.dict(), profile_pic="")

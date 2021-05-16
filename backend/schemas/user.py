@@ -10,7 +10,6 @@ from pydantic import BaseModel, EmailStr
 class UserBase(BaseModel):
     email: Optional[EmailStr] = None
     is_active: Optional[bool] = False
-    profile_image: Optional[str] = None
     full_name: Optional[str] = None
     user_type: int
     address: str = None
@@ -52,12 +51,15 @@ class UserReturn(BaseModel):
 
 # Properties to receive via API on update
 class UserUpdate(UserBase):
+    user_type: int = None
     password: Optional[str] = None
+    profile_image: Optional[str] = None
 
 
 class UserInDBBase(UserBase):
     id: Optional[int] = None
     teacher_group: List[Group]
+    profile_image: Optional[str] = None
 
     class Config:
         orm_mode = True
