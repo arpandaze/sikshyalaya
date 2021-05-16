@@ -15,7 +15,7 @@ import GroupView from "./views/Admin/GroupView";
 import AdminForm from "./views/Admin/AdminForm";
 import StudentView from "./views/Admin/StudentView";
 import ResetPassword from "./views/Login/ResetPassword";
-import ForgotPassword from "./views/Login/ForgotPassword";
+import Signup from "./views/Login/Signup";
 import PrivateRoute from "./components/PrivateRoute";
 
 const Routes = () => {
@@ -27,7 +27,11 @@ const Routes = () => {
       <PrivateRoute exact path="/note" component={Notes} />
       <PrivateRoute exact path="/landing" component={Landing} />
       <PrivateRoute exact path="/profile" component={Profile} />
-      <PrivateRoute exact path="/teacherdashboard" component={TeacherDashboard} />
+      <PrivateRoute
+        exact
+        path="/teacherdashboard"
+        component={TeacherDashboard}
+      />
       <PrivateRoute exact path="/adminForm" component={AdminForm} />
       <PrivateRoute exact path="/admin" component={AdminDashboard} />
       <PrivateRoute exact path="/admin/school" component={SchoolView} />
@@ -36,6 +40,7 @@ const Routes = () => {
       <PrivateRoute exact path="/admin/group" component={GroupView} />
       <PrivateRoute exact path="/admin/student" component={StudentView} />
       <Route exact path="/reset" component={ResetPassword} />
+      <Route exact path="/signup" component={Signup} />
       <Redirect exact from="/" to="landing" />
     </Switch>
   );
