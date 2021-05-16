@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import Grid from "@material-ui/core/Grid";
-import logo from "../../assets/logo.png";
+import logoLarge from "../../assets/logo-large.svg";
 import Image from "../../components/Image";
 import "./statics/css/login.css";
 import { Link } from "react-router-dom";
@@ -24,7 +24,11 @@ const Login = (props) => {
         <Grid container direction="row" alignItems="flex-start">
           <Grid item className="login_logo">
             <Link to="/login">
-              <Image src={logo} alt="Sikshyalaya" addStyles="login_image" />
+              <Image
+                src={logoLarge}
+                alt="Sikshyalaya"
+                addStyles="login_image"
+              />
             </Link>
           </Grid>
         </Grid>
