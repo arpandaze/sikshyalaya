@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from "react";
-import { Formik, Field, Form } from "formik";
+import { Formik, Form } from "formik";
 import Button from "../../components/Button";
 import * as yup from "yup";
 import Grid from "@material-ui/core/Grid";
@@ -17,6 +17,7 @@ import {
   useHistory,
 } from "react-router-dom/cjs/react-router-dom.min";
 import { getReq, postReq } from "../../utils/API";
+import CustomTextField from "./../../components/CustomTextField";
 
 const validationSchema = yup.object({
   email: yup
@@ -72,21 +73,21 @@ const StudentLoginBox = () => {
                 <Form>
                   <Grid container direction="column" alignItems="flex-start">
                     <Grid item xs={12}>
-                      <Field
+                      <CustomTextField
                         id="email"
                         name="email"
-                        placeholder="Email"
-                        className="loginCommon_inputButton"
+                        placeHolder="Email"
+                        addStyles="loginCommon_inputButton"
                       />
                     </Grid>
 
                     <Grid item>
-                      <Field
+                      <CustomTextField
                         type="password"
                         id="password"
                         name="password"
-                        placeholder="Password"
-                        className="loginCommon_inputButton"
+                        placeHolder="Password"
+                        addStyles="loginCommon_inputButton"
                       />
                     </Grid>
                     <Grid
@@ -127,7 +128,7 @@ const StudentLoginBox = () => {
                             style={{
                               fontSize: "1.2em",
                               margin: "0px",
-                              padding: "0px,2px,0px,2px",
+                              padding: "0px 10px 0px 10px",
                             }}
                           >
                             or
