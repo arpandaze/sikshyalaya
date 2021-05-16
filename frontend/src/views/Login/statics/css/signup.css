@@ -1,0 +1,83 @@
+@import "../../../../utils/colors.css";
+@media only screen and (min-width: 1920px) {
+  .signup_formContainer {
+    max-width: 420px;
+  }
+  .signup_button {
+    max-width: 200px;
+    min-width: 200px;
+    height: 50px;
+    background-color: var(--red4);
+    margin: 30px 0px 0px 100px;
+    color: var(--white);
+    border-radius: 15px;
+    font-size: 1.2em;
+  }
+  .signup_label {
+    font-weight: normal;
+    font-size: 2.2em;
+    margin: 0px;
+  }
+  .signup_guestButton {
+    width: 200px;
+    height: 50px;
+    background-color: var(--black);
+    color: var(--white);
+    border-radius: 15px;
+    font-size: 1.2em;
+  }
+  .signup_inputButton {
+    outline: none;
+    border: none;
+    width: 100%;
+    height: 50px;
+    border-bottom: 2px solid var(--grey2);
+    font-size: 1em;
+    background: transparent;
+  }
+
+  .signup_inputLabel {
+    font-size: 1.2em;
+  }
+}
+
+@media only screen and (max-width: 1919px) {
+  .signup_formContainer {
+    max-width: 350px;
+  }
+  .signup_button {
+    max-width: 200px;
+    min-width: 200px;
+    height: 50px;
+    background-color: var(--red4);
+    margin: 30px 0px 0px 75px;
+    color: var(--white);
+    border-radius: 15px;
+    font-size: 1.2em;
+  }
+  .signup_label {
+    font-weight: normal;
+    font-size: 2.2em;
+    margin: 0px;
+  }
+  .signup_guestButton {
+    width: 200px;
+    height: 50px;
+    background-color: var(--black);
+    color: var(--white);
+    border-radius: 15px;
+    font-size: 1.2em;
+  }
+  .signup_inputButton {
+    outline: none;
+    border: none;
+    width: 100%;
+    height: 50px;
+    border-bottom: 2px solid var(--grey2);
+    font-size: 1em;
+    background: transparent;
+  }
+  .signup_inputLabel {
+    font-size: 1.2em;
+  }
+}
