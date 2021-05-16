@@ -1,4 +1,4 @@
-from fastapi.datastructures import UploadFile
+from fastapi import UploadFile, File
 import os
 from fastapi.params import Cookie
 from fastapi import Cookie as ReqCookie
@@ -65,7 +65,7 @@ async def sign_up(
     *,
     db: Session = Depends(deps.get_db),
     user_in: schemas.UserSignUp,
-    profile_pic: UploadFile(...),
+    profile_pic: UploadFile = File(...),
 ) -> Any:
     if not settings.USERS_OPEN_REGISTRATION:
         raise HTTPException(
