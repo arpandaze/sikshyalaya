@@ -46,10 +46,7 @@
   .sideBar_sideBar {
   }
   .sideBar_logoContainerBig {
-    display: none;
-  }
-  .sideBar_logoContainerSmall {
-    width: 58% !important;
+    width: 85% !important;
     margin: 20px auto !important;
   }
   .sideBar_horizontalLine {

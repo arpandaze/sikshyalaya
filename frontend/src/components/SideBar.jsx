@@ -45,11 +45,6 @@ const SideBar = () => {
             <Image src={iconbig} alt={{ iconbig }} />
           </Link>
         </Grid>
-        <Grid item className="sideBar_logoContainerSmall">
-          <Link to="/">
-            <Image src={iconsmall} alt={{ iconsmall }} />
-          </Link>
-        </Grid>
         <div className="sideBar_horizontalLine"></div>
         <Grid
           container

@@ -95,8 +95,12 @@ const StudentLoginBox = () => {
                       xs={12}
                       className="loginCommon_rememberMeCheckContainer"
                     >
-                      <Checkbox name="remember_me" value="remember_me" />
-                      <label htmlFor="remember_me">Remember me</label>
+                      <Checkbox
+                        className="loginCommon_checkbox"
+                        name="remember_me"
+                        value="remember_me"
+                      />
+                      <label for="remember_me">Remember me</label>
                     </Grid>
                   </Grid>
                   <Grid
@@ -114,37 +118,11 @@ const StudentLoginBox = () => {
                       />
                     </Grid>
                     <Grid item>
-                      <Grid
-                        container
-                        direction="row"
-                        justify="center"
-                        alignItems="center"
-                      >
-                        <Grid item>
-                          <div className="loginCommon_line"></div>
-                        </Grid>
-                        <Grid item>
-                          <p
-                            style={{
-                              fontSize: "1.2em",
-                              margin: "0px",
-                              padding: "0px 10px 0px 10px",
-                            }}
-                          >
-                            or
-                          </p>
-                        </Grid>
-                        <Grid item>
-                          <div className="loginCommon_line"></div>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item>
                       <p
                         onClick={() => {
                           history.push("/reset");
                         }}
-                        style={{ color: colorscheme.red4, cursor: "pointer" }}
+                        className="loginCommon_forgetButton"
                       >
                         Forgot Password?
                       </p>

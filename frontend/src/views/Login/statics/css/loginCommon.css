@@ -1,34 +1,31 @@
 @import "../../../../utils/colors.css";
 @media only screen and (min-width: 1920px) {
   .loginCommon_loginButton {
-    width: 200px;
-    height: 50px;
+    width: 160px;
+    height: 45px;
     background-color: var(--red4);
+    margin-top: 20px;
     color: var(--white);
-    border-radius: 15px;
-    font-size: 1.2em;
+    border-radius: 12px;
+    font-size: 1.1em;
+  }
+  .loginCommon_forgetButton {
+    color: var(-black);
+    text-decoration: underline;
+    cursor: pointer;
   }
   .loginCommon_label {
     font-weight: normal;
     font-size: 2.2em;
-    margin: 0px;
-  }
-  .loginCommon_guestButton {
-    width: 200px;
-    height: 50px;
-    background-color: var(--black);
-    color: var(--white);
-    border-radius: 15px;
-    font-size: 1.2em;
   }
   .loginCommon_inputButton {
     outline: none;
     border: none;
-    width: 250px;
+    width: 280px;
     height: 50px;
     padding: 20px 0px 0px 0px;
     border-bottom: 2px solid var(--grey2);
-    font-size: 1em;
+    font-size: 1.1em;
     background: transparent;
   }
   .loginCommon_line {
@@ -42,30 +39,24 @@
   }
   .loginCommon_rememberMeCheckContainer {
     line-height: 20px;
-    padding: 20px 0px 20px 0px;
+    font-size: 0.9em;
+    padding: 30px 0px 20px 0px;
   }
 }
 
 @media only screen and (max-width: 1919px) {
   .loginCommon_loginButton {
-    width: 200px;
-    height: 50px;
+    width: 160px;
+    height: 45px;
     background-color: var(--red4);
     color: var(--white);
-    border-radius: 15px;
-    font-size: 1.2em;
+    margin-top: 20px;
+    border-radius: 12px;
+    font-size: 1.1em;
   }
   .loginCommon_label {
     font-weight: normal;
     font-size: 2.2em;
-  }
-  .loginCommon_guestButton {
-    width: 200px;
-    height: 50px;
-    background-color: var(--black);
-    color: var(--white);
-    border-radius: 15px;
-    font-size: 1.2em;
   }
   .loginCommon_inputButton {
     outline: none;

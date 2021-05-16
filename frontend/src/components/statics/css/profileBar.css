@@ -2,6 +2,7 @@
 @media only screen and (min-width: 1920px) {
   .profileBar_root {
     flex-grow: 1;
+    margin-bottom: 20px;
   }
   .profileBar_profileBox {
     margin-top: 10% !important;
@@ -14,6 +15,7 @@
 @media only screen and (max-width: 1919px) {
   .profileBar_root {
     flex-grow: 1;
+    margin-bottom: 20px;
   }
   .profileBar_profileBox {
     margin-top: 5% !important;

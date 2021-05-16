@@ -8,7 +8,7 @@
   }
   .resetCommon_label {
     font-weight: normal;
-    font-size: 2.2em;
+    font-size: 1.95em;
   }
   .resetCommon_copyrightContainer {
     width: 250px;
@@ -20,8 +20,6 @@
   .resetCommon_copyrightText {
     position: relative;
     left: 100px;
-  }
-  .resetCommon_resetBoxContainer {
   }
   .resetCommon_resetBox {
     width: 450px;
@@ -35,26 +33,28 @@
     display: flex;
   }
   .resetCommon_resetButton {
-    width: 300px;
-    height: 50px;
+    width: 160px !important;
+    height: 45px !important;
     background-color: var(--red4);
     color: var(--white);
-    border-radius: 15px;
-    font-size: 1.2em;
+    margin-top: 20px !important;
+    border-radius: 12px !important;
+    font-size: 1.05em !important;
   }
   .resetCommon_guestButton {
-    width: 300px;
-    height: 50px;
+    width: 160px !important;
+    height: 45px !important;
     background-color: var(--black);
     color: var(--white);
-    border-radius: 15px;
-    font-size: 1.2em;
+    border-radius: 12px !important;
+    font-size: 1.05em !important;
   }
   .resetCommon_inputButton {
     outline: none;
     border: none;
-    border-bottom: 1.5px solid var(--grey2);
-    font-size: 1.2em;
+    width: 280px !important;
+    border-bottom: 2px solid var(--grey2) !important;
+    font-size: 1.1em !important;
     background: transparent;
   }
   .resetCommon_inputLabel {
@@ -92,10 +92,12 @@
     background: transparent;
   }
   .resetCommon_line {
-    width: 130px;
+    width: 100px;
     height: 1px;
-    background-color: var(--grey1);
-    margin: 0px auto;
+    background-color: rgba(0, 0, 0, 0.3) !important;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
   }
   .resetCommon_inputLabel {
     font-size: 1.2em;
@@ -138,24 +140,25 @@
     display: flex;
   }
   .resetCommon_resetButton {
-    width: 300px;
-    height: 50px;
+    width: 160px !important;
+    height: 45px !important;
     background-color: var(--red4);
     color: var(--white);
     border-radius: 15px;
-    font-size: 1.2em;
+    font-size: 1.1em !important;
   }
   .resetCommon_guestButton {
-    width: 300px;
-    height: 50px;
+    width: 160px !important;
+    height: 45px !important;
     background-color: var(--black);
     color: var(--white);
     border-radius: 15px;
-    font-size: 1.2em;
+    font-size: 1.2em !important;
   }
   .resetCommon_inputButton {
     outline: none;
     border: none;
+    width: 280px !important;
     border-bottom: 1.5px solid var(--grey2);
     font-size: 1.2em;
     background: transparent;

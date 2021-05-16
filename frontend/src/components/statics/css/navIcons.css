@@ -10,7 +10,7 @@
     position: relative !important;
   }
   .navIcons_icons {
-    width: 22%;
+    width: 18%;
     line-height: 20%;
     margin: 8px auto !important;
   }
@@ -24,9 +24,9 @@
   .navIcons_navText {
     margin: 0px auto !important;
     padding: 0px;
-    line-height: 200%;
+    line-height: 180%;
     text-decoration: none;
-    font-size: 1.05em;
+    font-size: 0.95em;
     position: relative;
     color: var(--black);
   }

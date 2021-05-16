@@ -9,81 +9,77 @@ import configs from "../../utils/configs";
 import { postReq } from "../../utils/API";
 
 const validationSchema = yup.object({
-    email: yup
-        .string("Enter your email")
-        .email("Enter a valid email")
-        .required("Email is required"),
+  email: yup
+    .string("Enter your email")
+    .email("Enter a valid email")
+    .required("Email is required"),
 });
 
 const ForgotPassword = ({ setResetState }) => {
-    const onSubmit = async (values) => {
-        let data = {
-            email: values.email
-        }
-        let resp = await postReq(
-            "/api/v1/auth/password-recovery",
-            null,
-            data
-        );
-        if (resp.status == 200) {
-            setResetState(4);
-        }
+  const onSubmit = async (values) => {
+    let data = {
+      email: values.email,
     };
+    let resp = await postReq("/api/v1/auth/password-recovery", null, data);
+    if (resp.status == 200) {
+      setResetState(4);
+    }
+  };
 
-    return (
-        <Grid
-            container
-            direction="column"
-            justify="center"
-            alignItems="center"
-            className="forgotPassword_BoxContainer"
+  return (
+    <Grid
+      container
+      direction="column"
+      justify="center"
+      alignItems="center"
+      className="forgotPassword_BoxContainer"
+    >
+      <Grid item>
+        <h1 className="forgotPassword_label">Forgot Password</h1>
+      </Grid>
+      <Grid item>
+        <Formik
+          initialValues={{
+            email: "",
+          }}
+          validationSchema={validationSchema}
+          onSubmit={onSubmit}
         >
-            <Grid item>
-                <h1 className="forgotPassword_label">Forgot Password</h1>
+          <Form>
+            <Grid
+              container
+              spacing={5}
+              direction="column"
+              alignItems="flex-start"
+            >
+              <Grid item spacing={10}>
+                <Field
+                  id="email"
+                  name="email"
+                  placeholder="Enter your email"
+                  className="forgotPassword_inputButton"
+                />
+              </Grid>
             </Grid>
-            <Grid item>
-                <Formik
-                    initialValues={{
-                        email: "",
-                    }}
-                    validationSchema={validationSchema}
-                    onSubmit={onSubmit}
-                >
-                    <Form>
-                        <Grid
-                            container
-                            spacing={5}
-                            direction="column"
-                            alignItems="flex-start"
-                        >
-                            <Grid item spacing={10}>
-                                <Field
-                                    id="email"
-                                    name="email"
-                                    placeholder="Enter your email"
-                                    className="forgotPassword_inputButton"
-                                />
-                            </Grid>
-                        </Grid>
-                        <Grid
-                            container
-                            direction="column"
-                            justify="center"
-                            alignItems="center"
-                        >
-                            <Grid item xs={12}>
-                                <Button
-                                    type="submit"
-                                    name="Reset Password"
-                                    addStyles="forgotPassword_Button"
-                                />
-                            </Grid>
-                        </Grid>
-                    </Form>
-                </Formik>
+            <Grid
+              container
+              direction="column"
+              justify="center"
+              alignItems="center"
+            >
+              <Grid item xs={12}>
+                <Button
+                  type="submit"
+                  name="Reset Password"
+                  addStyles="forgotPassword_Button"
+                />
+              </Grid>
             </Grid>
-        </Grid>
-    );
+          </Form>
+        </Formik>
+      </Grid>
+    </Grid>
+  );
 };
 
 export default ForgotPassword;
