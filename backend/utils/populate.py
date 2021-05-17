@@ -1,6 +1,19 @@
-from faker import Faker
+import json
 
-from random import randint
+from utils.populationdata import (
+    users,
+    schools,
+    departments,
+    courses,
+    programs,
+    groups,
+    personalNotes,
+    teacherNotes,
+    quizzes,
+    classSessions,
+    quizQuestions,
+)
+
 from core.db import SessionLocal
 
 from cruds import (
@@ -33,59 +46,43 @@ from schemas import (
 
 db = SessionLocal()
 
-fake = Faker()
-
 
 def populate_school():
-    schools = [
-        SchoolCreate(name="SOS", address="Dhulikhel"),
-        SchoolCreate(name="SOE", address="Banepa"),
-    ]
     for school in schools:
         crud_school.create(db, obj_in=school)
 
 
 def populate_department():
-    for i in range(5):
+    for department in departments:
         try:
-            department = DepartmentCreate(name=fake.company(), school_id=randint(1, 2))
             crud_department.create(db, obj_in=department)
-        except Exception:  # noqa
-            pass
         except Exception as e:  # noqa
             print(e)
 
 
 def populate_course():
-    for i in range(20):
+    for course in courses:
         try:
-            course = CourseCreate(
-                course_code=str(fake.company()[0:3].upper()) + str(randint(0, 300)),
-                course_name=fake.company(),
-                course_credit=randint(1, 3),
-                department_id=randint(1, 5),
-            )
             crud_course.create(db, obj_in=course)
         except Exception as e:  # noqa
             print(e)
 
 
 def populate_program():
-    for i in range(10):
+    for program in programs:
         try:
-            program = ProgramCreate(name=fake.job(), department_id=randint(1, 5))
             crud_program.create(db, obj_in=program)
         except Exception as e:  # noqa
             print(e)
 
 
 def populate_group():
-    for i in range(10):
+    for group in groups:
         try:
             group = GroupCreate(
-                program_id=randint(1, 10),
-                sem=randint(1, 8),
-                course=list(range(randint(1, 9), randint(10, 20))),
+                program_id=group["program_id"],
+                sem=group["sem"],
+                course=group["course"],
             )
             crud_group.create(db, obj_in=group)
         except Exception as e:  # noqa
@@ -93,19 +90,23 @@ def populate_group():
 
 
 def populate_user():
-    for i in range(50):
+    for user in users:
+
         try:
             user = UserCreate(
-                full_name=fake.name(),
-                email=f"{i}@test.com",
-                group_id=randint(1, 10),
-                teacher_group=list(range(randint(1, 5), randint(6, 10))),
-                dob=fake.date_time(),
-                address=fake.address(),
-                contact_number=fake.phone_number(),
-                password="test",
-                user_type=randint(1, 3),
+                full_name=user["full_name"],
+                is_active=user["is_active"],
+                email=user["email"],
+                group_id=user["group_id"],
+                teacher_group=user["teacher_group"],
+                dob=user["dob"],
+                address=user["address"],
+                contact_number=user["contact_number"],
+                password=user["password"],
+                user_type=user["user_type"],
+                join_year=user["join_year"],
             )
+
             crud_user.create(db, obj_in=user)
         except Exception as e:  # noqa
             print(e)
@@ -113,44 +114,44 @@ def populate_user():
 
 
 def populate_teacher_note():
-    for i in range(100):
+    for teacherNote in teacherNotes:
         try:
-            teacher_note = TeacherNoteCreate(
-                user_id=randint(1, 50),
-                student_id=randint(1, 50),
-                message=fake.paragraph(),
+            teacherNote = TeacherNoteCreate(
+                user_id=teacherNote["user_id"],
+                student_id=teacherNote["student_id"],
+                message=teacherNote["message"].strip(),
             )
-            crud_teacher_note.create(db, obj_in=teacher_note)
+            crud_teacher_note.create(db, obj_in=teacherNote)
         except Exception as e:  # noqa
             print(e)
 
 
 def populate_personal_note():
-    for i in range(50):
+    for personalNote in personalNotes:
         try:
-            personal_note = PersonalNoteCreate(
-                user_id=randint(1, 50),
-                course_id=randint(1, 20),
-                message=fake.paragraph(),
+            personalNote = PersonalNoteCreate(
+                user_id=personalNote["user_id"],
+                course_id=personalNote["course_id"],
+                message=personalNote["message"].strip(),
             )
-            crud_personal_note.create(db, obj_in=personal_note)
+            crud_personal_note.create(db, obj_in=personalNote)
         except Exception as e:  # noqa
             print(e)
 
 
 def populate_quiz():
-    for i in range(10):
+    for quiz in quizzes:
         try:
             quiz = QuizCreate(
-                end_time=fake.date_time(),
-                start_time=fake.date_time(),
-                title=fake.name(),
-                description=fake.paragraph(),
-                is_randomized=True if randint(0, 1) else False,
-                display_individual=True if randint(0, 1) else False,
-                group=list(range(randint(1, 5), randint(6, 10))),
-                instructor=list(range(randint(1, 25), randint(26, 50))),
-                course_id=randint(1, 20),
+                end_time=quiz["end_time"],
+                start_time=quiz["start_time"],
+                title=quiz["title"],
+                description=quiz["description"],
+                is_randomized=quiz["is_randomized"],
+                display_individual=quiz["display_individual"],
+                group=quiz["group"],
+                instructor=quiz["instructor"],
+                course_id=quiz["course_id"],
             )
 
             crud_quiz.create(db, obj_in=quiz)
@@ -159,21 +160,16 @@ def populate_quiz():
 
 
 def populate_class_session():
-    for i in range(10):
+    for class_session in classSessions:
         try:
             class_session = ClassSessionCreate(
-                datetime=fake.date_time(),
-                is_active=True if randint(0, 1) else False,
-                instructor=list(range(randint(1, 5), randint(6, 10))),
-                course_id=randint(1, 20),
-                group_id=randint(1, 10),
-                description=fake.paragraph(),
-                duration=randint(1, 120),
-                file=[
-                    "file" + str(randint(1, 200)),
-                    "file" + str(randint(1, 200)),
-                    "file" + str(randint(1, 200)),
-                ],
+                datetime=class_session["datetime"],
+                is_active=class_session["is_active"],
+                instructor=class_session["instructor"],
+                course_id=class_session["course_id"],
+                group_id=class_session["group_id"],
+                description=class_session["description"],
+                duration=class_session["duration"],
             )
             crud_class_session.create(db, obj_in=class_session)
 
@@ -182,30 +178,40 @@ def populate_class_session():
 
 
 def populate_quiz_question():
-    for i in range(40):
+    for quiz_question in quizQuestions:
         try:
-            quiz_question = QuizQuestionCreate(
-                question_type=randint(1, 2),
-                question_text=fake.text(),
-                question_image=[
-                    "image" + str(randint(1, 200)),
-                    "image" + str(randint(1, 200)),
-                    "image" + str(randint(1, 200)),
-                    "image" + str(randint(1, 200)),
-                ],
-                answer_type=randint(1, 4),
-                option_image=[
-                    "Optionimage" + str(randint(1, 200)),
-                    "Optionimage" + str(randint(1, 200)),
-                    "Optionimage" + str(randint(1, 200)),
-                    "Optionimage" + str(randint(1, 200)),
-                ],
-                option={randint(1, 200): "option1", randint(1, 200): "option2"},
-                answer_image="OptionImage" + str(randint(1, 200)),
-                answer=randint(11, 203),
-                quiz_id=randint(1, 10),
-            )
-            crud_question.create(db, obj_in=quiz_question)
+            jsonOption = quiz_question["option"]
+            if jsonOption:
+                dictOption = json.loads(jsonOption)
+                try:
+                    dictOption = {int(k): v for k, v in dictOption.items()}
+
+                    quiz_question = QuizQuestionCreate(
+                        question_type=quiz_question["question_type"],
+                        question_text=quiz_question["question_text"],
+                        question_image=quiz_question["question_image"],
+                        answer_type=quiz_question["answer_type"],
+                        option_image=quiz_question["option_image"],
+                        option=dictOption,
+                        answer_image=quiz_question["answer_image"],
+                        answer=quiz_question["answer"],
+                        quiz_id=quiz_question["quiz_id"],
+                    )
+                    crud_question.create(db, obj_in=quiz_question)
+                except Exception as exception:
+                    print(exception)
+            else:
+                quiz_question = QuizQuestionCreate(
+                    question_type=quiz_question["question_type"],
+                    question_text=quiz_question["question_text"],
+                    question_image=quiz_question["question_image"],
+                    answer_type=quiz_question["answer_type"],
+                    option_image=quiz_question["option_image"],
+                    answer_image=quiz_question["answer_image"],
+                    answer=quiz_question["answer"],
+                    quiz_id=quiz_question["quiz_id"],
+                )
+                crud_question.create(db, obj_in=quiz_question)
 
         except Exception as e:
             print(e)
