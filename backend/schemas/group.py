@@ -36,6 +36,8 @@ class Group(GroupInDBBase):
 
 class GroupReturn(BaseModel):
     id: Optional[int]
+    sem: int
+    program_id: int
 
     class Config:
         orm_mode = True

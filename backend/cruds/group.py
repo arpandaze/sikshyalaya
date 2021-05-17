@@ -6,6 +6,9 @@ from cruds.course import crud_course
 
 
 class CRUDGroup(CRUDBase[Group, GroupCreate, GroupUpdate]):
+    def get_by_program_and_sem(self, db: Session, *, program: int, sem: int):
+        return db.query(self.model).filter(program_id=program).filter(sem=sem).first()
+
     def create(
         self,
         db: Session,

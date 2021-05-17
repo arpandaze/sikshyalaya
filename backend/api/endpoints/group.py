@@ -1,3 +1,4 @@
+from schemas.group import GroupReturn
 from typing import Any, List
 
 from fastapi import APIRouter, Depends
@@ -111,3 +112,11 @@ def update_group(
         group = crud_group.get(db, id)
         crud_group.update(db, db_obj=group, obj_in=obj_in)
         return {"status": "success"}
+
+
+@router.get("/all/", response_model=List[GroupReturn])
+def get_group(
+    db: Session = Depends(deps.get_db),
+) -> Any:
+    group = crud_group.get_multi(db, limit=-1)
+    return group

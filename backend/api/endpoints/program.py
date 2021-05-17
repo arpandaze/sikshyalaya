@@ -54,3 +54,11 @@ async def update_program(
     program = crud_program.get(db, program_id)
     program = crud_program.update(db, db_obj=program, obj_in=program_update)
     return program
+
+
+@router.get("/all/", response_model=List[Program])
+async def get_programs(
+    db: Session = Depends(deps.get_db),
+) -> Any:
+    programs = crud_program.get_multi(db, limit=500)
+    return programs

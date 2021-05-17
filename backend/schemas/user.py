@@ -76,7 +76,7 @@ class UserLoginReturn(BaseModel):
     profile_image: Optional[str] = None
     full_name: Optional[str] = None
     address: str = None
-    group_id: int = None
+    group: Group = None
     contact_number: str = None
     dob: datetime = None
     join_year: Optional[int] = None

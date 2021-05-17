@@ -1,3 +1,5 @@
+from cruds import group
+from fastapi import UploadFile, File
 import os
 from fastapi.params import Cookie
 from fastapi import Cookie as ReqCookie
@@ -76,13 +78,6 @@ async def sign_up(
             status_code=400,
             detail="Error ID: 130",
         )  # The user with this username already exists in the system
-
-    # profile_image_path = os.path.join(
-    #     "uploaded_files", "profiles", f"{abs(hash(str(user.id)))}.jpg"
-    # )
-    # async with aiofiles.open(profile_image_path, mode="wb") as f:
-    #     content = await profile_pic.read()
-    #     await f.write(content)
 
     user = cruds.crud_user.create(
         db, obj_in=schemas.UserCreate(**user_in.dict(), profile_pic="")
