@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 from utils import deps
 from cruds import crud_personal_note
-from schemas import PersonalNote, PersonalNoteUpdate
+from schemas import PersonalNote, PersonalNoteUpdate, PersonalNoteCreate
 from models import User
 from core import settings
 from fastapi import HTTPException
@@ -57,7 +57,7 @@ def get_personal_note(
 def create_personal_note(
     db: Session = Depends(deps.get_db),
     *,
-    obj_in: PersonalNoteUpdate,
+    obj_in: PersonalNoteCreate,
     current_user: User = Depends(deps.get_current_active_user)
 ) -> Any:
     if not current_user:

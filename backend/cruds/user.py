@@ -41,6 +41,7 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
             teacher_group = []
 
         db_obj = User(
+            is_active=obj_in.is_active,  # noqa
             email=obj_in.email,  # noqa
             hashed_password=get_password_hash(obj_in.password),  # noqa
             full_name=obj_in.full_name,  # noqa
