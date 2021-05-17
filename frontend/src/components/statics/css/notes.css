@@ -28,26 +28,10 @@
   .notes_titleText {
     position: relative;
     font-weight: bold;
-    font-size: 1.7em;
+    font-size: 1.6em;
     cursor: text;
     position: relative;
     margin-left: 40px;
-  }
-  .notes_notePadBot {
-    text-align: justify;
-    position: relative;
-    top: 25px;
-  }
-  .notes_contentTextContainer {
-    width: 88%;
-    text-align: justify;
-    line-height: 2em;
-    position: relative;
-    left: 38px;
-  }
-  .notes_contentText {
-    position: relative;
-    font-size: 1.15em;
   }
   .notes_closeButtonContainer {
     height: 80px;
@@ -61,6 +45,20 @@
     position: absolute;
     top: 20px;
     right: 20px;
+  }
+  .notes_notePadBot {
+    width: 100%;
+    text-align: justify;
+    position: relative;
+  }
+  .notes_contentTextContainer {
+    width: 90%;
+    margin: 0px auto !important;
+    text-align: justify;
+  }
+  .notes_contentText {
+    position: relative;
+    font-size: 1.15em;
   }
   .notes_trashButtonContainer {
     position: absolute;
