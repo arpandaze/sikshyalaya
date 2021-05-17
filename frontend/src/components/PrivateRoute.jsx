@@ -1,6 +1,6 @@
 import React from "react";
 import { Redirect, Route } from "react-router-dom";
-import { UserContext } from "../utils/UserContext";
+import { UserContext } from "../utils/Contexts/UserContext";
 import { useContext } from "react";
 import configs from "../utils/configs";
 

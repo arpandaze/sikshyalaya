@@ -4,7 +4,7 @@ import logoLarge from "../../assets/logo-large.svg";
 import Image from "../../components/Image";
 import "./statics/css/login.css";
 import { Link } from "react-router-dom";
-import { UserContext } from "../../utils/UserContext";
+import { UserContext } from "../../utils/Contexts/UserContext";
 import { Redirect } from "react-router-dom";
 import configs from "../../utils/configs";
 import reactJoiValidation from "react-joi-validation";

@@ -11,7 +11,7 @@ import axios from "axios";
 import Checkbox from "../../components/Checkbox";
 import configs from "../../utils/configs";
 import { get, set } from "idb-keyval";
-import { UserContext } from "../../utils/UserContext";
+import { UserContext } from "../../utils/Contexts/UserContext";
 import {
   Redirect,
   useHistory,
