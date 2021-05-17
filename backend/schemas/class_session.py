@@ -15,7 +15,7 @@ class ClassSessionBase(BaseModel):
     group_id: int
     description: str
     duration: int
-    file: List[str]
+    file: List[str] = None
 
 
 # properties to recieve via
