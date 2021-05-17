@@ -17,6 +17,7 @@ import StudentView from "./views/Admin/StudentView";
 import ResetPassword from "./views/Login/ResetPassword";
 import Signup from "./views/Login/Signup";
 import PrivateRoute from "./components/PrivateRoute";
+import Verify from "./views/Login/Verify";
 
 const Routes = () => {
   return (
@@ -41,6 +42,7 @@ const Routes = () => {
       <PrivateRoute exact path="/admin/student" component={StudentView} />
       <Route exact path="/reset" component={ResetPassword} />
       <Route exact path="/signup" component={Signup} />
+      <Route exact path="/verify" component={Verify} />
       <Redirect exact from="/" to="landing" />
     </Switch>
   );
