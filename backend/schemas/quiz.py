@@ -49,12 +49,12 @@ class Quiz(QuizInDBBase):
 class QuizQuestionBase(BaseModel):
     question_type: int
     question_text: str
-    question_image: List[str]
-    option_image: List[str]
+    question_image: List[str] = None
+    option_image: List[str] = None
     answer_type: int
-    option: Dict[int, str]
-    answer_image: str
-    answer: int
+    option: Dict[int, str] = None
+    answer_image: str = None
+    answer: int = None
     quiz_id: int
 
 
