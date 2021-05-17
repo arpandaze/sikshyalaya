@@ -7,6 +7,7 @@ from pydantic import BaseModel
 class CourseBase(BaseModel):
     course_code: str
     course_name: str
+    course_credit: int
     department_id: int
 
 

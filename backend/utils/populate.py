@@ -62,6 +62,7 @@ def populate_course():
             course = CourseCreate(
                 course_code=str(fake.company()[0:3].upper()) + str(randint(0, 300)),
                 course_name=fake.company(),
+                course_credit=randint(1, 3),
                 department_id=randint(1, 5),
             )
             crud_course.create(db, obj_in=course)
