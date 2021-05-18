@@ -45,6 +45,7 @@ const validationSchema = yup.object({
   last_name: yup
     .string("Enter your Last Name")
     .required("Last Name is required"),
+  address: yup.string("Enter your address").required("Address is required"),
   join_year: yup.string("Enter Joined Year").required("Join year is required"),
   dob: yup.string("Enter Date of Birth").required("Date of Birth is required"),
   email: yup
@@ -82,6 +83,7 @@ const Signup = () => {
               first_name: "",
               middle_name: "",
               last_name: "",
+              address: "",
               join_year: "",
               dob: "",
               email: "",
