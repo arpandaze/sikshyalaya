@@ -84,4 +84,9 @@
   .loginCommon_rememberMeCheck {
     width: 20px;
   }
+  .loginCommon_forgetButton {
+    color: var(-black);
+    text-decoration: underline;
+    cursor: pointer;
+  }
 }

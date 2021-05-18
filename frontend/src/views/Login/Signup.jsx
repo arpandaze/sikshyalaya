@@ -17,6 +17,28 @@ import { Link } from "react-router-dom";
 import colorscheme from "../../utils/colors";
 import CustomTextField from "./../../components/CustomTextField";
 
+const programNames = [
+  {
+    name: "Computer Science",
+    value: 10,
+  },
+  {
+    name: "Chemical Engineering",
+    value: 20,
+  },
+  {
+    name: "Civil Engineering",
+    value: 30,
+  },
+];
+const semester = [
+  {
+    name: "I",
+    value: 10,
+  },
+  { name: "II", value: 20 },
+];
+
 const validationSchema = yup.object({
   first_name: yup.string("Enter your name").required("First Name is required"),
   middle_name: yup.string("Enter your Middle Name"),
@@ -51,7 +73,7 @@ const Signup = () => {
         alignItems="center"
         className="signup_container"
       >
-        <Grid item>
+        <Grid item style={{ padding: "20px 20px 20px 20px" }}>
           <h1 className="signup_label">Signup</h1>
         </Grid>
         <Grid item>
@@ -115,8 +137,10 @@ const Signup = () => {
                 <Grid item xs={6} style={{ padding: "0px 20px 0px 0px" }}>
                   <CustomTextField
                     name="program"
+                    dropdown={true}
                     type="text"
                     placeHolder="Program"
+                    menuItems={programNames}
                     id="program"
                     addStyles="signup_inputButton"
                   />
@@ -124,8 +148,10 @@ const Signup = () => {
                 <Grid item xs={6}>
                   <CustomTextField
                     name="semester"
+                    dropdown={true}
                     type="text"
                     placeHolder="Semester"
+                    menuItems={semester}
                     id="semester"
                     addStyles="signup_inputButton"
                   />
@@ -161,6 +187,7 @@ const Signup = () => {
                     placeHolder="Email"
                     id="email"
                     addStyles="signup_inputButton"
+                    autoComplete="on"
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -170,6 +197,7 @@ const Signup = () => {
                     placeHolder="Password"
                     id="password"
                     addStyles="signup_inputButton"
+                    autoComplete="new-password"
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -179,6 +207,7 @@ const Signup = () => {
                     placeHolder="Confirm Password"
                     id="confirm_password"
                     addStyles="signup_inputButton"
+                    autoComplete="new-password"
                   />
                 </Grid>
                 <Grid item>
