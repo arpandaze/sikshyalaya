@@ -6,7 +6,7 @@ from typing import Any, Dict, Optional
 
 import emails
 from emails.template import JinjaTemplate
-from fastapi import HTTPException
+from fastapi import HTTPException, status
 
 from core.config import settings
 from core.db import redis_session_client
@@ -114,7 +114,9 @@ async def generate_verify_token(uid: str) -> str:
 async def verify_password_reset_token(token: str) -> Optional[int]:
     uid = await redis_session_client.client.get(f"pwr_token_{token}", encoding="utf-8")
     if not uid:
-        raise HTTPException(status_code=401, detail="Error ID: 143")  # Invalid token
+        raise HTTPException(
+            status_code=401, detail="Token has expired!"
+        )  # Invalid token
     await redis_session_client.client.expire(f"pwr_token_{token}", timeout=0)
     return int(uid)
 
@@ -124,7 +126,9 @@ async def verify_user_verify_token(token: str) -> Optional[int]:
         f"verify_token_{token}", encoding="utf-8"
     )
     if not uid:
-        raise HTTPException(status_code=401, detail="Error ID: 145")  # Invalid token
+        raise HTTPException(
+            status_code=401, detail="Token has expired!"
+        )  # Invalid token
     await redis_session_client.client.expire(f"verify_token_{token}", timeout=0)
     return int(uid)
 

@@ -39,7 +39,7 @@ def get_personal_note(
 
     if current_user.user_type == settings.UserType.ADMIN.value:
         raise HTTPException(
-            status_code=401,
+            status_code=403,
             detail="Error ID: 117",
         )  # user has no authorization for retrieving personal notes, cause they personal fam!
 
@@ -66,7 +66,7 @@ def create_personal_note(
     if current_user.user_type >= settings.UserType.TEACHER.value:
         if obj_in.user_id != current_user.id:
             raise HTTPException(
-                status_code=401,
+                status_code=403,
                 detail="Error ID: 118",
             )  # user has no authorization to create personal note for another user
         else:
@@ -75,7 +75,7 @@ def create_personal_note(
 
     if current_user.user_type == settings.UserType.ADMIN.value:
         raise HTTPException(
-            status_code=401,
+            status_code=403,
             detail="Error ID: 120",
         )  # user has no authorization to create personal notes
 
@@ -100,7 +100,7 @@ def get_specific_personal_note(
 
     if current_user.user_type == settings.UserType.ADMIN.value:
         raise HTTPException(
-            status_code=401,
+            status_code=403,
             detail="Error ID: 122",
         )  # user has no authorization to get personal notes
 
@@ -112,7 +112,7 @@ def get_specific_personal_note(
                 return personal_note
 
         raise HTTPException(
-            status_code=401,
+            status_code=403,
             detail="Error ID: 123",
         )  # user has no authorization to get other user's personal notes
 
@@ -134,7 +134,7 @@ def update_personal_note(
 
     if current_user.user_type == settings.UserType.ADMIN.value:
         raise HTTPException(
-            status_code=401,
+            status_code=403,
             detail="Error ID: 125",
         )  # user has no authorization to edit personal notes
 
@@ -145,7 +145,7 @@ def update_personal_note(
             return {"status": "success"}
         else:
             raise HTTPException(
-                status_code=401,
+                status_code=403,
                 detail="Error ID: 126",
             )  # user has no authorization to get other user's personal notes
 

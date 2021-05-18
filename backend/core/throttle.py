@@ -20,7 +20,7 @@ def ip_throttle(rate: int, per: int = 86400) -> Callable:
 
     Raises
     ------
-    HTTPException(status_code=403)
+    HTTPException(status_code=429)
         If throttle limit is reached and the request is blocked
     """
 
@@ -38,7 +38,7 @@ def ip_throttle(rate: int, per: int = 86400) -> Callable:
 
             elif not int(current_count.decode("utf-8")) <= rate:
                 raise HTTPException(
-                    status_code=403, detail="Error ID: 133"
+                    status_code=429, detail="Error ID: 133"
                 )  # Too many requests!
 
             ret_val = await func(*args, **kwargs)
@@ -65,7 +65,7 @@ def user_throttle(rate: int, per: int = 86400) -> Callable:
 
     Raises
     ------
-    HTTPException(status_code=403)
+    HTTPException(status_code=429)
         If throttle limit is reached and the request is blocked
     """
 
@@ -76,7 +76,7 @@ def user_throttle(rate: int, per: int = 86400) -> Callable:
 
             if not client:
                 raise HTTPException(
-                    status_code=401, detail="Error ID: 134"
+                    status_code=429, detail="Error ID: 134"
                 )  # User not logged in!
 
             identifier = f"user_th_{client}_{func.__name__}"
@@ -87,7 +87,7 @@ def user_throttle(rate: int, per: int = 86400) -> Callable:
                 await redis_throttle_client.client.incr(identifier, amount=1)
             else:
                 raise HTTPException(
-                    status_code=403, detail="Error ID: 135"
+                    status_code=429, detail="Error ID: 135"
                 )  # Too many requests!
             return await func(*args, **kwargs)
 

@@ -91,7 +91,7 @@ async def create_upload_files(
     )
 
     if not class_session:
-        raise HTTPException(status_code=401, detail="Error ID: 100")  # Access denied!
+        raise HTTPException(status_code=403, detail="Error ID: 100")  # Access denied!
 
     FILE_PATH = os.path.join("static", settings.UPLOAD_DIR_ROOT)
     working_directory = os.getcwd()
@@ -122,7 +122,7 @@ async def get_upload_files(
         db=db, user=req_user, id=id
     )
     if not class_session:
-        raise HTTPException(status_code=401, detail="Error ID: 101")  # Access denied!
+        raise HTTPException(status_code=403, detail="Error ID: 101")  # Access denied!
 
     FILE_PATH = os.path.join("static", settings.UPLOAD_DIR_ROOT)
     working_directory = os.getcwd()

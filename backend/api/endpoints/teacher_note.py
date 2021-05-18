@@ -56,6 +56,6 @@ async def update_teacher_note(
 ) -> Any:
     teacher_note = crud_teacher_note.get_user_teacher_note(db=db, user=user, id=id)
     if not teacher_note:
-        raise HTTPException(status_code=401, detail="Error ID: 127")  # Access denied!
+        raise HTTPException(status_code=403, detail="Error ID: 127")  # Access denied!
     teacher_note = crud_teacher_note.update(db, db_obj=teacher_note, obj_in=obj_in)
     return teacher_note

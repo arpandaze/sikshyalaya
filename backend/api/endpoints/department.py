@@ -34,7 +34,7 @@ def create_department(
 ) -> Any:
     if current_user.user_type > settings.UserType.ADMIN.value:
         raise HTTPException(
-            status_code=401, detail="Error ID: 104"
+            status_code=403, detail="Error ID: 104"
         )  # user has no authorization for creating departments
     else:
         crud_department.create(db, obj_in=obj_in)
@@ -64,7 +64,7 @@ def update_department(
 ) -> Any:
     if current_user.user_type > settings.UserType.ADMIN.value:
         raise HTTPException(
-            status_code=401, detail="Error ID: 105"
+            status_code=403, detail="Error ID: 105"
         )  # user has no authorization for updating departments
     else:
         department = crud_department.get(db, id)
