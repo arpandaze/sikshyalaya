@@ -127,21 +127,21 @@ const Notes = () => {
         direction="row"
         justify="flex-start"
         alignItems="center"
-        className="note_root"
+        className="notes_root"
       >
-        <Grid item xs={4} className="note_creator">
-          <Grid container direction="column" className="note_creatorInside">
-            <Grid item className="note_creatorTop">
+        <Grid item xs={4} className="notes_creator">
+          <Grid container direction="column" className="notes_creatorInside">
+            <Grid item className="notes_creatorTop">
               <Grid
                 container
                 direction="row"
                 alignItems="center"
-                className="note_creatorTopInside"
+                className="notes_creatorTopInside"
               >
-                <Grid xs={11} item className="note_textContainer">
-                  <p className="note_text">Notes</p>
+                <Grid xs={11} item className="notes_textContainer">
+                  <p className="notes_text">Notes</p>
                 </Grid>
-                <Grid xs={1} item className="note_plusIcon">
+                <Grid xs={1} item className="notes_plusIcon">
                   <GoPlus
                     size={26}
                     color={colorscheme.green2}
@@ -152,14 +152,14 @@ const Notes = () => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item className="note_creatorBot">
+            <Grid item className="notes_creatorBot">
               <Grid
                 container
                 direction="column"
-                className="note_sidebarContainer"
+                className="notes_sidebarContainer"
               >
                 {sideNotes.map((notes, index) => (
-                  <Grid item key={notes.id} className="note_sidebarComponent">
+                  <Grid item key={notes.id} className="notes_sidebarComponent">
                     <SideNotes
                       title={notes.title}
                       content={notes.content[0].children[0].text}
@@ -173,25 +173,29 @@ const Notes = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={8} className="note_pad">
+        <Grid item xs={8} className="notes_pad">
           <Grid
             container
             direction="column"
             alignItems="center"
-            className="note_padContainer"
+            className="notes_padContainer"
           >
-            <Grid item className="note_padBot">
+            <Grid item className="notes_padBot">
               <Grid
                 container
                 direction="column"
                 justify="center"
                 alignItems="flex-start"
-                className="note_padArea"
+                className="notes_padArea"
               >
                 {selectedNote.id != "" && sideNotes.length !== 0 ? (
                   <Note
                     title={sideNotes[selectedNote.position].title}
                     content={sideNotes[selectedNote.position].content}
+                    onSave={(title, content) => {
+                      sideNotes[selectedNote.position].title = title;
+                      sideNotes[selectedNote.position].content = content;
+                    }}
                     onClose={() => {
                       setSelectedNote({ id: "", position: "" });
                     }}

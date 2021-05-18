@@ -1,9 +1,8 @@
 @import "../../../utils/colors.css";
 @media only screen and (min-width: 1920px) {
-  .courseBox_container {
-    width: 85% !important;
+  .courseBox_root {
     border-radius: 25px;
-    height: 63vh;
+    min-height: 500px;
     max-height: 630px;
     position: relative;
     margin: 0px auto;
@@ -71,8 +70,8 @@
 }
 
 @media only screen and (max-width: 1919px) {
-  .courseBox_container {
-    width: 80% !important;
+  .courseBox_root {
+    min-height: 300px;
     border-radius: 25px;
     position: relative;
     margin: 0px auto;
@@ -98,7 +97,6 @@
   }
   .courseBox_courseDetailBox {
     height: 3.4vw;
-    padding: 2px;
     margin-bottom: 10px;
   }
   .courseBox_courseTextCode {
