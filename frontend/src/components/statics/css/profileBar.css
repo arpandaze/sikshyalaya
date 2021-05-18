@@ -5,9 +5,11 @@
     margin-bottom: 20px;
   }
   .profileBar_profileBox {
+    width: 85% !important;
     margin-top: 10% !important;
   }
   .profileBar_courseBox {
+    width: 85% !important;
     margin-top: 10% !important;
   }
 }
@@ -18,9 +20,11 @@
     margin-bottom: 20px;
   }
   .profileBar_profileBox {
+    width: 80% !important;
     margin-top: 5% !important;
   }
   .profileBar_courseBox {
+    width: 80% !important;
     margin-top: 5% !important;
   }
 }

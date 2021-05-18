@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import colorscheme from "../utils/colors";
 import { ImCross } from "react-icons/im";
 import { FiTrash } from "react-icons/fi";
-import "./statics/css/notes.css";
+import "./statics/css/note.css";
 
 import isHotkey from "is-hotkey";
 import { Editable, withReact, useSlate, Slate } from "slate-react";
@@ -27,7 +27,16 @@ const HOTKEYS = {
 };
 const LIST_TYPES = ["numbered-list", "bulleted-list"];
 
-const Note = ({ title, content, state, onClose, onDelete, ...rest }) => {
+const Note = ({
+  title,
+  content,
+  state,
+  onClose,
+  onSave,
+  onDelete,
+  ...rest
+}) => {
+  const [titleText, setTitleText] = useState("");
   const [contentText, setContentText] = useState([]);
   const renderElement = useCallback((props) => <Element {...props} />, []);
   const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
@@ -37,31 +46,40 @@ const Note = ({ title, content, state, onClose, onDelete, ...rest }) => {
     setContentText(content);
   }, [content]);
 
+  useEffect(() => {
+    setTitleText(title);
+  }, [title]);
+
   return (
     <Grid
       container
       direction="column"
       justify="flex-start"
       alignItems="flex-start"
-      className="notes_root"
+      className="note_root"
       wrap="nowrap"
     >
-      <Grid item className="notes_notePadTop">
+      <Grid item className="note_notePadTop">
         <Grid container direction="row" alignItems="center">
-          <Grid item xs={11} className="notes_titleTextContainer">
-            <p className="notes_titleText">{title}</p>
+          <Grid item xs={11} className="note_titleTextContainer">
+            <input
+              type="text"
+              className="note_titleText"
+              value={titleText}
+              onChange={(e) => setTitleText(e.target.value)}
+            />
           </Grid>
-          <Grid item xs={1} className="notes_closeButtonContainer">
-            <div className="notes_closeButton">
+          <Grid item xs={1} className="note_closeButtonContainer">
+            <div className="note_closeButton">
               <ImCross size={18} color={colorscheme.red4} onClick={onClose} />
             </div>
           </Grid>
         </Grid>
       </Grid>
-      <Grid item className="notes_notePadBot">
+      <Grid item className="note_notePadBot">
         <Grid container direction="column">
-          <Grid item className="notes_contentTextContainer">
-            <p className="notes_contentText">
+          <Grid item className="note_contentTextContainer">
+            <div className="note_contentText">
               <Slate
                 editor={editor}
                 value={contentText}
@@ -101,13 +119,13 @@ const Note = ({ title, content, state, onClose, onDelete, ...rest }) => {
                   }}
                 />
               </Slate>
-            </p>
+            </div>
           </Grid>
         </Grid>
       </Grid>
 
-      <Grid item className="notes_trashButtonContainer">
-        <div className="notes_trashButton">
+      <Grid item className="note_trashButtonContainer">
+        <div className="note_trashButton">
           <FiTrash size={20} color={colorscheme.red4} onClick={onDelete} />
         </div>
       </Grid>
