@@ -142,6 +142,7 @@ def populate_personal_note():
 def populate_quiz():
     for quiz in quizzes:
         try:
+
             quiz = QuizCreate(
                 end_time=quiz["end_time"],
                 start_time=quiz["start_time"],
