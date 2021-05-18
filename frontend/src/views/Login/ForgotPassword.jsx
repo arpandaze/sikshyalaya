@@ -6,6 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import Login from "./Login";
 import "./statics/css/forgotPassword.css";
 import configs from "../../utils/configs";
+import { Redirect, useHistory } from "react-router-dom";
 import { postReq } from "../../utils/API";
 
 const validationSchema = yup.object({
@@ -16,6 +17,7 @@ const validationSchema = yup.object({
 });
 
 const ForgotPassword = ({ setResetState }) => {
+  const history = useHistory();
   const onSubmit = async (values) => {
     let data = {
       email: values.email,
@@ -72,6 +74,16 @@ const ForgotPassword = ({ setResetState }) => {
                   type="submit"
                   name="Reset Password"
                   addStyles="forgotPassword_Button"
+                />
+              </Grid>
+              <Grid item>
+                <Button
+                  type="button"
+                  onClick={() => {
+                    history.push("/login");
+                  }}
+                  name="Back to Login"
+                  addStyles="forgotPassword_guestButton"
                 />
               </Grid>
             </Grid>
