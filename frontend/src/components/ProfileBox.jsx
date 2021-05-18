@@ -8,6 +8,7 @@ import { StylesProvider } from "@material-ui/core/styles";
 import "./statics/css/profileBox.css";
 import defaultProfile from "../assets/default-profile.svg";
 import { UserContext } from "../utils/Contexts/UserContext";
+import { Tooltip } from "@material-ui/core";
 
 var end = ["st", "nd", "rd", "th", "th"];
 
@@ -68,9 +69,15 @@ const ProfileBox = () => {
                 <p className="profileBox_profileText">{userState.name}</p>
               </Grid>
               <Grid xs={2} item className="profileBox_buttonContainer">
-                <Link to="/profile">
-                  <FancyButton color={colorscheme.yellow} />
-                </Link>
+                <Tooltip
+                  title="Logout"
+                  disableHoverListener={false}
+                  placement="top"
+                >
+                  <Link to="/profile">
+                    <FancyButton color={colorscheme.red1} />
+                  </Link>
+                </Tooltip>
               </Grid>
             </Grid>
             <Grid item className="profileBox_textBox3">
