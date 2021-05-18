@@ -48,7 +48,7 @@ def create_group(
 ) -> Any:
     if current_user.user_type >= settings.UserType.TEACHER.value:
         raise HTTPException(
-            status_code=401,
+            status_code=403,
             detail="Error ID: 106",  # user has no authorization for creating groups
         )
     else:
@@ -75,7 +75,7 @@ def get_specific_group(
             return get_group(db, current_user=current_user).pop()
         else:
             raise HTTPException(
-                status_code=401,
+                status_code=403,
                 detail="Error ID: 108",
             )  # user has no authorization to access this group
 
@@ -84,7 +84,7 @@ def get_specific_group(
             if group.id == id:
                 return group
         raise HTTPException(
-            status_code=401,
+            status_code=403,
             detail="Error ID: 109",
         )  # user has no authorization to access this group
 
@@ -105,7 +105,7 @@ def update_group(
 
     if current_user.user_type >= settings.UserType.TEACHER.value:
         raise HTTPException(
-            status_code=401,
+            status_code=403,
             detail="Error ID: 110",
         )  # user has no authorization for updating groups
     else:

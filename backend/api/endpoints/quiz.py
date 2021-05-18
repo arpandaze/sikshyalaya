@@ -88,7 +88,7 @@ async def get_specific_quiz(
             if quiz.id == id:
                 return quiz
         raise HTTPException(
-            status_code=401, detail="Error ID: 133"
+            status_code=403, detail="Error ID: 133"
         )  # not accessible by the Student user
 
     if current_user.user_type == settings.UserType.TEACHER.value:
@@ -97,7 +97,7 @@ async def get_specific_quiz(
             if quiz.id == id:
                 return quiz
         raise HTTPException(
-            status_code=401, detail="Error ID: 134"
+            status_code=403, detail="Error ID: 134"
         )  # not accessible by the Teacher user
 
     if current_user.user_type <= settings.UserType.ADMIN.value:
@@ -199,7 +199,7 @@ async def update_question(
     id: int,
     current_user: User = Depends(deps.get_current_active_teacher_or_above),
 ) -> Any:
-  
+
     question = crud_question.get(db, id)
 
     current_directory = os.getcwd()
@@ -233,7 +233,7 @@ async def update_question(
         return question
     else:
         raise HTTPException(
-            status_code=401, detail="Error ID = 137"
+            status_code=403, detail="Error ID = 137"
         )  # noqa Access Denied!
 
 
@@ -328,7 +328,7 @@ async def get_image(
             )
         else:
             raise HTTPException(
-                status_code=401, detail="Error ID: 139"
+                status_code=403, detail="Error ID: 139"
             )  # file not of that question
 
     if type == 2:
@@ -336,7 +336,7 @@ async def get_image(
             FILE_PATH = os.path.join("static", QUIZ_OPTION_UPLOAD_DIR, f"{quizid}/{id}")
         else:
             raise HTTPException(
-                status_code=401, detail="Error ID: 140"
+                status_code=403, detail="Error ID: 140"
             )  # file not of that question
 
     BACKEND_ROOT = os.getcwd()
