@@ -45,7 +45,7 @@ classSessions: List[Json] = [
         "is_active": True,
         "instructor": [9, 10],
         "course_id": 3,
-        "group_id": 18,
+        "group_id": 1,
         "description": "Starting with the Intro to Environmental Sustainability",
         "duration": 60,
     },

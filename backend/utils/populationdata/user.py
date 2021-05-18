@@ -4,19 +4,6 @@ import datetime
 
 users: List[Json] = [
     {
-        "full_name": "Sikshyalaya",
-        "email": "sikshyalaya@gmail.com",
-        "is_active": True,
-        "user_type": 1,
-        "address": "Sikshyalaya",
-        "group_id": None,
-        "contact_number": "+977-9858630918",
-        "teacher_group": [],
-        "dob": datetime.datetime(2021, 1, 1),
-        "join_year": 2021,
-        "password": "sikshyalaya",
-    },
-    {
         "full_name": "Bal Krishna Bal",
         "email": "bal.bal@gmail.com",
         "is_active": True,
@@ -132,5 +119,18 @@ users: List[Json] = [
         "dob": datetime.datetime(1980, 8, 14),
         "join_year": 2005,
         "password": "om.acharya",
+    },
+    {
+        "full_name": "Sikshyalaya",
+        "email": "sikshyalaya@gmail.com",
+        "is_active": True,
+        "user_type": 1,
+        "address": "Sikshyalaya",
+        "group_id": None,
+        "contact_number": "+977-9858630918",
+        "teacher_group": [],
+        "dob": datetime.datetime(2021, 1, 1),
+        "join_year": 2021,
+        "password": "sikshyalaya",
     },
 ]
