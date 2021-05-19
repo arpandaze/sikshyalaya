@@ -5,8 +5,6 @@ import DashboardLayout from "../../components/DashboardLayout";
 import * as yup from "yup";
 import CustomTextField from "./../../components/CustomTextField";
 import Grid from "@material-ui/core/Grid";
-import QuizQuestion, { questionInitialValues } from "./QuizQuestion";
-// import QuizQuestions from "./QuizQuestions";
 
 const validationSchema = yup.object({
   quiz_title: yup.string("Enter the title of the quiz"),
@@ -25,48 +23,6 @@ const questionType = [
 ];
 
 const QuizCreator = () => {
-  // const [pressed, setPressed] = useState(false);
-  // const [addQuestion, setAddQuestion] = useState({
-  //   // quiz_title: "",
-  //   // quiz_description: "",
-  //   // question: [
-  //   //   {
-  //   //     question_type: "",
-  //   //     question_text: "",
-  //   //     answer_type: "",
-  //   //     option: [],
-  //   //     answer: "",
-  //   //   },
-  //   // ],
-  // });
-
-  // const handleAddQuestion = (e) => {
-  //   const { value } = e.target;
-  //   setAddQuestion(value);
-  //   setAddQuestion(
-  //     ...addQuestion,
-  //     addQuestion.question.push({
-  //       question_type: "",
-  //       question_text: "",
-  //       answer_type: "",
-  //       option: [],
-  //       answer: "",
-  //     })
-  //   );
-  // };
-  // const handleInputChange = (e, index) => {
-  //   const { name, value } = e.target;
-  //   const list = [...addQuestion];
-  //   list[index][name] = value;
-  //   setAddQuestion(list);
-  // };
-
-  // const handleRemoveQuestion = (index) => {
-  //   const list = [...addQuestion];
-  //   list.splice(index, 1);
-  //   setAddQuestion(list);
-  // };
-
   return (
     <DashboardLayout>
       <Grid container direction="row" alignItems="flex-start">
