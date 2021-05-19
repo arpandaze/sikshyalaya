@@ -43,14 +43,24 @@ const CustomTextField = ({
     </>
   ) : (
     <>
-      <FormControl className={addStyles}>
-        <InputLabel id={name}>{placeHolder}</InputLabel>
-        <Select labelId={name} id={name} value={option} onChange={handleChange}>
-          {menuItems.map((item, index) => (
-            <MenuItem value={item.value}>{item.name}</MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+      <Field name={name}>
+        {({ field, form: { touched, errors }, meta }) => (
+          <FormControl className={addStyles}>
+            <InputLabel id={name}>{placeHolder}</InputLabel>
+            <Select
+              labelId={name}
+              id={name}
+              value={option}
+              onChange={handleChange}
+              {...field}
+            >
+              {menuItems.map((item, index) => (
+                <MenuItem value={item.value}>{item.name}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        )}
+      </Field>
     </>
   );
 };
