@@ -73,7 +73,7 @@ classSessions: List[Json] = [
         "instructor": [9],
         "course_id": 10,
         "group_id": 7,
-        "description": "Discussion on do to get started with business.",
+        "description": "Discussion on the dos and donts of getting started with business.",
         "duration": 60,
     },
     {
@@ -82,7 +82,7 @@ classSessions: List[Json] = [
         "instructor": [8],
         "course_id": 10,
         "group_id": 8,
-        "description": "Discussion on do to get started with business.",
+        "description": "Discussion on the dos and donts of getting started with business.",
         "duration": 60,
     },
     {
