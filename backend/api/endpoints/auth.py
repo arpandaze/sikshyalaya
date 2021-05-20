@@ -76,7 +76,7 @@ async def sign_up(
     if user:
         raise HTTPException(
             status_code=400,
-            detail="Error ID: 130",
+            detail="Email is associated with another user!",
         )  # The user with this username already exists in the system
 
     user = cruds.crud_user.create(
