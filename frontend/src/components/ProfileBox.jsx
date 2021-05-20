@@ -13,86 +13,104 @@ import { Tooltip } from "@material-ui/core";
 var end = ["st", "nd", "rd", "th", "th"];
 
 const ProfileBox = () => {
-  const { user } = useContext(UserContext);
-  const [userState, setUserState] = useState({
-    name: null,
-    program: null,
-    year: null,
-    semester: null,
-    image: null,
-  });
-  useEffect(() => {
-    try {
-      let year = Math.floor(user.group.sem / 2);
-      const formattedData = {
-        name: user.full_name,
-        department: null,
-        year: String(year) + end[year - 1],
-        semester: user.group.sem % 2 == 1 ? "I" : "II",
-        image: user.profile_image,
-      };
-      setUserState(formattedData);
-    } catch (e) {}
-  }, [JSON.stringify(user)]);
-  return (
-    <StylesProvider injectFirst>
-      <Grid
-        container
-        direction="row"
-        justify="center"
-        alignItems="center"
-        className="profileBox_root"
-      >
-        <Grid item sm={5} xl={5} className="profileBox_imageSide">
-          <div className="profileBox_profileImage">
-            <Image
-              src={userState.image ? userState.image : defaultProfile}
-              alt={userState.image ? userState.image : defaultProfile}
-              addStyles="profileBox_image"
-            />
-          </div>
-        </Grid>
-        <Grid item sm={7} xl={7} className="profileBox_textSide">
-          <Grid
-            container
-            direction="column"
-            justify="center"
-            alignItems="flex-start"
-          >
+    const { user } = useContext(UserContext);
+    const [userState, setUserState] = useState({
+        name: null,
+        program: null,
+        year: null,
+        semester: null,
+        image: null,
+    });
+    useEffect(() => {
+        try {
+            let year = Math.floor(user.group ? user.group.sem / 2 : 0);
+            const formattedData = {
+                name: user.full_name,
+                department: null,
+                year: year ? String(year) + end[year - 1] : "NaN",
+                semester: user.group
+                    ? user.group.sem % 2 == 1
+                        ? "I"
+                        : "II"
+                    : "NaN",
+                image: user.profile_image,
+            };
+            setUserState(formattedData);
+        } catch (e) {}
+    }, [JSON.stringify(user)]);
+    return (
+        <StylesProvider injectFirst>
             <Grid
-              container
-              direction="row"
-              justify="flex-start"
-              alignItems="flex-start"
+                container
+                direction="row"
+                justify="center"
+                alignItems="center"
+                className="profileBox_root"
             >
-              <Grid xs={9} item className="profileBox_textBox1">
-                <p className="profileBox_profileText">{userState.name}</p>
-              </Grid>
-              <Grid xs={2} item className="profileBox_buttonContainer">
-                <Tooltip
-                  title="Logout"
-                  disableHoverListener={false}
-                  placement="top"
-                >
-                  <Link to="/profile">
-                    <FancyButton color={colorscheme.red1} />
-                  </Link>
-                </Tooltip>
-              </Grid>
+                <Grid item sm={5} xl={5} className="profileBox_imageSide">
+                    <div className="profileBox_profileImage">
+                        <Image
+                            src={
+                                userState.image
+                                    ? userState.image
+                                    : defaultProfile
+                            }
+                            alt={
+                                userState.image
+                                    ? userState.image
+                                    : defaultProfile
+                            }
+                            addStyles="profileBox_image"
+                        />
+                    </div>
+                </Grid>
+                <Grid item sm={7} xl={7} className="profileBox_textSide">
+                    <Grid
+                        container
+                        direction="column"
+                        justify="center"
+                        alignItems="flex-start"
+                    >
+                        <Grid
+                            container
+                            direction="row"
+                            justify="flex-start"
+                            alignItems="flex-start"
+                        >
+                            <Grid xs={9} item className="profileBox_textBox1">
+                                <p className="profileBox_profileText">
+                                    {userState.name}
+                                </p>
+                            </Grid>
+                            <Grid
+                                xs={2}
+                                item
+                                className="profileBox_buttonContainer"
+                            >
+                                <Tooltip
+                                    title="Logout"
+                                    disableHoverListener={false}
+                                    placement="top"
+                                >
+                                    <Link to="/profile">
+                                        <FancyButton color={colorscheme.red1} />
+                                    </Link>
+                                </Tooltip>
+                            </Grid>
+                        </Grid>
+                        <Grid item className="profileBox_textBox3">
+                            <p className="profileBox_departmentText">
+                                {userState.department}
+                                <br />
+                                {userState.year} Year / 
+                                {userState.semester} Semester
+                            </p>
+                        </Grid>
+                    </Grid>
+                </Grid>
             </Grid>
-            <Grid item className="profileBox_textBox3">
-              <p className="profileBox_departmentText">
-                {userState.department}
-                <br />
-                {userState.year} Year / 
-                {userState.semester} Semester
-              </p>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
-    </StylesProvider>
-  );
+        </StylesProvider>
+    );
 };
 
 export default ProfileBox;
