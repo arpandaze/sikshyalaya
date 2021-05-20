@@ -1,4 +1,5 @@
 import os
+from time import sleep
 
 # RCOUNT: 145
 
@@ -151,10 +152,56 @@ def mig():
 
 
 @click.command()
-def cleanmg():
+def cleanmig():
     for file in os.listdir("migrations/versions/"):
         if os.path.isfile(f"migrations/versions/{file}"):
             os.remove(f"migrations/versions/{file}")
+
+
+@click.command()
+def cleanredis():
+    os.system(f"docker-compose exec redis redis-cli -a {settings.SECRET_KEY} FLUSHALL")
+
+
+@click.command()
+def logs():
+    os.system(f"docker-compose logs -f -t")
+
+
+@click.command()
+def remake():
+    try:
+        os.system(f"docker-compose down -v -t 5")
+        os.system(f"cd .. && docker-compose up -d postgres redis pgadmin mailhog")
+    except Exception as e:
+        print(e)
+
+    for file in os.listdir("migrations/versions/"):
+        if os.path.isfile(f"migrations/versions/{file}"):
+            os.remove(f"migrations/versions/{file}")
+
+    alembic_cfg = Config("alembic.ini")
+
+    rev_created = False
+
+    while True:
+        try:
+            if not rev_created:
+                command.revision(
+                    config=alembic_cfg, autogenerate=True, message="Remake"
+                )
+                rev_created = True
+
+            command.upgrade(alembic_cfg, "head")
+            break
+        except:
+            print("Waiting for containers to boot!")
+            sleep(3)
+
+    try:
+        db_populate.populate_all()
+    except Exception as e:
+        print(e)
 
 
 @click.command()
@@ -174,7 +221,10 @@ main.add_command(mkmig)
 main.add_command(mig)
 main.add_command(populate)
 main.add_command(cleandb)
-main.add_command(cleanmg)
+main.add_command(cleanmig)
+main.add_command(cleanredis)
+main.add_command(logs)
+main.add_command(remake)
 create.add_command(model)
 create.add_command(schema)
 create.add_command(crud)
