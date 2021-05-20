@@ -1,137 +1,97 @@
+# Forgive me my lord for I have sinned
+# This is probably worst code I have written so far lol
+
 import os
 from time import sleep
 
 # RCOUNT: 145
 
 import click
-from alembic import command
-from alembic.config import Config
+
+
 from dotenv import load_dotenv
-from starlette.middleware.cors import CORSMiddleware
 
 if __name__ == "__main__":
     load_dotenv("../.env")
 
-from core.db import engine
-from utils import populate as db_populate
-from utils import generator
-from api import router
-from core.config import settings
-from core.db import init
-
 
 class CommandDefinition:
-    def all(name):  # noqa
-        if not name:
-            print("Enter at least one name!")
-        for item in name:
-            generator.create_model(item)
-            generator.create_endpoint(item)
-            generator.create_crud(item)
-            generator.create_schema(item)
+    def generator(self, name, det):  # noqa
+        from utils import generator
 
-    def model(name):
-        if not name:
-            print("Enter at least one model name!")
-        for item in name:
-            generator.create_model(item)
+        if det == "all":
+            if not name:
+                print("Enter at least one name!")
+            for item in name:
+                generator.create_model(item)
+                generator.create_endpoint(item)
+                generator.create_crud(item)
+                generator.create_schema(item)
 
-    def schema(name):
-        if not name:
-            print("Enter at least one schema name!")
-        for item in name:
-            generator.create_schema(item)
+        elif det == "model":
+            if not name:
+                print("Enter at least one model name!")
+            for item in name:
+                generator.create_model(item)
 
-    def endpoint(name):
-        if not name:
-            print("Enter at least one endpoint name!")
-        for item in name:
-            generator.create_endpoint(item)
+        elif det == "schema":
+            if not name:
+                print("Enter at least one schema name!")
+            for item in name:
+                generator.create_schema(item)
 
-    def crud(name):
-        if not name:
-            print("Enter at least one CRUD name!")
-        for item in name:
-            generator.create_crud(item)
+        elif det == "endpoint":
+            if not name:
+                print("Enter at least one endpoint name!")
+            for item in name:
+                generator.create_endpoint(item)
 
-    def start():
-        import uvicorn
-        from fastapi import FastAPI
-        from core.db import (
-            redis_cache_client,
-            redis_blacklist_client,
-            redis_throttle_client,
-            redis_session_client,
-            redis_general,
-        )
+        elif det == "crud":
+            if not name:
+                print("Enter at least one CRUD name!")
+            for item in name:
+                generator.create_crud(item)
 
-        app = FastAPI(
-            title=settings.PROJECT_NAME,
-            openapi_url=f"{settings.API_V1_STR}/openapi.json",
-        )
+    def start(self):
+        from scripts import launch
 
-        @app.on_event("startup")
-        async def startup():
-            await redis_cache_client.initialize()
-            await redis_blacklist_client.initialize()
-            await redis_throttle_client.initialize()
-            await redis_session_client.initialize()
-            await redis_general.initialize()
-            init.init_db()
+        launch.run()
 
-        @app.on_event("shutdown")
-        async def shutdown():
-            await redis_cache_client.close()
-            await redis_blacklist_client.close()
-            await redis_throttle_client.close()
-            await redis_session_client.close()
-            await redis_general.close()
+    def mkmig(self):
+        from alembic import command
+        from alembic.config import Config
 
-        if settings.BACKEND_CORS_ORIGINS:
-            app.add_middleware(
-                CORSMiddleware,
-                allow_origins=[str(origin) for origin in settings.BACKEND_CORS_ORIGINS],
-                allow_credentials=True,
-                allow_methods=["*"],
-                allow_headers=["*"],
-            )
-            pass
-
-        app.include_router(router, prefix=settings.API_V1_STR)
-
-        uvicorn.run(
-            "manage:app",
-            host=settings.UVICORN_HOST,
-            port=settings.UVICORN_PORT,
-            reload=True if settings.DEV_MODE else False,
-            debug=True if settings.DEV_MODE else False,
-            workers=settings.UVICORN_WORKERS,
-        )
-
-    def mkmig():
         alembic_cfg = Config("alembic.ini")
         msg = input("Enter a message: ")
         command.revision(config=alembic_cfg, autogenerate=True, message=msg)
         click.echo("Inside migrate")
 
-    def mig():
+    def mig(self):
+        from alembic import command
+        from alembic.config import Config
+
         alembic_cfg = Config("alembic.ini")
         command.upgrade(alembic_cfg, "head")
 
-    def cleanmig():
+    def cleanmig(self):
         for file in os.listdir("migrations/versions/"):
             if os.path.isfile(f"migrations/versions/{file}"):
                 os.remove(f"migrations/versions/{file}")
 
-    def cleanredis():
+    def cleanredis(self):
+        from core.config import settings
+
         os.system(
             f"docker-compose exec redis redis-cli -a {settings.SECRET_KEY} FLUSHALL"
         )
 
-    def logs():
+    def logs(self):
         os.system(f"docker-compose logs -f -t")
 
-    def remake():
+    def remake(self):
+        from alembic import command
+        from alembic.config import Config
+
         try:
             os.system(f"docker-compose down -v -t 5")
             os.system(f"cd .. && docker-compose up -d postgres redis pgadmin mailhog")
@@ -161,12 +121,16 @@ class CommandDefinition:
                 sleep(3)
 
         try:
-            db_populate.populate_all()
+            self.populate()
         except Exception as e:
             print(e)
 
-    def cleandb():
+    def cleandb(self):
         try:
+            from core.db import engine
+            from alembic.config import Config
+            from alembic import command
+
             engine.execute("DROP schema public CASCADE")
             engine.execute("CREATE schema public")
             alembic_cfg = Config("alembic.ini")
@@ -174,7 +138,9 @@ class CommandDefinition:
         except Exception as e:
             print(e)
 
-    def populate():
+    def populate(self):
+        from utils import populate as db_populate
+
         db_populate.populate_all()
 
 
@@ -190,37 +156,44 @@ def main():
 @click.pass_context
 def create(context):
     if not context.invoked_subcommand:
-        print("Only create")
+        pass
+
+
+@click.group("clean")
+@click.pass_context
+def clean(context):
+    if not context.invoked_subcommand:
+        pass
 
 
 @click.command()
 @click.argument("name", nargs=-1)
 def all(name):  # noqa
-    commands.all(name)
+    commands.create(name, "all")
 
 
 @click.command()
 @click.argument("name", nargs=-1)
 def model(name):
-    commands.model(name)
+    commands.create(name, "model")
 
 
 @click.command()
 @click.argument("name", nargs=-1)
 def schema(name):
-    commands.schema(name)
+    commands.create(name, "schema")
 
 
 @click.command()
 @click.argument("name", nargs=-1)
 def endpoint(name):
-    commands.endpoint(name)
+    commands.create(name, "endpoint")
 
 
 @click.command()
 @click.argument("name", nargs=-1)
 def crud(name):
-    commands.crud(name)
+    commands.create(name, "crud")
 
 
 @click.command()
@@ -238,13 +211,13 @@ def mig():
     commands.mig()
 
 
-@click.command()
-def cleanmig():
+@click.command(name="mig")
+def clean_mig():
     commands.cleanmig()
 
 
 @click.command()
-def cleanredis():
+def redis():
     commands.cleanredis()
 
 
@@ -259,7 +232,7 @@ def remake():
 
 
 @click.command()
-def cleandb():
+def db():
     commands.cleandb()
 
 
@@ -269,15 +242,16 @@ def populate():
 
 
 main.add_command(create)
+main.add_command(clean)
 main.add_command(start)
 main.add_command(mkmig)
 main.add_command(mig)
 main.add_command(populate)
-main.add_command(cleandb)
-main.add_command(cleanmig)
-main.add_command(cleanredis)
 main.add_command(logs)
 main.add_command(remake)
+clean.add_command(db)
+clean.add_command(clean_mig)
+clean.add_command(redis)
 create.add_command(model)
 create.add_command(schema)
 create.add_command(crud)
