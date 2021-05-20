@@ -11,50 +11,31 @@ function App() {
 
     const setUser = (value) => {
         set("user", value).catch(() => {
-            throw "Couldn't set user to IndexDB!";
+            window.localStorage.setItem("user", JSON.stringify(value));
         });
         setUser_s(value);
-    };
-
-    const setCache = (value) => {
-        set("cache", value).catch(() => {
-            throw "Couldn't set user to IndexDB!";
-        });
-        setCache_s(value);
     };
 
     const user_context_value = useMemo(
         () => ({ user, setUser }),
         [user, setUser]
     );
-    const cache_context_value = useMemo(
-        () => ({ cache, setCache }),
-        [cache, setCache]
-    );
 
     useEffect(() => {
         get("user")
             .then((value) => {
                 if (value) {
-                    setUser(value);
+                    setUser_s(value);
                 }
             })
-            .catch();
-
-        get("cache")
-            .then((value) => {
-                if (value) {
-                    setCache(value);
-                }
-            })
-            .catch();
-    }, [JSON.stringify(user), JSON.stringify(cache)]);
+            .catch(() => {
+                setUser_s(JSON.parse(window.localStorage.getItem("user")));
+            });
+    }, []);
 
     return (
         <UserContext.Provider value={user_context_value}>
-            <CacheContext.Provider value={cache_context_value}>
-                <Routes />
-            </CacheContext.Provider>
+            <Routes />
         </UserContext.Provider>
     );
 }

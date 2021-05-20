@@ -8,6 +8,7 @@ from sqlalchemy import (
     String,
     ForeignKey,
     DateTime,
+    Date,
 )
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
@@ -28,7 +29,7 @@ class User(Base):
     teacher_group = relationship(
         "Group", secondary=teacher_group_association_table, backref="teachers"
     )
-    dob = Column(DateTime, nullable=False)
+    dob = Column(Date, nullable=False)
     address = Column(String(length=128), nullable=False)
     contact_number = Column(String(length=32), index=True, nullable=False)
 
