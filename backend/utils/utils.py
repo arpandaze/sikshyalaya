@@ -53,11 +53,11 @@ def send_test_email(email_to: str) -> None:
 
 def send_reset_password_email(email_to: str, email: str, name: str, token: str) -> None:
     project_name = settings.PROJECT_NAME
-    subject = f"{project_name} - Password recovery for user {email}"
+    subject = f"{project_name} - Password Recovery"
     with open(Path(settings.EMAIL_TEMPLATES_DIR) / "reset-password.html") as f:
         template_str = f.read()
     server_host = settings.SERVER_HOST + ":3000"  # FIXME: Remove port for deployment
-    link = f"{server_host}/reset?token={token}"
+    link = f"{server_host}/reset/?token={token}"
     send_email(
         email_to=email_to,
         subject_template=subject,
@@ -75,11 +75,11 @@ def send_reset_password_email(email_to: str, email: str, name: str, token: str) 
 
 async def send_verification_email(email_to: str, user: User) -> None:
     project_name = settings.PROJECT_NAME
-    subject = f"{project_name} - New account for user {user.full_name}"
+    subject = f"{project_name} - Verification Email"
     with open(Path(settings.EMAIL_TEMPLATES_DIR) / "verify-account.html") as f:
         template_str = f.read()
     verification_token = await generate_verify_token(user.id)
-    link = f"{settings.SERVER_HOST}/api/v1/auth/verify?token={verification_token}"
+    link = f"{settings.SERVER_HOST}:3000/verify/?token={verification_token}"
     send_email(
         email_to=email_to,
         subject_template=subject,

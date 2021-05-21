@@ -1,3 +1,4 @@
+from schemas.program import Program
 from typing import Optional, List  # noqa
 
 from pydantic import BaseModel
@@ -5,7 +6,7 @@ from .course import Course
 
 
 class GroupBase(BaseModel):
-    program_id: int
+    program: Program
     sem: int
     course: List[int]
 
