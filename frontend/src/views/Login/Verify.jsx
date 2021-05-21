@@ -5,6 +5,18 @@ import Grid from "@material-ui/core/Grid";
 import "./statics/css/verify.css";
 
 const Verify = () => {
+    const [verifyToken, setVerifyToken] = useState(null)
+
+    useEffect(() => {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+
+        let token = urlParams.get("token");
+
+        setVerifyToken(token);
+
+    }, [verifyToken]);
+
   return (
     <Login>
       <Grid container direction="column" alignItems="center" justify="center">
