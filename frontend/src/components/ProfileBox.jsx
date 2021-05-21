@@ -24,9 +24,14 @@ const ProfileBox = () => {
     useEffect(() => {
         try {
             let year = Math.floor(user.group ? user.group.sem / 2 : 0);
+            let department = null
+            try{
+                department = user.group.program.name
+            }
+            catch(e){}
             const formattedData = {
                 name: user.full_name,
-                department: null,
+                department: department,
                 year: year ? String(year) + end[year - 1] : "NaN",
                 semester: user.group
                     ? user.group.sem % 2 == 1
