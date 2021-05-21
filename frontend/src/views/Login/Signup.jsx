@@ -109,8 +109,6 @@ const Signup = () => {
         }
         let group_id = group_id_list[0].id;
 
-        let dob = new Date(data.dob);
-
         let req_data = {
             email: data.email,
             full_name: [data.first_name, data.middle_name, data.last_name]
@@ -119,7 +117,7 @@ const Signup = () => {
             address: data.address,
             group_id: group_id,
             contact_number: "none", // FIXME: contact_number field
-            dob: dob.toISOString(),
+            dob: data.dob,
             join_year: parseInt(data.join_year.substr(0, 4)),
             password: data.password,
         };
