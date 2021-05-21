@@ -2,6 +2,8 @@ from typing import Any, List
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from starlette.responses import Response
+from core.cache import cache
 
 from cruds.program import crud_program
 from schemas import Program, ProgramCreate, ProgramUpdate
@@ -57,7 +59,9 @@ async def update_program(
 
 
 @router.get("/all/", response_model=List[Program])
+@cache(timeout=60)
 async def get_programs(
+    response: Response,
     db: Session = Depends(deps.get_db),
 ) -> Any:
     programs = crud_program.get_multi(db, limit=500)
