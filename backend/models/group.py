@@ -9,7 +9,7 @@ from .association_tables import (
 
 class Group(Base):
     id = Column(Integer, primary_key=True)
-    program_id = Column(Integer, ForeignKey("program.id"))
+    program_id = Column(Integer, ForeignKey("program.id", ondelete="cascade"))
     program = relationship("Program", backref="groups")
     sem = Column(SmallInteger)
     course = relationship(

@@ -12,9 +12,9 @@ class ClassSession(Base):
     instructor = relationship(
         "User", secondary=user_class_session_association_table, backref="class_session"
     )
-    course_id = Column(Integer, ForeignKey("course.id"))
+    course_id = Column(Integer, ForeignKey("course.id", ondelete="cascade"))
     course = relationship("Course", backref="session")
-    group_id = Column(Integer, ForeignKey("group.id"))
+    group_id = Column(Integer, ForeignKey("group.id", ondelete="cascade"))
     group = relationship("Group", backref="class_session", uselist=False)
     file = Column(
         ARRAY(String(100))
