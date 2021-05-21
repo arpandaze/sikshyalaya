@@ -1,5 +1,5 @@
 from typing import Optional, List
-from datetime import datetime
+from datetime import date
 from schemas.group import Group
 from core.config import settings
 
@@ -15,7 +15,7 @@ class UserBase(BaseModel):
     address: str = None
     group_id: int = None
     contact_number: str = None
-    dob: datetime = None
+    dob: date = None
     teacher_group: List[int] = None
     join_year: Optional[int] = None
 
@@ -26,7 +26,7 @@ class UserSignUp(BaseModel):
     address: str = None
     group_id: int = None
     contact_number: str = None
-    dob: datetime = None
+    dob: date = None
     join_year: Optional[int] = None
     password: str
 
@@ -78,7 +78,7 @@ class UserLoginReturn(BaseModel):
     address: str = None
     group: Group = None
     contact_number: str = None
-    dob: datetime = None
+    dob: date = None
     join_year: Optional[int] = None
 
     class Config:
