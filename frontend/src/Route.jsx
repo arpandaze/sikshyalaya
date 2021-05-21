@@ -18,6 +18,7 @@ import ResetPassword from "./views/Login/ResetPassword";
 import Signup from "./views/Login/Signup";
 import PrivateRoute from "./components/PrivateRoute";
 import Verify from "./views/Login/Verify";
+import Logout from "./views/Login/Logout";
 import QuizCreator from "./views/QuizCreator/QuizCreator";
 
 const Routes = () => {
@@ -44,6 +45,7 @@ const Routes = () => {
       <Route exact path="/reset" component={ResetPassword} />
       <Route exact path="/signup" component={Signup} />
       <Route exact path="/verify" component={Verify} />
+      <Route exact path="/logout" component={Logout} />
       <Route exact path="/quiz-creator" component={QuizCreator} />
       <Redirect exact from="/" to="landing" />
     </Switch>

@@ -7,7 +7,6 @@ import { get, set } from "idb-keyval";
 
 function App() {
     const [user, setUser_s] = useState(null);
-    const [cache, setCache_s] = useState(null);
 
     const setUser = (value) => {
         set("user", value).catch(() => {
