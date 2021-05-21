@@ -147,7 +147,7 @@ async def reset_password(
     return {"msg": "Password updated successfully"}
 
 
-@router.get("/verify/", response_model=schemas.Msg)
+@router.post("/verify/", response_model=schemas.Msg)
 async def verify_account(
     token: str,
     db: Session = Depends(deps.get_db),
@@ -167,6 +167,8 @@ async def verify_account(
 async def session_logout(
     session: str = ReqCookie(None),
 ) -> Any:
+    if not session:
+        raise HTTPException(status_code=401, detail="Invalid session token!")
     await expire_web_session(session)
     resp = JSONResponse({"status": "success"})
     resp.delete_cookie("session")
