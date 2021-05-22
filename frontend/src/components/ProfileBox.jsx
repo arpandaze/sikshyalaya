@@ -52,30 +52,24 @@ const ProfileBox = () => {
           </div>
         </Grid>
         <Grid item sm={7} xl={7} className="profileBox_textSide">
-          <Grid
-            container
-            direction="column"
-            justify="center"
-            alignItems="flex-start"
-          >
-            <Grid
-              container
-              direction="row"
-              justify="flex-start"
-              alignItems="flex-start"
-            >
-              <Grid xs={9} item className="profileBox_textBox1">
-                <p className="profileBox_profileText">{userState.name}</p>
-              </Grid>
-              <Grid xs={2} item className="profileBox_buttonContainer">
-                <Link to="/profile">
-                  <FancyButton color={colorscheme.yellow} />
-                </Link>
+          <Grid container direction="column" justify="center">
+            <Grid item className="profileBox_textBoxTop">
+              <Grid container direction="row">
+                <Grid item className="profileBox_textBox1">
+                  <p className="profileBox_profileText">
+                    {userState.name}Arpan Koirala
+                  </p>
+                </Grid>
+                <Grid item className="profileBox_buttonContainer">
+                  <Link to="/profile">
+                    <FancyButton color={colorscheme.yellow} />
+                  </Link>
+                </Grid>
               </Grid>
             </Grid>
             <Grid item className="profileBox_textBox3">
               <p className="profileBox_departmentText">
-                {userState.department}
+                {userState.department}Computer Science
                 <br />
                 {userState.year} Year / 
                 {userState.semester} Semester

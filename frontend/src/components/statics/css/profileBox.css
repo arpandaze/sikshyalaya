@@ -16,27 +16,31 @@
     height: 100%;
     position: relative;
   }
+  .profileBox_textBoxTop {
+    width: 100%;
+    margin-top: 10px;
+  }
   .profileBox_textSide {
+    height: 100%;
     position: relative;
   }
   .profileBox_profileImage {
     width: 80%;
     position: relative;
-    top: 30px;
-    left: 15px;
+    margin: 20px auto;
   }
   .profileBox_profileText {
     font-size: 1.3em;
     font-weight: bold;
   }
   .profileBox_textBox1 {
-    width: 85%;
+    width: 80%;
     position: relative;
-    top: 10px;
   }
   .profileBox_textBox3 {
     width: 85%;
-    bottom: 10px;
+    position: absolute;
+    bottom: 0px;
   }
   .profileBox_departmentText {
     font-weight: 400;
@@ -44,11 +48,8 @@
     color: var(--red4);
   }
   .profileBox_buttonContainer {
-    width: 40px;
-    height: 40px;
-    position: absolute;
-    top: 10px;
-    right: 15px;
+    width: 20%;
+    margin-top: 0px;
   }
   .profileBox_profileButton {
     width: 40px;
@@ -75,20 +76,23 @@
     position: relative;
   }
   .profileBox_textSide {
-    width: 95% !important;
     margin: 0px auto !important;
     position: relative;
   }
   .profileBox_profileImage {
-    width: 80%;
+    width: 75%;
     position: relative;
-    left: 10%;
+    margin: 0px auto;
+  }
+  .profileBox_textBoxTop {
+    width: 100%;
   }
   .profileBox_textBox1 {
+    width: 72%;
     position: relative;
-    left: 2%;
   }
   .profileBox_profileText {
+    width: 100%;
     font-size: 0.95em;
     font-weight: 700;
     position: relative;
@@ -107,14 +111,12 @@
     left: 2%;
   }
   .profileBox_buttonContainer {
-    width: 40px;
-    height: 40px;
+    width: 25%;
     position: absolute;
-    right: 18px;
+    right: 0px;
   }
   .profileBox_profileButtonIcon {
-    width: 40px;
-    height: 40px;
-    position: absolute;
+    width: 30px;
+    height: 30px;
   }
 }
