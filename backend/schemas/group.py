@@ -6,7 +6,7 @@ from .course import Course
 
 
 class GroupBase(BaseModel):
-    program: Program
+    program_id: int
     sem: int
     course: List[int]
 
@@ -38,7 +38,7 @@ class Group(GroupInDBBase):
 class GroupReturn(BaseModel):
     id: Optional[int]
     sem: int
-    program_id: int
+    program: Program
 
     class Config:
         orm_mode = True

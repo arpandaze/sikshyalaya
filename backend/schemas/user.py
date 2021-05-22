@@ -1,6 +1,6 @@
 from typing import Optional, List
 from datetime import date
-from schemas.group import Group
+from schemas.group import GroupReturn, Group
 from core.config import settings
 
 from pydantic import BaseModel, EmailStr
@@ -76,7 +76,7 @@ class UserLoginReturn(BaseModel):
     profile_image: Optional[str] = None
     full_name: Optional[str] = None
     address: str = None
-    group: Group = None
+    group: GroupReturn = None
     contact_number: str = None
     dob: date = None
     join_year: Optional[int] = None
