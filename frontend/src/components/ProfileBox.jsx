@@ -97,7 +97,7 @@ const ProfileBox = () => {
                                     disableHoverListener={false}
                                     placement="top"
                                 >
-                                    <Link to="/profile">
+                                    <Link to="/logout">
                                         <FancyButton color={colorscheme.red1} />
                                     </Link>
                                 </Tooltip>
