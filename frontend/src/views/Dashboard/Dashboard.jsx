@@ -83,8 +83,7 @@ const Dashboard = () => {
                 <Grid item className="mainDash_activeClassBoxContainer">
                   <Grid
                     container
-                    direction="row"
-                    alignItems="center"
+                    direction="column"
                     className="mainDash_activeClassBoxInside"
                   >
                     <Grid item>
@@ -98,6 +97,16 @@ const Dashboard = () => {
                         <h1 className="mainDash_activeClassTitle">
                           Active Class
                         </h1>
+                      </Grid>
+                    </Grid>
+                    <Grid item>
+                      <Grid
+                        container
+                        direction="column"
+                        alignItems="center"
+                        className="mainDash_activeClassBoxBottom"
+                      >
+                        <Grid item></Grid>
                       </Grid>
                     </Grid>
                   </Grid>
@@ -141,19 +150,30 @@ const Dashboard = () => {
               <Grid item className="mainDash_discussionBoxContainer">
                 <Grid
                   container
-                  direction="row"
-                  alignItems="center"
-                  className="mainDash_quizBoxInside"
+                  direction="column"
+                  className="mainDash_discussionBoxInside"
                 >
                   <Grid item>
                     <Grid
                       container
                       direction="row"
                       alignItems="center"
-                      className="mainDash_quizBoxTop"
+                      className="mainDash_discussionBoxTop"
                     >
                       <div className="mainDash_smallBlueBox"></div>
-                      <h1 className="mainDash_quizBoxTitle">Discussion</h1>
+                      <h1 className="mainDash_discussionBoxTitle">
+                        Discussion
+                      </h1>
+                    </Grid>
+                  </Grid>
+                  <Grid item>
+                    <Grid
+                      container
+                      direction="column"
+                      alignItems="center"
+                      className="mainDash_discussionBoxBottom"
+                    >
+                      <Grid item></Grid>
                     </Grid>
                   </Grid>
                 </Grid>
