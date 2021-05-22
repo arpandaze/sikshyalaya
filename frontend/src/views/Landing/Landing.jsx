@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import Grid from "@material-ui/core/Grid";
 import colorscheme from "../../utils/colors";
 import DashboardLayout from "../../components/DashboardLayout";
@@ -213,7 +213,11 @@ const Landing = () => {
               className="landing_upCommingContainer"
             >
               {upCommingClasses.map((course) => (
-                <Grid item key={course.id}>
+                <Grid
+                  item
+                  key={course.id}
+                  className="landing_upCommingContainerBox"
+                >
                   <div className="landing_upCommingCourseBar">
                     <SmallCards cardData={course} />
                   </div>

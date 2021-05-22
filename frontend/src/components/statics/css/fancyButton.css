@@ -14,14 +14,14 @@
 
 @media only screen and (max-width: 1919px) {
   .buttonIcon {
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     position: absolute;
     cursor: pointer;
   }
   .button {
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
   }
 }

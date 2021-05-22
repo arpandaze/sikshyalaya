@@ -49,8 +49,7 @@
     height: 750px;
     text-align: justify;
     position: relative;
-    overflow: hidden;
-    overflow-y: scroll;
+    overflow: auto;
   }
   .note_contentTextContainer {
     width: 90%;
@@ -62,6 +61,8 @@
     position: relative;
     font-size: 1.15em;
     line-height: 1.8em;
+    overflow: hidden;
+    overflow-y: auto;
   }
   .note_trashButtonContainer {
     position: absolute;
@@ -114,7 +115,6 @@
     text-align: justify;
     position: relative;
     top: 25px;
-
     overflow: hidden;
     overflow-y: scroll;
   }

@@ -94,7 +94,7 @@
 
 @media only screen and (max-width: 1919px) {
   .smallCards_container {
-    width: calc(255px + 2vw);
+    width: 100% !important;
     height: calc(160px + 2vw);
     border-radius: 20px;
     background: var(--secondary);
