@@ -49,7 +49,7 @@
   }
   .profileBox_buttonContainer {
     width: 20%;
-    margin-top: 0px;
+    margin-top: 10px !important;
   }
   .profileBox_profileButton {
     width: 40px;
@@ -63,8 +63,7 @@
   .profileBox_root {
     flex-grow: 1;
     margin: 0px auto;
-    height: 180px;
-    max-height: 200px;
+    height: 150px;
     border-radius: 25px;
     background: var(--secondary);
     box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.3);
@@ -77,6 +76,7 @@
   }
   .profileBox_textSide {
     margin: 0px auto !important;
+    height: 100%;
     position: relative;
   }
   .profileBox_profileImage {
@@ -90,6 +90,7 @@
   .profileBox_textBox1 {
     width: 72%;
     position: relative;
+    margin-top: 12%;
   }
   .profileBox_profileText {
     width: 100%;
@@ -100,8 +101,9 @@
   }
   .profileBox_textBox3 {
     width: 95%;
-    position: relative;
+    position: absolute;
     left: 2%;
+    bottom: 0px;
   }
   .profileBox_departmentText {
     font-weight: 380;
@@ -111,9 +113,10 @@
     left: 2%;
   }
   .profileBox_buttonContainer {
-    width: 25%;
+    width: 20%;
     position: absolute;
-    right: 0px;
+    margin-top: 3%;
+    right: 0;
   }
   .profileBox_profileButtonIcon {
     width: 30px;

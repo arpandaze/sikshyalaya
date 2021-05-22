@@ -126,7 +126,7 @@ const Note = ({
 
       <Grid item className="note_trashButtonContainer">
         <div className="note_trashButton">
-          <FiTrash size={20} color={colorscheme.red4} onClick={onDelete} />
+          <FiTrash size={20} color={colorscheme.red4} onClick={onSave(titleText, contentText)} />
         </div>
       </Grid>
     </Grid>

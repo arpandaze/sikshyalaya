@@ -1,0 +1,64 @@
+@import "../../../../../utils/colors.css";
+@media only screen and (min-width: 1920px) {
+  .classResource_root {
+    flex-grow: 1;
+    height: 80px;
+    cursor: pointer;
+  }
+  .classResource_resourceList {
+    list-style-type: none;
+    font-size: 1.1em;
+    font-weight: 500;
+  }
+  .classResource_resourceList:hover {
+    color: var(--red4);
+  }
+  .classResource_resourceIcon {
+    width: 20%;
+  }
+  .classResource_resourceListContainer {
+    width: 80%;
+  }
+  .classResource_seperator {
+    width: 70%;
+    border-bottom: 1px solid var(--grey1);
+    opacity: 0.8;
+  }
+  .classResource_resourceListTimeText {
+    list-style-type: none;
+    font-size: 1em;
+    color: var(--grey1);
+  }
+}
+
+@media only screen and (max-width: 1919px) {
+  .classResource_root {
+    flex-grow: 1;
+    height: 80px;
+    cursor: pointer;
+  }
+  .classResource_resourceList {
+    list-style-type: none;
+    font-size: 0.8em;
+    font-weight: 500;
+  }
+  .classResource_resourceList:hover {
+    color: var(--red4);
+  }
+  .classResource_resourceIcon {
+    width: 20%;
+  }
+  .classResource_resourceListContainer {
+    width: 80%;
+  }
+  .classResource_seperator {
+    width: 70%;
+    border-bottom: 1px solid var(--grey1);
+    opacity: 0.8;
+  }
+  .classResource_resourceListTimeText {
+    list-style-type: none;
+    font-size: 0.75em;
+    color: var(--grey1);
+  }
+}
