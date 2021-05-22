@@ -57,7 +57,9 @@ const ProfileBox = () => {
             <Grid item className="profileBox_textBoxTop">
               <Grid container direction="row">
                 <Grid item className="profileBox_textBox1">
-                  <p className="profileBox_profileText">{userState.name}</p>
+                  <p className="profileBox_profileText">
+                    {userState.name}Arpan Koirala
+                  </p>
                 </Grid>
                 <Grid item className="profileBox_buttonContainer">
                   <Link to="/profile">
@@ -68,10 +70,10 @@ const ProfileBox = () => {
             </Grid>
             <Grid item className="profileBox_textBox3">
               <p className="profileBox_departmentText">
-                {userState.department}
+                {userState.department}Computer Science
                 <br />
-                {userState.year} Year / 
-                {userState.semester} Semester
+                {userState.year} Year II / 
+                {userState.semester} I Semester
               </p>
             </Grid>
           </Grid>

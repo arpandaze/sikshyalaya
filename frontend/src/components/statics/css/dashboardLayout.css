@@ -29,7 +29,7 @@
   .dashboardLayout_mainRoot {
     flex-grow: 1;
     width: 100vw;
-    max-width: 1920px;
+    max-width: 1366px;
     margin: 0px auto;
   }
   .dashboardLayout_sideBar {
