@@ -5,7 +5,29 @@ import DashboardLayout from "../../components/DashboardLayout";
 import Note from "../../components/Note";
 import SideNotes from "../../components/SideNotes";
 import { GoPlus } from "react-icons/go";
+import {useAPI} from "../../utils/useAPI"
 import "./statics/css/notes.css";
+
+
+const noteFormatter = ( response ) =>{
+  console.log(response);
+  let formattedResponse = response.data.map((note) => {
+    return(
+      {
+        id: note.id,
+        title: "hello",
+        course: note.course_id,
+        content: note.content,
+        isEditing: false,
+      }
+    )
+  })
+
+  console.log(formattedResponse);
+  return formattedResponse;
+
+
+}
 
 const sideNotes = [
   {
@@ -101,6 +123,9 @@ const sideNotes = [
 ];
 
 const Notes = () => {
+
+  const [allNotes, allNotesComplete] = useAPI({endpoint: "/api/v1/personal_note/"}, noteFormatter);
+
   const [selectedNote, setSelectedNote] = useState({ id: "1", position: "0" });
   const handleSelectNote = (i, p) => {
     setSelectedNote({ id: i, position: p });
@@ -158,11 +183,11 @@ const Notes = () => {
                 direction="column"
                 className="notes_sidebarContainer"
               >
-                {sideNotes.map((notes, index) => (
+                {allNotesComplete && allNotes.map((notes, index) => (
                   <Grid item key={notes.id} className="notes_sidebarComponent">
                     <SideNotes
                       title={notes.title}
-                      content={notes.content[0].children[0].text}
+                      content={notes.message}
                       onClick={() => {
                         handleSelectNote(notes.id, index);
                       }}
@@ -193,8 +218,10 @@ const Notes = () => {
                     title={sideNotes[selectedNote.position].title}
                     content={sideNotes[selectedNote.position].content}
                     onSave={(title, content) => {
+                      console.log(title);
                       sideNotes[selectedNote.position].title = title;
                       sideNotes[selectedNote.position].content = content;
+                      console.log(JSON.stringify(content));
                     }}
                     onClose={() => {
                       setSelectedNote({ id: "", position: "" });
