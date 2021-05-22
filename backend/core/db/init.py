@@ -20,7 +20,7 @@ def init_db(db: Session = SessionLocal()) -> None:
     if not super_user:
         user_in = schemas.UserCreate(
             full_name="Yugesh",
-            dob="2021-04-14T14:27:12+00:00",
+            dob="2021-04-14",
             address="Dhulikhel",
             contact_number="986152526272",
             email=settings.FIRST_SUPERUSER,
