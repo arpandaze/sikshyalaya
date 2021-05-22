@@ -24,7 +24,7 @@ class User(Base):
     profile_image = Column(String(100))
     full_name = Column(String, index=True)
     email = Column(String, index=True, nullable=False, unique=True)
-    group_id = Column(Integer, ForeignKey("group.id"))
+    group_id = Column(Integer, ForeignKey("group.id", ondelete="cascade"))
     group = relationship("Group", backref="users")
     teacher_group = relationship(
         "Group", secondary=teacher_group_association_table, backref="teachers"

@@ -34,7 +34,7 @@ class Quiz(Base):
     instructor = relationship(
         "User", secondary=instructor_quiz_association_table, backref="quiz"
     )
-    course_id = Column(Integer, ForeignKey("course.id"))
+    course_id = Column(Integer, ForeignKey("course.id", ondelete="cascade"))
     course = relationship("Course", backref="quiz")
     __tablename__ = "quiz"  # noqa
 
@@ -75,7 +75,7 @@ class QuizQuestion(Base):
 
     # TODO: store multiple files upload
 
-    quiz_id = Column(Integer, ForeignKey("quiz.id"))
+    quiz_id = Column(Integer, ForeignKey("quiz.id", ondelete="cascade"))
     quiz = relationship("Quiz", backref="question")
 
     __tablename__ = "quiz_question"  # noqa
