@@ -9,7 +9,7 @@ from sqlalchemy.orm import Session
 
 from utils import deps
 from cruds import crud_class_session, crud_user
-from schemas import ClassSession, ClassSessionUpdate, ClassSessionCreate
+from schemas.class_session import ClassSession, ClassSessionUpdate, ClassSessionCreate, ClassSessionReturn
 from utils.deps import get_current_active_teacher_or_above, get_current_active_user
 
 from fastapi import FastAPI, File, UploadFile, HTTPException
@@ -25,7 +25,7 @@ from core.websocket import ws
 router = APIRouter()
 
 
-@router.get("/", response_model=List[ClassSession])
+@router.get("/", response_model=List[ClassSessionReturn])
 def get_class_session(
     db: Session = Depends(deps.get_db),
     user=Depends(get_current_active_user),

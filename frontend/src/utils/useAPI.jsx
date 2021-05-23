@@ -5,10 +5,11 @@ import { clear } from "idb-keyval";
 
 export const useAPI = (
   { endpoint, method = "GET", queryParams, data },
-  formatter
+  formatter,
+  defaults=null,
 ) => {
   const [responseState, setResponseState] = useState({
-    response: null,
+    response: defaults,
     complete: false,
   });
   useEffect(() => {
