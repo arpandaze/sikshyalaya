@@ -4,6 +4,8 @@ import colorscheme from "../utils/colors";
 import { ImCross } from "react-icons/im";
 import { FiTrash } from "react-icons/fi";
 import "./statics/css/note.css";
+import Button from "./Button";
+import CustomTextField from "./CustomTextField"
 
 import isHotkey from "is-hotkey";
 import { Editable, withReact, useSlate, Slate } from "slate-react";
@@ -16,8 +18,9 @@ import {
 } from "slate";
 import { withHistory } from "slate-history";
 
-import { Button, Icon, Toolbar } from "../components/slateComponents";
+import { Button as SlateButton, Icon, Toolbar } from "../components/slateComponents";
 import { FaTemperatureHigh } from "react-icons/fa";
+import { GridListTileBar } from "@material-ui/core";
 
 const HOTKEYS = {
   "mod+b": "bold",
@@ -29,6 +32,7 @@ const LIST_TYPES = ["numbered-list", "bulleted-list"];
 
 const Note = ({
   title,
+  tags,
   content,
   state,
   onClose,
@@ -41,6 +45,13 @@ const Note = ({
   const renderElement = useCallback((props) => <Element {...props} />, []);
   const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
+  const [stateTag, setStateTag] = useState([]);
+  const [isTagCreator, setTagCreator] = useState(false);
+  const [inputTag, setInputTag] = useState('');
+
+  useEffect(() => {
+    setStateTag(tags);
+  }, [tags]);
 
   useEffect(() => {
     setContentText(content);
@@ -49,6 +60,34 @@ const Note = ({
   useEffect(() => {
     setTitleText(title);
   }, [title]);
+
+  const handleRemoveTag = (tagValue) => {
+    var filtered = stateTag.filter(function(value){ 
+      return value !== tagValue;
+    }); 
+    if(filtered && filtered.length !== 0){
+      setStateTag(filtered);
+    }else{
+      setStateTag([]);
+    }
+  };
+
+  const handleCreateTag = () => {
+    console.log("tagCreator");
+    setInputTag('');
+    setTagCreator(!isTagCreator);
+  }
+
+  const handleSubmitTag =() =>{
+    let upperCased = stateTag.map(f=>{ return f.toUpperCase(); });
+    if (inputTag && !upperCased.includes(inputTag.toUpperCase())){
+      setStateTag((currentTag)=>[...currentTag, inputTag ]);
+    }else{
+      alert('tag either empty or exists already')
+    }
+    setInputTag('');
+    setTagCreator(false);
+  }
 
   return (
     <Grid
@@ -69,6 +108,7 @@ const Note = ({
               onChange={(e) => setTitleText(e.target.value)}
             />
           </Grid>
+         
           <Grid item xs={1} className="note_closeButtonContainer">
             <div className="note_closeButton">
               <ImCross size={18} color={colorscheme.red4} onClick={onClose} />
@@ -102,6 +142,38 @@ const Note = ({
                     icon="format_list_bulleted"
                   />
                 </Toolbar>
+                <Grid container direction="row" alignitem="flex-start">
+                  <Grid item><p> tags: </p></Grid>
+                  {stateTag && stateTag.map((tagValue, index)=> (
+                    <Grid item>
+                    <Button 
+                    name={tagValue} 
+                    addStyles="" 
+                    onClicked={()=>{
+                      handleRemoveTag(tagValue);
+                    }}
+                    />
+                    </Grid>
+                  ))}
+                  <Grid item>
+                    <Button name=" + "  onClicked={()=>{
+                    handleCreateTag();
+                    }}/>
+                  </Grid>
+                  <Grid item>
+                    {isTagCreator?
+                    <Grid item>
+                      <input type="text" placeholder="tags" value={inputTag} onChange={(e)=>setInputTag(e.target.value)}/>
+                      <button type="button" onClick={handleSubmitTag}>Submit</button>
+                    </Grid>
+                    :
+                      <></>
+                    }</Grid>
+                    
+                    
+              
+                  
+                </Grid>
                 <Editable
                   renderElement={renderElement}
                   renderLeaf={renderLeaf}
@@ -126,7 +198,7 @@ const Note = ({
 
       <Grid item className="note_trashButtonContainer">
         <div className="note_trashButton">
-          <FiTrash size={20} color={colorscheme.red4} onClick={onSave(titleText, contentText)} />
+          <FiTrash size={20} color={colorscheme.red4} onClick={onSave(titleText, contentText, stateTag)} />
         </div>
       </Grid>
     </Grid>
@@ -220,7 +292,7 @@ const Leaf = ({ attributes, children, leaf }) => {
 const BlockButton = ({ format, icon }) => {
   const editor = useSlate();
   return (
-    <Button
+    <SlateButton
       active={isBlockActive(editor, format)}
       onMouseDown={(event) => {
         event.preventDefault();
@@ -228,14 +300,14 @@ const BlockButton = ({ format, icon }) => {
       }}
     >
       <Icon>{icon}</Icon>
-    </Button>
+    </SlateButton>
   );
 };
 
 const MarkButton = ({ format, icon }) => {
   const editor = useSlate();
   return (
-    <Button
+    <SlateButton
       active={isMarkActive(editor, format)}
       onMouseDown={(event) => {
         event.preventDefault();
@@ -243,7 +315,7 @@ const MarkButton = ({ format, icon }) => {
       }}
     >
       <Icon>{icon}</Icon>
-    </Button>
+    </SlateButton>
   );
 };
 
