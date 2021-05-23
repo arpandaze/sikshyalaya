@@ -1,5 +1,7 @@
 import json
 
+from pydantic.types import ConstrainedStr
+
 from utils.populationdata import (
     users,
     schools,
@@ -131,8 +133,9 @@ def populate_personal_note():
         try:
             personalNote = PersonalNoteCreate(
                 user_id=personalNote["user_id"],
-                course_id=personalNote["course_id"],
-                message=personalNote["message"].strip(),
+                tags = personalNote["tags"],
+                title = personalNote["title"].strip(),
+                content=personalNote["content"].strip(),
             )
             crud_personal_note.create(db, obj_in=personalNote)
         except Exception as e:  # noqa

@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 
 from pydantic import BaseModel
 
@@ -6,8 +6,9 @@ from pydantic import BaseModel
 # shared properties
 class PersonalNoteBase(BaseModel):
     user_id: int
-    course_id: int
-    message: str
+    tags: List[str] = None
+    title: str
+    content: str
 
 
 # properties to recieve via
