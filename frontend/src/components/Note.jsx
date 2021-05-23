@@ -220,7 +220,7 @@ const Note = ({
           <FiTrash
             size={20}
             color={colorscheme.red4}
-            onClick={onSave(titleText, contentText, stateTag)}
+            onClick={()=>{onSave(titleText, contentText, stateTag)}}
           />
         </div>
       </Grid>
