@@ -77,9 +77,22 @@
     top: -3px;
     background-color: var(--white);
     margin-left: 15px !important;
+    border-radius: 50%;
   }
   .note_tagPlusButton:hover {
+    color: var(--white);
     background-color: var(--green4);
+  }
+  .note_tagAddInput {
+    width: 80px;
+    height: 31px;
+    position: relative;
+    top: -3.5px;
+    left: 12px;
+    text-indent: 10px;
+    background-color: var(--grey4);
+    outline: none;
+    border: 0px;
   }
   .note_trashButtonContainer {
     position: absolute;
