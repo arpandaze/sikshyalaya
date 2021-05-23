@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Grid from "@material-ui/core/Grid";
 import colorscheme from "../../utils/colors";
 import DashboardLayout from "../../components/DashboardLayout";
@@ -6,12 +6,26 @@ import Note from "../../components/Note";
 import SideNotes from "../../components/SideNotes";
 import { GoPlus } from "react-icons/go";
 import { useAPI } from "../../utils/useAPI";
+import {getReq, postReq, putReq} from "../../utils/API";
 import "./statics/css/notes.css";
+import {UserContext} from "../../utils/Contexts/UserContext"
 
 const noteFormatter = (response) => {
-  if (response.data.length == 0) {
-    return [];
-  }
+
+  if (response.data.length === 0) {
+    return [{
+        id: "",
+        title: "Title Goes Here",
+          content: [
+            {
+              type: "paragraph",
+              children: [{ text: "This is editable." }],
+            },
+          ],
+          tags: ["add", "tags", "here"],
+        }];
+    }
+
   let responseData = response.data.map((note) => {
     return {
       id: note.id,
@@ -22,13 +36,17 @@ const noteFormatter = (response) => {
     };
   });
   return responseData;
+
 };
 
 const Notes = () => {
-  const [allNotes, allNotesComplete] = useAPI(
+
+  let [allNotes, allNotesComplete] = useAPI(
     { endpoint: "/api/v1/personal_note/" },
     noteFormatter
   );
+
+  const {user} = useContext(UserContext);
 
   const [selectedNote, setSelectedNote] = useState({
     id:
@@ -38,13 +56,54 @@ const Notes = () => {
     position: "0",
   });
 
-  const onSavehandler = (title, content, stateTag) => {
-    let data = {
-      title: title,
-      content: JSON.stringify(content),
-      tags: stateTag,
-    };
+  const onSavehandler = async (title, content, stateTag) => {
+    let data = null;
 
+    try{
+      data= {
+        user_id: user.id,
+        title: title,
+        content: JSON.stringify(content),
+        tags: stateTag,
+      };
+    }catch (e){
+      console.log(e);
+    }
+
+    console.log("XXXData:",data);
+    if(selectedNote.id == ""){
+      console.log("a new note is being created");
+      //on new note create
+      //populate database
+      try{
+        let postResponse = await postReq("/api/v1/personal_note/", data);
+    
+        if (postResponse.status === 200){
+          
+          let getResponse = await getReq("/api/v1/personal_note/");
+          let notes = [];
+          try{
+            notes = noteFormatter(getResponse);
+          } catch (e){
+            console.log(e);
+          }
+          allNotes = notes;
+        }else{
+          alert("Save Failed!")
+        }
+
+        // if (postResponse.status == 200){
+        //   let response = getReq("/api/v1/personal_note/");
+        //   console.log(response);
+        // }
+      }catch (e) {
+        console.log(e);
+      }
+    
+    }else{
+      //on notes previously present in the database
+      //update the notes
+    }
     console.log(data);
   };
 
@@ -72,16 +131,32 @@ const Notes = () => {
   };
 
   const handleCreateNote = () => {
-    allNotes.splice(0, 0, {
-      title: "Title Goes Here",
-      content: [
-        {
-          type: "paragraph",
-          children: [{ text: "This is editable " }],
-        },
-      ],
-      tags: [],
-    });
+    if(allNotes){
+      if(allNotes.length){
+        allNotes.splice(0, 0, {
+          title: "Title Goes Here",
+          content: [
+            {
+              type: "paragraph",
+              children: [{ text: "This is editable " }],
+            },
+          ],
+          tags: [],
+        });
+      }
+    }else{
+      console.log(typeof allNotes);
+      allNotes[0]={
+        title: "Title Goes Here",
+        content: [
+          {
+            type: "paragraph",
+            children: [{ text: "This is editable " }],
+          },
+        ],
+        tags: [],
+      };
+    }
     setSelectedNote({
       id: "",
       position: 0,
