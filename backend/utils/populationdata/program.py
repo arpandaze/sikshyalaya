@@ -3,76 +3,76 @@ from pydantic import Json
 
 programs: List[Json] = [
     {
-        "name": "Bachelors of Science in Computer Science",
+        "name": "Computer Science",
         "department_id": 1
     },
     {
-        "name": "Bachelors of Engineering in Computer Engineering",
+        "name": "Computer Engineering",
         "department_id": 1
     },
     {
-        "name": "Bachelors of Engineering in Mechanical Engineering",
+        "name": "Mechanical Engineering",
         "department_id": 2
     },
 
     {
-        "name": "Bachelors of Science in Enivironmental Science",
+        "name": "Enivironmental Science",
         "department_id": 3
     },
     {
-        "name": "Bachelors of Technology in Environmental Engineering",
+        "name": "Environmental Engineering",
         "department_id": 3
     },
     {
-        "name": "Bachelors of Business in Information System",
+        "name": "Information System",
         "department_id": 4
     },
     {
-        "name": "Bachelors of Business Administration",
+        "name": "Business Administration",
         "department_id": 4
     },
     {
-        "name": "Bachelors of Legislative Law",
+        "name": "Legislative Law",
         "department_id": 5
     },
     {
-        "name": "Bachelors of Medicine, Bachelors of Surgery",
+        "name": "Medicine",
         "department_id": 6
     },
     {
-        "name": "Bachelors of Dental Surgery",
+        "name": "Dental Surgery",
         "department_id": 6
     },
     {
-        "name": "Bachelors of Science in Nursing",
+        "name": "Science in Nursing",
         "department_id": 6
     },
     {
-        "name": "Bachelors of Music Education",
+        "name": "Music Education",
         "department_id": 7
     },
     {
-        "name": "Bachelors of Arts in Music",
+        "name": "Arts in Music",
         "department_id": 7
     },
     {
-        "name": "Bachelors of Fine Arts",
+        "name": "Fine Arts",
         "department_id": 8
     },
     {
-        "name": "Bachelors of Arts in Culture and Arts",
+        "name": "Culture and Arts",
         "department_id": 8
     },
     {
-        "name": "Bachelors of Arts in Photography",
+        "name": "Photography",
         "department_id": 8
     },
     {
-        "name": "Bachelors of Education Studies",
+        "name": "Education Studies",
         "department_id": 9
     },
     {
-        "name": "Bachelors of Education in English Literature",
+        "name": "English Literature",
         "department_id": 9
     },
 ]

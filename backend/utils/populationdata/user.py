@@ -35,7 +35,7 @@ users: List[Json] = [
         "is_active": True,
         "user_type": 4,
         "address": "Rani Mahal, Palpa",
-        "group_id": 2,
+        "group_id": 1,
         "contact_number": "+977-9821694321",
         "teacher_group": [],
         "dob": datetime.datetime(2000, 2, 26),

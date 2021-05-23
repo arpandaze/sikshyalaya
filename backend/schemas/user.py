@@ -48,6 +48,15 @@ class UserReturn(BaseModel):
     class Config:
         orm_mode = True
 
+class TeacherOfClassSession(BaseModel):
+    id: int
+    full_name: str
+
+    class Config:
+        orm_mode = True
+
+
+
 
 # Properties to receive via API on update
 class UserUpdate(UserBase):
