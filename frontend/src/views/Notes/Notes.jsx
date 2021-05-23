@@ -5,151 +5,67 @@ import DashboardLayout from "../../components/DashboardLayout";
 import Note from "../../components/Note";
 import SideNotes from "../../components/SideNotes";
 import { GoPlus } from "react-icons/go";
-import {useAPI} from "../../utils/useAPI"
+import { useAPI } from "../../utils/useAPI";
 import "./statics/css/notes.css";
 
-
-const noteFormatter = ( response ) =>{
-
+const noteFormatter = (response) => {
+  if (response.data.length == 0) {
+    return [];
+  }
   let responseData = response.data.map((note) => {
-    return { 
-        id: note.id,
-        title: note.title,
-        tags: note.tags,
-        content: JSON.parse(note.content),
-        isEditing: false,
-      }
+    return {
+      id: note.id,
+      title: note.title,
+      tags: note.tags,
+      content: JSON.parse(note.content),
+      isEditing: false,
+    };
   });
-
   return responseData;
-}
-
-// const allNotes = [
-//   {
-//     id: "1",
-//     title: "123Style too own civil out along.",
-//     content: [
-//       {
-//         type: "paragraph",
-//         children: [
-//           {
-//             text: "12322Style too own civil out along. Perfectly offending attempted add arranging age gentleman concluded. Get who uncommonly our expression ten increasing considered occasional travelling. Ever read tell year give may men call its. Piqued son turned fat income played end wicket. To do noisy downs round an happy books.  ",
-//           },
-//         ],
-//       },
-//     ],
-//     isEditing: false,
-//   },
-//   {
-//     id: "2",
-//     title: "231Style too own civil out along.",
-//     content: [
-//       {
-//         type: "paragraph",
-//         children: [
-//           {
-//             text: "21312Style too own civil out along. Perfectly offending attempted add arranging age gentleman concluded. Get who uncommonly our expression ten increasing considered occasional travelling. Ever read tell year give may men call its. Piqued son turned fat income played end wicket. To do noisy downs round an happy books.  ",
-//           },
-//         ],
-//       },
-//     ],
-//     isEditing: false,
-//   },
-//   {
-//     id: "3",
-//     title: "332Style too own civil out along.",
-//     content: [
-//       {
-//         type: "paragraph",
-//         children: [
-//           {
-//             text: "21321312Style too own civil out along. Perfectly offending attempted add arranging age gentleman concluded. Get who uncommonly our expression ten increasing considered occasional travelling. Ever read tell year give may men call its. Piqued son turned fat income played end wicket. To do noisy downs round an happy books.  ",
-//           },
-//         ],
-//       },
-//     ],
-//     isEditing: false,
-//   },
-//   {
-//     id: "4",
-//     title: "55Style too own civil out along.",
-//     content: [
-//       {
-//         type: "paragraph",
-//         children: [
-//           {
-//             text: "21312321Style too own civil out along. Perfectly offending attempted add arranging age gentleman concluded. Get who uncommonly our expression ten increasing considered occasional travelling. Ever read tell year give may men call its. Piqued son turned fat income played end wicket. To do noisy downs round an happy books.  ",
-//           },
-//         ],
-//       },
-//     ],
-//     isEditing: false,
-//   },
-//   {
-//     id: "5",
-//     title: "44Style too own civil out along.",
-//     content: [
-//       {
-//         type: "paragraph",
-//         children: [
-//           {
-//             text: "12312321Style too own civil out along. Perfectly offending attempted add arranging age gentleman concluded. Get who uncommonly our expression ten increasing considered occasional travelling. Ever read tell year give may men call its. Piqued son turned fat income played end wicket. To do noisy downs round an happy books.  ",
-//           },
-//         ],
-//       },
-//     ],
-//     isEditing: false,
-//   },
-//   {
-//     id: "6",
-//     title: "33Style too own civil out along.",
-//     content: [
-//       {
-//         type: "paragraph",
-//         children: [
-//           {
-//             text: "12312321Style too own civil out along. Perfectly offending attempted add arranging age gentleman concluded. Get who uncommonly our expression ten increasing considered occasional travelling. Ever read tell year give may men call its. Piqued son turned fat income played end wicket. To do noisy downs round an happy books.  ",
-//           },
-//         ],
-//       },
-//     ],
-//     isEditing: false,
-//   },
-// ];
+};
 
 const Notes = () => {
+  const [allNotes, allNotesComplete] = useAPI(
+    { endpoint: "/api/v1/personal_note/" },
+    noteFormatter
+  );
 
-  const [allNotes, allNotesComplete] = useAPI({endpoint: "/api/v1/personal_note/"}, noteFormatter);
-
-  const [selectedNote, setSelectedNote] = useState({id: allNotes && allNotesComplete && allNotes.length !== 0? allNotes[0].id: null, position: "0" });
+  const [selectedNote, setSelectedNote] = useState({
+    id:
+      allNotes && allNotesComplete && allNotes.length !== 0
+        ? allNotes[0].id
+        : null,
+    position: "0",
+  });
 
   const onSavehandler = (title, content, stateTag) => {
-      let data = {
-        title: title,
-        content: JSON.stringify(content),
-        tages: stateTag,
-      }
+    let data = {
+      title: title,
+      content: JSON.stringify(content),
+      tags: stateTag,
+    };
 
-      console.log(data);
-  }
+    console.log(data);
+  };
 
   const onDeleteHandler = () => {
-      allNotes.splice(parseInt(selectedNote.position), 1);
+    allNotes.splice(parseInt(selectedNote.position), 1);
 
-      // delete note from the database;
-      
-      let note = {
-        id: "", position : ""
-      };
+    // delete note from the database;
 
-      if(allNotes.length !== 0 && allNotes){
-        note = {
-            id: allNotes[0],
-            position: "0",
-        };
-      }
-      setSelectedNote(note);
+    let note = {
+      id: "",
+      position: "",
+    };
+
+    if (allNotes.length !== 0 && allNotes) {
+      note = {
+        id: allNotes[0],
+        position: "0",
       };
+    }
+    setSelectedNote(note);
+  };
 
   const handleSelectNote = (i, p) => {
     setSelectedNote({ id: i, position: p });
@@ -209,18 +125,25 @@ const Notes = () => {
                 direction="column"
                 className="notes_sidebarContainer"
               >
-                {allNotesComplete && allNotes.length !== 0 ? allNotes.map((notes, index) => (
-                  <Grid item key={notes.id} className="notes_sidebarComponent">
-                    <SideNotes
-                      title={notes.title}
-                      content={notes.content[0].children[0].text}
-                      onClick={() => {
-                        handleSelectNote(notes.id, index);
-                      }}
-                    />
-                  </Grid>
-                )): <></>
-                }
+                {allNotesComplete && allNotes.length !== 0 ? (
+                  allNotes.map((notes, index) => (
+                    <Grid
+                      item
+                      key={notes.id}
+                      className="notes_sidebarComponent"
+                    >
+                      <SideNotes
+                        title={notes.title}
+                        content={notes.content[0].children[0].text}
+                        onClick={() => {
+                          handleSelectNote(notes.id, index);
+                        }}
+                      />
+                    </Grid>
+                  ))
+                ) : (
+                  <></>
+                )}
               </Grid>
             </Grid>
           </Grid>
@@ -240,11 +163,13 @@ const Notes = () => {
                 alignItems="flex-start"
                 className="notes_padArea"
               >
-                {allNotesComplete && selectedNote.position !== "" ? (
+                {allNotesComplete &&
+                allNotes.length &&
+                selectedNote.position !== "" ? (
                   <Note
                     title={allNotes[selectedNote.position].title}
                     content={allNotes[selectedNote.position].content}
-                    tags ={allNotes[selectedNote.position].tags}
+                    tags={allNotes[selectedNote.position].tags}
                     onSave={onSavehandler}
                     onClose={() => {
                       setSelectedNote({ id: "", position: "" });

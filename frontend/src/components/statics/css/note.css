@@ -64,6 +64,23 @@
     overflow: hidden;
     overflow-y: auto;
   }
+  .note_tagLabel {
+    margin: 0;
+  }
+  .note_tagListContainer {
+    margin-left: 10px !important;
+  }
+  .note_tagPlusButton {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    top: -3px;
+    background-color: var(--white);
+    margin-left: 15px !important;
+  }
+  .note_tagPlusButton:hover {
+    background-color: var(--green4);
+  }
   .note_trashButtonContainer {
     position: absolute;
     right: 20px;

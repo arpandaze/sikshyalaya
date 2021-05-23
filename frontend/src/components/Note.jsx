@@ -17,9 +17,14 @@ import {
 } from "slate";
 import { withHistory } from "slate-history";
 
-import { Button as SlateButton, Icon, Toolbar } from "../components/slateComponents";
+import {
+  Button as SlateButton,
+  Icon,
+  Toolbar,
+} from "../components/slateComponents";
 import { FaTemperatureHigh } from "react-icons/fa";
 import { GridListTileBar } from "@material-ui/core";
+import Tag from "./Tag";
 
 const HOTKEYS = {
   "mod+b": "bold",
@@ -46,7 +51,7 @@ const Note = ({
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
   const [stateTag, setStateTag] = useState([]);
   const [isTagCreator, setTagCreator] = useState(false);
-  const [inputTag, setInputTag] = useState('');
+  const [inputTag, setInputTag] = useState("");
 
   useEffect(() => {
     setStateTag(tags);
@@ -61,32 +66,34 @@ const Note = ({
   }, [title]);
 
   const handleRemoveTag = (tagValue) => {
-    var filtered = stateTag.filter(function(value){ 
+    var filtered = stateTag.filter(function (value) {
       return value !== tagValue;
-    }); 
-    if(filtered && filtered.length !== 0){
+    });
+    if (filtered && filtered.length !== 0) {
       setStateTag(filtered);
-    }else{
+    } else {
       setStateTag([]);
     }
   };
 
   const handleCreateTag = () => {
     console.log("tagCreator");
-    setInputTag('');
+    setInputTag("");
     setTagCreator(!isTagCreator);
-  }
+  };
 
-  const handleSubmitTag =() =>{
-    let upperCased = stateTag.map(f=>{ return f.toUpperCase(); });
-    if (inputTag && !upperCased.includes(inputTag.toUpperCase())){
-      setStateTag((currentTag)=>[...currentTag, inputTag ]);
-    }else{
-      alert('tag either empty or exists already')
+  const handleSubmitTag = () => {
+    let upperCased = stateTag.map((f) => {
+      return f.toUpperCase();
+    });
+    if (inputTag && !upperCased.includes(inputTag.toUpperCase())) {
+      setStateTag((currentTag) => [...currentTag, inputTag]);
+    } else {
+      alert("tag either empty or exists already");
     }
-    setInputTag('');
+    setInputTag("");
     setTagCreator(false);
-  }
+  };
 
   return (
     <Grid
@@ -107,7 +114,7 @@ const Note = ({
               onChange={(e) => setTitleText(e.target.value)}
             />
           </Grid>
-         
+
           <Grid item xs={1} className="note_closeButtonContainer">
             <div className="note_closeButton">
               <ImCross size={18} color={colorscheme.red4} onClick={onClose} />
@@ -142,36 +149,49 @@ const Note = ({
                   />
                 </Toolbar>
                 <Grid container direction="row" alignitem="flex-start">
-                  <Grid item><p> tags: </p></Grid>
-                  {stateTag && stateTag.map((tagValue, index)=> (
-                    <Grid item>
-                    <Button 
-                    name={tagValue} 
-                    addStyles="" 
-                    onClicked={()=>{
-                      handleRemoveTag(tagValue);
-                    }}
-                    />
-                    </Grid>
-                  ))}
                   <Grid item>
-                    <Button name=" + "  onClicked={()=>{
-                    handleCreateTag();
-                    }}/>
+                    <p className="note_tagLabel"> tags: </p>
                   </Grid>
                   <Grid item>
-                    {isTagCreator?
-                    <Grid item>
-                      <input type="text" placeholder="tags" value={inputTag} onChange={(e)=>setInputTag(e.target.value)}/>
-                      <button type="button" onClick={handleSubmitTag}>Submit</button>
+                    <Grid container direction="row">
+                      {stateTag &&
+                        stateTag.map((tagValue, index) => (
+                          <Grid item className="note_tagListContainer">
+                            <Tag
+                              tagName={tagValue}
+                              onDelete={handleRemoveTag}
+                            />
+                          </Grid>
+                        ))}
                     </Grid>
-                    :
+                  </Grid>
+
+                  <Grid item>
+                    <Button
+                      name=" + "
+                      addStyles="note_tagPlusButton"
+                      onClicked={() => {
+                        handleCreateTag();
+                      }}
+                    />
+                  </Grid>
+                  <Grid item>
+                    {isTagCreator ? (
+                      <Grid item>
+                        <input
+                          type="text"
+                          placeholder="tags"
+                          value={inputTag}
+                          onChange={(e) => setInputTag(e.target.value)}
+                        />
+                        <button type="button" onClick={handleSubmitTag}>
+                          Submit
+                        </button>
+                      </Grid>
+                    ) : (
                       <></>
-                    }</Grid>
-                    
-                    
-              
-                  
+                    )}
+                  </Grid>
                 </Grid>
                 <Editable
                   renderElement={renderElement}
@@ -197,7 +217,11 @@ const Note = ({
 
       <Grid item className="note_trashButtonContainer">
         <div className="note_trashButton">
-          <FiTrash size={20} color={colorscheme.red4} onClick={onSave(titleText, contentText, stateTag)} />
+          <FiTrash
+            size={20}
+            color={colorscheme.red4}
+            onClick={onSave(titleText, contentText, stateTag)}
+          />
         </div>
       </Grid>
     </Grid>
