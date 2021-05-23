@@ -5,7 +5,6 @@ import { ImCross } from "react-icons/im";
 import { FiTrash } from "react-icons/fi";
 import "./statics/css/note.css";
 import Button from "./Button";
-import CustomTextField from "./CustomTextField"
 
 import isHotkey from "is-hotkey";
 import { Editable, withReact, useSlate, Slate } from "slate-react";
