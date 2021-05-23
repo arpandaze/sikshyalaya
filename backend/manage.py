@@ -75,8 +75,9 @@ class CommandDefinition:
 
     def cleanmig(self):
         for file in os.listdir("migrations/versions/"):
-            if os.path.isfile(f"migrations/versions/{file}"):
-                os.remove(f"migrations/versions/{file}")
+            if file != "__init__.py":
+                if os.path.isfile(f"migrations/versions/{file}"):
+                    os.remove(f"migrations/versions/{file}")
 
     def cleanredis(self):
         from core.config import settings
@@ -98,9 +99,7 @@ class CommandDefinition:
         except Exception as e:
             print(e)
 
-        for file in os.listdir("migrations/versions/"):
-            if os.path.isfile(f"migrations/versions/{file}"):
-                os.remove(f"migrations/versions/{file}")
+        self.cleanmig()
 
         alembic_cfg = Config("alembic.ini")
 
@@ -131,9 +130,11 @@ class CommandDefinition:
             from alembic.config import Config
             from alembic import command
 
+            self.cleanmig()
             engine.execute("DROP schema public CASCADE")
             engine.execute("CREATE schema public")
             alembic_cfg = Config("alembic.ini")
+            command.revision(config=alembic_cfg, autogenerate=True, message="cleandb")
             command.upgrade(alembic_cfg, "head")
         except Exception as e:
             print(e)

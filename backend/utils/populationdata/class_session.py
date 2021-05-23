@@ -14,6 +14,15 @@ classSessions: List[Json] = [
         "duration": 120,
     },
     {
+        "datetime": datetime.now(),
+        "is_active": True,
+        "instructor": [10, 9],
+        "course_id": 1,
+        "group_id": 1,
+        "description": "This is a long class session",
+        "duration": 1800,
+    },
+    {
         "datetime": datetime(2021, 10, 22, 14, 00, 00),
         "is_active": True,
         "instructor": [8, 9],

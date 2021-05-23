@@ -165,32 +165,29 @@ const Note = ({
                         ))}
                     </Grid>
                   </Grid>
-
-                  <Grid item>
-                    <Button
-                      name=" + "
-                      addStyles="note_tagPlusButton"
-                      onClicked={() => {
-                        handleCreateTag();
-                      }}
-                    />
-                  </Grid>
                   <Grid item>
                     {isTagCreator ? (
                       <Grid item>
                         <input
                           type="text"
-                          placeholder="tags"
+                          placeholder="Enter tag"
                           value={inputTag}
+                          className="note_tagAddInput"
                           onChange={(e) => setInputTag(e.target.value)}
                         />
-                        <button type="button" onClick={handleSubmitTag}>
-                          Submit
-                        </button>
                       </Grid>
                     ) : (
                       <></>
                     )}
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      name=" + "
+                      addStyles="note_tagPlusButton"
+                      onClicked={() =>
+                        isTagCreator ? handleSubmitTag : handleCreateTag()
+                      }
+                    />
                   </Grid>
                 </Grid>
                 <Editable

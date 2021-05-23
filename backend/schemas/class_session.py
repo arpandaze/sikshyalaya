@@ -3,7 +3,8 @@ from typing import Optional, List
 
 from pydantic import BaseModel
 from typing import Any
-from .user import UserReturn
+from schemas.user import UserReturn, TeacherOfClassSession
+from schemas.course import Course
 
 
 # shared properties
@@ -44,8 +45,23 @@ class ClassSessionInDBBase(ClassSessionBase):
 
 
 class ClassSession(ClassSessionInDBBase):
-    instructor: List[UserReturn]
+    instructor: List[TeacherOfClassSession]
     pass
+
+class ClassSessionReturn(BaseModel):
+    datetime: datetime
+    is_active: bool
+    instructor: List[TeacherOfClassSession]
+    course: Course
+    group_id: int
+    description: str
+    duration: int
+    file: List[str] = None
+
+    class Config:
+        orm_mode = True
+
+
 
 
 class ClassSessionInDB(ClassSessionInDBBase):
