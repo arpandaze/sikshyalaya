@@ -1,8 +1,5 @@
-@import "./utils//colors.css";
-/* @font-face{
-  font-family: '';
-  src: local(''), url(./fonts/Rajdhani/Rajdhani-Regular.ttf) format('truetype');
-} */
+@import "./utils/colors.css";
+
 * {
   -webkit-overflow-scrolling: touch;
   -webkit-overflow-scrolling: auto;

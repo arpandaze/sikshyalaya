@@ -49,46 +49,95 @@
     height: 750px;
     text-align: justify;
     position: relative;
-    overflow: auto;
   }
   .note_contentTextContainer {
     width: 90%;
-    height: 100%;
+    height: 695px;
     margin: 0px auto !important;
     text-align: justify;
+    overflow: hidden;
   }
   .note_contentText {
     position: relative;
     font-size: 1.15em;
     line-height: 1.8em;
-    overflow: hidden;
-    overflow-y: auto;
+    border: 1px solid black;
+  }
+  .note_quillNotes {
+    border: 1px solid black;
   }
   .note_tagLabel {
     margin: 0;
+    border: 1px solid black;
+  }
+  .note_TagCreatorContainer {
+    width: 90%;
+    height: 30px;
+    margin: 10px auto !important;
+  }
+  .note_tagIconContainer {
+    position: relative;
+    top: 2px;
+  }
+  .note_TagIcon {
+    width: 22px;
+    height: 22px;
+  }
+  .note_TagCreatorInside {
+    height: 30px;
+    position: relative;
   }
   .note_tagListContainer {
+    height: 30px;
+  }
+  .note_tag {
     margin-left: 10px !important;
   }
   .note_tagPlusButton {
     width: 20px;
     height: 20px;
-    position: relative;
-    top: -3px;
-    background-color: var(--white);
     margin-left: 15px !important;
     border-radius: 50%;
+    background-color: var(--white);
   }
   .note_tagPlusButton:hover {
     color: var(--white);
     background-color: var(--green4);
   }
+  .note_tagErrorButton {
+    width: 20px;
+    height: 20px;
+    margin-left: 15px !important;
+    border-radius: 50%;
+    color: var(--white);
+    animation: shake 0.2s;
+    background-color: var(--red4);
+  }
+  @keyframes shake {
+    0% {
+      transform: translate(1px, 1px) rotate(0deg);
+    }
+    20% {
+      transform: translate(-1px, 0px) rotate(1deg);
+    }
+    40% {
+      transform: translate(1px, -1px) rotate(1deg);
+    }
+    60% {
+      transform: translate(-1px, 1px) rotate(0deg);
+    }
+    80% {
+      transform: translate(-1px, -1px) rotate(1deg);
+    }
+    100% {
+      transform: translate(1px, -1px) rotate(-1deg);
+    }
+  }
   .note_tagAddInput {
     width: 80px;
-    height: 31px;
+    height: 28px;
     position: relative;
-    top: -3.5px;
-    left: 12px;
+    margin-left: 12px;
     text-indent: 10px;
     background-color: var(--grey4);
     outline: none;
@@ -97,7 +146,7 @@
   .note_trashButtonContainer {
     position: absolute;
     right: 20px;
-    bottom: 15px;
+    bottom: 10px;
   }
   .note_trashButton {
     bottom: 50px;
@@ -145,8 +194,6 @@
     text-align: justify;
     position: relative;
     top: 25px;
-    overflow: hidden;
-    overflow-y: scroll;
   }
   .note_contentTextContainer {
     width: 88%;
