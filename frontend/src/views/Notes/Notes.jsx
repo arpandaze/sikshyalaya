@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import colorscheme from "../../utils/colors";
 import DashboardLayout from "../../components/DashboardLayout";
@@ -6,46 +6,111 @@ import Note from "../../components/Note";
 import SideNotes from "../../components/SideNotes";
 import { GoPlus } from "react-icons/go";
 import { useAPI } from "../../utils/useAPI";
+import {getReq, postReq, putReq} from "../../utils/API";
 import "./statics/css/notes.css";
-
-const noteFormatter = (response) => {
-  if (response.data.length == 0) {
-    return [];
-  }
-  let responseData = response.data.map((note) => {
-    return {
-      id: note.id,
-      title: note.title,
-      tags: note.tags,
-      content: JSON.parse(note.content),
-      isEditing: false,
-    };
-  });
-  return responseData;
-};
+import {UserContext} from "../../utils/Contexts/UserContext"
 
 const Notes = () => {
-  const [allNotes, allNotesComplete] = useAPI(
+  const {user} = useContext(UserContext);
+  const noteFormatter = (response) => {
+    if (!response.data.length) {
+      return [];
+    }
+  
+    let responseData = [];
+    responseData = response.data.map((note) => {
+      return {
+        id: note.id,
+        user_id: note.user_id,
+        title: note.title,
+        tags: note.tags,
+        content: JSON.parse(note.content),
+      };
+    });
+
+    return responseData.reverse();
+  
+  };
+
+  const [newNoteActive, setnewNoteActive] = useState(false);
+  
+  const defaultNotesvalue = [];
+
+  let [allNotes, allNotesComplete] = useAPI(
     { endpoint: "/api/v1/personal_note/" },
-    noteFormatter
+    noteFormatter,
+    defaultNotesvalue,
   );
 
   const [selectedNote, setSelectedNote] = useState({
     id:
-      allNotes && allNotesComplete && allNotes.length !== 0
+      allNotes && allNotesComplete && allNotes.length
         ? allNotes[0].id
         : null,
     position: "0",
   });
 
-  const onSavehandler = (title, content, stateTag) => {
-    let data = {
-      title: title,
-      content: JSON.stringify(content),
-      tags: stateTag,
+  const onSavehandler = async (title, content, stateTag) => {
+  
+    let data = null;
+    let newSelect = {id: "", position: ""};
+    let statusNewCreate = true;
+
+    data= {
+        user_id: user.id,
+        title: title,
+        content: JSON.stringify(content),
+        tags: stateTag,
     };
 
-    console.log(data);
+    if(selectedNote.id == null){
+      let getRequestResponse = "";
+      let notes = [];
+      //on new note create
+      //populate database
+        await postReq("/api/v1/personal_note/", data);
+
+        getRequestResponse = await getReq("/api/v1/personal_note/");
+          
+        try{
+            notes = noteFormatter(getRequestResponse);
+        } catch (e){
+          console.log(e);
+        }
+
+        allNotes.splice(0, allNotes.length);
+        allNotes.push(...notes);
+        statusNewCreate = false;
+
+        if(allNotes && allNotes.length){
+          let newId = allNotes[0].id;
+          let newPosition = "0";
+          newSelect = {id: newId, position: newPosition};
+        }
+
+    }else{
+      
+      //on notes previously present in the database
+      //update the notes
+      let params = {id: selectedNote.id};
+      let putResponse = null;
+      putResponse = await putReq(`/api/v1/personal_note/${selectedNote.id}`, data);
+      
+      try{
+        data = {...data, id: selectedNote.id, content: JSON.parse(data.content)};
+        allNotes[selectedNote.position] = data;
+        newSelect ={
+          id: selectedNote.id,
+          position: selectedNote.position,
+        }
+      }catch (e){
+        console.log(e);
+      }
+      statusNewCreate = false;
+    }
+
+    setSelectedNote(newSelect);
+    setnewNoteActive(statusNewCreate);
   };
 
   const onDeleteHandler = () => {
@@ -60,7 +125,7 @@ const Notes = () => {
 
     if (allNotes.length !== 0 && allNotes) {
       note = {
-        id: allNotes[0],
+        id: allNotes[0].id,
         position: "0",
       };
     }
@@ -72,21 +137,41 @@ const Notes = () => {
   };
 
   const handleCreateNote = () => {
-    allNotes.splice(0, 0, {
-      title: "Title Goes Here",
-      content: [
-        {
-          type: "paragraph",
-          children: [{ text: "This is editable " }],
-        },
-      ],
-      tags: [],
-    });
+      setnewNoteActive(true);
+      if(allNotes && allNotes.length){
+        allNotes.splice(0, 0, {
+          title: "Title Goes Here",
+          user_id: user.id,
+          content: [
+            {
+              type: "paragraph",
+              children: [{ text: "This is editable " }],
+            },
+          ],
+          tags: [],
+        });
+      }else{
+      allNotes.push({
+        id: null,
+        user_id: user.id,
+        title: "Title Goes Here",
+        content: [
+          {
+            type: "paragraph",
+            children: [{ text: "This is editable " }],
+          },
+        ],
+        tags: [],
+      });
+    }
+
     setSelectedNote({
-      id: "",
-      position: 0,
+      id: null,
+      position: "0",
     });
   };
+
+  
   return (
     <DashboardLayout>
       <Grid
@@ -109,13 +194,14 @@ const Notes = () => {
                   <p className="notes_text">Notes</p>
                 </Grid>
                 <Grid xs={1} item className="notes_plusIcon">
-                  <GoPlus
+                  {!newNoteActive && <GoPlus
                     size={26}
                     color={colorscheme.green2}
                     onClick={() => {
                       handleCreateNote();
                     }}
                   />
+                  }
                 </Grid>
               </Grid>
             </Grid>
@@ -125,7 +211,7 @@ const Notes = () => {
                 direction="column"
                 className="notes_sidebarContainer"
               >
-                {allNotesComplete && allNotes.length !== 0 ? (
+                {allNotesComplete && allNotes.length? (
                   allNotes.map((notes, index) => (
                     <Grid
                       item
@@ -133,6 +219,7 @@ const Notes = () => {
                       className="notes_sidebarComponent"
                     >
                       <SideNotes
+                        id={notes.id}
                         title={notes.title}
                         content={notes.content[0].children[0].text}
                         onClick={() => {

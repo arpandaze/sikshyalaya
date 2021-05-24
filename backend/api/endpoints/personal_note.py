@@ -141,8 +141,8 @@ def update_personal_note(
     if current_user.user_type >= settings.UserType.TEACHER.value:
         if obj_in.user_id == current_user.id:
             personal_note = crud_personal_note.get(db, id)
-            crud_personal_note.update(db, db_obj=personal_note, obj_in=obj_in)
-            return {"status": "success"}
+            return crud_personal_note.update(db, db_obj=personal_note, obj_in=obj_in)
+            
         else:
             raise HTTPException(
                 status_code=403,
@@ -151,5 +151,4 @@ def update_personal_note(
 
     if current_user.user_type == settings.UserType.SUPERADMIN.value:
         personal_note = crud_personal_note.get(db, id)
-        crud_personal_note.update(db, db_obj=personal_note, obj_in=obj_in)
-        return {"status": "success"}
+        return crud_personal_note.update(db, db_obj=personal_note, obj_in=obj_in)

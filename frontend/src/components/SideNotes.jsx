@@ -2,7 +2,7 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import "./statics/css/sideNotes.css";
 
-const SideNotes = ({ title, content, onClick, ...rest }) => {
+const SideNotes = ({id, title, content, onClick, ...rest }) => {
     return (
         <Grid
             container
@@ -19,6 +19,7 @@ const SideNotes = ({ title, content, onClick, ...rest }) => {
                 >
                     <Grid item className="sideNotes_titleTextContainer">
                         <p className="sideNotes_titleText">{title}</p>
+                        <p className="sideNotes_titleText">{id}</p>
                     </Grid>
                     <Grid item className="sideNotes_contentTextContainer">
                         <p className="sideNotes_contentText">{content}</p>
