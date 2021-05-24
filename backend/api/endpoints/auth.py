@@ -78,6 +78,13 @@ async def sign_up(
             status_code=400,
             detail="Email is associated with another user!",
         )  # The user with this username already exists in the system
+    email_host = user_in.email[user_in.email.index("@")+1:]
+
+    if email_host not in settings.ALLOWED_EMAIL_HOST:
+        raise HTTPException(
+            status_code=403,
+            detail=f"Email of host {email_host} not allowed!" #TODO: Reflected XSS test
+        )
 
     user = cruds.crud_user.create(
         db, obj_in=schemas.UserCreate(**user_in.dict(), profile_pic="")

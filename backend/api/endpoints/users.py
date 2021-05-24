@@ -70,9 +70,7 @@ async def create_user(
 async def update_user_me(
     *,
     db: Session = Depends(deps.get_db),
-    password: str = Body(None),
-    full_name: str = Body(None),
-    email: EmailStr = Body(None),
+    new_data: schemas.UserUpdate,
     current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
