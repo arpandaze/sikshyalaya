@@ -6,7 +6,7 @@ import Note from "../../components/Note";
 import SideNotes from "../../components/SideNotes";
 import { GoPlus } from "react-icons/go";
 import { useAPI } from "../../utils/useAPI";
-import { getReq, postReq, putReq } from "../../utils/API";
+import callAPI from "../../utils/API";
 import "./statics/css/notes.css";
 import { UserContext } from "../../utils/Contexts/UserContext";
 
@@ -18,6 +18,7 @@ const Notes = () => {
     }
 
     let responseData = [];
+    console.log(response);
     responseData = response.data.map((note) => {
       return {
         id: note.id,
@@ -27,6 +28,7 @@ const Notes = () => {
         content: JSON.parse(note.content),
       };
     });
+    console.log(responseData);
 
     return responseData.reverse();
   };
@@ -63,9 +65,15 @@ const Notes = () => {
       let notes = [];
       //on new note create
       //populate database
-      await postReq("/api/v1/personal_note/", data);
+      await callAPI({
+        endpoint: "/api/v1/personal_note/",
+        method: "POST",
+        data: data,
+      });
 
-      getRequestResponse = await getReq("/api/v1/personal_note/");
+      getRequestResponse = await callAPI({
+        endpoint: "/api/v1/personal_note/",
+      });
 
       try {
         notes = noteFormatter(getRequestResponse);
@@ -87,10 +95,11 @@ const Notes = () => {
       //update the notes
       let params = { id: selectedNote.id };
       let putResponse = null;
-      putResponse = await putReq(
-        `/api/v1/personal_note/${selectedNote.id}`,
-        data
-      );
+      putResponse = await callAPI({
+        endpoint: `/api/v1/personal_note/${selectedNote.id}`,
+        method: "PUT",
+        data,
+      });
 
       try {
         data = {
