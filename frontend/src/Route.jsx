@@ -20,6 +20,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import Verify from "./views/Login/Verify";
 import Logout from "./views/Login/Logout";
 import QuizCreator from "./views/QuizCreator/QuizCreator";
+import Ed from "./components/Quill";
 
 const Routes = () => {
   return (
@@ -46,6 +47,7 @@ const Routes = () => {
       <Route exact path="/signup" component={Signup} />
       <Route exact path="/verify" component={Verify} />
       <Route exact path="/logout" component={Logout} />
+      <Route exact path="/test" component={Ed} />
       <Route exact path="/quiz-creator" component={QuizCreator} />
       <Redirect exact from="/" to="landing" />
     </Switch>
