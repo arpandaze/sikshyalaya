@@ -16,10 +16,26 @@
     }
   }
 } */
-.quillNotes {
-  height: 500px;
-  overflow: hidden;
-  overflow-y: auto;
+@font-face {
+  font-family: "Pattaya";
+  src: local("Pattaya"), url(../../../assets/fonts/Pattaya.ttf);
+  /* other formats include: 'woff2', 'truetype, 'opentype',
+                            'embedded-opentype', and 'svg' */
+}
+@font-face {
+  font-family: "Preeti";
+  src: local("Preeti"), url(../../../assets/fonts/Preeti.ttf);
+  /* other formats include: 'woff2', 'truetype, 'opentype',
+                            'embedded-opentype', and 'svg' */
+}
+.ql-toolbar {
+}
+.ql-snow {
+  font-size: 18px !important;
+  border: 0px !important;
+}
+.ql-container {
+  border-top: 1px solid #ccc !important;
 }
 .ql-picker.ql-font .ql-picker-label[data-value="Roboto"]::before,
 .ql-picker.ql-font .ql-picker-item[data-value="Roboto"]::before {
@@ -29,26 +45,14 @@
 
 .ql-picker.ql-font .ql-picker-label[data-value="Raleway"]::before,
 .ql-picker.ql-font .ql-picker-item[data-value="Raleway"]::before {
-  font-family: "Raleway", cursive;
-  content: "Raleway" !important;
+  font-family: "Pattaya", cursive;
+  content: "Pattaya" !important;
 }
-
-.ql-picker.ql-font .ql-picker-label[data-value="Montserrat"]::before,
-.ql-picker.ql-font .ql-picker-item[data-value="Montserrat"]::before {
-  font-family: "Montserrat", cursive;
-  content: "Montserrat" !important;
-}
-
 .ql-picker.ql-font .ql-picker-label[data-value="Lato"]::before,
 .ql-picker.ql-font .ql-picker-item[data-value="Lato"]::before {
-  font-family: "Lato", cursive;
-  content: "Lato" !important;
-}
-
-.ql-picker.ql-font .ql-picker-label[data-value="Rubik"]::before,
-.ql-picker.ql-font .ql-picker-item[data-value="Rubik"]::before {
-  font-family: "Rubik", cursive;
-  content: "Rubik" !important;
+  font-family: "Preeti", cursive;
+  content: "lk|lt" !important;
+  font-size: 22px;
 }
 
 /* Set content font-families */
@@ -56,14 +60,8 @@
   font-family: "Roboto";
 }
 .ql-font-Raleway {
-  font-family: "Raleway";
-}
-.ql-font-Montserrat {
-  font-family: "Montserrat";
+  font-family: "Pattaya";
 }
 .ql-font-Lato {
-  font-family: "Lato";
-}
-.ql-font-Rubik {
-  font-family: "Rubik";
+  font-family: "Preeti";
 }

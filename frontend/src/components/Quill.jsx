@@ -4,6 +4,7 @@ import Delta from "quill-delta";
 import "react-quill/dist/quill.snow.css";
 import "react-quill/dist/quill.bubble.css";
 import "./statics/css/quill.css";
+import { modules, formats } from "../utils/quillConfig";
 const Quill = ReactQuill.Quill;
 var Font = Quill.import("formats/font");
 Font.whitelist = ["Roboto", "Raleway", "Montserrat", "Lato", "Rubik"];
@@ -34,45 +35,4 @@ const Ed = () => {
     />
   );
 };
-
-const modules = {
-  toolbar: [
-    [
-      { font: Font.whitelist },
-      { size: ["small", false, "large", "huge"] },
-      { header: "1" },
-      { header: "2" },
-    ],
-    ["bold", "italic", "underline", "strike", "blockquote", "code-block"],
-    [{ color: [] }, { background: [] }],
-    [{ align: [] }],
-    [
-      { list: "ordered" },
-      { list: "bullet" },
-      { indent: "-1" },
-      { indent: "+1" },
-    ],
-    ["link", "image", "video"],
-    [{ script: "sub" }, { script: "super" }],
-  ],
-};
-
-const formats = [
-  "header",
-  "font",
-  "bold",
-  "italic",
-  "underline",
-  "strike",
-  "blockquote",
-  "background",
-  "code",
-  "script",
-  "list",
-  "bullet",
-  "indent",
-  "link",
-  "image",
-  "video",
-];
 export default Ed;

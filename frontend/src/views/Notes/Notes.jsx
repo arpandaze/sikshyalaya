@@ -6,17 +6,17 @@ import Note from "../../components/Note";
 import SideNotes from "../../components/SideNotes";
 import { GoPlus } from "react-icons/go";
 import { useAPI } from "../../utils/useAPI";
-import {getReq, postReq, putReq} from "../../utils/API";
+import { getReq, postReq, putReq } from "../../utils/API";
 import "./statics/css/notes.css";
-import {UserContext} from "../../utils/Contexts/UserContext"
+import { UserContext } from "../../utils/Contexts/UserContext";
 
 const Notes = () => {
-  const {user} = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const noteFormatter = (response) => {
     if (!response.data.length) {
       return [];
     }
-  
+
     let responseData = [];
     responseData = response.data.map((note) => {
       return {
@@ -29,81 +29,81 @@ const Notes = () => {
     });
 
     return responseData.reverse();
-  
   };
 
   const [newNoteActive, setnewNoteActive] = useState(false);
-  
+
   const defaultNotesvalue = [];
 
   let [allNotes, allNotesComplete] = useAPI(
     { endpoint: "/api/v1/personal_note/" },
     noteFormatter,
-    defaultNotesvalue,
+    defaultNotesvalue
   );
 
   const [selectedNote, setSelectedNote] = useState({
-    id:
-      allNotes && allNotesComplete && allNotes.length
-        ? allNotes[0].id
-        : null,
+    id: allNotes && allNotesComplete && allNotes.length ? allNotes[0].id : null,
     position: "0",
   });
 
   const onSavehandler = async (title, content, stateTag) => {
-  
     let data = null;
-    let newSelect = {id: "", position: ""};
+    let newSelect = { id: "", position: "" };
     let statusNewCreate = true;
 
-    data= {
-        user_id: user.id,
-        title: title,
-        content: JSON.stringify(content),
-        tags: stateTag,
+    data = {
+      user_id: user.id,
+      title: title,
+      content: JSON.stringify(content),
+      tags: stateTag,
     };
 
-    if(selectedNote.id == null){
+    if (selectedNote.id == null) {
       let getRequestResponse = "";
       let notes = [];
       //on new note create
       //populate database
-        await postReq("/api/v1/personal_note/", data);
+      await postReq("/api/v1/personal_note/", data);
 
-        getRequestResponse = await getReq("/api/v1/personal_note/");
-          
-        try{
-            notes = noteFormatter(getRequestResponse);
-        } catch (e){
-          console.log(e);
-        }
+      getRequestResponse = await getReq("/api/v1/personal_note/");
 
-        allNotes.splice(0, allNotes.length);
-        allNotes.push(...notes);
-        statusNewCreate = false;
+      try {
+        notes = noteFormatter(getRequestResponse);
+      } catch (e) {
+        console.log(e);
+      }
 
-        if(allNotes && allNotes.length){
-          let newId = allNotes[0].id;
-          let newPosition = "0";
-          newSelect = {id: newId, position: newPosition};
-        }
+      allNotes.splice(0, allNotes.length);
+      allNotes.push(...notes);
+      statusNewCreate = false;
 
-    }else{
-      
+      if (allNotes && allNotes.length) {
+        let newId = allNotes[0].id;
+        let newPosition = "0";
+        newSelect = { id: newId, position: newPosition };
+      }
+    } else {
       //on notes previously present in the database
       //update the notes
-      let params = {id: selectedNote.id};
+      let params = { id: selectedNote.id };
       let putResponse = null;
-      putResponse = await putReq(`/api/v1/personal_note/${selectedNote.id}`, data);
-      
-      try{
-        data = {...data, id: selectedNote.id, content: JSON.parse(data.content)};
+      putResponse = await putReq(
+        `/api/v1/personal_note/${selectedNote.id}`,
+        data
+      );
+
+      try {
+        data = {
+          ...data,
+          id: selectedNote.id,
+          content: JSON.parse(data.content),
+        };
         allNotes[selectedNote.position] = data;
-        newSelect ={
+        newSelect = {
           id: selectedNote.id,
           position: selectedNote.position,
-        }
-      }catch (e){
+        };
+      } catch (e) {
         console.log(e);
       }
       statusNewCreate = false;
@@ -137,20 +137,20 @@ const Notes = () => {
   };
 
   const handleCreateNote = () => {
-      setnewNoteActive(true);
-      if(allNotes && allNotes.length){
-        allNotes.splice(0, 0, {
-          title: "Title Goes Here",
-          user_id: user.id,
-          content: [
-            {
-              type: "paragraph",
-              children: [{ text: "This is editable " }],
-            },
-          ],
-          tags: [],
-        });
-      }else{
+    setnewNoteActive(true);
+    if (allNotes && allNotes.length) {
+      allNotes.splice(0, 0, {
+        title: "Title Goes Here",
+        user_id: user.id,
+        content: [
+          {
+            type: "paragraph",
+            children: [{ text: "This is editable " }],
+          },
+        ],
+        tags: [],
+      });
+    } else {
       allNotes.push({
         id: null,
         user_id: user.id,
@@ -171,7 +171,6 @@ const Notes = () => {
     });
   };
 
-  
   return (
     <DashboardLayout>
       <Grid
@@ -194,14 +193,15 @@ const Notes = () => {
                   <p className="notes_text">Notes</p>
                 </Grid>
                 <Grid xs={1} item className="notes_plusIcon">
-                  {!newNoteActive && <GoPlus
-                    size={26}
-                    color={colorscheme.green2}
-                    onClick={() => {
-                      handleCreateNote();
-                    }}
-                  />
-                  }
+                  {!newNoteActive && (
+                    <GoPlus
+                      size={26}
+                      color={colorscheme.green2}
+                      onClick={() => {
+                        handleCreateNote();
+                      }}
+                    />
+                  )}
                 </Grid>
               </Grid>
             </Grid>
@@ -211,7 +211,7 @@ const Notes = () => {
                 direction="column"
                 className="notes_sidebarContainer"
               >
-                {allNotesComplete && allNotes.length? (
+                {allNotesComplete && allNotes.length ? (
                   allNotes.map((notes, index) => (
                     <Grid
                       item
@@ -221,7 +221,7 @@ const Notes = () => {
                       <SideNotes
                         id={notes.id}
                         title={notes.title}
-                        content={notes.content[0].children[0].text}
+                        content={notes.content[0].insert}
                         onClick={() => {
                           handleSelectNote(notes.id, index);
                         }}
