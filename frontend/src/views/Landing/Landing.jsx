@@ -248,7 +248,6 @@ const Landing = () => {
             <br />
             <br />
             <div className="landing_currentContainer">
-              { console.log(classSession.active) }
               {classSession.active.map((details) => (
                 <SmallCards cardData={details} />
               ))}

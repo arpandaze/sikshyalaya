@@ -7,6 +7,7 @@ import { get, set } from "idb-keyval";
 
 function App() {
   const [user, setUser_s] = useState({
+    default_data: true,
     id: null,
     email: null,
     profile_image: null,
@@ -46,12 +47,10 @@ function App() {
   useEffect(() => {
     get("user")
       .then((value) => {
-        if (value) {
-          setUser_s(value);
-        }
+        setUser_s(value || null);
       })
       .catch(() => {
-        setUser_s(JSON.parse(window.localStorage.getItem("user")));
+        setUser_s(JSON.parse(window.localStorage.getItem("user") || null));
       });
   }, []);
 

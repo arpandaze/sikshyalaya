@@ -4,9 +4,9 @@ import configs from "./configs";
 import { clear } from "idb-keyval";
 
 export const useAPI = (
-  { endpoint, method = "GET", queryParams, data },
+  { endpoint, method = "GET", params, data, withCredentials = true },
   formatter,
-  defaults=null,
+  defaults = null
 ) => {
   const [responseState, setResponseState] = useState({
     response: defaults,
@@ -15,8 +15,8 @@ export const useAPI = (
   useEffect(() => {
     let url = `${configs.API_HOST}${endpoint}`;
     let config = {
-      withCredentials: true,
-      params: queryParams,
+      withCredentials: withCredentials,
+      params: params,
     };
 
     let promiseObj = null;
@@ -50,9 +50,10 @@ export const useAPI = (
             .catch(() => {
               window.localStorage.clear();
             });
+          setResponseState({ response: error.response, complete: true });
         }
       });
-  }, [endpoint, method, queryParams, data, setResponseState]);
+  }, [endpoint, method, params, data, setResponseState]);
 
   return Object.values(responseState);
 };

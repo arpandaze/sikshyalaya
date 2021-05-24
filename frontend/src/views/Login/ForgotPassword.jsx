@@ -7,7 +7,7 @@ import Login from "./Login";
 import "./statics/css/forgotPassword.css";
 import configs from "../../utils/configs";
 import { Redirect, useHistory } from "react-router-dom";
-import { postReq } from "../../utils/API";
+import callAPI from "../../utils/API";
 
 const validationSchema = yup.object({
   email: yup
@@ -22,7 +22,11 @@ const ForgotPassword = ({ setResetState }) => {
     let data = {
       email: values.email,
     };
-    let resp = await postReq("/api/v1/auth/password-recovery", null, data);
+    let resp = await callAPI({
+      endpoint: "/api/v1/auth/password-recovery",
+      method: "POST",
+      params: data,
+    });
     if (resp.status == 200) {
       setResetState(4);
     }

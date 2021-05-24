@@ -16,7 +16,7 @@ import {
   Redirect,
   useHistory,
 } from "react-router-dom/cjs/react-router-dom.min";
-import { getReq, postReq } from "../../utils/API";
+import callAPI from "../../utils/API";
 import CustomTextField from "./../../components/CustomTextField";
 
 const validationSchema = yup.object({
@@ -30,8 +30,8 @@ const validationSchema = yup.object({
     .required("Password is required"),
 });
 const StudentLoginBox = () => {
-  const { user, setUser } = useContext(UserContext);
   const history = useHistory();
+  const { user, setUser } = useContext(UserContext);
   const onSubmit = async (values) => {
     let data = {
       username: values.email,
@@ -39,7 +39,11 @@ const StudentLoginBox = () => {
       remember_me: values.remember_me,
     };
 
-    let resp = await postReq("/api/v1/auth/web", data);
+    let resp = await callAPI({
+      endpoint: "/api/v1/auth/web",
+      method: "POST",
+      data: data,
+    });
     if (resp.status === 200) {
       setUser(resp.data);
     } else {
@@ -47,100 +51,90 @@ const StudentLoginBox = () => {
     }
   };
   return (
-    <div>
-      {!user || !configs.AUTO_REDIRECT ? (
-        <Login>
-          <Grid
-            container
-            direction="column"
-            justify="center"
-            alignItems="center"
-            className="loginCommon_loginBoxContainer"
+    <Login>
+      <Grid
+        container
+        direction="column"
+        justify="center"
+        alignItems="center"
+        className="loginCommon_loginBoxContainer"
+      >
+        <Grid item>
+          <h1 className="loginCommon_label">Login</h1>
+        </Grid>
+        <Grid item xs={12}>
+          <Formik
+            initialValues={{
+              email: "",
+              password: "",
+              remember_me: false,
+            }}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
           >
-            <Grid item>
-              <h1 className="loginCommon_label">Login</h1>
-            </Grid>
-            <Grid item xs={12}>
-              <Formik
-                initialValues={{
-                  email: "",
-                  password: "",
-                  remember_me: false,
-                }}
-                validationSchema={validationSchema}
-                onSubmit={onSubmit}
-              >
-                <Form>
-                  <Grid container direction="column" alignItems="flex-start">
-                    <Grid item xs={12}>
-                      <CustomTextField
-                        id="email"
-                        name="email"
-                        placeHolder="Email"
-                        addStyles="loginCommon_inputButton"
-                      />
-                    </Grid>
+            <Form>
+              <Grid container direction="column" alignItems="flex-start">
+                <Grid item xs={12}>
+                  <CustomTextField
+                    id="email"
+                    name="email"
+                    placeHolder="Email"
+                    addStyles="loginCommon_inputButton"
+                  />
+                </Grid>
 
-                    <Grid item>
-                      <CustomTextField
-                        type="password"
-                        id="password"
-                        name="password"
-                        placeHolder="Password"
-                        addStyles="loginCommon_inputButton"
-                      />
-                    </Grid>
-                    <Grid
-                      item
-                      xs={12}
-                      className="loginCommon_rememberMeCheckContainer"
-                    >
-                      <Checkbox
-                        className="loginCommon_checkbox"
-                        name="remember_me"
-                        value="remember_me"
-                      />
-                      <label for="remember_me">Remember me</label>
-                    </Grid>
-                  </Grid>
-                  <Grid
-                    container
-                    spacing={3}
-                    direction="column"
-                    justify="center"
-                    alignItems="center"
+                <Grid item>
+                  <CustomTextField
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeHolder="Password"
+                    addStyles="loginCommon_inputButton"
+                  />
+                </Grid>
+                <Grid
+                  item
+                  xs={12}
+                  className="loginCommon_rememberMeCheckContainer"
+                >
+                  <Checkbox
+                    className="loginCommon_checkbox"
+                    name="remember_me"
+                    value="remember_me"
+                  />
+                  <label for="remember_me">Remember me</label>
+                </Grid>
+              </Grid>
+              <Grid
+                container
+                spacing={3}
+                direction="column"
+                justify="center"
+                alignItems="center"
+              >
+                <Grid item>
+                  <Button
+                    type="submit"
+                    name="Login"
+                    addStyles="loginCommon_loginButton"
+                  />
+                </Grid>
+                <Grid item>
+                  <p
+                    onClick={() => {
+                      history.push("/reset");
+                    }}
+                    className="loginCommon_forgetButton"
                   >
-                    <Grid item>
-                      <Button
-                        type="submit"
-                        name="Login"
-                        addStyles="loginCommon_loginButton"
-                      />
-                    </Grid>
-                    <Grid item>
-                      <p
-                        onClick={() => {
-                          history.push("/reset");
-                        }}
-                        className="loginCommon_forgetButton"
-                      >
-                        Forgot Password?
-                      </p>
-                    </Grid>
-                  </Grid>
-                </Form>
-              </Formik>
-            </Grid>
-          </Grid>
-        </Login>
-      ) : (
-        <Redirect
-          to={{
-            pathname: "/landing",
-          }}
-        />
-      )}
-    </div>
+                    Forgot Password?
+                  </p>
+                </Grid>
+              </Grid>
+            </Form>
+          </Formik>
+        </Grid>
+      </Grid>
+    </Login>
   );
 };
 
