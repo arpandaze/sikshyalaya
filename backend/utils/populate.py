@@ -133,8 +133,8 @@ def populate_personal_note():
         try:
             personalNote = PersonalNoteCreate(
                 user_id=personalNote["user_id"],
-                tags = personalNote["tags"],
-                title = personalNote["title"].strip(),
+                tags=personalNote["tags"],
+                title=personalNote["title"].strip(),
                 content=personalNote["content"].strip(),
             )
             crud_personal_note.create(db, obj_in=personalNote)
