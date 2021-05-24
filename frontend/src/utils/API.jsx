@@ -2,54 +2,47 @@ import axios from "axios";
 import configs from "./configs";
 import { del } from "idb-keyval";
 
-const getReq = async (endpoint, data, params = null) => {
-  let response = null;
-  await axios
-    .get(`${configs.API_HOST}${endpoint}`, {
-      withCredentials: true,
-      params: params,
-    })
-    .then((res) => {
-      response = res;
-    })
-    .catch((error) => {
-      return (response = error.response);
-    });
+const callAPI = async ({
+  endpoint,
+  method = "GET",
+  data,
+  params = null,
+  withCredentials = true,
+}) => {
+  let url = `${configs.API_HOST}${endpoint}`;
+  let config = {
+    withCredentials: withCredentials,
+    params: params,
+  };
 
-  if (response.status === 401) {
-    del("user")
-      .then(() => {
-        window.location = "/login";
-      })
-      .catch();
+  let promiseObj = null;
+  switch (method) {
+    case "GET":
+      promiseObj = axios.get(url, config);
+      break;
+
+    case "POST":
+      promiseObj = axios.post(url, data, config);
+      break;
+
+    case "GET":
+      promiseObj = axios.get(url, data, config);
+      break;
   }
 
-  return response;
-};
-
-const postReq = async (endpoint, data, params = null) => {
-  let response = null;
-  await axios
-    .post(`${configs.API_HOST}${endpoint}`, data, {
-      withCredentials: true,
-      params: params,
-    })
-    .then((res) => {
-      response = res;
+  let response_obj = null;
+  await promiseObj
+    .then((data) => {
+      response_obj = data;
     })
     .catch((error) => {
-      return (response = error.response);
+      response_obj = error.response;
     });
-
-  if (response.status === 401) {
-    del("user")
-      .then(() => {
-        window.location = "/login";
-      })
-      .catch();
+  if (response_obj.status == 401) {
+    window.location = "/login";
   }
 
-  return response;
+  return response_obj;
 };
 
-export { getReq, postReq };
+export default callAPI;
