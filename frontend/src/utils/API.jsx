@@ -61,6 +61,7 @@ const putReq = async (endpoint, data, params = null) => {
         })
         .then((res) => {
             response = res;
+            console.log(res);
         })
         .catch((error) => {
             return (response = error.response);
@@ -77,4 +78,4 @@ const putReq = async (endpoint, data, params = null) => {
     return response;
 };
 
-export { getReq, postReq };
+export { getReq, postReq , putReq};
