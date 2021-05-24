@@ -77,7 +77,7 @@ const Note = ({
   };
 
   const handleCreateTag = () => {
-    console.log("tagCreator");
+    
     setInputTag("");
     setTagCreator(!isTagCreator);
   };
@@ -185,7 +185,7 @@ const Note = ({
                       name=" + "
                       addStyles="note_tagPlusButton"
                       onClicked={() =>
-                        isTagCreator ? handleSubmitTag : handleCreateTag()
+                        isTagCreator ? handleSubmitTag() : handleCreateTag()
                       }
                     />
                   </Grid>
