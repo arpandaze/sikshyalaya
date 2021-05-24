@@ -25,8 +25,8 @@ const callAPI = async ({
       promiseObj = axios.post(url, data, config);
       break;
 
-    case "GET":
-      promiseObj = axios.get(url, data, config);
+    case "PUT":
+      promiseObj = axios.put(url, data, config);
       break;
   }
 
