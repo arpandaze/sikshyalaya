@@ -6,36 +6,36 @@ import { CacheContext } from "./utils/Contexts/CacheContext";
 import { get, set } from "idb-keyval";
 
 function App() {
-    const [user, setUser_s] = useState(null);
+  const [user, setUser_s] = useState(null);
 
-    const setUser = (value) => {
-        set("user", value).catch(() => {
-            window.localStorage.setItem("user", JSON.stringify(value));
-        });
-        setUser_s(value);
-    };
+  const setUser = (value) => {
+    set("user", value).catch(() => {
+      window.localStorage.setItem("user", JSON.stringify(value));
+    });
+    setUser_s(value);
+  };
 
-    const user_context_value = useMemo(
-        () => ({ user, setUser }),
-        [user, setUser]
-    );
+  const user_context_value = useMemo(
+    () => ({ user, setUser }),
+    [user, setUser]
+  );
 
-    useEffect(() => {
-        get("user")
-            .then((value) => {
-                if (value) {
-                    setUser_s(value);
-                }
-            })
-            .catch(() => {
-                setUser_s(JSON.parse(window.localStorage.getItem("user")));
-            });
-    }, []);
+  useEffect(() => {
+    get("user")
+      .then((value) => {
+        if (value) {
+          setUser_s(value);
+        }
+      })
+      .catch(() => {
+        setUser_s(JSON.parse(window.localStorage.getItem("user")));
+      });
+  }, []);
 
-    return (
-        <UserContext.Provider value={user_context_value}>
-            <Routes />
-        </UserContext.Provider>
-    );
+  return (
+    <UserContext.Provider value={user_context_value}>
+      <Routes />
+    </UserContext.Provider>
+  );
 }
 export default App;
