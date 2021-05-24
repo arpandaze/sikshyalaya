@@ -115,7 +115,6 @@ const Notes = () => {
       } catch (e) {
         console.log(e);
       }
-      statusNewCreate = false;
     }
 
     setSelectedNote(newSelect);
@@ -149,12 +148,16 @@ const Notes = () => {
     setnewNoteActive(true);
     if (allNotes && allNotes.length) {
       allNotes.splice(0, 0, {
+        id: null,
         title: "Title Goes Here",
         user_id: user.id,
         content: [
           {
-            type: "paragraph",
-            children: [{ text: "This is editable " }],
+            attributes: {
+              font: "Roboto",
+            },
+            insert:
+              "Content Goes here. This is Editable. You can also add tags!! :)",
           },
         ],
         tags: [],
@@ -162,12 +165,15 @@ const Notes = () => {
     } else {
       allNotes.push({
         id: null,
-        user_id: user.id,
         title: "Title Goes Here",
+        user_id: user.id,
         content: [
           {
-            type: "paragraph",
-            children: [{ text: "This is editable " }],
+            attributes: {
+              font: "Roboto",
+            },
+            insert:
+              "Content Goes here. This is Editable. You can also add tags!! :)",
           },
         ],
         tags: [],
