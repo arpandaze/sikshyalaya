@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Redirect, Route } from "react-router-dom";
-import { UserContext } from "../utils/Contexts/UserContext";
-import { useContext } from "react";
 import configs from "../utils/configs";
 import { get } from "idb-keyval";
 
@@ -26,9 +24,9 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        isLoggedIn == true || configs.PRIVATE_ROUTE_ACCESS ? (
+        isLoggedIn === true || configs.PRIVATE_ROUTE_ACCESS ? (
           <Component {...props} />
-        ) : isLoggedIn == false ? (
+        ) : isLoggedIn === false ? (
           <Redirect
             to={{
               pathname: "/login",

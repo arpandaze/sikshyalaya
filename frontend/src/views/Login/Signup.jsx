@@ -1,19 +1,12 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useState } from "react";
 import { Formik, Form } from "formik";
 import Button from "../../components/Button";
 import * as yup from "yup";
 import Grid from "@material-ui/core/Grid";
 import Login from "./Login";
 import "./statics/css/signup.css";
-import TextField from "@material-ui/core/TextField";
-import axios from "axios";
-import Checkbox from "../../components/Checkbox";
-import configs from "../../utils/configs";
-import { get, set } from "idb-keyval";
-import { UserContext } from "../../utils/Contexts/UserContext";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import callAPI from "../../utils/API";
-import { Link } from "react-router-dom";
 import colorscheme from "../../utils/colors";
 import CustomTextField from "./../../components/CustomTextField";
 import { useAPI } from "../../utils/useAPI";
@@ -95,7 +88,7 @@ const Signup = () => {
 
   const onSubmit = async (data, { setErrors }) => {
     let group_id_list = group.filter((item) => {
-      if (item.sem == data.semester && item.program.id == data.program) {
+      if (item.sem === data.semester && item.program.id === data.program) {
         return item;
       }
     });
@@ -124,7 +117,7 @@ const Signup = () => {
     });
     console.log(response);
 
-    if (response.status == 200) {
+    if (response.status === 200) {
       setSubmitState({
         code: 2,
         message: "Check your email for verification!",

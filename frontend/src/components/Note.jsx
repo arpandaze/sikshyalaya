@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import colorscheme from "../utils/colors";
 import { ImCross } from "react-icons/im";
@@ -122,8 +122,12 @@ const Note = ({
                 >
                   {stateTag &&
                     stateTag.map((tagValue, index) => (
-                      <Grid item className="note_tag">
-                        <Tag tagName={tagValue} onDelete={handleRemoveTag} />
+                      <Grid item className="note_tag" key={index}>
+                        <Tag
+                          key={index}
+                          tagName={tagValue}
+                          onDelete={handleRemoveTag}
+                        />
                       </Grid>
                     ))}
                 </Grid>

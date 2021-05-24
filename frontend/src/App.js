@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useMemo, useCallback } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import Routes from "./Route";
 import "./App.css";
 import { UserContext } from "./utils/Contexts/UserContext";
-import { CacheContext } from "./utils/Contexts/CacheContext";
 import { get, set } from "idb-keyval";
 
 function App() {

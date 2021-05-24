@@ -1,5 +1,5 @@
-import React, { useState, useHistory, useContext } from "react";
-import { Formik, Field, Form } from "formik";
+import React, { useState, useContext } from "react";
+import { Formik, Form } from "formik";
 import Button from "../../components/Button";
 import * as yup from "yup";
 import Grid from "@material-ui/core/Grid";
@@ -7,7 +7,6 @@ import Image from "../../components/Image";
 import profile from "../../assets/pp.jpg";
 import DashboardLayout from "../../components/DashboardLayout";
 import "./statics/css/profile.css";
-import colorscheme from "../../utils/colors";
 import CustomTextField from "./../../components/CustomTextField";
 import { useAPI } from "../../utils/useAPI";
 import { UserContext } from "../../utils/Contexts/UserContext";

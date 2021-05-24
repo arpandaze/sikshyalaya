@@ -32,7 +32,7 @@ const ProfileBox = () => {
         name: user.full_name,
         department: department,
         year: year ? String(year) + end[year - 1] : "NaN",
-        semester: user.group ? (user.group.sem % 2 == 1 ? "I" : "II") : "NaN",
+        semester: user.group ? (user.group.sem % 2 === 1 ? "I" : "II") : "NaN",
         image: user.profile_image,
       };
       setUserState(formattedData);
