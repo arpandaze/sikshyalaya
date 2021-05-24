@@ -7,7 +7,7 @@ personalNotes: List[Json] = [
         "tags": ["Maths","Computer","Chemistry"],
         "title" : "titleOne",
         "content": """
-            [{"attributes":{"font":"Raleway"},"insert":"Rushab is a very good boi"},{"insert":"\n"},{"attributes":{"font":"Montserrat"},"insert":"but "},{"insert":"\n"},{"attributes":{"font":"Rubik"},"insert":"yogesh isn't"},{"insert":"\n"}]
+            [{"attributes":{"font":"Roboto"},"insert":"Rushab is a very good boi"},{"insert":"\n"},{"attributes":{"font":"Roboto"},"insert":"but "},{"insert":"\n"},{"attributes":{"font":"Roboto"},"insert":"yogesh isn't"},{"insert":"\n"}]
         """,
     },
     {
@@ -15,7 +15,7 @@ personalNotes: List[Json] = [
         "tags": ["mathematics","computer","physics"],
         "title" : "titleTwo",
         "content": """
-            [{"attributes":{"font":"Raleway"},"insert":"Rushab is a very good boi"},{"insert":"\n"},{"attributes":{"font":"Montserrat"},"insert":"but "},{"insert":"\n"},{"attributes":{"font":"Rubik"},"insert":"yogesh isn't"},{"insert":"\n"}]
+            [{"attributes":{"font":"Roboto"},"insert":"Rushab is a very good boi"},{"insert":"\n"},{"attributes":{"font":"Roboto"},"insert":"but "},{"insert":"\n"},{"attributes":{"font":"Roboto"},"insert":"yogesh isn't"},{"insert":"\n"}]
         """,
     },
     {
@@ -23,7 +23,7 @@ personalNotes: List[Json] = [
         "tags": ["Chemistry","Science","Pharma"],
         "title" : "titleThree",
         "content": """
-            [{"attributes":{"font":"Raleway"},"insert":"Rushab is a very good boi"},{"insert":"\n"},{"attributes":{"font":"Montserrat"},"insert":"but "},{"insert":"\n"},{"attributes":{"font":"Rubik"},"insert":"yogesh isn't"},{"insert":"\n"}]
+            [{"attributes":{"font":"Roboto"},"insert":"Rushab is a very good boi"},{"insert":"\n"},{"attributes":{"font":"Roboto"},"insert":"but "},{"insert":"\n"},{"attributes":{"font":"Roboto"},"insert":"yogesh isn't"},{"insert":"\n"}]
         """,
     },
     {
@@ -31,7 +31,7 @@ personalNotes: List[Json] = [
         "tags": ["mathematics","computer","physics"],
         "title" : "title Four",
         "content": """
-            [{"attributes":{"font":"Raleway"},"insert":"Rushab is a very good boi"},{"insert":"\n"},{"attributes":{"font":"Montserrat"},"insert":"but "},{"insert":"\n"},{"attributes":{"font":"Rubik"},"insert":"yogesh isn't"},{"insert":"\n"}]
+            [{"attributes":{"font":"Roboto"},"insert":"Rushab is a very good boi"},{"insert":"\n"},{"attributes":{"font":"Roboto"},"insert":"but "},{"insert":"\n"},{"attributes":{"font":"Roboto"},"insert":"yogesh isn't"},{"insert":"\n"}]
         """,
     },
     {
@@ -39,7 +39,7 @@ personalNotes: List[Json] = [
         "tags": ["mathematics","computer","physics"],
         "title" : "title Five",
         "content": """
-            [{"attributes":{"font":"Raleway"},"insert":"Rushab is a very good boi"},{"insert":"\n"},{"attributes":{"font":"Montserrat"},"insert":"but "},{"insert":"\n"},{"attributes":{"font":"Rubik"},"insert":"yogesh isn't"},{"insert":"\n"}]
+            [{"attributes":{"font":"Roboto"},"insert":"Rushab is a very good boi"},{"insert":"\n"},{"attributes":{"font":"Roboto"},"insert":"but "},{"insert":"\n"},{"attributes":{"font":"Roboto"},"insert":"yogesh isn't"},{"insert":"\n"}]
         """,
     },
     {
@@ -47,7 +47,7 @@ personalNotes: List[Json] = [
         "tags": ["mathematics","computer","physics"],
         "title" : "title Six",
         "content": """
-            [{"attributes":{"font":"Raleway"},"insert":"Rushab is a very good boi"},{"insert":"\n"},{"attributes":{"font":"Montserrat"},"insert":"but "},{"insert":"\n"},{"attributes":{"font":"Rubik"},"insert":"yogesh isn't"},{"insert":"\n"}]
+            [{"attributes":{"font":"Roboto"},"insert":"Rushab is a very good boi"},{"insert":"\n"},{"attributes":{"font":"Roboto"},"insert":"but "},{"insert":"\n"},{"attributes":{"font":"Roboto"},"insert":"yogesh isn't"},{"insert":"\n"}]
         """,
     },
     {
@@ -55,7 +55,7 @@ personalNotes: List[Json] = [
         "tags": ["mathematics","computer","physics"],
         "title" : "title seven",
         "content": """
-            [{"attributes":{"font":"Raleway"},"insert":"Rushab is a very good boi"},{"insert":"\n"},{"attributes":{"font":"Montserrat"},"insert":"but "},{"insert":"\n"},{"attributes":{"font":"Rubik"},"insert":"yogesh isn't"},{"insert":"\n"}]
+            [{"attributes":{"font":"Roboto"},"insert":"Rushab is a very good boi"},{"insert":"\n"},{"attributes":{"font":"Roboto"},"insert":"but "},{"insert":"\n"},{"attributes":{"font":"Roboto"},"insert":"yogesh isn't"},{"insert":"\n"}]
         """,
     },
     {
@@ -63,7 +63,7 @@ personalNotes: List[Json] = [
         "tags": ["mathematics","computer","physics"],
         "title" : "title eight",
         "content": """
-            [{"attributes":{"font":"Raleway"},"insert":"Rushab is a very good boi"},{"insert":"\n"},{"attributes":{"font":"Montserrat"},"insert":"but "},{"insert":"\n"},{"attributes":{"font":"Rubik"},"insert":"yogesh isn't"},{"insert":"\n"}]
+            [{"attributes":{"font":"Roboto"},"insert":"Rushab is a very good boi"},{"insert":"\n"},{"attributes":{"font":"Roboto"},"insert":"but "},{"insert":"\n"},{"attributes":{"font":"Roboto"},"insert":"yogesh isn't"},{"insert":"\n"}]
         """,
     },
     {
@@ -71,7 +71,7 @@ personalNotes: List[Json] = [
         "tags": ["mathematics","computer","physics"],
         "title" : "title Nine",
        "content": """
-            [{"attributes":{"font":"Raleway"},"insert":"Rushab is a very good boi"},{"insert":"\n"},{"attributes":{"font":"Montserrat"},"insert":"but "},{"insert":"\n"},{"attributes":{"font":"Rubik"},"insert":"yogesh isn't"},{"insert":"\n"}]
+            [{"attributes":{"font":"Roboto"},"insert":"Rushab is a very good boi"},{"insert":"\n"},{"attributes":{"font":"Roboto"},"insert":"but "},{"insert":"\n"},{"attributes":{"font":"Roboto"},"insert":"yogesh isn't"},{"insert":"\n"}]
         """,
     },
     {
@@ -79,7 +79,7 @@ personalNotes: List[Json] = [
         "tags": ["mathematics","computer","physics"],
         "title" : "title ten",
         "content": """
-            [{"attributes":{"font":"Raleway"},"insert":"Rushab is a very good boi"},{"insert":"\n"},{"attributes":{"font":"Montserrat"},"insert":"but "},{"insert":"\n"},{"attributes":{"font":"Rubik"},"insert":"yogesh isn't"},{"insert":"\n"}]
+            [{"attributes":{"font":"Roboto"},"insert":"Rushab is a very good boi"},{"insert":"\n"},{"attributes":{"font":"Roboto"},"insert":"but "},{"insert":"\n"},{"attributes":{"font":"Roboto"},"insert":"yogesh isn't"},{"insert":"\n"}]
         """,
     },
     {
@@ -87,7 +87,7 @@ personalNotes: List[Json] = [
         "tags": ["mathematics","computer","physics"],
         "title" : "title eleven",
         "content": """
-            [{"attributes":{"font":"Raleway"},"insert":"Rushab is a very good boi"},{"insert":"\n"},{"attributes":{"font":"Montserrat"},"insert":"but "},{"insert":"\n"},{"attributes":{"font":"Rubik"},"insert":"yogesh isn't"},{"insert":"\n"}]
+            [{"attributes":{"font":"Roboto"},"insert":"Rushab is a very good boi"},{"insert":"\n"},{"attributes":{"font":"Roboto"},"insert":"but "},{"insert":"\n"},{"attributes":{"font":"Roboto"},"insert":"yogesh isn't"},{"insert":"\n"}]
         """,
     },
     {
@@ -95,7 +95,7 @@ personalNotes: List[Json] = [
         "tags": ["mathematics","computer","physics"],
         "title" : "title twelve",
         "content": """
-            [{"attributes":{"font":"Raleway"},"insert":"Rushab is a very good boi"},{"insert":"\n"},{"attributes":{"font":"Montserrat"},"insert":"but "},{"insert":"\n"},{"attributes":{"font":"Rubik"},"insert":"yogesh isn't"},{"insert":"\n"}]
+            [{"attributes":{"font":"Roboto"},"insert":"Rushab is a very good boi"},{"insert":"\n"},{"attributes":{"font":"Roboto"},"insert":"but "},{"insert":"\n"},{"attributes":{"font":"Roboto"},"insert":"yogesh isn't"},{"insert":"\n"}]
         """,
     },
     {
@@ -103,7 +103,7 @@ personalNotes: List[Json] = [
         "tags": ["mathematics","computer","physics"],
         "title" : "title thirteen",
         "content": """
-            [{"attributes":{"font":"Raleway"},"insert":"Rushab is a very good boi"},{"insert":"\n"},{"attributes":{"font":"Montserrat"},"insert":"but "},{"insert":"\n"},{"attributes":{"font":"Rubik"},"insert":"yogesh isn't"},{"insert":"\n"}]
+            [{"attributes":{"font":"Roboto"},"insert":"Rushab is a very good boi"},{"insert":"\n"},{"attributes":{"font":"Roboto"},"insert":"but "},{"insert":"\n"},{"attributes":{"font":"Roboto"},"insert":"yogesh isn't"},{"insert":"\n"}]
         """,
     },
     {
@@ -111,7 +111,7 @@ personalNotes: List[Json] = [
         "tags": ["mathematics","computer","physics"],
         "title" : "title fourteen",
         "content": """
-            [{"attributes":{"font":"Raleway"},"insert":"Rushab is a very good boi"},{"insert":"\n"},{"attributes":{"font":"Montserrat"},"insert":"but "},{"insert":"\n"},{"attributes":{"font":"Rubik"},"insert":"yogesh isn't"},{"insert":"\n"}]
+            [{"attributes":{"font":"Roboto"},"insert":"Rushab is a very good boi"},{"insert":"\n"},{"attributes":{"font":"Roboto"},"insert":"but "},{"insert":"\n"},{"attributes":{"font":"Roboto"},"insert":"yogesh isn't"},{"insert":"\n"}]
         """,
     },
     {
@@ -119,7 +119,7 @@ personalNotes: List[Json] = [
         "tags": ["mathematics","computer","physics"],
         "title" : "title Fifteen",
         "content": """
-            [{"attributes":{"font":"Raleway"},"insert":"Rushab is a very good boi"},{"insert":"\n"},{"attributes":{"font":"Montserrat"},"insert":"but "},{"insert":"\n"},{"attributes":{"font":"Rubik"},"insert":"yogesh isn't"},{"insert":"\n"}]
+            [{"attributes":{"font":"Roboto"},"insert":"Rushab is a very good boi"},{"insert":"\n"},{"attributes":{"font":"Roboto"},"insert":"but "},{"insert":"\n"},{"attributes":{"font":"Roboto"},"insert":"yogesh isn't"},{"insert":"\n"}]
         """,
     },
 ]
