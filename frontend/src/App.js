@@ -6,7 +6,30 @@ import { CacheContext } from "./utils/Contexts/CacheContext";
 import { get, set } from "idb-keyval";
 
 function App() {
-  const [user, setUser_s] = useState(null);
+  const [user, setUser_s] = useState({
+    id: null,
+    email: null,
+    profile_image: null,
+    full_name: null,
+    address: null,
+    group: {
+      id: null,
+      sem: null,
+      program: { name: null, department_id: null, id: null },
+      course: [
+        {
+          course_code: null,
+          course_name: null,
+          course_credit: null,
+          department_id: null,
+          id: null,
+        },
+      ],
+    },
+    contact_number: null,
+    dob: null,
+    join_year: null,
+  });
 
   const setUser = (value) => {
     set("user", value).catch(() => {
