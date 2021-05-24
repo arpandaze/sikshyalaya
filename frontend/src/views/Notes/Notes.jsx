@@ -18,17 +18,17 @@ const Notes = () => {
     }
 
     let responseData = [];
-    console.log(response);
     responseData = response.data.map((note) => {
-      return {
+      let formattedResponseData = {
         id: note.id,
         user_id: note.user_id,
         title: note.title,
         tags: note.tags,
         content: JSON.parse(note.content),
       };
+
+      return formattedResponseData;
     });
-    console.log(responseData);
 
     return responseData.reverse();
   };
@@ -56,7 +56,7 @@ const Notes = () => {
     data = {
       user_id: user.id,
       title: title,
-      content: JSON.stringify(content),
+      content: JSON.stringify(content.ops),
       tags: stateTag,
     };
 
