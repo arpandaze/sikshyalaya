@@ -18,7 +18,10 @@ class PersonalNoteCreate(PersonalNoteBase):
 
 # properties to recive via API on Update
 class PersonalNoteUpdate(PersonalNoteBase):
-    pass
+    user_id: int = None
+    tags: List[str] = None
+    title: str = None
+    content: str = None
 
 
 # properties to return via the api
