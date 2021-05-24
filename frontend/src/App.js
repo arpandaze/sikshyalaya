@@ -6,7 +6,31 @@ import { CacheContext } from "./utils/Contexts/CacheContext";
 import { get, set } from "idb-keyval";
 
 function App() {
-  const [user, setUser_s] = useState(null);
+  const [user, setUser_s] = useState({
+    default_data: true,
+    id: null,
+    email: null,
+    profile_image: null,
+    full_name: null,
+    address: null,
+    group: {
+      id: null,
+      sem: null,
+      program: { name: null, department_id: null, id: null },
+      course: [
+        {
+          course_code: null,
+          course_name: null,
+          course_credit: null,
+          department_id: null,
+          id: null,
+        },
+      ],
+    },
+    contact_number: null,
+    dob: null,
+    join_year: null,
+  });
 
   const setUser = (value) => {
     set("user", value).catch(() => {
@@ -23,12 +47,10 @@ function App() {
   useEffect(() => {
     get("user")
       .then((value) => {
-        if (value) {
-          setUser_s(value);
-        }
+        setUser_s(value || null);
       })
       .catch(() => {
-        setUser_s(JSON.parse(window.localStorage.getItem("user")));
+        setUser_s(JSON.parse(window.localStorage.getItem("user") || null));
       });
   }, []);
 

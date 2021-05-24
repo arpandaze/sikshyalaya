@@ -12,7 +12,7 @@ import configs from "../../utils/configs";
 import { get, set } from "idb-keyval";
 import { UserContext } from "../../utils/Contexts/UserContext";
 import { Redirect, useHistory } from "react-router-dom";
-import { getReq, postReq } from "../../utils/API";
+import callAPI from "../../utils/API";
 import { Link } from "react-router-dom";
 import colorscheme from "../../utils/colors";
 import CustomTextField from "./../../components/CustomTextField";
@@ -117,7 +117,12 @@ const Signup = () => {
       join_year: parseInt(data.join_year.substr(0, 4)),
       password: data.password,
     };
-    let response = await postReq("/api/v1/auth/signup", req_data);
+    let response = await callAPI({
+      endpoint: "/api/v1/auth/signup",
+      method: "POST",
+      data: req_data,
+    });
+    console.log(response);
 
     if (response.status == 200) {
       setSubmitState({

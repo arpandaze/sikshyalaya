@@ -32,7 +32,12 @@ class Settings(BaseSettings):
         "http://localhost",
     ]
 
-    ALLOWED_EMAIL_HOST: List[str] = []
+    ALLOWED_EMAIL_HOST: List[str] = [
+        "ku.edu.np",
+        "student.ku.edu.np",
+        "test.com",    #FIXME: Remove this on deployment
+        "gmail.com",
+    ]
 
     @validator("BACKEND_CORS_ORIGINS", pre=True)
     def assemble_cors_origins(cls, v: Union[str, List[str]]) -> Union[List[str], str]:
