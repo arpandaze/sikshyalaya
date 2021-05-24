@@ -36,20 +36,6 @@ const Notes = () => {
   
   const defaultNotesvalue = [];
 
-  // set default =>
-  // {
-  //   id: null,
-  //   user.id: user.id,
-  //   title: "Your Title Goes Here. [Editable]",
-  //   tags: [],
-  //   content: [
-  //     {
-  //       type: "paragraph",
-  //       children: [{ text: "Yout Content Goes Here. [EDITABLE]" }],
-  //     },
-  //   ],
-  // }
-
   let [allNotes, allNotesComplete] = useAPI(
     { endpoint: "/api/v1/personal_note/" },
     noteFormatter,
@@ -97,20 +83,32 @@ const Notes = () => {
         statusNewCreate = false;
 
         if(allNotes && allNotes.length){
-          let newId = allNotes[allNotes.length-1].id;
-          let newPosition = (allNotes.length-1).toString();
+          let newId = allNotes[0].id;
+          let newPosition = "0";
           newSelect = {id: newId, position: newPosition};
         }
 
     }else{
-      console.log("updating");
+      
       //on notes previously present in the database
       //update the notes
       let params = {id: selectedNote.id};
       let putResponse = null;
-      putResponse = await putReq(`/api/vq/personal_note/${selectedNote.id}`, data);
-      console.log(putResponse);
+      putResponse = await putReq(`/api/v1/personal_note/${selectedNote.id}`, data);
+      
+      try{
+        data = {...data, id: selectedNote.id, content: JSON.parse(data.content)};
+        allNotes[selectedNote.position] = data;
+        newSelect ={
+          id: selectedNote.id,
+          position: selectedNote.position,
+        }
+      }catch (e){
+        console.log(e);
+      }
+      statusNewCreate = false;
     }
+
     setSelectedNote(newSelect);
     setnewNoteActive(statusNewCreate);
   };
