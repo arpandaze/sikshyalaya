@@ -8,11 +8,13 @@ const callAPI = async ({
   data,
   params = null,
   withCredentials = true,
+  ...rest
 }) => {
   let url = `${configs.API_HOST}${endpoint}`;
   let config = {
     withCredentials: withCredentials,
     params: params,
+    ...rest,
   };
 
   let promiseObj = null;
