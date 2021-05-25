@@ -19,3 +19,4 @@ from .class_session import crud_class_session
 # item = CRUDBase[Item, ItemCreate, ItemUpdate](Item)
 
 from .quiz import crud_quiz, crud_question
+from .files import crud_files
