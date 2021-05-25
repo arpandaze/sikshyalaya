@@ -102,7 +102,7 @@ const StudentLoginBox = () => {
                     name="remember_me"
                     value="remember_me"
                   />
-                  <label for="remember_me">Remember me</label>
+                  <label htmlFor="remember_me">Remember me</label>
                 </Grid>
               </Grid>
               <Grid

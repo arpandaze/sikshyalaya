@@ -3,7 +3,7 @@ from typing import Optional, List
 
 from pydantic import BaseModel
 from typing import Any
-from schemas.user import UserReturn, TeacherOfClassSession
+from schemas.user import UserReturnMin, TeacherOfClassSession
 from schemas.course import Course
 
 
@@ -48,6 +48,7 @@ class ClassSession(ClassSessionInDBBase):
     instructor: List[TeacherOfClassSession]
     pass
 
+
 class ClassSessionReturn(BaseModel):
     datetime: datetime
     is_active: bool
@@ -60,8 +61,6 @@ class ClassSessionReturn(BaseModel):
 
     class Config:
         orm_mode = True
-
-
 
 
 class ClassSessionInDB(ClassSessionInDBBase):

@@ -1,6 +1,7 @@
 from schemas.user import UserCreate
 from typing import Any, List
 import aiofiles
+from hashlib import sha1
 
 import os
 
@@ -66,7 +67,7 @@ async def create_user(
     return user
 
 
-@router.put("/me", response_model=schemas.User)
+@router.put("/me", response_model=schemas.user.UserReturn)
 async def update_user_me(
     *,
     db: Session = Depends(deps.get_db),
@@ -77,18 +78,13 @@ async def update_user_me(
     Update own user.
     """
     current_user_data = jsonable_encoder(current_user)
+    current_user_data.update(jsonable_encoder(new_data))
     user_in = schemas.UserUpdate(**current_user_data)
-    if password is not None:
-        user_in.password = password
-    if full_name is not None:
-        user_in.full_name = full_name
-    if email is not None:
-        user_in.email = email
     user = cruds.crud_user.update(db, db_obj=current_user, obj_in=user_in)
     return user
 
 
-@router.get("/me", response_model=schemas.User)
+@router.get("/me", response_model=schemas.user.UserReturn)
 async def read_user_me(
     db: Session = Depends(deps.get_db),
     current_user: models.User = Depends(deps.get_current_active_user),
@@ -107,8 +103,12 @@ async def update_my_profile_photo(
     profile_photo: UploadFile = File(...),
 ):
 
+    content_type = profile_photo.content_type
+    file_extension = content_type[content_type.index("/") + 1:]
     profile_image_path = os.path.join("uploaded_files", "profiles")
-    profile_image = f"{abs(hash(str(current_user.id)))}.jpg"
+    hasher = sha1()
+    hasher.update(bytes(str( current_user.id ), "utf-8"))
+    profile_image = f"{hasher.hexdigest()}.{file_extension}"
     profile_image_file_path = os.path.join(profile_image_path, profile_image)
 
     if not os.path.exists(profile_image_path):
@@ -118,13 +118,10 @@ async def update_my_profile_photo(
         content = await profile_photo.read()
         await f.write(content)
 
-    if os.path.exists(os.path.join(profile_image_path, current_user.profile_image)):
-        os.remove(os.path.join(profile_image_path, current_user.profile_image))
-
     user = cruds.crud_user.update(
         db,
         db_obj=current_user,
-        obj_in=schemas.UserUpdate(profile_image=profile_image),
+        obj_in=schemas.user.ImageUpdate(profile_image=profile_image),
     )
 
     return user

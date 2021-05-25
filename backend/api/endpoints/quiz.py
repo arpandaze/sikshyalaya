@@ -339,8 +339,7 @@ async def get_image(
                 status_code=403, detail="Error ID: 140"
             )  # file not of that question
 
-    BACKEND_ROOT = os.getcwd()
-    FILE_PATH = os.path.join(BACKEND_ROOT, FILE_PATH, filename)
+    FILE_PATH = os.path.join(FILE_PATH, filename)
 
     if os.path.isfile(FILE_PATH):
         file = FileResponse(f"{FILE_PATH}")

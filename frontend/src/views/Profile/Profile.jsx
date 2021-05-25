@@ -4,12 +4,14 @@ import Button from "../../components/Button";
 import * as yup from "yup";
 import Grid from "@material-ui/core/Grid";
 import Image from "../../components/Image";
-import profile from "../../assets/pp.jpg";
+import defaultProfile from "../../assets/default-profile.svg";
 import DashboardLayout from "../../components/DashboardLayout";
 import "./statics/css/profile.css";
 import CustomTextField from "./../../components/CustomTextField";
 import { useAPI } from "../../utils/useAPI";
+import callAPI from "../../utils/API";
 import { UserContext } from "../../utils/Contexts/UserContext";
+import configs from "../../utils/configs";
 
 const programNames = [
   {
@@ -39,29 +41,18 @@ const semester = [
 const validationSchema = yup.object({
   name: yup.string("Enter your Name").required("Name is required"),
   address: yup.string("Enter your address").required("Address is required"),
-  join_year: yup.string("Enter Joined Year").required("Join year is required"),
   dob: yup.string("Enter Date of Birth").required("Date of Birth is required"),
   phone_number: yup.number().typeError("Not a valid phone number"),
-  email: yup
-    .string("Enter your email")
-    .email("Enter a valid email!")
-    .required("Email is required"),
-  password: yup
-    .string("Enter your password")
-    .min(8, "Minimum 8 characters")
-    .required("Password is required"),
   semester: yup.number().required("Semester is required"),
-  program: yup.number().required("Program is required"),
-  confirm_password: yup.string().when("password", {
-    is: (val) => (val && val.length > 0 ? true : false),
-    then: yup
-      .string()
-      .oneOf([yup.ref("password")], "Both password need to be the same"),
-  }),
 });
 
 const Profile = () => {
   const { user, setUser } = useContext(UserContext);
+
+  const groupFormatter = (req) => {
+    return req.data;
+  };
+  const [group] = useAPI({ endpoint: "/api/v1/group/all/" }, groupFormatter);
 
   const programFormatter = (value) =>
     value.data.map((item) => ({
@@ -69,16 +60,60 @@ const Profile = () => {
       value: item.id,
     }));
 
-  const [program] = useAPI(
-    { endpoint: "/api/v1/program/all/" },
-    programFormatter
-  );
   const [selectImage, setSelectedImage] = useState();
+  const [tempImage, setTempImage] = useState();
   const [isPicked, setIsPicked] = useState(false);
 
-  const onFileUpload = (e) => {
-    setSelectedImage(e.target.files[0]);
+  const onFileUpload = async (e) => {
+    let reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onload = () => {
+      setTempImage(reader.result);
+    };
     setIsPicked(true);
+    setSelectedImage(e.target.files[0]);
+  };
+
+  const onSubmit = async (value) => {
+    let group_id_list = group.filter((item) => {
+      if (
+        item.sem === value.semester &&
+        item.program.id === user.group.program.id
+      ) {
+        return item;
+      }
+    });
+
+    let data = {
+      full_name: value.name,
+      address: value.address,
+      dob: value.dob,
+      email: value.email,
+      contact_number: value.phone_number,
+      group_id: group_id_list[0].id,
+    };
+
+    let resp = await callAPI({
+      endpoint: "/api/v1/users/me",
+      method: "PUT",
+      data: data,
+    });
+    if (resp.status === 200) {
+      setUser(resp.data);
+      let imageData = new FormData();
+      imageData.append("profile_photo", selectImage);
+      let imageResp = await callAPI({
+        endpoint: "/api/v1/users/me/profile",
+        method: "PUT",
+        data: imageData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      console.log(imageResp);
+      let test = { ...user, profile_image: "ello" };
+      console.log(test);
+    }
   };
 
   return (
@@ -107,7 +142,13 @@ const Profile = () => {
                 <div>
                   <Image
                     for="photo-upload"
-                    src={profile}
+                    src={
+                      isPicked === true
+                        ? tempImage
+                        : user.profile_image == null
+                        ? defaultProfile
+                        : `${configs.PUBLIC_FILES_PATH}/profiles/${user.profile_image}`
+                    }
                     addStyles="profile_image"
                   />
                 </div>
@@ -129,7 +170,6 @@ const Profile = () => {
                 className="profile_container"
               >
                 <Grid item>
-                  {console.log(user.full_name)}
                   <Formik
                     enableReinitialize={true}
                     initialValues={{
@@ -141,9 +181,7 @@ const Profile = () => {
                       email: user.email,
                     }}
                     validationSchema={validationSchema}
-                    onSubmit={(values) => {
-                      alert(JSON.stringify(values, null, 2));
-                    }}
+                    onSubmit={onSubmit}
                   >
                     <Form>
                       <Grid

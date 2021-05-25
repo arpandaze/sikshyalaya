@@ -9,3 +9,4 @@ node_modules/
 **/migrations/versions/*
 !**/migrations/versions/__init__.py
 static/
+uploaded_files/

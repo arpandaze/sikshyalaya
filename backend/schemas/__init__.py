@@ -30,7 +30,7 @@ from .user_permission import (
     UserPermissionInDB,
 )
 from .token import Token, TokenPayload
-from .user import User, UserCreate, UserInDB, UserUpdate, UserReturn, UserSignUp
+from .user import User, UserCreate, UserInDB, UserUpdate, UserReturnMin, UserSignUp
 
 from .quiz import (
     Quiz,

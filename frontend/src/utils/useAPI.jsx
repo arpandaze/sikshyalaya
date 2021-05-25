@@ -41,7 +41,9 @@ export const useAPI = (
         setResponseState({ response: formattedRes, complete: true });
       })
       .catch((error) => {
-        console.log(error);
+        if (error.response == null) {
+          throw error;
+        }
         if (error.response.status === 401) {
           clear()
             .then(() => {

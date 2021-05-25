@@ -222,7 +222,7 @@ const Signup = () => {
                       menuItems={semester}
                       id="semester"
                       addStyles="signup_inputButton"
-                      style={{ "max-width": "20" }}
+                      style={{ maxWidth: "20" }}
                       onChange={(e) => {
                         console.log(e);
                       }}
@@ -234,11 +234,7 @@ const Signup = () => {
                       name="join_year"
                       label="Join year"
                       type="date"
-                      defaultValue=""
                       className="signup_inputButton"
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
                     />
                   </Grid>
                   <Grid item xs={6}>
@@ -247,11 +243,7 @@ const Signup = () => {
                       label="Birth Date"
                       type="date"
                       name="dob"
-                      defaultValue=""
                       className="signup_inputButton"
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
                     />
                   </Grid>
                   <Grid item xs={12}>

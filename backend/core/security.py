@@ -1,5 +1,6 @@
 import binascii
 import os
+from hashlib import sha1
 
 from passlib.context import CryptContext
 
@@ -37,4 +38,6 @@ def get_password_hash(password: str) -> str:
 
 
 def get_uid_hash(uid: str) -> str:
-    return str(hash(f"uid_{id}"))[1:7]
+    hasher = sha1()
+    hasher.update(bytes(f"uid_{id}", "utf-8"))
+    return hasher.hexdigest()[1:7]

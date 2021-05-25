@@ -9,7 +9,6 @@ from pydantic import BaseModel, EmailStr
 # Shared properties
 class UserBase(BaseModel):
     email: Optional[EmailStr] = None
-    is_active: Optional[bool] = False
     full_name: Optional[str] = None
     user_type: int
     address: str = None
@@ -42,11 +41,12 @@ class VerifyUser(BaseModel):
     is_active: bool
 
 
-class UserReturn(BaseModel):
+class UserReturnMin(BaseModel):
     id: int
 
     class Config:
         orm_mode = True
+
 
 class TeacherOfClassSession(BaseModel):
     id: int
@@ -56,13 +56,16 @@ class TeacherOfClassSession(BaseModel):
         orm_mode = True
 
 
-
-
 # Properties to receive via API on update
-class UserUpdate(UserBase):
-    user_type: int = None
-    password: Optional[str] = None
-    profile_image: Optional[str] = None
+class UserUpdate(BaseModel):
+    full_name: str
+    address: str
+    group_id: int
+    dob: date
+    contact_number: str
+
+class ImageUpdate(BaseModel):
+    profile_image: str = None
 
 
 class UserInDBBase(UserBase):
@@ -79,7 +82,7 @@ class User(UserInDBBase):
     pass
 
 
-class UserLoginReturn(BaseModel):
+class UserReturn(BaseModel):
     id: int = None
     email: Optional[EmailStr] = None
     profile_image: Optional[str] = None
