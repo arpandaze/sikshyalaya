@@ -1,3 +1,4 @@
+from os import sendfile, stat_result
 from typing import Any, List
 
 from fastapi import APIRouter, Depends
@@ -58,7 +59,7 @@ def create_personal_note(
     db: Session = Depends(deps.get_db),
     *,
     obj_in: PersonalNoteCreate,
-    current_user: User = Depends(deps.get_current_active_user)
+    current_user: User = Depends(deps.get_current_active_user),
 ) -> Any:
     if not current_user:
         raise HTTPException(status_code=404, detail="Error ID: 119")  # user not found!
@@ -93,7 +94,7 @@ def get_specific_personal_note(
     db: Session = Depends(deps.get_db),
     *,
     id: int,
-    current_user: User = Depends(deps.get_current_active_user)
+    current_user: User = Depends(deps.get_current_active_user),
 ) -> Any:
     if not current_user:
         raise HTTPException(status_code=404, detail="Error ID: 121")  # user not found!
@@ -127,7 +128,7 @@ def update_personal_note(
     *,
     id: int,
     obj_in: PersonalNoteUpdate,
-    current_user: User = Depends(deps.get_current_active_user)
+    current_user: User = Depends(deps.get_current_active_user),
 ) -> Any:
     if not current_user:
         raise HTTPException(status_code=404, detail="Error ID: 124")  # user not found!
@@ -142,7 +143,7 @@ def update_personal_note(
         if obj_in.user_id == current_user.id:
             personal_note = crud_personal_note.get(db, id)
             return crud_personal_note.update(db, db_obj=personal_note, obj_in=obj_in)
-            
+
         else:
             raise HTTPException(
                 status_code=403,
@@ -152,3 +153,40 @@ def update_personal_note(
     if current_user.user_type == settings.UserType.SUPERADMIN.value:
         personal_note = crud_personal_note.get(db, id)
         return crud_personal_note.update(db, db_obj=personal_note, obj_in=obj_in)
+
+
+# XXX: For deleting all, is this needed?
+
+# @router.delete("/{}")
+# def deletePersonalNotes(
+#     db: Session = Depends(deps.get_db),
+#     *,
+#     current_user: User = Depends(deps.get_current_active_superuser);
+# )->Any:
+#     crud_personal_note.delete
+
+
+@router.delete("/{id}")
+def deleteSpecificPersonalNote(
+    db: Session = Depends(deps.get_db),
+    *,
+    id: int,
+    current_user: User = Depends(deps.get_current_active_user),
+) -> Any:
+
+    if current_user.user_type == settings.UserType.SUPERADMIN.value:
+        personalNote = crud_personal_note.remove(db, id=id)
+        return personalNote
+
+    if current_user.user_type == settings.UserType.ADMIN.value:
+        raise HTTPException(
+            status_code=403,
+            detail="Error ID: 142",  # user has no authorization to delete notes of other users
+        )
+
+    personalNote = get_specific_personal_note(db, id=id, current_user=current_user)
+
+    personalNote = crud_personal_note.remove(db, id=personalNote.id)
+    
+    return personalNote
+    
