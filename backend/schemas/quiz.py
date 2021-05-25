@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import Optional, List, Dict  # noqa
 
 from pydantic import BaseModel
-from schemas import GroupReturn, UserReturn
+from schemas import GroupReturn, UserReturnMin
 
 
 class QuizBase(BaseModel):
@@ -38,7 +38,7 @@ class QuizInDB(QuizInDBBase):
 
 class Quiz(QuizInDBBase):
     group: List[GroupReturn]
-    instructor: List[UserReturn]
+    instructor: List[UserReturnMin]
 
 
 # XXX
