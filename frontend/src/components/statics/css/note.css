@@ -143,18 +143,30 @@
     outline: none;
     border: 0px;
   }
-  .note_trashButtonContainer {
+  .note_saveButtonContainer {
     position: absolute;
     right: 20px;
     bottom: 10px;
   }
-  .note_trashButton {
+  .note_saveButton {
     bottom: 50px;
     width: 20px;
     height: 20px;
     padding: 8px;
+    border-radius: 100%;
+    cursor: pointer;
+  }
+  .note_trashButtonContainer {
+    position: absolute;
+    right: 60px;
+    bottom: 10px;
+  }
+  .note_trashButton {
+    bottom: 60px;
+    width: 20px;
+    height: 20px;
+    padding: 8px;
     border-radius: 50%;
-    color: var(--red4);
     cursor: pointer;
   }
 }
