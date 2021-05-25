@@ -34,7 +34,7 @@ const Notes = () => {
   };
 
   const [newNoteActive, setnewNoteActive] = useState(false);
-
+  const [newSelect, setNewSelect] = useState(true);
   const defaultNotesvalue = [];
 
   let [allNotes, allNotesComplete] = useAPI(
@@ -47,7 +47,8 @@ const Notes = () => {
     id: allNotes && allNotesComplete && allNotes.length ? allNotes[0].id : null,
     position: "0",
   });
-
+  // TODO: correct order ma airako chaina, after save,
+  // OnDelete, data persistence is present.
   const onSavehandler = async (title, content, stateTag) => {
     let data = null;
     let newSelect = { id: "", position: "" };
@@ -83,7 +84,7 @@ const Notes = () => {
 
       allNotes.splice(0, allNotes.length);
       allNotes.push(...notes);
-      statusNewCreate = false;
+      setnewNoteActive(false);
 
       if (allNotes && allNotes.length) {
         let newId = allNotes[0].id;
@@ -100,6 +101,7 @@ const Notes = () => {
         method: "PUT",
         data,
       });
+      setnewNoteActive(false);
 
       try {
         data = {
@@ -118,16 +120,12 @@ const Notes = () => {
     }
 
     setSelectedNote(newSelect);
-    setnewNoteActive(statusNewCreate);
   };
 
   const onDeleteHandler = async () => {
-    allNotes.splice(parseInt(selectedNote.position), 1);
-
     if (selectedNote.id == null) {
       setnewNoteActive(false);
     } else {
-      console.log("I am here!!");
       //delete from database;
       let deleteResponse = null;
 
@@ -136,6 +134,8 @@ const Notes = () => {
         method: "DELETE",
       });
     }
+
+    allNotes.splice(parseInt(selectedNote.position), 1);
 
     let note = {
       id: "",
@@ -249,6 +249,7 @@ const Notes = () => {
                         title={notes.title}
                         content={notes.content[0].insert}
                         onClick={() => {
+                          setNewSelect(!newSelect);
                           handleSelectNote(notes.id, index);
                         }}
                       />
@@ -284,8 +285,9 @@ const Notes = () => {
                     content={allNotes[selectedNote.position].content}
                     tags={allNotes[selectedNote.position].tags}
                     onSave={onSavehandler}
+                    newSelect={newSelect}
                     onClose={() => {
-                      setSelectedNote({ id: "", position: "" });
+                      setSelectedNote({ id: null, position: "" });
                     }}
                     onDelete={onDeleteHandler}
                   />
