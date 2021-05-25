@@ -121,10 +121,21 @@ const Notes = () => {
     setnewNoteActive(statusNewCreate);
   };
 
-  const onDeleteHandler = () => {
+  const onDeleteHandler = async () => {
     allNotes.splice(parseInt(selectedNote.position), 1);
 
-    // delete note from the database;
+    if (selectedNote.id == null) {
+      setnewNoteActive(false);
+    } else {
+      console.log("I am here!!");
+      //delete from database;
+      let deleteResponse = null;
+
+      deleteResponse = await callAPI({
+        endpoint: `/api/v1/personal_note/${selectedNote.id}`,
+        method: "DELETE",
+      });
+    }
 
     let note = {
       id: "",
