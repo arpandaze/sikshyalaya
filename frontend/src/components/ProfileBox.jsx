@@ -9,6 +9,7 @@ import "./statics/css/profileBox.css";
 import defaultProfile from "../assets/default-profile.svg";
 import { UserContext } from "../utils/Contexts/UserContext";
 import { Tooltip } from "@material-ui/core";
+import configs from "../utils/configs";
 
 var end = ["st", "nd", "rd", "th", "th"];
 
@@ -50,8 +51,16 @@ const ProfileBox = () => {
         <Grid item sm={5} xl={5} className="profileBox_imageSide">
           <div className="profileBox_profileImage">
             <Image
-              src={userState.image ? userState.image : defaultProfile}
-              alt={userState.image ? userState.image : defaultProfile}
+              src={
+                userState.image
+                  ? `${configs.PUBLIC_FILES_PATH}/profiles/${userState.image}`
+                  : defaultProfile
+              }
+              alt={
+                userState.image
+                  ? `${configs.PUBLIC_FILES_PATH}/profiles/${userState.image}`
+                  : defaultProfile
+              }
               addStyles="profileBox_image"
             />
           </div>
