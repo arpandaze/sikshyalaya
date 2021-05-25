@@ -22,6 +22,7 @@ const Note = ({
   onClose,
   onSave,
   onDelete,
+  newSelect,
   ...rest
 }) => {
   const [tagClass, setTagClass] = useState(true);
@@ -52,6 +53,11 @@ const Note = ({
       setStateTag([]);
     }
   };
+
+  useEffect(() => {
+    setInputTag("");
+    setTagCreator(false);
+  }, [newSelect]);
 
   const handleCreateTag = () => {
     setInputTag("");

@@ -34,7 +34,7 @@ const Notes = () => {
   };
 
   const [newNoteActive, setnewNoteActive] = useState(false);
-
+  const [newSelect, setNewSelect] = useState(true);
   const defaultNotesvalue = [];
 
   let [allNotes, allNotesComplete] = useAPI(
@@ -127,7 +127,6 @@ const Notes = () => {
     if (selectedNote.id == null) {
       setnewNoteActive(false);
     } else {
-      console.log("I am here!!");
       //delete from database;
       let deleteResponse = null;
 
@@ -249,6 +248,7 @@ const Notes = () => {
                         title={notes.title}
                         content={notes.content[0].insert}
                         onClick={() => {
+                          setNewSelect(!newSelect);
                           handleSelectNote(notes.id, index);
                         }}
                       />
@@ -284,6 +284,7 @@ const Notes = () => {
                     content={allNotes[selectedNote.position].content}
                     tags={allNotes[selectedNote.position].tags}
                     onSave={onSavehandler}
+                    newSelect={newSelect}
                     onClose={() => {
                       setSelectedNote({ id: "", position: "" });
                     }}
