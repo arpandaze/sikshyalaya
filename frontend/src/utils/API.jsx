@@ -28,6 +28,10 @@ const callAPI = async ({
     case "PUT":
       promiseObj = axios.put(url, data, config);
       break;
+
+    case "DELETE":
+      promiseObj = axios.delete(url, config);
+      break;
   }
 
   let response_obj = null;
