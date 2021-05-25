@@ -1,4 +1,3 @@
-from os import sendfile, stat_result
 from typing import Any, List
 
 from fastapi import APIRouter, Depends
@@ -28,7 +27,8 @@ def get_personal_note(
 ) -> Any:
 
     if not current_user:
-        raise HTTPException(status_code=404, detail="Error ID: 116")  # user not found!
+        # user not found!
+        raise HTTPException(status_code=404, detail="Error ID: 116")
 
     if current_user.user_type >= settings.UserType.TEACHER.value:
         personal_note_list = []
@@ -45,7 +45,8 @@ def get_personal_note(
         )  # user has no authorization for retrieving personal notes, cause they personal fam!
 
     if current_user.user_type == settings.UserType.SUPERADMIN.value:
-        personal_note = crud_personal_note.get_multi(db, skip=skip, limit=limit)
+        personal_note = crud_personal_note.get_multi(
+            db, skip=skip, limit=limit)
         return personal_note
 
 
@@ -62,7 +63,8 @@ def create_personal_note(
     current_user: User = Depends(deps.get_current_active_user),
 ) -> Any:
     if not current_user:
-        raise HTTPException(status_code=404, detail="Error ID: 119")  # user not found!
+        # user not found!
+        raise HTTPException(status_code=404, detail="Error ID: 119")
 
     if current_user.user_type >= settings.UserType.TEACHER.value:
         if obj_in.user_id != current_user.id:
@@ -97,7 +99,8 @@ def get_specific_personal_note(
     current_user: User = Depends(deps.get_current_active_user),
 ) -> Any:
     if not current_user:
-        raise HTTPException(status_code=404, detail="Error ID: 121")  # user not found!
+        # user not found!
+        raise HTTPException(status_code=404, detail="Error ID: 121")
 
     if current_user.user_type == settings.UserType.ADMIN.value:
         raise HTTPException(
@@ -131,7 +134,8 @@ def update_personal_note(
     current_user: User = Depends(deps.get_current_active_user),
 ) -> Any:
     if not current_user:
-        raise HTTPException(status_code=404, detail="Error ID: 124")  # user not found!
+        # user not found!
+        raise HTTPException(status_code=404, detail="Error ID: 124")
 
     if current_user.user_type == settings.UserType.ADMIN.value:
         raise HTTPException(
@@ -184,9 +188,9 @@ def deleteSpecificPersonalNote(
             detail="Error ID: 142",  # user has no authorization to delete notes of other users
         )
 
-    personalNote = get_specific_personal_note(db, id=id, current_user=current_user)
+    personalNote = get_specific_personal_note(
+        db, id=id, current_user=current_user)
 
     personalNote = crud_personal_note.remove(db, id=personalNote.id)
-    
+
     return personalNote
-    
