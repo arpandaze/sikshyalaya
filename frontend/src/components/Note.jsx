@@ -3,6 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import colorscheme from "../utils/colors";
 import { ImCross } from "react-icons/im";
 import { FiTrash } from "react-icons/fi";
+import { AiOutlineSend } from "react-icons/ai";
 import "./statics/css/note.css";
 import Button from "./Button";
 import Tag from "./Tag";
@@ -178,9 +179,14 @@ const Note = ({
 
       <Grid item className="note_trashButtonContainer">
         <div className="note_trashButton">
-          <FiTrash
+          <FiTrash size={20} color={colorscheme.red4} onClick={onDelete} />
+        </div>
+      </Grid>
+      <Grid item className="note_saveButtonContainer">
+        <div className="note_saveButton">
+          <AiOutlineSend
             size={20}
-            color={colorscheme.red4}
+            color={colorscheme.green2}
             onClick={() => {
               onSave(titleText, contentText, stateTag);
             }}
