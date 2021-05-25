@@ -47,7 +47,8 @@ const Notes = () => {
     id: allNotes && allNotesComplete && allNotes.length ? allNotes[0].id : null,
     position: "0",
   });
-
+  // TODO: correct order ma airako chaina, after save,
+  // OnDelete, data persistence is present.
   const onSavehandler = async (title, content, stateTag) => {
     let data = null;
     let newSelect = { id: "", position: "" };
@@ -83,7 +84,7 @@ const Notes = () => {
 
       allNotes.splice(0, allNotes.length);
       allNotes.push(...notes);
-      statusNewCreate = false;
+      setnewNoteActive(false);
 
       if (allNotes && allNotes.length) {
         let newId = allNotes[0].id;
@@ -100,6 +101,7 @@ const Notes = () => {
         method: "PUT",
         data,
       });
+      setnewNoteActive(false);
 
       try {
         data = {
@@ -118,12 +120,9 @@ const Notes = () => {
     }
 
     setSelectedNote(newSelect);
-    setnewNoteActive(statusNewCreate);
   };
 
   const onDeleteHandler = async () => {
-    allNotes.splice(parseInt(selectedNote.position), 1);
-
     if (selectedNote.id == null) {
       setnewNoteActive(false);
     } else {
@@ -135,6 +134,8 @@ const Notes = () => {
         method: "DELETE",
       });
     }
+
+    allNotes.splice(parseInt(selectedNote.position), 1);
 
     let note = {
       id: "",
@@ -286,7 +287,7 @@ const Notes = () => {
                     onSave={onSavehandler}
                     newSelect={newSelect}
                     onClose={() => {
-                      setSelectedNote({ id: "", position: "" });
+                      setSelectedNote({ id: null, position: "" });
                     }}
                     onDelete={onDeleteHandler}
                   />
