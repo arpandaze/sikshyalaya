@@ -85,23 +85,28 @@ const Notes = () => {
       id: null,
       position: "",
     };
+
     allNotes.splice(parseInt(selectedNote.position), 1);
+
     if (allNotes && allNotes.length !== 0) {
       note = {
         id: allNotes[0].id,
         position: "0",
       };
     }
+
     if (selectedNote.id === null) {
       setIsNewNote(true);
+    } else {
+      try {
+        deleteResponse = await callAPI({
+          endpoint: `/api/v1/personal_note/${selectedNote.id}`,
+          method: "DELETE",
+        });
+      } catch (e) {}
     }
+
     setSelectedNote(note);
-    try {
-      deleteResponse = await callAPI({
-        endpoint: `/api/v1/personal_note/${selectedNote.id}`,
-        method: "DELETE",
-      });
-    } catch (e) {}
   };
 
   const onSavehandler = async (title, content, stateTag) => {
