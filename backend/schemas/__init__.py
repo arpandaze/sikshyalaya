@@ -47,4 +47,4 @@ from .quiz import (
     QuizQuestionInDB,
 )
 
-from .files import Files, FilesCreate, FilesUpdate, FilesInDB
+from .file import File, FileCreate, FileUpdate, FileInDB

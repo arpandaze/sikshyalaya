@@ -5,14 +5,13 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
 from core.db import Base
-from datetime import datetime
+from datetime import datetimee
 
 
-
-class Files(Base):
+class File(Base):
     id = Column(Integer, primary_key=True)
     path = Column(String)
     file_type = Column(String)
     uploaded_datetime = Column(DateTime, default=func.now())
     description = Column(String)
-    __tablename__ = "files"  # noqa
+    __tablename__ = "file"  # noqaa

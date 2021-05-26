@@ -9,4 +9,4 @@ from .teacher_note import TeacherNote  # noqa: F401
 from .user import User  # noqa: F401
 from .user_permission import UserPermission
 from .quiz import Quiz, QuizAnswer, QuizQuestion
-from .files import Files
+from .file import File
