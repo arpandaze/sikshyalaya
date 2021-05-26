@@ -170,31 +170,31 @@ def clean(context):
 @click.command()
 @click.argument("name", nargs=-1)
 def all(name):  # noqa
-    commands.create(name, "all")
+    commands.generator(name, "all")
 
 
 @click.command()
 @click.argument("name", nargs=-1)
 def model(name):
-    commands.create(name, "model")
+    commands.generator(name, "model")
 
 
 @click.command()
 @click.argument("name", nargs=-1)
 def schema(name):
-    commands.create(name, "schema")
+    commands.generator(name, "schema")
 
 
 @click.command()
 @click.argument("name", nargs=-1)
 def endpoint(name):
-    commands.create(name, "endpoint")
+    commands.generator(name, "endpoint")
 
 
 @click.command()
 @click.argument("name", nargs=-1)
 def crud(name):
-    commands.create(name, "crud")
+    commands.generator(name, "crud")
 
 
 @click.command()
