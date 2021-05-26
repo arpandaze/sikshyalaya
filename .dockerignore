@@ -1,0 +1,9 @@
+.git/
+.vim/
+.vscode/
+.idea/
+.mypy_cache/
+docker-stack.yml
+__pycache__/
+app.egg-info
+frontend/node_modules/
