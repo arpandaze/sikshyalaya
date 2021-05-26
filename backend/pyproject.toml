@@ -23,7 +23,7 @@ psycopg2-binary = "^2.8.6"
 SQLAlchemy = "^1.4.2"
 pytest = "^6.2.2"
 uvicorn = {version = "^0.13.4", extras = ["standard"]}
-cryptography = "3.3.1"
+cryptography = "3.4.7"
 Faker = "^8.1.0"
 Mako = "^1.1.4"
 python-dotenv = "^0.17.0"
