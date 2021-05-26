@@ -115,7 +115,8 @@ class CommandDefinition:
 
                 command.upgrade(alembic_cfg, "head")
                 break
-            except:
+            except Exception as e:
+                print(e)
                 print("Waiting for containers to boot!")
                 sleep(3)
 
