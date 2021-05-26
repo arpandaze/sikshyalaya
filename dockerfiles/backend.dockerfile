@@ -1,18 +1,8 @@
-FROM python:3.9
+FROM python:3.9-alpine
 
-WORKDIR /backend
-
-COPY . /backend
-
-RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | POETRY_HOME=/opt/poetry python -
-
-RUN cd /usr/local/bin && \
-    ln -s /opt/poetry/bin/poetry && \
-    poetry config virtualenvs.create false
-
-RUN poetry install --no-dev --no-root
-
-ENV PYTHONPATH=/app
-EXPOSE 80
-
-RUN python manage.py start
+COPY ./dockerfiles/whls /deps/whls
+COPY ./backend/pyproject.toml /deps
+COPY ./backend/poetry.lock /deps
+RUN cd deps/whls && pip install *.whl && cd ../..
+RUN pip install poetry
+RUN cd /deps && poetry export -f requirements.txt --output requirements.txt && pip install -r requirements.txt

@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  whl_builder:
+    container_name: whl_builder
+    build:
+      context: ./backend
+      dockerfile: ../dockerfiles/whl_builder.dockerfile
+      #command: sleep 10000 #Enable this to prevent exit
+    volumes:
+      - ./dockerfiles/whls:/whls
