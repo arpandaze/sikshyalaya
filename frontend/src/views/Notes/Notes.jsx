@@ -77,6 +77,7 @@ const Notes = () => {
       position: "0",
     });
   };
+
   const onDeleteHandler = async () => {
     let deleteResponse = null;
 
@@ -102,6 +103,7 @@ const Notes = () => {
       });
     } catch (e) {}
   };
+
   const onSavehandler = async (title, content, stateTag) => {
     let data = null;
     let newSelect = { id: "", position: "" };
@@ -132,7 +134,7 @@ const Notes = () => {
         notes = noteFormatter(formattedResponse);
       } catch (e) {}
       allNotes[selectedNote.position] = notes[0];
-      newSelect = { id: notes.id, position: selectedNote.position };
+      newSelect = { id: notes[0].id, position: selectedNote.position };
     } else {
       //on notes previously present in the database
       //update the notes
