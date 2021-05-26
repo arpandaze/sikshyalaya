@@ -10,6 +10,7 @@ services:
         build:
             context: ./
             dockerfile: ./dockerfiles/backend.dockerfile
+        command: python manage.py start
         networks:
             - internal
 
