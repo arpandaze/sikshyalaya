@@ -95,7 +95,9 @@ class CommandDefinition:
 
         try:
             os.system(f"docker-compose down -v -t 5")
-            os.system(f"cd .. && docker-compose up -d postgres redis pgadmin mailhog")
+            os.system(
+                f"cd .. && docker-compose up -d postgres redis pgadmin mailhog file_server"
+            )
         except Exception as e:
             print(e)
 

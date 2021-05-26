@@ -10,3 +10,4 @@ node_modules/
 !**/migrations/versions/__init__.py
 static/
 uploaded_files/
+file_server/

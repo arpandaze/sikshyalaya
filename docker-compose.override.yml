@@ -3,14 +3,21 @@ services:
     postgres:
         ports:
             - "5432:5432"
+
     redis:
         ports:
             - "6379:6379"
+
     pgadmin:
         environment:
             - PGADMIN_LISTEN_PORT=5050
             - PGADMIN_DEFAULT_EMAIL=test@test.com
             - PGADMIN_DEFAULT_PASSWORD=test
+
+    file_server:
+        volumes:
+            - ./file_server:/usr/share/nginx/html
+
     mailhog:
         image: mailhog/mailhog:latest
         container_name: mailhog
@@ -19,3 +26,4 @@ services:
         ports:
             - "8025:8025"
             - "1025:1025"
+    
