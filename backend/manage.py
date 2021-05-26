@@ -12,7 +12,7 @@ import click
 from dotenv import load_dotenv
 
 if __name__ == "__main__":
-    load_dotenv("../.env")
+    load_dotenv("../.env.development")
 
 
 class CommandDefinition:
