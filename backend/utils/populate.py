@@ -15,6 +15,9 @@ from utils.populationdata import (
     classSessions,
     quizQuestions,
 )
+from utils.utils import send_verification_email
+from core.db import redis_session_client
+import asyncio
 
 from core.db import SessionLocal
 
@@ -93,6 +96,7 @@ def populate_group():
 
 def populate_user():
     for user in users:
+        asyncio.run(redis_session_client.initialize())
 
         try:
             user = UserCreate(
@@ -109,7 +113,8 @@ def populate_user():
                 join_year=user["join_year"],
             )
 
-            crud_user.create(db, obj_in=user)
+            user_in = crud_user.create(db, obj_in=user)
+            asyncio.run(send_verification_email(email_to=user.email, user=user_in))
         except Exception as e:  # noqa
             print(e)
     pass
