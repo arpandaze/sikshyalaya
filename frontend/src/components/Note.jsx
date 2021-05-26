@@ -22,7 +22,6 @@ const Note = ({
   onClose,
   onSave,
   onDelete,
-  newSelect,
   ...rest
 }) => {
   const [tagClass, setTagClass] = useState(true);
@@ -36,6 +35,7 @@ const Note = ({
   }, [tags]);
 
   useEffect(() => {
+    setTagCreator(false);
     setContentText(new Delta(content));
   }, [content]);
 
@@ -53,11 +53,6 @@ const Note = ({
       setStateTag([]);
     }
   };
-
-  useEffect(() => {
-    setInputTag("");
-    setTagCreator(false);
-  }, [newSelect]);
 
   const handleCreateTag = () => {
     setInputTag("");
@@ -175,7 +170,6 @@ const Note = ({
               format={formats}
               value={contentText}
               onChange={(content, delta, source, editor) => {
-                console.log(editor.getContents());
                 setContentText(editor.getContents());
               }}
             />

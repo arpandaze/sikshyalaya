@@ -12,8 +12,12 @@ import { UserContext } from "../../utils/Contexts/UserContext";
 
 const Notes = () => {
   const { user } = useContext(UserContext);
+  const defaultNotesvalue = [];
+  const [selectedNote, setSelectedNote] = useState({ id: null, position: "0" });
+  const [isNewNote, setIsNewNote] = useState(true);
+
   const noteFormatter = (response) => {
-    if (!response.data.length) {
+    if (response.data.length === 0) {
       return [];
     }
 
@@ -33,22 +37,71 @@ const Notes = () => {
     return responseData.reverse();
   };
 
-  const [newNoteActive, setnewNoteActive] = useState(false);
-  const [newSelect, setNewSelect] = useState(true);
-  const defaultNotesvalue = [];
-
   let [allNotes, allNotesComplete] = useAPI(
     { endpoint: "/api/v1/personal_note/" },
     noteFormatter,
     defaultNotesvalue
   );
 
-  const [selectedNote, setSelectedNote] = useState({
-    id: allNotes && allNotesComplete && allNotes.length ? allNotes[0].id : null,
-    position: "0",
-  });
-  // TODO: correct order ma airako chaina, after save,
-  // OnDelete, data persistence is present.
+  useEffect(() => {
+    setSelectedNote({
+      id:
+        allNotes && allNotesComplete && allNotes.length ? allNotes[0].id : null,
+      position: "0",
+    });
+  }, [allNotes]);
+
+  const handleSelectNote = (i, p) => {
+    console.log(i + " " + p);
+    setSelectedNote({ id: i, position: p });
+  };
+
+  const handleCreateNote = () => {
+    allNotes.splice(0, 0, {
+      id: null,
+      title: "Title Goes Here",
+      user_id: user.id,
+      content: [
+        {
+          attributes: {
+            font: "Roboto",
+          },
+          insert:
+            "Content Goes here. This is Editable. You can also add tags!! :)",
+        },
+      ],
+      tags: [],
+    });
+    setSelectedNote({
+      id: null,
+      position: "0",
+    });
+  };
+  const onDeleteHandler = async () => {
+    let deleteResponse = null;
+
+    let note = {
+      id: null,
+      position: "",
+    };
+    allNotes.splice(parseInt(selectedNote.position), 1);
+    if (allNotes && allNotes.length !== 0) {
+      note = {
+        id: allNotes[0].id,
+        position: "0",
+      };
+    }
+    if (selectedNote.id === null) {
+      setIsNewNote(true);
+    }
+    setSelectedNote(note);
+    try {
+      deleteResponse = await callAPI({
+        endpoint: `/api/v1/personal_note/${selectedNote.id}`,
+        method: "DELETE",
+      });
+    } catch (e) {}
+  };
   const onSavehandler = async (title, content, stateTag) => {
     let data = null;
     let newSelect = { id: "", position: "" };
@@ -62,139 +115,54 @@ const Notes = () => {
     };
 
     if (selectedNote.id == null) {
-      let getRequestResponse = "";
       let notes = [];
       //on new note create
       //populate database
-      await callAPI({
+      const postResponse = await callAPI({
         endpoint: "/api/v1/personal_note/",
         method: "POST",
         data: data,
       });
 
-      getRequestResponse = await callAPI({
-        endpoint: "/api/v1/personal_note/",
-      });
+      const formattedResponse = {
+        data: [postResponse["data"]],
+      };
 
       try {
-        notes = noteFormatter(getRequestResponse);
-      } catch (e) {
-        console.log(e);
-      }
-
-      allNotes.splice(0, allNotes.length);
-      allNotes.push(...notes);
-      setnewNoteActive(false);
-
-      if (allNotes && allNotes.length) {
-        let newId = allNotes[0].id;
-        let newPosition = "0";
-        newSelect = { id: newId, position: newPosition };
-      }
+        notes = noteFormatter(formattedResponse);
+      } catch (e) {}
+      allNotes[selectedNote.position] = notes[0];
+      newSelect = { id: notes.id, position: selectedNote.position };
     } else {
       //on notes previously present in the database
       //update the notes
-      let params = { id: selectedNote.id };
-      let putResponse = null;
-      putResponse = await callAPI({
-        endpoint: `/api/v1/personal_note/${selectedNote.id}`,
-        method: "PUT",
-        data,
-      });
-      setnewNoteActive(false);
-
       try {
         data = {
           ...data,
-          id: selectedNote.id,
           content: JSON.parse(data.content),
+          id: selectedNote.id,
         };
         allNotes[selectedNote.position] = data;
         newSelect = {
           id: selectedNote.id,
           position: selectedNote.position,
         };
+        data = {
+          ...data,
+          content: JSON.stringify(data.content),
+        };
+        await callAPI({
+          endpoint: `/api/v1/personal_note/${selectedNote.id}`,
+          method: "PUT",
+          data,
+        });
       } catch (e) {
         console.log(e);
       }
     }
 
+    setIsNewNote(true);
     setSelectedNote(newSelect);
-  };
-
-  const onDeleteHandler = async () => {
-    if (selectedNote.id == null) {
-      setnewNoteActive(false);
-    } else {
-      //delete from database;
-      let deleteResponse = null;
-
-      deleteResponse = await callAPI({
-        endpoint: `/api/v1/personal_note/${selectedNote.id}`,
-        method: "DELETE",
-      });
-    }
-
-    allNotes.splice(parseInt(selectedNote.position), 1);
-
-    let note = {
-      id: "",
-      position: "",
-    };
-
-    if (allNotes.length !== 0 && allNotes) {
-      note = {
-        id: allNotes[0].id,
-        position: "0",
-      };
-    }
-    setSelectedNote(note);
-  };
-
-  const handleSelectNote = (i, p) => {
-    setSelectedNote({ id: i, position: p });
-  };
-
-  const handleCreateNote = () => {
-    setnewNoteActive(true);
-    if (allNotes && allNotes.length) {
-      allNotes.splice(0, 0, {
-        id: null,
-        title: "Title Goes Here",
-        user_id: user.id,
-        content: [
-          {
-            attributes: {
-              font: "Roboto",
-            },
-            insert:
-              "Content Goes here. This is Editable. You can also add tags!! :)",
-          },
-        ],
-        tags: [],
-      });
-    } else {
-      allNotes.push({
-        id: null,
-        title: "Title Goes Here",
-        user_id: user.id,
-        content: [
-          {
-            attributes: {
-              font: "Roboto",
-            },
-            insert:
-              "Content Goes here. This is Editable. You can also add tags!! :)",
-          },
-        ],
-        tags: [],
-      });
-    }
-
-    setSelectedNote({
-      id: null,
-      position: "0",
-    });
   };
 
   return (
@@ -219,14 +187,17 @@ const Notes = () => {
                   <p className="notes_text">Notes</p>
                 </Grid>
                 <Grid xs={1} item className="notes_plusIcon">
-                  {!newNoteActive && (
+                  {isNewNote ? (
                     <GoPlus
                       size={26}
                       color={colorscheme.green2}
                       onClick={() => {
+                        setIsNewNote(false);
                         handleCreateNote();
                       }}
                     />
+                  ) : (
+                    <></>
                   )}
                 </Grid>
               </Grid>
@@ -249,7 +220,6 @@ const Notes = () => {
                         title={notes.title}
                         content={notes.content[0].insert}
                         onClick={() => {
-                          setNewSelect(!newSelect);
                           handleSelectNote(notes.id, index);
                         }}
                       />
@@ -285,7 +255,6 @@ const Notes = () => {
                     content={allNotes[selectedNote.position].content}
                     tags={allNotes[selectedNote.position].tags}
                     onSave={onSavehandler}
-                    newSelect={newSelect}
                     onClose={() => {
                       setSelectedNote({ id: null, position: "" });
                     }}
