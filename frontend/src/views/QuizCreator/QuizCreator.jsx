@@ -23,6 +23,12 @@ const questionType = [
 ];
 
 const QuizCreator = () => {
+  const questionInitialValue = {
+    question_text: "",
+    question_type: "",
+    options: [],
+  };
+
   const [questionIndex, setQuestionIndex] = useState(0);
   return (
     <DashboardLayout>
@@ -35,7 +41,11 @@ const QuizCreator = () => {
               quiz_title: "",
               quiz_description: "",
               questions: [
-                { question_text: "", question_type: "", options: [""] },
+                {
+                  question_text: "",
+                  question_type: "",
+                  options: [],
+                },
               ],
             }}
             validationSchema={validationSchema}
@@ -66,74 +76,79 @@ const QuizCreator = () => {
                         <>
                           <FieldArray
                             name="questions"
-                            render={(arrayHelpers) => (
+                            render={(questionHelper) => (
                               <div>
                                 <div>
                                   <button
                                     type="button"
-                                    onClick={() => arrayHelpers.push()}
+                                    onClick={() => {
+                                      questionHelper.push(questionInitialValue);
+                                    }}
                                   >
                                     Add Question
                                   </button>
                                 </div>
-                                {values.questions.map((question, index) => (
-                                  <>
-                                    <div key={index}>
-                                      <button
-                                        type="button"
-                                        title="Remove Question"
-                                        onClick={() =>
-                                          arrayHelpers.remove(index)
-                                        }
-                                      >
-                                        -
-                                      </button>
-                                      <h4>Question #{index + 1}</h4>
-                                      <CustomTextField
-                                        name={`questions[${index}].question_text`}
-                                        type="text"
-                                        placeHolder="Question Title"
-                                      />
-                                      <CustomTextField
-                                        dropdown={true}
-                                        name={`questions[${index}].question_type`}
-                                        menuItems={questionType}
-                                        placeHolder="Question Type"
-                                      />
-                                    </div>
-                                    {/* TODO: Options lai milaune */}
-                                    <FieldArray
-                                      name={`questions[${index}].options`}
-                                    >
-                                      {(arrayHelpers) => (
-                                        <>
-                                          <button
-                                            type="button"
-                                            onClick={() => {
-                                              arrayHelpers.push();
-                                            }}
-                                          >
-                                            +
-                                          </button>
-                                          {values.questions.map(
-                                            (option, index) => (
-                                              <div key={index}>
-                                                <div>
-                                                  <CustomTextField
-                                                    name={`questions[${index}].options[${index}]`}
-                                                    placeHolder={`Option ${
-                                                      index + 1
-                                                    }`}
-                                                  />
-                                                </div>
-                                              </div>
-                                            )
-                                          )}
-                                        </>
-                                      )}
-                                    </FieldArray>
-                                  </>
-                                ))}
+                                {values.questions &&
+                                  values.questions.length !== 0 &&
+                                  values.questions.map((question, index) => (
+                                    <>
+                                      <div key={index}>
+                                        <button
+                                          type="button"
+                                          title="Remove Question"
+                                          onClick={() =>
+                                            questionHelper.remove(index)
+                                          }
+                                        >
+                                          -
+                                        </button>
+                                        <h4>Question #{index + 1}</h4>
+                                        <CustomTextField
+                                          name={`questions[${index}].question_text`}
+                                          type="text"
+                                          placeHolder="Question Title"
+                                        />
+                                        <CustomTextField
+                                          dropdown={true}
+                                          name={`questions[${index}].question_type`}
+                                          menuItems={questionType}
+                                          placeHolder="Question Type"
+                                        />
+                                      </div>
+                                      {/* TODO: Options lai milaune */}
+                                      <FieldArray
+                                        name={`questions[${index}].options`}
+                                        render={(newHelper) => (
+                                          <>
+                                            <button
+                                              type="button"
+                                              onClick={() => {
+                                                newHelper.push();
+                                              }}
+                                            >
+                                              +
+                                            </button>
+                                            {question.options &&
+                                              question.options.length !== 0 &&
+                                              question.options.map(
+                                                (option, optionIndex) => (
+                                                  <div key={index}>
+                                                    <div>
+                                                      <CustomTextField
+                                                        name={`questions[${index}].options[${optionIndex}]`}
+                                                        placeHolder={`Option ${
+                                                          optionIndex + 1
+                                                        }`}
+                                                      />
+                                                    </div>
+                                                  </div>
+                                                )
+                                              )}
+                                          </>
+                                        )}
+                                      ></FieldArray>
+                                    </>
+                                  ))}
                               </div>
                             )}
                           />
