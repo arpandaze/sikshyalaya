@@ -72,9 +72,8 @@ const QuizCreator = () => {
 										<Field name="questions">
 											{() => (
 												<>
-													<FieldArray
-														name="questions"
-														render={(questionHelper) => (
+													<FieldArray name="questions">
+														{(questionHelper) => (
 															<div>
 																<div>
 																	<button
@@ -115,11 +114,9 @@ const QuizCreator = () => {
 																					placeHolder="Question Type"
 																				/>
 																			</div>
-																			<FieldArray
-																				name={`questions[${index}].options`}
-																				render={(newHelper) => (
+																			<FieldArray name={`questions[${index}].options`}>
+																				{(newHelper) => (
 																					<>
-																						{/**Fix arrayHelper returning actual lenght minus 1 */}
 																						<button
 																							type="button"
 																							onClick={() => {
@@ -149,16 +146,16 @@ const QuizCreator = () => {
 																							dropdown={true}
 																							name={`questions[${index}].answer`}
 																							menuItems={answerList[index] || []}
-																							placeHolder="Question Type"
+																							placeHolder="Choose correct Option"
 																						/>
 																					</>
 																				)}
-																			></FieldArray>
+																			</FieldArray>
 																		</>
 																	))}
 															</div>
 														)}
-													/>
+													</FieldArray>
 												</>
 											)}
 										</Field>
