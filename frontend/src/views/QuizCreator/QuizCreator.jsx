@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React from "react";
 import { Formik, Form, Field, FieldArray } from "formik";
 import Button from "../../components/Button";
 import DashboardLayout from "../../components/DashboardLayout";
@@ -22,13 +22,14 @@ const questionType = [
 	},
 ];
 
+let answerList = [];
+
 const QuizCreator = () => {
 	const questionInitialValue = {
 		question_text: "",
 		question_type: "",
 		options: [],
 	};
-	const [answer, setAnswer] = useState([{ name: "", value: "" }]);
 	const handleSubmit = (values) => {
 		console.log(values);
 	};
@@ -42,16 +43,13 @@ const QuizCreator = () => {
 						initialValues={{
 							quiz_title: "",
 							quiz_description: "",
-							questions: [
-								{
-									question_text: "",
-									question_type: "",
-									options: [],
-								},
-							],
 						}}
 						validationSchema={validationSchema}
-						onSubmit={handleSubmit}
+						onSubmit={(values) =>
+							setTimeout(() => {
+								alert(JSON.stringify(values, null, 2));
+							}, 500)
+						}
 					>
 						{({ values }) => (
 							<Form>
@@ -83,6 +81,7 @@ const QuizCreator = () => {
 																		type="button"
 																		onClick={() => {
 																			questionHelper.push(questionInitialValue);
+																			answerList.push([]);
 																		}}
 																	>
 																		Add Question
@@ -93,16 +92,17 @@ const QuizCreator = () => {
 																	values.questions.map((question, index) => (
 																		<>
 																			<div key={index + 1}>
+																				<h4>Question #{index + 1}</h4>
 																				<button
 																					type="button"
 																					title="Remove Question"
-																					onClick={() =>
-																						questionHelper.remove(index)
-																					}
+																					onClick={() => {
+																						questionHelper.remove(index);
+																						answerList.splice(index, 1);
+																					}}
 																				>
 																					Remove Question
 																				</button>
-																				<h4>Question #{index + 1}</h4>
 																				<CustomTextField
 																					name={`questions[${index}].question_text`}
 																					type="text"
@@ -124,43 +124,31 @@ const QuizCreator = () => {
 																							type="button"
 																							onClick={() => {
 																								newHelper.push();
-																								setAnswer([
-																									...answer,
-																									{
-																										name: `Option ${
-																											question.options.length +
-																											1
-																										}`,
-																										value:
-																											question.options.length +
-																											1,
-																									},
-																								]);
+																								answerList[index].push({
+																									name: `Option ${question.options.length + 1}`,
+																									value: question.options.length + 1,
+																								});
 																							}}
 																						>
 																							Add Options
 																						</button>
 																						{question.options &&
 																							question.options.length !== 0 &&
-																							question.options.map(
-																								(option, optionIndex) => (
-																									<div key={optionIndex}>
-																										<div>
-																											<CustomTextField
-																												name={`questions[${index}].options[${optionIndex}]`}
-																												placeHolder={`Option ${
-																													optionIndex + 1
-																												}`}
-																											/>
-																										</div>
+																							question.options.map((option, optionIndex) => (
+																								<div key={optionIndex}>
+																									<div>
+																										<CustomTextField
+																											name={`questions[${index}].options[${optionIndex}]`}
+																											placeHolder={`Option ${optionIndex + 1}`}
+																										/>
 																									</div>
-																								)
-																							)}
+																								</div>
+																							))}
 
 																						<CustomTextField
 																							dropdown={true}
 																							name={`questions[${index}].answer`}
-																							menuItems={answer || []}
+																							menuItems={answerList[index] || []}
 																							placeHolder="Question Type"
 																						/>
 																					</>
