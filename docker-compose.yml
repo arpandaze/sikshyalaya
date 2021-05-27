@@ -1,75 +1,73 @@
-version: '3'
+version: "3"
 services:
-    backend:
-        container_name: backend
-        depends_on:
-            - postgres
-            - redis
-        env_file:
-            - .env
-        build:
-            context: ./
-            dockerfile: ./dockerfiles/backend.dockerfile
-        command: python manage.py start
-        networks:
-            - internal
+  backend:
+    container_name: backend
+    depends_on:
+      - postgres
+      - redis
+    env_file:
+      - .env
+    build:
+      context: ./
+      dockerfile: ./dockerfiles/backend.dockerfile
+    command: python manage.py start
+    networks:
+      - internal
 
-    postgres:
-        image: postgres:13-alpine
-        container_name: postgres
-        networks:
-            - internal
-        volumes:
-            - persistent:/var/lib/postgres/data
-        env_file:
-            - .env
-        environment:
-            - PGDATA=/var/lib/postgres/data
+  postgres:
+    image: postgres:13-alpine
+    container_name: postgres
+    networks:
+      - internal
+    volumes:
+      - persistent:/var/lib/postgres/data
+    env_file:
+      - .env
+    environment:
+      - PGDATA=/var/lib/postgres/data
 
-    pgadmin:
-        image: dpage/pgadmin4
-        container_name: pgadmin
-        links:
-            - postgres:postgres
-        networks:
-            - internal
-        depends_on:
-            - postgres
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    links:
+      - postgres:postgres
+    networks:
+      - internal
+    depends_on:
+      - postgres
 
-        env_file:
-            - .env
-        ports:
-            - "5050:5050"
-        logging:
-            driver: none
+    env_file:
+      - .env
+    ports:
+      - "5050:5050"
+    logging:
+      driver: none
 
-    redis:
-        image: redis:6-alpine
-        container_name: redis
-        env_file:
-            - .env
-        command: redis-server --requirepass ${SECRET_KEY}
-        networks:
-            - internal
+  redis:
+    image: redis:6-alpine
+    container_name: redis
+    env_file:
+      - .env
+    command: redis-server --requirepass ${SECRET_KEY}
+    networks:
+      - internal
 
-
-    file_server:
-        container_name: file_server
-        build:
-            context: ./dockerfiles
-            dockerfile: ../dockerfiles/file_server.dockerfile
-        networks:
-            - internal
-        ports:
-          - "8081:80"
-        volumes:
-          - uploads:/usr/share/nginx/html
-
+  file_server:
+    container_name: file_server
+    build:
+      dockerfile: ./file_server.dockerfile
+      context: ./dockerfiles
+    networks:
+      - internal
+    ports:
+      - "8081:80"
+    volumes:
+      - uploads:/usr/share/nginx/html
 
 volumes:
-    persistent:
-    uploads:
+  persistent:
+  uploads:
 
 networks:
-    internal:
-        driver: bridge
+  internal:
+    driver: bridge
