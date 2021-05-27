@@ -7,7 +7,8 @@ __pycache__/
 app.egg-info
 node_modules/
 **/migrations/versions/*
-!**/migrations/versions/__init__.py
+**/whls/*
 static/
 uploaded_files/
 file_server/
+!.keep
