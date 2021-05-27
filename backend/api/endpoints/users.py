@@ -9,6 +9,7 @@ from fastapi import APIRouter, Body, Depends, HTTPException, UploadFile, File
 from fastapi.encoders import jsonable_encoder
 from pydantic.networks import EmailStr
 from sqlalchemy.orm import Session
+from core import settings
 
 
 import cruds
@@ -104,10 +105,10 @@ async def update_my_profile_photo(
 ):
 
     content_type = profile_photo.content_type
-    file_extension = content_type[content_type.index("/") + 1:]
-    profile_image_path = os.path.join("uploaded_files", "profiles")
+    file_extension = content_type[content_type.index("/") + 1 :]
+    profile_image_path = os.path.join(settings.UPLOAD_DIR_ROOT, "profiles")
     hasher = sha1()
-    hasher.update(bytes(str( current_user.id ), "utf-8"))
+    hasher.update(bytes(str(current_user.id), "utf-8"))
     profile_image = f"{hasher.hexdigest()}.{file_extension}"
     profile_image_file_path = os.path.join(profile_image_path, profile_image)
 
@@ -124,7 +125,7 @@ async def update_my_profile_photo(
         obj_in=schemas.user.ImageUpdate(profile_image=profile_image),
     )
 
-    return user
+    return {"msg": "success", "profile": profile_image}
 
 
 @router.get("/{user_id}", response_model=schemas.User)
