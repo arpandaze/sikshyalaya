@@ -110,9 +110,10 @@ const Profile = () => {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log(imageResp);
-      let test = { ...user, profile_image: "ello" };
-      console.log(test);
+      if (imageResp.status === 200) {
+        let newUserData = { ...user, profile_image: imageResp.data.profile };
+        setUser(newUserData);
+      }
     }
   };
 
