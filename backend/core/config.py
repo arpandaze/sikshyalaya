@@ -20,7 +20,7 @@ class Settings(BaseSettings):
     SERVER_NAME: str = os.environ.get("SERVER_NAME")
     SERVER_HOST: AnyHttpUrl = os.environ.get("SERVER_HOST")
 
-    UPLOAD_DIR_ROOT: str = "uploaded_files"
+    UPLOAD_DIR_ROOT: str = "../file_server"
 
     UVICORN_HOST: str = os.environ.get("UVICORN_HOST")
     UVICORN_PORT: int = os.environ.get("UVICORN_PORT")
@@ -35,7 +35,7 @@ class Settings(BaseSettings):
     ALLOWED_EMAIL_HOST: List[str] = [
         "ku.edu.np",
         "student.ku.edu.np",
-        "test.com",    #FIXME: Remove this on deployment
+        "test.com",  # FIXME: Remove this on deployment
         "gmail.com",
     ]
 

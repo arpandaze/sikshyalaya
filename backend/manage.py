@@ -12,7 +12,7 @@ import click
 from dotenv import load_dotenv
 
 if __name__ == "__main__":
-    load_dotenv("../.env")
+    load_dotenv("../.env.development")
 
 
 class CommandDefinition:
@@ -95,7 +95,9 @@ class CommandDefinition:
 
         try:
             os.system(f"docker-compose down -v -t 5")
-            os.system(f"cd .. && docker-compose up -d postgres redis pgadmin mailhog")
+            os.system(
+                f"cd .. && docker-compose up -d postgres redis pgadmin mailhog file_server"
+            )
         except Exception as e:
             print(e)
 

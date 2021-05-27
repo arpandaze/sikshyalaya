@@ -8,8 +8,9 @@ services:
         env_file:
             - .env
         build:
-            context: ./backend
-            dockerfile: ../dockerfiles/backend.dockerfile
+            context: ./
+            dockerfile: ./dockerfiles/backend.dockerfile
+        command: python manage.py start
         networks:
             - internal
 
@@ -51,8 +52,23 @@ services:
         networks:
             - internal
 
+
+    file_server:
+        container_name: file_server
+        build:
+            context: ./dockerfiles
+            dockerfile: ../dockerfiles/file_server.dockerfile
+        networks:
+            - internal
+        ports:
+          - "8081:80"
+        volumes:
+          - uploads:/usr/share/nginx/html
+
+
 volumes:
     persistent:
+    uploads:
 
 networks:
     internal:
