@@ -57,7 +57,7 @@ services:
         container_name: file_server
         build:
             context: ./dockerfiles
-            dockerfile: ../dockerfiles/file_server.dockerfile
+            dockerfile: ./file_server.dockerfile
         networks:
             - internal
         ports:
