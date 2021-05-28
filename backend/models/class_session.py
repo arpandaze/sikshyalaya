@@ -7,7 +7,8 @@ from .association_tables import user_class_session_association_table
 
 class ClassSession(Base):
     id = Column(Integer, primary_key=True)
-    datetime = Column(DateTime)
+    start_time = Column(DateTime)
+    end_time = Column(DateTime)
     is_active = Column(Boolean)
     instructor = relationship(
         "User", secondary=user_class_session_association_table, backref="class_session"
@@ -19,6 +20,5 @@ class ClassSession(Base):
     file = Column(
         ARRAY(String(100))
     )  # unique = True removed, because multiple class session can have file with same name
-    duration = Column(Integer)
     description = Column(String)
     __tablename__ = "class_session"

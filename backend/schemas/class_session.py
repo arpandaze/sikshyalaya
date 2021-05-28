@@ -9,13 +9,13 @@ from schemas.course import Course
 
 # shared properties
 class ClassSessionBase(BaseModel):
-    datetime: datetime
+    start_time: datetime
+    end_time: datetime
     is_active: bool
     instructor: List[int]
     course_id: int
     group_id: int
     description: str
-    duration: int
     file: List[str] = None
 
 
@@ -26,12 +26,12 @@ class ClassSessionCreate(ClassSessionBase):
 
 # properties to recive via API on Update
 class ClassSessionUpdate(ClassSessionBase):
-    datetime: datetime = None
+    start_time: datetime = None
+    end_time: datetime = None
     is_active: bool = None
     instructor: List[int] = None
     course_id: int = None
     description: str = None
-    duration: int = None
     file: List[str] = None
     group_id: int = None
 
@@ -50,13 +50,13 @@ class ClassSession(ClassSessionInDBBase):
 
 
 class ClassSessionReturn(BaseModel):
-    datetime: datetime
+    start_time: datetime
+    end_time: datetime
     is_active: bool
     instructor: List[TeacherOfClassSession]
     course: Course
     group_id: int
     description: str
-    duration: int
     file: List[str] = None
 
     class Config:
