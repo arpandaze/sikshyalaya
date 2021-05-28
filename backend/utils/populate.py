@@ -173,13 +173,13 @@ def populate_class_session():
     for class_session in classSessions:
         try:
             class_session = ClassSessionCreate(
-                datetime=class_session["datetime"],
+                start_time=class_session["start_time"],
                 is_active=class_session["is_active"],
                 instructor=class_session["instructor"],
                 course_id=class_session["course_id"],
                 group_id=class_session["group_id"],
                 description=class_session["description"],
-                duration=class_session["duration"],
+                end_time=class_session["end_time"],
             )
             crud_class_session.create(db, obj_in=class_session)
 
