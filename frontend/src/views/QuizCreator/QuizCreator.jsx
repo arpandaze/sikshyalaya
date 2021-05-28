@@ -13,6 +13,7 @@ import {
 	KeyboardTimePicker,
 	KeyboardDatePicker,
 } from "@material-ui/pickers";
+import { BiTimeFive } from "react-icons/bi";
 
 const validationSchema = yup.object({
 	quiz_title: yup.string("Enter the title of the quiz"),
@@ -90,7 +91,7 @@ const QuizCreator = () => {
 											<Grid item>
 												{/**TODO: Add date restriction */}
 												<KeyboardDatePicker
-													disableToolbar
+													variant="inline"
 													value={startTime}
 													margin="normal"
 													id="quiz_date"
@@ -102,13 +103,11 @@ const QuizCreator = () => {
 														setFieldValue("quiz_date", format(value, "MM/dd/yyyy"));
 														setQuizDate(value);
 													}}
-													KeyboardButtonProps={{
-														"aria-label": "change date",
-													}}
 												/>
 											</Grid>
 											<Grid item>
 												<KeyboardTimePicker
+													variant="inline"
 													margin="normal"
 													id="start_time"
 													label="Start time"
@@ -121,10 +120,12 @@ const QuizCreator = () => {
 													KeyboardButtonProps={{
 														"aria-label": "change time",
 													}}
+													keyboardIcon={<BiTimeFive />}
 												/>
 											</Grid>
 											<Grid item>
 												<KeyboardTimePicker
+													variant="inline"
 													margin="normal"
 													id="end_time"
 													label="End time"
@@ -137,6 +138,7 @@ const QuizCreator = () => {
 													KeyboardButtonProps={{
 														"aria-label": "change time",
 													}}
+													keyboardIcon={<BiTimeFive />}
 												/>
 											</Grid>
 										</MuiPickersUtilsProvider>
