@@ -1,3 +1,4 @@
+import secrets
 from schemas.user import UserCreate
 from typing import Any, List
 import aiofiles
@@ -103,29 +104,37 @@ async def update_my_profile_photo(
     current_user: models.User = Depends(deps.get_current_active_user),
     profile_photo: UploadFile = File(...),
 ):
-
+    profiles_path = os.path.join(settings.UPLOAD_DIR_ROOT, "profiles")
     content_type = profile_photo.content_type
     file_extension = content_type[content_type.index("/") + 1 :]
-    profile_image_path = os.path.join(settings.UPLOAD_DIR_ROOT, "profiles")
-    hasher = sha1()
-    hasher.update(bytes(str(current_user.id), "utf-8"))
-    profile_image = f"{hasher.hexdigest()}.{file_extension}"
-    profile_image_file_path = os.path.join(profile_image_path, profile_image)
+    new_profile_image = f"{secrets.token_hex(nbytes=16)}.{file_extension}"
+    profile_relative_path = os.path.join("profiles", new_profile_image)
+    new_profile_image_file_path = os.path.join(
+        settings.UPLOAD_DIR_ROOT, profile_relative_path
+    )
 
-    if not os.path.exists(profile_image_path):
-        os.makedirs(profile_image_path)
+    if not os.path.exists(profiles_path):
+        os.makedirs(profiles_path)
 
-    async with aiofiles.open(profile_image_file_path, mode="wb") as f:
+    async with aiofiles.open(new_profile_image_file_path, mode="wb") as f:
         content = await profile_photo.read()
         await f.write(content)
 
-    user = cruds.crud_user.update(
+    try:
+        if current_user.profile_image != None:
+            os.remove(
+                os.path.join(settings.UPLOAD_DIR_ROOT, current_user.profile_image)
+            )
+    except Exception:
+        pass
+
+    cruds.crud_user.update(
         db,
         db_obj=current_user,
-        obj_in=schemas.user.ImageUpdate(profile_image=profile_image),
+        obj_in=schemas.user.ImageUpdate(profile_image=profile_relative_path),
     )
 
-    return {"msg": "success", "profile": profile_image}
+    return {"msg": "success", "profile": new_profile_image}
 
 
 @router.get("/{user_id}", response_model=schemas.User)
