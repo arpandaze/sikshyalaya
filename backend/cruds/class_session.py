@@ -18,12 +18,12 @@ class CRUDClassSession(CRUDBase[ClassSession, ClassSessionCreate, ClassSessionUp
             instructor = []
 
         db_obj = ClassSession(
-            datetime=obj_in.datetime,  # noqa
+            start_time=obj_in.start_time,  # noqa
+            end_time=obj_in.end_time,  # noqa
             is_active=obj_in.is_active,  # noqa
             instructor=instructor,  # noqa
             course_id=obj_in.course_id,  # noqa
             description=obj_in.description,  # noqa
-            duration=obj_in.duration,
             file=obj_in.file,
             group_id=obj_in.group_id,
         )

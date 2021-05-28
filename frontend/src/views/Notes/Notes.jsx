@@ -23,8 +23,16 @@ const Notes = () => {
 
     let responseData = [];
     responseData = response.data.map((note) => {
+      const notesDate = new Date(note.last_updated_time + "+05:45");
       let formattedResponseData = {
         id: note.id,
+        last_updated_time: notesDate.toLocaleString("en-AU", {
+          day: "numeric", // numeric, 2-digit
+          year: "numeric", // numeric, 2-digit
+          month: "short", // numeric, 2-digit, long, short, narrow
+          hour: "numeric", // numeric, 2-digit
+          minute: "numeric", // numeric, 2-digit
+        }),
         user_id: note.user_id,
         title: note.title,
         tags: note.tags,
@@ -225,6 +233,7 @@ const Notes = () => {
                       <SideNotes
                         id={notes.id}
                         title={notes.title}
+                        noteTime={notes.last_updated_time}
                         content={notes.content[0].insert}
                         onClick={() => {
                           handleSelectNote(notes.id, index);
@@ -258,6 +267,7 @@ const Notes = () => {
                 allNotes.length &&
                 selectedNote.position !== "" ? (
                   <Note
+                    noteTime={allNotes[selectedNote.position].last_updated_time}
                     title={allNotes[selectedNote.position].title}
                     content={allNotes[selectedNote.position].content}
                     tags={allNotes[selectedNote.position].tags}

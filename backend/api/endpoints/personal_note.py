@@ -45,8 +45,7 @@ def get_personal_note(
         )  # user has no authorization for retrieving personal notes, cause they personal fam!
 
     if current_user.user_type == settings.UserType.SUPERADMIN.value:
-        personal_note = crud_personal_note.get_multi(
-            db, skip=skip, limit=limit)
+        personal_note = crud_personal_note.get_multi(db, skip=skip, limit=limit)
         return personal_note
 
 
@@ -145,6 +144,7 @@ def update_personal_note(
 
     if current_user.user_type >= settings.UserType.TEACHER.value:
         if obj_in.user_id == current_user.id:
+            print(obj_in.last_updated_time)
             personal_note = crud_personal_note.get(db, id)
             return crud_personal_note.update(db, db_obj=personal_note, obj_in=obj_in)
 
@@ -188,8 +188,7 @@ def deleteSpecificPersonalNote(
             detail="Error ID: 142",  # user has no authorization to delete notes of other users
         )
 
-    personalNote = get_specific_personal_note(
-        db, id=id, current_user=current_user)
+    personalNote = get_specific_personal_note(db, id=id, current_user=current_user)
 
     personalNote = crud_personal_note.remove(db, id=personalNote.id)
 

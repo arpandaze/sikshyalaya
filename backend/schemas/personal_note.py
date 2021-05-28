@@ -17,7 +17,7 @@ class PersonalNoteBase(BaseModel):
 
 # properties to recieve via
 class PersonalNoteCreate(PersonalNoteBase):
-    pass
+    last_updated_time = datetime.now()
 
 
 # properties to recive via API on Update
@@ -26,6 +26,7 @@ class PersonalNoteUpdate(PersonalNoteBase):
     tags: List[str] = None
     title: str = None
     content: str = None
+    last_updated_time = datetime.now()
 
 
 # properties to return via the api
