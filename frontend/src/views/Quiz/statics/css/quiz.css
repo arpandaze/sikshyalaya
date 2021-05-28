@@ -2,71 +2,16 @@
 @media only screen and (min-width: 1920px) {
   .quiz_root {
     width: 96% !important;
+    height: 100vh !important;
     margin: 0px auto !important;
     position: relative;
     flex-grow: 1;
   }
-  .quiz_creator {
-    height: 96vh;
-    overflow: scroll;
-    overflow-x: hidden;
-  }
-  .quiz_creatorInside {
-    margin: 0px auto !important;
-  }
-  .quiz_creatorTop {
-    width: 100%;
-    height: 120px !important;
-  }
-  .quiz_creatorTopInside {
-    height: 120px !important;
-  }
-  .quiz_textContainer {
-    height: 120px !important;
-  }
-  .quiz_text {
-    font-weight: bold !important;
-    font-size: 2.5em !important;
-    margin-left: 5%;
-  }
-  .quiz_creatorBot {
-    position: relative !important;
-  }
-  .quiz_pad {
-    height: 100vh !important;
-  }
-  .quiz_sidebarComponent {
-    padding: 10px !important;
-  }
-  .quiz_padArea {
-  }
-  .quiz_padTop {
-    width: 86% !important;
-    position: relative !important;
-    left: 25px !important;
-  }
-  .quiz_padBot {
-    position: relative !important;
-    top: 10px !important;
-    left: 0px !important;
-  }
-  .quiz_sidebarcontainer {
-  }
-  .quiz_padContainer {
-    position: relative !important;
-    top: 5% !important;
-  }
-  .quiz_plusIcon {
-    cursor: pointer !important;
-    height: 30px !important;
+  .quiz_quizCardContainer {
     position: relative;
-    top: 8%;
-    right: 5%;
-  }
-  .quiz_gridIconsContainer {
-    width: 70px;
-    float: right;
-    cursor: pointer;
+    top: 0px;
+    margin-top: 40px !important;
+    width: 100%;
   }
 }
 
@@ -76,65 +21,5 @@
     margin: 0px auto !important;
     position: relative;
     flex-grow: 1;
-  }
-  .quiz_creator {
-    height: 96vh;
-    overflow: scroll;
-    overflow-x: hidden;
-  }
-  .quiz_creatorInside {
-    margin: 0px auto !important;
-  }
-  .quiz_creatorTop {
-    height: 90px !important;
-    width: 100%;
-  }
-  .quiz_creatorTopInside {
-    height: 90px !important;
-    margin: 0px auto !important;
-  }
-  .quiz_textContainer {
-    height: 90px !important;
-    position: relative;
-  }
-  .quiz_text {
-    font-weight: bold !important;
-    font-size: 1.9em !important;
-    margin-left: 5%;
-  }
-  .quiz_creatorBot {
-    position: relative !important;
-  }
-  .quiz_pad {
-    height: 100vh !important;
-  }
-  .quiz_sidebarComponent {
-    padding: 10px !important;
-  }
-  .quiz_padArea {
-  }
-  .quiz_padTop {
-    width: 55% !important;
-  }
-  .quiz_padBot {
-    position: relative !important;
-    top: 10px !important;
-  }
-  .quiz_sidebarcontainer {
-  }
-  .quiz_padContainer {
-    position: relative !important;
-    top: 5% !important;
-  }
-  .quiz_plusIcon {
-    cursor: pointer !important;
-    position: relative;
-    top: 8%;
-    right: 5%;
-  }
-  .quiz_gridIconsContainer {
-    width: 70px !important;
-    float: right !important;
-    cursor: pointer !important;
   }
 }

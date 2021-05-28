@@ -4,6 +4,7 @@ import DashboardLayout from "../../components/DashboardLayout";
 import NotificationButton from "../../components/NotificationButton";
 import "./statics/css/dashboard.css";
 import ClassResource from "./components/ClassResource";
+import { useAPI } from "../../utils/useAPI";
 
 const resourceList = [
   {
@@ -58,6 +59,59 @@ const resourceList = [
 ];
 
 const Dashboard = () => {
+  const classSessionFormatter = (value) => {
+    if (!value.data.length) {
+      return [];
+    }
+    let active_class_session = [];
+    let class_session = [];
+    value.data.map((item) => {
+      let start_time = new Date(item.datetime + "+05:45");
+      let duration = item.duration * 60 * 1000;
+      let instructors_name = item.instructor
+        .map((instructor) => {
+          return instructor.full_name;
+        })
+        .join(" and ");
+      if (
+        start_time.getTime() + duration > Date.now() &&
+        start_time.getTime() < Date.now()
+      ) {
+        active_class_session.push({
+          title: item.course.course_code,
+          titleDescription: item.course.course_name,
+          title2: "Today's Topic",
+          title2Description: item.description,
+          bottomText: instructors_name,
+          button: true,
+        });
+      } else {
+        class_session.push({
+          title: item.course.course_code,
+          titleDescription: item.course.course_name,
+          title2: "Today's Topic",
+          title2Description: item.description,
+          bottomText: instructors_name,
+          id: 1,
+          button: false,
+          time: start_time.toLocaleTimeString().replace(":00", ""),
+        });
+      }
+    });
+    return { active: active_class_session, other: class_session };
+  };
+
+  const classSessionDefaults = {
+    active: [],
+    other: [],
+  };
+
+  const [classSession, classSessionReqStat] = useAPI(
+    { endpoint: "/api/v1/class_session/" },
+    classSessionFormatter,
+    classSessionDefaults
+  );
+
   return (
     <DashboardLayout>
       <Grid
@@ -103,10 +157,56 @@ const Dashboard = () => {
                       <Grid
                         container
                         direction="column"
-                        alignItems="center"
+                        alignItems="flex-start"
                         className="mainDash_activeClassBoxBottom"
                       >
-                        <Grid item></Grid>
+                        <Grid item>
+                          {classSession.active.map((data) => (
+                            <Grid
+                              container
+                              direction="row"
+                              alignItems="flex-start"
+                              className="mainDash_activeClassListContainer"
+                            >
+                              <Grid
+                                item
+                                className="mainDash_activeClassListrow1"
+                              >
+                                <Grid
+                                  container
+                                  direction="column"
+                                  justify="center"
+                                  alignItems="flex-start"
+                                  className="mainDash_activeClassListrow_col_box"
+                                >
+                                  <Grid
+                                    item
+                                    className="mainDash_activeClassListrow_col_1"
+                                  >
+                                    <p className="mainDash_activeClassListrow_col_1_bold">
+                                      {data.title}
+                                    </p>
+
+                                    <p className="mainDash_activeClassListrow_col_1_light">
+                                      {data.titleDescription}
+                                    </p>
+                                  </Grid>
+                                  <Grid
+                                    item
+                                    className="mainDash_activeClassListrow_col_2"
+                                  >
+                                    <p className="mainDash_activeClassListrow_col_2_bold">
+                                      {data.title2}
+                                    </p>
+                                    <p className="mainDash_activeClassListrow_col_2_light">
+                                      {data.title2Description}
+                                    </p>
+                                  </Grid>
+                                </Grid>
+                              </Grid>
+                            </Grid>
+                          ))}
+                        </Grid>
                       </Grid>
                     </Grid>
                   </Grid>

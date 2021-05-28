@@ -156,6 +156,9 @@
     border-radius: 100%;
     cursor: pointer;
   }
+  .note_reactQuillContainer {
+    min-height: 680px;
+  }
   .note_trashButtonContainer {
     position: absolute;
     right: 60px;

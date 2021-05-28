@@ -51,8 +51,92 @@
     left: 15px;
     font-size: 1.7em;
   }
+  .mainDash_activeClassInside {
+    list-style-type: none;
+  }
   .mainDash_activeClassBoxBottom {
+    position: relative;
     height: 172px;
+  }
+  .mainDash_activeClassListContainer {
+    height: 140px;
+    margin: 8px auto auto 45px;
+    background: var(--secondary);
+  }
+  .mainDash_activeClassListrow1 {
+    height: 140px;
+  }
+
+  .mainDash_activeClassListrow_col_box {
+    height: 140px;
+    position: relative;
+  }
+
+  .mainDash_activeClassListrow2 {
+    position: relative;
+    height: 140px;
+  }
+
+  .mainDash_activeClassListbuttonContainer {
+    position: relative;
+  }
+
+  .mainDash_activeClassListrow_col_1 {
+    position: relative;
+    top: -20px;
+  }
+
+  .mainDash_activeClassListrow_col_2 {
+    position: relative;
+  }
+
+  .mainDash_activeClassListrow_col_1_bold {
+    margin: 0px;
+    padding: 0px;
+    font-size: 1.7em;
+    font-weight: bold;
+    color: var(--primaryTextColor);
+  }
+
+  .mainDash_activeClassListrow_col_1_light {
+    margin: 0px;
+    padding: 0px;
+    font-size: 0.8em;
+    font-weight: 600;
+    color: var(--secondaryTextColor);
+  }
+
+  .mainDash_activeClassListrow_col_2_bold {
+    margin: 0px;
+    padding: 0px;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: var(--primaryTextColor);
+  }
+
+  .mainDash_activeClassListrow_col_2_light {
+    margin: 0px;
+    padding: 0px;
+    font-size: 0.9em;
+    font-weight: 600;
+    color: var(--secondaryTextColor);
+  }
+
+  .mainDash_activeClassListrow2_bot {
+    position: absolute;
+    bottom: 0px;
+    text-align: right;
+  }
+
+  .mainDash_activeClassListrow2_bot_text {
+    font-size: 0.9em;
+    color: var(--blue);
+  }
+
+  .mainDash_activeClassListtimeText {
+    font-size: 1em;
+    font-weight: 400;
+    color: var(--primaryTextColor);
   }
   .mainDash_classResourcesBoxContainer {
     width: 95% !important;

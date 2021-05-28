@@ -169,6 +169,7 @@ const Note = ({
               modules={modules}
               format={formats}
               value={contentText}
+              className="note_reactQuillContainer"
               onChange={(content, delta, source, editor) => {
                 setContentText(editor.getContents());
               }}
