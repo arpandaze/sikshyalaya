@@ -15,6 +15,7 @@ import { formats, modules } from "../utils/quillConfig";
 import IconProvider from "./IconProvider";
 
 const Note = ({
+  noteTime,
   title,
   tags,
   content,
@@ -95,6 +96,11 @@ const Note = ({
               value={titleText}
               onChange={(e) => setTitleText(e.target.value)}
             />
+          </Grid>
+
+          {/** @FIX change this for displaying time at the side*/}
+          <Grid item xs={11} className="note_titleTextContainer">
+            <p>{noteTime}</p>
           </Grid>
 
           <Grid item xs={1} className="note_closeButtonContainer">
