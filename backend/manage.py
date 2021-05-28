@@ -127,6 +127,11 @@ class CommandDefinition:
         except Exception as e:
             print(e)
 
+    def dcstart(self):
+        os.system(
+            "cd .. && docker-compose up -d postgres file_server redis pgadmin mailhog"
+        )
+
     def cleandb(self):
         try:
             from core.db import engine
@@ -206,6 +211,11 @@ def start():
 
 
 @click.command()
+def dcstart():
+    commands.dcstart()
+
+
+@click.command()
 def mkmig():
     commands.mkmig()
 
@@ -253,6 +263,7 @@ main.add_command(mig)
 main.add_command(populate)
 main.add_command(logs)
 main.add_command(remake)
+main.add_command(dcstart)
 clean.add_command(db)
 clean.add_command(clean_mig)
 clean.add_command(redis)
