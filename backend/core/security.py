@@ -1,4 +1,5 @@
 import binascii
+import secrets
 import os
 from hashlib import sha1
 
@@ -14,7 +15,7 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 async def create_sesssion_token(user: User, remember_me: bool) -> str:
-    session_token = binascii.hexlify(os.urandom(20)).decode()
+    session_token = secrets.token_hex(nbytes=16)
     expire_time = (
         settings.SESSION_EXPIRE_TIME_EXTENDED
         if remember_me

@@ -98,8 +98,8 @@ const Profile = () => {
       method: "PUT",
       data: data,
     });
+
     if (resp.status === 200) {
-      setUser(resp.data);
       let imageData = new FormData();
       imageData.append("profile_photo", selectImage);
       let imageResp = await callAPI({
@@ -111,7 +111,10 @@ const Profile = () => {
         },
       });
       if (imageResp.status === 200) {
-        let newUserData = { ...user, profile_image: imageResp.data.profile };
+        let newUserData = {
+          ...resp.data,
+          profile_image: imageResp.data.profile,
+        };
         setUser(newUserData);
       }
     }

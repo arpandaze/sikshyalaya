@@ -75,7 +75,7 @@ class CommandDefinition:
 
     def cleanmig(self):
         for file in os.listdir("migrations/versions/"):
-            if file != "__init__.py":
+            if file != ".keep":
                 if os.path.isfile(f"migrations/versions/{file}"):
                     os.remove(f"migrations/versions/{file}")
 
