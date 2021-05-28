@@ -1,4 +1,7 @@
+from datetime import datetime
 from typing import Optional, List
+from datetime import datetime
+
 
 from pydantic import BaseModel
 
@@ -9,6 +12,7 @@ class PersonalNoteBase(BaseModel):
     tags: List[str] = None
     title: str
     content: str
+    last_updated_time: datetime
 
 
 # properties to recieve via

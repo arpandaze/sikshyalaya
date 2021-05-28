@@ -141,6 +141,7 @@ def populate_personal_note():
                 tags=personalNote["tags"],
                 title=personalNote["title"].strip(),
                 content=personalNote["content"],
+                last_updated_time=personalNote["last_updated_time"],
             )
             crud_personal_note.create(db, obj_in=personalNote)
         except Exception as e:  # noqa
