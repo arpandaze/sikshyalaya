@@ -16,15 +16,15 @@ const Landing = () => {
     let active_class_session = [];
     let class_session = [];
     value.data.map((item) => {
-      let start_time = new Date(item.datetime + "+05:45");
-      let duration = item.duration * 60 * 1000;
+      let start_time = new Date(item.start_time + "+05:45");
+      let end_time = new Date(item.end_time + "+05:45");
       let instructors_name = item.instructor
         .map((instructor) => {
           return instructor.full_name;
         })
         .join(" and ");
       if (
-        start_time.getTime() + duration > Date.now() &&
+        end_time.getTime() > Date.now() &&
         start_time.getTime() < Date.now()
       ) {
         active_class_session.push({
