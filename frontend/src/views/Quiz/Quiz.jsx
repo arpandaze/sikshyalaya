@@ -1,214 +1,115 @@
 import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
-import colorscheme from "../../utils/colors";
 import DashboardLayout from "../../components/DashboardLayout";
-import Note from "../../components/Note";
-import SideNotes from "../../components/SideNotes";
-import { GoPlus } from "react-icons/go";
+import QuizCard from "./components/QuizCard";
 import "./statics/css/quiz.css";
 
-const sideNotes = [
+const colorPattern = [
+  "quizCard_red",
+  "quizCard_yellow",
+  "quizCard_green",
+  "quizCard_purple",
+];
+const datas = [
   {
-    id: "1",
-    title: "123Style too own civil out along.",
-    content: [
+    quiz_title: "First Internal Test",
+    quiz_description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet sem sodales, sagittis sapien sit amet, sagittis nunc. Cras commodo sapien a magna vehicula congue. 1.Pellentesque sodales vel nibh sed condimentum. 2.In pulvinar posuere lacus imperdiet gravida.3. Donec eget scelerisque orci, eget tempus mi. 4. Fusce iaculis ligula a interdum euismod. Sed velit quam, placerat sed ultricies id, porta vel lorem. ",
+    quiz_course: "COMP 102",
+    quiz_instructor: "Dr. Dil Bahadur Gurung",
+    start_time: "12:00 am",
+    end_time: "2:00 am",
+    isRandomized: "True",
+    questions: [
       {
-        type: "paragraph",
-        children: [
-          {
-            text: "12322Style too own civil out along. Perfectly offending attempted add arranging age gentleman concluded. Get who uncommonly our expression ten increasing considered occasional travelling. Ever read tell year give may men call its. Piqued son turned fat income played end wicket. To do noisy downs round an happy books.  ",
-          },
-        ],
+        question_text: "Rushab k ramro nai ho ta?",
+        question_type: "1",
+        options: ["True", "False"],
+        answer: "1",
+        marks: "10",
       },
     ],
-    isEditing: false,
   },
   {
-    id: "2",
-    title: "231Style too own civil out along.",
-    content: [
+    quiz_title: "First Internal Test",
+    quiz_description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet sem sodales, sagittis sapien sit amet, sagittis nunc. Cras commodo sapien a magna vehicula congue. 1.Pellentesque sodales vel nibh sed condimentum. 2.In pulvinar posuere lacus imperdiet gravida.3. Donec eget scelerisque orci, eget tempus mi. 4. Fusce iaculis ligula a interdum euismod. Sed velit quam, placerat sed ultricies id, porta vel lorem. ",
+    quiz_course: "COMP 102",
+    quiz_instructor: "Dr. Dil Bahadur Gurung",
+    start_time: "12:00 am",
+    end_time: "2:00 am",
+    isRandomized: "True",
+    questions: [
       {
-        type: "paragraph",
-        children: [
-          {
-            text: "21312Style too own civil out along. Perfectly offending attempted add arranging age gentleman concluded. Get who uncommonly our expression ten increasing considered occasional travelling. Ever read tell year give may men call its. Piqued son turned fat income played end wicket. To do noisy downs round an happy books.  ",
-          },
-        ],
+        question_text: "Rushab k ramro nai ho ta?",
+        question_type: "1",
+        options: ["True", "False"],
+        answer: "1",
+        marks: "10",
       },
     ],
-    isEditing: false,
   },
   {
-    id: "3",
-    title: "332Style too own civil out along.",
-    content: [
+    quiz_title: "First Internal Test",
+    quiz_description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet sem sodales, sagittis sapien sit amet, sagittis nunc. Cras commodo sapien a magna vehicula congue. 1.Pellentesque sodales vel nibh sed condimentum. 2.In pulvinar posuere lacus imperdiet gravida.3. Donec eget scelerisque orci, eget tempus mi. 4. Fusce iaculis ligula a interdum euismod. Sed velit quam, placerat sed ultricies id, porta vel lorem. ",
+    quiz_course: "COMP 102",
+    quiz_instructor: "Dr. Dil Bahadur Gurung",
+    start_time: "12:00 am",
+    end_time: "2:00 am",
+    isRandomized: "True",
+    questions: [
       {
-        type: "paragraph",
-        children: [
-          {
-            text: "21321312Style too own civil out along. Perfectly offending attempted add arranging age gentleman concluded. Get who uncommonly our expression ten increasing considered occasional travelling. Ever read tell year give may men call its. Piqued son turned fat income played end wicket. To do noisy downs round an happy books.  ",
-          },
-        ],
+        question_text: "Rushab k ramro nai ho ta?",
+        question_type: "1",
+        options: ["True", "False"],
+        answer: "1",
+        marks: "10",
       },
     ],
-    isEditing: false,
   },
   {
-    id: "4",
-    title: "55Style too own civil out along.",
-    content: [
+    quiz_title: "First Internal Test",
+    quiz_description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet sem sodales, sagittis sapien sit amet, sagittis nunc. Cras commodo sapien a magna vehicula congue. 1.Pellentesque sodales vel nibh sed condimentum. 2.In pulvinar posuere lacus imperdiet gravida.3. Donec eget scelerisque orci, eget tempus mi. 4. Fusce iaculis ligula a interdum euismod. Sed velit quam, placerat sed ultricies id, porta vel lorem. ",
+    quiz_course: "COMP 102",
+    quiz_instructor: "Dr. Dil Bahadur Gurung",
+    start_time: "12:00 am",
+    end_time: "2:00 am",
+    isRandomized: "True",
+    questions: [
       {
-        type: "paragraph",
-        children: [
-          {
-            text: "21312321Style too own civil out along. Perfectly offending attempted add arranging age gentleman concluded. Get who uncommonly our expression ten increasing considered occasional travelling. Ever read tell year give may men call its. Piqued son turned fat income played end wicket. To do noisy downs round an happy books.  ",
-          },
-        ],
+        question_text: "Rushab k ramro nai ho ta?",
+        question_type: "1",
+        options: ["True", "False"],
+        answer: "1",
+        marks: "10",
       },
     ],
-    isEditing: false,
-  },
-  {
-    id: "5",
-    title: "44Style too own civil out along.",
-    content: [
-      {
-        type: "paragraph",
-        children: [
-          {
-            text: "12312321Style too own civil out along. Perfectly offending attempted add arranging age gentleman concluded. Get who uncommonly our expression ten increasing considered occasional travelling. Ever read tell year give may men call its. Piqued son turned fat income played end wicket. To do noisy downs round an happy books.  ",
-          },
-        ],
-      },
-    ],
-    isEditing: false,
-  },
-  {
-    id: "6",
-    title: "33Style too own civil out along.",
-    content: [
-      {
-        type: "paragraph",
-        children: [
-          {
-            text: "12312321Style too own civil out along. Perfectly offending attempted add arranging age gentleman concluded. Get who uncommonly our expression ten increasing considered occasional travelling. Ever read tell year give may men call its. Piqued son turned fat income played end wicket. To do noisy downs round an happy books.  ",
-          },
-        ],
-      },
-    ],
-    isEditing: false,
   },
 ];
 
 const Quiz = () => {
-  const [selectedNote, setSelectedNote] = useState({ id: "1", position: "0" });
-  const handleSelectNote = (i, p) => {
-    setSelectedNote({ id: i, position: p });
-  };
-  const handleCreateNote = () => {
-    sideNotes.splice(0, 0, {
-      title: "Title Goes Here",
-      content: [
-        {
-          type: "paragraph",
-          children: [{ text: "This is editable " }],
-        },
-      ],
-    });
-    setSelectedNote({
-      id: (parseInt(sideNotes[sideNotes.length - 1].id) + 1).toString(),
-      position: 0,
-    });
-  };
   return (
     <DashboardLayout>
       <Grid
         container
-        direction="row"
+        direction="column"
         justify="flex-start"
         alignItems="center"
         className="quiz_root"
       >
-        <Grid item xs={4} className="quiz_creator">
-          <Grid container direction="column" className="quiz_creatorInside">
-            <Grid item className="quiz_creatorTop">
-              <Grid
-                container
-                direction="row"
-                alignItems="center"
-                className="quiz_creatorTopInside"
-              >
-                <Grid xs={11} item className="quiz_textContainer">
-                  <p className="quiz_text">Quiz</p>
-                </Grid>
-                <Grid xs={1} item className="quiz_plusIcon">
-                  <GoPlus
-                    size={26}
-                    color={colorscheme.green2}
-                    onClick={() => {
-                      handleCreateNote();
-                    }}
-                  />
-                </Grid>
+        <Grid item className="quiz_quizCardContainer">
+          <Grid container>
+            {datas.map((data, index) => (
+              <Grid item className="quiz_quizCardContainer">
+                <QuizCard qData={data} color={colorPattern[index % 4]} />
               </Grid>
-            </Grid>
-            <Grid item className="quiz_creatorBot">
-              <Grid
-                container
-                direction="column"
-                className="quiz_sidebarContainer"
-              >
-                {sideNotes.map((notes, index) => (
-                  <Grid item key={notes.id} className="quiz_sidebarComponent">
-                    <SideNotes
-                      title={notes.title}
-                      content={notes.content[0].children[0].text}
-                      onClick={() => {
-                        handleSelectNote(notes.id, index);
-                      }}
-                    />
-                  </Grid>
-                ))}
-              </Grid>
-            </Grid>
+            ))}
           </Grid>
-        </Grid>
-        <Grid item xs={8} className="quiz_pad">
-          <Grid
-            container
-            direction="column"
-            alignItems="center"
-            className="quiz_padContainer"
-          >
-            <Grid item className="quiz_padBot">
-              <Grid
-                container
-                direction="column"
-                justify="center"
-                alignItems="flex-start"
-                className="quiz_padArea"
-              >
-                {selectedNote.id != "" && sideNotes.length !== 0 ? (
-                  <Note
-                    title={sideNotes[selectedNote.position].title}
-                    content={sideNotes[selectedNote.position].content}
-                    onClose={() => {
-                      setSelectedNote({ id: "", position: "" });
-                    }}
-                    onDelete={() => {
-                      sideNotes.splice(parseInt(selectedNote.position), 1);
-                      setSelectedNote(() => ({
-                        id: sideNotes[selectedNote.id],
-                        position: "0",
-                      }));
-                    }}
-                  />
-                ) : (
-                  <></>
-                )}
-              </Grid>
-            </Grid>
-          </Grid>
+          <br />
+          <br />
+          <br />
         </Grid>
       </Grid>
     </DashboardLayout>
