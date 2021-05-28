@@ -43,32 +43,20 @@ services:
     logging:
       driver: none
 
-    redis:
-      image: redis:6-alpine
-      container_name: redis
-      env_file:
-        - .env
-      command: redis-server --requirepass ${SECRET_KEY}
-      networks:
-        - internal
-
-    file_server:
-      container_name: file_server
-      build:
-        context: ./dockerfiles
-        dockerfile: ./file_server.dockerfile
-      networks:
-        - internal
-      ports:
-        - "8081:80"
-      volumes:
-        - uploads:/usr/share/nginx/html
+  redis:
+    image: redis:6-alpine
+    container_name: redis
+    env_file:
+      - .env
+    command: redis-server --requirepass ${SECRET_KEY}
+    networks:
+      - internal
 
   file_server:
     container_name: file_server
     build:
-      dockerfile: ./file_server.dockerfile
       context: ./dockerfiles
+      dockerfile: ./file_server.dockerfile
     networks:
       - internal
     ports:
