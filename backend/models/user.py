@@ -13,11 +13,6 @@ from sqlalchemy import (
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
 
-from .association_tables import (
-    teacher_group_association_table,
-    user_permission_association_table,
-)
-
 
 class User(Base):
     id = Column(Integer, primary_key=True, index=True)
@@ -26,9 +21,13 @@ class User(Base):
     email = Column(String, index=True, nullable=False, unique=True)
     group_id = Column(Integer, ForeignKey("group.id", ondelete="cascade"))
     group = relationship("Group", backref="users")
+    # teacher_group = relationship(
+    #     "Group", secondary=teacher_group_association_table, backref="teachers"
+    # )
     teacher_group = relationship(
-        "Group", secondary=teacher_group_association_table, backref="teachers"
+        "TeacherGroupCourseAssociation", back_populates="teacher"
     )
+
     dob = Column(Date, nullable=False)
     address = Column(String(length=128), nullable=False)
     contact_number = Column(String(length=32), index=True, nullable=False)

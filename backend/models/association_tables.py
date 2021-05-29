@@ -1,4 +1,6 @@
 from sqlalchemy import Column, Integer, ForeignKey, Table
+from sqlalchemy.orm import relationship
+from sqlalchemy.sql.expression import null
 
 from core.db import Base
 
@@ -35,12 +37,29 @@ group_course_association_table = Table(
     Column("group_id", Integer, ForeignKey("group.id", ondelete="CASCADE")),
 )
 
-teacher_group_association_table = Table(
-    "teacher_group_association",
-    Base.metadata,
-    Column("teacher_id", Integer, ForeignKey("user.id", ondelete="CASCADE")),
-    Column("group_id", Integer, ForeignKey("group.id", ondelete="CASCADE")),
-)
+# teacher_group_association_table = Table(
+#     "teacher_group_association",
+#     Base.metadata,
+#     Column("teacher_id", Integer, ForeignKey("user.id", ondelete="CASCADE")),
+#     Column("group_id", Integer, ForeignKey("group.id", ondelete="CASCADE")),
+# )
+
+
+class TeacherGroupCourseAssociation(Base):
+    teacher_id = Column(
+        Integer, ForeignKey("user.id", ondelete="CASCADE"), primary_key=True
+    )
+    group_id = Column(
+        Integer, ForeignKey("group.id", ondelete="CASCADE"), primary_key=True
+    )
+    course_id = Column(
+        Integer, ForeignKey("course.id", ondelete="CASCADE"), nullable=False
+    )
+    group = relationship("Group")
+    teacher = relationship("User")
+    course = relationship("Course")
+    __tablename__ = "teacher_group_course_association"
+
 
 group_quiz_association_table = Table(
     "group_quiz_association",

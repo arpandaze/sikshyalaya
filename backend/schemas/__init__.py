@@ -48,3 +48,4 @@ from .quiz import (
 )
 
 from .file import File, FileCreate, FileUpdate, FileInDB
+from .auth import LoginData

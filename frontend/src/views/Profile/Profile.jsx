@@ -113,7 +113,7 @@ const Profile = () => {
       if (imageResp.status === 200) {
         let newUserData = {
           ...resp.data,
-          profile_image: imageResp.data.profile,
+          profile_image: `profiles/${imageResp.data.profile}`,
         };
         setUser(newUserData);
       }
@@ -151,7 +151,7 @@ const Profile = () => {
                         ? tempImage
                         : user.profile_image == null
                         ? defaultProfile
-                        : `${configs.PUBLIC_FILES_PATH}/profiles/${user.profile_image}`
+                        : `${configs.PUBLIC_FILES_PATH}/${user.profile_image}`
                     }
                     addStyles="profile_image"
                   />
@@ -230,9 +230,6 @@ const Profile = () => {
                             addStyles="profile_inputButton"
                             style={{
                               "max-width": "20",
-                            }}
-                            onChange={(e) => {
-                              console.log(e);
                             }}
                           />
                         </Grid>

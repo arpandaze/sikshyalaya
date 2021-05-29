@@ -2,6 +2,8 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import "./statics/css/classResource.css";
 import ResourceIcons from "./ResourceIcons";
+import { Link } from "react-router-dom";
+import configs from "../../../utils/configs";
 
 const ClassResource = ({ resourceList, ...rest }) => {
   return (
@@ -17,9 +19,15 @@ const ClassResource = ({ resourceList, ...rest }) => {
             <ResourceIcons iconType={resource.type} />
           </Grid>
           <Grid item className="classResource_resourceListContainer">
-            <li className="classResource_resourceList" key={resource.id}>
-              {resource.name}
-            </li>
+            <a
+              href={configs.PUBLIC_FILES_PATH + resource.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <li className="classResource_resourceList" key={resource.id}>
+                {resource.name}
+              </li>
+            </a>
             <li className="classResource_resourceListTimeText">
               {timeDifference(resource.time)}
             </li>

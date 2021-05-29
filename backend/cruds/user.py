@@ -8,8 +8,10 @@ from core.permission.permission import check_permission
 from core.security import get_password_hash, verify_password
 from cruds.base import CRUDBase
 from cruds.group import crud_group
+from models import association_tables
 from models.user import User
 from schemas.user import UserCreate, UserUpdate
+from models.association_tables import TeacherGroupCourseAssociation
 
 
 class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
@@ -33,19 +35,11 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         *,
         obj_in: UserCreate,
     ) -> User:
-        if obj_in.teacher_group:
-            teacher_group = [
-                crud_group.get(db=db, id=id) for id in obj_in.teacher_group
-            ]
-        else:
-            teacher_group = []
-
         db_obj = User(
             email=obj_in.email,  # noqa
             hashed_password=get_password_hash(obj_in.password),  # noqa
             full_name=obj_in.full_name,  # noqa
             dob=obj_in.dob,  # noqa
-            teacher_group=teacher_group,  # noqa
             group_id=obj_in.group_id,  # noqa
             user_type=obj_in.user_type,  # noqa
             contact_number=obj_in.contact_number,  # noqa
@@ -54,6 +48,21 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         )
         db.add(db_obj)
         db.commit()
+        db.refresh(db_obj)
+
+        if obj_in.teacher_group:
+            for item in obj_in.teacher_group:
+                association_obj = TeacherGroupCourseAssociation(
+                    teacher_id=db_obj.id,
+                    group_id=item[0],
+                    course_id=item[1],
+                )
+                db.add(association_obj)
+                db.commit()
+                db.refresh(association_obj)
+                # teacher_group = [
+                #     crud_group.get(db=db, id=id) for id in obj_in.teacher_group
+                # ]
         db.refresh(db_obj)
         return db_obj
 

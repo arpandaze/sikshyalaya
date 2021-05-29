@@ -5,18 +5,17 @@ from pydantic import BaseModel
 from typing import Any
 from schemas.user import UserReturnMin, TeacherOfClassSession
 from schemas.course import Course
+from schemas.file import FileClassSessionReturn
 
 
 # shared properties
 class ClassSessionBase(BaseModel):
     start_time: datetime
     end_time: datetime
-    is_active: bool
     instructor: List[int]
     course_id: int
     group_id: int
     description: str
-    file: List[str] = None
 
 
 # properties to recieve via
@@ -28,11 +27,9 @@ class ClassSessionCreate(ClassSessionBase):
 class ClassSessionUpdate(ClassSessionBase):
     start_time: datetime = None
     end_time: datetime = None
-    is_active: bool = None
     instructor: List[int] = None
     course_id: int = None
     description: str = None
-    file: List[str] = None
     group_id: int = None
 
 
@@ -52,12 +49,11 @@ class ClassSession(ClassSessionInDBBase):
 class ClassSessionReturn(BaseModel):
     start_time: datetime
     end_time: datetime
-    is_active: bool
     instructor: List[TeacherOfClassSession]
     course: Course
     group_id: int
     description: str
-    file: List[str] = None
+    files: List[FileClassSessionReturn] = None
 
     class Config:
         orm_mode = True
