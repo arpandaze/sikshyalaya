@@ -25,7 +25,6 @@ import schemas
 from core import throttle
 from core.security import get_password_hash, create_sesssion_token
 from core.config import settings
-from forms.login import LoginData
 from utils import deps
 from utils.utils import (
     generate_password_reset_token,
@@ -41,7 +40,10 @@ router = APIRouter()
 
 @router.post("/web", response_model=schemas.user.UserReturn)
 async def login_web_session(
-    db: Session = Depends(deps.get_db), *, form_data: LoginData, response: Response
+    db: Session = Depends(deps.get_db),
+    *,
+    form_data: schemas.LoginData,
+    response: Response,
 ) -> Any:
     if not form_data.username:
         form_data.username = form_data.email
@@ -78,12 +80,12 @@ async def sign_up(
             status_code=400,
             detail="Email is associated with another user!",
         )  # The user with this username already exists in the system
-    email_host = user_in.email[user_in.email.index("@")+1:]
+    email_host = user_in.email[user_in.email.index("@") + 1 :]
 
     if email_host not in settings.ALLOWED_EMAIL_HOST:
         raise HTTPException(
             status_code=403,
-            detail=f"Email of host {email_host} not allowed!" #TODO: Reflected XSS test
+            detail=f"Email of host {email_host} not allowed!",  # TODO: Reflected XSS test
         )
 
     user = cruds.crud_user.create(

@@ -15,7 +15,7 @@ class UserBase(BaseModel):
     group_id: int = None
     contact_number: str = None
     dob: date = None
-    teacher_group: List[int] = None
+    teacher_group: List[List[int]] = None
     join_year: Optional[int] = None
 
 
@@ -63,6 +63,7 @@ class UserUpdate(BaseModel):
     group_id: int
     dob: date
     contact_number: str
+
 
 class ImageUpdate(BaseModel):
     profile_image: str = None
