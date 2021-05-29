@@ -1,15 +1,21 @@
 import os
 import json
+from schemas.file import FileCreate
 import aiofiles
 from typing import Any, List
 from core.security import get_uid_hash
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Form
 from sqlalchemy.orm import Session
 
 from utils import deps
 from cruds import crud_class_session, crud_user
-from schemas.class_session import ClassSession, ClassSessionUpdate, ClassSessionCreate, ClassSessionReturn
+from schemas.class_session import (
+    ClassSession,
+    ClassSessionUpdate,
+    ClassSessionCreate,
+    ClassSessionReturn,
+)
 from utils.deps import get_current_active_teacher_or_above, get_current_active_user
 
 from fastapi import FastAPI, File, UploadFile, HTTPException
@@ -20,7 +26,12 @@ from typing import List
 
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.responses import HTMLResponse
+from hashlib import sha256
 from core.websocket import ws
+from forms.class_session import ClassSessionCreateForm
+from fastapi.encoders import jsonable_encoder
+from cruds import crud_file
+from models import File as FileModel
 
 router = APIRouter()
 
@@ -37,22 +48,52 @@ def get_class_session(
 
 
 @router.post("/", response_model=ClassSession)
-def create_class_session(
+async def create_class_session(
     db: Session = Depends(deps.get_db),
     user=Depends(get_current_active_teacher_or_above),
     *,
-    obj_in: ClassSessionCreate,
+    form: ClassSessionCreateForm = Depends(),
 ) -> Any:
+    for item in user.teacher_group:
+        course_id = item.course.id if item.group.id == form.group else course_id
 
-    class_session = crud_class_session.create(db, obj_in=obj_in)
+    data = ClassSessionCreate(
+        start_time=form.start_time,
+        end_time=form.end_time,
+        instructor=list(set([user.id, *form.instructor])),
+        description=form.description,
+        group_id=form.group,
+        course_id=course_id,
+    )
 
-    FILE_PATH = os.path.join("static", settings.UPLOAD_DIR_ROOT, f"{class_session.id}")
-    working_directory = os.getcwd()
-    FILE_PATH = os.path.join(working_directory, FILE_PATH)
+    class_session = crud_class_session.create(db, obj_in=data)
 
-    if not os.path.exists(FILE_PATH):
-        os.makedirs(FILE_PATH)
-    print(FILE_PATH)
+    hasher = sha256()
+    hasher.update(bytes(f"{class_session.id}_{settings.SECRET_KEY}", "utf-8"))
+    db_folder_path = os.path.join("class_files", hasher.hexdigest())
+    folder_path = os.path.join(settings.UPLOAD_DIR_ROOT, db_folder_path)
+
+    if not os.path.exists(folder_path):
+        os.makedirs(folder_path)
+
+    if form.file:
+        for file in form.file:
+            file_path = os.path.join(folder_path, file.filename)
+            async with aiofiles.open(file_path, mode="wb") as f:
+                content = await file.read()
+                await f.write(content)
+
+            db.add(
+                FileModel(
+                    name=file.filename,
+                    path=db_folder_path,
+                    file_type=file.content_type,
+                    description=None,
+                    class_session=class_session,
+                )
+            )
+            db.commit()
+
     return class_session
 
 
@@ -104,37 +145,9 @@ async def create_upload_files(
             await f.write(content)
 
     obj_in = ClassSessionUpdate(file=[file.filename for file in files])
-    print(obj_in)
     crud_class_session.update(db=db, db_obj=class_session, obj_in=obj_in)
 
     return {"msg": "success"}
-
-
-@router.get("{id}/file/{filename}")  # TODO: File caching
-async def get_upload_files(
-    db: Session = Depends(deps.get_db),
-    req_user=Depends(get_current_active_user),
-    *,
-    filename: str,
-    id: int,
-):
-    class_session = crud_class_session.get_user_class_session(
-        db=db, user=req_user, id=id
-    )
-    if not class_session:
-        raise HTTPException(status_code=403, detail="Error ID: 101")  # Access denied!
-
-    FILE_PATH = os.path.join("static", settings.UPLOAD_DIR_ROOT)
-    working_directory = os.getcwd()
-    FILE_PATH = os.path.join(working_directory, FILE_PATH, f"{id}", filename)
-
-    if os.path.isfile(FILE_PATH):
-        file = FileResponse(f"{FILE_PATH}")
-        return file
-    else:
-        raise HTTPException(
-            status_code=404, detail="Error ID: 145"
-        )  # no file exist in the path
 
 
 html = """
