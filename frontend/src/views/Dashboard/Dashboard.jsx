@@ -58,25 +58,71 @@ const resourceList = [
   },
 ];
 
+const getFileType = (item) => {
+  switch (item) {
+    case "application/msword":
+      return "document";
+      break;
+    case "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+      return "document";
+      break;
+    case "image/jpeg":
+      return "image";
+      break;
+    case "image/png":
+      return "image";
+      break;
+    case "application/pdf":
+      return "pdf";
+      break;
+    case "application/vnd.ms-powerpoint":
+      return "presentation";
+      break;
+    case "application/vnd.openxmlformats-officedocument.presentationml.presentation":
+      return "presentation";
+      break;
+    case "application/vnd.rar":
+      return "zip";
+      break;
+    case "application/x-tar":
+      return "zip";
+      break;
+    case "application/zip":
+      return "zip";
+      break;
+    case "application/x-7z-compressed":
+      return "zip";
+      break;
+  }
+};
+
 const Dashboard = () => {
   const classSessionFormatter = (value) => {
     if (!value.data.length) {
       return [];
     }
     let active_class_session = [];
-    let class_session = [];
     value.data.map((item) => {
-      let start_time = new Date(item.datetime + "+05:45");
-      let duration = item.duration * 60 * 1000;
+      let start_time = new Date(item.start_time + "+05:45");
+      let end_time = new Date(item.end_time + "+05:45");
       let instructors_name = item.instructor
         .map((instructor) => {
           return instructor.full_name;
         })
         .join(" and ");
       if (
-        start_time.getTime() + duration > Date.now() &&
+        end_time.getTime() > Date.now() &&
         start_time.getTime() < Date.now()
       ) {
+        let resources = item.files.map((item, index) => {
+          return {
+            id: index,
+            name: item.name,
+            url: `/${item.path}/${item.name}`,
+            type: getFileType(item.file_type),
+            time: item.uploaded_datetime,
+          };
+        });
         active_class_session.push({
           title: item.course.course_code,
           titleDescription: item.course.course_name,
@@ -84,26 +130,33 @@ const Dashboard = () => {
           title2Description: item.description,
           bottomText: instructors_name,
           button: true,
-        });
-      } else {
-        class_session.push({
-          title: item.course.course_code,
-          titleDescription: item.course.course_name,
-          title2: "Today's Topic",
-          title2Description: item.description,
-          bottomText: instructors_name,
-          id: 1,
-          button: false,
-          time: start_time.toLocaleTimeString().replace(":00", ""),
+          resources: resources,
         });
       }
     });
-    return { active: active_class_session, other: class_session };
+    return { active: active_class_session };
   };
 
   const classSessionDefaults = {
-    active: [],
-    other: [],
+    active: [
+      {
+        title: null,
+        titleDescription: null,
+        title2: null,
+        title2Description: null,
+        bottomText: null,
+        button: null,
+        resources: [
+          {
+            id: null,
+            name: null,
+            url: null,
+            type: null,
+            time: null,
+          },
+        ],
+      },
+    ],
   };
 
   const [classSession, classSessionReqStat] = useAPI(
@@ -238,7 +291,9 @@ const Dashboard = () => {
                         className="mainDash_classResourceBoxBottom"
                       >
                         <Grid item>
-                          <ClassResource resourceList={resourceList} />
+                          <ClassResource
+                            resourceList={classSession.active[0].resources}
+                          />
                         </Grid>
                       </Grid>
                     </Grid>
