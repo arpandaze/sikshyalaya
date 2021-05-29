@@ -53,12 +53,12 @@ const ProfileBox = () => {
             <Image
               src={
                 userState.image
-                  ? `${configs.PUBLIC_FILES_PATH}/profiles/${userState.image}`
+                  ? `${configs.PUBLIC_FILES_PATH}/${userState.image}`
                   : defaultProfile
               }
               alt={
                 userState.image
-                  ? `${configs.PUBLIC_FILES_PATH}/profiles/${userState.image}`
+                  ? `${configs.PUBLIC_FILES_PATH}/${userState.image}`
                   : defaultProfile
               }
               addStyles="profileBox_image"
