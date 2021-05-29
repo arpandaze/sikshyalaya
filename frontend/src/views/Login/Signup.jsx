@@ -115,7 +115,6 @@ const Signup = () => {
       method: "POST",
       data: req_data,
     });
-    console.log(response);
 
     if (response.status === 200) {
       setSubmitState({
@@ -223,9 +222,6 @@ const Signup = () => {
                       id="semester"
                       addStyles="signup_inputButton"
                       style={{ maxWidth: "20" }}
-                      onChange={(e) => {
-                        console.log(e);
-                      }}
                     />
                   </Grid>
                   <Grid item xs={6} style={{ padding: "0px 20px 0px 0px" }}>
