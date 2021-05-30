@@ -45,6 +45,7 @@
     background: var(--red4);
     position: relative;
     margin-left: 20px !important;
+    animation: live 1s infinite ease-in-out !important;
   }
   .mainDash_activeClassTitle {
     position: relative;
@@ -245,6 +246,7 @@
     background: var(--red4);
     position: relative;
     margin-left: 20px !important;
+    animation: live 1s infinite ease-in-out !important;
   }
   .mainDash_activeClassTitle {
     position: relative;
@@ -306,5 +308,17 @@
     position: relative;
     left: 15px;
     font-size: 1.3em;
+  }
+}
+
+@keyframes live{
+  0%{
+    background:var(--red4)
+  }
+  50%{
+    background:var(--red5)
+  }
+  100%{
+    background:var(--red4)
   }
 }
