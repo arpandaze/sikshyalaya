@@ -10,9 +10,7 @@ from utils import deps
 
 router = APIRouter()
 
-@router.get("/public_file/{file:path}")
-async def public_file(
-    file: str,
-) -> Any:
-    return FileResponse(f"uploaded_files/{file}")
 
+@router.get("/ping")
+async def ping() -> Any:
+    return {"msg": "pong"}
