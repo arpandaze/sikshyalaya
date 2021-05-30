@@ -25,6 +25,7 @@
     background: var(--red4);
     position: relative;
     margin-left: 30px !important;
+    animation: live 1s infinite ease-in-out !important;
   }
   .landing_currentContainer {
     width: 95%;
@@ -55,6 +56,17 @@
   .landing_upCommingContainer {
     width: 98%;
     margin: 0px auto !important;
+  }
+}
+@keyframes live{
+  0%{
+    background:var(--red4)
+  }
+  50%{
+    background:var(--red5)
+  }
+  100%{
+    background:var(--red4)
   }
 }
 
