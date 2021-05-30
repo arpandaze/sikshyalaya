@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
 import colorscheme from "../../utils/colors";
 import logoLarge from "../../assets/logo-large.svg";
@@ -6,12 +6,8 @@ import Image from "../../components/Image";
 import FancyButton from "../../components/FancyButton";
 import "./statics/css/404.css";
 import { Link } from "react-router-dom";
-import { UserContext } from "../../utils/Contexts/UserContext";
-import { Redirect } from "react-router-dom";
-import configs from "../../utils/configs";
-import reactJoiValidation from "react-joi-validation";
 
-const NotFound = (props) => {
+const NotFound = () => {
 	return (
 		<>
 			<Grid
@@ -38,6 +34,7 @@ const NotFound = (props) => {
 						direction="column"
 						alignItems="center"
 						justifyContent="center"
+						spacing={3}
 					>
 						<Grid item className="notFound_404Message">
 							<a className="notFound_404giant404">404</a>
