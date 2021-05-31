@@ -10,7 +10,7 @@ services:
     build:
       context: ./
       dockerfile: ./dockerfiles/backend.dockerfile
-    command: python manage.py start
+    command: sh ./scripts/gunicorn_launch.sh
     networks:
       - internal
 

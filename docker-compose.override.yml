@@ -9,10 +9,8 @@ services:
             - "6379:6379"
 
     backend:
-        volumes:
-          - ./backend:/app
         ports:
-          - "8080:8080"
+          - "8080:80"
 
     pgadmin:
         environment:
