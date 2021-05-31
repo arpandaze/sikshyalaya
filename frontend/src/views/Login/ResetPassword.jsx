@@ -8,6 +8,7 @@ import "./statics/css/reset.css";
 import callAPI from "../../utils/API";
 import { Redirect, useHistory } from "react-router-dom";
 import ForgotPassword from "./ForgotPassword";
+import DelayedRedirect from "../../components/DelayedRedirect";
 
 const validationSchema = yup.object({
   password: yup
@@ -174,13 +175,22 @@ const ResetPassword = () => {
             </Grid>
           </>
         ) : resetState == states.reset_success ? (
-          <h1>Password has been reset successfully!</h1>
+          <div>
+            <h1>Password has been reset successfully!</h1>
+            <DelayedRedirect timeout={3} to="/login" />
+          </div>
         ) : resetState == states.reset_email_success ? (
-          <h1>Password reset email has been sent!</h1>
+          <div>
+            <h1>Password reset email has been sent!</h1>
+            <DelayedRedirect timeout={3} to="/login" />
+          </div>
         ) : resetState == states.send_email ? (
           <ForgotPassword setResetState={(state) => setResetState(state)} />
         ) : (
-          <h1>Valid token not found!</h1>
+          <div>
+            <h1>Valid token not found!</h1>
+            <DelayedRedirect timeout={3} to="/login" />
+          </div>
         )}
       </Grid>
     </Login>
