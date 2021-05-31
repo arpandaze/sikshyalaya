@@ -91,7 +91,6 @@ const QuizCreator = () => {
 											<Grid item>
 												{/**TODO: Add date restriction */}
 												<KeyboardDatePicker
-													variant="inline"
 													value={startTime}
 													margin="normal"
 													id="quiz_date"
@@ -100,21 +99,26 @@ const QuizCreator = () => {
 													format="MM/dd/yyyy"
 													value={quizDate}
 													onChange={(value) => {
-														setFieldValue("quiz_date", format(value, "MM/dd/yyyy"));
+														setFieldValue(
+															"quiz_date",
+															format(value, "MM/dd/yyyy")
+														);
 														setQuizDate(value);
 													}}
 												/>
 											</Grid>
 											<Grid item>
 												<KeyboardTimePicker
-													variant="inline"
 													margin="normal"
 													id="start_time"
 													label="Start time"
 													inputVariant="outlined"
 													value={startTime}
 													onChange={(value) => {
-														setFieldValue("start_time", format(value, "hh:mm a"));
+														setFieldValue(
+															"start_time",
+															format(value, "hh:mm a")
+														);
 														setStartTime(value);
 													}}
 													KeyboardButtonProps={{
@@ -125,7 +129,6 @@ const QuizCreator = () => {
 											</Grid>
 											<Grid item>
 												<KeyboardTimePicker
-													variant="inline"
 													margin="normal"
 													id="end_time"
 													label="End time"
@@ -157,7 +160,9 @@ const QuizCreator = () => {
 																		<button
 																			type="button"
 																			onClick={() => {
-																				questionHelper.push(questionInitialValue);
+																				questionHelper.push(
+																					questionInitialValue
+																				);
 																				answerList.push([]);
 																			}}
 																		>
@@ -192,7 +197,9 @@ const QuizCreator = () => {
 																						placeHolder="Question Type"
 																					/>
 																				</div>
-																				<FieldArray name={`questions[${index}].options`}>
+																				<FieldArray
+																					name={`questions[${index}].options`}
+																				>
 																					{(newHelper) => (
 																						<>
 																							<button
@@ -200,8 +207,13 @@ const QuizCreator = () => {
 																								onClick={() => {
 																									newHelper.push();
 																									answerList[index].push({
-																										name: `Option ${question.options.length + 1}`,
-																										value: question.options.length + 1,
+																										name: `Option ${
+																											question.options.length +
+																											1
+																										}`,
+																										value:
+																											question.options.length +
+																											1,
 																									});
 																								}}
 																							>
@@ -209,21 +221,27 @@ const QuizCreator = () => {
 																							</button>
 																							{question.options &&
 																								question.options.length !== 0 &&
-																								question.options.map((option, optionIndex) => (
-																									<div key={optionIndex}>
-																										<div>
-																											<CustomTextField
-																												name={`questions[${index}].options[${optionIndex}]`}
-																												placeHolder={`Option ${optionIndex + 1}`}
-																											/>
+																								question.options.map(
+																									(option, optionIndex) => (
+																										<div key={optionIndex}>
+																											<div>
+																												<CustomTextField
+																													name={`questions[${index}].options[${optionIndex}]`}
+																													placeHolder={`Option ${
+																														optionIndex + 1
+																													}`}
+																												/>
+																											</div>
 																										</div>
-																									</div>
-																								))}
+																									)
+																								)}
 
 																							<CustomTextField
 																								dropdown={true}
 																								name={`questions[${index}].answer`}
-																								menuItems={answerList[index] || []}
+																								menuItems={
+																									answerList[index] || []
+																								}
 																								placeHolder="Choose correct Option"
 																							/>
 																						</>
