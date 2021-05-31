@@ -9,31 +9,33 @@ const ClassResource = ({ resourceList, ...rest }) => {
   return (
     <>
       {resourceList.map((resource) => (
-        <Grid
-          container="row"
-          justify="center"
-          alignItems="center"
-          className="classResource_root"
-        >
-          <Grid item className="classResource_resourceIcon">
-            <ResourceIcons iconType={resource.type} />
-          </Grid>
-          <Grid item className="classResource_resourceListContainer">
-            <a
-              href={configs.PUBLIC_FILES_PATH + resource.url}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <li className="classResource_resourceList" key={resource.id}>
-                {resource.name}
+        <div>
+          <Grid
+            container="row"
+            alignItems="center"
+            className="classResource_root"
+            wrap="nowrap"
+          >
+            <Grid item className="classResource_resourceIcon">
+              <ResourceIcons iconType={resource.type} />
+            </Grid>
+            <Grid item className="classResource_resourceListContainer">
+              <a
+                href={configs.PUBLIC_FILES_PATH + resource.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <li className="classResource_resourceList" key={resource.id}>
+                  <p>{resource.name}</p>
+                </li>
+              </a>
+              <li className="classResource_resourceListTimeText">
+                {timeDifference(resource.time)}
               </li>
-            </a>
-            <li className="classResource_resourceListTimeText">
-              {timeDifference(resource.time)}
-            </li>
+              <div className="classResource_seperator"></div>
+            </Grid>
           </Grid>
-          <span className="classResource_seperator"></span>
-        </Grid>
+        </div>
       ))}
     </>
   );

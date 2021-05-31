@@ -58,15 +58,15 @@
     margin: 0px auto !important;
   }
 }
-@keyframes live{
-  0%{
-    background:var(--red4)
+@keyframes live {
+  0% {
+    background: var(--red4);
   }
-  50%{
-    background:var(--red5)
+  50% {
+    background: var(--red5);
   }
-  100%{
-    background:var(--red4)
+  100% {
+    background: var(--red4);
   }
 }
 

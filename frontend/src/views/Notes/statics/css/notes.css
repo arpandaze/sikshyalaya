@@ -22,12 +22,11 @@
     height: 120px !important;
   }
   .notes_textContainer {
-    height: 120px !important;
   }
   .notes_text {
+    margin: 0;
     font-weight: bold !important;
     font-size: 2.5em !important;
-    margin-left: 5%;
   }
   .notes_creatorBot {
     position: relative !important;
@@ -61,8 +60,6 @@
     cursor: pointer;
     position: relative;
     height: 30px !important;
-    top: 8%;
-    right: 5%;
   }
   .notes_gridIconsContainer {
     width: 70px !important;

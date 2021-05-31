@@ -146,15 +146,7 @@ const Dashboard = () => {
         title2Description: null,
         bottomText: null,
         button: null,
-        resources: [
-          {
-            id: null,
-            name: null,
-            url: null,
-            type: null,
-            time: null,
-          },
-        ],
+        resources: [],
       },
     ],
   };

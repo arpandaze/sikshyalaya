@@ -25,38 +25,34 @@ import Ed from "./components/Quill";
 
 const Routes = () => {
   return (
-		<Switch>
-			<Route exact path="/login" component={Login} />
-			<PrivateRoute exact path="/dashboard" component={Dashboard} />
-			<PrivateRoute exact path="/quiz" component={Quiz} />
-			<PrivateRoute exact path="/note" component={Notes} />
-			<PrivateRoute exact path="/landing" component={Landing} />
-			<PrivateRoute exact path="/profile" component={Profile} />
-			<PrivateRoute
-				exact
-				path="/teacherdashboard"
-				component={TeacherDashboard}
-			/>
-			<PrivateRoute exact path="/adminForm" component={AdminForm} />
-			<PrivateRoute exact path="/admin" component={AdminDashboard} />
-			<PrivateRoute exact path="/admin/school" component={SchoolView} />
-			<PrivateRoute
-				exact
-				path="/admin/department"
-				component={DepartmentView}
-			/>
-			<PrivateRoute exact path="/admin/program" component={ProgramView} />
-			<PrivateRoute exact path="/admin/group" component={GroupView} />
-			<PrivateRoute exact path="/admin/student" component={StudentView} />
-			<Route exact path="/reset" component={ResetPassword} />
-			<Route exact path="/signup" component={Signup} />
-			<Route exact path="/verify" component={Verify} />
-			<Route exact path="/logout" component={Logout} />
-			<Route exact path="/test" component={Ed} />
+    <Switch>
+      <Route exact path="/login" component={Login} />
+      <PrivateRoute exact path="/dashboard" component={Dashboard} />
+      <PrivateRoute exact path="/quiz" component={Quiz} />
+      <PrivateRoute exact path="/note" component={Notes} />
+      <PrivateRoute exact path="/landing" component={Landing} />
+      <PrivateRoute exact path="/profile" component={Profile} />
+      <PrivateRoute
+        exact
+        path="/teacherdashboard"
+        component={TeacherDashboard}
+      />
+      <PrivateRoute exact path="/adminForm" component={AdminForm} />
+      <PrivateRoute exact path="/admin" component={AdminDashboard} />
+      <PrivateRoute exact path="/admin/school" component={SchoolView} />
+      <PrivateRoute exact path="/admin/department" component={DepartmentView} />
+      <PrivateRoute exact path="/admin/program" component={ProgramView} />
+      <PrivateRoute exact path="/admin/group" component={GroupView} />
+      <PrivateRoute exact path="/admin/student" component={StudentView} />
+      <Route exact path="/reset" component={ResetPassword} />
+      <Route exact path="/signup" component={Signup} />
+      <Route exact path="/verify" component={Verify} />
+      <Route exact path="/logout" component={Logout} />
+      <Route exact path="/test" component={Ed} />
       <Route exact path="/quiz-creator" component={QuizCreator} />
-      <Redirect exact from="/" to="landing" />
-			<Route exact path="*" component={NotFound} />
-		</Switch>
+      <Redirect exact from="/" to="login" />
+      <Route exact path="*" component={NotFound} />
+    </Switch>
   );
 };
 

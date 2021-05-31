@@ -1,27 +1,40 @@
 @import "../../../../../utils/colors.css";
 @media only screen and (min-width: 1920px) {
   .classResource_root {
+    width: 320px !important;
     flex-grow: 1;
-    height: 80px;
+    height: 85px;
     cursor: pointer;
   }
   .classResource_resourceList {
+    width: 230px;
     list-style-type: none;
     font-size: 1.1em;
     font-weight: 500;
+  }
+  .classResource_resourceList p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
   }
   .classResource_resourceList:hover {
     color: var(--red4);
   }
   .classResource_resourceIcon {
-    width: 20%;
   }
   .classResource_resourceListContainer {
-    width: 80%;
+    width: 250px;
+    margin-left: 22px !important;
+  }
+  .classResource_resourceListContainer a {
+    color: black;
+    text-decoration: none;
   }
   .classResource_seperator {
-    width: 70%;
+    width: 85%;
     border-bottom: 1px solid var(--grey1);
+    position: relative;
+    top: 15px;
     opacity: 0.8;
   }
   .classResource_resourceListTimeText {

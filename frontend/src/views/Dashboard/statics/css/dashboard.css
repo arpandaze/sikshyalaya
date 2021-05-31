@@ -42,10 +42,9 @@
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: var(--red4);
     position: relative;
     margin-left: 20px !important;
-    animation: live 1s infinite ease-in-out !important;
+    animation: live 2.5s infinite ease-in-out !important;
   }
   .mainDash_activeClassTitle {
     position: relative;
@@ -311,14 +310,14 @@
   }
 }
 
-@keyframes live{
-  0%{
-    background:var(--red4)
+@keyframes live {
+  0% {
+    background: var(--red4);
   }
-  50%{
-    background:var(--red5)
+  50% {
+    background: var(--red5);
   }
-  100%{
-    background:var(--red4)
+  100% {
+    background: var(--red4);
   }
 }

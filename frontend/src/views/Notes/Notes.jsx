@@ -152,12 +152,21 @@ const Notes = () => {
       //on notes previously present in the database
       //update the notes
       try {
+        const notesDate = new Date();
         data = {
           ...data,
           content: JSON.parse(data.content),
           id: selectedNote.id,
         };
         allNotes[selectedNote.position] = data;
+        allNotes[selectedNote.position].last_updated_time =
+          notesDate.toLocaleString("en-AU", {
+            day: "numeric", // numeric, 2-digit
+            year: "numeric", // numeric, 2-digit
+            month: "short", // numeric, 2-digit, long, short, narrow
+            hour: "numeric", // numeric, 2-digit
+            minute: "numeric", // numeric, 2-digit
+          });
         newSelect = {
           id: selectedNote.id,
           position: selectedNote.position,
@@ -196,9 +205,10 @@ const Notes = () => {
                 container
                 direction="row"
                 alignItems="center"
+                justify="center"
                 className="notes_creatorTopInside"
               >
-                <Grid xs={11} item className="notes_textContainer">
+                <Grid xs={9} item className="notes_textContainer">
                   <p className="notes_text">Notes</p>
                 </Grid>
                 <Grid xs={1} item className="notes_plusIcon">
