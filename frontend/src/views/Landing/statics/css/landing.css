@@ -96,6 +96,7 @@
     background: var(--red4);
     position: relative;
     margin-left: 30px !important;
+    animation: live 1s infinite ease-in-out !important;
   }
   .landing_currentContainer {
     width: 50%;
