@@ -116,9 +116,7 @@ const QuizCreator = () => {
 												/>
 											</Grid>
 
-											<MuiPickersUtilsProvider
-												utils={DateFnsUtils}
-											>
+											<MuiPickersUtilsProvider utils={DateFnsUtils}>
 												<Grid
 													container
 													direction="row"
@@ -127,10 +125,7 @@ const QuizCreator = () => {
 													className="quizCreator_dateTimePickerContainer"
 													spacing={3}
 												>
-													<Grid
-														item
-														className="quizCreator_quizDateField"
-													>
+													<Grid item className="quizCreator_quizDateField">
 														{/**TODO: Add date restriction */}
 														<KeyboardDatePicker
 															value={startTime}
@@ -140,86 +135,53 @@ const QuizCreator = () => {
 															inputVariant="outlined"
 															format="MM/dd/yyyy"
 															value={quizDate}
-															onChange={(
-																value
-															) => {
+															onChange={(value) => {
 																setFieldValue(
 																	"quiz_date",
-																	format(
-																		value,
-																		"MM/dd/yyyy"
-																	)
+																	format(value, "MM/dd/yyyy")
 																);
-																setQuizDate(
-																	value
-																);
+																setQuizDate(value);
 															}}
 														/>
 													</Grid>
-													<Grid
-														item
-														className="quizCreator_quizStartTime"
-													>
+													<Grid item className="quizCreator_quizStartTime">
 														<KeyboardTimePicker
 															margin="normal"
 															id="start_time"
 															label="Start time"
 															inputVariant="outlined"
 															value={startTime}
-															onChange={(
-																value
-															) => {
+															onChange={(value) => {
 																setFieldValue(
 																	"start_time",
-																	format(
-																		value,
-																		"hh:mm a"
-																	)
+																	format(value, "hh:mm a")
 																);
-																setStartTime(
-																	value
-																);
+																setStartTime(value);
 															}}
 															KeyboardButtonProps={{
-																"aria-label":
-																	"change time",
+																"aria-label": "change time",
 															}}
-															keyboardIcon={
-																<BiTimeFive />
-															}
+															keyboardIcon={<BiTimeFive />}
 														/>
 													</Grid>
-													<Grid
-														item
-														className="quizCreator_quizEndTime"
-													>
+													<Grid item className="quizCreator_quizEndTime">
 														<KeyboardTimePicker
 															margin="normal"
 															id="end_time"
 															label="End time"
 															inputVariant="outlined"
 															value={endTime}
-															onChange={(
-																value
-															) => {
+															onChange={(value) => {
 																setFieldValue(
 																	"end_time",
-																	format(
-																		value,
-																		"hh:mm a"
-																	)
+																	format(value, "hh:mm a")
 																);
-																setEndTime(
-																	value
-																);
+																setEndTime(value);
 															}}
 															KeyboardButtonProps={{
-																"aria-label":
-																	"change time",
+																"aria-label": "change time",
 															}}
-															keyboardIcon={
-																<BiTimeFive />
-															}
+															keyboardIcon={<BiTimeFive />}
 														/>
 													</Grid>
 												</Grid>
@@ -232,10 +194,7 @@ const QuizCreator = () => {
 												className="quizCreator_randomContainer"
 												wrap="nowrap"
 											>
-												<Grid
-													item
-													className="quizCreator_randomLabel"
-												>
+												<Grid item className="quizCreator_randomLabel">
 													<label
 														htmlFor="is_randomized"
 														className="quizCreator_randomText"
@@ -243,10 +202,7 @@ const QuizCreator = () => {
 														Randomize Questions
 													</label>
 												</Grid>
-												<Grid
-													item
-													className="quizCreator_check"
-												>
+												<Grid item className="quizCreator_check">
 													<Checkbox
 														id="is_randomized"
 														name="isRandomized"
@@ -266,40 +222,12 @@ const QuizCreator = () => {
 														{() => (
 															<>
 																<FieldArray name="questions">
-																	{(
-																		questionHelper
-																	) => (
+																	{(questionHelper) => (
 																		<>
-																			<Grid
-																				item
-																				className="quizCreator_addQuestionButtonContainer"
-																			>
-																				<button
-																					type="button"
-																					className="quizCreator_addQuestionButton"
-																					onClick={() => {
-																						questionHelper.push(
-																							questionInitialValue
-																						);
-																						answerList.push(
-																							[]
-																						);
-																					}}
-																				>
-																					Add
-																					Question
-																				</button>
-																			</Grid>
 																			{values.questions &&
-																				values
-																					.questions
-																					.length !==
-																					0 &&
+																				values.questions.length !== 0 &&
 																				values.questions.map(
-																					(
-																						question,
-																						index
-																					) => (
+																					(question, index) => (
 																						<>
 																							<Grid
 																								container
@@ -307,12 +235,7 @@ const QuizCreator = () => {
 																								wrap="nowrap"
 																								className="quizCreator_questionRemovecontainer"
 																							>
-																								<div
-																									key={
-																										index +
-																										1
-																									}
-																								>
+																								<div key={index + 1}>
 																									<Grid
 																										container
 																										directon="row"
@@ -320,24 +243,14 @@ const QuizCreator = () => {
 																										alignItems="center"
 																										wrap="nowrap"
 																									>
-																										<Grid
-																											item
-																											xs={
-																												7
-																											}
-																										>
+																										<Grid item xs={7}>
 																											<h4 className="quizCreator_questionNumber">
-																												Question
-																												#
-																												{index +
-																													1}
+																												Question #{index + 1}
 																											</h4>
 																										</Grid>
 																										<Grid
 																											item
-																											xs={
-																												5
-																											}
+																											xs={5}
 																											className="quizCreator_removeContainer"
 																										>
 																											<button
@@ -354,16 +267,16 @@ const QuizCreator = () => {
 																													);
 																												}}
 																											>
-																												<ImCross size={20} color={colorscheme.red2} />
+																												<ImCross
+																													size={20}
+																													color={
+																														colorscheme.red2
+																													}
+																												/>
 																											</button>
 																										</Grid>
 																									</Grid>
-																									<Grid
-																										item
-																										xs={
-																											12
-																										}
-																									>
+																									<Grid item xs={12}>
 																										<CustomTextField
 																											name={`questions[${index}].question_text`}
 																											addStyles="quizCreator_questionTitle"
@@ -371,21 +284,12 @@ const QuizCreator = () => {
 																											placeHolder="Question Title"
 																										/>
 																									</Grid>
-																									<Grid
-																										item
-																										xs={
-																											12
-																										}
-																									>
+																									<Grid item xs={12}>
 																										<CustomTextField
 																											addStyles="quizCreator_dropdown"
-																											dropdown={
-																												true
-																											}
+																											dropdown={true}
 																											name={`questions[${index}].question_type`}
-																											menuItems={
-																												questionType
-																											}
+																											menuItems={questionType}
 																											placeHolder="Question Type"
 																										/>
 																									</Grid>
@@ -400,9 +304,7 @@ const QuizCreator = () => {
 																								<FieldArray
 																									name={`questions[${index}].options`}
 																								>
-																									{(
-																										newHelper
-																									) => (
+																									{(newHelper) => (
 																										<>
 																											<button
 																												type="button"
@@ -411,44 +313,31 @@ const QuizCreator = () => {
 																													newHelper.push();
 																													answerList[
 																														index
-																													].push(
-																														{
-																															name: `Option ${
-																																question
-																																	.options
-																																	.length +
-																																1
-																															}`,
-																															value:
-																																question
-																																	.options
-																																	.length +
-																																1,
-																														}
-																													);
+																													].push({
+																														name: `Option ${
+																															question.options
+																																.length + 1
+																														}`,
+																														value:
+																															question.options
+																																.length + 1,
+																													});
 																												}}
 																											>
-																												Add
-																												Options
+																												Add Options
 																											</button>
 																											{question.options &&
-																												question
-																													.options
-																													.length !==
-																													0 &&
+																												question.options
+																													.length !== 0 &&
 																												question.options.map(
 																													(
 																														option,
 																														optionIndex
 																													) => (
 																														<div
-																															key={
-																																optionIndex
-																															}
+																															key={optionIndex}
 																														>
-																															<Grid
-																																item
-																															>
+																															<Grid item>
 																																<CustomTextField
 																																	addStyles="quizCreator_option"
 																																	name={`questions[${index}].options[${optionIndex}]`}
@@ -466,22 +355,16 @@ const QuizCreator = () => {
 																												className="quizCreator_final"
 																												xs={12}
 																											>
-																												
-																													<CustomTextField
-																														addStyles="quizCreator_correct"
-																														dropdown={
-																															true
-																														}
-																														name={`questions[${index}].answer`}
-																														menuItems={
-																															answerList[
-																																index
-																															] ||
-																															[]
-																														}
-																														placeHolder="Choose correct Option"
-																													/>
-																											
+																												<CustomTextField
+																													addStyles="quizCreator_correct"
+																													dropdown={true}
+																													name={`questions[${index}].answer`}
+																													menuItems={
+																														answerList[index] ||
+																														[]
+																													}
+																													placeHolder="Choose correct Option"
+																												/>
 																											</Grid>
 																										</>
 																									)}
@@ -490,6 +373,23 @@ const QuizCreator = () => {
 																						</>
 																					)
 																				)}
+																			<Grid
+																				item
+																				className="quizCreator_addQuestionButtonContainer"
+																			>
+																				<button
+																					type="button"
+																					className="quizCreator_addQuestionButton"
+																					onClick={() => {
+																						questionHelper.push(
+																							questionInitialValue
+																						);
+																						answerList.push([]);
+																					}}
+																				>
+																					Add Question
+																				</button>
+																			</Grid>
 																		</>
 																	)}
 																</FieldArray>
