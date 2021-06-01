@@ -42,7 +42,7 @@
 		text-align: center;
 	}
 	.notfound_goHome{
-			border: 100px solid black;
+		
 	}
 	.notfound_returnText{
 		color: var(--grey1) !important;
@@ -96,7 +96,7 @@
 		text-align: center;
 	}
 	.notfound_goHome{
-			border: 100px solid black;
+		
 	}
 	.notfound_returnText{
 		color: var(--grey1)
