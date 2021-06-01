@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import FancyButton from "./FancyButton";
 import "./statics/css/adminBoxSmall.css";
 
-const AdminBoxSmall = ({ cardData, ...rest }) => {
+const AdminBoxSmall = ({ cardData, onSubmit, type, ...rest }) => {
   const data = cardData;
   return (
     <div className="adminBoxSmall_container">
@@ -25,7 +25,7 @@ const AdminBoxSmall = ({ cardData, ...rest }) => {
               className="adminBoxSmall_row_col_box"
             >
               <Grid item className="adminBoxSmall_row_col_1">
-                <p className="adminBoxSmall_row_col_1_bold">{data.title}</p>{" "}
+                <p className="adminBoxSmall_row_col_1_bold">{data.name}</p>{" "}
                 <br />
               </Grid>
             </Grid>
@@ -39,11 +39,13 @@ const AdminBoxSmall = ({ cardData, ...rest }) => {
               spacing={2}
             >
               <Grid item className="adminBoxSmall_buttonContainer">
-                <FancyButton color={colorscheme.purple} />
+                <FancyButton color={colorscheme.purple} onSubmit={onSubmit} />
               </Grid>
 
               <Grid item className="adminBoxSmall_row2_bot">
-                <p className="adminBoxSmall_row2_bot_text">{data.bottomText}</p>
+                <p className="adminBoxSmall_row2_bot_text">
+                  {data.address != null ? data.address : " "}
+                </p>
               </Grid>
             </Grid>
           </Grid>

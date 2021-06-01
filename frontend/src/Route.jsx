@@ -40,10 +40,22 @@ const Routes = () => {
       <PrivateRoute exact path="/adminForm" component={AdminForm} />
       <PrivateRoute exact path="/admin" component={AdminDashboard} />
       <PrivateRoute exact path="/admin/school" component={SchoolView} />
-      <PrivateRoute exact path="/admin/department" component={DepartmentView} />
-      <PrivateRoute exact path="/admin/program" component={ProgramView} />
-      <PrivateRoute exact path="/admin/group" component={GroupView} />
-      <PrivateRoute exact path="/admin/student" component={StudentView} />
+      <PrivateRoute
+        exact
+        path="/admin/department/:school?"
+        component={DepartmentView}
+      />
+      <PrivateRoute
+        exact
+        path="/admin/program/:department?"
+        component={ProgramView}
+      />
+      <PrivateRoute exact path="/admin/group/:program?" component={GroupView} />
+      <PrivateRoute
+        exact
+        path="/admin/student/:group?"
+        component={StudentView}
+      />
       <Route exact path="/reset" component={ResetPassword} />
       <Route exact path="/signup" component={Signup} />
       <Route exact path="/verify" component={Verify} />
