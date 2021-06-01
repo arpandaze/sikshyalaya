@@ -6,15 +6,12 @@
     height: 100vh;
     margin: 0px auto !important;
     flex-grow: 1;
-    
   }
   .adminCommon_topBarContainer {
     width: 95%;
     margin-top: 20px !important;
-   
   }
   .adminCommon_topBar {
-   
   }
   .adminCommon_textContainer {
     cursor: text;
@@ -27,11 +24,237 @@
   .adminCommon_botBar {
     width: 95%;
     margin-top: 0px !important;
-    
   }
   .adminCommon_plusIcon {
     cursor: pointer;
     height: 30px;
+  }
+
+  /*Admin School*/
+  .adminSchool_popUpContainer {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 2;
+    background: rgba(15, 15, 15, 0.5);
+  }
+  .adminSchool_popUpBox {
+    width: 500px;
+    height: 280px;
+    position: relative;
+    margin-top: 300px !important;
+    margin-left: -350px !important;
+    border-radius: 15px;
+    background: var(--white);
+    box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);
+  }
+  .adminSchool_closeButtonContainer {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 20px;
+    right: 20px;
+  }
+  .adminSchool_closeButton {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+  .adminSchool_formBox {
+    width: 300px !important;
+    margin: 35px auto;
+  }
+  .adminSchool_submitButtonContainer {
+    margin: 20px auto !important;
+  }
+  .adminSchool_inputButton {
+    width: 292px;
+    height: 40px;
+    margin-top: 30px;
+    outline: none;
+    border: 0px;
+    border-bottom: 1px solid rgba(15, 15, 15, 0.3);
+  }
+  .adminSchool_submitButton {
+    width: 120px;
+    height: 35px;
+    background-color: var(--red4);
+    color: var(--white);
+    border-radius: 12px;
+    font-size: 1.1em;
+  }
+
+  /*Admin Department*/
+  .adminDepartment_popUpContainer {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 2;
+    background: rgba(15, 15, 15, 0.5);
+  }
+  .adminDepartment_popUpBox {
+    width: 500px;
+    height: 280px;
+    position: relative;
+    margin-top: 300px !important;
+    margin-left: -350px !important;
+    border-radius: 15px;
+    background: var(--white);
+    box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);
+  }
+  .adminDepartment_closeButtonContainer {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 20px;
+    right: 20px;
+  }
+  .adminDepartment_closeButton {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+  .adminDepartment_formBox {
+    width: 300px !important;
+    margin: 50px auto;
+  }
+  .adminDepartment_submitButtonContainer {
+    margin: 50px auto !important;
+  }
+  .adminDepartment_inputButton {
+    width: 292px;
+    height: 40px;
+    margin-top: 30px;
+    outline: none;
+    border: 0px;
+    font-size: 1.3em;
+    border-bottom: 1px solid rgba(15, 15, 15, 0.3);
+  }
+  .adminDepartment_submitButton {
+    width: 120px;
+    height: 35px;
+    background-color: var(--red4);
+    color: var(--white);
+    border-radius: 12px;
+    font-size: 1.1em;
+  }
+
+  /*Admin Program*/
+  .adminProgram_popUpContainer {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 2;
+    background: rgba(15, 15, 15, 0.5);
+  }
+  .adminProgram_popUpBox {
+    width: 500px;
+    height: 280px;
+    position: relative;
+    margin-top: 300px !important;
+    margin-left: -350px !important;
+    border-radius: 15px;
+    background: var(--white);
+    box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);
+  }
+  .adminProgram_closeButtonContainer {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 20px;
+    right: 20px;
+  }
+  .adminProgram_closeButton {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+  .adminProgram_formBox {
+    width: 300px !important;
+    margin: 50px auto;
+  }
+  .adminProgram_submitButtonContainer {
+    margin: 50px auto !important;
+  }
+  .adminProgram_inputButton {
+    width: 292px;
+    height: 40px;
+    margin-top: 30px;
+    outline: none;
+    border: 0px;
+    font-size: 1.3em;
+    border-bottom: 1px solid rgba(15, 15, 15, 0.3);
+  }
+  .adminProgram_submitButton {
+    width: 120px;
+    height: 35px;
+    background-color: var(--red4);
+    color: var(--white);
+    border-radius: 12px;
+    font-size: 1.1em;
+  }
+
+  /*Admin Group*/
+  .adminGroup_popUpContainer {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 2;
+    background: rgba(15, 15, 15, 0.5);
+  }
+  .adminGroup_popUpBox {
+    width: 500px;
+    height: 280px;
+    position: relative;
+    margin-top: 300px !important;
+    margin-left: -350px !important;
+    border-radius: 15px;
+    background: var(--white);
+    box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);
+  }
+  .adminGroup_closeButtonContainer {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 20px;
+    right: 20px;
+  }
+  .adminGroup_closeButton {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+  .adminGroup_formBox {
+    width: 300px !important;
+    margin: 50px auto;
+  }
+  .adminGroup_submitButtonContainer {
+    margin: 50px auto !important;
+  }
+  .adminGroup_inputButton {
+    width: 292px;
+    height: 40px;
+    margin-top: 30px;
+    outline: none;
+    border: 0px;
+    font-size: 1.3em;
+    border-bottom: 1px solid rgba(15, 15, 15, 0.3);
+  }
+  .adminGroup_submitButton {
+    width: 120px;
+    height: 35px;
+    background-color: var(--red4);
+    color: var(--white);
+    border-radius: 12px;
+    font-size: 1.1em;
   }
 }
 
@@ -41,15 +264,12 @@
     height: 100vh;
     margin: 0px auto !important;
     flex-grow: 1;
-    
   }
   .adminCommon_topBarContainer {
     width: 95%;
     margin-top: 20px !important;
-    
   }
   .adminCommon_topBar {
-   
   }
   .adminCommon_textContainer {
     cursor: text;
@@ -62,7 +282,6 @@
   .adminCommon_botBar {
     width: 95%;
     margin-top: 0px !important;
-   
   }
   .adminCommon_plusIcon {
     cursor: pointer;

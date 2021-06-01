@@ -1,5 +1,11 @@
 @import "./utils/colors.css";
 
+@font-face {
+  font-family: "Segoe UI";
+  src: local("Segoe"), url(../src/assets/fonts/Segoe.ttf);
+  /* other formats include: 'woff2', 'truetype, 'opentype',
+                            'embedded-opentype', and 'svg' */
+}
 * {
   -webkit-overflow-scrolling: touch;
   -webkit-overflow-scrolling: auto;
