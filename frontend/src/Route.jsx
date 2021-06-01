@@ -21,6 +21,7 @@ import Verify from "./views/Login/Verify";
 import Logout from "./views/Login/Logout";
 import QuizCreator from "./views/QuizCreator/QuizCreator";
 import NotFound from "./views/404/404";
+import ClassSessionCreate from "./views/ClassSessionCreate/ClassSessionCreate";
 import Ed from "./components/Quill";
 
 const Routes = () => {
@@ -32,6 +33,7 @@ const Routes = () => {
       <PrivateRoute exact path="/note" component={Notes} />
       <PrivateRoute exact path="/landing" component={Landing} />
       <PrivateRoute exact path="/profile" component={Profile} />
+      <PrivateRoute exact path="/class-create" component={ClassSessionCreate} />
       <PrivateRoute
         exact
         path="/teacherdashboard"
