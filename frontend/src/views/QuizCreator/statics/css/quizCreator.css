@@ -6,6 +6,7 @@
     width:100%;
 }
 .quizCreator_addQuestionButtonContainer{
+    scroll-snap-type:y mandatory;
     
 }
 .quizCreator_header{
@@ -26,6 +27,7 @@
     width: 100px;
     height: 25px;
     background:transparent;
+    border:none;
     color: var(--white);
     border:none;
     font-size: 1.1em;
@@ -92,6 +94,7 @@
     height: 45px;
     background-color: var(--purple2);
     margin-top: 20px;
+    border:none;
     color: var(--white);
     border-radius: 12px;
     font-size: 1.1em;
@@ -159,6 +162,9 @@
     border-radius: 12px;
     font-size: 1.1em;
     cursor:pointer;
+    scroll-snap-type: y mandatory;
+    border:none;
+
 }
 .quizCreator_submitButton{
     position:relative;
@@ -168,9 +174,15 @@
     color: var(--white);
     border-radius: 12px;
     font-size: 1.1em;
+    border:none;
     cursor:pointer;
 }
 
-.quizCreator_addQuestion{
+.MuiPickersToolbar-toolbar,.MuiPickersClock-pin,.MuiPickersDay-daySelected,.MuiPickersClockPointer-thumb,.MuiPickersClockPointer-pointer{
+    background-color:var(--red4) !important;
 
 }
+.MuiPickersClockPointer-thumb{
+    border:14px solid var(--red4) !important;
+}
+/* <div class="MuiPickersClockPointer-thumb MuiPickersClockPointer-noPoint"></div> */
