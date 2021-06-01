@@ -47,36 +47,37 @@ class Quiz(QuizInDBBase):
 
 
 class QuizQuestionBase(BaseModel):
-    question_type: int
-    question_text: str
+    question_text: str = None
     question_image: List[str] = None
     option_image: List[str] = None
-    answer_type: int
-    option: Dict[int, str] = None
-    answer_image: str = None
-    answer: int = None
+    option: List[str] = None
+    answer_image: List[int] = None
+    answer: List[int] = None
     quiz_id: int
 
 
 class QuizQuestionCreate(QuizQuestionBase):
-    pass
-
-
-class QuizQuestionUpdate(QuizQuestionBase):
-    question_type: int = None
     question_text: str = None
     question_image: List[str] = None
     option_image: List[str] = None
-    answer_type: int = None
-    option: Dict[int, str] = None
-    answer_image: str = None
-    answer: int = None
-    quiz_id: int = None
+    option: List[str] = None
+    answer_image: List[int] = None
+    answer: List[int] = None
+    quiz_id: int
+
+
+class QuizQuestionUpdate(QuizQuestionBase):
+    question_text: str = None
+    question_image: List[str] = None
+    option_image: List[str] = None
+    option: List[str] = None
+    answer_image: List[int] = None
+    answer: List[int] = None
+    quiz_id: int
 
 
 class QuizQuestionInDBBase(QuizQuestionBase):
     id: Optional[int]
-    option: Dict[str, str]
 
     class Config:
         orm_mode = True
