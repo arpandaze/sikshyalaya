@@ -119,7 +119,6 @@ async def update_group(
 @router.get("/all/", response_model=List[GroupReturn])
 async def get_all_groups(
     db: Session = Depends(deps.get_db),
-    current_user: User = Depends(deps.get_current_admin_or_above)
 ) -> Any:
     group = crud_group.get_multi(db, limit=-1)
     return group
