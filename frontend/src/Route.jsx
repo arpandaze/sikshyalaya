@@ -34,7 +34,6 @@ const Routes = () => {
       <PrivateRoute exact path="/note" component={Notes} />
       <PrivateRoute exact path="/landing" component={Landing} />
       <PrivateRoute exact path="/profile" component={Profile} />
-      <PrivateRoute exact path="/class-create" component={ClassSessionCreate} />
       <PrivateRoute
         exact
         path="/teacherdashboard"
