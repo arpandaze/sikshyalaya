@@ -194,13 +194,13 @@ const ClassSessionCreator = () => {
 													alignItems="center"
 													justify="center"
 												>
-													<Grid item >
+													<Grid item>
 														<CustomTextField
 															name="group"
 															placeHolder="Group"
 															addStyles="classSession_inputField"
 														/>
-													</Grid>s
+													</Grid>
 													<Grid item className="classSession_description">
 														<CustomTextField
 															name="description"

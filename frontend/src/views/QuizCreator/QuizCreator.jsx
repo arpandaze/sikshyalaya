@@ -274,29 +274,21 @@ const QuizCreator = () => {
 																												for="photo-upload"
 																												className="quizCreator_imageContainer"
 																											>
-																												<Grid
-																													item
-																													className="quizCreator_fileuploadInner2"
-																												>
-																													<button
-																														type="button"
-																														title="File Upload"
-																														className="quizCreator_remove"
-																													>
-																														<BsCloudUpload
-																															color={
-																																colorscheme.purple2
-																															}
-																															size={23}
-																															className="quizCreator_uploadButton"
-																															style={{
-																																float: "right",
-																																cursor:
-																																				"pointer",
-																															}}
-																														/>
-																													</button>
-																												</Grid>
+																												
+																													<BsCloudUpload
+																														color={
+																															colorscheme.purple2
+																														}
+																														size={23}
+																														className="quizCreator_uploadButton"
+																														style={{
+																															float: "right",
+																															border:
+																																"1px solid black",
+																															cursor: "pointer",
+																														}}
+																													/>
+																											
 
 																												<input
 																													id="photo-upload"
