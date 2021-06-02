@@ -13,12 +13,35 @@
   height: 10%;
   position: relative;
 }
+.quizCreator_fileuploadText {
+  appearance: none;
+}
 .submission {
   width: 80%;
+}
+.quizCreator_fileuploadText {
+  font-size: 1rem;
+  font-weight: 200;
+}
+.quizCreator_fileuploadOuter {
+}
+.quizCreator_fileuploadInner1 {
+  padding: 0px 10px;
+}
+.quizCreator_fileuploadInner2 {
+}
+.quizCreator_imageContainerOuter {
+  align-items: center;
+}
+.quizCreator_imageContainer {
+}
+.quizCreator_uploadButton {
+  padding: 0;
 }
 .quizCreator_removeContainer {
   height: 100%;
   padding: 0px;
+  width: 50%;
   margin: 0px auto;
 }
 .quizCreator_remove {
@@ -31,6 +54,9 @@
   border: none;
   font-size: 1.1em;
   cursor: pointer;
+}
+.quizCreator_imageCntainer {
+  display: inline-block;
 }
 .quizCreator_titleText {
   position: relative;
@@ -70,23 +96,9 @@
 .quizCreator_questionTitle {
   position: relative;
   top: -30px;
-  outline: none;
-  border: none;
-  width: 100%;
-  height: 50px;
-  border-bottom: 2px solid var(--grey2);
-  font-size: 1em;
-  background: transparent;
 }
 
 .quizCreator_option {
-  outline: none;
-  border: none;
-  width: 20vw;
-  height: 50px;
-  border-bottom: 2px solid var(--grey2);
-  font-size: 1em;
-  background: transparent;
 }
 .quizCreator_addOptions {
   width: 160px;
@@ -105,7 +117,10 @@
 
 .lol {
 }
-.quizCreator_titleField {
+.quizCreator_titleField,
+.quizCreator_descriptionField,
+.quizCreator_option,
+.quizCreator_questionTitle {
   outline: none;
   border: none;
   width: 100%;
@@ -122,13 +137,6 @@
 }
 
 .quizCreator_descriptionField {
-  outline: none;
-  border: none;
-  width: 100%;
-  height: 50px;
-  border-bottom: 2px solid var(--grey2);
-  font-size: 1em;
-  background: transparent;
 }
 
 .quizCreator_randomText {

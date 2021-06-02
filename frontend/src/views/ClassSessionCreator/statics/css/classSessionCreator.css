@@ -1,6 +1,5 @@
 @import "../../../../utils/colors.css";
-@media only screen and (min-width: 1920px) {
-	.classSession_submit {
+	.classSession_submit ,.classSession_addInstructor{
 		width: 160px;
 		height: 45px;
 		background-color: var(--red4);
@@ -8,17 +7,76 @@
 		color: var(--white);
 		border-radius: 12px;
 		font-size: 1.1em;
+		border:none;
+		cursor:pointer;
 	}
-}
+	.classSession_root{
+		flex-grow:1;
+		width:100%;
+		height:100%;
+	}
+	.classSession_headingText{
+		position:relative;
+		padding-left:50px;
+		top:5vh;
+		font-weight: bold;
+		font-size: 2.5em;
+	}
+	.classSession_heading{
+		width:100%;
+		height:10%;
+	}
+	.classSession_body{
+		
+		width:100%;
+		height:90%;
+	}
+	.classSession_description{
+		width:60%
+	}
+	
+	.classSession_dateTimePickerContainerOuter{
+		padding:20px 0px 5px 0px;
+	}
+	.classSession_instructorContainer{
+	}
+	.classSession_upload{
+		text-align:center;
+		width:180px;
+	}
+	.classSession_uploadText{
+		font-size: 1rem;
+		font-weight: 300;
+	}
+	.classSession_instructorFieldOuter{
+		
+	}
+	.classSession_instructorFieldInner{
+		padding-right:20px;
+	}
+	.classSession_inputField{
+		
+	}
+	.classSession_inputField{
+		outline: none;
+		border: none;
+		width: 100%;
+		height: 50px;
+		border-bottom: 2px solid var(--grey2);
+		font-size: 1em;
+		background: transparent;
+	}
+	.classSession_instructorField{
+		width:50%;
+		
+	}
+	.classSession_addInstructor{
+		background-color: var(--purple2);
 
-@media only screen and (max-width: 1919px) {
-	.classSession_submit {
-		width: 160px;
-		height: 45px;
-		background-color: var(--red4);
-		color: var(--white);
-		margin-top: 20px;
-		border-radius: 12px;
-		font-size: 1.1em;
 	}
-}
+	.classSession_removeButton{
+		border:none;
+		cursor:pointer;
+		background: transparent;
+	}
+
