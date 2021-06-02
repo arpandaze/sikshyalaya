@@ -1,45 +1,45 @@
 @import "../../../../../utils/colors.css";
 
 @media only screen and (min-width: 1920px) {
-	.discussionBox_root {
-		width: 700px;
-		height: 700px;
-	}
-	.discussionBox_chatBox {
-		width: 700px;
-		height: 620px;
-		border-bottom: 1px solid var(--grey2);
-	}
-	.discussionBox_inputField {
-		margin-bottom: 10px !important;
-	}
-	.discussionBox_textFieldRoot {
-	}
-	.discussionBox_textField {
-		padding: 10px;
-		width: 95%;
-		max-width: 95%;
-	}
-	.discussionBox_sendButtonContainer {
-	}
-	.discussionBox_sendButton {
-		position: relative;
-		top: 2px;
-		left: 8px;
-	}
-	.discussionBox_switchContainer {
-	}
-	.discussionBox_switch {
-		position: relative;
-		bottom: 8px;
-		margin-left: 15px;
-	}
-	.discussionBox_label {
-		padding: 0px;
-		margin: 0px;
-		font-size: 0.75em;
-		color: var(--secondaryTextColor);
-	}
+  .discussionBox_root {
+    width: 700px;
+    height: 700px;
+  }
+  .discussionBox_chatBox {
+    width: 700px;
+    height: 620px;
+    border-bottom: 1px solid var(--grey2);
+  }
+  .discussionBox_inputField {
+    margin-bottom: 10px !important;
+  }
+  .discussionBox_textFieldRoot {
+  }
+  .discussionBox_textField {
+    padding: 10px;
+    width: 95%;
+    max-width: 95%;
+  }
+  .discussionBox_sendButtonContainer {
+  }
+  .discussionBox_sendButton {
+    position: relative;
+    top: 2px;
+    left: 8px;
+  }
+  .discussionBox_switchContainer {
+  }
+  .discussionBox_switch {
+    position: relative;
+    bottom: 8px;
+    margin-left: 15px;
+  }
+  .discussionBox_label {
+    padding: 0px;
+    margin: 0px;
+    font-size: 0.75em;
+    color: var(--secondaryTextColor);
+  }
 }
 
 @media only screen and (max-width: 1919px) {

@@ -121,142 +121,142 @@ const Profile = () => {
   };
 
   return (
-		<DashboardLayout>
-			<Grid
-				container
-				direction="column"
-				alignItems="flex-start"
-				justify="flex-start"
-				wrap="nowrap"
-				className="profile_root"
-			>
-				<Grid item className="profile_titleContainer">
-					<h1 className="profile_activeTitle">Edit your Profile</h1>
-				</Grid>
-				<Grid item className="profile_profileBoxContainer">
-					<Grid
-						container
-						direction="row"
-						alignItems="flex-start"
-						wrap="nowrap"
-						className="profile_profileBox"
-					>
-						<Grid item xs={3} className="profile_imageContainer">
-							<label for="photo-upload" className="profile_imageContainer">
-								<div>
-									<Image
-										for="photo-upload"
-										src={
-											isPicked === true
-												? tempImage
-												: user.profile_image == null
-												? defaultProfile
-												: `${configs.PUBLIC_FILES_PATH}/${user.profile_image}`
-										}
-										addStyles="profile_image"
-									/>
-								</div>
-								<input
-									id="photo-upload"
-									type="file"
-									accept="image/*"
-									onChange={onFileUpload}
-									style={{ display: "none" }}
-								></input>
-							</label>
-						</Grid>
-						<Grid item xs={9} className="profile_formBoxContainer">
-							<Grid
-								container
-								direction="column"
-								justify="center"
-								alignItems="center"
-								className="profile_container"
-							>
-								<Grid item>
-									<Formik
-										enableReinitialize={true}
-										initialValues={{
-											name: user.full_name,
-											address: user.address,
-											semester: user.group.sem,
-											dob: user.dob,
-											phone_number: user.contact_number,
-											email: user.email,
-										}}
-										validationSchema={validationSchema}
-										onSubmit={onSubmit}
-									>
-										<Form>
-											<Grid
-												container
-												direction="row"
-												justify="flex-start"
-												alignItems="flex-start"
-												className="profile_formContainer"
-											>
-												<Grid
-													item
-													xs={12}
-													style={{
-														padding: "0px 20px 0px 0px",
-													}}
-												>
-													<CustomTextField
-														name="name"
-														type="text"
-														placeHolder="Name"
-														id="name"
-														addStyles="profile_inputButton"
-													/>
-												</Grid>
-												<Grid item xs={12}>
-													<CustomTextField
-														name="address"
-														type="text"
-														placeHolder="Address"
-														id="address"
-														addStyles="profile_inputButton"
-													/>
-												</Grid>
-												<Grid item xs={12}>
-													<CustomTextField
-														name="semester"
-														dropdown={true}
-														type="text"
-														placeHolder="Semester"
-														menuItems={semester}
-														id="semester"
-														addStyles="profile_inputButton"
-														style={{
-															"max-width": "20",
-														}}
-													/>
-												</Grid>
-												<Grid item xs={12}>
-													<CustomTextField
-														id="dob"
-														label="Birth Date"
-														type="date"
-														name="dob"
-														defaultValue=""
-														className="profile_inputButton"
-														InputLabelProps={{
-															shrink: true,
-														}}
-													/>
-												</Grid>
-												<Grid item xs={12}>
-													<CustomTextField
-														name="phone_number"
-														type="text"
-														placeHolder="Phone Number"
-														id="phone_number"
-														addStyles="profile_inputButton"
-														autoComplete="on"
-													/>
-												</Grid>
-												{/* <Grid item xs={12}>
+    <DashboardLayout>
+      <Grid
+        container
+        direction="column"
+        alignItems="flex-start"
+        justify="flex-start"
+        wrap="nowrap"
+        className="profile_root"
+      >
+        <Grid item className="profile_titleContainer">
+          <h1 className="profile_activeTitle">Edit your Profile</h1>
+        </Grid>
+        <Grid item className="profile_profileBoxContainer">
+          <Grid
+            container
+            direction="row"
+            alignItems="flex-start"
+            wrap="nowrap"
+            className="profile_profileBox"
+          >
+            <Grid item xs={3} className="profile_imageContainer">
+              <label for="photo-upload" className="profile_imageContainer">
+                <div>
+                  <Image
+                    for="photo-upload"
+                    src={
+                      isPicked === true
+                        ? tempImage
+                        : user.profile_image == null
+                        ? defaultProfile
+                        : `${configs.PUBLIC_FILES_PATH}/${user.profile_image}`
+                    }
+                    addStyles="profile_image"
+                  />
+                </div>
+                <input
+                  id="photo-upload"
+                  type="file"
+                  accept="image/*"
+                  onChange={onFileUpload}
+                  style={{ display: "none" }}
+                ></input>
+              </label>
+            </Grid>
+            <Grid item xs={9} className="profile_formBoxContainer">
+              <Grid
+                container
+                direction="column"
+                justify="center"
+                alignItems="center"
+                className="profile_container"
+              >
+                <Grid item>
+                  <Formik
+                    enableReinitialize={true}
+                    initialValues={{
+                      name: user.full_name,
+                      address: user.address,
+                      semester: user.group.sem,
+                      dob: user.dob,
+                      phone_number: user.contact_number,
+                      email: user.email,
+                    }}
+                    validationSchema={validationSchema}
+                    onSubmit={onSubmit}
+                  >
+                    <Form>
+                      <Grid
+                        container
+                        direction="row"
+                        justify="flex-start"
+                        alignItems="flex-start"
+                        className="profile_formContainer"
+                      >
+                        <Grid
+                          item
+                          xs={12}
+                          style={{
+                            padding: "0px 20px 0px 0px",
+                          }}
+                        >
+                          <CustomTextField
+                            name="name"
+                            type="text"
+                            placeHolder="Name"
+                            id="name"
+                            addStyles="profile_inputButton"
+                          />
+                        </Grid>
+                        <Grid item xs={12}>
+                          <CustomTextField
+                            name="address"
+                            type="text"
+                            placeHolder="Address"
+                            id="address"
+                            addStyles="profile_inputButton"
+                          />
+                        </Grid>
+                        <Grid item xs={12}>
+                          <CustomTextField
+                            name="semester"
+                            dropdown={true}
+                            type="text"
+                            placeHolder="Semester"
+                            menuItems={semester}
+                            id="semester"
+                            addStyles="profile_inputButton"
+                            style={{
+                              "max-width": "20",
+                            }}
+                          />
+                        </Grid>
+                        <Grid item xs={12}>
+                          <CustomTextField
+                            id="dob"
+                            label="Birth Date"
+                            type="date"
+                            name="dob"
+                            defaultValue=""
+                            className="profile_inputButton"
+                            InputLabelProps={{
+                              shrink: true,
+                            }}
+                          />
+                        </Grid>
+                        <Grid item xs={12}>
+                          <CustomTextField
+                            name="phone_number"
+                            type="text"
+                            placeHolder="Phone Number"
+                            id="phone_number"
+                            addStyles="profile_inputButton"
+                            autoComplete="on"
+                          />
+                        </Grid>
+                        {/* <Grid item xs={12}>
                           <CustomTextField
                             name="email"
                             type="text"
@@ -266,7 +266,7 @@ const Profile = () => {
                             autoComplete="on"
                           />
                         </Grid> */}
-												{/* <Grid item xs={12}>
+                        {/* <Grid item xs={12}>
                           <CustomTextField
                             name="password"
                             type="password"
@@ -286,24 +286,24 @@ const Profile = () => {
                             autoComplete="new-password"
                           />
                         </Grid> */}
-												<Grid item>
-													<Button
-														name="Save"
-														type="submit"
-														addStyles="profile_button"
-													/>
-												</Grid>
-											</Grid>
-										</Form>
-									</Formik>
-								</Grid>
-							</Grid>
-						</Grid>
-					</Grid>
-				</Grid>
-			</Grid>
-		</DashboardLayout>
-	);
+                        <Grid item>
+                          <Button
+                            name="Save"
+                            type="submit"
+                            addStyles="profile_button"
+                          />
+                        </Grid>
+                      </Grid>
+                    </Form>
+                  </Formik>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    </DashboardLayout>
+  );
 };
 
 export default Profile;
