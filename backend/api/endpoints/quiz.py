@@ -168,7 +168,7 @@ async def create_question(
     current_directory = os.getcwd()
 
     # if the question is said to have a IMAGE then only create the folder to store the image
-    if question.question_type == QuestionType.IMAGE.value:
+    if question.question_image:
         FILE_PATH_QUESTION = os.path.join(
             "static", QUIZ_QUESTION_UPLOAD_DIR, f"{quizid}/{question.id}"
         )
