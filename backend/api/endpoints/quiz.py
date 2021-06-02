@@ -27,6 +27,7 @@ from schemas import (
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.responses import FileResponse
 import aiofiles
+from core.config import settings
 
 router = APIRouter()
 
@@ -161,28 +162,24 @@ async def create_question(
     obj_in: QuizQuestionCreate,
     current_user: User = Depends(deps.get_current_active_teacher_or_above),
 ) -> Any:
-    # FIXME: is this needed?
-    obj_in.quiz_id = quizid
     question = crud_question.create(db, obj_in=obj_in)
-
-    current_directory = os.getcwd()
 
     # if the question is said to have a IMAGE then only create the folder to store the image
     if question.question_image:
         FILE_PATH_QUESTION = os.path.join(
-            "static", QUIZ_QUESTION_UPLOAD_DIR, f"{quizid}/{question.id}"
+            settings.UPLOAD_DIR_ROOT,
+            QUIZ_QUESTION_UPLOAD_DIR,
+            f"{quizid}/{question.id}",
         )
 
-        FILE_PATH_QUESTION = os.path.join(current_directory, FILE_PATH_QUESTION)
         if not os.path.exists(FILE_PATH_QUESTION):
             os.makedirs(FILE_PATH_QUESTION)
 
     # if the Options in answer is said to have a IMAGE then only create the folder to store the image
-    if question.answer_type == AnswerType.IMAGE_OPTIONS.value:
+    if question.option_image:
         FILE_PATH_OPTION = os.path.join(
-            "static", QUIZ_OPTION_UPLOAD_DIR, f"{quizid}/{question.id}"
+            settings.UPLOAD_DIR_ROOT, QUIZ_OPTION_UPLOAD_DIR, f"{quizid}/{question.id}"
         )
-        FILE_PATH_OPTION = os.path.join(current_directory, FILE_PATH_OPTION)
 
         if not os.path.exists(FILE_PATH_OPTION):
             os.makedirs(FILE_PATH_OPTION)
