@@ -1,6 +1,6 @@
-import {useEffect} from "react";
+import { useEffect } from "react";
 import useAPI from "../../utils/useAPI";
-import {clear} from "idb-keyval";
+import { clear } from "idb-keyval";
 
 const Logout = () => {
   const [logout, logoutComplete] = useAPI({

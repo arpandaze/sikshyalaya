@@ -5,106 +5,98 @@
     height: 100vh;
     flex-grow: 1;
   }
-   .notFound_logo {
+  .notFound_logo {
     padding: 45px 45px 0px 45px;
   }
-  .notfound_panelContainer{
-      width: 70vh;
-      height:100%;
-     
+  .notfound_panelContainer {
+    width: 70vh;
+    height: 100%;
   }
-  .notfound_404Container{
-     
+  .notfound_404Container {
   }
-  .notFound_404giant404{
-		display:block;
-		text-align: center;
-		font-size: 20rem;
-		font-weight:300;
+  .notFound_404giant404 {
+    display: block;
+    text-align: center;
+    font-size: 20rem;
+    font-weight: 300;
   }
-	.notFound_hmm{
-		display:block;
-		text-align: center;
-		font-weight: 300;
-		font-size:1.5em;
-		color: var(--grey1);
-	}
-	.notfound_404textMessage{
-		display:block;
-		text-align: center;
-		font-weight: 300;
-		color: var(--grey1);
-	}
-	.notFound_pageNotFound{
-		font-size:3rem;
-		color:var(--red4);
-		display:block;
-		text-align: center;
-	}
-	.notfound_goHome{
-		
-	}
-	.notfound_returnText{
-		color: var(--grey1) !important;
-	}
-	.notfound_fancyButton{
-		color: var(--red4)
-	}
+  .notFound_hmm {
+    display: block;
+    text-align: center;
+    font-weight: 300;
+    font-size: 1.5em;
+    color: var(--grey1);
   }
+  .notfound_404textMessage {
+    display: block;
+    text-align: center;
+    font-weight: 300;
+    color: var(--grey1);
+  }
+  .notFound_pageNotFound {
+    font-size: 3rem;
+    color: var(--red4);
+    display: block;
+    text-align: center;
+  }
+  .notfound_goHome {
+  }
+  .notfound_returnText {
+    color: var(--grey1) !important;
+  }
+  .notfound_fancyButton {
+    color: var(--red4);
+  }
+}
 @media only screen and (max-width: 1919px) {
   .notFound_root {
     width: 100%;
     height: 100vh;
     flex-grow: 1;
   }
-   .notFound_logo {
+  .notFound_logo {
     padding: 45px 45px 0px 45px;
   }
-  .notfound_panelContainer{
-      width: 70vh;
-      height:100%;
+  .notfound_panelContainer {
+    width: 70vh;
+    height: 100%;
   }
-  .notfound_404Container{
-     
+  .notfound_404Container {
   }
-  .notFound_404giant404{
-
-		display:block;
-		text-align: center;
-		font-size: 15rem;
-		font-weight:300;
-		padding-top:0px;
+  .notFound_404giant404 {
+    display: block;
+    text-align: center;
+    font-size: 15rem;
+    font-weight: 300;
+    padding-top: 0px;
   }
-	.notFound_hmm{
-		display:block;
-		text-align: center;
-		font-weight: 300;
-		font-size:1.2rem;
-		color: var(--grey1);
-		padding:0px
-	}
-	.notfound_404textMessage{
-		display:block;
-		text-align: center;
-		font-weight: 300;
-		color: var(--grey1);
-	}
-	.notFound_pageNotFound{
-		font-size:2.5rem;
-		color:var(--red4);
-		display:block;
-		text-align: center;
-	}
-	.notfound_goHome{
-		
-	}
-	.notfound_returnText{
-		color: var(--grey1)
-	}
-	.notfound_fancyButton{
-		padding:10px;
-		color: var(--red4);
-
-	}
+  .notFound_hmm {
+    display: block;
+    text-align: center;
+    font-weight: 300;
+    font-size: 1.2rem;
+    color: var(--grey1);
+    padding: 0px;
   }
-
+  .notfound_404textMessage {
+    display: block;
+    text-align: center;
+    font-weight: 300;
+    color: var(--grey1);
+  }
+  .notFound_pageNotFound {
+    font-size: 2.5rem;
+    color: var(--red4);
+    display: block;
+    text-align: center;
+  }
+  .notfound_goHome {
+  }
+  .notfound_returnText {
+    color: var(--grey1);
+  }
+  .notfound_fancyButton {
+    padding: 10px;
+    color: var(--red4);
+  }
+}
