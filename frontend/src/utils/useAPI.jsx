@@ -1,10 +1,10 @@
 import axios from "axios";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import configs from "./configs";
-import {clear} from "idb-keyval";
+import { clear } from "idb-keyval";
 
 const useAPI = (
-  {endpoint, method = "GET", params, data, withCredentials = true},
+  { endpoint, method = "GET", params, data, withCredentials = true },
   formatter,
   defaults = null
 ) => {
@@ -38,7 +38,7 @@ const useAPI = (
         if (formatter) {
           formattedRes = formatter(res);
         }
-        setResponseState({response: formattedRes, complete: true});
+        setResponseState({ response: formattedRes, complete: true });
       })
       .catch((error) => {
         if (error.response == null) {
@@ -52,7 +52,7 @@ const useAPI = (
             .catch(() => {
               window.localStorage.clear();
             });
-          setResponseState({response: error.response, complete: true});
+          setResponseState({ response: error.response, complete: true });
         }
       });
   }, [endpoint, method, params, data, setResponseState]);
