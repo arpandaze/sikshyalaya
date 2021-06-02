@@ -16,7 +16,7 @@ const Logout = () => {
           window.localStorage.clear();
         });
     }
-  }, logoutComplete);
+  });
   return null;
 };
 
