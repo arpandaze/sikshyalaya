@@ -14,12 +14,43 @@
     height:10%;
     position:relative;
 }
+.quizCreator_fileuploadText{
+    appearance:none
+}
 .submission{
     width:80%;
+}
+.quizCreator_fileuploadText{
+    font-size:1rem;
+    font-weight: 200;
+}
+.quizCreator_fileuploadOuter{
+    
+}
+.quizCreator_fileuploadInner1{
+    padding:0px 10px;
+
+}
+.quizCreator_fileuploadInner2{
+    
+
+}
+.quizCreator_imageContainerOuter{
+    align-items: center;
+
+    
+}
+.quizCreator_imageContainer{
+
+}
+.quizCreator_uploadButton{
+    padding:0;
+    
 }
 .quizCreator_removeContainer{
     height:100%;
     padding:0px;
+    width:50%;
     margin:0px auto;
 }
 .quizCreator_remove{
@@ -32,6 +63,9 @@
     border:none;
     font-size: 1.1em;
     cursor:pointer;
+}
+.quizCreator_imageCntainer{
+    display:inline-block;
 }
 .quizCreator_titleText{
     position:relative;

@@ -9,6 +9,8 @@ import Grid from "@material-ui/core/Grid";
 import DateFnsUtils from "@date-io/date-fns";
 import { ImCross } from "react-icons/im";
 import { format } from "date-fns";
+import { Tooltip } from "@material-ui/core";
+import { BsCloudUpload } from "react-icons/bs";
 import {
 	MuiPickersUtilsProvider,
 	KeyboardTimePicker,
@@ -34,6 +36,8 @@ const questionType = [
 	},
 ];
 
+
+
 let answerList = [];
 
 const QuizCreator = () => {
@@ -48,6 +52,19 @@ const QuizCreator = () => {
 	const [startTime, setStartTime] = useState(new Date());
 	const [endTime, setEndTime] = useState(new Date());
 	const [quizDate, setQuizDate] = useState(new Date());
+	const [selectImage, setSelectedImage] = useState();
+	const [tempImage, setTempImage] = useState();
+	const [isPicked, setIsPicked] = useState(false);
+
+	const onFileUpload = async (e) => {
+		let reader = new FileReader();
+		reader.readAsDataURL(e.target.files[0]);
+		reader.onload = () => {
+			setTempImage(reader.result);
+		};
+		setIsPicked(true);
+		setSelectedImage(e.target.files[0]);
+	};
 
 	return (
 		<DashboardLayout>
@@ -243,14 +260,60 @@ const QuizCreator = () => {
 																										alignItems="center"
 																										wrap="nowrap"
 																									>
-																										<Grid item xs={7}>
+																										<Grid item xs={12}>
 																											<h4 className="quizCreator_questionNumber">
 																												Question #{index + 1}
 																											</h4>
 																										</Grid>
 																										<Grid
 																											item
-																											xs={5}
+																											xs={1}
+																											className="quizCreator_imageContainerOuter"
+																										>
+																											<label
+																												for="photo-upload"
+																												className="quizCreator_imageContainer"
+																											>
+																												<Grid
+																													item
+																													className="quizCreator_fileuploadInner2"
+																												>
+																													<button
+																														type="button"
+																														title="File Upload"
+																														className="quizCreator_remove"
+																													>
+																														<BsCloudUpload
+																															color={
+																																colorscheme.purple2
+																															}
+																															size={23}
+																															className="quizCreator_uploadButton"
+																															style={{
+																																float: "right",
+																																cursor:
+																																				"pointer",
+																															}}
+																														/>
+																													</button>
+																												</Grid>
+
+																												<input
+																													id="photo-upload"
+																													type="file"
+																													accept="image/*"
+																													onChange={
+																														onFileUpload
+																													}
+																													style={{
+																														display: "none",
+																													}}
+																												></input>
+																											</label>
+																										</Grid>
+																										<Grid
+																											item
+																											xs={1}
 																											className="quizCreator_removeContainer"
 																										>
 																											<button
@@ -284,7 +347,8 @@ const QuizCreator = () => {
 																											placeHolder="Question Title"
 																										/>
 																									</Grid>
-																									<Grid item xs={12}>
+
+																									{/* <Grid item xs={12}>
 																										<CustomTextField
 																											addStyles="quizCreator_dropdown"
 																											dropdown={true}
@@ -292,7 +356,7 @@ const QuizCreator = () => {
 																											menuItems={questionType}
 																											placeHolder="Question Type"
 																										/>
-																									</Grid>
+																									</Grid> */}
 																								</div>
 																							</Grid>
 																							<Grid
