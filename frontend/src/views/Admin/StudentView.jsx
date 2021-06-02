@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import colorscheme from "../../utils/colors";
 import DashboardLayout from "../../components/DashboardLayout";
 import Students from "../../components/Student";
-import {GoPlus} from "react-icons/go";
+import { GoPlus } from "react-icons/go";
 import "./statics/css/studentView.css";
-import useAPI from "../../utils/useAPI"
+import useAPI from "../../utils/useAPI";
 
 const students = [
   {
@@ -82,18 +82,22 @@ const students = [
   },
 ];
 
-const StudentView = ({match, ...rest}) => {
+const StudentView = ({ match, ...rest }) => {
   const studentsFormatter = (values) => {
-    console.log(values)
+    console.log(values);
     return values.data.student.map((item) => {
       return {
         id: item.id,
-        name: item.full_name
-      }
-    })
-  }
-  const studentsDefault = []
-  const [students] = useAPI({endpoint: `/api/v1/group/${match.params.group}/student`}, studentsFormatter, studentsDefault)
+        name: item.full_name,
+      };
+    });
+  };
+  const studentsDefault = [];
+  const [students] = useAPI(
+    { endpoint: `/api/v1/group/${match.params.group}/student` },
+    studentsFormatter,
+    studentsDefault
+  );
 
   return (
     <DashboardLayout>
@@ -116,7 +120,7 @@ const StudentView = ({match, ...rest}) => {
             <Grid xs item className="adminStudent_textContainer">
               <p className="adminStudent_text">
                 Computer Science and Engineering
-							</p>
+              </p>
             </Grid>
             <Grid xs={1} item className="adminStudent_plusIcon">
               <GoPlus size={30} color={colorscheme.green2} />

@@ -190,39 +190,16 @@ def populate_class_session():
 def populate_quiz_question():
     for quiz_question in quizQuestions:
         try:
-            jsonOption = quiz_question["option"]
-            if jsonOption:
-                dictOption = json.loads(jsonOption)
-                try:
-                    dictOption = {int(k): v for k, v in dictOption.items()}
-
-                    quiz_question = QuizQuestionCreate(
-                        question_type=quiz_question["question_type"],
-                        question_text=quiz_question["question_text"],
-                        question_image=quiz_question["question_image"],
-                        answer_type=quiz_question["answer_type"],
-                        option_image=quiz_question["option_image"],
-                        option=dictOption,
-                        answer_image=quiz_question["answer_image"],
-                        answer=quiz_question["answer"],
-                        quiz_id=quiz_question["quiz_id"],
-                    )
-                    crud_question.create(db, obj_in=quiz_question)
-                except Exception as exception:
-                    print(exception)
-            else:
-                quiz_question = QuizQuestionCreate(
-                    question_type=quiz_question["question_type"],
-                    question_text=quiz_question["question_text"],
-                    question_image=quiz_question["question_image"],
-                    answer_type=quiz_question["answer_type"],
-                    option_image=quiz_question["option_image"],
-                    answer_image=quiz_question["answer_image"],
-                    answer=quiz_question["answer"],
-                    quiz_id=quiz_question["quiz_id"],
-                )
-                crud_question.create(db, obj_in=quiz_question)
-
+            quiz_question = QuizQuestionCreate(
+                question_text=quiz_question["question_text"],
+                question_image=quiz_question["question_image"],
+                option_image=quiz_question["option_image"],
+                option=quiz_question["option"],
+                answer_image=quiz_question["answer_image"],
+                answer=quiz_question["answer"],
+                quiz_id=quiz_question["quiz_id"],
+            )
+            crud_question.create(db, obj_in=quiz_question)
         except Exception as e:
             print(e)
 

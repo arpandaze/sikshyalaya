@@ -12,6 +12,7 @@ from sqlalchemy import (
 )
 import enum
 from sqlalchemy.orm import relationship
+from sqlalchemy.sql.elements import Null
 from .association_tables import (
     group_quiz_association_table,
     instructor_quiz_association_table,
@@ -59,13 +60,11 @@ class QuizQuestion(Base):
 
     # if IMAGE_OPTIONS in combination with option_image is present then, we show all the image in option_image, and then show all the options present in options
     option_image = Column(ARRAY(String), nullable=True)
-
-    answer_type = Column(Integer, default=AnswerType.TEXT_OPTIONS.value, nullable=False)
-    option = Column(JSON, nullable=True)
+    option = Column(ARRAY(String), nullable=True)
 
     # if IMAGE_Options present and answer == 0, then check answer_image
-    answer_image = Column(String, nullable=True)
-    answer = Column(Integer, nullable=True)
+    answer_image = Column(ARRAY(Integer), nullable=True)
+    answer = Column(ARRAY(Integer), nullable=True)
 
     # TODO: how to store image option?
     # If answer type = FILE_UPLOAD then store filename in JSON Format,
