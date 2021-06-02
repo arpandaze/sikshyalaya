@@ -9,7 +9,7 @@ import { useHistory } from "react-router-dom";
 import callAPI from "../../utils/API";
 import colorscheme from "../../utils/colors";
 import CustomTextField from "./../../components/CustomTextField";
-import { useAPI } from "../../utils/useAPI";
+import useAPI from "../../utils/useAPI";
 import DelayedRedirect from "../../components/DelayedRedirect";
 
 const programNames = [

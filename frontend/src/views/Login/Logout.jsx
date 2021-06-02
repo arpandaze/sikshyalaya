@@ -1,6 +1,6 @@
-import { useEffect } from "react";
-import { useAPI } from "../../utils/useAPI";
-import { clear } from "idb-keyval";
+import {useEffect} from "react";
+import useAPI from "../../utils/useAPI";
+import {clear} from "idb-keyval";
 
 const Logout = () => {
   const [logout, logoutComplete] = useAPI({
@@ -16,7 +16,7 @@ const Logout = () => {
           window.localStorage.clear();
         });
     }
-  });
+  }, logoutComplete);
   return null;
 };
 

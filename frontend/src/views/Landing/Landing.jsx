@@ -6,7 +6,7 @@ import SmallCards from "../../components/SmallCards";
 import { BsCalendar } from "react-icons/bs";
 import { StylesProvider } from "@material-ui/core/styles";
 import "./statics/css/landing.css";
-import { useAPI } from "../../utils/useAPI";
+import useAPI from "../../utils/useAPI";
 
 const Landing = () => {
   const classSessionFormatter = (value) => {
