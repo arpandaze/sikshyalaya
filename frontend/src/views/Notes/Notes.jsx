@@ -5,7 +5,7 @@ import DashboardLayout from "../../components/DashboardLayout";
 import Note from "../../components/Note";
 import SideNotes from "../../components/SideNotes";
 import { GoPlus } from "react-icons/go";
-import { useAPI } from "../../utils/useAPI";
+import useAPI from "../../utils/useAPI";
 import callAPI from "../../utils/API";
 import "./statics/css/notes.css";
 import { UserContext } from "../../utils/Contexts/UserContext";

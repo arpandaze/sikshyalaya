@@ -8,7 +8,7 @@ import defaultProfile from "../../assets/default-profile.svg";
 import DashboardLayout from "../../components/DashboardLayout";
 import "./statics/css/profile.css";
 import CustomTextField from "./../../components/CustomTextField";
-import { useAPI } from "../../utils/useAPI";
+import useAPI from "../../utils/useAPI";
 import callAPI from "../../utils/API";
 import { UserContext } from "../../utils/Contexts/UserContext";
 import configs from "../../utils/configs";

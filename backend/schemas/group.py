@@ -35,6 +35,19 @@ class Group(GroupInDBBase):
     pass
 
 
+class StudentOfGroup(BaseModel):
+    id: int
+    full_name: str
+    class Config:
+        orm_mode = True
+
+class GroupStudentReturn(BaseModel):
+    id: Optional[int]
+    student: List[StudentOfGroup]
+    class Config:
+        orm_mode = True
+
+
 class GroupSignInReturn(BaseModel):
     id: Optional[int]
     sem: int

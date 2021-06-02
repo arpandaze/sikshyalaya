@@ -4,7 +4,7 @@ import DashboardLayout from "../../components/DashboardLayout";
 import NotificationButton from "../../components/NotificationButton";
 import "./statics/css/dashboard.css";
 import ClassResource from "./components/ClassResource";
-import { useAPI } from "../../utils/useAPI";
+import useAPI from "../../utils/useAPI";
 import DiscussionBox from "./components/DiscussionBox";
 
 const resourceList = [

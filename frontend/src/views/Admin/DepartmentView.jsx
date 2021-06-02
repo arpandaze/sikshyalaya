@@ -6,7 +6,7 @@ import DashboardLayout from "../../components/DashboardLayout";
 import AdminBoxSmall from "../../components/AdminBoxSmall";
 import { GoPlus } from "react-icons/go";
 import "./statics/css/commonView.css";
-import { useAPI } from "../../utils/useAPI";
+import useAPI from "../../utils/useAPI";
 import callAPI from "../../utils/API";
 import Button from "../../components/Button";
 import { ImCross } from "react-icons/im";
