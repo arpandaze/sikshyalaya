@@ -2,11 +2,12 @@ from schemas.group import GroupReturn
 from typing import Any, List
 
 from fastapi import APIRouter, Depends
+from fastapi.encoders import jsonable_encoder
 from sqlalchemy.orm import Session
 
 from utils import deps
 from cruds import crud_group, crud_department, crud_course
-from schemas import Group, GroupUpdate, GroupCreate
+from schemas.group import Group, GroupUpdate, GroupCreate, GroupStudentReturn
 from models import User
 from core import settings
 from fastapi import HTTPException
@@ -18,7 +19,7 @@ router = APIRouter()
 # can be called by teacher to get the group under their depart
 # can be called by admin and super admin to get all the departs
 @router.get("/", response_model=List[Group])
-def get_group(
+async def get_group(
     db: Session = Depends(deps.get_db),
     skip: int = 0,
     limit: int = 100,
@@ -40,7 +41,7 @@ def get_group(
 
 # create new group, can be done by only admin and super admin
 @router.post("/", response_model=GroupCreate)
-def create_group(
+async def create_group(
     db: Session = Depends(deps.get_db),
     *,
     obj_in: GroupUpdate,
@@ -60,8 +61,9 @@ def create_group(
 # student: cannot get by id, can get their own group by directly calling "/"
 # teacher: can get a specific group only if it exists in their groups_list
 # superadmin and admin, no restriction, can get any group by id
-@router.get("/{id}", response_model=Group)
-def get_specific_group(
+@router.get("/{id}", response_model=Group, summary="Get specific group")
+@router.get("/{id}/student", response_model=GroupStudentReturn, summary="Get students of specific group")
+async def get_specific_group(
     db: Session = Depends(deps.get_db),
     *,
     id: int,
@@ -81,8 +83,8 @@ def get_specific_group(
 
     if current_user.user_type == settings.UserType.TEACHER.value:
         for group in current_user.teacher_group:
-            if group.id == id:
-                return group
+            if group.teacher_id == current_user.id:
+                return group.group
         raise HTTPException(
             status_code=403,
             detail="Error ID: 109",
@@ -95,7 +97,7 @@ def get_specific_group(
 
 # update group, can be called by only the superadmin and admin
 @router.put("/{id}", response_model=GroupUpdate)
-def update_group(
+async def update_group(
     db: Session = Depends(deps.get_db),
     *,
     id: int,
@@ -115,8 +117,9 @@ def update_group(
 
 
 @router.get("/all/", response_model=List[GroupReturn])
-def get_group(
+async def get_all_groups(
     db: Session = Depends(deps.get_db),
+    current_user: User = Depends(deps.get_current_admin_or_above)
 ) -> Any:
     group = crud_group.get_multi(db, limit=-1)
     return group
