@@ -202,11 +202,11 @@ async def update_question(
     current_directory = os.getcwd()
 
     # on question_type update, create folder to store image if not already present
-    if (obj_in.question_type == QuestionType.IMAGE.value) and (
-        question.question_type != obj_in.question_type
-    ):
+    if question.question_image & obj_in.question_image:
         FILE_PATH_QUESTION = os.path.join(
-            "static", QUIZ_QUESTION_UPLOAD_DIR, f"{quizid}/{question.id}"
+            settings.UPLOAD_DIR_ROOT,
+            QUIZ_QUESTION_UPLOAD_DIR,
+            f"{quizid}/{question.id}",
         )
 
         FILE_PATH_QUESTION = os.path.join(current_directory, FILE_PATH_QUESTION)
@@ -251,9 +251,9 @@ async def create_question_files(
     question = await get_specific_question(
         db, quizid=quizid, id=id, current_user=current_user
     )
-    current_directory = os.getcwd()
-    FILE_PATH = os.path.join("static", QUIZ_QUESTION_UPLOAD_DIR, f"{quizid}/{id}")
-    FILE_PATH = os.path.join(current_directory, FILE_PATH)
+    FILE_PATH = os.path.join(
+        settings.UPLOAD_DIR_ROOT, QUIZ_QUESTION_UPLOAD_DIR, f"{quizid}/{id}"
+    )
 
     for file in files:
         filename = f"{FILE_PATH}/{file.filename}"
@@ -283,9 +283,9 @@ async def create_option_files(
         db, quizid=quizid, id=id, current_user=current_user
     )
 
-    FILE_PATH = os.path.join("static", QUIZ_OPTION_UPLOAD_DIR, f"{quizid}/{id}")
-    current_directory = os.getcwd()
-    FILE_PATH = os.path.join(current_directory, FILE_PATH)
+    FILE_PATH = os.path.join(
+        settings.UPLOAD_DIR_ROOT, QUIZ_OPTION_UPLOAD_DIR, f"{quizid}/{id}"
+    )
 
     for file in files:
         filename = f"{FILE_PATH}/{file.filename}"
@@ -321,7 +321,7 @@ async def get_image(
     if type == 1:
         if filename in question.question_image:
             FILE_PATH = os.path.join(
-                "static", QUIZ_QUESTION_UPLOAD_DIR, f"{quizid}/{id}"
+                settings.UPLOAD_DIR_ROOT, QUIZ_QUESTION_UPLOAD_DIR, f"{quizid}/{id}"
             )
         else:
             raise HTTPException(
@@ -330,7 +330,9 @@ async def get_image(
 
     if type == 2:
         if filename in question.option_image:
-            FILE_PATH = os.path.join("static", QUIZ_OPTION_UPLOAD_DIR, f"{quizid}/{id}")
+            FILE_PATH = os.path.join(
+                settings.UPLOAD_DIR_ROOT, QUIZ_OPTION_UPLOAD_DIR, f"{quizid}/{id}"
+            )
         else:
             raise HTTPException(
                 status_code=403, detail="Error ID: 140"
