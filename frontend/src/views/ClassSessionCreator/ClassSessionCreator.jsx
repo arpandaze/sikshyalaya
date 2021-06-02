@@ -39,183 +39,205 @@ const ClassSessionCreator = () => {
 				<Grid
 					container
 					direction="column"
-					alignItems="center"
-					justify="center"
+					alignItems="flex-start"
+					justify="flex-start"
 					className="classSession_root"
 				>
 					<Grid item className="classSession_heading">
-						<h1>Create Class Session</h1>
+						<a className="classSession_headingText">Create Class Session</a>
 					</Grid>
-				</Grid>
-				<Grid
-					container
-					direction="column"
-					alignItems="center"
-					justify="center"
-					className="classSession_formpart"
-				>
-					<Formik
-						enableReinitialize={true}
-						initialValues={{
-							start_time: "",
-							end_time: "",
-							group: "",
-							description: "",
-						}}
-						onSubmit={(values) =>
-							setTimeout(() => {
-								alert(JSON.stringify(values, null, 2));
-							}, 500)
-						}
-					>
-						{({ values, setFieldValue }) => (
-							<>
-								<Form>
-									<Grid item>
-										<MuiPickersUtilsProvider utils={DateFnsUtils}>
+					<Grid item className="classSession_body">
+						<Formik
+							enableReinitialize={true}
+							initialValues={{
+								start_time: "",
+								end_time: "",
+								group: "",
+								description: "",
+							}}
+							onSubmit={(values) =>
+								setTimeout(() => {
+									alert(JSON.stringify(values, null, 2));
+								}, 500)
+							}
+						>
+							{({ values, setFieldValue }) => (
+								<>
+									<Form>
+										<Grid
+											item
+											className="classSession_dateTimePickerContainerOuter"
+										>
+											<MuiPickersUtilsProvider utils={DateFnsUtils}>
+												<Grid
+													container
+													direction="row"
+													alignItems="center"
+													justify="center"
+													className="classSession_dateTimePickerContainer"
+													spacing={3}
+												>
+													<Grid item>
+														<KeyboardTimePicker
+															margin="normal"
+															id="start_time"
+															label="Start time"
+															inputVariant="outlined"
+															value={startTime}
+															onChange={(value) => {
+																setFieldValue("start_time", value);
+																setStartTime(value);
+															}}
+															KeyboardButtonProps={{
+																"aria-label": "change time",
+															}}
+															keyboardIcon={<BiTimeFive />}
+														/>
+													</Grid>
+													<Grid item>
+														<KeyboardTimePicker
+															margin="normal"
+															id="end_time"
+															label="End time"
+															inputVariant="outlined"
+															value={endTime}
+															onChange={(value) => {
+																setFieldValue("end_time", value);
+																setEndTime(value);
+															}}
+															KeyboardButtonProps={{
+																"aria-label": "change time",
+															}}
+															keyboardIcon={<BiTimeFive />}
+														/>
+													</Grid>
+												</Grid>
+											</MuiPickersUtilsProvider>
+										</Grid>
+										<Grid
+											item
+											className="classSession_instructorContainerOuter"
+										>
 											<Grid
 												container
-												direction="row"
+												direction="column"
 												alignItems="center"
 												justify="center"
-												className="classSession_dateTimePickerContainer"
-												spacing={3}
+												className="classSession_instructorContainer"
 											>
-												<Grid item>
-													<KeyboardTimePicker
-														margin="normal"
-														id="start_time"
-														label="Start time"
-														inputVariant="outlined"
-														value={startTime}
-														onChange={(value) => {
-															setFieldValue("start_time", value);
-															setStartTime(value);
-														}}
-														KeyboardButtonProps={{
-															"aria-label": "change time",
-														}}
-														keyboardIcon={<BiTimeFive />}
-													/>
-												</Grid>
-												<Grid item>
-													<KeyboardTimePicker
-														margin="normal"
-														id="end_time"
-														label="End time"
-														inputVariant="outlined"
-														value={endTime}
-														onChange={(value) => {
-															setFieldValue("end_time", value);
-															setEndTime(value);
-														}}
-														KeyboardButtonProps={{
-															"aria-label": "change time",
-														}}
-														keyboardIcon={<BiTimeFive />}
-													/>
-												</Grid>
-											</Grid>
-										</MuiPickersUtilsProvider>
-									</Grid>
-									<Grid item>
-										<Grid
-											container
-											direction="column"
-											alignItems="center"
-											justify="center"
-											className="classSession_instructorContainer"
-										>
-											<FieldArray name="instructors">
-												{(arrayHelpers) => (
-													<>
-														{values.instructors &&
-															values.instructors.length !== 0 &&
-															values.instructors.map((instructor, index) => (
-																<>
-																	<div key={index}>
-																		<Grid item>
+												<FieldArray name="instructors">
+													{(arrayHelpers) => (
+														<>
+															{values.instructors &&
+																values.instructors.length !== 0 &&
+																values.instructors.map((instructor, index) => (
+																	<>
+																		<div key={index}>
 																			<Grid
-																				container
-																				direction="row"
-																				className="classSession_instructorField"
+																				item
+																				className="classSession_instructorFieldOuter"
 																			>
-																				<Grid item>
-																					<CustomTextField
-																						name={`instructors[${index}]`}
-																						placeHolder="Add Instructors"
-																						addStyles="classSession_inputField"
-																					/>
-																				</Grid>
-
-																				<Grid item>
-																					<button
-																						type="button"
-																						onClick={() =>
-																							arrayHelpers.remove(index)
-																						}
-																						className="classSession_removeButton"
+																				<Grid
+																					container
+																					direction="row"
+																					className="classSession_instructorField"
+																					alignItems="center"
+																					justify="center"
+																				>
+																					<Grid
+																						item
+																						xs={10}
+																						className="classSession_instructorFieldInner"
 																					>
-																						<BiMinus
-																							size={20}
-																							color={colorscheme.green2}
+																						<CustomTextField
+																							name={`instructors[${index}]`}
+																							placeHolder="Add Instructors"
+																							addStyles="classSession_inputField"
 																						/>
-																					</button>
+																					</Grid>
+
+																					<Grid item xs={2}>
+																						<button
+																							type="button"
+																							onClick={() =>
+																								arrayHelpers.remove(index)
+																							}
+																							className="classSession_removeButton"
+																						>
+																							<BiMinus
+																								size={20}
+																								color={colorscheme.red2}
+																							/>
+																						</button>
+																					</Grid>
 																				</Grid>
 																			</Grid>
-																		</Grid>
-																	</div>
-																</>
-															))}
-														<Grid item>
-															<button
-																type="button"
-																title="Add Instructor"
-																onClick={() => arrayHelpers.push()}
-															>
-																Add Instructor
-															</button>
-														</Grid>
-													</>
-												)}
-											</FieldArray>
-											<Grid item>
-												<CustomTextField
-													name="group"
-													placeHolder="Group"
-													addStyles="classSession_inputField"
-												/>
-											</Grid>
-											<Grid item>
-												<CustomTextField
-													name="description"
-													placeHolder="Enter description"
-													addStyles="classSession_inputField"
-												/>
-											</Grid>
-											<Grid item>
-												<label for="resources">Upload resources:</label>
-												<input
-													id="resources"
-													name="resources"
-													type="file"
-													onChange={onFileUpload}
-													accept=".jpg,.jpeg,.png,.pdf,.pptx,.ppt,.7z,.zip,.rar,.doc,.docx"
-												></input>
-											</Grid>
-											<Grid item>
-												<Button
-													name="Submit"
-													type="submit"
-													addStyles="classSession_submit"
-												/>
+																		</div>
+																	</>
+																))}
+															<Grid item>
+																<button
+																	type="button"
+																	title="Add Instructor"
+																	onClick={() => arrayHelpers.push()}
+																	className="classSession_addInstructor"
+																>
+																	Add Instructor
+																</button>
+															</Grid>
+														</>
+													)}
+												</FieldArray>
+												<Grid
+													container
+													direction="column"
+													alignItems="center"
+													justify="center"
+												>
+													<Grid item >
+														<CustomTextField
+															name="group"
+															placeHolder="Group"
+															addStyles="classSession_inputField"
+														/>
+													</Grid>s
+													<Grid item className="classSession_description">
+														<CustomTextField
+															name="description"
+															placeHolder="Enter description"
+															addStyles="classSession_inputField"
+														/>
+													</Grid>
+													<Grid item className="classSession_upload">
+														<label for="resources">
+															<p className="classSession_uploadText">
+																Upload resources:
+															</p>
+														</label>
+														<input
+															id="resources"
+															name="resources"
+															type="file"
+															onChange={onFileUpload}
+															accept=".jpg,.jpeg,.png,.pdf,.pptx,.ppt,.7z,.zip,.rar,.doc,.docx"
+														></input>
+													</Grid>
+												</Grid>
+
+												<Grid item>
+													<Button
+														name="Submit"
+														type="submit"
+														addStyles="classSession_submit"
+													/>
+												</Grid>
 											</Grid>
 										</Grid>
-									</Grid>
-								</Form>
-							</>
-						)}
-					</Formik>
+									</Form>
+								</>
+							)}
+						</Formik>
+					</Grid>
 				</Grid>
 			</DashboardLayout>
 		</>
