@@ -32,7 +32,17 @@ async def get_group(
         return group
 
     if current_user.user_type == settings.UserType.TEACHER.value:
-        return current_user.teacher_group
+        groups = []
+        for eachteachergroup in current_user.teacher_group:
+            group = crud_group.get(db, id=eachteachergroup.group_id)
+            course = None
+            for eachcourse in group.course:
+                if eachcourse.id == eachteachergroup.course_id:
+                    course = eachcourse
+                    break
+            group.course = [course]
+            groups.append(group)
+        return groups
 
     if current_user.user_type <= settings.UserType.ADMIN.value:
         group = crud_group.get_multi(db, skip=skip, limit=limit)
@@ -62,7 +72,11 @@ async def create_group(
 # teacher: can get a specific group only if it exists in their groups_list
 # superadmin and admin, no restriction, can get any group by id
 @router.get("/{id}", response_model=Group, summary="Get specific group")
-@router.get("/{id}/student", response_model=GroupStudentReturn, summary="Get students of specific group")
+@router.get(
+    "/{id}/student",
+    response_model=GroupStudentReturn,
+    summary="Get students of specific group",
+)
 async def get_specific_group(
     db: Session = Depends(deps.get_db),
     *,
