@@ -32,7 +32,7 @@ async def get_group(
         return group
 
     if current_user.user_type == settings.UserType.TEACHER.value:
-        return current_user.teacher_group
+        return [teacher_group_link.group for teacher_group_link in current_user.teacher_group]
 
     if current_user.user_type <= settings.UserType.ADMIN.value:
         group = crud_group.get_multi(db, skip=skip, limit=limit)

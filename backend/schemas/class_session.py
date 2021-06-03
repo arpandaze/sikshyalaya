@@ -3,7 +3,7 @@ from typing import Optional, List
 
 from pydantic import BaseModel
 from typing import Any
-from schemas.user import UserReturnMin, TeacherOfClassSession
+from schemas.user import UserReturnMin, TeacherShort
 from schemas.course import Course
 from schemas.file import FileClassSessionReturn
 
@@ -42,14 +42,14 @@ class ClassSessionInDBBase(ClassSessionBase):
 
 
 class ClassSession(ClassSessionInDBBase):
-    instructor: List[TeacherOfClassSession]
+    instructor: List[TeacherShort]
     pass
 
 
 class ClassSessionReturn(BaseModel):
     start_time: datetime
     end_time: datetime
-    instructor: List[TeacherOfClassSession]
+    instructor: List[TeacherShort]
     course: Course
     group_id: int
     description: str

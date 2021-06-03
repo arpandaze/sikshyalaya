@@ -26,6 +26,16 @@ function App() {
         },
       ],
     },
+    teacher_group: [
+      {
+        group: {
+          program: {
+            name: null,
+          },
+        },
+        sem: null,
+      },
+    ],
     contact_number: null,
     dob: null,
     join_year: null,

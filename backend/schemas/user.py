@@ -1,5 +1,6 @@
 from typing import Optional, List
 from datetime import date
+from schemas.program import ProgramInDB
 from schemas.group import GroupSignInReturn, Group
 from core.config import settings
 
@@ -48,7 +49,7 @@ class UserReturnMin(BaseModel):
         orm_mode = True
 
 
-class TeacherOfClassSession(BaseModel):
+class TeacherShort(BaseModel):
     id: int
     full_name: str
 
@@ -83,6 +84,19 @@ class User(UserInDBBase):
     pass
 
 
+class GroupOfTeacherGroupOfUser(BaseModel):
+    id: int
+    sem: int
+    program: ProgramInDB
+    class Config:
+        orm_mode = True
+
+class TeacherGroupOfUser(BaseModel):
+    group_id: int
+    group: GroupOfTeacherGroupOfUser
+    class Config:
+        orm_mode = True
+
 class UserReturn(BaseModel):
     id: int = None
     email: Optional[EmailStr] = None
@@ -90,6 +104,7 @@ class UserReturn(BaseModel):
     full_name: Optional[str] = None
     address: str = None
     group: GroupSignInReturn = None
+    teacher_group: List[TeacherGroupOfUser] = None
     contact_number: str = None
     dob: date = None
     join_year: Optional[int] = None
