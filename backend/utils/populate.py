@@ -162,6 +162,7 @@ def populate_quiz():
                 group=quiz["group"],
                 instructor=quiz["instructor"],
                 course_id=quiz["course_id"],
+                date=quiz["date"],
             )
 
             crud_quiz.create(db, obj_in=quiz)
