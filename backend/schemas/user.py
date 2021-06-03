@@ -1,5 +1,6 @@
-from typing import Optional, List
+from typing import Any, Optional, List
 from datetime import date
+
 from schemas.group import GroupSignInReturn, Group
 from core.config import settings
 
@@ -90,6 +91,7 @@ class UserReturn(BaseModel):
     full_name: Optional[str] = None
     address: str = None
     group: GroupSignInReturn = None
+    teacher_group: List[Any] = None
     contact_number: str = None
     dob: date = None
     join_year: Optional[int] = None
