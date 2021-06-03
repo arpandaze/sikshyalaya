@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Formik, Form, Field, FieldArray } from "formik";
 import Button from "../../components/Button";
 import DashboardLayout from "../../components/DashboardLayout";
@@ -8,7 +8,7 @@ import Checkbox from "./../../components/Checkbox";
 import Grid from "@material-ui/core/Grid";
 import DateFnsUtils from "@date-io/date-fns";
 import { ImCross } from "react-icons/im";
-import { format } from "date-fns";
+import { formatISO } from "date-fns";
 import { Tooltip } from "@material-ui/core";
 import { BsCloudUpload } from "react-icons/bs";
 import {
@@ -19,26 +19,57 @@ import {
 import { BiTimeFive } from "react-icons/bi";
 import "./statics/css/quizCreator.css";
 import colorscheme from "../../utils/colors";
+import { UserContext } from "../../utils/Contexts/UserContext";
+import callAPI from "../../utils/API";
+import useAPI from "../../utils/useAPI";
 
 const validationSchema = yup.object({
   quiz_title: yup.string("Enter the title of the quiz"),
   quiz_description: yup.string("Enter description"),
 });
 
-const questionType = [
-  {
-    name: "Text",
-    value: 1,
-  },
-  {
-    name: "Image",
-    value: 2,
-  },
-];
-
 let answerList = [];
+const groupFormatter = (response) => {
+  if (!response.data.length) {
+    console.log("NO RESPONSE DATA");
+    return [];
+  }
+  let responseData = [];
+  responseData = response.data.map((data) => {
+    let formattedData = {
+      id: data.id,
+      semester: data.sem,
+      program_id: data.program.id,
+      program_name: data.program.name,
+      course_id: data.course[0].id,
+      course_code: data.course[0].course_code,
+      course_name: data.course[0].course_name,
+    };
+
+    return formattedData;
+  });
+
+  return responseData;
+};
 
 const QuizCreator = () => {
+  const { user } = useContext(UserContext);
+  const groupList = [];
+
+  const [groups, groupsComplete] = useAPI(
+    { endpoint: "/api/v1/group/" },
+    groupFormatter
+  );
+
+  if (groups && groups.length && groupsComplete) {
+    groups.map((group, index) => {
+      groupList.push({
+        name: `${group.program_name}, Sem ${group.semester} [Course ${group.course_code}]`,
+        value: { group: group.id, course: group.course_id },
+      });
+    });
+  }
+
   const questionInitialValue = {
     question_text: "",
     question_image: "",
@@ -64,16 +95,44 @@ const QuizCreator = () => {
     setSelectedImage({ ...selectImage, [e.target.id]: e.target.files[0] });
   };
 
-  // useEffect(() => {
-  //   console.log("SelectImage:", selectImage);
-  //   console.log("temp Image", tempImage);
-  // }, [selectImage, tempImage]);
+  const quizPostFormatter = (quiz) => {
+    const postquizValues = {
+      end_time: quiz.end_time,
+      start_time: quiz.start_time,
+      date: quiz.quiz_date,
+      title: quiz.quiz_title,
+      description: quiz.quiz_description,
+      is_randomized: quiz.isRandomized,
+      display_individual: false,
+      group: [quiz.whoseQuizInfo.group],
+      instructor: [user.id],
+      course_id: quiz.whoseQuizInfo.course,
+    };
 
-  //TODO make it possible to add multiple images to the question
-  const onSubmitHandler = (values) => {
+    return postquizValues;
+  };
+
+  const onSubmitHandler = async (values) => {
     let quiz = values;
     let questions = quiz.questions;
     delete quiz.questions;
+
+    quiz = quizPostFormatter(quiz);
+
+    console.log(quiz);
+    let newQuizId = null;
+    try {
+      const postResponse = await callAPI({
+        endpoint: `/api/v1/quiz/`,
+        method: "POST",
+        data: quiz,
+      });
+      newQuizId = postResponse.id;
+    } catch (e) {}
+
+    if (newQuizId !== null) {
+      console.log("POST QuESTIONS");
+    }
 
     if (questions) {
       questions.map((question, index) => {
@@ -82,9 +141,6 @@ const QuizCreator = () => {
         }
       });
     }
-
-    console.log("quiz: ", quiz);
-    console.log("questions: ", questions);
   };
 
   return (
@@ -110,6 +166,7 @@ const QuizCreator = () => {
                 start_time: "",
                 end_time: "",
                 isRandomized: false,
+                whoseQuizInfo: null,
               }}
               validationSchema={validationSchema}
               onSubmit={(values) => {
@@ -118,7 +175,6 @@ const QuizCreator = () => {
             >
               {({ values, setFieldValue }) => (
                 <>
-                  {console.log(values)}
                   <Form className="quizCreator_formBox">
                     <Grid
                       container
@@ -151,7 +207,12 @@ const QuizCreator = () => {
                           className="quizCreator_descriptionField"
                         />
                       </Grid>
-
+                      <CustomTextField
+                        name="whoseQuizInfo"
+                        dropdown={true}
+                        menuItems={groupList}
+                        placeHolder="Choose Group"
+                      />
                       <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <Grid
                           container
@@ -174,7 +235,9 @@ const QuizCreator = () => {
                               onChange={(value) => {
                                 setFieldValue(
                                   "quiz_date",
-                                  format(value, "MM/dd/yyyy")
+                                  formatISO(value, {
+                                    representation: "date",
+                                  })
                                 );
                                 setQuizDate(value);
                               }}
@@ -190,7 +253,9 @@ const QuizCreator = () => {
                               onChange={(value) => {
                                 setFieldValue(
                                   "start_time",
-                                  format(value, "hh:mm a")
+                                  formatISO(value, {
+                                    representation: "time",
+                                  })
                                 );
                                 setStartTime(value);
                               }}
@@ -210,7 +275,9 @@ const QuizCreator = () => {
                               onChange={(value) => {
                                 setFieldValue(
                                   "end_time",
-                                  format(value, "hh:mm a")
+                                  formatISO(value, {
+                                    representation: "time",
+                                  })
                                 );
                                 setEndTime(value);
                               }}
