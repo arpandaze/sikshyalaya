@@ -38,12 +38,15 @@ class Group(GroupInDBBase):
 class StudentOfGroup(BaseModel):
     id: int
     full_name: str
+
     class Config:
         orm_mode = True
+
 
 class GroupStudentReturn(BaseModel):
     id: Optional[int]
     student: List[StudentOfGroup]
+
     class Config:
         orm_mode = True
 
@@ -57,10 +60,21 @@ class GroupSignInReturn(BaseModel):
     class Config:
         orm_mode = True
 
+
 class GroupReturn(BaseModel):
     id: Optional[int]
     sem: int
     program: Program
+
+    class Config:
+        orm_mode = True
+
+
+class GroupWithProgram(BaseModel):
+    id: Optional[int]
+    sem: int
+    program: Program
+    course: List[Course]
 
     class Config:
         orm_mode = True
