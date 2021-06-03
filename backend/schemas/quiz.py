@@ -1,7 +1,7 @@
 from datetime import date, time
-from typing import Optional, List, Dict  # noqa
+from typing import Optional, List  # noqa
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Json
 from schemas import GroupReturn, UserReturnMin
 
 
@@ -50,29 +50,19 @@ class Quiz(QuizInDBBase):
 class QuizQuestionBase(BaseModel):
     question_text: str = None
     question_image: List[str] = None
-    option_image: List[str] = None
-    option: List[str] = None
-    answer_image: List[int] = None
+    options: Json
     answer: List[int] = None
     quiz_id: int
 
 
 class QuizQuestionCreate(QuizQuestionBase):
-    question_text: str = None
-    question_image: List[str] = None
-    option_image: List[str] = None
-    option: List[str] = None
-    answer_image: List[int] = None
-    answer: List[int] = None
-    quiz_id: int
+    pass
 
 
 class QuizQuestionUpdate(QuizQuestionBase):
     question_text: str = None
     question_image: List[str] = None
-    option_image: List[str] = None
-    option: List[str] = None
-    answer_image: List[int] = None
+    options: Json = None
     answer: List[int] = None
     quiz_id: int
 

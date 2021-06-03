@@ -73,7 +73,7 @@ async def create_quiz(
     current_user: User = Depends(deps.get_current_active_teacher_or_above),
 ) -> Any:
     quiz = crud_quiz.create(db, obj_in=obj_in)
-    return {"msg": "success"}
+    return {"msg": "success", "id": quiz.id}
 
 
 @router.get("/{id}", response_model=Quiz)
@@ -162,27 +162,32 @@ async def create_question(
     obj_in: QuizQuestionCreate,
     current_user: User = Depends(deps.get_current_active_teacher_or_above),
 ) -> Any:
+
+    obj_in.question_image = "question"
+    obj_in.options = [
+        {"image": eachDict["image"] if eachDict["image"] == "" else f"Options{index+1}"}
+        for index, eachDict in enumerate(obj_in.options)
+    ]
+
     question = crud_question.create(db, obj_in=obj_in)
 
     # if the question is said to have a IMAGE then only create the folder to store the image
-    if question.question_image:
-        FILE_PATH_QUESTION = os.path.join(
-            settings.UPLOAD_DIR_ROOT,
-            QUIZ_QUESTION_UPLOAD_DIR,
-            f"{quizid}/{question.id}",
-        )
+    FILE_PATH_QUESTION = os.path.join(
+        settings.UPLOAD_DIR_ROOT,
+        QUIZ_QUESTION_UPLOAD_DIR,
+        f"{quizid}/{question.id}",
+    )
 
-        if not os.path.exists(FILE_PATH_QUESTION):
-            os.makedirs(FILE_PATH_QUESTION)
+    if not os.path.exists(FILE_PATH_QUESTION):
+        os.makedirs(FILE_PATH_QUESTION)
 
     # if the Options in answer is said to have a IMAGE then only create the folder to store the image
-    if question.option_image:
-        FILE_PATH_OPTION = os.path.join(
-            settings.UPLOAD_DIR_ROOT, QUIZ_OPTION_UPLOAD_DIR, f"{quizid}/{question.id}"
-        )
+    FILE_PATH_OPTION = os.path.join(
+        settings.UPLOAD_DIR_ROOT, QUIZ_OPTION_UPLOAD_DIR, f"{quizid}/{question.id}"
+    )
 
-        if not os.path.exists(FILE_PATH_OPTION):
-            os.makedirs(FILE_PATH_OPTION)
+    if not os.path.exists(FILE_PATH_OPTION):
+        os.makedirs(FILE_PATH_OPTION)
 
     return {"msg": "success"}
 
@@ -199,19 +204,15 @@ async def update_question(
 
     question = crud_question.get(db, id)
 
-    current_directory = os.getcwd()
-
     # on question_type update, create folder to store image if not already present
-    if question.question_image & obj_in.question_image:
-        FILE_PATH_QUESTION = os.path.join(
-            settings.UPLOAD_DIR_ROOT,
-            QUIZ_QUESTION_UPLOAD_DIR,
-            f"{quizid}/{question.id}",
-        )
+    FILE_PATH_QUESTION = os.path.join(
+        settings.UPLOAD_DIR_ROOT,
+        QUIZ_QUESTION_UPLOAD_DIR,
+        f"{quizid}/{question.id}",
+    )
 
-        FILE_PATH_QUESTION = os.path.join(current_directory, FILE_PATH_QUESTION)
-        if not os.path.exists(FILE_PATH_QUESTION):
-            os.makedirs(FILE_PATH_QUESTION)
+    if not os.path.exists(FILE_PATH_QUESTION):
+        os.makedirs(FILE_PATH_QUESTION)
 
     # on option_type update, create folder to store image if not already present
     if (obj_in.answer_type == AnswerType.IMAGE_OPTIONS.value) and (
