@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date, time
 from typing import Optional, List, Dict  # noqa
 
 from pydantic import BaseModel
@@ -6,8 +6,9 @@ from schemas import GroupReturn, UserReturnMin
 
 
 class QuizBase(BaseModel):
-    end_time: datetime
-    start_time: datetime
+    end_time: time
+    start_time: time
+    date: date
     title: str
     description: str
     is_randomized: bool

@@ -5,14 +5,13 @@ from sqlalchemy import (
     Integer,
     ForeignKey,
     String,
-    DateTime,
+    Date,
+    Time,
     Boolean,
     ARRAY,
-    JSON,
 )
 import enum
 from sqlalchemy.orm import relationship
-from sqlalchemy.sql.elements import Null
 from .association_tables import (
     group_quiz_association_table,
     instructor_quiz_association_table,
@@ -23,8 +22,9 @@ from core.db import Base
 
 class Quiz(Base):
     id = Column(Integer, primary_key=True)
-    end_time = Column(DateTime)
-    start_time = Column(DateTime)
+    date = Column(Date)
+    end_time = Column(Time)
+    start_time = Column(Time)
     title = Column(String, nullable=True)
     description = Column(String, nullable=True)
     is_randomized = Column(Boolean, default=False)
