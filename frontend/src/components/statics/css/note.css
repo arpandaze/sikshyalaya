@@ -1,8 +1,30 @@
 @import "../../../utils/colors.css";
-@media only screen and (min-width: 1920px) {
+
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  20% {
+    transform: translate(-1px, 0px) rotate(1deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  60% {
+    transform: translate(-1px, 1px) rotate(0deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  100% {
+    transform: translate(1px, -1px) rotate(-1deg);
+  }
+}
+
+@media only screen and (min-width: 1366px) {
   .note_root {
     width: 100% !important;
-    height: 880px;
+    height: 700px;
     position: relative;
     background: var(--white);
     border-radius: 20px;
@@ -11,83 +33,69 @@
   }
   .note_notePadTop {
     width: 100%;
-    height: 80px;
+    height: 60px;
   }
   .note_titleTextContainer {
     margin: 0px;
-    height: 80px;
+    height: 60px;
     position: relative;
   }
   .note_titleText {
-    width: 680px;
+    height: 60px;
     position: relative;
     font-weight: 600;
-    font-size: 1.5em;
+    font-size: 1.4em;
     cursor: text;
     position: relative;
     margin: 0px;
-    line-height: 3.3em;
-    margin-left: 40px;
+    margin-left: 30px;
     outline: none;
     border: 0;
   }
   .note_titleText:focus {
   }
   .note_closeButtonContainer {
-    height: 80px;
+    height: 60px;
   }
   .note_closeButton {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
     cursor: pointer;
-    padding: 8px;
+    padding: 12px;
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 5px;
+    right: 10px;
+    margin: 0;
   }
   .note_notePadBot {
     width: 100%;
-    height: 750px;
+    height: 700px;
     text-align: justify;
     position: relative;
-  }
-  .note_contentTextContainer {
-    width: 90%;
-    height: 695px;
-    margin: 0px auto !important;
-    text-align: justify;
-    overflow: hidden;
-  }
-  .note_contentText {
-    position: relative;
-    font-size: 1.15em;
-    line-height: 1.8em;
-  }
-  .note_quillNotes {
   }
   .note_tagLabel {
     margin: 0;
   }
   .note_TagCreatorContainer {
     width: 90%;
-    height: 30px;
+    height: 35px;
     margin: 10px auto !important;
   }
   .note_tagIconContainer {
     position: relative;
-    top: 2px;
+    top: 3px;
   }
   .note_TagIcon {
-    width: 22px;
-    height: 22px;
+    width: 25px;
+    height: 25px;
   }
   .note_TagCreatorInside {
-    height: 30px;
+    height: 35px;
     position: relative;
   }
   .note_tagListContainer {
-    height: 30px;
+    height: 35px;
   }
   .note_tag {
     margin-left: 10px !important;
@@ -112,26 +120,6 @@
     animation: shake 0.2s;
     background-color: var(--red4);
   }
-  @keyframes shake {
-    0% {
-      transform: translate(1px, 1px) rotate(0deg);
-    }
-    20% {
-      transform: translate(-1px, 0px) rotate(1deg);
-    }
-    40% {
-      transform: translate(1px, -1px) rotate(1deg);
-    }
-    60% {
-      transform: translate(-1px, 1px) rotate(0deg);
-    }
-    80% {
-      transform: translate(-1px, -1px) rotate(1deg);
-    }
-    100% {
-      transform: translate(1px, -1px) rotate(-1deg);
-    }
-  }
   .note_tagAddInput {
     width: 80px;
     height: 28px;
@@ -142,134 +130,97 @@
     outline: none;
     border: 0px;
   }
+  .note_reactQuillContainer {
+    width: 100%;
+  }
+  .note_contentTextContainer {
+    width: 95%;
+    height: 510px;
+    margin: 0px auto !important;
+    text-align: justify;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+  .note_contentText {
+    position: relative;
+    font-size: 1em;
+    line-height: 1.2em;
+  }
   .note_notePadFooter {
     width: 100%;
+    height: 65px;
+    margin-top: 20px !important;
   }
   .note_timeContainer {
     position: relative;
-    left: 300px;
+    left: 200px;
   }
   .note_timeText {
-    padding: 0;
+    margin: 0;
     font-weight: 450;
-    font-size: 1em;
+    font-size: 0.85em;
     color: var(--secondaryTextColor);
   }
   .note_saveButtonContainer {
     position: absolute;
-    right: 10px;
+    right: 20px;
   }
   .note_saveButton {
     bottom: 50px;
-    width: 20px;
-    height: 20px;
-    padding: 8px;
+    width: 18px;
+    height: 18px;
+    padding: 10px;
     border-radius: 100%;
     cursor: pointer;
   }
-  .note_reactQuillContainer {
-    min-height: 680px;
-  }
   .note_trashButtonContainer {
     position: relative;
-    left: 10px;
+    left: 20px;
   }
   .note_trashButton {
-    width: 20px;
-    height: 20px;
-    padding: 8px;
+    width: 18px;
+    height: 18px;
+    padding: 10px;
     border-radius: 50%;
     cursor: pointer;
   }
 }
 
-@media only screen and (max-width: 1919px) {
+@media only screen and (min-width: 1920px) {
   .note_root {
-    width: 100% !important;
-    height: 92vh;
-    position: relative;
-    background: var(--white);
-    border-radius: 20px;
-    box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);
-    flex-grow: 1;
+    height: 880px;
   }
   .note_notePadTop {
-    width: 100%;
-    height: 60px;
+    height: 80px;
   }
   .note_titleTextContainer {
-    position: relative;
-    height: 100%;
+    height: 80px;
   }
   .note_titleText {
-    width: 63%;
-    position: relative;
-    font-weight: bold;
-    font-size: 1.2em;
-    cursor: text;
-    position: relative;
-    margin: 0px;
-    margin-left: 2% !important;
-    outline: none;
-    border: 0;
+    height: 80px;
+    font-size: 1.5em;
+    margin-left: 40px;
   }
-  .note_timeContainer {
-    height: 100%;
-    bottom: 10px;
-    position: absolute;
-    top: 0px;
-  }
-  .note_timeText {
-    padding: 0;
-    position: relative;
-    bottom: 10px;
-    right: 10px;
-    font-weight: 450;
-    font-size: 0.9em;
-    color: var(--secondaryTextColor);
-  }
-  .note_notePadBot {
-    width: 100%;
-    height: 70vh;
-    text-align: justify;
-    position: relative;
-    top: 25px;
-  }
-  .note_contentTextContainer {
-    width: 88%;
-    text-align: justify;
-    line-height: 1.85em;
-    position: relative;
-    left: 5%;
-  }
-  .note_contentText {
-    position: relative;
-    font-size: 1em;
-  }
-  .note_closeButtonContainer {
-    height: 60px;
+  .note_titleText:focus {
   }
   .note_closeButton {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    padding: 8px;
-    cursor: pointer;
-    position: absolute;
-    top: 2%;
-    right: 1.5%;
+    width: 25px;
+    height: 25px;
   }
-  .note_trashButtonContainer {
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
+  .note_notePadBot {
+    height: 750px;
   }
-  .note_trashButton {
-    width: 20px;
-    height: 20px;
-    padding: 8px;
-    border-radius: 50%;
-    color: var(--red4);
-    cursor: pointer;
+  .note_contentTextContainer {
+    height: 670px;
+  }
+  .note_contentText {
+    font-size: 1.1em;
+    line-height: 1.4em;
+  }
+  .note_timeContainer {
+    left: 290px;
+  }
+  .note_timeText {
+    font-size: 0.95em;
   }
 }

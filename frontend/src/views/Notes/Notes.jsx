@@ -194,7 +194,6 @@ const Notes = () => {
       <Grid
         container
         direction="row"
-        justify="flex-start"
         alignItems="center"
         className="notes_root"
       >

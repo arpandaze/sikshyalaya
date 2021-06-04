@@ -1,3 +1,17 @@
+@media only screen and (min-width: 1366px) {
+  .buttonIcon {
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    cursor: pointer;
+  }
+  .button {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+  }
+}
+
 @media only screen and (min-width: 1920px) {
   .buttonIcon {
     width: 35px;
@@ -8,20 +22,6 @@
   .button {
     width: 35px;
     height: 35px;
-    border-radius: 50%;
-  }
-}
-
-@media only screen and (max-width: 1919px) {
-  .buttonIcon {
-    width: 28px;
-    height: 28px;
-    position: absolute;
-    cursor: pointer;
-  }
-  .button {
-    width: 28px;
-    height: 28px;
     border-radius: 50%;
   }
 }

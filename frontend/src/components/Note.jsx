@@ -177,7 +177,6 @@ const Note = ({
           </Grid>
         </Grid>
       </Grid>
-
       <Grid item className="note_notePadFooter">
         <Grid container direction="row" alignItems="center">
           <Grid item className="note_trashButtonContainer">

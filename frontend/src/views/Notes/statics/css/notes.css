@@ -1,74 +1,6 @@
 @import "../../../../utils/colors.css";
 
-@media only screen and (min-width: 1920px) {
-  .notes_root {
-    width: 96% !important;
-    margin: 0px auto !important;
-    position: relative;
-    flex-grow: 1;
-  }
-  .notes_creator {
-    height: 96vh;
-    overflow: scroll;
-    overflow-x: hidden;
-  }
-  .notes_creatorInside {
-    margin: 0px auto !important;
-  }
-  .notes_creatorTop {
-    height: 120px !important;
-  }
-  .notes_creatorTopInside {
-    height: 120px !important;
-  }
-  .notes_textContainer {
-  }
-  .notes_text {
-    margin: 0;
-    font-weight: bold !important;
-    font-size: 2.5em !important;
-  }
-  .notes_creatorBot {
-    position: relative !important;
-  }
-  .notes_pad {
-    height: 100vh !important;
-  }
-  .notes_sidebarComponent {
-    padding: 10px !important;
-  }
-  .notes_padArea {
-  }
-  .notes_padTop {
-    width: 86% !important;
-    position: relative !important;
-    left: 25px !important;
-  }
-  .notes_padBot {
-    width: 100%;
-    position: relative !important;
-    top: 10px !important;
-    left: 0px !important;
-  }
-  .notes_sidebarcontainer {
-  }
-  .notes_padContainer {
-    position: relative !important;
-    top: 5% !important;
-  }
-  .notes_plusIcon {
-    cursor: pointer;
-    position: relative;
-    height: 30px !important;
-  }
-  .notes_gridIconsContainer {
-    width: 70px !important;
-    float: right !important;
-    cursor: pointer !important;
-  }
-}
-
-@media only screen and (max-width: 1919px) {
+@media only screen and (min-width: 1366px) {
   .notes_root {
     width: 98% !important;
     margin: 0px auto !important;
@@ -77,25 +9,36 @@
   }
   .notes_creator {
     height: 96vh;
-    overflow: scroll;
-    overflow-x: hidden;
+    overflow: hidden;
+    overflow-y: scroll;
+  }
+  .notes_sidebarContainer {
+    width: 100%;
   }
   .notes_creatorInside {
+    width: 100% !important;
     margin: 0px auto !important;
   }
   .notes_creatorTop {
-    height: 90px !important;
+    height: 60px !important;
+    line-height: 60px;
   }
   .notes_creatorTopInside {
-    height: 90px !important;
+    height: 60px !important;
   }
   .notes_textContainer {
-    height: 90px !important;
+    height: 60px !important;
   }
   .notes_text {
+    height: 60px !important;
+    margin: 0;
     font-weight: bold !important;
     font-size: 1.9em !important;
-    margin-left: 5%;
+  }
+  .notes_plusIcon {
+    cursor: pointer !important;
+    position: relative;
+    height: 40px;
   }
   .notes_creatorBot {
     position: relative !important;
@@ -104,9 +47,8 @@
     height: 100vh !important;
   }
   .notes_sidebarComponent {
-    padding: 10px !important;
-  }
-  .notes_padArea {
+    width: 100%;
+    margin-top: 10px !important;
   }
   .notes_padTop {
     width: 86% !important;
@@ -116,23 +58,37 @@
   .notes_padBot {
     width: 100%;
     position: relative !important;
-    top: 10px !important;
-  }
-  .notes_sidebarcontainer {
+    top: 0px !important;
   }
   .notes_padContainer {
     position: relative !important;
     top: 5% !important;
   }
-  .notes_plusIcon {
-    cursor: pointer !important;
-    position: relative;
-    top: 8%;
-    right: 5%;
-  }
   .notes_gridIconsContainer {
     width: 70px !important;
     float: right !important;
     cursor: pointer !important;
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  .notes_root {
+    width: 96% !important;
+  }
+  .notes_creatorTop {
+    height: 90px !important;
+  }
+  .notes_creatorTopInside {
+    height: 90px !important;
+  }
+  .notes_text {
+    height: 90px !important;
+    margin: 0;
+    font-size: 2.5em !important;
+  }
+  .notes_plusIcon {
+    cursor: pointer;
+    position: relative;
+    height: 30px !important;
   }
 }

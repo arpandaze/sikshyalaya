@@ -4,7 +4,7 @@ import "./statics/css/courseBox.css";
 
 const CourseBox = ({ courseList, selected, ...rest }) => {
   return (
-    <Grid container className="courseBox_root">
+    <Grid container direction="column" className="courseBox_root">
       <p className="courseBox_courseTextTitle">Your Courses</p>
       {courseList.map((course) => (
         <div key={course.sn} className="courseBox_courseDetailBoxContainer">

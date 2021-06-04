@@ -1,4 +1,7 @@
 @import "../../../utils/colors.css";
+
+@media only screen and (min-width: 1366px) {
+}
 @media only screen and (min-width: 1920px) {
   .notifBox_root {
     width: 20vw;
@@ -18,7 +21,4 @@
     font-weight: bold;
     font-size: 1.8em;
   }
-}
-
-@media only screen and (max-width: 1919px) {
 }

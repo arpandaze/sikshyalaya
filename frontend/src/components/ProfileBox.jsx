@@ -48,7 +48,7 @@ const ProfileBox = () => {
         alignItems="center"
         className="profileBox_root"
       >
-        <Grid item sm={5} xl={5} className="profileBox_imageSide">
+        <Grid item sm={5} className="profileBox_imageSide">
           <Link to="/profile">
             <div className="profileBox_profileImage">
               <Image
@@ -67,8 +67,8 @@ const ProfileBox = () => {
             </div>
           </Link>
         </Grid>
-        <Grid item sm={7} xl={7} className="profileBox_textSide">
-          <Grid container direction="column" justify="center">
+        <Grid item sm={7} className="profileBox_textSide">
+          <Grid container direction="column" alignItems="center">
             <Grid item className="profileBox_textBoxTop">
               <Grid container direction="row">
                 <Grid item className="profileBox_textBox1">

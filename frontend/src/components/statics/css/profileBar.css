@@ -1,30 +1,25 @@
 @import "../../../utils/colors.css";
-@media only screen and (min-width: 1920px) {
+
+@media only screen and (min-width: 1366px) {
   .profileBar_root {
     flex-grow: 1;
     margin-bottom: 20px;
   }
   .profileBar_profileBox {
     width: 85% !important;
-    margin-top: 10% !important;
+    margin-top: 5% !important;
   }
   .profileBar_courseBox {
     width: 85% !important;
-    margin-top: 10% !important;
+    margin-top: 5% !important;
   }
 }
 
-@media only screen and (max-width: 1919px) {
-  .profileBar_root {
-    flex-grow: 1;
-    margin-bottom: 20px;
-  }
+@media only screen and (min-width: 1920px) {
   .profileBar_profileBox {
-    width: 85% !important;
-    margin-top: 5% !important;
+    margin-top: 10% !important;
   }
   .profileBar_courseBox {
-    width: 85% !important;
-    margin-top: 5% !important;
+    margin-top: 10% !important;
   }
 }

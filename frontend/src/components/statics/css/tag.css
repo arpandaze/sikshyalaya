@@ -1,4 +1,30 @@
 @import "../../../utils/colors.css";
+
+@media only screen and (min-width: 1366px) {
+  .tag_root {
+    height: 30px;
+    line-height: 30px;
+    flex-grow: 1;
+    background-color: var(--grey4);
+    cursor: pointer;
+    margin-left: 5px !important;
+  }
+  .tag_root:hover {
+    background-color: var(--grey4);
+    color: var(--thirdTextColor);
+  }
+  .tag_root:hover .noteTagButton {
+    background-color: var(--grey4);
+    text-decoration: line-through;
+  }
+  .noteTagButton {
+    font-size: 0.85em;
+    position: relative;
+    left: 2px;
+    background-color: var(--grey4);
+  }
+}
+
 @media only screen and (min-width: 1920px) {
   .tag_root {
     height: 30px;
@@ -19,11 +45,7 @@
   .noteTagButton {
     font-size: 0.85em;
     position: relative;
-    top: -2px !important;
     left: 2px;
     background-color: var(--grey4);
   }
-}
-
-@media only screen and (max-width: 1919px) {
 }
