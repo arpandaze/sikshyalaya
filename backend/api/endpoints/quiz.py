@@ -31,8 +31,8 @@ from core.config import settings
 
 router = APIRouter()
 
-QUIZ_QUESTION_UPLOAD_DIR: str = "question_image"
-QUIZ_OPTION_UPLOAD_DIR: str = "option_image"
+QUIZ_QUESTION_UPLOAD_DIR: str = "quiz/question_image"
+QUIZ_OPTION_UPLOAD_DIR: str = "quiz/option_image"
 
 
 @router.get("/", response_model=List[Quiz])
@@ -189,7 +189,7 @@ async def create_question(
     if not os.path.exists(FILE_PATH_OPTION):
         os.makedirs(FILE_PATH_OPTION)
 
-    return {"msg": "success"}
+    return {"msg": "success", "id": question.id}
 
 
 @router.put("/{quizid}/question/{id}")
@@ -239,7 +239,7 @@ async def update_question(
 
 
 # FIXME: Uploaded files directory fix it
-@router.post("{quizid}/question/{id}/question_image/")
+@router.post("/{quizid}/question/{id}/question_image/")
 async def create_question_files(
     db: Session = Depends(deps.get_db),
     files: List[UploadFile] = File(...),
@@ -248,10 +248,11 @@ async def create_question_files(
     quizid: int,
     id: int,
 ):
-    # TODO: check if the file is an image?
+    print(f"I am here {quizid}")
     question = await get_specific_question(
         db, quizid=quizid, id=id, current_user=current_user
     )
+
     FILE_PATH = os.path.join(
         settings.UPLOAD_DIR_ROOT, QUIZ_QUESTION_UPLOAD_DIR, f"{quizid}/{id}"
     )
@@ -262,8 +263,9 @@ async def create_question_files(
             content = await file.read()
             await f.write(content)
 
-    obj_in = QuizQuestionUpdate(question_image=[file.filename for file in files])
-    print(obj_in)
+    obj_in = QuizQuestionUpdate(
+        quiz_id=quizid, question_image=[file.filename for file in files]
+    )
     updated = crud_question.update(db=db, db_obj=question, obj_in=obj_in)
 
     return updated
