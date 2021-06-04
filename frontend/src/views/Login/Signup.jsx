@@ -12,20 +12,6 @@ import CustomTextField from "./../../components/CustomTextField";
 import useAPI from "../../utils/useAPI";
 import DelayedRedirect from "../../components/DelayedRedirect";
 
-const programNames = [
-  {
-    name: "Computer Science",
-    value: 10,
-  },
-  {
-    name: "Chemical Engineering",
-    value: 20,
-  },
-  {
-    name: "Civil Engineering",
-    value: 30,
-  },
-];
 const semester = [
   { name: "I", value: 1 },
   { name: "II", value: 2 },

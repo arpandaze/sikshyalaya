@@ -106,7 +106,7 @@ async def update_my_profile_photo(
 ):
     profiles_path = os.path.join(settings.UPLOAD_DIR_ROOT, "profiles")
     content_type = profile_photo.content_type
-    file_extension = content_type[content_type.index("/") + 1 :]
+    file_extension = content_type[content_type.index("/") + 1:]
     new_profile_image = f"{secrets.token_hex(nbytes=16)}.{file_extension}"
     profile_relative_path = os.path.join("profiles", new_profile_image)
     new_profile_image_file_path = os.path.join(
@@ -123,7 +123,8 @@ async def update_my_profile_photo(
     try:
         if current_user.profile_image != None:
             os.remove(
-                os.path.join(settings.UPLOAD_DIR_ROOT, current_user.profile_image)
+                os.path.join(settings.UPLOAD_DIR_ROOT,
+                             current_user.profile_image)
             )
     except Exception:
         pass
@@ -137,7 +138,7 @@ async def update_my_profile_photo(
     return {"msg": "success", "profile": new_profile_image}
 
 
-@router.get("/{user_id}", response_model=schemas.User)
+@router.get("/{user_id}", response_model=schemas.user.UserReturn)
 async def read_user_by_id(
     user_id: int,
     current_user: models.User = Depends(deps.get_current_active_user),
@@ -149,10 +150,15 @@ async def read_user_by_id(
     user = cruds.crud_user.get(db, id=user_id)
     if user == current_user:
         return user
-    if not cruds.crud_user.is_superuser(current_user):
+
+    if current_user.user_type > settings.UserType.ADMIN.value:
         raise HTTPException(
             status_code=400, detail="Error ID: 131"
         )  # The user doesn't have enough privileges
+    # if not cruds.crud_user.is_superuser(current_user):
+    #     raise HTTPException(
+    #         status_code=400, detail="Error ID: 131"
+    #     )  # The user doesn't have enough privileges
     return user
 
 
@@ -162,7 +168,8 @@ async def update_user(
     db: Session = Depends(deps.get_db),
     user_id: int,
     user_in: schemas.UserUpdate,
-    current_user: models.User = Depends(deps.get_current_active_superuser),
+    current_user: models.User = Depends(
+        deps.get_current_admin_or_above),
 ) -> Any:
     """
     Update a user.
@@ -195,7 +202,8 @@ async def update_profile_photo(
         os.makedirs(profile_image_path)
     else:
         if os.path.exists(os.path.join(profile_image_path, f"{user.profile_image}")):
-            os.remove(os.path.join(profile_image_path, f"{user.profile_image}"))
+            os.remove(os.path.join(
+                profile_image_path, f"{user.profile_image}"))
 
     async with aiofiles.open(profile_image_file_path, mode="wb") as f:
         content = await profile_photo.read()

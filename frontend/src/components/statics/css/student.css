@@ -12,12 +12,10 @@
   }
 
   .adminStudentBox_innerContainer {
-    height: 70px;
     position: relative;
   }
 
   .adminStudentBox_studentName {
-    height: 70px;
     font-weight: 500;
     font-size: 1.3em;
     position: relative;
@@ -25,14 +23,13 @@
     width: 75%;
   }
   .adminStudentBox_studentNameText {
+    margin: 0;
   }
   .adminStudentBox_editIcon {
     position: relative;
-    margin: 5px auto !important;
-    top: 20px;
     left: 90px;
-    width: 25px;
-    height: 25px;
+    width: 26px;
+    height: 26px;
   }
 }
 @media only screen and (max-width: 1919px) {
