@@ -162,12 +162,12 @@ async def create_question(
     obj_in: QuizQuestionCreate,
     current_user: User = Depends(deps.get_current_active_teacher_or_above),
 ) -> Any:
-
-    obj_in.question_image = "question"
-    obj_in.options = [
-        {"image": eachDict["image"] if eachDict["image"] == "" else f"Options{index+1}"}
-        for index, eachDict in enumerate(obj_in.options)
-    ]
+    obj_in.quiz_id = quizid
+    # obj_in.question_image = "question"
+    # obj_in.options = [
+    #     {"image": eachDict["image"] if eachDict["image"] == "" else f"Options{index+1}"}
+    #     for index, eachDict in enumerate(obj_in.options)
+    # ]
 
     question = crud_question.create(db, obj_in=obj_in)
 
