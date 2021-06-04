@@ -22,6 +22,7 @@ import colorscheme from "../../utils/colors";
 import { UserContext } from "../../utils/Contexts/UserContext";
 import callAPI from "../../utils/API";
 import useAPI from "../../utils/useAPI";
+import configs from "../../utils/configs";
 
 const validationSchema = yup.object({
   quiz_title: yup.string("Enter the title of the quiz"),
@@ -31,7 +32,6 @@ const validationSchema = yup.object({
 let answerList = [];
 const groupFormatter = (response) => {
   if (!response.data.length) {
-    console.log("NO RESPONSE DATA");
     return [];
   }
   let responseData = [];
@@ -112,6 +112,28 @@ const QuizCreator = () => {
     return postquizValues;
   };
 
+  const quizQuestionPostFormatter = (question, index, newQuizId) => {
+    question.answer = [question.answer];
+    question.question_image =
+      selectImage[`${index}`] && selectImage[`${index}`].name
+        ? [selectImage[`${index}`].name]
+        : null;
+    if (question.options && question.options.length) {
+      let newOption = [];
+      question.options.map((option) => {
+        let formattedOption = {
+          image: "",
+          text: option,
+        };
+        newOption.push(formattedOption);
+      });
+
+      question.options = JSON.stringify(newOption);
+    }
+    question.quiz_id = newQuizId;
+    return question;
+  };
+
   const onSubmitHandler = async (values) => {
     let quiz = values;
     let questions = quiz.questions;
@@ -119,28 +141,50 @@ const QuizCreator = () => {
 
     quiz = quizPostFormatter(quiz);
 
-    console.log(quiz);
     let newQuizId = null;
-    try {
-      const postResponse = await callAPI({
-        endpoint: `/api/v1/quiz/`,
-        method: "POST",
-        data: quiz,
-      });
-      newQuizId = postResponse.id;
-    } catch (e) {}
 
-    if (newQuizId !== null) {
-      console.log("POST QuESTIONS");
-    }
+    let postResponse = await callAPI({
+      endpoint: `/api/v1/quiz/`,
+      method: "POST",
+      data: quiz,
+    });
+    newQuizId = postResponse.data.id;
 
-    if (questions) {
-      questions.map((question, index) => {
-        if (selectImage[index]) {
-          question.question_image = selectImage[index].name;
-        }
-      });
+    if (postResponse.satus === 200 && newQuizId !== null) {
+      if (questions) {
+        questions.map(async (question, index) => {
+          let postQuestion = quizQuestionPostFormatter(
+            question,
+            index,
+            newQuizId
+          );
+          if (question) {
+            postResponse = await callAPI({
+              endpoint: `/api/v1/quiz/${newQuizId}/question`,
+              method: "POST",
+              data: postQuestion,
+            });
+            let questionImageData = new FormData();
+            if (postResponse.status === 200 && selectImage[`${index}`]) {
+              questionImageData.append(
+                `${selectImage[`${index}`]}`,
+                selectImage[`${index}`]
+              );
+
+              let imageResponse = await callAPI({
+                endpoint: ``,
+                method: "POST",
+                data: questionImageData,
+                headers: { "Content-Type": "multipart/form-data" },
+              });
+
+              console.log(imageResponse);
+            }
+          }
+        });
+      }
     }
+    setSelectedImage({});
   };
 
   return (
@@ -162,9 +206,9 @@ const QuizCreator = () => {
               initialValues={{
                 quiz_title: "",
                 quiz_description: "",
-                quiz_date: "",
-                start_time: "",
-                end_time: "",
+                quiz_date: quizDate,
+                start_time: startTime,
+                end_time: endTime,
                 isRandomized: false,
                 whoseQuizInfo: null,
               }}
