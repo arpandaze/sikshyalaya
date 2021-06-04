@@ -113,7 +113,6 @@ const StudentView = ({ match, ...rest }) => {
       contact_number: data.phone_number,
       dob: data.dob,
       join_year: parseInt(data.join_year),
-      password: data.password,
     };
 
     let response;
@@ -125,7 +124,7 @@ const StudentView = ({ match, ...rest }) => {
       });
       students.push({
         name: req_data.full_name,
-        value: response.data.id,
+        id: response.data.id,
       });
     } else {
       response = await callAPI({
