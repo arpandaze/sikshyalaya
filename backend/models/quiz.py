@@ -63,7 +63,7 @@ class QuizQuestion(Base):
     options = Column(JSON, nullable=False)
 
     # if IMAGE_Options present and answer == 0, then check answer_image
-    answer = Column(ARRAY(int), nullable=True)
+    answer = Column(ARRAY(Integer), nullable=True)
 
     quiz_id = Column(Integer, ForeignKey("quiz.id", ondelete="cascade"))
     quiz = relationship("Quiz", backref="question")
