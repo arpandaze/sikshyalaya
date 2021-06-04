@@ -21,9 +21,6 @@ class User(Base):
     email = Column(String, index=True, nullable=False, unique=True)
     group_id = Column(Integer, ForeignKey("group.id", ondelete="cascade"))
     group = relationship("Group", backref="student")
-    # teacher_group = relationship(
-    #     "Group", secondary=teacher_group_association_table, backref="teachers"
-    # )
     teacher_group = relationship(
         "TeacherGroupCourseAssociation", back_populates="teacher"
     )
