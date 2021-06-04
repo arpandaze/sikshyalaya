@@ -4,7 +4,13 @@ import configs from "./configs";
 import { clear } from "idb-keyval";
 
 const useAPI = (
-  { endpoint, method = "GET", params, data, withCredentials = true },
+  {
+    endpoint,
+    method = "GET",
+    params = null,
+    data = null,
+    withCredentials = true,
+  },
   formatter,
   defaults = null
 ) => {
