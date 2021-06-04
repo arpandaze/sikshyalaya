@@ -36,6 +36,15 @@ router = APIRouter()
 #     users = cruds.crud_user.get_multi(db, skip=skip, limit=limit)
 #     return users
 
+@router.get("/teacher", response_model=List[schemas.user.TeacherShort])
+def get_teachers(
+        db: Session = Depends(deps.get_db),
+        skip: int = 0,
+        limit: int = 200,
+        current_user: models.User = Depends(deps.get_current_active_teacher_or_above),
+) -> Any:
+    teachers = db.query(models.User).filter(models.User.user_type==settings.UserType.TEACHER.value).all()
+    return teachers
 
 @router.get("/", response_model=schemas.User)
 async def read_users(
@@ -86,7 +95,8 @@ async def update_user_me(
     return user
 
 
-@router.get("/me", response_model=schemas.user.UserReturn)
+@router.get("/me", response_model=schemas.user.UserReturn, response_model_exclude_unset=True)
+# @router.get("/me/teacher_group", response_model=schemas.user.UserReturn)
 async def read_user_me(
     db: Session = Depends(deps.get_db),
     current_user: models.User = Depends(deps.get_current_active_user),
