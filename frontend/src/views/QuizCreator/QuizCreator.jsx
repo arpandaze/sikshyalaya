@@ -114,10 +114,7 @@ const QuizCreator = () => {
 
   const quizQuestionPostFormatter = (question, index, newQuizId) => {
     question.answer = [question.answer];
-    question.question_image =
-      selectImage[`${index}`] && selectImage[`${index}`].name
-        ? [selectImage[`${index}`].name]
-        : null;
+    question.question_image = null;
     if (question.options && question.options.length) {
       let newOption = [];
       question.options.map((option) => {
@@ -150,7 +147,8 @@ const QuizCreator = () => {
     });
     newQuizId = postResponse.data.id;
 
-    if (postResponse.satus === 200 && newQuizId !== null) {
+    if (postResponse.status === 200 && newQuizId) {
+      console.log(newQuizId);
       if (questions) {
         questions.map(async (question, index) => {
           let postQuestion = quizQuestionPostFormatter(
@@ -164,15 +162,14 @@ const QuizCreator = () => {
               method: "POST",
               data: postQuestion,
             });
+
+            let newquestionId = postResponse.data.id;
             let questionImageData = new FormData();
             if (postResponse.status === 200 && selectImage[`${index}`]) {
-              questionImageData.append(
-                `${selectImage[`${index}`]}`,
-                selectImage[`${index}`]
-              );
+              questionImageData.append("files", selectImage[`${index}`]);
 
               let imageResponse = await callAPI({
-                endpoint: ``,
+                endpoint: `/api/v1/quiz/${newQuizId}/question/${newquestionId}/question_image/`,
                 method: "POST",
                 data: questionImageData,
                 headers: { "Content-Type": "multipart/form-data" },
@@ -206,9 +203,15 @@ const QuizCreator = () => {
               initialValues={{
                 quiz_title: "",
                 quiz_description: "",
-                quiz_date: quizDate,
-                start_time: startTime,
-                end_time: endTime,
+                quiz_date: formatISO(quizDate, {
+                  representation: "date",
+                }),
+                start_time: formatISO(startTime, {
+                  representation: "time",
+                }),
+                end_time: formatISO(endTime, {
+                  representation: "time",
+                }),
                 isRandomized: false,
                 whoseQuizInfo: null,
               }}
