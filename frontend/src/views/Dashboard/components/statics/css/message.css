@@ -9,13 +9,14 @@
 		border-radius: 50%;
 	}
 	.message_Content {
-		border-radius: 15%;
+		border-radius: 15px;
 		padding: 10px;
+		max-width: 600px;
+		overflow: hidden;
+		text-align: justify;
+		text-justify: inter-word;
 	}
-	.message_root {
-		position: relative;
-		border: 1px solid black;
-	}
+
 	.message_name {
 		color: var(--grey1);
 		font-weight: bold;

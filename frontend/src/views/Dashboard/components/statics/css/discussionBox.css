@@ -4,19 +4,16 @@
 	.discussionBox_root {
 		width: 700px;
 		height: 700px;
-		border: 1px solid black;
 	}
 	.discussionBox_chatBox {
 		position: relative;
 		width: 700px;
 		height: 620px;
-		overflow: scroll;
-		border-bottom: 1px solid var(--grey2);
-		border: 1px solid black;
+		overflow: auto;
+		margin-bottom: 10px !important;
 	}
 	.discussionBox_messageRoot {
 		position: absolute;
-		bottom: 0;
 	}
 
 	.discussionBox_inputField {
