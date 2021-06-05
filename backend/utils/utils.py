@@ -51,37 +51,49 @@ def send_test_email(email_to: str) -> None:
     )
 
 
-def send_reset_password_email(email_to: str, email: str, name: str, token: str) -> None:
+async def send_reset_password_email(user:User) -> None:
     project_name = settings.PROJECT_NAME
     subject = f"{project_name} - Password Recovery"
     with open(Path(settings.EMAIL_TEMPLATES_DIR) / "reset-password.html") as f:
         template_str = f.read()
-    server_host = settings.SERVER_HOST + ":3000"  # FIXME: Remove port for deployment
-    link = f"{server_host}/reset/?token={token}"
+
+    if settings.SERVER_PORT:
+        server_host = f"{settings.SERVER_HOST}:{settings.SERVER_PORT}"
+    else:
+        server_host=settings.SERVER_HOST
+
+    reset_token = await generate_password_reset_token(uid=user.id)
+    link = f"{server_host}/reset/?token={reset_token}"
     send_email(
-        email_to=email_to,
+        email_to=user.email,
         subject_template=subject,
         html_template=template_str,
         environment={
             "project_name": settings.PROJECT_NAME,
-            "username": email,
-            "name": name,
-            "email": email_to,
+            "username": user.email,
+            "name": user.full_name,
+            "email": user.email,
             "valid_hours": settings.EMAIL_RESET_TOKEN_EXPIRE_HOURS,
             "link": link,
         },
     )
 
 
-async def send_verification_email(email_to: str, user: User) -> None:
+async def send_verification_email(user: User) -> None:
     project_name = settings.PROJECT_NAME
     subject = f"{project_name} - Verification Email"
     with open(Path(settings.EMAIL_TEMPLATES_DIR) / "verify-account.html") as f:
         template_str = f.read()
     verification_token = await generate_verify_token(user.id)
-    link = f"{settings.SERVER_HOST}:3000/verify/?token={verification_token}"
+
+    if settings.SERVER_PORT:
+        server_host = f"{settings.SERVER_HOST}:{settings.SERVER_PORT}"
+    else:
+        server_host=settings.SERVER_HOST
+
+    link = f"{server_host}/verify/?token={verification_token}"
     send_email(
-        email_to=email_to,
+        email_to=user.email,
         subject_template=subject,
         html_template=template_str,
         environment={

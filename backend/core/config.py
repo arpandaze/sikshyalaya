@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     SESSION_EXPIRE_TIME_EXTENDED: int = 30 * 24 * 60 * 60  # Minutes
     SERVER_NAME: str = os.environ.get("SERVER_NAME")
     SERVER_HOST: AnyHttpUrl = os.environ.get("SERVER_HOST")
+    SERVER_PORT: int = os.environ.get("SERVER_PORT")
 
     UPLOAD_DIR_ROOT: str = "../file_server"
 

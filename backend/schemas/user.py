@@ -38,6 +38,16 @@ class UserCreate(UserBase):
     password: str
 
 
+class AdminUserCreate(BaseModel):
+    email: EmailStr = None
+    full_name: str = None
+    address: Optional[str] = None
+    group_id: Optional[int] = None
+    contact_number: str = None
+    dob: date = None
+    join_year: Optional[int] = None
+
+
 class VerifyUser(BaseModel):
     is_active: bool
 

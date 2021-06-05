@@ -93,7 +93,7 @@ async def sign_up(
     user = cruds.crud_user.create(
         db, obj_in=schemas.UserCreate(**user_in.dict(), profile_pic="")
     )
-    await send_verification_email(email_to=user_in.email, user=user)
+    await send_verification_email(user=user)
     return schemas.Msg(msg="Success")
 
 
@@ -122,17 +122,13 @@ async def recover_password(
             status_code=404,
             detail="Error ID: 113",
         )  # The user with this username does not exist in the system.
-    password_reset_token = await generate_password_reset_token(uid=user.id)
     send_reset_password_email(
-        email_to=user.email,
-        email=user.email,
-        name=user.full_name,
-        token=password_reset_token,
+        user=user
     )
     return {"msg": "Password recovery email sent"}
 
 
-@router.post("/reset-password/", response_model=schemas.Msg)
+@router.post("/reset-password", response_model=schemas.Msg)
 async def reset_password(
     request: Request,
     token: str = Body(...),
@@ -158,7 +154,7 @@ async def reset_password(
     return {"msg": "Password updated successfully"}
 
 
-@router.post("/verify/", response_model=schemas.Msg)
+@router.post("/verify", response_model=schemas.Msg)
 async def verify_account(
     token: str,
     db: Session = Depends(deps.get_db),

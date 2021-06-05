@@ -114,7 +114,7 @@ def populate_user():
             )
 
             user_in = crud_user.create(db, obj_in=user)
-            asyncio.run(send_verification_email(email_to=user.email, user=user_in))
+            asyncio.run(send_verification_email(user=user_in))
         except Exception as e:  # noqa
             print(e)
     pass

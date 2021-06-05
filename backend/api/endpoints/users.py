@@ -18,7 +18,7 @@ import models
 import schemas
 from utils import deps
 from core.config import settings
-from utils.utils import send_verification_email
+from utils.utils import send_reset_password_email
 
 router = APIRouter()
 
@@ -64,7 +64,7 @@ async def read_users(
 async def create_user(
     *,
     db: Session = Depends(deps.get_db),
-    user_in: schemas.UserCreate,
+    user_in: schemas.user.AdminUserCreate,
     current_user: models.User = Depends(deps.get_current_active_superuser),
 ) -> Any:
     user = cruds.crud_user.get_by_email(db, email=user_in.email)
@@ -73,8 +73,19 @@ async def create_user(
             status_code=400,
             detail="Error ID: 128",
         )  # The user with this username already exists in the system.
-    user = cruds.crud_user.create(db, obj_in=user_in)
-    await send_verification_email(email_to=user_in.email, user=user)
+    user_create = schemas.UserCreate(
+        email=user_in.email,
+        full_name=user_in.full_name,
+        address=user_in.address,
+        group_id=user_in.group_id,
+        contact_number=user_in.contact_number,
+        dob= user_in.dob,
+        join_year = user_in.join_year,
+        password=settings.SECRET_KEY
+    )
+    user = cruds.crud_user.create(db, obj_in=user_create)
+    cruds.crud_user.verify_user(db=db, db_obj=user)
+    await send_reset_password_email(user=user)
     return user
 
 
