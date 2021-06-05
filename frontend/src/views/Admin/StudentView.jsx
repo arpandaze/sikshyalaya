@@ -88,10 +88,7 @@ const StudentView = ({ match, ...rest }) => {
 
   const [group] = useAPI({ endpoint: "/api/v1/group/all/" }, groupFormatter);
 
-  const [program] = useAPI(
-    { endpoint: "/api/v1/program/all/" },
-    programFormatter
-  );
+  const [program] = useAPI({ endpoint: "/api/v1/program/" }, programFormatter);
 
   const onSubmit = async (data) => {
     let group_id_list = group.filter((item) => {
@@ -199,12 +196,11 @@ const StudentView = ({ match, ...rest }) => {
             direction="row"
             justify="flex-start"
             alignItems="flex-start"
-            spacing={1}
             className="adminStudent_innerContainer"
             wrap="wrap"
           >
             {students.map((item) => (
-              <Grid item key={item.id}>
+              <Grid xs={6} item key={item.id}>
                 <Students
                   key={item.id}
                   name={item.name}
@@ -346,7 +342,7 @@ const StudentView = ({ match, ...rest }) => {
                         autoComplete="on"
                       />
                     </Grid>
-                    <Grid item className="adminProgram_submitButtonContainer">
+                    <Grid item className="adminStudent_submitButtonContainer">
                       <Button
                         name="Save"
                         type="submit"

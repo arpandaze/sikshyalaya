@@ -20,13 +20,11 @@ const AdminBoxSmall = ({ cardData, onSubmit, type, ...rest }) => {
             <Grid
               container
               direction="column"
-              justify="flex-start"
-              alignItems="flex-start"
+              justify="center"
               className="adminBoxSmall_row_col_box"
             >
               <Grid item className="adminBoxSmall_row_col_1">
-                <p className="adminBoxSmall_row_col_1_bold">{data.name}</p>{" "}
-                <br />
+                <p className="adminBoxSmall_row_col_1_bold">{data.name}</p>
               </Grid>
             </Grid>
           </Grid>
@@ -36,7 +34,6 @@ const AdminBoxSmall = ({ cardData, onSubmit, type, ...rest }) => {
               direction="column"
               justify="center"
               alignItems="flex-end"
-              spacing={2}
             >
               <Grid item className="adminBoxSmall_buttonContainer">
                 <FancyButton color={colorscheme.purple} onSubmit={onSubmit} />

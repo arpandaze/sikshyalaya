@@ -55,7 +55,7 @@ const GroupView = ({ match, location }) => {
       let formattedResponseData = {
         id: group.id,
         name: "Semester " + group.sem,
-        program_id: group.program_id,
+        program_id: group.program.id,
       };
       return formattedResponseData;
     });

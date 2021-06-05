@@ -15,7 +15,13 @@ const Students = ({ name, onEdit, ...rest }) => {
       alignItems="center"
     >
       <Grid item xs={12} className="adminStudentBox_innerContainer">
-        <Grid container direction="row" alignItems="flex-start" wrap="nowrap">
+        <Grid
+          container
+          direction="row"
+          alignItems="center"
+          justify="center"
+          wrap="nowrap"
+        >
           <Grid item className="adminStudentBox_studentName">
             <p className="adminStudentBox_studentNameText">{name}</p>
           </Grid>

@@ -91,22 +91,20 @@ const SchoolView = () => {
           </Grid>
         </Grid>
         <Grid item className="adminCommon_botBar">
-          <Grid
-            container
-            direction="row"
-            justify="center"
-            alignItems="center"
-            spacing={5}
-          >
+          <Grid container direction="row">
             {allSchool && allSchoolComplete ? (
               allSchool.map((school) => (
-                <Grid item key={school.id} xs={6}>
+                <Grid
+                  item
+                  key={school.id}
+                  xs={6}
+                  className="adminCommon_mainBox"
+                >
                   <AdminBoxSmall
                     type="school"
                     cardData={school}
                     onSubmit={() => {
                       history.push("/admin/department/" + school.id);
-                      console.log(history);
                     }}
                   />
                 </Grid>

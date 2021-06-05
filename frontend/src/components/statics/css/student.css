@@ -2,45 +2,8 @@
 @media only screen and (min-width: 1366px) {
   .adminStudentBox_root {
     flex-grow: 1;
-    width: 29vw !important;
-    height: 70px;
-    background: var(--white);
-    border-radius: 10px;
-    box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-    color: var(--black);
-  }
-
-  .adminStudentBox_innerContainer {
-    height: 70px;
-    position: relative;
-  }
-
-  .adminStudentBox_studentName {
-    height: 50px;
-    font-weight: 500;
-    font-size: 1.3em;
-    position: relative;
-    left: 5%;
-    width: 75%;
-  }
-  .adminStudentBox_studentNameText {
-  }
-  .adminStudentBox_editIcon {
-    position: relative;
-    top: 20px;
-    left: 5vw;
-    width: 25px;
-    height: 25px;
-    margin: 5px -8px !important;
-  }
-}
-
-@media only screen and (min-width: 1920px) {
-  .adminStudentBox_root {
-    flex-grow: 1;
-    width: 550px !important;
-    height: 70px;
+    width: 90% !important;
+    height: 80px;
     background: var(--white);
     border-radius: 10px;
     box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);
@@ -53,19 +16,35 @@
   }
 
   .adminStudentBox_studentName {
+    width: 300px;
     font-weight: 500;
     font-size: 1.3em;
-    position: relative;
-    left: 5%;
-    width: 75%;
+  }
+  .adminStudentBox_studentName p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .adminStudentBox_studentNameText {
     margin: 0;
   }
   .adminStudentBox_editIcon {
-    position: relative;
-    left: 90px;
+    margin-top: 6px;
     width: 26px;
     height: 26px;
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  .adminStudentBox_root {
+    height: 90px;
+  }
+  .adminStudentBox_studentName {
+    width: 450px;
+    font-size: 1.5em;
+  }
+  .adminStudentBox_editIcon {
+    width: 30px;
+    height: 30px;
   }
 }
