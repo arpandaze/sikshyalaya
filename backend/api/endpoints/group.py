@@ -116,7 +116,7 @@ async def update_group(
         return {"status": "success"}
 
 
-@router.get("/all/", response_model=List[GroupReturn])
+@router.get("/all", response_model=List[GroupReturn])
 async def get_all_groups(
     db: Session = Depends(deps.get_db),
 ) -> Any:

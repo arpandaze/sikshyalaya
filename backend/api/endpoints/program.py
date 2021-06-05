@@ -58,7 +58,7 @@ async def update_program(
     return program
 
 
-@router.get("/all/", response_model=List[Program])
+@router.get("/all", response_model=List[Program])
 @cache(timeout=60)
 async def get_programs(
     response: Response,

@@ -14,7 +14,7 @@ users: List[Json] = [
         "teacher_group": [],
         "dob": datetime.datetime(1970, 12, 12),
         "join_year": 1990,
-        "password": "bal.bal",
+        "password": "test",
     },
     {
         "full_name": "Yugesh Upadhyaya Luitel",
@@ -27,7 +27,7 @@ users: List[Json] = [
         "teacher_group": [],
         "dob": datetime.datetime(2001, 6, 13),
         "join_year": 2019,
-        "password": "yugu.luitel",
+        "password": "test",
     },
     {
         "full_name": "Arpan Koirala",
@@ -40,7 +40,7 @@ users: List[Json] = [
         "teacher_group": [],
         "dob": datetime.datetime(2000, 2, 26),
         "join_year": 2018,
-        "password": "arpan.koirala",
+        "password": "test",
     },
     {
         "full_name": "Rushab Humagain",
@@ -53,7 +53,7 @@ users: List[Json] = [
         "teacher_group": [],
         "dob": datetime.datetime(2002, 11, 30),
         "join_year": 2020,
-        "password": "rushab.humagain",
+        "password": "test",
     },
     {
         "full_name": "Abhijeet Poudel",
@@ -66,7 +66,7 @@ users: List[Json] = [
         "teacher_group": [],
         "dob": datetime.datetime(2000, 12, 10),
         "join_year": 2018,
-        "password": "abhijeet.poudel",
+        "password": "test",
     },
     {
         "full_name": "Aatish Shrestha",
@@ -79,7 +79,7 @@ users: List[Json] = [
         "teacher_group": [],
         "dob": datetime.datetime(1998, 4, 12),
         "join_year": 2017,
-        "password": "aatish.shrestha",
+        "password": "test",
     },
     {
         "full_name": "Suraj Chapagain ",
@@ -92,7 +92,7 @@ users: List[Json] = [
         "teacher_group": [[2, 2], [3, 1]],
         "dob": datetime.datetime(1995, 1, 26),
         "join_year": 2020,
-        "password": "suraj.chapagain",
+        "password": "test",
     },
     {
         "full_name": "Manoj Pandey",
@@ -105,7 +105,7 @@ users: List[Json] = [
         "teacher_group": [[1, 1], [3, 1], [5, 1]],
         "dob": datetime.datetime(1885, 9, 14),
         "join_year": 2000,
-        "password": "manoj.pandey",
+        "password": "test",
     },
     {
         "full_name": "Om Nath Acharya",
@@ -118,7 +118,7 @@ users: List[Json] = [
         "teacher_group": [[4, 2], [1, 2]],
         "dob": datetime.datetime(1980, 8, 14),
         "join_year": 2005,
-        "password": "om.acharya",
+        "password": "test",
     },
     {
         "full_name": "Sikshyalaya",
@@ -131,6 +131,6 @@ users: List[Json] = [
         "teacher_group": [],
         "dob": datetime.datetime(2021, 1, 1),
         "join_year": 2021,
-        "password": "sikshyalaya",
+        "password": "test",
     },
 ]
