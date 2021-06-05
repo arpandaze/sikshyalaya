@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Grid from "@material-ui/core/Grid";
 import "./statics/css/discussionBox.css";
 import colorscheme from "../../../utils/colors";
@@ -8,11 +8,13 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import Message from "./Message";
 import Image from "../../../components/Image";
+import { UserContext } from "../../../utils/Contexts/UserContext";
 import defaultProfile from "../../../assets/default-profile.svg";
 
 const DiscussionBox = () => {
+	const { user } = useContext(UserContext);
 	const [checked, setChecked] = useState(false);
-	const [messages, setMessage] = useState([
+	const [chat, setChat] = useState([
 		{
 			id: 1,
 			name: "Rushab",
@@ -28,6 +30,32 @@ const DiscussionBox = () => {
 			sentTime: "2020",
 		},
 	]);
+	const [message, setMessage] = useState("");
+	const discussionFormatter = () => {
+		let data = {
+			id: user.id,
+			name: !checked ? user.full_name : "Anonymous",
+			photo: checked
+				? defaultProfile
+				: user.profile_image === null
+				? defaultProfile
+				: user.profile_image,
+			text: message,
+			sentTime: "2022",
+		};
+		return data;
+	};
+	const handleChange = (e) => {
+		setMessage(e.target.value);
+	};
+	const handleSubmit = () => {
+		if (message !== "") {
+			const data = discussionFormatter();
+			setChat([...chat, data]);
+			setMessage("");
+		}
+	};
+
 	return (
 		<>
 			<Grid
@@ -45,7 +73,7 @@ const DiscussionBox = () => {
 						justify="flex-start"
 					>
 						<Grid item className="discussionBox_messageRoot">
-							<Message messages={messages} />
+							<Message messages={chat} />
 						</Grid>
 					</Grid>
 				</Grid>
@@ -60,7 +88,9 @@ const DiscussionBox = () => {
 							<input
 								name="chat_input"
 								type="text"
-								placeholder="Type Something..."
+								value={message}
+								onChange={handleChange}
+								placeholder="Enter your message..."
 								className="discussionBox_textField"
 							/>
 						</Grid>
@@ -72,6 +102,7 @@ const DiscussionBox = () => {
 									border: "none",
 									backgroundColor: colorscheme.white,
 								}}
+								onClick={handleSubmit}
 							>
 								<BiSend
 									size={30}
@@ -80,12 +111,13 @@ const DiscussionBox = () => {
 								/>
 							</button>
 						</Grid>
+
 						<Grid item xs={2} className="discussionBox_switchContainer">
 							<p className="discussionBox_label">Send Anonymously</p>
 							<Switch
 								name="isAnonymus"
 								checked={checked}
-								onChange={(value) => {
+								onChange={() => {
 									setChecked(!checked);
 								}}
 								className="discussionBox_switch"
