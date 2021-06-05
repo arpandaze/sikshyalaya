@@ -14,12 +14,19 @@ const DiscussionBox = () => {
 	const [checked, setChecked] = useState(false);
 	const [messages, setMessage] = useState([
 		{
+			id: 1,
 			name: "Rushab",
 			photo: defaultProfile,
 			text: "Hello",
 			sentTime: "2021",
 		},
-		{ name: "Arpan", photo: defaultProfile, text: "Hi", sentTime: "2020" },
+		{
+			id: 2,
+			name: "Arpan",
+			photo: defaultProfile,
+			text: "Hi",
+			sentTime: "2020",
+		},
 	]);
 	return (
 		<>
@@ -31,7 +38,16 @@ const DiscussionBox = () => {
 				className="discussionBox_root"
 			>
 				<Grid item className="discussionBox_chatBox">
-					<Message messages={messages} />
+					<Grid
+						container
+						direction="row"
+						alignItems="flex-start"
+						justify="flex-start"
+					>
+						<Grid item className="discussionBox_messageRoot">
+							<Message messages={messages} />
+						</Grid>
+					</Grid>
 				</Grid>
 				<Grid item xs={11} className="discussionBox_inputField">
 					<Grid

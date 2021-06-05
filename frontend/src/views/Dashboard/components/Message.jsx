@@ -3,6 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import "./statics/css/discussionBox.css";
 import colorscheme from "../../../utils/colors";
 import Image from "../../../components/Image";
+import { UserContext } from "../../../utils/Contexts/UserContext";
 import "./statics/css/message.css";
 
 const Message = ({ messages }) => {
@@ -10,30 +11,38 @@ const Message = ({ messages }) => {
 		<Grid
 			container
 			direction="column"
-			justify="flex-start"
+			justify="center"
 			alignItems="flex-start"
+			className="message_root"
 		>
 			<Grid item>
 				{messages &&
 					messages.length !== 0 &&
 					messages.map((msg, index) => (
-						<Grid
-							container
-							direction="row"
-							alignItems="flex-start"
-							justify="flex-start"
-						>
+						<>
 							<Grid item>
-								<Image src={msg.photo} />
+								<p className="message_name">{msg.name}</p>
 							</Grid>
-							<ul>
-								<li key={index}>
-									<Grid item>{msg.name}</Grid>
-
-									<Grid item>{msg.text}</Grid>
-								</li>
-							</ul>
-						</Grid>
+							<Grid
+								container
+								direction="row"
+								alignItems="center"
+								justify="flex-start"
+							>
+								<Grid item className="message_ImageRoot">
+									<Image src={msg.photo} addStyles="message_Image" />
+								</Grid>
+								<Grid item>
+									<Grid container direction="column">
+										<Grid item className="message_Content">
+											<span style={{ color: colorscheme.white }}>
+												{msg.text}
+											</span>
+										</Grid>
+									</Grid>
+								</Grid>
+							</Grid>
+						</>
 					))}
 			</Grid>
 		</Grid>
