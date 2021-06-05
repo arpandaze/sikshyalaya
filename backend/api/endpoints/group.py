@@ -7,7 +7,13 @@ from sqlalchemy.orm import Session
 
 from utils import deps
 from cruds import crud_group, crud_department, crud_course
-from schemas.group import Group, GroupUpdate, GroupCreate, GroupStudentReturn
+from schemas.group import (
+    Group,
+    GroupUpdate,
+    GroupCreate,
+    GroupStudentReturn,
+    GroupWithProgram,
+)
 from models import User
 from core import settings
 from fastapi import HTTPException
@@ -18,7 +24,7 @@ router = APIRouter()
 # can be called by student to get their group,
 # can be called by teacher to get the group under their depart
 # can be called by admin and super admin to get all the departs
-@router.get("/", response_model=List[Group])
+@router.get("/", response_model=List[GroupWithProgram])
 async def get_group(
     db: Session = Depends(deps.get_db),
     skip: int = 0,
@@ -62,7 +68,11 @@ async def create_group(
 # teacher: can get a specific group only if it exists in their groups_list
 # superadmin and admin, no restriction, can get any group by id
 @router.get("/{id}", response_model=Group, summary="Get specific group")
-@router.get("/{id}/student", response_model=GroupStudentReturn, summary="Get students of specific group")
+@router.get(
+    "/{id}/student",
+    response_model=GroupStudentReturn,
+    summary="Get students of specific group",
+)
 async def get_specific_group(
     db: Session = Depends(deps.get_db),
     *,

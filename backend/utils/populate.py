@@ -162,6 +162,7 @@ def populate_quiz():
                 group=quiz["group"],
                 instructor=quiz["instructor"],
                 course_id=quiz["course_id"],
+                date=quiz["date"],
             )
 
             crud_quiz.create(db, obj_in=quiz)
@@ -193,9 +194,7 @@ def populate_quiz_question():
             quiz_question = QuizQuestionCreate(
                 question_text=quiz_question["question_text"],
                 question_image=quiz_question["question_image"],
-                option_image=quiz_question["option_image"],
-                option=quiz_question["option"],
-                answer_image=quiz_question["answer_image"],
+                options=quiz_question["options"],
                 answer=quiz_question["answer"],
                 quiz_id=quiz_question["quiz_id"],
             )

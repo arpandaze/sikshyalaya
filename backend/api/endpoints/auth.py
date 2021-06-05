@@ -38,7 +38,9 @@ import aiofiles
 router = APIRouter()
 
 
-@router.post("/web", response_model=schemas.user.UserReturn)
+@router.post(
+    "/web", response_model=schemas.user.UserReturn, response_model_exclude_unset=True
+)
 async def login_web_session(
     db: Session = Depends(deps.get_db),
     *,

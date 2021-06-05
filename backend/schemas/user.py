@@ -1,4 +1,4 @@
-from typing import Optional, List
+from typing import Any, Optional, List
 from datetime import date
 from schemas.program import ProgramInDB
 from schemas.group import GroupSignInReturn, Group
