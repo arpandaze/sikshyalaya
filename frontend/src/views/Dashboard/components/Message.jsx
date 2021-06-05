@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useContext, useRef } from "react";
 import Grid from "@material-ui/core/Grid";
 import "./statics/css/discussionBox.css";
 import colorscheme from "../../../utils/colors";
@@ -7,6 +7,14 @@ import { UserContext } from "../../../utils/Contexts/UserContext";
 import "./statics/css/message.css";
 
 const Message = ({ messages }) => {
+	const { user } = useContext(UserContext);
+	const messagesEndRef = useRef(null);
+	const scrollToBottom = () => {
+		messagesEndRef.current.scrollIntoView({ behaviour: "smooth" });
+	};
+	useEffect(() => {
+		scrollToBottom();
+	}, [messages]);
 	return (
 		<Grid
 			container
@@ -34,10 +42,21 @@ const Message = ({ messages }) => {
 								</Grid>
 								<Grid item>
 									<Grid container direction="column">
-										<Grid item className="message_Content">
+										<Grid
+											item
+											className="message_Content"
+											style={{
+												backgroundColor:
+													user.id == msg.id
+														? colorscheme.red41
+														: colorscheme.purple2,
+											}}
+										>
 											<span style={{ color: colorscheme.white }}>
+												{/* FIX: text align not working on long single word */}
 												{msg.text}
 											</span>
+											<div ref={messagesEndRef} />
 										</Grid>
 									</Grid>
 								</Grid>
