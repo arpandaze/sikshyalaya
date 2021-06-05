@@ -7,22 +7,14 @@ import { Link } from "react-router-dom";
 import { UserContext } from "../../utils/Contexts/UserContext";
 import { Redirect } from "react-router-dom";
 import configs from "../../utils/configs";
-import reactJoiValidation from "react-joi-validation";
 
 const Login = (props) => {
   const [active, setActive] = useState(0);
   const { user, setUser } = useContext(UserContext);
   return (
-    <>
+    <div className="login_root">
       {user == null || !configs.AUTO_REDIRECT ? (
-        <Grid
-          container
-          direction="column"
-          alignItems="center"
-          alignContent="center"
-          className="login_root"
-          wrap="nowrap"
-        >
+        <Grid container direction="column">
           <Grid item className="login_logoBox">
             <Grid container direction="row" alignItems="flex-start">
               <Grid item className="login_logo">
@@ -36,13 +28,12 @@ const Login = (props) => {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item>
+          <Grid item className="login_loginBoxContainer">
             <Grid
               container
               direction="row"
               alignItems="center"
               justify="center"
-              className="login_loginBoxContainer"
             >
               <Grid item>{props.children}</Grid>
             </Grid>
@@ -57,7 +48,7 @@ const Login = (props) => {
       ) : (
         <></>
       )}
-    </>
+    </div>
   );
 };
 

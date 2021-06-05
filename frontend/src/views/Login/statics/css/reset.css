@@ -1,110 +1,6 @@
 @import "../../../../utils/colors.css";
-@media only screen and (min-width: 1920px) {
-  .resetCommon_logoBox {
-    width: 200px;
-    position: absolute;
-    top: 50px;
-    left: 150px;
-  }
-  .resetCommon_label {
-    font-weight: normal;
-    font-size: 1.95em;
-  }
-  .resetCommon_copyrightContainer {
-    width: 250px;
-    position: absolute;
-    left: 0px;
-    bottom: 15px;
-    font-size: 0.9em;
-  }
-  .resetCommon_copyrightText {
-    position: relative;
-    left: 100px;
-  }
-  .resetCommon_resetBox {
-    width: 450px;
-    height: 600px;
-  }
-  .resetCommon_resetLabel {
-    font-weight: normal;
-    font-size: 2.2em;
-  }
-  .resetCommon_tabs {
-    display: flex;
-  }
-  .resetCommon_resetButton {
-    width: 160px !important;
-    height: 45px !important;
-    background-color: var(--red4);
-    color: var(--white);
-    margin-top: 20px !important;
-    border-radius: 12px !important;
-    font-size: 1.05em !important;
-  }
-  .resetCommon_guestButton {
-    width: 160px !important;
-    height: 45px !important;
-    background-color: var(--black);
-    color: var(--white);
-    border-radius: 12px !important;
-    font-size: 1.05em !important;
-  }
-  .resetCommon_inputButton {
-    outline: none;
-    border: none;
-    width: 280px !important;
-    border-bottom: 2px solid var(--grey2) !important;
-    font-size: 1.1em !important;
-    background: transparent;
-  }
-  .resetCommon_inputLabel {
-    font-size: 1.2em;
-  }
-  .resetCommon_lineVertical {
-    width: 1px;
-    height: 30px;
-    background-color: var(--grey2);
-    margin: 0px auto;
-  }
-  .resetCommon_resetButton {
-    width: 300px;
-    height: 50px;
-    background-color: var(--red4);
-    color: var(--white);
-    border-radius: 15px;
-    font-size: 1.2em;
-  }
-  .resetCommon_guestButton {
-    width: 300px;
-    height: 50px;
-    background-color: var(--black);
-    color: var(--white);
-    border-radius: 15px;
-    font-size: 1.2em;
-  }
-  .resetCommon_inputButton {
-    outline: none;
-    border: none;
-    width: 300px;
-    height: 50px;
-    border-bottom: 1px solid var(--grey2);
-    font-size: 1.3em;
-    background: transparent;
-  }
-  .resetCommon_line {
-    width: 100px;
-    height: 1px;
-    background-color: rgba(0, 0, 0, 0.3) !important;
-    margin-top: 5px;
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-  .resetCommon_inputLabel {
-    font-size: 1.2em;
-  }
-}
 
-@media only screen and (max-width: 1919px) {
+@media only screen and (min-width: 1366px) {
   .resetCommon_logoBox {
     width: 200px;
     position: absolute;
@@ -113,20 +9,7 @@
   }
   .resetCommon_label {
     font-weight: normal;
-    font-size: 2.2em;
-  }
-  .resetCommon_copyrightContainer {
-    width: 250px;
-    position: absolute;
-    left: 0px;
-    bottom: 15px;
-    font-size: 0.9em;
-  }
-  .resetCommon_copyrightText {
-    position: relative;
-    left: 100px;
-  }
-  .resetCommon_resetBoxContainer {
+    font-size: 1.8em;
   }
   .resetCommon_resetBox {
     width: 450px;
@@ -134,7 +17,7 @@
   }
   .resetCommon_resetLabel {
     font-weight: normal;
-    font-size: 2.2em;
+    font-size: 2em;
   }
   .resetCommon_tabs {
     display: flex;
@@ -158,13 +41,10 @@
   .resetCommon_inputButton {
     outline: none;
     border: none;
-    width: 280px !important;
+    width: 250px !important;
     border-bottom: 1.5px solid var(--grey2);
-    font-size: 1.2em;
+    font-size: 1em;
     background: transparent;
-  }
-  .resetCommon_inputLabel {
-    font-size: 1.2em;
   }
   .resetCommon_lineVertical {
     width: 1px;
@@ -173,37 +53,66 @@
     margin: 0px auto;
   }
   .resetCommon_resetButton {
-    width: 300px;
-    height: 50px;
+    width: 160px !important;
+    height: 45px;
     background-color: var(--red4);
     color: var(--white);
+    margin: 20px auto;
     border-radius: 15px;
-    font-size: 1.2em;
+    font-size: 1em;
   }
-  .resetCommon_guestButton {
-    width: 300px;
-    height: 50px;
+  .resetCommon_loginButton {
+    width: 160px !important;
+    height: 45px;
     background-color: var(--black);
     color: var(--white);
     border-radius: 15px;
-    font-size: 1.2em;
+    font-size: 1em;
   }
   .resetCommon_inputButton {
     outline: none;
     border: none;
-    width: 300px;
+    width: 250px !important;
     height: 50px;
     border-bottom: 1px solid var(--grey2);
-    font-size: 1.3em;
+    font-size: 1.1em;
     background: transparent;
   }
   .resetCommon_line {
-    width: 130px;
+    width: 100px;
     height: 1px;
     background-color: var(--grey1);
     margin: 0px auto;
   }
-  .resetCommon_inputLabel {
+  .resetCommon_lineOr {
+    margin: 0px;
+    padding: 10px;
+    font-size: 1.2em;
+  }
+  .resetCommon_feedBackMessages {
+    margin: 100px;
+    font-size: 1.4em;
+    font-weight: 500;
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  .resetCommon_label {
+    font-size: 2em;
+  }
+  .resetCommon_resetLabel {
+    font-size: 2.2em;
+  }
+  .resetCommon_tabs {
+    display: flex;
+  }
+  .resetCommon_inputButton {
+    width: 280px !important;
+  }
+  .resetCommon_loginButton {
+    font-size: 1.2em;
+  }
+  .resetCommon_inputButton {
     font-size: 1.2em;
   }
 }

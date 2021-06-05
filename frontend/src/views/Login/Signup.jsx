@@ -93,7 +93,7 @@ const Signup = () => {
       group_id: group_id,
       contact_number: data.phone_number,
       dob: data.dob,
-      join_year: parseInt(data.join_year.substr(0, 4)),
+      join_year: parseInt(data.join_year),
       password: data.password,
     };
     let response = await callAPI({
@@ -119,10 +119,9 @@ const Signup = () => {
           container
           direction="column"
           justify="center"
-          alignItems="center"
           className="signup_container"
         >
-          <Grid item style={{ padding: "20px 20px 20px 20px" }}>
+          <Grid item>
             <h1 className="signup_label">Signup</h1>
           </Grid>
           <Grid item>
@@ -147,7 +146,7 @@ const Signup = () => {
                 <Grid
                   container
                   direction="row"
-                  justify="flex-start"
+                  justify="center"
                   alignItems="flex-start"
                   className="signup_formContainer"
                 >
@@ -215,7 +214,8 @@ const Signup = () => {
                       id="join_year"
                       name="join_year"
                       label="Join year"
-                      type="date"
+                      type="text"
+                      placeHolder="Join Year"
                       className="signup_inputButton"
                     />
                   </Grid>
@@ -268,7 +268,7 @@ const Signup = () => {
                       autoComplete="new-password"
                     />
                   </Grid>
-                  <Grid item>
+                  <Grid item className="signup_buttonContainer">
                     <Button
                       name="Signup"
                       type="submit"
@@ -286,16 +286,22 @@ const Signup = () => {
             justify="center"
             alignItems="center"
           >
-            <p>Already have an account?</p>
+            <p
+              style={{
+                margin: "0px",
+              }}
+            >
+              Already have an account?
+            </p>
             <p
               onClick={() => {
                 history.push("/login");
               }}
               style={{
+                margin: "10px",
                 cursor: "pointer",
                 textDecoration: "none",
                 color: colorscheme.red4,
-                margin: "1em 1em 1em 0.1em",
               }}
             >
               Login

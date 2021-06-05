@@ -78,7 +78,7 @@ const ResetPassword = () => {
         alignItems="center"
         className="resetCommon_resetBoxContainer"
       >
-        {resetState == null ? (
+        {1 ? (
           <>
             <Grid item>
               <h1 className="resetCommon_label">Reset Password</h1>
@@ -99,7 +99,7 @@ const ResetPassword = () => {
                     direction="column"
                     alignItems="flex-start"
                   >
-                    <Grid item spacing={10}>
+                    <Grid item>
                       <Field
                         type="password"
                         id="password"
@@ -109,7 +109,7 @@ const ResetPassword = () => {
                       />
                     </Grid>
 
-                    <Grid item spacing={10}>
+                    <Grid item>
                       <Field
                         type="password"
                         id="confirm_password"
@@ -144,15 +144,7 @@ const ResetPassword = () => {
                           <div className="resetCommon_line"></div>
                         </Grid>
                         <Grid item>
-                          <p
-                            style={{
-                              margin: "0px",
-                              padding: "0px",
-                              fontSize: "1.2em",
-                            }}
-                          >
-                            or
-                          </p>
+                          <p className="resetCommon_lineOr">or</p>
                         </Grid>
                         <Grid item>
                           <div className="resetCommon_line"></div>
@@ -166,7 +158,7 @@ const ResetPassword = () => {
                           history.push("/login");
                         }}
                         name="Back to Login"
-                        addStyles="resetCommon_guestButton"
+                        addStyles="resetCommon_loginButton"
                       />
                     </Grid>
                   </Grid>
@@ -176,20 +168,26 @@ const ResetPassword = () => {
           </>
         ) : resetState == states.reset_success ? (
           <div>
-            <h1>Password has been reset successfully!</h1>
-            <DelayedRedirect timeout={3} to="/login" />
+            <h1 className="resetCommon_feedBackMessages">
+              Your Password has been reset successfully!
+            </h1>
+            {/* <DelayedRedirect timeout={3} to="/login" /> */}
           </div>
         ) : resetState == states.reset_email_success ? (
           <div>
-            <h1>Password reset email has been sent!</h1>
-            <DelayedRedirect timeout={3} to="/login" />
+            <h1 className="resetCommon_feedBackMessages">
+              Password reset email has been sent!
+            </h1>
+            {/* <DelayedRedirect timeout={3} to="/login" /> */}
           </div>
         ) : resetState == states.send_email ? (
           <ForgotPassword setResetState={(state) => setResetState(state)} />
         ) : (
           <div>
-            <h1>Valid token not found!</h1>
-            <DelayedRedirect timeout={3} to="/login" />
+            <h1 className="resetCommon_feedBackMessages">
+              Valid token not found!
+            </h1>
+            {/* <DelayedRedirect timeout={3} to="/login" /> */}
           </div>
         )}
       </Grid>

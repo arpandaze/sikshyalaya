@@ -19,8 +19,6 @@ body {
   font-family: "Segoe UI";
   font-size: var(--base-font-size);
   line-height: var(--base-line-height);
-  height: 100vh;
-  overflow: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

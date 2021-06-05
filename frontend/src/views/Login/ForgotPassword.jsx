@@ -41,7 +41,7 @@ const ForgotPassword = ({ setResetState }) => {
       className="forgotPassword_BoxContainer"
     >
       <Grid item>
-        <h1 className="forgotPassword_label">Forgot Password</h1>
+        <h1 className="forgotPassword_label">Forgot Your Password?</h1>
       </Grid>
       <Grid item>
         <Formik
@@ -80,6 +80,26 @@ const ForgotPassword = ({ setResetState }) => {
                   addStyles="forgotPassword_Button"
                 />
               </Grid>
+
+              <Grid item>
+                <Grid
+                  container
+                  direction="row"
+                  justify="center"
+                  alignItems="center"
+                >
+                  <Grid item>
+                    <div className="forgotPassword_line"></div>
+                  </Grid>
+                  <Grid item>
+                    <p className="forgotPassword_lineOr">or</p>
+                  </Grid>
+                  <Grid item>
+                    <div className="forgotPassword_line"></div>
+                  </Grid>
+                </Grid>
+              </Grid>
+
               <Grid item>
                 <Button
                   type="button"
@@ -87,7 +107,7 @@ const ForgotPassword = ({ setResetState }) => {
                     history.push("/login");
                   }}
                   name="Back to Login"
-                  addStyles="forgotPassword_guestButton"
+                  addStyles="forgotPassword_loginButton"
                 />
               </Grid>
             </Grid>

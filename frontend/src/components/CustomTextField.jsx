@@ -24,7 +24,7 @@ const CustomTextField = ({
     <>
       <Field name={name} {...rest}>
         {({ field, form: { touched, errors }, meta }) => (
-          <div>
+          <div className="customField_root">
             <input
               type={type}
               placeholder={placeHolder}
@@ -43,13 +43,12 @@ const CustomTextField = ({
     <>
       <Field name={name} {...rest}>
         {({ field, form, meta }) => (
-          <>
+          <div className="customField_root">
             <TextField
               label={placeHolder}
               name={name}
               select
               placeholder={placeHolder}
-              margin="normal"
               fullWidth
               {...rest}
               {...field}
@@ -68,7 +67,7 @@ const CustomTextField = ({
             {meta.touched && meta.error && (
               <div className="error">{meta.error}</div>
             )}
-          </>
+          </div>
         )}
       </Field>
     </>

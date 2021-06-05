@@ -1,7 +1,11 @@
 @import "../../../utils/colors.css";
-
+.customField_root {
+  height: 80px;
+  position: relative;
+}
 .error {
   color: red;
   font-size: 0.8em;
   padding-top: 2px;
+  position: absolute;
 }
