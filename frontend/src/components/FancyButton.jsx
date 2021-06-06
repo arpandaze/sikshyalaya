@@ -6,11 +6,7 @@ import { IconContext } from "react-icons";
 
 const FancyButton = ({ name, color, children, onSubmit, ...rest }) => {
   return (
-    <div
-      onClick={() => {
-        onSubmit();
-      }}
-    >
+    <div onClick={() => onSubmit && onSubmit()}>
       <IconContext.Provider value={{ color: color, className: "buttonIcon" }}>
         <BsArrowRightShort />
       </IconContext.Provider>

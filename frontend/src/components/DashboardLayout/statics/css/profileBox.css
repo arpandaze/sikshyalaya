@@ -31,7 +31,7 @@
   }
   .profileBox_textBox1 {
     width: 72%;
-    margin-top: 10px;
+    margin-top: 10px !important;
     position: relative;
   }
   .profileBox_textBox1 p {

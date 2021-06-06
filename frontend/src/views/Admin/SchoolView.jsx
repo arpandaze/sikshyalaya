@@ -12,12 +12,9 @@ import Button from "../../components/Button";
 import { ImCross } from "react-icons/im";
 import useAPI from "../../utils/useAPI";
 import callAPI from "../../utils/API";
-import {
-  Redirect,
-  useHistory,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { Redirect, useHistory } from "react-router-dom";
 
-const SchoolView = () => {
+const SchoolView = ({ location }) => {
   const history = useHistory();
   const [isPopUp, setPopUp] = useState(false);
   const validationSchema = yup.object({
@@ -77,7 +74,9 @@ const SchoolView = () => {
             className="adminCommon_topBar"
           >
             <Grid xs item className="adminCommon_textContainer">
-              <p className="adminCommon_text">Schools</p>
+              <p className="adminCommon_text">
+                {location.state ? location.state.message : "Schools"}
+              </p>
             </Grid>
             <Grid xs={1} item className="adminCommon_plusIcon">
               <GoPlus
@@ -104,7 +103,10 @@ const SchoolView = () => {
                     type="school"
                     cardData={school}
                     onSubmit={() => {
-                      history.push("/admin/department/" + school.id);
+                      history.push({
+                        pathname: "/admin/department",
+                        state: { school: school },
+                      });
                     }}
                   />
                 </Grid>

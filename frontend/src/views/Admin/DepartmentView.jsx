@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import * as yup from "yup";
 import Grid from "@material-ui/core/Grid";
 import colorscheme from "../../utils/colors";
@@ -12,13 +12,15 @@ import Button from "../../components/Button";
 import { ImCross } from "react-icons/im";
 import { Formik, Form } from "formik";
 import CustomTextField from "../../components/CustomTextField";
-import {
-  Redirect,
-  useHistory,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { Link, useHistory } from "react-router-dom";
+import {} from "react-router-dom";
 
-const DepartmentView = ({ match, location }) => {
+const DepartmentView = ({ location }) => {
   const history = useHistory();
+  const mountRef = useRef(true);
+  const prevData = location.state
+    ? location.state
+    : { school: { id: "", name: "" } };
   const defaultDepartment = [];
   const defaultSchool = "";
   const [isPopUp, setPopUp] = useState(false);
@@ -30,7 +32,7 @@ const DepartmentView = ({ match, location }) => {
   const onSubmit = async (values) => {
     values = {
       ...values,
-      school_id: match.params.school,
+      school_id: prevData.school.id,
     };
     allDepartment.push(values);
     try {
@@ -42,12 +44,17 @@ const DepartmentView = ({ match, location }) => {
     } catch (e) {}
     setPopUp(false);
   };
-  const schoolFormatter = (response) => {
-    if (!response.data) {
-      return "";
+  useEffect(() => {
+    if (!location.state) {
+      history.replace({
+        pathname: "/admin/school",
+        state: { message: "Choose a School" },
+      });
     }
-    return response.data.name;
-  };
+    return () => {
+      setPopUp();
+    };
+  }, [location]);
   const departmentFormatter = (response) => {
     if (response.data.length === 0) {
       return [];
@@ -62,7 +69,7 @@ const DepartmentView = ({ match, location }) => {
       return formattedResponseData;
     });
     const finalData = responseData.filter(
-      (response) => response.school_id == match.params.school
+      (response) => response.school_id == prevData.school.id
     );
     return finalData;
   };
@@ -70,12 +77,6 @@ const DepartmentView = ({ match, location }) => {
     { endpoint: `/api/v1/deparment/` },
     departmentFormatter,
     defaultDepartment
-  );
-
-  let [schoolName, schoolNameComplete] = useAPI(
-    { endpoint: `/api/v1/school/${match.params.school}` },
-    schoolFormatter,
-    defaultSchool
   );
 
   return (
@@ -97,7 +98,29 @@ const DepartmentView = ({ match, location }) => {
             className="adminCommon_topBar"
           >
             <Grid xs item className="adminCommon_textContainer">
-              <p className="adminCommon_text">{schoolName}</p>
+              <p className="adminCommon_text">{prevData.school.name}</p>
+              <p className="adminCommon_smallNav">
+                <Link
+                  to={{
+                    pathname: "/admin/school",
+                  }}
+                  className="adminCommon_smallNavLinks"
+                >
+                  {" "}
+                  School{" "}
+                </Link>{" "}
+                &gt;{" "}
+                <Link
+                  to={{
+                    pathname: "/admin/department",
+                    state: { ...prevData },
+                  }}
+                  href=""
+                  className="adminCommon_smallNavLinks"
+                >
+                  {prevData.school.name}
+                </Link>
+              </p>
             </Grid>
             <Grid xs={1} item className="adminCommon_plusIcon">
               <GoPlus
@@ -122,10 +145,16 @@ const DepartmentView = ({ match, location }) => {
               <Grid item key={department.id} xs={6}>
                 <AdminBoxSmall
                   type="department"
-                  onSubmit={() => {
-                    history.push("/admin/program/" + department.id);
-                  }}
                   cardData={department}
+                  onSubmit={() => {
+                    history.push({
+                      pathname: "/admin/program",
+                      state: {
+                        school: prevData.school,
+                        department: department,
+                      },
+                    });
+                  }}
                 />
               </Grid>
             ))}
