@@ -69,7 +69,7 @@ async def create_group(
 # superadmin and admin, no restriction, can get any group by id
 @router.get("/{id}", response_model=Group, summary="Get specific group")
 @router.get(
-    "/{id}/student",
+    "/{id}/student/",
     response_model=GroupStudentReturn,
     summary="Get students of specific group",
 )
@@ -126,7 +126,7 @@ async def update_group(
         return {"status": "success"}
 
 
-@router.get("/all", response_model=List[GroupReturn])
+@router.get("/all/")
 async def get_all_groups(
     db: Session = Depends(deps.get_db),
 ) -> Any:

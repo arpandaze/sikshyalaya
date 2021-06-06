@@ -97,7 +97,7 @@ async def create_class_session(
     return class_session
 
 
-@router.get("/{id}", response_model=ClassSession)
+@router.get("/{id}/", response_model=ClassSession)
 def get_specific_class_session(
     db: Session = Depends(deps.get_db),
     user=Depends(get_current_active_user),
@@ -108,7 +108,7 @@ def get_specific_class_session(
     return class_session
 
 
-@router.put("/{id}", response_model=ClassSession)
+@router.put("/{id}/", response_model=ClassSession)
 def update_class_session(
     db: Session = Depends(deps.get_db), *, id: int, obj_in: ClassSessionUpdate
 ) -> Any:
@@ -197,7 +197,7 @@ html = """
 """
 
 
-@router.websocket("/ws/{id}")
+@router.websocket("/ws/{id}/")
 async def websocket_endpoint(
     db: Session = Depends(deps.get_db),
     *,
@@ -237,6 +237,6 @@ async def websocket_endpoint(
         await ws.broadcast(json.dumps(data), class_session_id=id)
 
 
-@router.get("/test/test")
+@router.get("/test/test/")
 async def gettestests():
     return HTMLResponse(html)

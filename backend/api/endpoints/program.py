@@ -34,7 +34,7 @@ async def create_program(
     return program
 
 
-@router.get("/{program_id}", response_model=Program)
+@router.get("/{program_id}/", response_model=Program)
 async def get_program(
     db: Session = Depends(deps.get_db),
     user=Depends(deps.get_current_active_user),
@@ -45,7 +45,7 @@ async def get_program(
     return program
 
 
-@router.put("/{program_id}", response_model=Program)
+@router.put("/{program_id}/", response_model=Program)
 async def update_program(
     db: Session = Depends(deps.get_db),
     user=Depends(deps.get_current_admin_or_above),
@@ -58,7 +58,7 @@ async def update_program(
     return program
 
 
-@router.get("/all", response_model=List[Program])
+@router.get("/all/", response_model=List[Program])
 @cache(timeout=60)
 async def get_programs(
     response: Response,

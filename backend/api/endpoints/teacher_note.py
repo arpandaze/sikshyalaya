@@ -12,7 +12,7 @@ router = APIRouter()
 
 
 # TODO: Search by student ??
-@router.get("/teacher_note", response_model=List[TeacherNote])
+@router.get("/teacher_note/", response_model=List[TeacherNote])
 async def get_teacher_note(
     user=Depends(deps.get_current_active_teacher),
     db: Session = Depends(deps.get_db),
@@ -24,7 +24,7 @@ async def get_teacher_note(
 
 
 # TODO: Teacher can only post notes on students that are his student
-@router.post("/teacher_note", response_model=TeacherNote)
+@router.post("/teacher_note/", response_model=TeacherNote)
 async def create_teacher_note(
     user=Depends(deps.get_current_active_teacher),
     db: Session = Depends(deps.get_db),
@@ -35,7 +35,7 @@ async def create_teacher_note(
     return teacher_note
 
 
-@router.get("/teacher_note/{id}", response_model=TeacherNote)
+@router.get("/teacher_note/{id}/", response_model=TeacherNote)
 async def get_specific_teacher_note(
     user=Depends(deps.get_current_active_teacher),
     db: Session = Depends(deps.get_db),
@@ -46,7 +46,7 @@ async def get_specific_teacher_note(
     return teacher_note
 
 
-@router.put("/teacher_note/{id}", response_model=TeacherNote)
+@router.put("/teacher_note/{id}/", response_model=TeacherNote)
 async def update_teacher_note(
     user=Depends(deps.get_current_active_teacher),
     db: Session = Depends(deps.get_db),
