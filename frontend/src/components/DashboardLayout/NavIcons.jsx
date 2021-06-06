@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import colorscheme from "../utils/colors";
+import colorscheme from "../../utils/colors";
 import Grid from "@material-ui/core/Grid";
 import { Tooltip } from "@material-ui/core";
 import { IconContext } from "react-icons";

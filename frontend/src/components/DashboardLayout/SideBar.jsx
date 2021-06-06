@@ -3,10 +3,10 @@ import { AiOutlineDashboard } from "react-icons/ai";
 import { BiNotepad } from "react-icons/bi";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import Grid from "@material-ui/core/Grid";
-import iconbig from "../assets/logo-large.svg";
-import Image from "../components/Image";
+import iconbig from "../../assets/logo-large.svg";
+import Image from "../Image";
 import { Link } from "react-router-dom";
-import NavIcons from "../components/NavIcons";
+import NavIcons from "./NavIcons";
 import "./statics/css/sideBar.css";
 
 const sidebarItems = [

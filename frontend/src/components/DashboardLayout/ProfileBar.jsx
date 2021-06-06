@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import CourseBox from "./CourseBox";
 import ProfileBox from "./ProfileBox";
 import "./statics/css/profileBar.css";
-import { UserContext } from "../utils/Contexts/UserContext";
+import { UserContext } from "../../utils/Contexts/UserContext";
 
 const courses_temp = [
   {

@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
-import colorscheme from "../utils/colors";
+import colorscheme from "../../utils/colors";
 import Grid from "@material-ui/core/Grid";
-import Image from "./Image";
-import FancyButton from "./FancyButton";
+import Image from "../Image";
+import FancyButton from "../FancyButton";
 import { Link } from "react-router-dom";
 import { StylesProvider } from "@material-ui/core/styles";
 import "./statics/css/profileBox.css";
-import defaultProfile from "../assets/default-profile.svg";
-import { UserContext } from "../utils/Contexts/UserContext";
+import defaultProfile from "../../assets/default-profile.svg";
+import { UserContext } from "../../utils/Contexts/UserContext";
 import { Tooltip } from "@material-ui/core";
-import configs from "../utils/configs";
+import configs from "../../utils/configs";
 
 var end = ["st", "nd", "rd", "th", "th"];
 
