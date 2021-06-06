@@ -78,7 +78,7 @@ const Profile = () => {
     let group_id_list = group.filter((item) => {
       if (
         item.sem === value.semester &&
-        item.program.id === user.group.program.id
+        item.program_id === user.group.program.id
       ) {
         return item;
       }
@@ -94,7 +94,7 @@ const Profile = () => {
     };
 
     let resp = await callAPI({
-      endpoint: "/api/v1/users/me",
+      endpoint: "/api/v1/users/me/",
       method: "PUT",
       data: data,
     });
@@ -103,7 +103,7 @@ const Profile = () => {
       let imageData = new FormData();
       imageData.append("profile_photo", selectImage);
       let imageResp = await callAPI({
-        endpoint: "/api/v1/users/me/profile",
+        endpoint: "/api/v1/users/me/profile/",
         method: "PUT",
         data: imageData,
         headers: {
