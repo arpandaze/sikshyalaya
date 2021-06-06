@@ -3,7 +3,7 @@ import * as yup from "yup";
 import Grid from "@material-ui/core/Grid";
 import colorscheme from "../../utils/colors";
 import DashboardLayout from "../../components/DashboardLayout";
-import Students from "../../components/Student";
+import Students from "./components/Student";
 import { GoPlus } from "react-icons/go";
 import "./statics/css/commonView.css";
 import useAPI from "../../utils/useAPI";
@@ -162,23 +162,23 @@ const StudentView = ({ match, ...rest }) => {
         direction="column"
         justify="flex-start"
         alignItems="center"
-        className="adminStudent_root"
+        className="adminCommon_root"
         wrap="nowrap"
       >
-        <Grid item className="adminStudent_topBarContainer">
+        <Grid item className="adminCommon_topBarContainer">
           <Grid
             container
             direction="row"
             justify="flex-start"
             alignItems="center"
-            className="adminStudent_topBar"
+            className="adminCommon_topBar"
           >
-            <Grid xs item className="adminStudent_textContainer">
-              <p className="adminStudent_text">
+            <Grid xs item className="adminCommon_textContainer">
+              <p className="adminCommon_text">
                 Computer Science and Engineering
               </p>
             </Grid>
-            <Grid xs={1} item className="adminStudent_plusIcon">
+            <Grid xs={1} item className="adminCommon_plusIcon">
               <GoPlus
                 size={30}
                 color={colorscheme.green2}
@@ -190,13 +190,13 @@ const StudentView = ({ match, ...rest }) => {
           </Grid>
         </Grid>
 
-        <Grid item className="adminStudent_botBar">
+        <Grid item className="adminCommon_botBar">
           <Grid
             container
             direction="row"
             justify="flex-start"
             alignItems="flex-start"
-            className="adminStudent_innerContainer"
+            className="adminCommon_innerContainer"
             wrap="wrap"
           >
             {students.map((item) => (

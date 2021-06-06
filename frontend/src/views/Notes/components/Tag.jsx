@@ -1,7 +1,7 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import "./statics/css/tag.css";
-import Button from "./Button";
+import Button from "../../../components/Button";
 
 const Tag = ({ tagName, onDelete, ...rest }) => {
   return (

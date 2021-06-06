@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
-import colorscheme from "../utils/colors";
+import colorscheme from "../../../utils/colors";
 import { ImCross } from "react-icons/im";
 import { FiTrash } from "react-icons/fi";
 import { AiOutlineSend } from "react-icons/ai";
 import "./statics/css/note.css";
-import Button from "./Button";
+import Button from "../../../components/Button";
 import Tag from "./Tag";
 import ReactQuill from "react-quill";
 import Delta from "quill-delta";
 import "react-quill/dist/quill.snow.css";
 import "./statics/css/quill.css";
-import { formats, modules } from "../utils/quillConfig";
-import IconProvider from "./IconProvider";
+import { formats, modules } from "../../../utils/quillConfig";
+import IconProvider from "../../../components/IconProvider";
 
 const Note = ({
   noteTime,

@@ -1,6 +1,6 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import colorscheme from "../utils/colors";
+import colorscheme from "../../../utils/colors";
 import { IconContext } from "react-icons";
 import { FaUserEdit } from "react-icons/fa";
 import { Link } from "react-router-dom";

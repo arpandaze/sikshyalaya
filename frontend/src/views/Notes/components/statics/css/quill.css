@@ -18,13 +18,13 @@
 } */
 @font-face {
   font-family: "Pattaya";
-  src: local("Pattaya"), url(../../../assets/fonts/Pattaya.ttf);
+  src: local("Pattaya"), url(../../../../../assets/fonts/Pattaya.ttf);
   /* other formats include: 'woff2', 'truetype, 'opentype',
                             'embedded-opentype', and 'svg' */
 }
 @font-face {
   font-family: "Preeti";
-  src: local("Preeti"), url(../../../assets/fonts/Preeti.ttf);
+  src: local("Preeti"), url(../../../../../assets/fonts/Preeti.ttf);
   /* other formats include: 'woff2', 'truetype, 'opentype',
                             'embedded-opentype', and 'svg' */
 }

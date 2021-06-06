@@ -1,7 +1,7 @@
 import React from "react";
-import colorscheme from "../utils/colors";
+import colorscheme from "../../../utils/colors";
 import Grid from "@material-ui/core/Grid";
-import FancyButton from "./FancyButton";
+import FancyButton from "../../../components/FancyButton";
 import "./statics/css/smallCards.css";
 
 const SmallCards = ({ cardData, addStyles, ...rest }) => {
