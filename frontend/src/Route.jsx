@@ -16,51 +16,55 @@ import AdminForm from "./views/Admin/AdminForm";
 import StudentView from "./views/Admin/StudentView";
 import ResetPassword from "./views/Login/ResetPassword";
 import Signup from "./views/Login/Signup";
-import PrivateRoute from "./components/PrivateRoute";
+import StudentRoute from "./components/StudentRoute";
+import TeacherRoute from "./components/TeacherRoute";
+import AdminRoute from "./components/AdminRoute";
 import Verify from "./views/Login/Verify";
 import Logout from "./views/Login/Logout";
 import QuizCreator from "./views/QuizCreator/QuizCreator";
 import NotFound from "./views/404/404";
 import ClassSessionCreator from "./views/ClassSessionCreator/ClassSessionCreator";
+import configs from "./utils/configs";
 
 const Routes = () => {
   return (
     <Switch>
       <Route exact path="/login" component={Login} />
-      <PrivateRoute exact path="/dashboard" component={Dashboard} />
-      <PrivateRoute exact path="/quiz" component={Quiz} />
-      <PrivateRoute exact path="/note" component={Notes} />
-      <PrivateRoute exact path="/landing" component={Landing} />
-      <PrivateRoute exact path="/profile" component={Profile} />
-      <PrivateRoute
+      <StudentRoute exact path="/dashboard" component={Dashboard} />
+      <StudentRoute exact path="/quiz" component={Quiz} />
+      <StudentRoute exact path="/note" component={Notes} />
+      <StudentRoute
         exact
-        path="/teacherdashboard"
+        path="/landing"
+        access={configs.USER_TYPES.STUDENT}
+        component={Landing}
+      />
+      <StudentRoute exact path="/profile" component={Profile} />
+      <TeacherRoute
+        exact
+        path="/teacher-dashboard"
         component={TeacherDashboard}
       />
-      <PrivateRoute exact path="/adminForm" component={AdminForm} />
-      <PrivateRoute
+      <AdminRoute exact path="/adminForm" component={AdminForm} />
+      <TeacherRoute
         exact
         path="/class-session-create"
         component={ClassSessionCreator}
       />
-      <PrivateRoute exact path="/admin" component={AdminDashboard} />
-      <PrivateRoute exact path="/admin/school" component={SchoolView} />
-      <PrivateRoute
+      <AdminRoute exact path="/admin" component={AdminDashboard} />
+      <AdminRoute exact path="/admin/school" component={SchoolView} />
+      <AdminRoute
         exact
         path="/admin/department/:school?"
         component={DepartmentView}
       />
-      <PrivateRoute
+      <AdminRoute
         exact
         path="/admin/program/:department?"
         component={ProgramView}
       />
-      <PrivateRoute exact path="/admin/group/:program?" component={GroupView} />
-      <PrivateRoute
-        exact
-        path="/admin/student/:group?"
-        component={StudentView}
-      />
+      <AdminRoute exact path="/admin/group/:program?" component={GroupView} />
+      <AdminRoute exact path="/admin/student/:group?" component={StudentView} />
       <Route exact path="/reset" component={ResetPassword} />
       <Route exact path="/signup" component={Signup} />
       <Route exact path="/verify" component={Verify} />
