@@ -75,6 +75,7 @@ const Profile = () => {
   };
 
   const onSubmit = async (value) => {
+    console.log(group);
     let group_id_list = group.filter((item) => {
       if (
         item.sem === value.semester &&
