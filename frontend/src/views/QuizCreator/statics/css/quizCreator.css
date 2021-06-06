@@ -127,7 +127,6 @@
 }
 .quizCreator_imageContainer{
   height:80vh;
-  border: 1px solid;
 }
 .quizCreator_questionTitle{
 }
@@ -143,7 +142,6 @@
 }
 .quizCreator_uploadedImage{
   border-radius: 10%;
-  border:1px solid black;
   /* position:relative; */
   cursor: pointer;
   float:right;
