@@ -39,7 +39,7 @@ router = APIRouter()
 
 
 @router.post(
-    "/web", response_model=schemas.user.UserReturn, response_model_exclude_unset=True
+    "/web/", response_model=schemas.user.UserReturn, response_model_exclude_unset=True
 )
 async def login_web_session(
     db: Session = Depends(deps.get_db),
@@ -65,7 +65,7 @@ async def login_web_session(
     return user
 
 
-@router.post("/signup", response_model=schemas.Msg)
+@router.post("/signup/", response_model=schemas.Msg)
 async def sign_up(
     *,
     db: Session = Depends(deps.get_db),
@@ -97,14 +97,14 @@ async def sign_up(
     return schemas.Msg(msg="Success")
 
 
-@router.get("/web/test")
+@router.get("/web/test/")
 async def test_session_token(
     current_user: models.User = Depends(deps.get_current_user),
 ) -> Any:
     return current_user.email
 
 
-@router.post("/password-recovery", response_model=schemas.Msg)
+@router.post("/password-recovery/", response_model=schemas.Msg)
 @throttle.ip_throttle(rate=3, per=1 * 60 * 60)
 @throttle.ip_throttle(rate=1, per=20)
 async def recover_password(
@@ -122,13 +122,13 @@ async def recover_password(
             status_code=404,
             detail="Error ID: 113",
         )  # The user with this username does not exist in the system.
-    send_reset_password_email(
+    await send_reset_password_email(
         user=user
     )
     return {"msg": "Password recovery email sent"}
 
 
-@router.post("/reset-password", response_model=schemas.Msg)
+@router.post("/reset-password/", response_model=schemas.Msg)
 async def reset_password(
     request: Request,
     token: str = Body(...),
@@ -154,7 +154,7 @@ async def reset_password(
     return {"msg": "Password updated successfully"}
 
 
-@router.post("/verify", response_model=schemas.Msg)
+@router.post("/verify/", response_model=schemas.Msg)
 async def verify_account(
     token: str,
     db: Session = Depends(deps.get_db),
@@ -170,7 +170,7 @@ async def verify_account(
     return {"msg": "Verified successfully"}
 
 
-@router.get("/logout", response_model=schemas.Token)
+@router.get("/logout/", response_model=schemas.Token)
 async def session_logout(
     session: str = ReqCookie(None),
 ) -> Any:

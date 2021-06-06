@@ -36,7 +36,7 @@ router = APIRouter()
 #     users = cruds.crud_user.get_multi(db, skip=skip, limit=limit)
 #     return users
 
-@router.get("/teacher", response_model=List[schemas.user.TeacherShort])
+@router.get("/teacher/", response_model=List[schemas.user.TeacherShort])
 def get_teachers(
         db: Session = Depends(deps.get_db),
         skip: int = 0,
@@ -89,7 +89,7 @@ async def create_user(
     return user
 
 
-@router.put("/me", response_model=schemas.user.UserReturn)
+@router.put("/me/", response_model=schemas.user.UserReturn)
 async def update_user_me(
     *,
     db: Session = Depends(deps.get_db),
@@ -106,7 +106,7 @@ async def update_user_me(
     return user
 
 
-@router.get("/me", response_model=schemas.user.UserReturn, response_model_exclude_unset=True)
+@router.get("/me/", response_model=schemas.user.UserReturn, response_model_exclude_unset=True)
 # @router.get("/me/teacher_group", response_model=schemas.user.UserReturn)
 async def read_user_me(
     db: Session = Depends(deps.get_db),
@@ -118,7 +118,7 @@ async def read_user_me(
     return current_user
 
 
-@router.put("/me/profile")
+@router.put("/me/profile/")
 async def update_my_profile_photo(
     db: Session = Depends(deps.get_db),
     *,
@@ -159,7 +159,7 @@ async def update_my_profile_photo(
     return {"msg": "success", "profile": new_profile_image}
 
 
-@router.get("/{user_id}", response_model=schemas.user.UserReturn)
+@router.get("/{user_id}/", response_model=schemas.user.UserReturn)
 async def read_user_by_id(
     user_id: int,
     current_user: models.User = Depends(deps.get_current_active_user),
@@ -183,7 +183,7 @@ async def read_user_by_id(
     return user
 
 
-@router.put("/{user_id}", response_model=schemas.User)
+@router.put("/{user_id}/", response_model=schemas.User)
 async def update_user(
     *,
     db: Session = Depends(deps.get_db),

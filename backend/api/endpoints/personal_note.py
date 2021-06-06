@@ -90,7 +90,7 @@ def create_personal_note(
 # student and teacher can only get that specific note if they own it
 # admin can has no permission
 # superadmin can get it
-@router.get("/{id}", response_model=PersonalNote)
+@router.get("/{id}/", response_model=PersonalNote)
 def get_specific_personal_note(
     db: Session = Depends(deps.get_db),
     *,
@@ -124,7 +124,7 @@ def get_specific_personal_note(
         return personal_note
 
 
-@router.put("/{id}", response_model=PersonalNote)
+@router.put("/{id}/", response_model=PersonalNote)
 def update_personal_note(
     db: Session = Depends(deps.get_db),
     *,
@@ -170,7 +170,7 @@ def update_personal_note(
 #     crud_personal_note.delete
 
 
-@router.delete("/{id}")
+@router.delete("/{id}/")
 def deleteSpecificPersonalNote(
     db: Session = Depends(deps.get_db),
     *,

@@ -32,7 +32,7 @@ async def create_school(
     return school
 
 
-@router.get("/{school_id}", response_model=School)
+@router.get("/{school_id}/", response_model=School)
 async def get_school(
     db: Session = Depends(deps.get_db),
     user=Depends(deps.get_current_active_user),
@@ -43,7 +43,7 @@ async def get_school(
     return school
 
 
-@router.put("/{school_id}", response_model=School)
+@router.put("/{school_id}/", response_model=School)
 async def update_school(
     db: Session = Depends(deps.get_db),
     user=Depends(deps.get_current_admin_or_above),

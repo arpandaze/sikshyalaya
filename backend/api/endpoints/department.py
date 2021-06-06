@@ -42,7 +42,7 @@ def create_department(
 
 
 # get a specific department, can be called by all user types (1 through 4)
-@router.get("/{id}", response_model=Department)
+@router.get("/{id}/", response_model=Department)
 def get_specific_department(
     db: Session = Depends(deps.get_db),
     *,
@@ -54,7 +54,7 @@ def get_specific_department(
 
 
 # update a specific department, can be called by only superadmin and admin
-@router.put("/{id}", response_model=Department)
+@router.put("/{id}/", response_model=Department)
 def update_department(
     db: Session = Depends(deps.get_db),
     *,
