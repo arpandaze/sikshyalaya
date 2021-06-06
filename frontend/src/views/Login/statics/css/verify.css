@@ -1,5 +1,5 @@
 @import "../../../../utils/colors.css";
-@media only screen and (min-width: 1920px) {
+@media only screen and (min-width: 1280px) {
   .verify_button {
     max-width: 200px;
     min-width: 200px;
@@ -7,17 +7,8 @@
     background-color: var(--red4);
     color: var(--white);
     border-radius: 15px;
-    font-size: 1.2em;
+    font-size: 1.1em;
   }
 }
-@media only screen and (max-width: 1919px) {
-  .verify_button {
-    max-width: 200px;
-    min-width: 200px;
-    height: 50px;
-    background-color: var(--red4);
-    color: var(--white);
-    border-radius: 15px;
-    font-size: 1.2em;
-  }
+@media only screen and (min-width: 1920px) {
 }
