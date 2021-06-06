@@ -1,6 +1,6 @@
 @import "../../../utils/colors.css";
 
-@media only screen and (min-width: 1366px) {
+@media only screen and (min-width: 480px) {
   .courseBox_root {
     min-height: 300px;
     border-radius: 25px;

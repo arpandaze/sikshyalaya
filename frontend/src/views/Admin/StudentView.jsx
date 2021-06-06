@@ -5,7 +5,7 @@ import colorscheme from "../../utils/colors";
 import DashboardLayout from "../../components/DashboardLayout";
 import Students from "../../components/Student";
 import { GoPlus } from "react-icons/go";
-import "./statics/css/studentView.css";
+import "./statics/css/commonView.css";
 import useAPI from "../../utils/useAPI";
 import Button from "../../components/Button";
 import { ImCross } from "react-icons/im";
