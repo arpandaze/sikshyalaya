@@ -11,6 +11,7 @@ import { ImCross } from "react-icons/im";
 import { formatISO } from "date-fns";
 import { Tooltip } from "@material-ui/core";
 import { BsCloudUpload } from "react-icons/bs";
+import Image from "./../../components/Image";
 import {
   MuiPickersUtilsProvider,
   KeyboardTimePicker,
@@ -22,7 +23,9 @@ import colorscheme from "../../utils/colors";
 import { UserContext } from "../../utils/Contexts/UserContext";
 import callAPI from "../../utils/API";
 import useAPI from "../../utils/useAPI";
+import { AiOutlineFileImage } from "react-icons/ai";
 import configs from "../../utils/configs";
+import { fromUnixTime } from "date-fns/esm";
 
 const validationSchema = yup.object({
   quiz_title: yup.string("Enter the title of the quiz"),
@@ -84,6 +87,7 @@ const QuizCreator = () => {
   const [selectImage, setSelectedImage] = useState({});
   const [tempImage, setTempImage] = useState({});
   const [isPicked, setIsPicked] = useState(false);
+  const [isPopUp, setPopUp] = useState(false);
 
   const onFileUpload = async (e) => {
     let reader = new FileReader();
@@ -94,7 +98,7 @@ const QuizCreator = () => {
     setIsPicked(true);
     setSelectedImage({ ...selectImage, [e.target.id]: e.target.files[0] });
   };
-
+  
   const quizPostFormatter = (quiz) => {
     const postquizValues = {
       end_time: quiz.end_time,
@@ -185,296 +189,333 @@ const QuizCreator = () => {
   };
 
   return (
-    <DashboardLayout>
-      <Grid
-        container
-        direction="column"
-        justify="center"
-        alignItems="center"
-        className="quizCreator_root"
-      >
-        <Grid item className="quizCreator_header">
-          <a className="quizCreator_titleText">Quiz Creation Menu</a>
-        </Grid>
-        <Grid item className="quizCreator_body">
-          <Grid item className="quizCreator_outerContainer">
-            <Formik
-              enableReinitialize={true}
-              initialValues={{
-                quiz_title: "",
-                quiz_description: "",
-                quiz_date: formatISO(quizDate, {
-                  representation: "date",
-                }),
-                start_time: formatISO(startTime, {
-                  representation: "time",
-                }),
-                end_time: formatISO(endTime, {
-                  representation: "time",
-                }),
-                isRandomized: false,
-                whoseQuizInfo: null,
-              }}
-              validationSchema={validationSchema}
-              onSubmit={(values) => {
-                onSubmitHandler(values);
-              }}
-            >
-              {({ values, setFieldValue }) => (
-                <>
-                  <Form className="quizCreator_formBox">
-                    <Grid
-                      container
-                      direction="column"
-                      alignItems="center"
-                      justify="center"
-                      className="quizCreator_innerContainer"
-                      spacing={3}
-                    >
-                      <Grid
-                        item
-                        xs={12}
-                        className="quizCreator_titleFieldContainer"
-                      >
-                        <Field
-                          id="quiz_title"
-                          name="quiz_title"
-                          placeholder="Enter the title of the quiz"
-                          className="quizCreator_titleField"
-                        />
-                      </Grid>
-                      <Grid
-                        item
-                        className="quizCreator_descriptionFieldContainer"
-                      >
-                        <Field
-                          id="quiz_description"
-                          name="quiz_description"
-                          placeholder="Description of the quiz"
-                          className="quizCreator_descriptionField"
-                        />
-                      </Grid>
-                      <CustomTextField
-                        name="whoseQuizInfo"
-                        dropdown={true}
-                        menuItems={groupList}
-                        placeHolder="Choose Group"
-                      />
-                      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                        <Grid
-                          container
-                          direction="row"
-                          alignItems="center"
-                          justify="center"
-                          className="quizCreator_dateTimePickerContainer"
-                          spacing={3}
-                        >
-                          <Grid item className="quizCreator_quizDateField">
-                            {/**TODO: Add date restriction */}
-                            <KeyboardDatePicker
-                              value={startTime}
-                              margin="normal"
-                              id="quiz_date"
-                              label="Choose quiz date"
-                              inputVariant="outlined"
-                              format="MM/dd/yyyy"
-                              value={quizDate}
-                              onChange={(value) => {
-                                setFieldValue(
-                                  "quiz_date",
-                                  formatISO(value, {
-                                    representation: "date",
-                                  })
-                                );
-                                setQuizDate(value);
-                              }}
-                            />
-                          </Grid>
-                          <Grid item className="quizCreator_quizStartTime">
-                            <KeyboardTimePicker
-                              margin="normal"
-                              id="start_time"
-                              label="Start time"
-                              inputVariant="outlined"
-                              value={startTime}
-                              onChange={(value) => {
-                                setFieldValue(
-                                  "start_time",
-                                  formatISO(value, {
-                                    representation: "time",
-                                  })
-                                );
-                                setStartTime(value);
-                              }}
-                              KeyboardButtonProps={{
-                                "aria-label": "change time",
-                              }}
-                              keyboardIcon={<BiTimeFive />}
-                            />
-                          </Grid>
-                          <Grid item className="quizCreator_quizEndTime">
-                            <KeyboardTimePicker
-                              margin="normal"
-                              id="end_time"
-                              label="End time"
-                              inputVariant="outlined"
-                              value={endTime}
-                              onChange={(value) => {
-                                setFieldValue(
-                                  "end_time",
-                                  formatISO(value, {
-                                    representation: "time",
-                                  })
-                                );
-                                setEndTime(value);
-                              }}
-                              KeyboardButtonProps={{
-                                "aria-label": "change time",
-                              }}
-                              keyboardIcon={<BiTimeFive />}
-                            />
-                          </Grid>
-                        </Grid>
-                      </MuiPickersUtilsProvider>
-                      <Grid
-                        container
-                        direction="row"
-                        alignItems="center"
-                        justify="center"
-                        className="quizCreator_randomContainer"
-                        wrap="nowrap"
-                      >
-                        <Grid item className="quizCreator_randomLabel">
-                          <label
-                            htmlFor="is_randomized"
-                            className="quizCreator_randomText"
-                          >
-                            Randomize Questions
-                          </label>
-                        </Grid>
-                        <Grid item className="quizCreator_check">
-                          <Checkbox
-                            id="is_randomized"
-                            name="isRandomized"
-                            className="quizCreator_randomCheckBox"
-                          />
-                        </Grid>
-                      </Grid>
+		<DashboardLayout>
+			<Grid
+				container
+				direction="column"
+				justify="center"
+				alignItems="center"
+				className="quizCreator_root"
+			>
+				<Grid item className="quizCreator_header">
+					<a className="quizCreator_titleText">Quiz Creation Menu</a>
+				</Grid>
+				<Grid item className="quizCreator_body">
+					<Grid item className="quizCreator_outerContainer">
+						<Formik
+							enableReinitialize={true}
+							initialValues={{
+								quiz_title: "",
+								quiz_description: "",
+								quiz_date: formatISO(quizDate, {
+									representation: "date",
+								}),
+								start_time: formatISO(startTime, {
+									representation: "time",
+								}),
+								end_time: formatISO(endTime, {
+									representation: "time",
+								}),
+								isRandomized: false,
+								whoseQuizInfo: null,
+							}}
+							validationSchema={validationSchema}
+							onSubmit={(values) => {
+								onSubmitHandler(values);
+							}}
+						>
+							{({ values, setFieldValue }) => (
+								<>
+									<Form className="quizCreator_formBox">
+										<Grid
+											container
+											direction="column"
+											alignItems="center"
+											justify="center"
+											className="quizCreator_innerContainer"
+											spacing={3}
+										>
+											<Grid
+												item
+												xs={12}
+												className="quizCreator_titleFieldContainer"
+											>
+												<Field
+													id="quiz_title"
+													name="quiz_title"
+													placeholder="Enter the title of the quiz"
+													className="quizCreator_titleField"
+												/>
+											</Grid>
+											<Grid
+												item
+												className="quizCreator_descriptionFieldContainer"
+											>
+												<Field
+													id="quiz_description"
+													name="quiz_description"
+													placeholder="Description of the quiz"
+													className="quizCreator_descriptionField"
+												/>
+											</Grid>
+											<Grid item className="quizCreator_groupBoxOuter">
+												<CustomTextField
+													name="whoseQuizInfo"
+													dropdown={true}
+													menuItems={groupList}
+													addStyles="quizCreator_groupBox"
+													placeHolder="Choose Group"
+												/>
+											</Grid>
 
-                      <Grid item className="submission">
-                        <Grid
-                          container
-                          className="quizCreator_addQuestion"
-                          alignItems="center"
-                          justify="center"
-                        >
-                          <Field name="questions">
-                            {() => (
-                              <>
-                                <FieldArray name="questions">
-                                  {(questionHelper) => (
-                                    <>
-                                      {values.questions &&
-                                        values.questions.length !== 0 &&
-                                        values.questions.map(
-                                          (question, index) => (
-                                            <>
-                                              <Grid
-                                                container
-                                                direction="column"
-                                                wrap="nowrap"
-                                                className="quizCreator_questionRemovecontainer"
-                                              >
-                                                <div key={index + 1}>
-                                                  <Grid
-                                                    container
-                                                    directon="row"
-                                                    justify="center"
-                                                    alignItems="center"
-                                                    wrap="nowrap"
-                                                  >
-                                                    <Grid item xs={12}>
-                                                      <h4 className="quizCreator_questionNumber">
-                                                        Question #{index + 1}
-                                                      </h4>
-                                                    </Grid>
-                                                    <Grid
-                                                      item
-                                                      xs={1}
-                                                      className="quizCreator_imageContainerOuter"
-                                                    >
-                                                      <label
-                                                        for={index}
-                                                        className="quizCreator_imageContainer"
-                                                      >
-                                                        <BsCloudUpload
-                                                          color={
-                                                            colorscheme.purple2
-                                                          }
-                                                          size={23}
-                                                          className="quizCreator_uploadButton"
-                                                          style={{
-                                                            float: "right",
-                                                            border:
-                                                              "1px solid black",
-                                                            cursor: "pointer",
-                                                          }}
-                                                        />
+											<MuiPickersUtilsProvider utils={DateFnsUtils}>
+												<Grid
+													container
+													direction="row"
+													alignItems="center"
+													justify="center"
+													className="quizCreator_dateTimePickerContainer"
+													spacing={3}
+												>
+													<Grid item className="quizCreator_quizDateField">
+														{/**TODO: Add date restriction */}
+														<KeyboardDatePicker
+															value={startTime}
+															margin="normal"
+															id="quiz_date"
+															label="Choose quiz date"
+															inputVariant="outlined"
+															format="MM/dd/yyyy"
+															value={quizDate}
+															onChange={(value) => {
+																setFieldValue(
+																	"quiz_date",
+																	formatISO(value, {
+																		representation: "date",
+																	})
+																);
+																setQuizDate(value);
+															}}
+														/>
+													</Grid>
+													<Grid item className="quizCreator_quizStartTime">
+														<KeyboardTimePicker
+															margin="normal"
+															id="start_time"
+															label="Start time"
+															inputVariant="outlined"
+															value={startTime}
+															onChange={(value) => {
+																setFieldValue(
+																	"start_time",
+																	formatISO(value, {
+																		representation: "time",
+																	})
+																);
+																setStartTime(value);
+															}}
+															KeyboardButtonProps={{
+																"aria-label": "change time",
+															}}
+															keyboardIcon={<BiTimeFive />}
+														/>
+													</Grid>
+													<Grid item className="quizCreator_quizEndTime">
+														<KeyboardTimePicker
+															margin="normal"
+															id="end_time"
+															label="End time"
+															inputVariant="outlined"
+															value={endTime}
+															onChange={(value) => {
+																setFieldValue(
+																	"end_time",
+																	formatISO(value, {
+																		representation: "time",
+																	})
+																);
+																setEndTime(value);
+															}}
+															KeyboardButtonProps={{
+																"aria-label": "change time",
+															}}
+															keyboardIcon={<BiTimeFive />}
+														/>
+													</Grid>
+												</Grid>
+											</MuiPickersUtilsProvider>
+											<Grid
+												container
+												direction="row"
+												alignItems="center"
+												justify="center"
+												className="quizCreator_randomContainer"
+												wrap="nowrap"
+											>
+												<Grid item className="quizCreator_randomLabel">
+													<label
+														htmlFor="is_randomized"
+														className="quizCreator_randomText"
+													>
+														Randomize Questions
+													</label>
+												</Grid>
+												<Grid item className="quizCreator_check">
+													<Checkbox
+														id="is_randomized"
+														name="isRandomized"
+														className="quizCreator_randomCheckBox"
+													/>
+												</Grid>
+											</Grid>
 
-                                                        <input
-                                                          id={index}
-                                                          type="file"
-                                                          accept="image/*"
-                                                          onChange={(e) => {
-                                                            onFileUpload(
-                                                              e,
-                                                              index
-                                                            );
-                                                          }}
-                                                          style={{
-                                                            display: "none",
-                                                          }}
-                                                        ></input>
-                                                      </label>
-                                                    </Grid>
-                                                    <Grid
-                                                      item
-                                                      xs={1}
-                                                      className="quizCreator_removeContainer"
-                                                    >
-                                                      <button
-                                                        type="button"
-                                                        title="Remove Question"
-                                                        className="quizCreator_remove"
-                                                        onClick={() => {
-                                                          questionHelper.remove(
-                                                            index
-                                                          );
-                                                          answerList.splice(
-                                                            index,
-                                                            1
-                                                          );
-                                                        }}
-                                                      >
-                                                        <ImCross
-                                                          size={20}
-                                                          color={
-                                                            colorscheme.red2
-                                                          }
-                                                        />
-                                                      </button>
-                                                    </Grid>
-                                                  </Grid>
-                                                  <Grid item xs={12}>
-                                                    <CustomTextField
-                                                      name={`questions[${index}].question_text`}
-                                                      addStyles="quizCreator_questionTitle"
-                                                      type="text"
-                                                      placeHolder="Question Title"
-                                                    />
-                                                  </Grid>
+											<Grid item className="submission">
+												<Grid
+													container
+													className="quizCreator_addQuestion"
+													alignItems="center"
+													justify="center"
+												>
+													<Field name="questions">
+														{() => (
+															<>
+																<FieldArray name="questions">
+																	{(questionHelper) => (
+																		<>
+																			{values.questions &&
+																				values.questions.length !== 0 &&
+																				values.questions.map(
+																					(question, index) => (
+																						<>
+																							<Grid
+																								container
+																								direction="column"
+																								wrap="nowrap"
+																								className="quizCreator_questionRemovecontainer"
+																							>
+																								<div key={index + 1}>
+																									<Grid
+																										container
+																										directon="row"
+																										justify="center"
+																										alignItems="center"
+																										wrap="nowrap"
+																										className="quizCreator_questionTitleContainer"
+																									>
+																										<Grid item xs={12}>
+																											<h4 className="quizCreator_questionNumber">
+																												Question #{index + 1}
+																											</h4>
+																										</Grid>
+																										<Grid
+																											item
+																											xs={1}
+																											className="quizCreator_imageContainerOuter"
+																										>
+																											{isPicked ? (
+																												<Grid
+																													container
+																													direction="row"
+																													justify="center"
+                                                          alignItems="center"
+                                                          wrap="nowrap"
+																												>
+																													<Grid item>
+																														<Image
+																															src={tempImage}
+																															addStyles="quizCreator_uploadedImage"
+																															onCLick={() => {
+																																setPopUp(true);
+																															}}
+																														/>
+																													</Grid>
+																													<Grid item>
+																														<AiOutlineFileImage
+																															size={30}
+																															color={
+																																colorscheme.purple2
+																															}
+																															className="quizCreator_fileUploadedIcon"
+																														/>
+																													</Grid>
+																												</Grid>
+																											) : (
+																												<label
+																													for={index}
+																													className="quizCreator_imageContainer"
+																												>
+																													<BsCloudUpload
+																														color={
+																															colorscheme.purple2
+																														}
+																														size={23}
+																														className="quizCreator_uploadButton"
+																														style={{
+																															float: "right",
+																															cursor: "pointer",
+																														}}
+																													/>
 
-                                                  {/* <Grid item xs={12}>
+																													<input
+																														id={index}
+																														type="file"
+																														accept="image/*"
+																														onChange={(e) => {
+																															onFileUpload(
+																																e,
+																																index
+																															);
+																														}}
+																														style={{
+																															display: "none",
+																														}}
+																													></input>
+																												</label>
+																											)}
+																										</Grid>
+
+																										<Grid
+																											item
+																											xs={1}
+																											className="quizCreator_removeContainer"
+																										>
+																											<button
+																												type="button"
+																												title="Remove Question"
+																												className="quizCreator_remove"
+																												onClick={() => {
+																													questionHelper.remove(
+																														index
+																													);
+																													answerList.splice(
+																														index,
+																														1
+																													);
+																												}}
+																											>
+																												<ImCross
+																													size={20}
+																													color={
+																														colorscheme.red2
+																													}
+																												/>
+																											</button>
+																										</Grid>
+																									</Grid>
+																									<Grid
+																										item
+																										xs={12}
+																										className="quizCreator_questionTitleOuter"
+																									>
+																										<CustomTextField
+																											name={`questions[${index}].question_text`}
+																											addStyles="quizCreator_questionTitle"
+																											type="text"
+																											placeHolder="Question Title"
+																										/>
+																									</Grid>
+
+																									{/* <Grid item xs={12}>
 																										<CustomTextField
 																											addStyles="quizCreator_dropdown"
 																											dropdown={true}
@@ -483,139 +524,224 @@ const QuizCreator = () => {
 																											placeHolder="Question Type"
 																										/>
 																									</Grid> */}
-                                                </div>
-                                              </Grid>
-                                              <Grid
-                                                container
-                                                direction="column"
-                                                alignItems="center"
-                                                justify="center"
-                                              >
-                                                <FieldArray
-                                                  name={`questions[${index}].options`}
-                                                >
-                                                  {(newHelper) => (
-                                                    <>
-                                                      <button
-                                                        type="button"
-                                                        className="quizCreator_addOptions"
-                                                        onClick={() => {
-                                                          newHelper.push();
-                                                          answerList[
-                                                            index
-                                                          ].push({
-                                                            name: `Option ${
-                                                              question.options
-                                                                .length + 1
-                                                            }`,
-                                                            value:
-                                                              question.options
-                                                                .length + 1,
-                                                          });
-                                                        }}
-                                                      >
-                                                        Add Options
-                                                      </button>
-                                                      {question.options &&
-                                                        question.options
-                                                          .length !== 0 &&
-                                                        question.options.map(
-                                                          (
-                                                            option,
-                                                            optionIndex
-                                                          ) => (
-                                                            <div
-                                                              key={optionIndex}
-                                                            >
-                                                              <Grid item>
-                                                                <CustomTextField
-                                                                  addStyles="quizCreator_option"
-                                                                  name={`questions[${index}].options[${optionIndex}]`}
-                                                                  placeHolder={`Option ${
-                                                                    optionIndex +
-                                                                    1
-                                                                  }`}
-                                                                />
-                                                              </Grid>
-                                                            </div>
-                                                          )
-                                                        )}
-                                                      <Grid
-                                                        item
-                                                        className="quizCreator_final"
-                                                        xs={12}
-                                                      >
-                                                        <CustomTextField
-                                                          addStyles="quizCreator_correct"
-                                                          dropdown={true}
-                                                          name={`questions[${index}].answer`}
-                                                          menuItems={
-                                                            answerList[index] ||
-                                                            []
-                                                          }
-                                                          placeHolder="Choose correct Option"
-                                                        />
-                                                      </Grid>
-                                                    </>
-                                                  )}
-                                                </FieldArray>
-                                              </Grid>
-                                            </>
-                                          )
-                                        )}
-                                      <Grid
-                                        item
-                                        className="quizCreator_addQuestionButtonContainer"
-                                      >
-                                        <button
-                                          type="button"
-                                          className="quizCreator_addQuestionButton"
-                                          onClick={() => {
-                                            questionHelper.push(
-                                              questionInitialValue
-                                            );
-                                            answerList.push([]);
-                                          }}
-                                        >
-                                          Add Question
-                                        </button>
-                                      </Grid>
-                                    </>
-                                  )}
-                                </FieldArray>
-                              </>
-                            )}
-                          </Field>
-                        </Grid>
-                        <Grid
-                          container
-                          alignItems="center"
-                          justify="center"
-                          direction="row"
-                        >
-                          <Grid
-                            item
-                            className="quizCreator_submitButtonContainer"
-                          >
-                            <button
-                              type="submit"
-                              className="quizCreator_submitButton"
-                            >
-                              Submit
-                            </button>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </Form>
-                </>
-              )}
-            </Formik>
-          </Grid>
-        </Grid>
-      </Grid>
-    </DashboardLayout>
-  );
+																								</div>
+																							</Grid>
+																							<Grid
+																								container
+																								direction="column"
+																								alignItems="center"
+																								justify="center"
+																							>
+																								<FieldArray
+																									name={`questions[${index}].options`}
+																								>
+																									{(newHelper) => (
+																										<>
+																											<Grid item>
+																												<button
+																													type="button"
+																													className="quizCreator_addOptions"
+																													onClick={() => {
+																														newHelper.push();
+																														answerList[
+																															index
+																														].push({
+																															name: `Option ${
+																																question.options
+																																	.length + 1
+																															}`,
+																															value:
+																																question.options
+																																	.length + 1,
+																														});
+																													}}
+																												>
+																													Add Options
+																												</button>
+																											</Grid>
+
+																											{question.options &&
+																												question.options
+																													.length !== 0 &&
+																												question.options.map(
+																													(
+																														option,
+																														optionIndex
+																													) => (
+																														<div
+																															key={optionIndex}
+																														>
+																															<Grid
+																																container
+																																direction="row"
+																																justify="center"
+																																alignItems="center"
+																																wrap="nowrap"
+																															>
+																																<Grid
+																																	item
+																																	xs={12}
+																																>
+																																	<CustomTextField
+																																		addStyles="quizCreator_option"
+																																		name={`questions[${index}].options[${optionIndex}]`}
+																																		placeHolder={`Option ${
+																																			optionIndex +
+																																			1
+																																		}`}
+																																	/>
+																																</Grid>
+																																<Grid
+																																	item
+																																	xs={1}
+																																	className="quizCreator_imageContainerOuter"
+																																>
+																																	<label
+																																		for={index}
+																																		className="quizCreator_imageContainer"
+																																	>
+																																		<BsCloudUpload
+																																			color={
+																																				colorscheme.purple2
+																																			}
+																																			size={23}
+																																			className="quizCreator_uploadButton"
+																																			style={{
+																																				cursor:
+																																					"pointer",
+																																				paddingBottom:
+																																					"10px",
+																																			}}
+																																		/>
+
+																																		<input
+																																			id={index}
+																																			type="file"
+																																			accept="image/*"
+																																			onChange={(
+																																				e
+																																			) => {
+																																				onFileUpload(
+																																					e,
+																																					index
+																																				);
+																																			}}
+																																			style={{
+																																				display:
+																																					"none",
+																																			}}
+																																		></input>
+																																	</label>
+																																</Grid>
+																															</Grid>
+																														</div>
+																													)
+																												)}
+																											<Grid
+																												item
+																												className="quizCreator_final"
+																												xs={12}
+																											>
+																												<CustomTextField
+																													addStyles="quizCreator_correct"
+																													dropdown={true}
+																													name={`questions[${index}].answer`}
+																													menuItems={
+																														answerList[index] ||
+																														[]
+																													}
+																													placeHolder="Choose correct Option"
+																												/>
+																											</Grid>
+																										</>
+																									)}
+																								</FieldArray>
+																							</Grid>
+																						</>
+																					)
+																				)}
+																			<Grid
+																				item
+																				className="quizCreator_addQuestionButtonContainer"
+																			>
+																				<button
+																					type="button"
+																					className="quizCreator_addQuestionButton"
+																					onClick={() => {
+																						questionHelper.push(
+																							questionInitialValue
+																						);
+																						answerList.push([]);
+																					}}
+																				>
+																					Add Question
+																				</button>
+																			</Grid>
+																		</>
+																	)}
+																</FieldArray>
+															</>
+														)}
+													</Field>
+												</Grid>
+												<Grid
+													container
+													alignItems="center"
+													justify="center"
+													direction="row"
+												>
+													<Grid
+														item
+														className="quizCreator_submitButtonContainer"
+													>
+														<button
+															type="submit"
+															className="quizCreator_submitButton"
+														>
+															Submit
+														</button>
+													</Grid>
+												</Grid>
+											</Grid>
+										</Grid>
+									</Form>
+								</>
+							)}
+						</Formik>
+					</Grid>
+				</Grid>
+			</Grid>
+
+			<Grid
+				container
+				direction="row"
+				alignItems="flex-start"
+				justify="center"
+				className="quizCreator_popup"
+				style={
+					!isPopUp
+						? {
+								display: "none",
+						  }
+						: {}
+				}
+				spacing={6}
+			>
+				<Grid item xs={11} className="quizCreator_imageContainer">
+					<Image src={tempImage} addStyles="quizCreator_imageContainer" />
+				</Grid>
+				<Grid item>
+					<ImCross
+						color={colorscheme.green4}
+						className="quizCreator_closeButton"
+						onClick={() => {
+							setPopUp(false);
+						}}
+					/>
+				</Grid>
+			</Grid>
+		</DashboardLayout>
+	);
 };
 
 export default QuizCreator;
