@@ -1,5 +1,5 @@
 @import "../../../utils/colors.css";
-@media only screen and (min-width: 720px) {
+@media only screen and (min-width: 1280px) {
   .adminStudentBox_root {
     flex-grow: 1;
     width: 90% !important;

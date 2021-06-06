@@ -12,7 +12,7 @@
   }
 }
 
-@media only screen and (min-width: 720px) {
+@media only screen and (min-width: 1280px) {
   .landing_root {
     flex-grow: 1;
     width: 94% !important;
