@@ -1,6 +1,6 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import DashboardLayout from "../../components/DashboardLayout";
+import DashboardLayout from "../../components/DashboardLayout/DashboardLayout";
 import "./statics/css/dashboard.css";
 import ClassResource from "./components/ClassResource";
 import useAPI from "../../utils/useAPI";

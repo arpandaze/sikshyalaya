@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
-import DashboardLayout from "../../components/DashboardLayout";
+import DashboardLayout from "../../components/DashboardLayout/DashboardLayout";
 import QuizCard from "./components/QuizCard";
 import "./statics/css/quiz.css";
 

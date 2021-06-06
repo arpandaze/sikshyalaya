@@ -5,7 +5,7 @@ import * as yup from "yup";
 import Grid from "@material-ui/core/Grid";
 import Image from "../../components/Image";
 import defaultProfile from "../../assets/default-profile.svg";
-import DashboardLayout from "../../components/DashboardLayout";
+import DashboardLayout from "../../components/DashboardLayout/DashboardLayout";
 import "./statics/css/profile.css";
 import CustomTextField from "./../../components/CustomTextField";
 import useAPI from "../../utils/useAPI";

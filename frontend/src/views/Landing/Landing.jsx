@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import colorscheme from "../../utils/colors";
-import DashboardLayout from "../../components/DashboardLayout";
+import DashboardLayout from "../../components/DashboardLayout/DashboardLayout";
 import SmallCards from "./components/SmallCards";
 import { BsCalendar } from "react-icons/bs";
 import { StylesProvider } from "@material-ui/core/styles";

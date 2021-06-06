@@ -1,7 +1,7 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import SideBar from "../components/SideBar";
-import ProfileBar from "../components/ProfileBar";
+import SideBar from "../SideBar";
+import ProfileBar from "../ProfileBar";
 import "./statics/css/dashboardLayout.css";
 
 const DashboardLayout = ({ children }) => {

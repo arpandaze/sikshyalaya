@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Formik, Form, Field, FieldArray } from "formik";
 import Button from "../../components/Button";
-import DashboardLayout from "../../components/DashboardLayout";
+import DashboardLayout from "../../components/DashboardLayout/DashboardLayout";
 import * as yup from "yup";
 import CustomTextField from "./../../components/CustomTextField";
 import Checkbox from "./../../components/Checkbox";

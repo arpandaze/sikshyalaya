@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import colorscheme from "../../utils/colors";
-import DashboardLayout from "../../components/DashboardLayout";
+import DashboardLayout from "../../components/DashboardLayout/DashboardLayout";
 import Note from "./components/Note";
 import SideNotes from "./components/SideNotes";
 import { GoPlus } from "react-icons/go";
