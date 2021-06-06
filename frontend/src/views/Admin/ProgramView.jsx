@@ -16,9 +16,13 @@ import {
   Redirect,
   useHistory,
 } from "react-router-dom/cjs/react-router-dom.min";
+import { Link } from "react-router-dom";
 
-const ProgramView = ({ match, location }) => {
+const ProgramView = ({ location }) => {
   const history = useHistory();
+  const prevData = location.state
+    ? location.state
+    : { school: { id: "", name: "" }, department: { id: "", name: "" } };
   const defaultProgram = [];
   const defaultDepartment = "";
   const [isPopUp, setPopUp] = useState(false);
@@ -28,7 +32,7 @@ const ProgramView = ({ match, location }) => {
   const onSubmit = async (values) => {
     values = {
       ...values,
-      department_id: match.params.department,
+      department_id: prevData.department.id,
     };
     allProgram.push(values);
     try {
@@ -40,40 +44,29 @@ const ProgramView = ({ match, location }) => {
     } catch (e) {}
     setPopUp(false);
   };
-  const departmentFormatter = (response) => {
-    if (!response.data) {
-      return "";
-    }
-    return response.data.name;
-  };
+
   const programFormatter = (response) => {
     if (response.data.length === 0) {
       return [];
     }
     let responseData = [];
-    responseData = response.data.map((department) => {
+    responseData = response.data.map((program) => {
       let formattedResponseData = {
-        id: department.id,
-        name: department.name,
-        department_id: department.department_id,
+        id: program.id,
+        name: program.name,
+        department_id: program.department_id,
       };
       return formattedResponseData;
     });
     const finalData = responseData.filter(
-      (response) => response.department_id == match.params.department
+      (response) => response.department_id == prevData.department.id
     );
     return finalData;
   };
-  let [allProgram, allProgramComplete] = useAPI(
+  let [allProgram] = useAPI(
     { endpoint: `/api/v1/program/` },
     programFormatter,
     defaultProgram
-  );
-
-  let [departmentName, departmentNameComplete] = useAPI(
-    { endpoint: `/api/v1/deparment/${match.params.department}` },
-    departmentFormatter,
-    defaultDepartment
   );
 
   return (
@@ -95,7 +88,41 @@ const ProgramView = ({ match, location }) => {
             className="adminCommon_topBar"
           >
             <Grid xs item className="adminCommon_textContainer">
-              <p className="adminCommon_text">{departmentName}</p>
+              <p className="adminCommon_text">{prevData.department.name}</p>
+              <p className="adminCommon_smallNav">
+                <Link
+                  to={{
+                    pathname: "/admin/school",
+                  }}
+                  className="adminCommon_smallNavLinks"
+                >
+                  {" "}
+                  School{" "}
+                </Link>{" "}
+                &gt;{" "}
+                <Link
+                  to={{
+                    pathname: "/admin/department",
+                    state: {
+                      school: prevData.school,
+                    },
+                  }}
+                  className="adminCommon_smallNavLinks"
+                >
+                  {prevData.school.name}
+                </Link>
+                &gt;{" "}
+                <Link
+                  to={{
+                    pathname: "/admin/program",
+                    state: { ...prevData },
+                  }}
+                  href=""
+                  className="adminCommon_smallNavLinks"
+                >
+                  {prevData.department.name}
+                </Link>
+              </p>
             </Grid>
             <Grid xs={1} item className="adminCommon_plusIcon">
               <GoPlus
@@ -121,7 +148,14 @@ const ProgramView = ({ match, location }) => {
                 <AdminBoxSmall
                   type="program"
                   onSubmit={() => {
-                    history.push("/admin/group/" + program.id);
+                    history.push({
+                      pathname: "/admin/group",
+                      state: {
+                        school: prevData.school,
+                        department: prevData.department,
+                        program: program,
+                      },
+                    });
                   }}
                   cardData={program}
                 />

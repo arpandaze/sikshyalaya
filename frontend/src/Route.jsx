@@ -25,6 +25,7 @@ import QuizCreator from "./views/QuizCreator/QuizCreator";
 import NotFound from "./views/404/404";
 import ClassSessionCreator from "./views/ClassSessionCreator/ClassSessionCreator";
 import configs from "./utils/configs";
+import HomeRedirector from "./components/HomeRedirector";
 
 const Routes = () => {
   return (
@@ -33,12 +34,7 @@ const Routes = () => {
       <StudentRoute exact path="/dashboard" component={Dashboard} />
       <StudentRoute exact path="/quiz" component={Quiz} />
       <StudentRoute exact path="/note" component={Notes} />
-      <StudentRoute
-        exact
-        path="/landing"
-        access={configs.USER_TYPES.STUDENT}
-        component={Landing}
-      />
+      <StudentRoute exact path="/landing" component={Landing} />
       <StudentRoute exact path="/profile" component={Profile} />
       <TeacherRoute
         exact
@@ -53,11 +49,7 @@ const Routes = () => {
       />
       <AdminRoute exact path="/admin" component={AdminDashboard} />
       <AdminRoute exact path="/admin/school" component={SchoolView} />
-      <AdminRoute
-        exact
-        path="/admin/department/:school?"
-        component={DepartmentView}
-      />
+      <AdminRoute exact path="/admin/department" component={DepartmentView} />
       <AdminRoute
         exact
         path="/admin/program/:department?"
@@ -70,7 +62,7 @@ const Routes = () => {
       <Route exact path="/verify" component={Verify} />
       <Route exact path="/logout" component={Logout} />
       <Route exact path="/quiz-creator" component={QuizCreator} />
-      <Redirect exact from="/" to="login" />
+      <HomeRedirector />
       <Route exact path="*" component={NotFound} />
     </Switch>
   );

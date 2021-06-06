@@ -12,10 +12,7 @@ import { ImCross } from "react-icons/im";
 import { Formik, Form } from "formik";
 import callAPI from "../../utils/API";
 import CustomTextField from "../../components/CustomTextField";
-import {
-  Redirect,
-  useHistory,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { Link, useHistory } from "react-router-dom";
 
 const validationSchema = yup.object({
   full_name: yup.string("Enter your name").required("Name is required"),
@@ -42,8 +39,16 @@ const semester = [
   { name: "VIII", value: 8 },
 ];
 
-const StudentView = ({ match, ...rest }) => {
+const StudentView = ({ location, ...rest }) => {
   const history = useHistory();
+  const prevData = location.state
+    ? location.state
+    : {
+        school: { id: "", name: "" },
+        department: { id: "", name: "" },
+        program: { id: "", name: "" },
+        group: { id: "", name: "" },
+      };
   const [isPopUp, setPopUp] = useState(false);
   const [editState, setEditState] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -71,7 +76,7 @@ const StudentView = ({ match, ...rest }) => {
   };
   const studentsDefault = [];
   const [students] = useAPI(
-    { endpoint: `/api/v1/group/${match.params.group}/student` },
+    { endpoint: `/api/v1/group/${prevData.group.id}/student` },
     studentsFormatter,
     studentsDefault
   );
@@ -91,6 +96,7 @@ const StudentView = ({ match, ...rest }) => {
   const [program] = useAPI({ endpoint: "/api/v1/program/" }, programFormatter);
 
   const onSubmit = async (data) => {
+    console.log(group);
     let group_id_list = group.filter((item) => {
       if (item.sem === data.semester && item.program.id === data.program) {
         return item;
@@ -174,8 +180,66 @@ const StudentView = ({ match, ...rest }) => {
             className="adminCommon_topBar"
           >
             <Grid xs item className="adminCommon_textContainer">
-              <p className="adminCommon_text">
-                Computer Science and Engineering
+              <p className="adminCommon_text">{prevData.group.name}</p>
+              <p className="adminCommon_smallNav">
+                <Link
+                  to={{
+                    pathname: "/admin/school",
+                  }}
+                  className="adminCommon_smallNavLinks"
+                >
+                  {" "}
+                  School{" "}
+                </Link>{" "}
+                &gt;{" "}
+                <Link
+                  to={{
+                    pathname: "/admin/department",
+                    state: {
+                      school: prevData.school,
+                    },
+                  }}
+                  className="adminCommon_smallNavLinks"
+                >
+                  {prevData.school.name}
+                </Link>{" "}
+                &gt;{" "}
+                <Link
+                  to={{
+                    pathname: "/admin/program",
+                    state: {
+                      school: prevData.school,
+                      department: prevData.department,
+                    },
+                  }}
+                  className="adminCommon_smallNavLinks"
+                >
+                  {prevData.department.name}
+                </Link>{" "}
+                &gt;{" "}
+                <Link
+                  to={{
+                    pathname: "/admin/group",
+                    state: {
+                      school: prevData.school,
+                      department: prevData.department,
+                      program: prevData.program,
+                    },
+                  }}
+                  className="adminCommon_smallNavLinks"
+                >
+                  {prevData.program.name}
+                </Link>{" "}
+                &gt;{" "}
+                <Link
+                  to={{
+                    pathname: "/admin/student",
+                    state: { ...prevData },
+                  }}
+                  className="adminCommon_smallNavLinks"
+                >
+                  {prevData.group.name}
+                </Link>
               </p>
             </Grid>
             <Grid xs={1} item className="adminCommon_plusIcon">

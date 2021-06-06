@@ -12,13 +12,17 @@ import Button from "../../components/Button";
 import { ImCross } from "react-icons/im";
 import { Formik, Form } from "formik";
 import CustomTextField from "../../components/CustomTextField";
-import {
-  Redirect,
-  useHistory,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { Link, useHistory } from "react-router-dom";
 
 const GroupView = ({ match, location }) => {
   const history = useHistory();
+  const prevData = location.state
+    ? location.state
+    : {
+        school: { id: "", name: "" },
+        department: { id: "", name: "" },
+        program: { id: "", name: "" },
+      };
   const defaultGroup = [];
   const defaultProgram = "";
   const [isPopUp, setPopUp] = useState(false);
@@ -28,7 +32,7 @@ const GroupView = ({ match, location }) => {
   const onSubmit = async (values) => {
     values = {
       ...values,
-      department_id: match.params.program,
+      department_id: prevData.program.id,
     };
     allGroup.push(values);
     try {
@@ -60,7 +64,7 @@ const GroupView = ({ match, location }) => {
       return formattedResponseData;
     });
     const finalData = responseData.filter(
-      (response) => response.program_id == match.params.program
+      (response) => response.program_id == prevData.program.id
     );
     console.log(finalData);
     return finalData;
@@ -70,12 +74,6 @@ const GroupView = ({ match, location }) => {
     { endpoint: `/api/v1/group/` },
     groupFormatter,
     defaultGroup
-  );
-
-  let [programName, programNameComplete] = useAPI(
-    { endpoint: `/api/v1/program/${match.params.program}` },
-    programFormatter,
-    defaultProgram
   );
 
   return (
@@ -97,7 +95,53 @@ const GroupView = ({ match, location }) => {
             className="adminCommon_topBar"
           >
             <Grid xs item className="adminCommon_textContainer">
-              <p className="adminCommon_text">{programName}</p>
+              <p className="adminCommon_text">{prevData.program.name}</p>
+              <p className="adminCommon_smallNav">
+                <Link
+                  to={{
+                    pathname: "/admin/school",
+                  }}
+                  className="adminCommon_smallNavLinks"
+                >
+                  {" "}
+                  School{" "}
+                </Link>{" "}
+                &gt;{" "}
+                <Link
+                  to={{
+                    pathname: "/admin/department",
+                    state: {
+                      school: prevData.school,
+                    },
+                  }}
+                  className="adminCommon_smallNavLinks"
+                >
+                  {prevData.school.name}
+                </Link>{" "}
+                &gt;{" "}
+                <Link
+                  to={{
+                    pathname: "/admin/program",
+                    state: {
+                      school: prevData.school,
+                      department: prevData.department,
+                    },
+                  }}
+                  className="adminCommon_smallNavLinks"
+                >
+                  {prevData.department.name}
+                </Link>{" "}
+                &gt;{" "}
+                <Link
+                  to={{
+                    pathname: "/admin/group",
+                    state: { ...prevData },
+                  }}
+                  className="adminCommon_smallNavLinks"
+                >
+                  {prevData.program.name}
+                </Link>
+              </p>
             </Grid>
             <Grid xs={1} item className="adminCommon_plusIcon">
               <GoPlus
@@ -123,7 +167,15 @@ const GroupView = ({ match, location }) => {
                 <AdminBoxSmall
                   type="group"
                   onSubmit={() => {
-                    history.push("/admin/student/" + group.id);
+                    history.push({
+                      pathname: "/admin/student",
+                      state: {
+                        school: prevData.school,
+                        department: prevData.department,
+                        program: prevData.program,
+                        group: group,
+                      },
+                    });
                   }}
                   cardData={group}
                 />

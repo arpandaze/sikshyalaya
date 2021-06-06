@@ -16,6 +16,15 @@
   .adminCommon_textContainer {
     cursor: text;
   }
+  .adminCommon_smallNav {
+    height: 50px;
+    margin: 0;
+    color: var(--grey1);
+  }
+  .adminCommon_smallNavLinks {
+    text-decoration: underline;
+    color: var(--grey1);
+  }
   .adminCommon_mainBox {
     padding: 10px;
   }
