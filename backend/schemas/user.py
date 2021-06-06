@@ -117,6 +117,7 @@ class UserReturn(BaseModel):
     teacher_group: List[TeacherGroupOfUser] = None
     contact_number: str = None
     dob: date = None
+    user_type: int = None
     join_year: Optional[int] = None
 
     class Config:
