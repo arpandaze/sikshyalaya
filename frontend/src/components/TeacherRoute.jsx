@@ -30,7 +30,6 @@ const AdminRoute = ({ component: Component, ...rest }) => {
           <Redirect
             to={{
               pathname: "/404",
-              state: { from: props.location },
             }}
           />
         ) : (

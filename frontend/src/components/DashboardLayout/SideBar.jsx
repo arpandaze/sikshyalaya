@@ -12,6 +12,7 @@ import { UserContext } from "../../utils/Contexts/UserContext";
 import configs from "../../utils/configs";
 
 const sidebarItems = [
+  //Student
   [
     {
       id: 1,
@@ -32,7 +33,28 @@ const sidebarItems = [
       icon: <BiNotepad className="sideBar_iconStyle" />,
     },
   ],
-
+  //Teacher
+  [
+    {
+      id: 1,
+      title: "Dashboard",
+      route: "/teacher-dashboard",
+      icon: <AiOutlineDashboard className="sideBar_iconStyle" />,
+    },
+    {
+      id: 2,
+      title: "Quiz",
+      route: "/quiz-creator",
+      icon: <FaChalkboardTeacher className="sideBar_iconStyle" />,
+    },
+    {
+      id: 3,
+      title: "Note",
+      route: "/teacher/note",
+      icon: <BiNotepad className="sideBar_iconStyle" />,
+    },
+  ],
+  //Admin
   [
     {
       id: 1,
@@ -52,6 +74,7 @@ const sidebarItems = [
 const SideBar = () => {
   const { user } = useContext(UserContext);
   const admin = configs.USER_TYPES.ADMIN === user.user_type;
+  const teacher = configs.USER_TYPES.TEACHER === user.user_type;
 
   return (
     <div className="sideBar_root">
@@ -75,7 +98,7 @@ const SideBar = () => {
           justify="center"
           className="sideBar_iconContainer"
         >
-          {sidebarItems[admin ? 1 : 0].map((item) => (
+          {sidebarItems[admin ? 2 : teacher ? 1 : 0].map((item) => (
             <Link to={item.route} className="sideBar_sidebarLink" key={item.id}>
               <NavIcons title={item.title} path={item.route} icon={item.icon} />
             </Link>

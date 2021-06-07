@@ -30,23 +30,29 @@ import HomeRedirector from "./components/HomeRedirector";
 const Routes = () => {
   return (
     <Switch>
-      <Route exact path="/login" component={Login} />
+      {/*Student Routes */}
       <StudentRoute exact path="/dashboard" component={Dashboard} />
       <StudentRoute exact path="/quiz" component={Quiz} />
       <StudentRoute exact path="/note" component={Notes} />
       <StudentRoute exact path="/landing" component={Landing} />
       <StudentRoute exact path="/profile" component={Profile} />
+
+      {/* Teacher Routes */}
       <TeacherRoute
         exact
         path="/teacher-dashboard"
         component={TeacherDashboard}
       />
-      <AdminRoute exact path="/adminForm" component={AdminForm} />
+      <TeacherRoute exact path="/quiz-creator" component={QuizCreator} />
       <TeacherRoute
         exact
         path="/class-session-create"
         component={ClassSessionCreator}
       />
+      <TeacherRoute exact path="/teacher/note" component={Notes} />
+
+      {/*Admin Routes*/}
+      <AdminRoute exact path="/adminForm" component={AdminForm} />
       <AdminRoute exact path="/admin" component={AdminDashboard} />
       <AdminRoute exact path="/admin/school" component={SchoolView} />
       <AdminRoute exact path="/admin/department" component={DepartmentView} />
@@ -57,11 +63,14 @@ const Routes = () => {
       />
       <AdminRoute exact path="/admin/group/:program?" component={GroupView} />
       <AdminRoute exact path="/admin/student/:group?" component={StudentView} />
+
+      {/* Common Routes */}
+      <Route exact path="/404" component={NotFound} />
+      <Route exact path="/login" component={Login} />
       <Route exact path="/reset" component={ResetPassword} />
       <Route exact path="/signup" component={Signup} />
       <Route exact path="/verify" component={Verify} />
       <Route exact path="/logout" component={Logout} />
-      <Route exact path="/quiz-creator" component={QuizCreator} />
       <HomeRedirector />
       <Route exact path="*" component={NotFound} />
     </Switch>

@@ -8,7 +8,9 @@ const HomeRedirector = () => {
 
   return (
     <>
-      {userType === configs.USER_TYPES.ADMIN ? (
+      {!userType ? (
+        <Redirect exact from="/" to="login" />
+      ) : userType === configs.USER_TYPES.ADMIN ? (
         <Redirect exact from="/" to="admin" />
       ) : userType === configs.USER_TYPES.TEACHER ? (
         <Redirect exact from="/" to="teacher-dashboard" />
