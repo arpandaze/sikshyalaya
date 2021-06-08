@@ -38,7 +38,7 @@
 .quizCreator_fileuploadInner2{
 }
 .quizCreator_imageContainerOuter{
-    align-items: center;
+    
 }
 .quizCreator_fileupload{
     background:transparent;
@@ -125,6 +125,10 @@
   background: rgba(15, 15, 15, 0.5);
 
 }
+.quizCreator_imageContainerOuter1{
+    position: relative;
+    top:10px;
+}
 .quizCreator_imageContainer{
   height:80vh;
 }
@@ -160,7 +164,6 @@
     border-radius: 12px;
     font-size: 1.1em;
     cursor:pointer;
-
 }
 .quizCreator_correct{
 }
@@ -202,9 +205,31 @@
 .quizCreator_submitButtonContainer{
 
 }
+
 .quizCreator_addQuestionButtonContainer{
      padding: 10px 0px ;
 
+}
+.quizCreator_or,.quizCreator_fileUploadtext{
+    font-weight:300;
+    font-size:1.5rem;
+    text-align: center;
+    position: relative;
+    top:10px;
+    padding:20px;
+
+}
+.quizCreator_fileUploadtext{
+    top:0px;
+    font-size:1rem;
+    padding:0px 10px 0px 0px;
+
+}
+
+.quizCreator_fileUploadtext:hover{
+    text-decoration: underline;
+    text-decoration-color: var(--black);
+    cursor:pointer;
 }
 .quizCreator_addQuestionButton{
     width: 160px;
