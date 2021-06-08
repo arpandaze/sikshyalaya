@@ -585,18 +585,67 @@ const QuizCreator = () => {
 																														<div
 																															key={optionIndex}
 																														>
-																															<Grid
-																																item
-																																xs={12}
-																															>
-																																<CustomTextField
-																																	addStyles="quizCreator_option"
-																																	name={`questions[${index}].options[${optionIndex}]`}
-																																	placeHolder={`Option ${
-																																		optionIndex +
-																																		1
-																																	}`}
-																																/>
+																															<Grid container>
+																																<Grid
+																																	item
+																																	xs={12}
+																																>
+																																	<CustomTextField
+																																		addStyles="quizCreator_option"
+																																		name={`questions[${index}].options[${optionIndex}]`}
+																																		placeHolder={`Option ${
+																																			optionIndex +
+																																			1
+																																		}`}
+																																	/>
+																																	
+																																</Grid>
+																																<Grid
+																																	item
+																																	xs={2}
+																																	className="quizCreator_imageContainerOuter1"
+																																>
+																																	<label
+																																		for={index}
+																																		className="quizCreator_imageContainer"
+																																	>
+																																		<a className="quizCreator_fileUploadtext">
+																																			{!isPicked
+																																				? "File Upload"
+																																				: "filename.jpg"}
+																																		</a>
+
+																																		<BsCloudUpload
+																																			color={
+																																				colorscheme.purple2
+																																			}
+																																			size={23}
+																																			className="quizCreator_uploadButton"
+																																			style={{
+																																				position:
+																																					"relative",
+																																				top: "6px",
+																																				cursor:
+																																					"pointer",
+																																			}}
+																																		/>
+
+																																		<input
+																																			id={index}
+																																			type="file"
+																																			accept="image/*"
+																																			onChange={(e) => {
+																																				onFileUpload(
+																																					e,
+																																					index
+																																				);
+																																			}}
+																																			style={{
+																																				display: "none",
+																																			}}
+																																		></input>
+																																	</label>
+																																</Grid>
 																															</Grid>
 																														</div>
 																													)
