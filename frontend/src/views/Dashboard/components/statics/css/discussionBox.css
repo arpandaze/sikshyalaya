@@ -1,14 +1,14 @@
 @import "../../../../../utils/colors.css";
 
-@media only screen and (min-width: 1920px) {
+@media only screen and (min-width: 1280px) {
 	.discussionBox_root {
-		width: 700px;
-		height: 700px;
+		width: 500px;
+		height: 590px;
 	}
 	.discussionBox_chatBox {
 		position: relative;
-		width: 700px;
-		height: 620px;
+		width: 500px;
+		height: 500px;
 		overflow: auto;
 		margin-bottom: 10px !important;
 	}
@@ -23,30 +23,27 @@
 	}
 	.discussionBox_textField {
 		padding: 10px;
-		width: 95%;
+		width: 93%;
 		max-width: 95%;
+		border-radius: 10px;
 	}
 	.discussionBox_sendButtonContainer {
 	}
 	.discussionBox_sendButton {
 		position: relative;
 		top: 2px;
-		left: 8px;
-	}
-	.discussionBox_switchContainer {
-	}
-	.discussionBox_switch {
-		position: relative;
-		bottom: 8px;
-		margin-left: 15px;
-	}
-	.discussionBox_label {
-		padding: 0px;
-		margin: 0px;
-		font-size: 0.75em;
-		color: var(--secondaryTextColor);
 	}
 }
-
-@media only screen and (max-width: 1919px) {
+@media only screen and (min-width: 1920px) {
+	.discussionBox_root {
+		width: 700px;
+		height: 700px;
+	}
+	.discussionBox_chatBox {
+		position: relative;
+		width: 700px;
+		height: 620px;
+		overflow: auto;
+		margin-bottom: 10px !important;
+	}
 }
