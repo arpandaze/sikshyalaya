@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import Grid from "@material-ui/core/Grid";
 import "./statics/css/discussionBox.css";
 import colorscheme from "../../../utils/colors";
@@ -10,9 +10,23 @@ import Message from "./Message";
 import Image from "../../../components/Image";
 import { UserContext } from "../../../utils/Contexts/UserContext";
 import defaultProfile from "../../../assets/default-profile.svg";
+import configs from "../../../utils/configs.jsx";
 
-const DiscussionBox = () => {
+const DiscussionBox = ({ classID }) => {
   const { user } = useContext(UserContext);
+  const ws = useRef(null);
+
+  useEffect(() => {
+    if (classID) {
+      ws.current = new WebSocket(
+        `${configs.WEBSOCKET_HOST}/api/v1/class_session/ws/${classID}/`
+      );
+      ws.current.onmessage = (event) => {
+        console.log(event);
+      };
+    }
+  }, [classID]);
+
   const [checked, setChecked] = useState(false);
   const [chat, setChat] = useState([
     {
