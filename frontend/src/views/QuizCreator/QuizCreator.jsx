@@ -12,12 +12,6 @@ import { formatISO } from "date-fns";
 import { Tooltip } from "@material-ui/core";
 import { BsCloudUpload } from "react-icons/bs";
 import Image from "./../../components/Image";
-import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
-} from "@material-ui/pickers";
-import { BiTimeFive } from "react-icons/bi";
 import "./statics/css/quizCreator.css";
 import colorscheme from "../../utils/colors";
 import { UserContext } from "../../utils/Contexts/UserContext";
@@ -26,70 +20,69 @@ import useAPI from "../../utils/useAPI";
 import { AiOutlineFileImage } from "react-icons/ai";
 import configs from "../../utils/configs";
 import { fromUnixTime } from "date-fns/esm";
+import { DatePicker, TimePicker } from "../../components/CustomDateTime";
 
 const validationSchema = yup.object({
-  quiz_title: yup.string("Enter the title of the quiz"),
-  quiz_description: yup.string("Enter description"),
+	quiz_title: yup.string("Enter the title of the quiz"),
+	quiz_description: yup.string("Enter description"),
+	whoseQuizInfo: yup.object().required().typeError("Group required"),
 });
 
 let answerList = [];
 const groupFormatter = (response) => {
-  if (!response.data.length) {
-    return [];
-  }
-  let responseData = [];
-  responseData = response.data.map((data) => {
-    let formattedData = {
-      id: data.id,
-      semester: data.sem,
-      program_id: data.program.id,
-      program_name: data.program.name,
-      course_id: data.course[0].id,
-      course_code: data.course[0].course_code,
-      course_name: data.course[0].course_name,
-    };
+	if (!response.data.length) {
+		return [];
+	}
+	let responseData = [];
+	responseData = response.data.map((data) => {
+		let formattedData = {
+			id: data.id,
+			semester: data.sem,
+			program_id: data.program.id,
+			program_name: data.program.name,
+			course_id: data.course[0].id,
+			course_code: data.course[0].course_code,
+			course_name: data.course[0].course_name,
+		};
 
-    return formattedData;
-  });
+		return formattedData;
+	});
 
-  return responseData;
+	return responseData;
 };
 
 const QuizCreator = () => {
-  const { user } = useContext(UserContext);
-  const groupList = [];
+	const { user } = useContext(UserContext);
+	const groupList = [];
 
-  const [groups, groupsComplete] = useAPI(
-    { endpoint: "/api/v1/group/" },
-    groupFormatter
-  );
+	const [groups, groupsComplete] = useAPI(
+		{ endpoint: "/api/v1/group/" },
+		groupFormatter
+	);
 
-  if (groups && groups.length && groupsComplete) {
-    groups.map((group, index) => {
-      groupList.push({
-        name: `${group.program_name}, Sem ${group.semester} [Course ${group.course_code}]`,
-        value: { group: group.id, course: group.course_id },
-      });
-    });
-  }
+	if (groups && groups.length && groupsComplete) {
+		groups.map((group, index) => {
+			groupList.push({
+				name: `${group.program_name}, Sem ${group.semester} [Course ${group.course_code}]`,
+				value: { group: group.id, course: group.course_id },
+			});
+		});
+	}
 
-  const questionInitialValue = {
-    question_text: "",
-    question_image: "",
-    options: [],
-  };
-  const handleSubmit = (values) => {
-    console.log(values);
-  };
-  const [startTime, setStartTime] = useState(new Date());
-  const [endTime, setEndTime] = useState(new Date());
-  const [quizDate, setQuizDate] = useState(new Date());
-  const [selectImage, setSelectedImage] = useState({});
-  const [tempImage, setTempImage] = useState({});
-  const [isPicked, setIsPicked] = useState({});
-  const [isPopUp, setPopUp] = useState(false);
+	const questionInitialValue = {
+		question_text: "",
+		question_image: "",
+		options: [],
+	};
+	const handleSubmit = (values) => {
+		console.log(values);
+	};
+	const [selectImage, setSelectedImage] = useState({});
+	const [tempImage, setTempImage] = useState({});
+	const [isPicked, setIsPicked] = useState({});
+	const [isPopUp, setPopUp] = useState(false);
 
-  const onFileUpload = async (e) => {
+	const onFileUpload = async (e) => {
 		let reader = new FileReader();
 		reader.readAsDataURL(e.target.files[0]);
 		reader.onload = () => {
@@ -101,97 +94,97 @@ const QuizCreator = () => {
 
 		
 	};
-  
-  const quizPostFormatter = (quiz) => {
-    const postquizValues = {
-      end_time: quiz.end_time,
-      start_time: quiz.start_time,
-      date: quiz.quiz_date,
-      title: quiz.quiz_title,
-      description: quiz.quiz_description,
-      is_randomized: quiz.isRandomized,
-      display_individual: false,
-      group: [quiz.whoseQuizInfo.group],
-      instructor: [user.id],
-      course_id: quiz.whoseQuizInfo.course,
-    };
 
-    return postquizValues;
-  };
+	const quizPostFormatter = (quiz) => {
+		const postquizValues = {
+			end_time: formatISO(quiz.end_time, { representation: "time" }),
+			start_time: formatISO(quiz.start_time, { representation: "time" }),
+			date: formatISO(quiz.quiz_date, { representation: "date" }),
+			title: quiz.quiz_title,
+			description: quiz.quiz_description,
+			is_randomized: quiz.isRandomized,
+			display_individual: false,
+			group: [quiz.whoseQuizInfo.group],
+			instructor: [user.id],
+			course_id: quiz.whoseQuizInfo.course,
+		};
 
-  const quizQuestionPostFormatter = (question, index, newQuizId) => {
-    question.answer = [question.answer];
-    question.question_image = null;
-    if (question.options && question.options.length) {
-      let newOption = [];
-      question.options.map((option) => {
-        let formattedOption = {
-          image: "",
-          text: option,
-        };
-        newOption.push(formattedOption);
-      });
+		return postquizValues;
+	};
 
-      question.options = JSON.stringify(newOption);
-    }
-    question.quiz_id = newQuizId;
-    return question;
-  };
+	const quizQuestionPostFormatter = (question, index, newQuizId) => {
+		question.answer = [question.answer];
+		question.question_image = null;
+		if (question.options && question.options.length) {
+			let newOption = [];
+			question.options.map((option) => {
+				let formattedOption = {
+					image: "",
+					text: option,
+				};
+				newOption.push(formattedOption);
+			});
 
-  const onSubmitHandler = async (values) => {
-    let quiz = values;
-    let questions = quiz.questions;
-    delete quiz.questions;
+			question.options = JSON.stringify(newOption);
+		}
+		question.quiz_id = newQuizId;
+		return question;
+	};
 
-    quiz = quizPostFormatter(quiz);
+	const onSubmitHandler = async (values) => {
+		let quiz = values;
+		let questions = quiz.questions;
+		delete quiz.questions;
 
-    let newQuizId = null;
+		quiz = quizPostFormatter(quiz);
 
-    let postResponse = await callAPI({
-      endpoint: `/api/v1/quiz/`,
-      method: "POST",
-      data: quiz,
-    });
-    newQuizId = postResponse.data.id;
+		let newQuizId = null;
 
-    if (postResponse.status === 200 && newQuizId) {
-      console.log(newQuizId);
-      if (questions) {
-        questions.map(async (question, index) => {
-          let postQuestion = quizQuestionPostFormatter(
-            question,
-            index,
-            newQuizId
-          );
-          if (question) {
-            postResponse = await callAPI({
-              endpoint: `/api/v1/quiz/${newQuizId}/question`,
-              method: "POST",
-              data: postQuestion,
-            });
+		let postResponse = await callAPI({
+			endpoint: `/api/v1/quiz/`,
+			method: "POST",
+			data: quiz,
+		});
+		newQuizId = postResponse.data.id;
 
-            let newquestionId = postResponse.data.id;
-            let questionImageData = new FormData();
-            if (postResponse.status === 200 && selectImage[`${index}`]) {
-              questionImageData.append("files", selectImage[`${index}`]);
+		if (postResponse.status === 200 && newQuizId) {
+			console.log(newQuizId);
+			if (questions) {
+				questions.map(async (question, index) => {
+					let postQuestion = quizQuestionPostFormatter(
+						question,
+						index,
+						newQuizId
+					);
+					if (question) {
+						postResponse = await callAPI({
+							endpoint: `/api/v1/quiz/${newQuizId}/question`,
+							method: "POST",
+							data: postQuestion,
+						});
 
-              let imageResponse = await callAPI({
-                endpoint: `/api/v1/quiz/${newQuizId}/question/${newquestionId}/question_image/`,
-                method: "POST",
-                data: questionImageData,
-                headers: { "Content-Type": "multipart/form-data" },
-              });
+						let newquestionId = postResponse.data.id;
+						let questionImageData = new FormData();
+						if (postResponse.status === 200 && selectImage[`${index}`]) {
+							questionImageData.append("files", selectImage[`${index}`]);
 
-              console.log(imageResponse);
-            }
-          }
-        });
-      }
-    }
-    setSelectedImage({});
-  };
+							let imageResponse = await callAPI({
+								endpoint: `/api/v1/quiz/${newQuizId}/question/${newquestionId}/question_image/`,
+								method: "POST",
+								data: questionImageData,
+								headers: { "Content-Type": "multipart/form-data" },
+							});
 
-  return (
+							console.log(imageResponse);
+						}
+					}
+				});
+			}
+		}
+		setSelectedImage({});
+	};
+
+	return (
 		<DashboardLayout>
 			<Grid
 				container
@@ -210,15 +203,9 @@ const QuizCreator = () => {
 							initialValues={{
 								quiz_title: "",
 								quiz_description: "",
-								quiz_date: formatISO(quizDate, {
-									representation: "date",
-								}),
-								start_time: formatISO(startTime, {
-									representation: "time",
-								}),
-								end_time: formatISO(endTime, {
-									representation: "time",
-								}),
+								quiz_date: new Date(),
+								start_time: new Date(),
+								end_time: new Date(),
 								isRandomized: false,
 								whoseQuizInfo: null,
 							}}
@@ -271,82 +258,24 @@ const QuizCreator = () => {
 												/>
 											</Grid>
 
-											<MuiPickersUtilsProvider utils={DateFnsUtils}>
-												<Grid
-													container
-													direction="row"
-													alignItems="center"
-													justify="center"
-													className="quizCreator_dateTimePickerContainer"
-													spacing={3}
-												>
-													<Grid item className="quizCreator_quizDateField">
-														{/**TODO: Add date restriction */}
-														<KeyboardDatePicker
-															value={startTime}
-															margin="normal"
-															id="quiz_date"
-															label="Choose quiz date"
-															inputVariant="outlined"
-															format="MM/dd/yyyy"
-															value={quizDate}
-															onChange={(value) => {
-																setFieldValue(
-																	"quiz_date",
-																	formatISO(value, {
-																		representation: "date",
-																	})
-																);
-																setQuizDate(value);
-															}}
-														/>
-													</Grid>
-													<Grid item className="quizCreator_quizStartTime">
-														<KeyboardTimePicker
-															margin="normal"
-															id="start_time"
-															label="Start time"
-															inputVariant="outlined"
-															value={startTime}
-															onChange={(value) => {
-																setFieldValue(
-																	"start_time",
-																	formatISO(value, {
-																		representation: "time",
-																	})
-																);
-																setStartTime(value);
-															}}
-															KeyboardButtonProps={{
-																"aria-label": "change time",
-															}}
-															keyboardIcon={<BiTimeFive />}
-														/>
-													</Grid>
-													<Grid item className="quizCreator_quizEndTime">
-														<KeyboardTimePicker
-															margin="normal"
-															id="end_time"
-															label="End time"
-															inputVariant="outlined"
-															value={endTime}
-															onChange={(value) => {
-																setFieldValue(
-																	"end_time",
-																	formatISO(value, {
-																		representation: "time",
-																	})
-																);
-																setEndTime(value);
-															}}
-															KeyboardButtonProps={{
-																"aria-label": "change time",
-															}}
-															keyboardIcon={<BiTimeFive />}
-														/>
-													</Grid>
+											<Grid
+												container
+												direction="row"
+												alignItems="center"
+												justify="center"
+												className="quizCreator_dateTimePickerContainer"
+												spacing={3}
+											>
+												<Grid item className="quizCreator_quizDateField">
+													<DatePicker id="quiz_date" label="Choose quiz date" />
 												</Grid>
-											</MuiPickersUtilsProvider>
+												<Grid item className="quizCreator_quizStartTime">
+													<TimePicker id="start_time" label="Start Time" />
+												</Grid>
+												<Grid item className="quizCreator_quizEndTime">
+													<TimePicker id="end_time" label="End Time" />
+												</Grid>
+											</Grid>
 											<Grid
 												container
 												direction="row"
