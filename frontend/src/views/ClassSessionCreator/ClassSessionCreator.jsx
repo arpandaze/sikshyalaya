@@ -101,7 +101,9 @@ const ClassSessionCreator = () => {
 									group: "",
 									description: "",
 									instructors: [],
-								}}
+								}
+								}
+								enableReinitialize={true}
 								onSubmit={onSubmit}
 							>
 								{({ values, setFieldValue }) => (
@@ -185,7 +187,7 @@ const ClassSessionCreator = () => {
 																											name={`instructors[${index}]`}
 																											placeHolder="Add Other Instructors"
 																											addStyles="classSession_inputField"
-																											label="Combo box"
+																											label="Instructor"
 																											variant="outlined"
 																										/>
 																									)}
@@ -196,9 +198,10 @@ const ClassSessionCreator = () => {
 																								<button
 																									title="Remove"
 																									type="button"
-																									onClick={() =>
-																										arrayHelpers.remove(index)
-																									}
+																									onClick={() => {
+																										console.log(arrayHelpers);
+																										arrayHelpers.remove(index);
+																									}}
 																									className="classSession_removeButton"
 																								>
 																									<BiMinus
