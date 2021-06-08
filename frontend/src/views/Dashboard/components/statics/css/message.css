@@ -1,27 +1,41 @@
 @import "../../../../../utils/colors.css";
 
-@media only screen and (min-width: 1920px) {
+@media only screen and (min-width: 1280px) {
 	.message_ImageRoot {
 		width: 40px;
 		height: 40px;
 	}
 	.message_Image {
 		border-radius: 50%;
+		width: 40px;
+		height: 40px;
 	}
 	.message_Content {
 		border-radius: 15px;
+		margin-left: 10px !important;
 		padding: 10px;
-		max-width: 600px;
+		max-width: 22vw;
 		overflow: hidden;
 		text-align: justify;
-		text-justify: inter-word;
+		word-wrap: break-word;
 	}
 
 	.message_name {
 		color: var(--grey1);
 		font-weight: bold;
-		margin-left: 40px;
+		margin-left: 50px;
 		margin-bottom: 5px;
 		margin-top: 10px;
+	}
+	.message_time {
+		color: var(--grey1);
+		font-size: 0.85em;
+		margin: 0px;
+		padding: 10px;
+		display: none;
+	}
+
+	.message_Content:hover + .message_time {
+		display: block !important;
 	}
 }

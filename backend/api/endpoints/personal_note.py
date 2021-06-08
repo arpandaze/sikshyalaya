@@ -144,7 +144,7 @@ def update_personal_note(
 
     if current_user.user_type >= settings.UserType.TEACHER.value:
         if obj_in.user_id == current_user.id:
-            print(obj_in.last_updated_time)
+
             personal_note = crud_personal_note.get(db, id)
             return crud_personal_note.update(db, db_obj=personal_note, obj_in=obj_in)
 
