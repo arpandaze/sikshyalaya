@@ -1,37 +1,40 @@
-import os
 import json
-from schemas.file import FileCreate
-import aiofiles
+import os
+from hashlib import sha256
 from typing import Any, List
-from core.security import get_uid_hash
 
-from fastapi import APIRouter, Depends, Form
+import aiofiles
+from fastapi import (
+    APIRouter,
+    Depends,
+    FastAPI,
+    File,
+    Form,
+    HTTPException,
+    UploadFile,
+    WebSocket,
+    WebSocketDisconnect,
+)
+from fastapi.encoders import jsonable_encoder
+from fastapi.responses import FileResponse, HTMLResponse
 from sqlalchemy.orm import Session
 
-from utils import deps
-from cruds import crud_class_session, crud_user
+from core.config import settings
+from core.security import get_uid_hash
+from core.websocket import ws
+from cruds import crud_class_session, crud_file, crud_user
+from forms.class_session import ClassSessionCreateForm
+from models import ClassSession as ClassSessionModel
+from models import File as FileModel
 from schemas.class_session import (
     ClassSession,
-    ClassSessionUpdate,
     ClassSessionCreate,
     ClassSessionReturn,
+    ClassSessionUpdate,
 )
+from schemas.file import FileCreate
+from utils import deps
 from utils.deps import get_current_active_teacher_or_above, get_current_active_user
-
-from fastapi import FastAPI, File, UploadFile, HTTPException
-from fastapi.responses import FileResponse
-from core.config import settings
-from models import ClassSession as ClassSessionModel
-from typing import List
-
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
-from fastapi.responses import HTMLResponse
-from hashlib import sha256
-from core.websocket import ws
-from forms.class_session import ClassSessionCreateForm
-from fastapi.encoders import jsonable_encoder
-from cruds import crud_file
-from models import File as FileModel
 
 router = APIRouter()
 
@@ -97,7 +100,7 @@ async def create_class_session(
     return class_session
 
 
-@router.get("/{id}/", response_model=ClassSession)
+@router.get("/{id}/", response_model=ClassSessionReturn)
 def get_specific_class_session(
     db: Session = Depends(deps.get_db),
     user=Depends(get_current_active_user),
@@ -165,27 +168,21 @@ html = """
         <ul id='messages'>
         </ul>
         <script>
-            var ws = new WebSocket("ws://localhost:8080/api/v1/class_session/ws/8");
+            var ws = new WebSocket("ws://localhost:8080/api/v1/class_session/ws/2/");
             ws.onmessage = function(event) {
-                data = JSON.parse(event.data)
-                console.log(data)
-                if(data.type === "info"){
-                    console.log(data.status)
-                }
-                else{
+            console.log(JSON.parse(event.data))
                     var messages = document.getElementById('messages')
                     var message = document.createElement('li')
-                    var content = document.createTextNode(`${data.name} : ${data.message}`)
+                    var content = document.createTextNode(`${event.data}`)
                     message.appendChild(content)
                     messages.appendChild(message)
-                }
             };
             function sendMessage(event) {
                 var input = document.getElementById("messageText")
                 data = {
                     "type":"message",
                     "message":input.value,
-                    "anon":true,
+                    "anon":false,
                 }
                 ws.send(JSON.stringify(data))
                 input.value = ''
@@ -205,6 +202,7 @@ async def websocket_endpoint(
     req_user=Depends(get_current_active_user),
     id: int,
 ):
+    user_id = req_user.id
     class_session = crud_class_session.get_user_class_session(
         db=db, user=req_user, id=id
     )
@@ -212,29 +210,20 @@ async def websocket_endpoint(
         raise HTTPException(
             status_code=403, detail="Error Code: 144"
         )  # User doesn't have access to classsession
-    await ws.connect(websocket, class_session_id=id)
+    await ws.connect(websocket=websocket, class_session_id=id, user_id=user_id)
     try:
         while True:
             data = await websocket.receive_json()
-            await ws.respond({"type": "info", "status": "success"}, websocket)
-            res_data = {
-                "user": req_user.id,
-                "name": req_user.full_name,
-                "type": "message",
-                "message": data.get("message"),
-            }
-            if data.get("anon"):
-                res_data.update(
-                    {
-                        "user": get_uid_hash(req_user.id),
-                        "name": get_uid_hash(req_user.id),
-                    }
-                )
-            await ws.broadcast(res_data, class_session_id=id)
+            # get_uid_hash(req_user.id)
+            await ws.message(
+                websocket=websocket,
+                user_id=user_id,
+                class_session_id=id,
+                message=data.get("message"),
+                anon=data.get("anon"),
+            )
     except WebSocketDisconnect:
-        ws.disconnect(websocket, class_session_id=id)
-        data = {"type": "disconnect", "user": req_user.id, "name": req_user.full_name}
-        await ws.broadcast(json.dumps(data), class_session_id=id)
+        await ws.disconnect(websocket, class_session_id=id, user_id=user_id)
 
 
 @router.get("/test/test/")
