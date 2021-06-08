@@ -18,8 +18,12 @@ class Settings(BaseSettings):
     SESSION_EXPIRE_TIME: int = 60 * 60  # Seconds
     SESSION_EXPIRE_TIME_EXTENDED: int = 30 * 24 * 60 * 60  # Minutes
     SERVER_NAME: str = os.environ.get("SERVER_NAME")
-    SERVER_HOST: AnyHttpUrl = os.environ.get("SERVER_HOST")
+
+    PROTOCAL: str = os.environ.get("PROTOCAL")
+    SERVER_HOST: str = os.environ.get("SERVER_HOST")
+    SERVER_HOST_URL: AnyHttpUrl = f"{PROTOCAL}://{SERVER_HOST}"
     SERVER_PORT: int = os.environ.get("SERVER_PORT")
+    SERVER_URL: AnyHttpUrl = f"{SERVER_HOST_URL}:{SERVER_PORT}" if SERVER_PORT else SERVER_HOST_URL
 
     UPLOAD_DIR_ROOT: str = "../file_server"
 
