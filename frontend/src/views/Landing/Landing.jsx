@@ -28,6 +28,7 @@ const Landing = () => {
         start_time.getTime() < Date.now()
       ) {
         active_class_session.push({
+          id: item.id,
           title: item.course.course_code,
           titleDescription: item.course.course_name,
           title2: "Today's Topic",
@@ -37,6 +38,7 @@ const Landing = () => {
         });
       } else {
         class_session.push({
+          id: item.id,
           title: item.course.course_code,
           titleDescription: item.course.course_name,
           title2: "Today's Topic",

@@ -3,6 +3,7 @@ import colorscheme from "../../../utils/colors";
 import Grid from "@material-ui/core/Grid";
 import FancyButton from "../../../components/FancyButton";
 import "./statics/css/smallCards.css";
+import { Link } from "react-router-dom";
 
 const SmallCards = ({ cardData, addStyles, ...rest }) => {
   const data = cardData;
@@ -47,7 +48,9 @@ const SmallCards = ({ cardData, addStyles, ...rest }) => {
           >
             {data.button ? (
               <Grid item className="smallCards_buttonContainer">
-                <FancyButton color={colorscheme.purple} />
+                <Link to={`class/${data.id}`}>
+                  <FancyButton color={colorscheme.purple} />
+                </Link>
               </Grid>
             ) : (
               <Grid item className="smallCards_buttonContainer">

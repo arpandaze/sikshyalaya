@@ -10,7 +10,9 @@ class RedisClient:
 
     async def initialize(self):
         self.client = await aioredis.create_redis_pool(
-            f"redis://{settings.REDIS_HOST}", password=settings.REDIS_PASSWORD, db=self.db,
+            f"redis://{settings.REDIS_HOST}",
+            password=settings.REDIS_PASSWORD,
+            db=self.db,
         )
 
     async def close(self):
@@ -18,7 +20,7 @@ class RedisClient:
         await self.client.wait_closed()
 
 
-class RedisBlacklistClient(RedisClient):
+class RedisChatClient(RedisClient):
     def __init__(self):
         super().__init__(db=0)
 
@@ -44,7 +46,7 @@ class RedisGeneral(RedisClient):
 
 
 redis_session_client = RedisSessionClient()
-redis_blacklist_client = RedisBlacklistClient()
+redis_chat_client = RedisChatClient()
 redis_throttle_client = RedisThrottleClient()
 redis_cache_client = RedisCacheClient()
 redis_general = RedisGeneral()

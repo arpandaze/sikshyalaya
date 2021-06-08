@@ -30,8 +30,8 @@ import HomeRedirector from "./components/HomeRedirector";
 const Routes = () => {
   return (
     <Switch>
-      {/*Student Routes */}
-      <StudentRoute exact path="/dashboard" component={Dashboard} />
+      {/* Student Routes */}
+      <StudentRoute exact path="/class/:classID?" component={Dashboard} />
       <StudentRoute exact path="/quiz" component={Quiz} />
       <StudentRoute exact path="/note" component={Notes} />
       <StudentRoute exact path="/landing" component={Landing} />

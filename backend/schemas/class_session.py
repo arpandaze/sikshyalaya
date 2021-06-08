@@ -47,6 +47,7 @@ class ClassSession(ClassSessionInDBBase):
 
 
 class ClassSessionReturn(BaseModel):
+    id: int
     start_time: datetime
     end_time: datetime
     instructor: List[TeacherShort]

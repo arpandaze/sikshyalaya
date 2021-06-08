@@ -50,6 +50,7 @@ const CustomTextField = ({
               select
               placeholder={placeHolder}
               fullWidth
+              InputLabelProps={{ shrink: true }}
               {...rest}
               {...field}
             >

@@ -20,6 +20,10 @@ from utils import deps
 from core.config import settings
 from utils.utils import send_reset_password_email
 
+from fastapi import FastAPI, File, Form, UploadFile
+from typing import List, Optional
+from datetime import date
+
 router = APIRouter()
 
 
@@ -41,10 +45,13 @@ def get_teachers(
         db: Session = Depends(deps.get_db),
         skip: int = 0,
         limit: int = 200,
-        current_user: models.User = Depends(deps.get_current_active_teacher_or_above),
+        current_user: models.User = Depends(
+            deps.get_current_active_teacher_or_above),
 ) -> Any:
-    teachers = db.query(models.User).filter(models.User.user_type==settings.UserType.TEACHER.value).all()
+    teachers = db.query(models.User).filter(
+        models.User.user_type == settings.UserType.TEACHER.value).all()
     return teachers
+
 
 @router.get("/", response_model=schemas.User)
 async def read_users(
@@ -79,8 +86,8 @@ async def create_user(
         address=user_in.address,
         group_id=user_in.group_id,
         contact_number=user_in.contact_number,
-        dob= user_in.dob,
-        join_year = user_in.join_year,
+        dob=user_in.dob,
+        join_year=user_in.join_year,
         password=settings.SECRET_KEY
     )
     user = cruds.crud_user.create(db, obj_in=user_create)
@@ -93,16 +100,55 @@ async def create_user(
 async def update_user_me(
     *,
     db: Session = Depends(deps.get_db),
-    new_data: schemas.UserUpdate,
+    full_name: Optional[str] = Form(None),
+    address: Optional[str] = Form(None),
+    dob: Optional[date] = Form(None),
+    contact_number: Optional[str] = Form(None),
+    profile_photo: Optional[UploadFile] = File(None),
     current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
     Update own user.
     """
-    current_user_data = jsonable_encoder(current_user)
-    current_user_data.update(jsonable_encoder(new_data))
-    user_in = schemas.UserUpdate(**current_user_data)
-    user = cruds.crud_user.update(db, db_obj=current_user, obj_in=user_in)
+    profile_db_path = None
+    if profile_photo:
+        profiles_path = os.path.join(settings.UPLOAD_DIR_ROOT, "profiles")
+        content_type = profile_photo.content_type
+        file_extension = content_type[content_type.index("/") + 1:]
+        new_profile_image = f"{secrets.token_hex(nbytes=16)}.{file_extension}"
+        profile_db_path = os.path.join("profiles", new_profile_image)
+        new_profile_image_file_path = os.path.join(
+            settings.UPLOAD_DIR_ROOT, profile_db_path
+        )
+
+        if not os.path.exists(profiles_path):
+            os.makedirs(profiles_path)
+
+        async with aiofiles.open(new_profile_image_file_path, mode="wb") as f:
+            content = await profile_photo.read()
+            await f.write(content)
+
+        try:
+            if current_user.profile_image != None:
+                os.remove(
+                    os.path.join(settings.UPLOAD_DIR_ROOT,
+                                 current_user.profile_image)
+                )
+        except Exception:
+            pass
+
+    user_in = schemas.UserUpdate(
+        full_name=full_name,
+        address=address,
+        dob=dob,
+        contact_number=contact_number,
+        profile_image=profile_db_path,
+    )
+    print(jsonable_encoder(user_in))
+
+    user = cruds.crud_user.update(
+        db, db_obj=current_user, obj_in=user_in.dict(exclude_none=True))
+
     return user
 
 
@@ -118,45 +164,21 @@ async def read_user_me(
     return current_user
 
 
-@router.put("/me/profile/")
-async def update_my_profile_photo(
-    db: Session = Depends(deps.get_db),
-    *,
-    current_user: models.User = Depends(deps.get_current_active_user),
-    profile_photo: UploadFile = File(...),
-):
-    profiles_path = os.path.join(settings.UPLOAD_DIR_ROOT, "profiles")
-    content_type = profile_photo.content_type
-    file_extension = content_type[content_type.index("/") + 1:]
-    new_profile_image = f"{secrets.token_hex(nbytes=16)}.{file_extension}"
-    profile_relative_path = os.path.join("profiles", new_profile_image)
-    new_profile_image_file_path = os.path.join(
-        settings.UPLOAD_DIR_ROOT, profile_relative_path
-    )
+# @router.put("/me/profile/")
+# async def update_my_profile_photo(
+    # db: Session = Depends(deps.get_db),
+    # *,
+    # current_user: models.User = Depends(deps.get_current_active_user),
+    # profile_photo: UploadFile = File(...),
+# ):
 
-    if not os.path.exists(profiles_path):
-        os.makedirs(profiles_path)
+    # cruds.crud_user.update(
+    # db,
+    # db_obj=current_user,
+    # obj_in=schemas.user.ImageUpdate(profile_image=profile_db_path),
+    # )
 
-    async with aiofiles.open(new_profile_image_file_path, mode="wb") as f:
-        content = await profile_photo.read()
-        await f.write(content)
-
-    try:
-        if current_user.profile_image != None:
-            os.remove(
-                os.path.join(settings.UPLOAD_DIR_ROOT,
-                             current_user.profile_image)
-            )
-    except Exception:
-        pass
-
-    cruds.crud_user.update(
-        db,
-        db_obj=current_user,
-        obj_in=schemas.user.ImageUpdate(profile_image=profile_relative_path),
-    )
-
-    return {"msg": "success", "profile": new_profile_image}
+    # return {"msg": "success", "profile": new_profile_image}
 
 
 @router.get("/{user_id}/", response_model=schemas.user.UserReturn)
