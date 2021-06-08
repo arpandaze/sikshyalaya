@@ -90,14 +90,14 @@ const QuizCreator = () => {
   const [isPopUp, setPopUp] = useState(false);
 
   const onFileUpload = async (e) => {
-    let reader = new FileReader();
-    reader.readAsDataURL(e.target.files[0]);
-    reader.onload = () => {
-      setTempImage({ ...tempImage, [e.target.id]: reader.result });
-    };
-    setIsPicked(true);
-    setSelectedImage({ ...selectImage, [e.target.id]: e.target.files[0] });
-  };
+		let reader = new FileReader();
+		reader.readAsDataURL(e.target.files[0]);
+		reader.onload = () => {
+			setTempImage({ ...tempImage, [e.target.id]: reader.result });
+		};
+		setIsPicked(true);
+		setSelectedImage({ ...selectImage, [e.target.id]: e.target.files[0] });
+	};
   
   const quizPostFormatter = (quiz) => {
     const postquizValues = {
@@ -484,10 +484,8 @@ const QuizCreator = () => {
 																												title="Remove Question"
 																												className="quizCreator_remove"
 																												onClick={() => {
-																													setIsPicked(false)
-																													setSelectedImage(
-																															{}
-																														);
+																													setIsPicked(false);
+																													setSelectedImage({});
 																													setTempImage({});
 																													questionHelper.remove(
 																														index
@@ -607,7 +605,9 @@ const QuizCreator = () => {
 																														<a className="quizCreator_fileUploadtext">
 																															{!isPicked
 																																? "File Upload"
-																																: "filename.jpg"}
+																																: selectImage[
+																																		`${index}`
+																																  ]}
 																														</a>
 
 																														<BsCloudUpload
