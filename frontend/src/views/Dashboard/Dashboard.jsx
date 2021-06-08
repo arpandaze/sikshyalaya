@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import DashboardLayout from "../../components/DashboardLayout/DashboardLayout";
 import "./statics/css/dashboard.css";
 import ClassResource from "./components/ClassResource";
 import useAPI from "../../utils/useAPI";
+import callAPI from "../../utils/API";
 import DiscussionBox from "./components/DiscussionBox";
 
 const resourceList = [
@@ -96,74 +97,75 @@ const getFileType = (item) => {
   }
 };
 
-const Dashboard = () => {
+const Dashboard = ({ match }) => {
+  const classDetailsDefault = {
+    id: null,
+    title: null,
+    titleDescription: null,
+    title2: null,
+    title2Description: null,
+    bottomText: null,
+    button: null,
+    resources: [],
+  };
+
+  const [classDetails, setClassDetails] = useState(classDetailsDefault);
+
   const classSessionFormatter = (value) => {
     if (!value.data.length) {
       return [];
     }
-    let active_class_session = [];
-    value.data.map((item) => {
+    let active_class_session = value.data.filter((item) => {
       let start_time = new Date(item.start_time + "+05:45");
       let end_time = new Date(item.end_time + "+05:45");
-      let instructors_name = item.instructor
-        .map((instructor) => {
-          return instructor.full_name;
-        })
-        .join(" and ");
       if (
         end_time.getTime() > Date.now() &&
         start_time.getTime() < Date.now()
       ) {
-        let resources = item.files.map((item, index) => {
-          return {
-            id: index,
-            name: item.name,
-            url: `/${item.path}/${item.name}`,
-            type: getFileType(item.file_type),
-            time: item.uploaded_datetime,
-          };
-        });
-        active_class_session.push({
-          title: item.course.course_code,
-          titleDescription: item.course.course_name,
-          title2: "Today's Topic",
-          title2Description: item.description,
-          bottomText: instructors_name,
-          button: true,
-          resources: resources,
-        });
+        return item;
       }
     });
-    return { active: active_class_session };
+    return active_class_session[0];
   };
 
-  const classSessionDefaults = {
-    active: [
-      {
-        title: null,
-        titleDescription: null,
-        title2: null,
-        title2Description: null,
-        bottomText: null,
-        button: null,
-        resources: [
-          {
-            id: null,
-            name: null,
-            url: null,
-            type: null,
-            time: null,
-          },
-        ],
-      },
-    ],
-  };
-
-  const [classSession, classSessionReqStat] = useAPI(
-    { endpoint: "/api/v1/class_session/" },
-    classSessionFormatter,
-    classSessionDefaults
-  );
+  useEffect(async () => {
+    let class_details = null;
+    if (match.params.classID) {
+      const req = await callAPI({
+        endpoint: `/api/v1/class_session/${match.params.classID}/`,
+      });
+      class_details = req.data;
+    } else {
+      const req = await callAPI({
+        endpoint: `/api/v1/class_session/`,
+      });
+      class_details = classSessionFormatter(req);
+    }
+    let instructors_name = class_details.instructor
+      .map((instructor) => {
+        return instructor.full_name;
+      })
+      .join(" and ");
+    let resources = class_details.files.map((item, index) => {
+      return {
+        id: index,
+        name: item.name,
+        url: `/${item.path}/${item.name}`,
+        type: getFileType(item.file_type),
+        time: item.uploaded_datetime,
+      };
+    });
+    setClassDetails({
+      id: class_details.id,
+      title: class_details.course.course_code,
+      titleDescription: class_details.course.course_name,
+      title2: "Today's Topic",
+      title2Description: class_details.description,
+      bottomText: instructors_name,
+      button: true,
+      resources: resources,
+    });
+  }, []);
 
   return (
     <DashboardLayout>
@@ -212,51 +214,47 @@ const Dashboard = () => {
                         className="mainDash_activeClassBoxBottom"
                       >
                         <Grid item>
-                          {classSession.active.map((data) => (
-                            <Grid
-                              container
-                              direction="row"
-                              alignItems="flex-start"
-                              className="mainDash_activeClassListContainer"
-                            >
+                          <Grid
+                            container
+                            direction="row"
+                            alignItems="flex-start"
+                            className="mainDash_activeClassListContainer"
+                          >
+                            <Grid item className="mainDash_activeClassListrow1">
                               <Grid
-                                item
-                                className="mainDash_activeClassListrow1"
+                                container
+                                direction="column"
+                                justify="center"
+                                alignItems="flex-start"
+                                className="mainDash_activeClassListrow_col_box"
                               >
                                 <Grid
-                                  container
-                                  direction="column"
-                                  justify="center"
-                                  alignItems="flex-start"
-                                  className="mainDash_activeClassListrow_col_box"
+                                  item
+                                  className="mainDash_activeClassListrow_col_1"
                                 >
-                                  <Grid
-                                    item
-                                    className="mainDash_activeClassListrow_col_1"
-                                  >
-                                    <p className="mainDash_activeClassListrow_col_1_bold">
-                                      {data.title}
-                                    </p>
+                                  <p className="mainDash_activeClassListrow_col_1_bold">
+                                    {console.log(classDetails)}
+                                    {classDetails.title}
+                                  </p>
 
-                                    <p className="mainDash_activeClassListrow_col_1_light">
-                                      {data.titleDescription}
-                                    </p>
-                                  </Grid>
-                                  <Grid
-                                    item
-                                    className="mainDash_activeClassListrow_col_2"
-                                  >
-                                    <p className="mainDash_activeClassListrow_col_2_bold">
-                                      {data.title2}
-                                    </p>
-                                    <p className="mainDash_activeClassListrow_col_2_light">
-                                      {data.title2Description}
-                                    </p>
-                                  </Grid>
+                                  <p className="mainDash_activeClassListrow_col_1_light">
+                                    {classDetails.titleDescription}
+                                  </p>
+                                </Grid>
+                                <Grid
+                                  item
+                                  className="mainDash_activeClassListrow_col_2"
+                                >
+                                  <p className="mainDash_activeClassListrow_col_2_bold">
+                                    {classDetails.title2}
+                                  </p>
+                                  <p className="mainDash_activeClassListrow_col_2_light">
+                                    {classDetails.title2Description}
+                                  </p>
                                 </Grid>
                               </Grid>
                             </Grid>
-                          ))}
+                          </Grid>
                         </Grid>
                       </Grid>
                     </Grid>
@@ -290,7 +288,7 @@ const Dashboard = () => {
                       >
                         <Grid item>
                           <ClassResource
-                            resourceList={classSession.active[0].resources}
+                            resourceList={classDetails.resources}
                           />
                         </Grid>
                       </Grid>
@@ -327,7 +325,7 @@ const Dashboard = () => {
                       className="mainDash_discussionBoxBottom"
                     >
                       <Grid item>
-                        <DiscussionBox />
+                        <DiscussionBox classID={classDetails.id} />
                       </Grid>
                     </Grid>
                   </Grid>

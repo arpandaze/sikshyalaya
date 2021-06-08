@@ -30,7 +30,7 @@ const Routes = () => {
   return (
     <Switch>
       <Route exact path="/login" component={Login} />
-      <StudentRoute exact path="/dashboard" component={Dashboard} />
+      <StudentRoute exact path="/class/:classID?" component={Dashboard} />
       <StudentRoute exact path="/quiz" component={Quiz} />
       <StudentRoute exact path="/note" component={Notes} />
       <StudentRoute
