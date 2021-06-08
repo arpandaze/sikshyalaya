@@ -86,7 +86,7 @@ const QuizCreator = () => {
   const [quizDate, setQuizDate] = useState(new Date());
   const [selectImage, setSelectedImage] = useState({});
   const [tempImage, setTempImage] = useState({});
-  const [isPicked, setIsPicked] = useState(false);
+  const [isPicked, setIsPicked] = useState({});
   const [isPopUp, setPopUp] = useState(false);
 
   const onFileUpload = async (e) => {
@@ -417,8 +417,8 @@ const QuizCreator = () => {
 																													container
 																													direction="row"
 																													justify="center"
-                                                          alignItems="center"
-                                                          wrap="nowrap"
+																													alignItems="center"
+																													wrap="nowrap"
 																												>
 																													<Grid item>
 																														<Image
@@ -484,6 +484,11 @@ const QuizCreator = () => {
 																												title="Remove Question"
 																												className="quizCreator_remove"
 																												onClick={() => {
+																													setIsPicked(false)
+																													setSelectedImage(
+																															{}
+																														);
+																													setTempImage({});
 																													questionHelper.remove(
 																														index
 																													);
@@ -537,27 +542,105 @@ const QuizCreator = () => {
 																								>
 																									{(newHelper) => (
 																										<>
-																											<Grid item>
-																												<button
-																													type="button"
-																													className="quizCreator_addOptions"
-																													onClick={() => {
-																														newHelper.push();
-																														answerList[
-																															index
-																														].push({
-																															name: `Option ${
-																																question.options
-																																	.length + 1
-																															}`,
-																															value:
-																																question.options
-																																	.length + 1,
-																														});
-																													}}
+																											<Grid
+																												container
+																												direction="row"
+																												alignItems="center"
+																												justify="center"
+																											>
+																												<Grid item>
+																													<button
+																														type="button"
+																														className="quizCreator_addOptions"
+																														style={
+																															isPicked
+																																? {
+																																		display:
+																																			"none",
+																																  }
+																																: {}
+																														}
+																														onClick={() => {
+																															newHelper.push();
+																															answerList[
+																																index
+																															].push({
+																																name: `Option ${
+																																	question
+																																		.options
+																																		.length + 1
+																																}`,
+																																value:
+																																	question
+																																		.options
+																																		.length + 1,
+																															});
+																														}}
+																													>
+																														Add Options
+																													</button>
+																												</Grid>
+																												<Grid item>
+																													<a
+																														className="quizCreator_or"
+																														style={
+																															isPicked
+																																? {
+																																		display:
+																																			"none",
+																																  }
+																																: {}
+																														}
+																													>
+																														OR
+																													</a>
+																												</Grid>
+																												<Grid
+																													item
+																													xs={2}
+																													className="quizCreator_imageContainerOuter1"
 																												>
-																													Add Options
-																												</button>
+																													<label
+																														for={index}
+																														className="quizCreator_imageContainer"
+																													>
+																														<a className="quizCreator_fileUploadtext">
+																															{!isPicked
+																																? "File Upload"
+																																: "filename.jpg"}
+																														</a>
+
+																														<BsCloudUpload
+																															color={
+																																colorscheme.purple2
+																															}
+																															size={23}
+																															className="quizCreator_uploadButton"
+																															style={{
+																																position:
+																																	"relative",
+																																top: "6px",
+																																cursor:
+																																	"pointer",
+																															}}
+																														/>
+
+																														<input
+																															id={index}
+																															type="file"
+																															accept="image/*"
+																															onChange={(e) => {
+																																onFileUpload(
+																																	e,
+																																	index
+																																);
+																															}}
+																															style={{
+																																display: "none",
+																															}}
+																														></input>
+																													</label>
+																												</Grid>
 																											</Grid>
 
 																											{question.options &&
@@ -572,67 +655,17 @@ const QuizCreator = () => {
 																															key={optionIndex}
 																														>
 																															<Grid
-																																container
-																																direction="row"
-																																justify="center"
-																																alignItems="center"
-																																wrap="nowrap"
+																																item
+																																xs={12}
 																															>
-																																<Grid
-																																	item
-																																	xs={12}
-																																>
-																																	<CustomTextField
-																																		addStyles="quizCreator_option"
-																																		name={`questions[${index}].options[${optionIndex}]`}
-																																		placeHolder={`Option ${
-																																			optionIndex +
-																																			1
-																																		}`}
-																																	/>
-																																</Grid>
-																																<Grid
-																																	item
-																																	xs={1}
-																																	className="quizCreator_imageContainerOuter"
-																																>
-																																	<label
-																																		for={index}
-																																		className="quizCreator_imageContainer"
-																																	>
-																																		<BsCloudUpload
-																																			color={
-																																				colorscheme.purple2
-																																			}
-																																			size={23}
-																																			className="quizCreator_uploadButton"
-																																			style={{
-																																				cursor:
-																																					"pointer",
-																																				paddingBottom:
-																																					"10px",
-																																			}}
-																																		/>
-
-																																		<input
-																																			id={index}
-																																			type="file"
-																																			accept="image/*"
-																																			onChange={(
-																																				e
-																																			) => {
-																																				onFileUpload(
-																																					e,
-																																					index
-																																				);
-																																			}}
-																																			style={{
-																																				display:
-																																					"none",
-																																			}}
-																																		></input>
-																																	</label>
-																																</Grid>
+																																<CustomTextField
+																																	addStyles="quizCreator_option"
+																																	name={`questions[${index}].options[${optionIndex}]`}
+																																	placeHolder={`Option ${
+																																		optionIndex +
+																																		1
+																																	}`}
+																																/>
 																															</Grid>
 																														</div>
 																													)
