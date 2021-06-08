@@ -27,15 +27,15 @@
 		margin-bottom: 5px;
 		margin-top: 10px;
 	}
-	.message_time {
+	.message_time{
 		color: var(--grey1);
-		font-size: 0.85em;
+		font-size: 0.85rem;
+		font-weight:300;
 		margin: 0px;
 		padding: 10px;
-		display: none;
+	}
+	.message_Content:hover ~ .message_time{
+		display: block;
 	}
 
-	.message_Content:hover + .message_time {
-		display: block !important;
-	}
 }

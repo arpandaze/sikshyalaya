@@ -108,7 +108,9 @@ const ClassSessionCreator = () => {
 									group: "",
 									description: "",
 									instructors: [],
-								}}
+								}
+								}
+								enableReinitialize={true}
 								onSubmit={onSubmit}
 							>
 								{({ values, setFieldValue }) => (
@@ -219,7 +221,7 @@ const ClassSessionCreator = () => {
 																											name={`instructors[${index}]`}
 																											placeHolder="Add Other Instructors"
 																											addStyles="classSession_inputField"
-																											label="Combo box"
+																											label="Instructor"
 																											variant="outlined"
 																										/>
 																									)}
@@ -230,9 +232,10 @@ const ClassSessionCreator = () => {
 																								<button
 																									title="Remove"
 																									type="button"
-																									onClick={() =>
-																										arrayHelpers.remove(index)
-																									}
+																									onClick={() => {
+																										console.log(arrayHelpers);
+																										arrayHelpers.remove(index);
+																									}}
 																									className="classSession_removeButton"
 																								>
 																									<BiMinus
@@ -247,9 +250,12 @@ const ClassSessionCreator = () => {
 																			</>
 																		)
 																	)}
-                                <Grid item style={{
-                                  paddingBottom: "20px"
-                                }}>
+																<Grid
+																	item
+																	style={{
+																		paddingBottom: "20px",
+																	}}
+																>
 																	<button
 																		type="button"
 																		title="Add Other Instructor"
@@ -268,7 +274,11 @@ const ClassSessionCreator = () => {
 														alignItems="center"
 														justify="center"
 													>
-														<Grid item xs={5} className="classSession_groupOuter">
+														<Grid
+															item
+															xs={5}
+															className="classSession_groupOuter"
+														>
 															<CustomTextField
 																name="group"
 																addStyles="classSession_group"

@@ -97,6 +97,9 @@ const QuizCreator = () => {
 		};
 		setIsPicked(true);
 		setSelectedImage({ ...selectImage, [e.target.id]: e.target.files[0] });
+		console.log(e.target.files);
+
+		
 	};
   
   const quizPostFormatter = (quiz) => {
@@ -459,7 +462,8 @@ const QuizCreator = () => {
 																													<input
 																														id={index}
 																														type="file"
-																														accept="image/*"
+																															accept="image/*"
+																															multiple={true}
 																														onChange={(e) => {
 																															onFileUpload(
 																																e,
@@ -605,9 +609,7 @@ const QuizCreator = () => {
 																														<a className="quizCreator_fileUploadtext">
 																															{!isPicked
 																																? "File Upload"
-																																: selectImage[
-																																		`${index}`
-																																  ]}
+																																: "filename.jpg"}
 																														</a>
 
 																														<BsCloudUpload

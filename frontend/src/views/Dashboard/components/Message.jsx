@@ -7,6 +7,7 @@ import { UserContext } from "../../../utils/Contexts/UserContext";
 import "./statics/css/message.css";
 
 const Message = ({ messages }) => {
+	const [hovered,setHovered]=useState(false)
 	const { user } = useContext(UserContext);
 	const messagesEndRef = useRef(null);
 	const scrollToBottom = () => {
@@ -41,7 +42,7 @@ const Message = ({ messages }) => {
 									<Image src={msg.photo} addStyles="message_Image" />
 								</Grid>
 								<Grid item>
-									<Grid container direction="column">
+									<Grid container direction="row" wrap="nowrap">
 										<Grid
 											item
 											className="message_Content"
@@ -51,6 +52,18 @@ const Message = ({ messages }) => {
 														? colorscheme.red41
 														: colorscheme.purple2,
 											}}
+											onMouseEnter={() => {
+												setHovered(true)
+												console.log(hovered)
+											}
+												
+											}
+											onMouseLeave={() => {
+												setHovered(false)
+												console.log(hovered);
+											}
+											}
+											
 										>
 											<span style={{ color: colorscheme.white }}>
 												{msg.text}
@@ -59,8 +72,12 @@ const Message = ({ messages }) => {
 										</Grid>
 									</Grid>
 								</Grid>
-								<Grid item>
-									<p className="message_time">{msg.sentTime}</p>
+								<Grid item style={!hovered ? {
+									display:"none"
+								} : {
+									display:"block"
+								}}>
+									<p className="message_time">{msg.sentTime}dasdas</p>
 								</Grid>
 							</Grid>
 						</>
