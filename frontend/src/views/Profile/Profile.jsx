@@ -49,17 +49,6 @@ const validationSchema = yup.object({
 const Profile = () => {
   const { user, setUser } = useContext(UserContext);
 
-  const groupFormatter = (req) => {
-    return req.data;
-  };
-  const [group] = useAPI({ endpoint: "/api/v1/group/all/" }, groupFormatter);
-
-  const programFormatter = (value) =>
-    value.data.map((item) => ({
-      name: item.name,
-      value: item.id,
-    }));
-
   const [selectImage, setSelectedImage] = useState();
   const [tempImage, setTempImage] = useState();
   const [isPicked, setIsPicked] = useState(false);
@@ -75,49 +64,24 @@ const Profile = () => {
   };
 
   const onSubmit = async (value) => {
-    console.log(group);
-    let group_id_list = group.filter((item) => {
-      if (
-        item.sem === value.semester &&
-        item.program_id === user.group.program.id
-      ) {
-        return item;
-      }
-    });
-
-    let data = {
-      full_name: value.name,
-      address: value.address,
-      dob: value.dob,
-      email: value.email,
-      contact_number: value.phone_number,
-      group_id: group_id_list[0].id,
-    };
+    let formData = new FormData();
+    formData.append("full_name", value.name);
+    formData.append("address", value.address);
+    formData.append("dob", value.dob);
+    formData.append("email", value.email);
+    formData.append("contact_number", value.phone_number);
+    if (selectImage) {
+      formData.append("profile_photo", selectImage || null);
+    }
 
     let resp = await callAPI({
       endpoint: "/api/v1/users/me/",
       method: "PUT",
-      data: data,
+      data: formData,
     });
 
     if (resp.status === 200) {
-      let imageData = new FormData();
-      imageData.append("profile_photo", selectImage);
-      let imageResp = await callAPI({
-        endpoint: "/api/v1/users/me/profile/",
-        method: "PUT",
-        data: imageData,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      if (imageResp.status === 200) {
-        let newUserData = {
-          ...resp.data,
-          profile_image: `profiles/${imageResp.data.profile}`,
-        };
-        setUser(newUserData);
-      }
+      setUser(resp.data);
     }
   };
 
@@ -188,76 +152,77 @@ const Profile = () => {
                     validationSchema={validationSchema}
                     onSubmit={onSubmit}
                   >
-                    <Form>
-                      <Grid
-                        container
-                        direction="row"
-                        justify="flex-start"
-                        alignItems="flex-start"
-                        className="profile_formContainer"
-                      >
+                    {(props) => (
+                      <Form>
                         <Grid
-                          item
-                          xs={12}
-                          style={{
-                            padding: "0px 20px 0px 0px",
-                          }}
+                          container
+                          direction="row"
+                          justify="flex-start"
+                          alignItems="flex-start"
+                          className="profile_formContainer"
                         >
-                          <CustomTextField
-                            name="name"
-                            type="text"
-                            placeHolder="Name"
-                            id="name"
-                            addStyles="profile_inputButton"
-                          />
-                        </Grid>
-                        <Grid item xs={12}>
-                          <CustomTextField
-                            name="address"
-                            type="text"
-                            placeHolder="Address"
-                            id="address"
-                            addStyles="profile_inputButton"
-                          />
-                        </Grid>
-                        <Grid item xs={12}>
-                          <CustomTextField
-                            name="semester"
-                            dropdown={true}
-                            type="text"
-                            placeHolder="Semester"
-                            menuItems={semester}
-                            id="semester"
-                            addStyles="profile_inputButton"
+                          <Grid
+                            item
+                            xs={12}
                             style={{
-                              "max-width": "20",
+                              padding: "0px 20px 0px 0px",
                             }}
-                          />
-                        </Grid>
-                        <Grid item xs={12}>
-                          <CustomTextField
-                            id="dob"
-                            label="Birth Date"
-                            type="date"
-                            name="dob"
-                            defaultValue=""
-                            className="profile_inputButton"
-                            InputLabelProps={{
-                              shrink: true,
-                            }}
-                          />
-                        </Grid>
-                        <Grid item xs={12}>
-                          <CustomTextField
-                            name="phone_number"
-                            type="text"
-                            placeHolder="Phone Number"
-                            id="phone_number"
-                            addStyles="profile_inputButton"
-                            autoComplete="on"
-                          />
-                        </Grid>
-                        {/* <Grid item xs={12}>
+                          >
+                            <CustomTextField
+                              name="name"
+                              type="text"
+                              placeHolder="Name"
+                              id="name"
+                              addStyles="profile_inputButton"
+                            />
+                          </Grid>
+                          <Grid item xs={12}>
+                            <CustomTextField
+                              name="address"
+                              type="text"
+                              placeHolder="Address"
+                              id="address"
+                              addStyles="profile_inputButton"
+                            />
+                          </Grid>
+                          {/*<Grid item xs={12}>
+                            <CustomTextField
+                              name="semester"
+                              dropdown={true}
+                              type="text"
+                              placeHolder="Semester"
+                              menuItems={semester}
+                              id="semester"
+                              addStyles="profile_inputButton"
+                              style={{
+                                "max-width": "20",
+                              }}
+                            />
+                        </Grid>*/}
+                          <Grid item xs={12}>
+                            <CustomTextField
+                              id="dob"
+                              label="Birth Date"
+                              type="date"
+                              name="dob"
+                              defaultValue=""
+                              className="profile_inputButton"
+                              InputLabelProps={{
+                                shrink: true,
+                              }}
+                            />
+                          </Grid>
+                          <Grid item xs={12}>
+                            <CustomTextField
+                              name="phone_number"
+                              type="text"
+                              placeHolder="Phone Number"
+                              id="phone_number"
+                              addStyles="profile_inputButton"
+                              autoComplete="on"
+                            />
+                          </Grid>
+                          {/* <Grid item xs={12}>
                           <CustomTextField
                             name="email"
                             type="text"
@@ -267,7 +232,7 @@ const Profile = () => {
                             autoComplete="on"
                           />
                         </Grid> */}
-                        {/* <Grid item xs={12}>
+                          {/* <Grid item xs={12}>
                           <CustomTextField
                             name="password"
                             type="password"
@@ -287,15 +252,17 @@ const Profile = () => {
                             autoComplete="new-password"
                           />
                         </Grid> */}
-                        <Grid item>
-                          <Button
-                            name="Save"
-                            type="submit"
-                            addStyles="profile_button"
-                          />
+                          <Grid item>
+                            <Button
+                              name="Save"
+                              disabled={!(selectImage || props.dirty)}
+                              type="submit"
+                              addStyles="profile_button"
+                            />
+                          </Grid>
                         </Grid>
-                      </Grid>
-                    </Form>
+                      </Form>
+                    )}
                   </Formik>
                 </Grid>
               </Grid>

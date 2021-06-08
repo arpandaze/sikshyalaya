@@ -69,15 +69,12 @@ class TeacherShort(BaseModel):
 
 # Properties to receive via API on update
 class UserUpdate(BaseModel):
-    full_name: str
-    address: str
-    group_id: int
-    dob: date
-    contact_number: str
-
-
-class ImageUpdate(BaseModel):
-    profile_image: str = None
+    full_name: Optional[str]
+    address: Optional[str]
+    group_id: Optional[int]
+    dob: Optional[date]
+    contact_number: Optional[str]
+    profile_image: Optional[str]
 
 
 class UserInDBBase(UserBase):
@@ -98,14 +95,18 @@ class GroupOfTeacherGroupOfUser(BaseModel):
     id: int
     sem: int
     program: ProgramInDB
+
     class Config:
         orm_mode = True
+
 
 class TeacherGroupOfUser(BaseModel):
     group_id: int
     group: GroupOfTeacherGroupOfUser
+
     class Config:
         orm_mode = True
+
 
 class UserReturn(BaseModel):
     id: int = None
