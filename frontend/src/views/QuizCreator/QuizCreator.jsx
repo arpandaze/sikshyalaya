@@ -391,8 +391,8 @@ const QuizCreator = () => {
 																													<input
 																														id={index}
 																														type="file"
-																															accept="image/*"
-																															multiple={true}
+																														accept="image/*"
+																														multiple={true}
 																														onChange={(e) => {
 																															onFileUpload(
 																																e,
@@ -486,8 +486,8 @@ const QuizCreator = () => {
 																														style={
 																															isPicked
 																																? {
-																																		display:
-																																			"none",
+																																		// display:
+																																		// 	"none",
 																																  }
 																																: {}
 																														}
@@ -517,8 +517,8 @@ const QuizCreator = () => {
 																														style={
 																															isPicked
 																																? {
-																																		display:
-																																			"none",
+																																		// display:
+																																		// 	"none",
 																																  }
 																																: {}
 																														}
