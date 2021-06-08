@@ -175,10 +175,12 @@ const Notes = () => {
           ...data,
           content: JSON.stringify(data.content),
         };
+        delete data.last_updated_time;
+        console.log(data);
         await callAPI({
           endpoint: `/api/v1/personal_note/${selectedNote.id}`,
           method: "PUT",
-          data,
+          data: data,
         });
       } catch (e) {
         console.log(e);
