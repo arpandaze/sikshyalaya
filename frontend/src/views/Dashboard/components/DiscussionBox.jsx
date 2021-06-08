@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef } from "react";
 import Grid from "@material-ui/core/Grid";
 import "./statics/css/discussionBox.css";
 import colorscheme from "../../../utils/colors";
@@ -11,6 +11,10 @@ import defaultProfile from "../../../assets/default-profile.svg";
 
 const DiscussionBox = ({ checked }) => {
 	const { user } = useContext(UserContext);
+	const focusTextField = useRef(null);
+	const focusField = () => {
+		focusTextField.current.focus();
+	};
 	const [chat, setChat] = useState([
 		{
 			id: 1,
@@ -91,6 +95,7 @@ const DiscussionBox = ({ checked }) => {
 								name="chat_input"
 								type="text"
 								value={message}
+								ref={focusTextField}
 								onChange={handleChange}
 								placeholder="Enter your message..."
 								className="discussionBox_textField"
@@ -105,7 +110,10 @@ const DiscussionBox = ({ checked }) => {
 									border: "none",
 									backgroundColor: colorscheme.white,
 								}}
-								onClick={handleSubmit}
+								onClick={() => {
+									handleSubmit();
+									focusField();
+								}}
 							>
 								<BiSend
 									size={30}
