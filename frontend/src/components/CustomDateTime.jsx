@@ -38,30 +38,30 @@ const DatePicker = ({ id, label, ...rest }) => {
 
 const DateTimePicker = ({ id, label, ...rest }) => {
   return (
-    <Field name={id} {...rest}>
-      {({ field, form: { setFieldValue } }) => (
-        <>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardDateTimePicker
-              {...field}
-              margin="normal"
-              id={id}
-              label={label}
-              minutesStep={5}
-              inputVariant="outlined"
-              value={field.value}
-              onChange={(value) => setFieldValue(id, value)}
-              KeyboardButtonProps={{
-                "aria-label": "change time",
-              }}
-              keyboardIcon={<BiTimeFive />}
-              {...rest}
-            />
-          </MuiPickersUtilsProvider>
-        </>
-      )}
-    </Field>
-  );
+		<Field name={id} {...rest}>
+			{({ field, form: { setFieldValue } }) => (
+				<>
+					<MuiPickersUtilsProvider utils={DateFnsUtils}>
+						<KeyboardDateTimePicker
+							{...field}
+							margin="normal"
+							id={id}
+							label={label}
+							minutesStep={5}
+							inputVariant="outlined"
+							value={!field.value ? new Date() : field.value}
+							onChange={(value) => setFieldValue(id, value)}
+							KeyboardButtonProps={{
+								"aria-label": "change time",
+							}}
+							keyboardIcon={<BiTimeFive />}
+							{...rest}
+						/>
+					</MuiPickersUtilsProvider>
+				</>
+			)}
+		</Field>
+	);
 };
 
 const TimePicker = ({ id, label, ...rest }) => {
