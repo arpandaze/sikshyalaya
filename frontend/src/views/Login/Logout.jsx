@@ -4,7 +4,7 @@ import { clear } from "idb-keyval";
 
 const Logout = () => {
   const [logout, logoutComplete] = useAPI({
-    endpoint: "/api/v1/auth/logout",
+    endpoint: "/api/v1/auth/logout/",
   });
   useEffect(() => {
     if (logoutComplete) {

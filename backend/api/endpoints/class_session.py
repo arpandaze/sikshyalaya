@@ -214,7 +214,6 @@ async def websocket_endpoint(
     try:
         while True:
             data = await websocket.receive_json()
-            # get_uid_hash(req_user.id)
             await ws.message(
                 websocket=websocket,
                 user_id=user_id,

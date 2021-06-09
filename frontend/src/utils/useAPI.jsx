@@ -10,6 +10,7 @@ const useAPI = (
     params = null,
     data = null,
     withCredentials = true,
+    fire = true,
   },
   formatter,
   defaults = null
@@ -19,49 +20,51 @@ const useAPI = (
     complete: false,
   });
   useEffect(() => {
-    let url = `${configs.API_HOST}${endpoint}`;
-    let config = {
-      withCredentials: withCredentials,
-      params: params,
-    };
+    if (fire) {
+      let url = `${configs.API_HOST}${endpoint}`;
+      let config = {
+        withCredentials: withCredentials,
+        params: params,
+      };
 
-    let promiseObj = null;
+      let promiseObj = null;
 
-    switch (method) {
-      case "POST":
-        promiseObj = axios.post(url, data, config);
-        break;
+      switch (method) {
+        case "POST":
+          promiseObj = axios.post(url, data, config);
+          break;
 
-      case "GET":
-        promiseObj = axios.get(url, config);
-        break;
+        case "GET":
+          promiseObj = axios.get(url, config);
+          break;
+      }
+
+      promiseObj
+        .then((res) => {
+          let formattedRes = res;
+
+          if (formatter) {
+            formattedRes = formatter(res);
+          }
+          setResponseState({ response: formattedRes, complete: true });
+        })
+        .catch((error) => {
+          if (error.response == null) {
+            throw error;
+          }
+          if (error.response.status === 401) {
+            clear()
+              .then(() => {
+                window.location = "/login";
+              })
+              .catch(() => {
+                window.localStorage.clear();
+              });
+            setResponseState({ response: error.response, complete: true });
+          }
+        });
     }
-
-    promiseObj
-      .then((res) => {
-        let formattedRes = res;
-
-        if (formatter) {
-          formattedRes = formatter(res);
-        }
-        setResponseState({ response: formattedRes, complete: true });
-      })
-      .catch((error) => {
-        if (error.response == null) {
-          throw error;
-        }
-        if (error.response.status === 401) {
-          clear()
-            .then(() => {
-              window.location = "/login";
-            })
-            .catch(() => {
-              window.localStorage.clear();
-            });
-          setResponseState({ response: error.response, complete: true });
-        }
-      });
-  }, [endpoint, method, params, data, setResponseState]);
+  }, [endpoint, method, params, data, setResponseState, fire]);
 
   return Object.values(responseState);
 };

@@ -1,5 +1,5 @@
 from schemas.program import Program
-from typing import Optional, List  # noqa
+from typing import Optional, List, Union  # noqa
 
 from pydantic import BaseModel
 from .course import Course
@@ -38,6 +38,7 @@ class Group(GroupInDBBase):
 class StudentOfGroup(BaseModel):
     id: int
     full_name: str
+    profile_image: Union[str, None]
 
     class Config:
         orm_mode = True

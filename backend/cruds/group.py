@@ -17,7 +17,6 @@ class CRUDGroup(CRUDBase[Group, GroupCreate, GroupUpdate]):
     ) -> Group:
         if obj_in.course:
             course = [crud_course.get(db=db, id=id) for id in obj_in.course]
-
         else:
             course = []
 
