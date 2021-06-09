@@ -65,10 +65,7 @@ const Signup = () => {
     return value.data;
   };
 
-  const [program] = useAPI(
-    { endpoint: "/api/v1/program/all/" },
-    programFormatter
-  );
+  const [program] = useAPI({ endpoint: "/api/v1/program/" }, programFormatter);
 
   const [group] = useAPI({ endpoint: "/api/v1/group/all/" }, groupFormatter);
 
