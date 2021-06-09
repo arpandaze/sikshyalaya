@@ -27,20 +27,24 @@ const GroupView = ({ match, location }) => {
   const defaultProgram = "";
   const [isPopUp, setPopUp] = useState(false);
   const validationSchema = yup.object({
-    name: yup.string("Enter Program Name").required("Program Name Required"),
+    name: yup
+      .number("Enter Semester Number")
+      .required("Semester Number Required"),
   });
   const onSubmit = async (values) => {
-    values = {
-      ...values,
-      department_id: prevData.program.id,
+    const data = {
+      sem: values.name,
+      program_id: prevData.program.id,
     };
-    allGroup.push(values);
+    const position = allGroup.push(values);
     try {
-      await callAPI({
-        endpoint: `/api/v1/program/`,
+      const responseData = await callAPI({
+        endpoint: `/api/v1/group/`,
         method: "POST",
-        data: values,
+        data: data,
       });
+      console.log(responseData);
+      allGroup[position - 1].id = responseData.data.id;
     } catch (e) {}
     setPopUp(false);
   };
@@ -50,6 +54,17 @@ const GroupView = ({ match, location }) => {
     }
     return response.data.name;
   };
+  useEffect(() => {
+    if (!location.state) {
+      history.replace({
+        pathname: "/admin/school",
+        state: { message: "Choose a School" },
+      });
+    }
+    return () => {
+      setPopUp();
+    };
+  }, [location]);
   const groupFormatter = (response) => {
     if (response.data.length === 0) {
       return [];
@@ -66,7 +81,6 @@ const GroupView = ({ match, location }) => {
     const finalData = responseData.filter(
       (response) => response.program_id == prevData.program.id
     );
-    console.log(finalData);
     return finalData;
   };
 

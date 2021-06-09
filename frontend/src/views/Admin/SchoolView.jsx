@@ -22,15 +22,17 @@ const SchoolView = ({ location }) => {
     address: yup.string("Enter your Address").required("Address Required"),
   });
   const onSubmit = async (values) => {
-    allSchool.push(values);
+    const position = allSchool.push(values);
     try {
-      await callAPI({
+      const responseData = await callAPI({
         endpoint: `/api/v1/school/`,
         method: "POST",
         data: values,
       });
+      console.log(responseData);
+      allSchool[position - 1].id = responseData.data.id;
+      console.log(allSchool[position - 1].id);
     } catch (e) {}
-
     setPopUp(false);
   };
   const defaultSchool = [];

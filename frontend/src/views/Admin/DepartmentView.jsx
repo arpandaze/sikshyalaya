@@ -34,13 +34,14 @@ const DepartmentView = ({ location }) => {
       ...values,
       school_id: prevData.school.id,
     };
-    allDepartment.push(values);
+    const position = allDepartment.push(values);
     try {
-      await callAPI({
+      const responseData = await callAPI({
         endpoint: `/api/v1/deparment/`,
         method: "POST",
         data: values,
       });
+      allDepartment[position - 1].id = responseData.data.id;
     } catch (e) {}
     setPopUp(false);
   };

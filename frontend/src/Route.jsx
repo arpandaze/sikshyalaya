@@ -65,7 +65,6 @@ const Routes = () => {
       <AdminRoute exact path="/admin/student/:group?" component={StudentView} />
 
       {/* Common Routes */}
-      <Route exact path="/404" component={NotFound} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/reset" component={ResetPassword} />
       <Route exact path="/signup" component={Signup} />
