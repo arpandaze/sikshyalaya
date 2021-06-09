@@ -38,7 +38,10 @@ async def get_group(
         return group
 
     if current_user.user_type == settings.UserType.TEACHER.value:
-        return [teacher_group_link.group for teacher_group_link in current_user.teacher_group]
+        return [
+            teacher_group_link.group
+            for teacher_group_link in current_user.teacher_group
+        ]
 
     if current_user.user_type <= settings.UserType.ADMIN.value:
         group = crud_group.get_multi(db, skip=skip, limit=limit)
@@ -46,21 +49,14 @@ async def get_group(
 
 
 # create new group, can be done by only admin and super admin
-@router.post("/", response_model=GroupCreate)
+@router.post("/", response_model=Group)
 async def create_group(
     db: Session = Depends(deps.get_db),
     *,
-    obj_in: GroupUpdate,
-    current_user: User = Depends(deps.get_current_active_user)
+    obj_in: GroupCreate,
+    current_user: User = Depends(deps.get_current_active_teacher)
 ) -> Any:
-    if current_user.user_type >= settings.UserType.TEACHER.value:
-        raise HTTPException(
-            status_code=403,
-            detail="Error ID: 106",  # user has no authorization for creating groups
-        )
-    else:
-        crud_group.create(db, obj_in=obj_in)
-        return {"status": "success"}
+    return crud_group.create(db, obj_in=obj_in)
 
 
 # get a specific group by id
@@ -77,14 +73,14 @@ async def get_specific_group(
     db: Session = Depends(deps.get_db),
     *,
     id: int,
-    current_user: User = Depends(deps.get_current_active_user)
+    current_user: User = Depends(deps.get_current_active_user),
 ) -> Any:
     if not current_user:
         raise HTTPException(status_code=404, detail="Error ID: 107")  # user not found!
 
     if current_user.user_type == settings.UserType.STUDENT.value:
         if current_user.group_id == id:
-            return get_group(db, current_user=current_user).pop()
+            return crud_group.get(db, id=id)
         else:
             raise HTTPException(
                 status_code=403,
@@ -112,7 +108,7 @@ async def update_group(
     *,
     id: int,
     obj_in: GroupUpdate,
-    current_user: User = Depends(deps.get_current_active_user)
+    current_user: User = Depends(deps.get_current_active_user),
 ) -> Any:
 
     if current_user.user_type >= settings.UserType.TEACHER.value:
