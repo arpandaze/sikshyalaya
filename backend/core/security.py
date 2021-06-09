@@ -40,5 +40,5 @@ def get_password_hash(password: str) -> str:
 
 def get_uid_hash(uid: str) -> str:
     hasher = sha1()
-    hasher.update(bytes(f"uid_{id}", "utf-8"))
-    return hasher.hexdigest()[1:7]
+    hasher.update(bytes(f"uid_{uid}", "utf-8"))
+    return hasher.hexdigest()[3:10]
