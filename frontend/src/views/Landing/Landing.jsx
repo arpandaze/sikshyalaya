@@ -75,7 +75,7 @@ const Landing = () => {
         >
           <Grid item className="landing_row">
             <div className="landing_smallRedBox"></div>
-            <h1 className="landing_activeTitle">Active Course in Network</h1>
+            <h1 className="landing_activeTitle">Active Course</h1>
             <br />
             <br />
             <div className="landing_currentContainer">

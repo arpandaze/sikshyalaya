@@ -34,17 +34,28 @@ const ProgramView = ({ location }) => {
       ...values,
       department_id: prevData.department.id,
     };
-    allProgram.push(values);
+    const position = allProgram.push(values);
     try {
-      await callAPI({
+      const responseData = await callAPI({
         endpoint: `/api/v1/program/`,
         method: "POST",
         data: values,
       });
+      allProgram[position - 1].id = responseData.data.id;
     } catch (e) {}
     setPopUp(false);
   };
-
+  useEffect(() => {
+    if (!location.state) {
+      history.replace({
+        pathname: "/admin/school",
+        state: { message: "Choose a School" },
+      });
+    }
+    return () => {
+      setPopUp();
+    };
+  }, [location]);
   const programFormatter = (response) => {
     if (response.data.length === 0) {
       return [];
