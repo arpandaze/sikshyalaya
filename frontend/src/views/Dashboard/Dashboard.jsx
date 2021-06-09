@@ -314,39 +314,43 @@ const Dashboard = ({ match }) => {
                       alignItems="center"
                       className="mainDash_discussionBoxTop"
                     >
-                      <div className="mainDash_smallBlueBox"></div>
-                      <h1 className="mainDash_discussionBoxTitle">
-                        Discussion
-                      </h1>
-                    </Grid>
-                    <Grid item xs={5}>
-                      <Grid
-                        container
-                        direction="row"
-                        alignItems="center"
-                        justify="center"
-                      >
-                        <Grid item>
-                          <Switch
-                            name="isAnonymus"
-                            checked={checked}
-                            color="primary"
-                            onChange={() => {
-                              setChecked(!checked);
-                            }}
-                          />
-                        </Grid>
-                        <Grid>
-                          <p
-                            style={{
-                              margin: "0px",
-                              fontSize: "0.8em",
-                              color: colorscheme.grey1,
-                              fontWeight: "bold",
-                            }}
-                          >
-                            Send Anonymously
-                          </p>
+                      <Grid item xs={1}>
+                        <div className="mainDash_smallBlueBox"></div>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <h1 className="mainDash_discussionBoxTitle">
+                          Discussion
+                        </h1>
+                      </Grid>
+                      <Grid item xs={5}>
+                        <Grid
+                          container
+                          direction="row"
+                          alignItems="center"
+                          justify="center"
+                        >
+                          <Grid item>
+                            <Switch
+                              name="isAnonymus"
+                              checked={checked}
+                              color="primary"
+                              onChange={() => {
+                                setChecked(!checked);
+                              }}
+                            />
+                          </Grid>
+                          <Grid>
+                            <p
+                              style={{
+                                margin: "0px",
+                                fontSize: "0.8em",
+                                color: colorscheme.grey1,
+                                fontWeight: "bold",
+                              }}
+                            >
+                              Send Anonymously
+                            </p>
+                          </Grid>
                         </Grid>
                       </Grid>
                     </Grid>
