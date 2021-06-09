@@ -6,7 +6,6 @@ import ClassResource from "./components/ClassResource";
 import useAPI from "../../utils/useAPI";
 import callAPI from "../../utils/API";
 import DiscussionBox from "./components/DiscussionBox";
-import Switch from "@material-ui/core/Switch";
 import colorscheme from "../../utils/colors";
 
 const resourceList = [
@@ -100,7 +99,6 @@ const getFileType = (item) => {
 };
 
 const Dashboard = ({ match }) => {
-  const [checked, setChecked] = useState(false);
   const classDetailsDefault = {
     id: null,
     title: null,
@@ -236,7 +234,6 @@ const Dashboard = ({ match }) => {
                                   className="mainDash_activeClassListrow_col_1"
                                 >
                                   <p className="mainDash_activeClassListrow_col_1_bold">
-                                    {console.log(classDetails)}
                                     {classDetails.title}
                                   </p>
 
@@ -301,70 +298,7 @@ const Dashboard = ({ match }) => {
               </Grid>
             </Grid>
             <Grid item className="mainDash_middleContainer" xs={8}>
-              <Grid item className="mainDash_discussionBoxContainer">
-                <Grid
-                  container
-                  direction="column"
-                  className="mainDash_discussionBoxInside"
-                >
-                  <Grid item>
-                    <Grid
-                      container
-                      direction="row"
-                      alignItems="center"
-                      className="mainDash_discussionBoxTop"
-                    >
-                      <div className="mainDash_smallBlueBox"></div>
-                      <h1 className="mainDash_discussionBoxTitle">
-                        Discussion
-                      </h1>
-                    </Grid>
-                    <Grid item xs={5}>
-                      <Grid
-                        container
-                        direction="row"
-                        alignItems="center"
-                        justify="center"
-                      >
-                        <Grid item>
-                          <Switch
-                            name="isAnonymus"
-                            checked={checked}
-                            color="primary"
-                            onChange={() => {
-                              setChecked(!checked);
-                            }}
-                          />
-                        </Grid>
-                        <Grid>
-                          <p
-                            style={{
-                              margin: "0px",
-                              fontSize: "0.8em",
-                              color: colorscheme.grey1,
-                              fontWeight: "bold",
-                            }}
-                          >
-                            Send Anonymously
-                          </p>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <Grid item>
-                  <Grid
-                    container
-                    direction="column"
-                    alignItems="center"
-                    className="mainDash_discussionBoxBottom"
-                  >
-                    <Grid item>
-                      <DiscussionBox classID={classDetails.id} />
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Grid>
+              <DiscussionBox classID={classDetails.id} />
             </Grid>
           </Grid>
         </Grid>
