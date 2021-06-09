@@ -29,9 +29,7 @@ const SchoolView = ({ location }) => {
         method: "POST",
         data: values,
       });
-      console.log(responseData);
       allSchool[position - 1].id = responseData.data.id;
-      console.log(allSchool[position - 1].id);
     } catch (e) {}
     setPopUp(false);
   };

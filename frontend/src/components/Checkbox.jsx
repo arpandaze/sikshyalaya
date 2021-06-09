@@ -1,16 +1,24 @@
 import { Field } from "formik";
+import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 
-const Checkbox = ({ id, name, className }) => {
+const CustomCheckbox = ({ id, name, label, className }) => {
   return (
     <Field name={name}>
       {({ field, form }) => {
         return (
-          <input
-            type="checkbox"
-            id={id}
-            className={className}
-            checked={field.value}
-            {...field}
+          <FormControlLabel
+            control={
+              <Checkbox
+                id={id}
+                checked={field.value}
+                name={label}
+                className={className}
+                inputProps={{ "aria-label": "primary checkbox" }}
+                {...field}
+              />
+            }
+            label={label}
           />
         );
       }}
@@ -18,4 +26,4 @@ const Checkbox = ({ id, name, className }) => {
   );
 };
 
-export default Checkbox;
+export default CustomCheckbox;

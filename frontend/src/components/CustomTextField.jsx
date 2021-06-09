@@ -25,16 +25,18 @@ const CustomTextField = ({
       <Field name={name} {...rest}>
         {({ field, form: { touched, errors }, meta }) => (
           <div className="customField_root">
-            <input
+            <TextField
+              error={meta.touched && meta.error ? true : false}
+              id={name}
               type={type}
-              placeholder={placeHolder}
+              margin="normal"
+              label={placeHolder}
+              variant="outlined"
               className={addStyles}
               {...rest}
               {...field}
+              helperText={meta.touched && meta.error}
             />
-            {meta.touched && meta.error && (
-              <div className="error">{meta.error}</div>
-            )}
           </div>
         )}
       </Field>
@@ -53,6 +55,7 @@ const CustomTextField = ({
               InputLabelProps={{ shrink: true }}
               {...rest}
               {...field}
+              variant="outlined"
             >
               <MenuItem key={""} value={""}>
                 None

@@ -33,6 +33,7 @@ const StudentLoginBox = () => {
   const history = useHistory();
   const { user, setUser } = useContext(UserContext);
   const onSubmit = async (values) => {
+    console.log(values);
     let data = {
       username: values.email,
       password: values.password,
@@ -98,11 +99,10 @@ const StudentLoginBox = () => {
                   className="loginCommon_rememberMeCheckContainer"
                 >
                   <Checkbox
-                    className="loginCommon_checkbox"
                     name="remember_me"
+                    label="Remember me"
                     value="remember_me"
                   />
-                  <label htmlFor="remember_me">Remember me</label>
                 </Grid>
               </Grid>
               <Grid

@@ -1,92 +1,124 @@
 @import "../../../../utils/colors.css";
-	.classSession_submit ,.classSession_addInstructor{
-		width: 160px;
-		height: 45px;
-		background-color: var(--red4);
-		margin-top: 20px;
-		color: var(--white);
-		border-radius: 12px;
-		font-size: 1.1em;
-		border:none;
-		cursor:pointer;
-	}
-	.classSession_root{
-		flex-grow:1;
-		width:100%;
-		height:100%;
-	}
-	.classSession_headingText{
-		position:relative;
-		padding-left:50px;
-		top:5vh;
-		font-weight: bold;
-		font-size: 2.5em;
-	}
-	.classSession_heading{
-		width:100%;
-		height:10%;
-	}
-	.classSession_body{
-		
-		width:100%;
-		height:90%;
-	}
-	.classSession_description{
-		width:60%
-	}
-	
-	.classSession_dateTimePickerContainerOuter{
-		padding:20px 0px 5px 0px;
-	}
-	.classSession_instructorContainer{
-	}
-	.classSession_upload{
-		text-align:center;
-		width:180px;
-	}
-	.classSession_uploadText{
-		font-size: 1rem;
-		font-weight: 300;
-	}
-	.classSession_instructorFieldOuter{
-		
-	}
-	.classSession_instructorFieldInner{
-		padding-right:20px;
-	}
-	.classSession_inputField{
-	}
-	.classSession_inputField{
-		outline: none;
-		border: none;
-		width: 100%;
-		height: 50px;
-		border-bottom: 2px solid var(--grey2);
-		font-size: 1em;
-		background: transparent;
-	}
-	.classSession_instructorField{
-		width:50%;
-		
-	}
-	.classSession_addInstructor{
-		background-color: var(--purple2);
-	}
-	.classSession_removeButton{
-		border:none;
-		cursor:pointer;
-		background: transparent;
-		padding:10px;
-	}
-	.classSession_group{
-		min-width: 300px;
+.classSession_submit,
+.classSession_addInstructor {
+  width: 150px;
+  height: 40px;
+  background-color: var(--red4);
+  margin-top: 20px;
+  color: var(--white);
+  border-radius: 12px;
+  font-size: 1.1em;
+  border: none;
+  cursor: pointer;
+}
+.classSession_root {
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+}
+.classSession_headingText {
+  position: relative;
+  padding-left: 50px;
+  top: 5vh;
+  font-weight: bold;
+  font-size: 2.5em;
+}
+.classSession_heading {
+  width: 100%;
+  height: 10%;
+}
+.classSession_body {
+  width: 100%;
+  height: 90%;
+}
+.classSession_description {
+  width: 60%;
+}
 
-	}
+.classSession_dateTimePickerContainerOuter {
+  padding: 20px 0px 5px 0px;
+}
+.classSession_instructorContainer {
+}
+.classSession_uploadText {
+  font-size: 1rem;
+  font-weight: 300;
+}
+.classSession_instructorFieldOuter {
+}
+.classSession_instructorFieldInner {
+  padding-right: 20px;
+}
+.classSession_inputField {
+}
+.classSession_inputField {
+  outline: none;
+  border: none;
+  width: 100%;
+  height: 50px;
+  border-bottom: 2px solid var(--grey2);
+  font-size: 1em;
+  background: transparent;
+}
+.classSession_instructorField {
+  width: 50%;
+}
+.classSession_addInstructor {
+  background-color: var(--purple2);
+}
+.classSession_removeButton {
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  padding: 10px;
+}
+.classSession_group {
+  min-width: 300px;
+}
 
-	.classSession_groupOuter{
-		min-width: 300px;
-	}
+.classSession_groupOuter {
+  min-width: 300px;
+}
 
-	.MuiPickerDTTabs-tabs {
-		background-color:var(--red4)	!important;
+.MuiPickerDTTabs-tabs {
+  background-color: var(--red4) !important;
+}
+
+.classSession_upload {
+  text-align: center;
+  width: 500px;
+}
+.classSession_uploadFileListContainer {
+  width: 500px;
+  margin: 20px auto;
+}
+.classSession_uploadFileListInside {
+  width: 400px !important;
+  margin: 20px auto;
+  padding: 10px;
+}
+.classSession_uploadItems {
+  width: 300px;
+  margin: 0px auto;
+}
+.classSession_uploadIconContainer {
+  width: 130px !important;
+  margin: 20px auto;
+  cursor: pointer;
+}
+.classSession_uploadIcon {
+  width: 30px;
+  height: 30px;
+}
+.classSession_uploadIconText {
+  margin: 0px auto;
+}
+.classSession_uploadFileListInside p {
+  font-size: 1.05em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.classSession_uploadCross {
+  cursor: pointer;
 }

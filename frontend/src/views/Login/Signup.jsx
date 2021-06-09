@@ -11,6 +11,7 @@ import colorscheme from "../../utils/colors";
 import CustomTextField from "./../../components/CustomTextField";
 import useAPI from "../../utils/useAPI";
 import DelayedRedirect from "../../components/DelayedRedirect";
+import { DatePicker } from "../../components/CustomDateTime";
 
 const semester = [
   { name: "I", value: 1 },
@@ -220,13 +221,7 @@ const Signup = () => {
                     />
                   </Grid>
                   <Grid item xs={6}>
-                    <CustomTextField
-                      id="dob"
-                      label="Birth Date"
-                      type="date"
-                      name="dob"
-                      className="signup_inputButton"
-                    />
+                    <DatePicker id="dob" className="signup_inputButton" />
                   </Grid>
                   <Grid item xs={12}>
                     <CustomTextField

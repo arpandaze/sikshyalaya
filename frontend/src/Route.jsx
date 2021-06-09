@@ -14,6 +14,7 @@ import ProgramView from "./views/Admin/ProgramView";
 import GroupView from "./views/Admin/GroupView";
 import AdminForm from "./views/Admin/AdminForm";
 import StudentView from "./views/Admin/StudentView";
+import TeacherView from "./views/Admin/TeacherView";
 import ResetPassword from "./views/Login/ResetPassword";
 import Signup from "./views/Login/Signup";
 import StudentRoute from "./components/StudentRoute";
@@ -61,8 +62,9 @@ const Routes = () => {
         path="/admin/program/:department?"
         component={ProgramView}
       />
-      <AdminRoute exact path="/admin/group/:program?" component={GroupView} />
-      <AdminRoute exact path="/admin/student/:group?" component={StudentView} />
+      <AdminRoute exact path="/admin/group" component={GroupView} />
+      <AdminRoute exact path="/admin/student" component={StudentView} />
+      <AdminRoute exact path="/admin/teacher" component={TeacherView} />
 
       {/* Common Routes */}
       <Route exact path="/login" component={Login} />

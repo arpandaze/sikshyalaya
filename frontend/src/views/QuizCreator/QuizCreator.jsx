@@ -3,7 +3,6 @@ import { Formik, Form, Field, FieldArray } from "formik";
 import Button from "../../components/Button";
 import DashboardLayout from "../../components/DashboardLayout/DashboardLayout";
 import * as yup from "yup";
-import CustomTextField from "./../../components/CustomTextField";
 import Checkbox from "./../../components/Checkbox";
 import Grid from "@material-ui/core/Grid";
 import DateFnsUtils from "@date-io/date-fns";
@@ -21,6 +20,7 @@ import { AiOutlineFileImage } from "react-icons/ai";
 import configs from "../../utils/configs";
 import { fromUnixTime } from "date-fns/esm";
 import { DatePicker, TimePicker } from "../../components/CustomDateTime";
+import CustomTextField from "../../components/CustomTextField";
 
 const validationSchema = yup.object({
   quiz_title: yup.string("Enter the title of the quiz"),
@@ -228,7 +228,7 @@ const QuizCreator = () => {
                         xs={12}
                         className="quizCreator_titleFieldContainer"
                       >
-                        <Field
+                        <CustomTextField
                           id="quiz_title"
                           name="quiz_title"
                           placeholder="Enter the title of the quiz"
@@ -239,7 +239,7 @@ const QuizCreator = () => {
                         item
                         className="quizCreator_descriptionFieldContainer"
                       >
-                        <Field
+                        <CustomTextField
                           id="quiz_description"
                           name="quiz_description"
                           placeholder="Description of the quiz"
@@ -282,18 +282,11 @@ const QuizCreator = () => {
                         className="quizCreator_randomContainer"
                         wrap="nowrap"
                       >
-                        <Grid item className="quizCreator_randomLabel">
-                          <label
-                            htmlFor="is_randomized"
-                            className="quizCreator_randomText"
-                          >
-                            Randomize Questions
-                          </label>
-                        </Grid>
                         <Grid item className="quizCreator_check">
                           <Checkbox
                             id="is_randomized"
                             name="isRandomized"
+                            label="Randomize Questions"
                             className="quizCreator_randomCheckBox"
                           />
                         </Grid>

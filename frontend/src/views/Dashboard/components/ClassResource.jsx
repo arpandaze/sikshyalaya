@@ -1,7 +1,7 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import "./statics/css/classResource.css";
-import ResourceIcons from "./ResourceIcons";
+import ResourceIcons from "../../../components/ResourceIcons";
 import { Link } from "react-router-dom";
 import configs from "../../../utils/configs";
 

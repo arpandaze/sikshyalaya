@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import { AiOutlineDashboard } from "react-icons/ai";
 import { BiNotepad } from "react-icons/bi";
 import { FaChalkboardTeacher } from "react-icons/fa";
+import { RiSurveyLine } from "react-icons/ri";
+import { IoServerOutline } from "react-icons/io5";
 import Grid from "@material-ui/core/Grid";
 import iconbig from "../../assets/logo-large.svg";
 import Image from "../Image";
@@ -24,7 +26,7 @@ const sidebarItems = [
       id: 2,
       title: "Quiz",
       route: "/quiz",
-      icon: <FaChalkboardTeacher className="sideBar_iconStyle" />,
+      icon: <RiSurveyLine className="sideBar_iconStyle" />,
     },
     {
       id: 3,
@@ -45,10 +47,16 @@ const sidebarItems = [
       id: 2,
       title: "Quiz",
       route: "/quiz-creator",
-      icon: <FaChalkboardTeacher className="sideBar_iconStyle" />,
+      icon: <RiSurveyLine className="sideBar_iconStyle" />,
     },
     {
       id: 3,
+      title: "Class",
+      route: "/class-session-create",
+      icon: <FaChalkboardTeacher className="sideBar_iconStyle" />,
+    },
+    {
+      id: 4,
       title: "Note",
       route: "/teacher/note",
       icon: <BiNotepad className="sideBar_iconStyle" />,
@@ -66,6 +74,12 @@ const sidebarItems = [
       id: 2,
       title: "Schools",
       route: "/admin/school",
+      icon: <IoServerOutline className="sideBar_iconStyle" />,
+    },
+    {
+      id: 3,
+      title: "Teachers",
+      route: "/admin/teacher",
       icon: <FaChalkboardTeacher className="sideBar_iconStyle" />,
     },
   ],

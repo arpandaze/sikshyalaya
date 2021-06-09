@@ -1,6 +1,7 @@
 @import "../../../utils/colors.css";
 .customField_root {
   height: 80px;
+  padding: 5px;
   position: relative;
 }
 .error {

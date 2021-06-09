@@ -1,49 +1,49 @@
 @import "../../../../../utils/colors.css";
 
 @media only screen and (min-width: 1280px) {
-	.discussionBox_root {
-		width: 500px;
-		height: 590px;
-	}
-	.discussionBox_chatBox {
-		position: relative;
-		width: 500px;
-		height: 500px;
-		overflow: auto;
-		margin-bottom: 10px !important;
-	}
-	.discussionBox_messageRoot {
-		position: absolute;
-	}
+  .discussionBox_root {
+    width: 500px;
+    height: 590px;
+  }
+  .discussionBox_chatBox {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    overflow: auto;
+    margin-bottom: 10px !important;
+  }
+  .discussionBox_messageRoot {
+    position: absolute;
+  }
 
-	.discussionBox_inputField {
-		margin-bottom: 10px !important;
-	}
-	.discussionBox_textFieldRoot {
-	}
-	.discussionBox_textField {
-		padding: 10px;
-		width: 93%;
-		max-width: 95%;
-		border-radius: 10px;
-	}
-	.discussionBox_sendButtonContainer {
-	}
-	.discussionBox_sendButton {
-		position: relative;
-		top: 2px;
-	}
+  .discussionBox_inputField {
+    margin-bottom: 10px !important;
+  }
+  .discussionBox_textFieldRoot {
+  }
+  .discussionBox_textField {
+    padding: 10px;
+    width: 93%;
+    max-width: 95%;
+    border-radius: 10px;
+  }
+  .discussionBox_sendButtonContainer {
+  }
+  .discussionBox_sendButton {
+    position: relative;
+    top: 2px;
+  }
 }
 @media only screen and (min-width: 1920px) {
-	.discussionBox_root {
-		width: 700px;
-		height: 700px;
-	}
-	.discussionBox_chatBox {
-		position: relative;
-		width: 700px;
-		height: 620px;
-		overflow: auto;
-		margin-bottom: 10px !important;
-	}
+  .discussionBox_root {
+    width: 700px;
+    height: 700px;
+  }
+  .discussionBox_chatBox {
+    position: relative;
+    width: 700px;
+    height: 620px;
+    overflow: auto;
+    margin-bottom: 10px !important;
+  }
 }
