@@ -95,8 +95,18 @@ const StudentView = ({ location, ...rest }) => {
 
   const [program] = useAPI({ endpoint: "/api/v1/program/" }, programFormatter);
 
+  useEffect(() => {
+    if (!location.state) {
+      history.replace({
+        pathname: "/admin/school",
+        state: { message: "Choose a School" },
+      });
+    }
+    return () => {
+      setPopUp();
+    };
+  }, [location]);
   const onSubmit = async (data) => {
-    console.log(group);
     let group_id_list = group.filter((item) => {
       if (item.sem === data.semester && item.program.id === data.program) {
         return item;
