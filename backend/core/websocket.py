@@ -30,7 +30,6 @@ class Message(BaseModel):
 class WebSocketManager:
     def __init__(self):
         self.connections: Dict = {}
-        print(self.connections)
 
     async def update(self, data, key):
         msg = await redis_chat_client.client.get(key)
