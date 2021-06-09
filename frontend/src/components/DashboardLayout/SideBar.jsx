@@ -19,7 +19,7 @@ const sidebarItems = [
     {
       id: 1,
       title: "Dashboard",
-      route: "/dashboard",
+      route: "/class",
       icon: <AiOutlineDashboard className="sideBar_iconStyle" />,
     },
     {
