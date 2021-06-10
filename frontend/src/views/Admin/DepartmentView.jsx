@@ -37,7 +37,7 @@ const DepartmentView = ({ location }) => {
     const position = allDepartment.push(values);
     try {
       const responseData = await callAPI({
-        endpoint: `/api/v1/deparment/`,
+        endpoint: `/api/v1/department/`,
         method: "POST",
         data: values,
       });
@@ -75,7 +75,7 @@ const DepartmentView = ({ location }) => {
     return finalData;
   };
   let [allDepartment, allDepartmentComplete] = useAPI(
-    { endpoint: `/api/v1/deparment/` },
+    { endpoint: `/api/v1/department/` },
     departmentFormatter,
     defaultDepartment
   );
@@ -135,17 +135,12 @@ const DepartmentView = ({ location }) => {
           </Grid>
         </Grid>
         <Grid item className="adminCommon_botBar">
-          <Grid
-            container
-            direction="row"
-            justify="center"
-            alignItems="center"
-            spacing={5}
-          >
+          <Grid container direction="row" alignItems="center" spacing={5}>
             {allDepartment.map((department) => (
               <Grid item key={department.id} xs={6}>
                 <AdminBoxSmall
                   type="department"
+                  key={department.id}
                   cardData={department}
                   onSubmit={() => {
                     history.push({
