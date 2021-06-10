@@ -5,11 +5,13 @@
 		width: 40px;
 		height: 40px;
 	}
+	
 	.message_Image {
 		border-radius: 50%;
 		width: 40px;
 		height: 40px;
 	}
+
 	.message_Content {
 		border-radius: 15px;
 		margin-left: 10px !important;
@@ -20,6 +22,10 @@
 		word-wrap: break-word;
 	}
 
+	.message_messageOuter{
+		position:relative;
+	}
+
 	.message_name {
 		color: var(--grey1);
 		font-weight: bold;
@@ -27,15 +33,26 @@
 		margin-bottom: 5px;
 		margin-top: 10px;
 	}
+
+	.message_timeContainer{
+	}
+
 	.message_time{
+		display:none;
+	}
+
+	.message_Content:hover .message_time{
+		display: inline;
+		position: absolute;
+		width: 200px;
+		top:5px;
+		left:25vw;
+		cursor: pointer;
 		color: var(--grey1);
-		font-size: 0.85rem;
+		font-size: 0.7rem;
 		font-weight:300;
 		margin: 0px;
 		padding: 10px;
-	}
-	.message_Content:hover ~ .message_time{
-		display: block;
 	}
 
 }
