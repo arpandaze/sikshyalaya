@@ -26,16 +26,15 @@ const useAPI = (
         withCredentials: withCredentials,
         params: params,
       };
-
       let promiseObj = null;
 
       switch (method) {
         case "POST":
-          promiseObj = axios.post(url, data, config);
+          promiseObj = new axios.post(url, data, config);
           break;
 
         case "GET":
-          promiseObj = axios.get(url, config);
+          promiseObj = new axios.get(url, config);
           break;
       }
 
@@ -46,6 +45,8 @@ const useAPI = (
           if (formatter) {
             formattedRes = formatter(res);
           }
+          console.log("Ayo");
+          console.log(promiseObj);
           setResponseState({ response: formattedRes, complete: true });
         })
         .catch((error) => {
@@ -64,6 +65,9 @@ const useAPI = (
           }
         });
     }
+    return () => {
+      setResponseState({});
+    };
   }, [endpoint, method, params, data, setResponseState, fire]);
 
   return Object.values(responseState);
