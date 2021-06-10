@@ -172,7 +172,6 @@ const DepartmentView = ({ location }) => {
               <Formik
                 initialValues={{
                   name: "",
-                  address: "",
                 }}
                 validationSchema={validationSchema}
                 onSubmit={onSubmit}

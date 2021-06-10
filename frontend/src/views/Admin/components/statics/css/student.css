@@ -3,12 +3,13 @@
   .adminStudentBox_root {
     flex-grow: 1;
     width: 90% !important;
-    height: 80px;
+    height: 60px;
     background: var(--white);
     border-radius: 10px;
     box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     color: var(--black);
+    margin-top: 20px;
   }
 
   .adminStudentBox_innerContainer {
@@ -18,7 +19,7 @@
   .adminStudentBox_studentName {
     width: 300px;
     font-weight: 500;
-    font-size: 1.3em;
+    font-size: 1.2em;
   }
   .adminStudentBox_studentName p {
     white-space: nowrap;
@@ -37,11 +38,11 @@
 
 @media only screen and (min-width: 1920px) {
   .adminStudentBox_root {
-    height: 90px;
+    height: 70px;
   }
   .adminStudentBox_studentName {
     width: 450px;
-    font-size: 1.5em;
+    font-size: 1.3em;
   }
   .adminStudentBox_editIcon {
     width: 30px;

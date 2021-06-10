@@ -13,6 +13,7 @@ import { Formik, Form } from "formik";
 import callAPI from "../../utils/API";
 import CustomTextField from "../../components/CustomTextField";
 import { Link, useHistory } from "react-router-dom";
+import { DatePicker } from "../../components/CustomDateTime";
 
 const validationSchema = yup.object({
   full_name: yup.string("Enter your name").required("Name is required"),
@@ -108,7 +109,7 @@ const StudentView = ({ location, ...rest }) => {
   }, [location]);
   const onSubmit = async (data) => {
     let group_id_list = group.filter((item) => {
-      if (item.sem === data.semester && item.program.id === data.program) {
+      if (item.sem === data.semester && item.program_id === data.program) {
         return item;
       }
     });
@@ -316,10 +317,10 @@ const StudentView = ({ location, ...rest }) => {
                     : {
                         full_name: "",
                         address: "",
-                        program: "",
-                        semester: "",
+                        program: prevData.program.id,
+                        semester: prevData.group.name.split(" ")[1],
                         join_year: "",
-                        dob: "",
+                        dob: null,
                         phone_number: "",
                         email: "",
                         password: "",
@@ -388,22 +389,11 @@ const StudentView = ({ location, ...rest }) => {
                       />
                     </Grid>
                     <Grid item xs={6}>
-                      <CustomTextField
+                      <DatePicker
                         id="dob"
-                        label="Birth Date"
-                        type="date"
                         name="dob"
-                        className="adminStudent_inputButton"
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <CustomTextField
-                        name="phone_number"
-                        type="text"
-                        placeHolder="Phone Number"
-                        id="phone_number"
-                        addStyles="adminStudent_inputButton"
-                        autoComplete="on"
+                        label="Birth Date"
+                        className="signup_inputButton"
                       />
                     </Grid>
                     <Grid item xs={12}>
@@ -412,6 +402,16 @@ const StudentView = ({ location, ...rest }) => {
                         type="text"
                         placeHolder="Email"
                         id="email"
+                        addStyles="adminStudent_inputButton"
+                        autoComplete="on"
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <CustomTextField
+                        name="phone_number"
+                        type="text"
+                        placeHolder="Phone Number"
+                        id="phone_number"
                         addStyles="adminStudent_inputButton"
                         autoComplete="on"
                       />
