@@ -1,30 +1,29 @@
 @import "../../../../utils/colors.css";
 
+
+@media only screen and (min-width: 1280px) {
 .online_root{
   flex-grow:1;
-  padding:0px 20px;
+  padding:0px 10px;
   position: relative;
 }
-.lol{
-  border:1px solid black;
-}
+
 .online_Image{
   border-radius: 50%;
-	width: 40px;
-	height: 40px;
+	width: 35px;
+	height: 35px;
   float: left;
 }
 .online_greenDot{
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background: var(--red1);
   position: absolute;
-  top:30px;
-  left:10px;
+  top:25px;
+  left:5px;
   margin-left: 20px !important;
   box-shadow: 3px 3px 15px -3px rgba(0, 0, 0, 0.2);
-  
 }
 .online_ImageRoot{
   position: relative;
@@ -34,28 +33,61 @@
 }
 .online_name{
   padding:0px 10px;
-  font-size: 1em;
+  font-size: 0.8em;
   font-weight: 600;
-  color:var(--grey1)
+  color:var(--grey1);
+  text-overflow: ellipsis;
+
 }
 .online_miniProfile{
-  display: none;
+  display:none;
 }
 .online_root:hover{
   flex-grow:1;
-  padding:0px 20px;
+  padding:0px 10px;
+
   background:var(--grey4);
+  border-radius:15px;
 }
 
-.online_root:hover .online_miniProfile,.online_ImageRoot:hover + .online_miniProfile{
+.online_root:hover .online_miniProfile{
   display:block;
-  position:absolute;
-  width:250px;
-  height:300px;
+  position:fixed;
+  width:180px;
+  height:250px;
   border-radius:25px;
-  top:-30px;
-  right:10px !important;
+  top:50vh;
+  right:23vw !important;
   background-color: var(--white);
   box-shadow: 3px 3px 15px -3px rgba(0, 0, 0, 0.2);
   z-index:2;
 }
+}
+
+@media only screen and (min-width: 1920px) {
+
+  .online_Image{
+    width: 40px;
+    height: 40px;
+  }
+  .online_greenDot{
+    width: 12px;
+    height: 12px;
+    top:28px;
+    left:10px;
+  }
+  .online_name{
+    padding:0px 20px;
+    font-size: 1em;
+  }
+  .online_root:hover .online_miniProfile{
+    width:220px;
+    height:300px;
+    position: fixed;;
+    top:50vh;
+    right:10vw ;
+  }
+}
+  
+
+

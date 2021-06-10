@@ -2,7 +2,7 @@
 
 @media only screen and (min-width: 1280px) {
   .onlineBox_root {
-    max-height: 600px;
+    min-height: 63.5vh;
     border-radius: 25px;
     position: relative;
     margin: 0px auto;
@@ -11,11 +11,12 @@
   }
   .online_titleBar{
     width:100%;
-    height:80px !important;
+    height:70px !important;
   }
   .onlineBox_userlistContainerOuter{
-    max-height:500px;
+    max-height:53vh;
     overflow-Y:scroll;
+    padding:0px 10px 10px 10px;
   }
     
   .onlineBox_greenDot{
@@ -34,72 +35,26 @@
     font-weight: bold;
     position: relative;
     margin-top: 10px;
-    top: 5px;
+    top: 12px;
     left:-20px;
     text-indent: 30px;
     margin-bottom: 20px;
   }
-  .onlineBox_courseDetailBoxContainer {
-    width: 100%;
-    position: relative;
-  }
-  .onlineBox_courseDetailBox {
-  }
-  .onlineBox_courseTextCode {
-    text-indent: 30px;
-    font-size: 1.2em;
-    font-weight: bold;
-    position: relative;
-    list-style-type: none;
-  }
-  .onlineBox_courseTextCodeSelected {
-    width: 85%;
-    font-size: 1.2em;
-    font-weight: bold;
-    position: relative;
-    list-style-type: none;
-    color: var(--red4);
-  }
-  .onlineBox_courseTextName {
-    font-size: 0.6em;
-    font-weight: 600;
-    position: relative;
-    list-style-type: none;
-    color: var(--grey1);
-  }
-  .onlineBox_courseTextCredit {
-    font-size: 0.7em;
-    font-weight: 400;
-    position: absolute;
-    top: 0px;
-    right: 20px;
-    list-style-type: none;
-    color: var(--grey1);
-  }
   .onlineBox_userlistContainer{
     
-
   }
   .onlineBox_userList{
+    padding:3px 10px;
   }
 }
 @media only screen and (min-width: 1920px) {
   .onlineBox_root {
-    min-height: 500px;
+    max-height: 600px;
   }
-  .onlineBox_courseTextTitle {
-    font-size: 2em;
-    height: 2.5em;
-    text-indent: 40px;
+  .onlineBox_userList{
+    padding:5px 0px;
   }
-  .onlineBox_courseTextCode {
-    text-indent: 40px;
-    font-size: 1.4em;
-  }
-  .onlineBox_courseTextCodeSelected {
-    font-size: 1.4em;
-  }
-  .onlineBox_courseTextCredit {
-    right: 30px;
+  .onlineBox_userlistContainerOuter{
+    padding:0px 20px 20px 20px;
   }
 }
