@@ -55,7 +55,7 @@ const users = [
 	},
 	{
 		id: 7,
-		name: "Yugesh Upadtel",
+		name: "Yugesh Upadteasdl",
 		image: Profile,
 		program: "Computer Science",
 		year: "1st",
@@ -89,46 +89,46 @@ const users = [
 
 const OnlineBox = () => {
   return (
-    <Grid
-      container
-      direction="row"
-      className="onlineBox_root"
-      wrap="nowarp"
-      alignItems="center"
-    >
-      <Grid item className="online_titleBar">
-        <Grid container direction="row">
-          <Grid item>
-            <div className="onlineBox_greenDot"></div>
-          </Grid>
-          <Grid item>
-            <p className="onlineBox_courseTextTitle">Online</p>
-          </Grid>
-        </Grid>
-      </Grid>
+		<Grid
+			container
+			direction="row"
+			className="onlineBox_root"
+			wrap="nowarp"
+			alignItems="center"
+		>
+			<Grid item className="online_titleBar">
+				<Grid container direction="row">
+					<Grid item>
+						<div className="onlineBox_greenDot"></div>
+					</Grid>
+					<Grid item>
+						<p className="onlineBox_courseTextTitle">Online Users</p>
+					</Grid>
+				</Grid>
+			</Grid>
 
-      <Grid item xs={12} className="onlineBox_userlistContainerOuter">
-        <Grid
-          container
-          direction="column"
-          className="onlineBox_userlistContainer"
-        >
-          {users.map((user) => (
-            <Grid item className="onlineBox_userList">
-              <Online
-                id={user.id}
-                username={user.name}
-                src={user.image}
-                year={user.year}
-                semester={user.semester}
-                program={user.program}
-              />
-            </Grid>
-          ))}
-        </Grid>
-      </Grid>
-    </Grid>
-  );
+			<Grid item xs={12} className="onlineBox_userlistContainerOuter">
+				<Grid
+					container
+					direction="column"
+					className="onlineBox_userlistContainer"
+				>
+					{users.map((user) => (
+						<Grid item className="onlineBox_userList">
+							<Online
+								id={user.id}
+								username={user.name}
+								src={user.image}
+								year={user.year}
+								semester={user.semester}
+								program={user.program}
+							/>
+						</Grid>
+					))}
+				</Grid>
+			</Grid>
+		</Grid>
+	);
 };
 
 export default OnlineBox;

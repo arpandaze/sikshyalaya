@@ -1,5 +1,6 @@
 @import "../../../../utils/colors.css";
 
+@media only screen and (min-width: 1280px) {
 .miniProfile_root{
   flex-grow:1;
   padding:0px 20px;
@@ -13,8 +14,8 @@
 }
 .miniProfile_Image{
   border-radius: 50%;
-	width: 120px;
-	height: 120px;
+	width: 80px;
+	height: 80px;
   box-shadow: -1px 21px 84px -29px rgba(0,0,0,0.5);
 }
 .miniProfile_ImageRoot{
@@ -22,16 +23,17 @@
   top:15px;
 }
 .miniProfile_description{
+  font-size:0.7rem;
   color:var(--red4)
 }
 .miniProfile_greenDot{
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
   background: var(--red1);
   position: absolute;
-  top:100px;
-  left:65px;
+  top:60px;
+  left:40px;
   box-shadow: 5px 5px 20px -5px rgba(0, 0, 0, 0.2);
   margin-left: 20px !important;
 }
@@ -40,7 +42,31 @@
   padding:10px;
 }
 .miniProfile_name{
-  font-size: 1em;
+  font-size: 0.9rem;
   font-weight: 600;
   color:var(--grey1)
+}
+}
+
+@media only screen and (min-width: 1920px) {
+.miniProfile_Image{
+  width: 120px;
+  height: 120px;
+}
+.miniProfile_greenDot{
+  width: 20px;
+  height: 20px;
+  top:100px;
+  left:65px;
+}
+.miniProfile_name{
+  font-size: 1.1rem;
+  font-weight: 600;
+  color:var(--grey1)
+}
+.miniProfile_description{
+  font-size:0.8rem;
+  color:var(--red4)
+}
+
 }
