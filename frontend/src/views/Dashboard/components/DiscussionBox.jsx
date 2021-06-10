@@ -139,50 +139,56 @@ const DiscussionBox = ({ classID }) => {
   };
 
   return (
-    <Grid item className="mainDash_discussionBoxContainer">
+    <Grid item className="discussionBox_root">
       <Grid
         container
         direction="column"
-        className="mainDash_discussionBoxInside"
+        className="discussionBox_discussionBoxInside"
       >
         <Grid item>
           <Grid
             container
             direction="row"
             alignItems="center"
-            className="mainDash_discussionBoxTop"
+            className="discussionBox_discussionBoxTop"
+            wrap="nowrap"
           >
-            <div className="mainDash_smallBlueBox"></div>
-            <h1 className="mainDash_discussionBoxTitle">Discussion</h1>
-          </Grid>
-          <Grid item xs={5}>
-            <Grid
-              container
-              direction="row"
-              alignItems="center"
-              justify="center"
-            >
-              <Grid item>
-                <Switch
-                  name="isAnonymus"
-                  checked={checked}
-                  color="primary"
-                  onChange={() => {
-                    setChecked(!checked);
-                  }}
-                />
-              </Grid>
-              <Grid>
-                <p
-                  style={{
-                    margin: "0px",
-                    fontSize: "0.8em",
-                    color: colorscheme.grey1,
-                    fontWeight: "bold",
-                  }}
-                >
-                  Send Anonymously
-                </p>
+            <Grid item>
+              <div className="discussionBox_smallBlueBox"></div>
+            </Grid>
+            <Grid item xs={6}>
+              <h1 className="discussionBox_discussionBoxTitle">Discussion</h1>
+            </Grid>
+
+            <Grid item xs={5}>
+              <Grid
+                container
+                direction="row"
+                alignItems="center"
+                justify="center"
+              >
+                <Grid item>
+                  <Switch
+                    name="isAnonymus"
+                    checked={checked}
+                    color="primary"
+                    onChange={() => {
+                      setChecked(!checked);
+                    }}
+                  />
+                </Grid>
+                <Grid>
+                  <p
+                    style={{
+                      margin: "0px",
+                      fontSize: "0.8em",
+                      color: colorscheme.grey1,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Send Anonymously
+                  </p>
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
@@ -193,7 +199,7 @@ const DiscussionBox = ({ classID }) => {
           container
           direction="column"
           alignItems="center"
-          className="mainDash_discussionBoxBottom"
+          className="discussionBox_discussionBoxBottom"
         >
           <Grid item>
             {console.log(chat)}
@@ -202,7 +208,7 @@ const DiscussionBox = ({ classID }) => {
               direction="row"
               alignItems="center"
               justify="center"
-              className="discussionBox_root"
+              className="discussionBox_discussionBoxContainer"
             >
               <Grid item className="discussionBox_chatBox">
                 <Grid
@@ -232,6 +238,7 @@ const DiscussionBox = ({ classID }) => {
                       onChange={handleChange}
                       placeholder="Enter your message..."
                       className="discussionBox_textField"
+                      autoComplete="off"
                       onKeyDown={handleKeyPress}
                     />
                   </Grid>
