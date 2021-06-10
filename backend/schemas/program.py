@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 
 from pydantic import BaseModel
 
@@ -33,3 +33,20 @@ class ProgramInDB(ProgramInDBBase):
 
 class Program(ProgramInDBBase):
     pass
+
+
+class GroupOfProgram(BaseModel):
+    id: int
+    sem: int
+
+    class Config:
+        orm_mode = True
+
+
+class ProgramGroupReturn(BaseModel):
+    name: str
+    department_id: int
+    groups: List[GroupOfProgram]
+
+    class Config:
+        orm_mode = True
