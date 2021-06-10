@@ -65,12 +65,6 @@ const QuizCreator = () => {
     });
   }
 
-  const questionInitialValue = {
-    question_text: "",
-    question_image: "",
-    options: [],
-    answer: [],
-  };
   const handleSubmit = (values) => {
     console.log(values);
   };
@@ -107,10 +101,25 @@ const QuizCreator = () => {
   };
 
   const quizQuestionPostFormatter = (question, index, newQuizId) => {
-    question.answer = [question.answer];
     question.question_image = null;
+    let newAnswers = [];
+    if (question.answer && question.answer.length) {
+      // question.answer = question.answer.fill(false);
+      question.answer.map((boolVal, index) => {
+        if (boolVal === true) {
+          newAnswers.push(index);
+        }
+      });
+    } else {
+      newAnswers = [];
+    }
+    console.log(question.answer);
+    question.answer = newAnswers;
+
+    console.log(question.answer);
     if (question.options && question.options.length) {
       let newOption = [];
+
       question.options.map((option) => {
         let formattedOption = {
           image: "",
@@ -142,7 +151,6 @@ const QuizCreator = () => {
     newQuizId = postResponse.data.id;
 
     if (postResponse.status === 200 && newQuizId) {
-      console.log(newQuizId);
       if (questions) {
         questions.map(async (question, index) => {
           let postQuestion = quizQuestionPostFormatter(
@@ -150,6 +158,8 @@ const QuizCreator = () => {
             index,
             newQuizId
           );
+
+          console.log("Formatted Questions", questions);
           if (question) {
             postResponse = await callAPI({
               endpoint: `/api/v1/quiz/${newQuizId}/question`,
@@ -204,7 +214,7 @@ const QuizCreator = () => {
                 whoseQuizInfo: null,
               }}
               validationSchema={validationSchema}
-              onSubmit={handleSubmit}
+              onSubmit={onSubmitHandler}
             >
               {({ values, setFieldValue }) => (
                 <>
