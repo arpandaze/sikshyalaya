@@ -33,10 +33,16 @@ const GroupView = ({ match, location }) => {
   });
   const onSubmit = async (values) => {
     const data = {
-      sem: values.name,
+      sem: values.sem,
       program_id: prevData.program.id,
+      course: [],
     };
-    const position = allGroup.push(values);
+    const dataLocal = {
+      ...data,
+      name: "Semester " + values.sem,
+    };
+    console.log(data);
+    const position = allGroup.push(dataLocal);
     try {
       const responseData = await callAPI({
         endpoint: `/api/v1/group/`,
@@ -204,8 +210,7 @@ const GroupView = ({ match, location }) => {
             <Grid container direction="column" className="adminGroup_formBox">
               <Formik
                 initialValues={{
-                  name: "",
-                  address: "",
+                  sem: "",
                 }}
                 validationSchema={validationSchema}
                 onSubmit={onSubmit}

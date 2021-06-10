@@ -169,7 +169,7 @@
   }
   .adminProgram_popUpBox {
     width: 420px;
-    height: 250px;
+    height: 350px;
     position: relative;
     margin-top: 200px !important;
     margin-left: -250px !important;
@@ -424,7 +424,7 @@
 
   .adminProgram_popUpBox {
     width: 500px;
-    height: 280px;
+    height: 350px;
     margin-top: 300px !important;
     margin-left: -350px !important;
   }

@@ -28,10 +28,13 @@ const ProgramView = ({ location }) => {
   const [isPopUp, setPopUp] = useState(false);
   const validationSchema = yup.object({
     name: yup.string("Enter Program Name").required("Program Name Required"),
+    numberOfYears: yup
+      .number("Enter Number of Years")
+      .required("Number of Years Required"),
   });
   const onSubmit = async (values) => {
     const data = {
-      ...values,
+      name: values.name,
       department_id: prevData.department.id,
     };
     const position = allProgram.push(data);
@@ -180,7 +183,7 @@ const ProgramView = ({ location }) => {
               <Formik
                 initialValues={{
                   name: "",
-                  address: "",
+                  numberOfYears: "",
                 }}
                 validationSchema={validationSchema}
                 onSubmit={onSubmit}
@@ -192,6 +195,14 @@ const ProgramView = ({ location }) => {
                         id="name"
                         name="name"
                         placeHolder="Name"
+                        addStyles="adminProgram_inputButton"
+                      />
+                    </Grid>
+                    <Grid item>
+                      <CustomTextField
+                        id="numberOfYears"
+                        name="numberOfYears"
+                        placeHolder="Number of Years"
                         addStyles="adminProgram_inputButton"
                       />
                     </Grid>
