@@ -65,58 +65,58 @@ const Landing = () => {
   );
 
   return (
-    <StylesProvider injectFirst>
-      <DashboardLayout>
-        <Grid
-          container
-          direction="column"
-          className="landing_root"
-          wrap="nowrap"
-        >
-          <Grid item className="landing_row">
-            <div className="landing_smallRedBox"></div>
-            <h1 className="landing_activeTitle">Active Class</h1>
-            <br />
-            <br />
-            <div className="landing_currentContainer">
-              {classSession.active.map((details) => (
-                <SmallCards cardData={details} />
-              ))}
-            </div>
-          </Grid>
-          <Grid item className="landing_row2">
-            <BsCalendar
-              size={35}
-              color={colorscheme.black}
-              className="landing_upcomingIcon"
-            />
-            <h1 className="landing_upcomingText">Upcoming Classes</h1>
-            <br />
-            <br />
-            <Grid
-              container
-              direction="row"
-              justify="flex-start"
-              alignItems="flex-start"
-              className="landing_upCommingContainer"
-            >
-              {classSession.other.map((course) => (
-                <Grid
-                  item
-                  key={course.id}
-                  className="landing_upCommingContainerBox"
-                >
-                  <div className="landing_upCommingCourseBar">
-                    <SmallCards cardData={course} />
-                  </div>
-                </Grid>
-              ))}
-            </Grid>
-          </Grid>
-        </Grid>
-      </DashboardLayout>
-    </StylesProvider>
-  );
+		<StylesProvider injectFirst>
+			<DashboardLayout landing={true}>
+				<Grid
+					container
+					direction="column"
+					className="landing_root"
+					wrap="nowrap"
+				>
+					<Grid item className="landing_row">
+						<div className="landing_smallRedBox"></div>
+						<h1 className="landing_activeTitle">Active Class</h1>
+						<br />
+						<br />
+						<div className="landing_currentContainer">
+							{classSession.active.map((details) => (
+								<SmallCards cardData={details} />
+							))}
+						</div>
+					</Grid>
+					<Grid item className="landing_row2">
+						<BsCalendar
+							size={35}
+							color={colorscheme.black}
+							className="landing_upcomingIcon"
+						/>
+						<h1 className="landing_upcomingText">Upcoming Classes</h1>
+						<br />
+						<br />
+						<Grid
+							container
+							direction="row"
+							justify="flex-start"
+							alignItems="flex-start"
+							className="landing_upCommingContainer"
+						>
+							{classSession.other.map((course) => (
+								<Grid
+									item
+									key={course.id}
+									className="landing_upCommingContainerBox"
+								>
+									<div className="landing_upCommingCourseBar">
+										<SmallCards cardData={course} />
+									</div>
+								</Grid>
+							))}
+						</Grid>
+					</Grid>
+				</Grid>
+			</DashboardLayout>
+		</StylesProvider>
+	);
 };
 
 export default Landing;

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import CourseBox from "./CourseBox";
+import OnlineBox from "./OnlineBox";
 import ProfileBox from "./ProfileBox";
 import "./statics/css/profileBar.css";
 import { UserContext } from "../../utils/Contexts/UserContext";
@@ -34,7 +35,7 @@ const courses_temp = [
   { sn: "6", code: "COMP 206", name: "Computer Project I", credit: "2" },
   { sn: "7", code: "COMP 208", name: "Laboratory Work", credit: "1" },
 ];
-const ProfileBar = ({ selected }) => {
+const ProfileBar = ({ selected, landing=false }) => {
   const { user } = useContext(UserContext);
   const courseList = (userContext) => {
     try {
@@ -52,20 +53,25 @@ const ProfileBar = ({ selected }) => {
     }
   };
   return (
-    <Grid
-      container
-      direction="column"
-      alignItems="center"
-      className="profileBar_root"
-    >
-      <Grid xs={12} item className="profileBar_profileBox">
-        <ProfileBox />
-      </Grid>
+		<Grid
+			container
+			direction="column"
+			alignItems="center"
+			className="profileBar_root"
+		>
+			<Grid xs={12} item className="profileBar_profileBox">
+				<ProfileBox />
+			</Grid>
       <Grid xs={12} item className="profileBar_courseBox">
-        <CourseBox courseList={courseList(user)} selected={"1"} />
-      </Grid>
-    </Grid>
-  );
+        {
+          landing ?
+            <CourseBox courseList={courseList(user)} selected={"1"} /> :
+            <OnlineBox />
+        }
+				
+			</Grid>
+		</Grid>
+	);
 };
 
 export default ProfileBar;

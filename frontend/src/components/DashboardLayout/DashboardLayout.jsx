@@ -4,7 +4,7 @@ import SideBar from "./SideBar";
 import ProfileBar from "./ProfileBar";
 import "./statics/css/dashboardLayout.css";
 
-const DashboardLayout = ({ children }) => {
+const DashboardLayout = ({ children, landing=false}) => {
   return (
     <Grid container direction="row" className="dashboardLayout_mainRoot">
       <Grid sm={1} item className="dashboardLayout_sideBar">
@@ -14,7 +14,7 @@ const DashboardLayout = ({ children }) => {
         {children}
       </Grid>
       <Grid sm={3} item className="dashboardLayout_profileBar">
-        <ProfileBar />
+        <ProfileBar landing={landing}/>
       </Grid>
     </Grid>
   );
