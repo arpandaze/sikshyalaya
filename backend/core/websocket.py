@@ -69,7 +69,7 @@ class WebSocketManager:
         )
 
         await self.broadcast(
-            msg_instance.dict(exclude_none=True), user_id, class_session_id
+            msg_instance.dict(exclude_none=True), user_id, class_session_id, save=False
         )
 
     async def disconnect(
@@ -81,14 +81,17 @@ class WebSocketManager:
             time=datetime.utcnow(),
             user=user_id,
         )
-        await self.broadcast(msg_instance, user_id, class_session_id)
+        await self.broadcast(msg_instance, user_id, class_session_id, save=False)
 
-    async def broadcast(self, data: any, user_id: int, class_session_id: int):
+    async def broadcast(
+        self, data: any, user_id: int, class_session_id: int, save: bool = True
+    ):
         encoded_data = jsonable_encoder(data)
         for connection in self.connections.get(class_session_id):
             await connection.send_json(encoded_data)
 
-        await self.update(encoded_data, f"chat_class_sess_{class_session_id}")
+        if save:
+            await self.update(encoded_data, f"chat_class_sess_{class_session_id}")
 
     async def message(
         self,
