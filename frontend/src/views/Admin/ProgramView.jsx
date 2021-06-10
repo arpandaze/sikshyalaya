@@ -30,16 +30,16 @@ const ProgramView = ({ location }) => {
     name: yup.string("Enter Program Name").required("Program Name Required"),
   });
   const onSubmit = async (values) => {
-    values = {
+    const data = {
       ...values,
       department_id: prevData.department.id,
     };
-    const position = allProgram.push(values);
+    const position = allProgram.push(data);
     try {
       const responseData = await callAPI({
         endpoint: `/api/v1/program/`,
         method: "POST",
-        data: values,
+        data: data,
       });
       allProgram[position - 1].id = responseData.data.id;
     } catch (e) {}
@@ -147,13 +147,7 @@ const ProgramView = ({ location }) => {
           </Grid>
         </Grid>
         <Grid item className="adminCommon_botBar">
-          <Grid
-            container
-            direction="row"
-            justify="center"
-            alignItems="center"
-            spacing={5}
-          >
+          <Grid container direction="row" alignItems="center" spacing={5}>
             {allProgram.map((program) => (
               <Grid item key={program.id} xs={6}>
                 <AdminBoxSmall

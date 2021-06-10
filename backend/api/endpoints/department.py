@@ -37,8 +37,8 @@ def create_department(
             status_code=403, detail="Error ID: 104"
         )  # user has no authorization for creating departments
     else:
-        crud_department.create(db, obj_in=obj_in)
-        return {"status": "success"}
+        department = crud_department.create(db, obj_in=obj_in)
+        return department
 
 
 # get a specific department, can be called by all user types (1 through 4)
