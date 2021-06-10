@@ -54,7 +54,7 @@ async def create_group(
     db: Session = Depends(deps.get_db),
     *,
     obj_in: GroupCreate,
-    current_user: User = Depends(deps.get_current_active_teacher)
+    current_user: User = Depends(deps.get_current_admin_or_above),
 ) -> Any:
     return crud_group.create(db, obj_in=obj_in)
 
