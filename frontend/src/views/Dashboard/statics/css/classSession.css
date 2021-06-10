@@ -10,7 +10,7 @@
 
   .mainDash_topBar {
     width: 100% !important;
-    height: 50px !important;
+    height: 20px !important;
     margin-top: 50px !important;
   }
   .mainDash_botBar {
@@ -212,7 +212,7 @@
 
   .mainDash_topBar {
     width: 100% !important;
-    height: 50px !important;
+    height: 10px !important;
     margin-top: 50px !important;
   }
   .mainDash_botBar {
