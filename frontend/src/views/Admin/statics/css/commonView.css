@@ -462,8 +462,8 @@
     background: rgba(15, 15, 15, 0.5);
   }
   .adminStudent_popUpBox {
-    width: 650px;
-    height: 600px;
+    width: 620px;
+    height: 620px;
     position: relative;
     margin-top: 150px !important;
     margin-left: -250px !important;
@@ -484,8 +484,8 @@
     cursor: pointer;
   }
   .adminStudent_formBox {
-    width: 500px !important;
-    margin: 80px auto;
+    width: 480px !important;
+    margin: 50px auto;
   }
   .adminStudent_submitButtonContainer {
     margin: 20px auto !important;

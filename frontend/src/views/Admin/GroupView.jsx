@@ -91,7 +91,7 @@ const GroupView = ({ match, location }) => {
   };
 
   let [allGroup, allGroupComplete] = useAPI(
-    { endpoint: `/api/v1/group/` },
+    { endpoint: `/api/v1/program/${prevData.program.id}/group/` },
     groupFormatter,
     defaultGroup
   );

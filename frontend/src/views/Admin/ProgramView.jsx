@@ -35,6 +35,7 @@ const ProgramView = ({ location }) => {
   const onSubmit = async (values) => {
     const data = {
       name: values.name,
+      max_sems: values.numberOfYears * 2,
       department_id: prevData.department.id,
     };
     const position = allProgram.push(data);
