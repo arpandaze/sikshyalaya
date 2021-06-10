@@ -196,7 +196,6 @@ const DiscussionBox = ({ classID }) => {
           className="mainDash_discussionBoxBottom"
         >
           <Grid item>
-            {console.log(chat)}
             <Grid
               container
               direction="row"

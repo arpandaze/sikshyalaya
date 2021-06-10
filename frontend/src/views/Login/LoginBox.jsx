@@ -33,7 +33,6 @@ const StudentLoginBox = () => {
   const history = useHistory();
   const { user, setUser } = useContext(UserContext);
   const onSubmit = async (values) => {
-    console.log(values);
     let data = {
       username: values.email,
       password: values.password,
