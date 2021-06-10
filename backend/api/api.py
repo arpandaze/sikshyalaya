@@ -20,7 +20,7 @@ api_router.include_router(users.router, prefix="/users", tags=["Users"])
 api_router.include_router(utils.router, prefix="/utils", tags=["Utils"])
 api_router.include_router(school.router, prefix="/school", tags=["Schools"])
 api_router.include_router(course.router, prefix="/course", tags=["Courses"])
-api_router.include_router(department.router, prefix="/deparment", tags=["Departments"])
+api_router.include_router(department.router, prefix="/department", tags=["Departments"])
 api_router.include_router(
     class_session.router, prefix="/class_session", tags=["Class Sessions"]
 )
