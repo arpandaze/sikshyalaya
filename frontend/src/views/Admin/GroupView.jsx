@@ -27,7 +27,7 @@ const GroupView = ({ match, location }) => {
   const defaultProgram = "";
   const [isPopUp, setPopUp] = useState(false);
   const validationSchema = yup.object({
-    name: yup
+    sem: yup
       .number("Enter Semester Number")
       .required("Semester Number Required"),
   });
@@ -214,9 +214,9 @@ const GroupView = ({ match, location }) => {
                   <Grid container direction="column" alignItems="flex-start">
                     <Grid item>
                       <CustomTextField
-                        id="name"
-                        name="name"
-                        placeHolder="Name"
+                        id="sem"
+                        name="sem"
+                        placeHolder="Semester"
                         addStyles="adminGroup_inputButton"
                       />
                     </Grid>
