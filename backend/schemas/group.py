@@ -11,8 +11,10 @@ class GroupBase(BaseModel):
     course: List[int]
 
 
-class GroupCreate(GroupBase):
-    pass
+class GroupCreate(BaseModel):
+    program_id: int
+    sem: int
+    course: Optional[List[int]]
 
 
 class GroupUpdate(GroupBase):

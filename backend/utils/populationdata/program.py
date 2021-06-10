@@ -2,77 +2,22 @@ from typing import List
 from pydantic import Json
 
 programs: List[Json] = [
-    {
-        "name": "Computer Science",
-        "department_id": 1
-    },
-    {
-        "name": "Computer Engineering",
-        "department_id": 1
-    },
-    {
-        "name": "Mechanical Engineering",
-        "department_id": 2
-    },
-
-    {
-        "name": "Enivironmental Science",
-        "department_id": 3
-    },
-    {
-        "name": "Environmental Engineering",
-        "department_id": 3
-    },
-    {
-        "name": "Information System",
-        "department_id": 4
-    },
-    {
-        "name": "Business Administration",
-        "department_id": 4
-    },
-    {
-        "name": "Legislative Law",
-        "department_id": 5
-    },
-    {
-        "name": "Medicine",
-        "department_id": 6
-    },
-    {
-        "name": "Dental Surgery",
-        "department_id": 6
-    },
-    {
-        "name": "Science in Nursing",
-        "department_id": 6
-    },
-    {
-        "name": "Music Education",
-        "department_id": 7
-    },
-    {
-        "name": "Arts in Music",
-        "department_id": 7
-    },
-    {
-        "name": "Fine Arts",
-        "department_id": 8
-    },
-    {
-        "name": "Culture and Arts",
-        "department_id": 8
-    },
-    {
-        "name": "Photography",
-        "department_id": 8
-    },
-    {
-        "name": "Education Studies",
-        "department_id": 9
-    },
-    {
-        "name": "English Literature",
-        "department_id": 9
-    },
+    {"name": "Computer Science", "max_sems": 8, "department_id": 1},
+    {"name": "Computer Engineering", "max_sems": 8, "department_id": 1},
+    {"name": "Mechanical Engineering", "max_sems": 8, "department_id": 2},
+    {"name": "Enivironmental Science", "max_sems": 8, "department_id": 3},
+    {"name": "Environmental Engineering", "max_sems": 8, "department_id": 3},
+    {"name": "Information System", "max_sems": 8, "department_id": 4},
+    {"name": "Business Administration", "max_sems": 8, "department_id": 4},
+    {"name": "Legislative Law", "max_sems": 8, "department_id": 5},
+    {"name": "Medicine", "max_sems": 8, "department_id": 6},
+    {"name": "Dental Surgery", "max_sems": 8, "department_id": 6},
+    {"name": "Science in Nursing", "max_sems": 8, "department_id": 6},
+    {"name": "Music Education", "max_sems": 8, "department_id": 7},
+    {"name": "Arts in Music", "max_sems": 8, "department_id": 7},
+    {"name": "Fine Arts", "max_sems": 8, "department_id": 8},
+    {"name": "Culture and Arts", "max_sems": 8, "department_id": 8},
+    {"name": "Photography", "max_sems": 8, "department_id": 8},
+    {"name": "Education Studies", "max_sems": 8, "department_id": 9},
+    {"name": "English Literature", "max_sems": 8, "department_id": 9},
 ]

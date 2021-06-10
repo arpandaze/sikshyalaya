@@ -44,6 +44,7 @@ from schemas import (
     TeacherNoteCreate,
     GroupCreate,
     ProgramCreate,
+    Program,
     ClassSessionCreate,
     QuizCreate,
     QuizQuestionCreate,
@@ -76,7 +77,13 @@ def populate_course():
 def populate_program():
     for program in programs:
         try:
-            crud_program.create(db, obj_in=program)
+            program_xx = crud_program.create(db, obj_in=Program(**program))
+            for sem_iter in range(program.get("max_sems")):
+                group = GroupCreate(
+                    program_id=program_xx.id,
+                    sem=sem_iter + 1,
+                )
+                crud_group.create(db=db, obj_in=group)
         except Exception as e:  # noqa
             print(e)
 
@@ -89,7 +96,13 @@ def populate_group():
                 sem=group["sem"],
                 course=group["course"],
             )
-            crud_group.create(db, obj_in=group)
+            crud_group.update(
+                db,
+                db_obj=crud_group.get_by_program_and_sem(
+                    db, program=group.program_id, sem=group.sem
+                ),
+                obj_in=group,
+            )
         except Exception as e:  # noqa
             print(e)
 

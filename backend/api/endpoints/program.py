@@ -6,7 +6,8 @@ from starlette.responses import Response
 from core.cache import cache
 
 from cruds.program import crud_program
-from schemas import Program, ProgramCreate, ProgramUpdate
+from cruds.group import crud_group
+from schemas import Program, ProgramCreate, ProgramUpdate, GroupCreate
 from utils import deps
 
 router = APIRouter()
@@ -30,7 +31,14 @@ async def create_program(
     *,
     program_in: ProgramCreate
 ) -> Any:
-    program = crud_program.create(db, obj_in=program_in)
+    program = crud_program.create(db, obj_in=Program(**program_in.dict()))
+    for sem_iter in range(program_in.max_sems):
+        group = GroupCreate(
+            program_id=program.id,
+            sem=sem_iter + 1,
+        )
+        print(group.dict())
+        crud_group.create(db=db, obj_in=group)
     return program
 
 

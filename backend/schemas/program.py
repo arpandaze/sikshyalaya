@@ -11,7 +11,7 @@ class ProgramBase(BaseModel):
 
 # properties to recieve via
 class ProgramCreate(ProgramBase):
-    pass
+    max_sems: int
 
 
 # properties to recive via API on Update
