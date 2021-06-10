@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import Login from "./views/Login/LoginBox";
-import Dashboard from "./views/Dashboard/Dashboard";
+import ClassSession from "./views/Dashboard/ClassSession";
 import Notes from "./views/Notes/Notes";
 import Landing from "./views/Landing/Landing";
 import Quiz from "./views/Quiz/Quiz";
@@ -30,52 +30,52 @@ import HomeRedirector from "./components/HomeRedirector";
 
 const Routes = () => {
   return (
-    <Switch>
-      {/* Student Routes */}
-      <StudentRoute exact path="/class/:classID?" component={Dashboard} />
-      <StudentRoute exact path="/quiz" component={Quiz} />
-      <StudentRoute exact path="/note" component={Notes} />
-      <StudentRoute exact path="/landing" component={Landing} />
-      <StudentRoute exact path="/profile" component={Profile} />
+		<Switch>
+			{/* Student Routes */}
+			<StudentRoute exact path="/class/:classID?" component={ClassSession} />
+			<StudentRoute exact path="/quiz" component={Quiz} />
+			<StudentRoute exact path="/note" component={Notes} />
+			<StudentRoute exact path="/landing" component={Landing} />
+			<StudentRoute exact path="/profile" component={Profile} />
 
-      {/* Teacher Routes */}
-      <TeacherRoute
-        exact
-        path="/teacher-dashboard"
-        component={TeacherDashboard}
-      />
-      <TeacherRoute exact path="/quiz-creator" component={QuizCreator} />
-      <TeacherRoute
-        exact
-        path="/class-session-create"
-        component={ClassSessionCreator}
-      />
-      <TeacherRoute exact path="/teacher/note" component={Notes} />
+			{/* Teacher Routes */}
+			<TeacherRoute
+				exact
+				path="/teacher-dashboard"
+				component={TeacherDashboard}
+			/>
+			<TeacherRoute exact path="/quiz-creator" component={QuizCreator} />
+			<TeacherRoute
+				exact
+				path="/class-session-create"
+				component={ClassSessionCreator}
+			/>
+			<TeacherRoute exact path="/teacher/note" component={Notes} />
 
-      {/*Admin Routes*/}
-      <AdminRoute exact path="/adminForm" component={AdminForm} />
-      <AdminRoute exact path="/admin" component={AdminDashboard} />
-      <AdminRoute exact path="/admin/school" component={SchoolView} />
-      <AdminRoute exact path="/admin/department" component={DepartmentView} />
-      <AdminRoute
-        exact
-        path="/admin/program/:department?"
-        component={ProgramView}
-      />
-      <AdminRoute exact path="/admin/group" component={GroupView} />
-      <AdminRoute exact path="/admin/student" component={StudentView} />
-      <AdminRoute exact path="/admin/teacher" component={TeacherView} />
+			{/*Admin Routes*/}
+			<AdminRoute exact path="/adminForm" component={AdminForm} />
+			<AdminRoute exact path="/admin" component={AdminDashboard} />
+			<AdminRoute exact path="/admin/school" component={SchoolView} />
+			<AdminRoute exact path="/admin/department" component={DepartmentView} />
+			<AdminRoute
+				exact
+				path="/admin/program/:department?"
+				component={ProgramView}
+			/>
+			<AdminRoute exact path="/admin/group" component={GroupView} />
+			<AdminRoute exact path="/admin/student" component={StudentView} />
+			<AdminRoute exact path="/admin/teacher" component={TeacherView} />
 
-      {/* Common Routes */}
-      <Route exact path="/login" component={Login} />
-      <Route exact path="/reset" component={ResetPassword} />
-      <Route exact path="/signup" component={Signup} />
-      <Route exact path="/verify" component={Verify} />
-      <Route exact path="/logout" component={Logout} />
-      <HomeRedirector />
-      <Route exact path="*" component={NotFound} />
-    </Switch>
-  );
+			{/* Common Routes */}
+			<Route exact path="/login" component={Login} />
+			<Route exact path="/reset" component={ResetPassword} />
+			<Route exact path="/signup" component={Signup} />
+			<Route exact path="/verify" component={Verify} />
+			<Route exact path="/logout" component={Logout} />
+			<HomeRedirector />
+			<Route exact path="*" component={NotFound} />
+		</Switch>
+	);
 };
 
 export default Routes;
