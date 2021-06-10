@@ -8,6 +8,7 @@ from core.cache import cache
 from cruds.program import crud_program
 from cruds.group import crud_group
 from schemas import Program, ProgramCreate, ProgramUpdate, GroupCreate
+from schemas import program
 from utils import deps
 
 router = APIRouter()
@@ -43,6 +44,7 @@ async def create_program(
 
 
 @router.get("/{program_id}/", response_model=Program)
+@router.get("/{program_id}/group", response_model=program.ProgramGroupReturn)
 async def get_program(
     db: Session = Depends(deps.get_db),
     user=Depends(deps.get_current_active_user),
@@ -50,17 +52,4 @@ async def get_program(
     program_id: int
 ) -> Any:
     program = crud_program.get(db, program_id)
-    return program
-
-
-@router.put("/{program_id}/", response_model=Program)
-async def update_program(
-    db: Session = Depends(deps.get_db),
-    user=Depends(deps.get_current_admin_or_above),
-    *,
-    program_id: int,
-    program_update: ProgramUpdate
-) -> Any:
-    program = crud_program.get(db, program_id)
-    program = crud_program.update(db, db_obj=program, obj_in=program_update)
     return program

@@ -3,7 +3,8 @@ import { AiOutlineDashboard } from "react-icons/ai";
 import { BiNotepad } from "react-icons/bi";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { RiSurveyLine } from "react-icons/ri";
-import { IoServerOutline } from "react-icons/io5";
+import { IoPeopleOutline } from "react-icons/io5";
+import { GoTasklist } from "react-icons/go";
 import Grid from "@material-ui/core/Grid";
 import iconbig from "../../assets/logo-large.svg";
 import Image from "../Image";
@@ -72,15 +73,21 @@ const sidebarItems = [
     },
     {
       id: 2,
-      title: "Schools",
+      title: "Student",
       route: "/admin/school",
-      icon: <IoServerOutline className="sideBar_iconStyle" />,
+      icon: <IoPeopleOutline className="sideBar_iconStyle" />,
     },
     {
       id: 3,
       title: "Teachers",
       route: "/admin/teacher",
       icon: <FaChalkboardTeacher className="sideBar_iconStyle" />,
+    },
+    {
+      id: 4,
+      title: "Courses",
+      route: "/admin/courses",
+      icon: <GoTasklist className="sideBar_iconStyle" />,
     },
   ],
 ];

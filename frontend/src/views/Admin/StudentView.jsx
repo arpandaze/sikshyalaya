@@ -82,11 +82,13 @@ const StudentView = ({ location, ...rest }) => {
     studentsDefault
   );
 
-  const programFormatter = (value) =>
-    value.data.map((item) => ({
+  const programFormatter = (value) => {
+    console.log(value);
+    return value.data.map((item) => ({
       name: item.name,
       value: item.id,
     }));
+  };
 
   const groupFormatter = (value) => {
     return value.data;
@@ -389,12 +391,7 @@ const StudentView = ({ location, ...rest }) => {
                       />
                     </Grid>
                     <Grid item xs={6}>
-                      <DatePicker
-                        id="dob"
-                        name="dob"
-                        label="Birth Date"
-                        className="signup_inputButton"
-                      />
+                      <DatePicker id="dob" name="dob" label="Birth Date" />
                     </Grid>
                     <Grid item xs={12}>
                       <CustomTextField

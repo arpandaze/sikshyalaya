@@ -16,7 +16,6 @@ const DatePicker = ({ id, label, ...rest }) => {
       {({ field, form: { setFieldValue } }) => (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <KeyboardDatePicker
-            {...field}
             id={id}
             margin="normal"
             label={label}
