@@ -1,0 +1,39 @@
+@import "../../../../utils/colors.css";
+
+.online_root{
+  flex-grow:1;
+  padding:0px 20px;
+}
+.online_root:hover{
+  flex-grow:1;
+  padding:0px 20px;
+  background:var(--grey3);
+}
+.online_Image{
+  border-radius: 50%;
+	width: 40px;
+	height: 40px;
+  float: left;
+}
+.online_greenDot{
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--green3);
+  position: absolute;
+  top:30px;
+  left:10px;
+  margin-left: 20px !important;
+}
+.online_ImageRoot{
+  position:relative;
+}
+.online_nameContainer{
+  text-align: center;
+}
+.online_name{
+  padding:0px 10px;
+  font-size: 1em;
+  font-weight: 600;
+  color:var(--grey1)
+}
