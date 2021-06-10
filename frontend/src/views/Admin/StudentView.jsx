@@ -82,11 +82,13 @@ const StudentView = ({ location, ...rest }) => {
     studentsDefault
   );
 
-  const programFormatter = (value) =>
-    value.data.map((item) => ({
+  const programFormatter = (value) => {
+    console.log(value);
+    return value.data.map((item) => ({
       name: item.name,
       value: item.id,
     }));
+  };
 
   const groupFormatter = (value) => {
     return value.data;
