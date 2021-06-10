@@ -8,7 +8,6 @@
     margin: 0px auto;
     background: var(--secondary);
     box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);
-    
   }
   .online_titleBar{
     width:100%;
@@ -16,14 +15,14 @@
   }
   .onlineBox_userlistContainerOuter{
     max-height:500px;
-    overflow:scroll;
+    overflow-Y:scroll;
   }
     
   .onlineBox_greenDot{
    width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: var(--green2);
+    background: var(--red4);
     position: relative;
     top:30px;
     margin-left: 20px !important;
