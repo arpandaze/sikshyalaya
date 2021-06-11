@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext, useEffect } from "react";
+import React, { useState, useRef, useContext, useEffect, useMemo } from "react";
 import { Formik, Form, Field, FieldArray } from "formik";
 import Button from "../../components/Button";
 import DashboardLayout from "../../components/DashboardLayout/DashboardLayout";
@@ -16,11 +16,15 @@ import configs from "../../utils/configs";
 import { DatePicker, TimePicker } from "../../components/CustomDateTime";
 import CustomTextField from "../../components/CustomTextField";
 import Question from "./components/Question";
+import QuizContext from "./QuizContext";
 
 const validationSchema = yup.object({
-  quiz_title: yup.string("Enter the title of the quiz"),
-  quiz_description: yup.string("Enter description"),
-  whoseQuizInfo: yup.object().required().typeError("Group required"),
+  quiz_title: yup.string("Enter the title of the quiz").required(),
+  quiz_description: yup.string("Enter description").required(),
+  whoseQuizInfo: yup
+    .object()
+    .required("Group required")
+    .typeError("Group required"),
 });
 
 let answerList = [];
@@ -50,6 +54,11 @@ const groupFormatter = (response) => {
 const QuizCreator = () => {
   const { user } = useContext(UserContext);
   const endPage = useRef(null);
+  const [selectFile, setSelectedFile] = useState([]);
+  const quiz_file = useMemo(
+    () => ({ selectFile, setSelectedFile }),
+    [selectFile, setSelectedFile]
+  );
   const groupList = [];
   const [groups, groupsComplete] = useAPI(
     { endpoint: "/api/v1/group/" },
@@ -135,6 +144,7 @@ const QuizCreator = () => {
   };
 
   const onSubmitHandler = async (values) => {
+    console.log(selectFile);
     let quiz = values;
     let questions = quiz.questions;
     delete quiz.questions;
@@ -191,155 +201,157 @@ const QuizCreator = () => {
 
   return (
     <DashboardLayout>
-      <Grid
-        container
-        direction="column"
-        justify="center"
-        alignItems="center"
-        className="quizCreator_root"
-      >
-        <Grid item className="quizCreator_header">
-          <a className="quizCreator_titleText">Quiz Creation Menu</a>
-        </Grid>
-        <Grid item className="quizCreator_body">
-          <Grid item className="quizCreator_outerContainer">
-            <Formik
-              initialValues={{
-                quiz_title: "",
-                quiz_description: "",
-                quiz_date: new Date(),
-                start_time: new Date(),
-                end_time: new Date(),
-                isRandomized: false,
-                whoseQuizInfo: null,
-              }}
-              validationSchema={validationSchema}
-              onSubmit={onSubmitHandler}
-            >
-              {({ values, setFieldValue }) => (
-                <>
-                  <Form className="quizCreator_formBox">
-                    <Grid
-                      container
-                      direction="column"
-                      alignItems="center"
-                      justify="center"
-                      className="quizCreator_innerContainer"
-                      spacing={1}
-                    >
+      <QuizContext.Provider value={quiz_file}>
+        <Grid
+          container
+          direction="column"
+          justify="center"
+          alignItems="center"
+          className="quizCreator_root"
+        >
+          <Grid item className="quizCreator_header">
+            <a className="quizCreator_titleText">Quiz Creation Menu</a>
+          </Grid>
+          <Grid item className="quizCreator_body">
+            <Grid item className="quizCreator_outerContainer">
+              <Formik
+                initialValues={{
+                  quiz_title: "",
+                  quiz_description: "",
+                  quiz_date: new Date(),
+                  start_time: new Date(),
+                  end_time: new Date(),
+                  isRandomized: false,
+                  whoseQuizInfo: null,
+                }}
+                validationSchema={validationSchema}
+                onSubmit={onSubmitHandler}
+              >
+                {({ values, setFieldValue }) => (
+                  <>
+                    <Form className="quizCreator_formBox">
                       <Grid
-                        item
-                        xs={12}
-                        className="quizCreator_titleFieldContainer"
+                        container
+                        direction="column"
+                        alignItems="center"
+                        justify="center"
+                        className="quizCreator_innerContainer"
+                        spacing={1}
                       >
-                        <CustomTextField
-                          id="quiz_title"
-                          name="quiz_title"
-                          placeholder="Enter the title of the quiz"
-                          className="quizCreator_titleField"
-                          autoComplete="off"
-                        />
-                      </Grid>
-                      <Grid
-                        item
-                        className="quizCreator_descriptionFieldContainer"
-                      >
-                        <CustomTextField
-                          id="quiz_description"
-                          name="quiz_description"
-                          placeholder="Description of the quiz"
-                          className="quizCreator_descriptionField"
-                          autoComplete="off"
-                        />
-                      </Grid>
-                      <Grid item className="quizCreator_groupBoxOuter">
-                        <CustomTextField
-                          name="whoseQuizInfo"
-                          dropdown={true}
-                          menuItems={groupList}
-                          addStyles="quizCreator_groupBox"
-                          placeHolder="Choose your group"
-                          className="quizCreator_dateTimePickerContainer"
-                        />
-                      </Grid>
-                      <Grid item>
+                        <Grid
+                          item
+                          xs={12}
+                          className="quizCreator_titleFieldContainer"
+                        >
+                          <CustomTextField
+                            id="quiz_title"
+                            name="quiz_title"
+                            placeholder="Enter the title of the quiz"
+                            className="quizCreator_titleField"
+                            autoComplete="off"
+                          />
+                        </Grid>
+                        <Grid
+                          item
+                          className="quizCreator_descriptionFieldContainer"
+                        >
+                          <CustomTextField
+                            id="quiz_description"
+                            name="quiz_description"
+                            placeholder="Description of the quiz"
+                            className="quizCreator_descriptionField"
+                            autoComplete="off"
+                          />
+                        </Grid>
+                        <Grid item className="quizCreator_groupBoxOuter">
+                          <CustomTextField
+                            name="whoseQuizInfo"
+                            dropdown={true}
+                            menuItems={groupList}
+                            addStyles="quizCreator_groupBox"
+                            placeHolder="Choose your group"
+                            className="quizCreator_dateTimePickerContainer"
+                          />
+                        </Grid>
+                        <Grid item>
+                          <Grid
+                            container
+                            direction="row"
+                            alignItems="center"
+                            justify="center"
+                            className="quizCreator_dateTimePickerContainer"
+                            spacing={2}
+                          >
+                            <Grid item className="quizCreator_quizStartTime">
+                              <TimePicker id="start_time" label="Start Time" />
+                            </Grid>
+                            <Grid item className="quizCreator_quizEndTime">
+                              <TimePicker id="end_time" label="End Time" />
+                            </Grid>
+                            <Grid item className="quizCreator_quizDateField">
+                              <DatePicker
+                                id="quiz_date"
+                                label="Choose quiz date"
+                              />
+                            </Grid>
+                          </Grid>
+                        </Grid>
                         <Grid
                           container
                           direction="row"
                           alignItems="center"
                           justify="center"
-                          className="quizCreator_dateTimePickerContainer"
-                          spacing={2}
+                          className="quizCreator_randomContainer"
+                          wrap="nowrap"
                         >
-                          <Grid item className="quizCreator_quizStartTime">
-                            <TimePicker id="start_time" label="Start Time" />
-                          </Grid>
-                          <Grid item className="quizCreator_quizEndTime">
-                            <TimePicker id="end_time" label="End Time" />
-                          </Grid>
-                          <Grid item className="quizCreator_quizDateField">
-                            <DatePicker
-                              id="quiz_date"
-                              label="Choose quiz date"
+                          <Grid item className="quizCreator_check">
+                            <Checkbox
+                              id="is_randomized"
+                              name="isRandomized"
+                              label="Randomize Questions"
+                              className="quizCreator_randomCheckBox"
                             />
                           </Grid>
                         </Grid>
-                      </Grid>
-                      <Grid
-                        container
-                        direction="row"
-                        alignItems="center"
-                        justify="center"
-                        className="quizCreator_randomContainer"
-                        wrap="nowrap"
-                      >
-                        <Grid item className="quizCreator_check">
-                          <Checkbox
-                            id="is_randomized"
-                            name="isRandomized"
-                            label="Randomize Questions"
-                            className="quizCreator_randomCheckBox"
-                          />
-                        </Grid>
-                      </Grid>
 
-                      <Grid item className="submission">
-                        <Grid container alignItems="center" justify="center">
-                          <Question
-                            name="questions"
-                            val={values.questions}
-                            answerList={answerList}
-                            reference={endPage}
-                          />
-                        </Grid>
-                        <Grid
-                          container
-                          alignItems="center"
-                          justify="center"
-                          direction="row"
-                        >
+                        <Grid item className="submission">
+                          <Grid container alignItems="center" justify="center">
+                            <Question
+                              name="questions"
+                              val={values.questions}
+                              answerList={answerList}
+                              reference={endPage}
+                            />
+                          </Grid>
                           <Grid
-                            item
-                            className="quizCreator_submitButtonContainer"
+                            container
+                            alignItems="center"
+                            justify="center"
+                            direction="row"
                           >
-                            <button
-                              type="submit"
-                              className="quizCreator_submitButton"
+                            <Grid
+                              item
+                              className="quizCreator_submitButtonContainer"
                             >
-                              Submit
-                            </button>
+                              <button
+                                type="submit"
+                                className="quizCreator_submitButton"
+                              >
+                                Submit
+                              </button>
+                            </Grid>
                           </Grid>
                         </Grid>
                       </Grid>
-                    </Grid>
-                  </Form>
-                </>
-              )}
-            </Formik>
-            <div ref={endPage}></div>
+                    </Form>
+                  </>
+                )}
+              </Formik>
+              <div ref={endPage}></div>
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
+      </QuizContext.Provider>
     </DashboardLayout>
   );
 };
