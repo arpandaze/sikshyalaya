@@ -116,6 +116,8 @@ def populate_user():
                 full_name=user["full_name"],
                 is_active=user["is_active"],
                 email=user["email"],
+                roll=user.get("roll"),
+                teacher_department_id=user.get("teacher_department_id"),
                 group_id=user["group_id"],
                 teacher_group=user["teacher_group"],
                 dob=user["dob"],
