@@ -11,10 +11,9 @@ import AdminDashboard from "./views/Admin/AdminDashboard";
 import SchoolView from "./views/Admin/SchoolView";
 import DepartmentView from "./views/Admin/DepartmentView";
 import ProgramView from "./views/Admin/ProgramView";
-import GroupView from "./views/Admin/GroupView";
 import AdminForm from "./views/Admin/AdminForm";
 import CourseView from "./views/Admin/CourseView";
-import StudentView from "./views/Admin/StudentView";
+import GroupView from "./views/Admin/GroupView";
 import TeacherView from "./views/Admin/TeacherView";
 import ResetPassword from "./views/Login/ResetPassword";
 import Signup from "./views/Login/Signup";
@@ -27,6 +26,7 @@ import QuizCreator from "./views/QuizCreator/QuizCreator";
 import NotFound from "./views/404/404";
 import ClassSessionCreator from "./views/ClassSessionCreator/ClassSessionCreator";
 import HomeRedirector from "./components/HomeRedirector";
+import ExploreView from "./views/Admin/ExploreView";
 import configs from "./utils/configs";
 
 const Routes = () => {
@@ -56,15 +56,16 @@ const Routes = () => {
       {/*Admin Routes*/}
       <AdminRoute exact path="/adminForm" component={AdminForm} />
       <AdminRoute exact path="/admin" component={AdminDashboard} />
-      <AdminRoute exact path="/admin/school" component={SchoolView} />
-      <AdminRoute exact path="/admin/department" component={DepartmentView} />
+      <AdminRoute exact path="/admin/explore" component={ExploreView} />
+      <AdminRoute exact path="/admin/explore/school" component={SchoolView} />
       <AdminRoute
         exact
-        path="/admin/program/:department?"
-        component={ProgramView}
+        path="/admin/explore/department"
+        component={DepartmentView}
       />
-      <AdminRoute exact path="/admin/group" component={GroupView} />
-      <AdminRoute exact path="/admin/student" component={StudentView} />
+      <AdminRoute exact path="/admin/explore/Program" component={ProgramView} />
+      <AdminRoute exact path="/admin/explore/group" component={GroupView} />
+      <AdminRoute exact path="/admin/student" component={ExploreView} />
       <AdminRoute exact path="/admin/teacher" component={TeacherView} />
       <AdminRoute exact path="/admin/courses" component={CourseView} />
 
