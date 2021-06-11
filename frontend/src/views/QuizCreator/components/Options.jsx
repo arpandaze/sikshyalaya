@@ -8,8 +8,28 @@ import { ImCross } from "react-icons/im";
 import colorscheme from "../../../utils/colors";
 import CustomTextField from "./../../../components/CustomTextField";
 import Checkbox from "./../../../components/Checkbox";
+import { BsFilePlus } from "react-icons/bs";
+import { DropzoneDialog } from "material-ui-dropzone";
+import QuizContext from "../QuizContext";
+import { FileUpload } from "../../../components/FileUpload";
 
 const Options = ({ optionName, question, index, answer }) => {
+  const { selectFile, setSelectedFile } = useContext(QuizContext);
+  const [optionImage, setOptionImage] = useState([]);
+
+  const handleOptionUploadSave = (files) => {
+    setSelectedFile(files);
+  };
+
+  const handleOptionUpload = (files) => {
+    setOptionImage([...optionImage, [...files]]);
+  };
+
+  const onDeleteUploadItem = (index) => {
+    let temp = [...selectFile];
+    temp.splice(index, 1);
+    setSelectedFile(temp);
+  };
   return (
     <FieldArray name={`${optionName}[${index}].options`}>
       {(newHelper) => (
@@ -41,9 +61,8 @@ const Options = ({ optionName, question, index, answer }) => {
                   direction="row"
                   alignItems="center"
                   justify="center"
-                  spacing={2}
                 >
-                  <Grid item xs={9}>
+                  <Grid item xs={7}>
                     <CustomTextField
                       addStyles="quizCreator_option"
                       name={`${optionName}[${index}].options[${optionIndex}]`}
@@ -57,6 +76,20 @@ const Options = ({ optionName, question, index, answer }) => {
                       name={`${optionName}[${index}].answer[${optionIndex}]`}
                       label="Correct Answer"
                     />
+                  </Grid>
+                  <Grid item xs={2}>
+                    <Grid
+                      container
+                      direction="row"
+                      alignItems="center"
+                      justify="center"
+                    >
+                      <FileUpload
+                        label="Upload Image"
+                        acceptedFiles={["image/jpeg", "image/png"]}
+                        handleSave={handleOptionUploadSave}
+                      />
+                    </Grid>
                   </Grid>
                   <Grid item xs={1} className="quizCreator_removeContainer">
                     <button
@@ -78,15 +111,6 @@ const Options = ({ optionName, question, index, answer }) => {
                 </Grid>
               </div>
             ))}
-          <Grid item className="quizCreator_final" xs={12}>
-            <CustomTextField
-              addStyles="quizCreator_correct"
-              dropdown={true}
-              name={`${optionName}[${index}].answer`}
-              menuItems={answer[index] || []}
-              placeHolder="Choose correct Option"
-            />
-          </Grid>
         </>
       )}
     </FieldArray>
