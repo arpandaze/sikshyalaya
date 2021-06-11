@@ -6,6 +6,8 @@
   padding:0px 20px;
   border-radius:25px;
   z-index: 2;
+  width:300px;
+  height:280px;
 }
 .miniProfile_root:hover{
   flex-grow:1;
@@ -16,16 +18,18 @@
   border-radius: 50%;
 	width: 80px;
 	height: 80px;
-  box-shadow: -1px 21px 84px -29px rgba(0,0,0,0.5);
+  box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.75);
 }
 .miniProfile_ImageRoot{
   position:relative;
   top:15px;
 }
+
 .miniProfile_description{
   font-size:0.7rem;
   color:var(--red4)
 }
+
 .miniProfile_greenDot{
   width: 15px;
   height: 15px;
@@ -34,12 +38,20 @@
   position: absolute;
   top:60px;
   left:40px;
-  box-shadow: 5px 5px 20px -5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.75);
   margin-left: 20px !important;
 }
 .miniProfile_nameContainer{
   text-align: center;
-  padding:10px;
+  width:150px;
+  height:100px;
+  padding:10px 0px 0px 0px;
+  white-space: wrap;
+}
+.miniProfile_nameContainer p{
+  text-align:center;
+  white-space: wrap;
+  word-wrap: break-word ;
 }
 .miniProfile_name{
   font-size: 0.9rem;
@@ -49,9 +61,18 @@
 }
 
 @media only screen and (min-width: 1920px) {
+.miniProfile_root{
+  width:250px;
+  height:350px;
+}
 .miniProfile_Image{
   width: 120px;
   height: 120px;
+}
+.miniProfile_nameContainer{
+  width:200px;
+  height:120px;
+  padding:10px 0px 0px 0px;
 }
 .miniProfile_greenDot{
   width: 20px;
@@ -62,11 +83,8 @@
 .miniProfile_name{
   font-size: 1.1rem;
   font-weight: 600;
-  color:var(--grey1)
 }
 .miniProfile_description{
   font-size:0.8rem;
-  color:var(--red4)
 }
-
 }

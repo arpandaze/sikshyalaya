@@ -55,7 +55,7 @@ const users = [
 	},
 	{
 		id: 7,
-		name: "Yugesh Upadteasdl",
+		name: "Yugesh Upadteasdlsasasadasdadadas",
 		image: Profile,
 		program: "Computer Science",
 		year: "1st",

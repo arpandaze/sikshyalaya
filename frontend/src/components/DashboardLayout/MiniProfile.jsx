@@ -19,18 +19,20 @@ const MiniProfile = ({
 		<Grid
 			container
 			direction="column"
-			justify="center"
 			alignItems="center"
+			justify="flex-start"
 			className="miniProfile_root"
+			wrap="wrap"
 		>
-			<Grid item className="miniProfile_ImageRoot">
+			<Grid item  className="miniProfile_ImageRoot">
 				<div className="miniProfile_greenDot"></div>
 				<Image src={src} addStyles="miniProfile_Image" />
 			</Grid>
-			<Grid item className="miniProfile_nameContainer">
+
+			<Grid item  className="miniProfile_nameContainer">
 				<p className="miniProfile_name">{username}</p>
 			</Grid>
-			<Grid item className="miniProfile_descriptionOuter">
+			<Grid item  className="miniProfile_descriptionOuter">
 				<p className="miniProfile_description">
 					{program}
 					<br />
