@@ -45,8 +45,6 @@ const useAPI = (
           if (formatter) {
             formattedRes = formatter(res);
           }
-          console.log("Ayo");
-          console.log(promiseObj);
           setResponseState({ response: formattedRes, complete: true });
         })
         .catch((error) => {

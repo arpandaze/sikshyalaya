@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import Grid from "@material-ui/core/Grid";
 import colorscheme from "../../utils/colors";
@@ -12,43 +12,49 @@ import Button from "../../components/Button";
 import { ImCross } from "react-icons/im";
 import { Formik, Form } from "formik";
 import CustomTextField from "../../components/CustomTextField";
-import { Link, useHistory } from "react-router-dom";
-import {} from "react-router-dom";
+import {
+  Redirect,
+  useHistory,
+} from "react-router-dom/cjs/react-router-dom.min";
+import { Link } from "react-router-dom";
+import CustomTabComponent from "../../components/CustomTabComponent";
+import { GoTasklist } from "react-icons/go";
 
-const DepartmentView = ({ location }) => {
+const ProgramView = ({ location }) => {
   const history = useHistory();
-  const mountRef = useRef(true);
   const prevData = location.state
     ? location.state
-    : { school: { id: "", name: "" } };
-  const defaultDepartment = [];
-  const defaultSchool = "";
+    : { school: { id: "", name: "" }, department: { id: "", name: "" } };
+  const defaultProgram = [];
   const [isPopUp, setPopUp] = useState(false);
+  const [tabValue, setTabValue] = useState(0);
   const validationSchema = yup.object({
-    name: yup
-      .string("Enter Department Name")
-      .required("Department Name Required"),
+    name: yup.string("Enter Program Name").required("Program Name Required"),
+    numberOfYears: yup
+      .number("Enter Number of Years")
+      .required("Number of Years Required"),
   });
   const onSubmit = async (values) => {
-    values = {
-      ...values,
-      school_id: prevData.school.id,
+    const data = {
+      name: values.name,
+      max_sems: values.numberOfYears * 2,
+      department_id: prevData.department.id,
     };
-    const position = allDepartment.push(values);
+    const position = allProgram.push(data);
     try {
       const responseData = await callAPI({
-        endpoint: `/api/v1/department/`,
+        endpoint: `/api/v1/program/`,
         method: "POST",
-        data: values,
+        data: data,
       });
-      allDepartment[position - 1].id = responseData.data.id;
+      allProgram[position - 1].id = responseData.data.id;
     } catch (e) {}
     setPopUp(false);
   };
   useEffect(() => {
     if (!location.state) {
       history.replace({
-        pathname: "/admin/school",
+        pathname: "/admin/explore",
         state: { message: "Choose a School" },
       });
     }
@@ -56,29 +62,49 @@ const DepartmentView = ({ location }) => {
       setPopUp();
     };
   }, [location]);
-  const departmentFormatter = (response) => {
+  const programFormatter = (response) => {
     if (response.data.length === 0) {
       return [];
     }
     let responseData = [];
-    responseData = response.data.map((department) => {
+    responseData = response.data.map((program) => {
       let formattedResponseData = {
-        id: department.id,
-        name: department.name,
-        school_id: department.school_id,
+        id: program.id,
+        name: program.name,
+        department_id: program.department_id,
       };
       return formattedResponseData;
     });
     const finalData = responseData.filter(
-      (response) => response.school_id == prevData.school.id
+      (response) => response.department_id == prevData.department.id
     );
     return finalData;
   };
-  let [allDepartment, allDepartmentComplete] = useAPI(
-    { endpoint: `/api/v1/department/` },
-    departmentFormatter,
-    defaultDepartment
+  let [allProgram] = useAPI(
+    { endpoint: `/api/v1/program/` },
+    programFormatter,
+    defaultProgram
   );
+  const handeTabChange = (event, newValue) => {
+    setTabValue(newValue);
+  };
+  const tabs = [
+    {
+      id: 1,
+      icon: <GoTasklist />,
+      label: "Programs",
+    },
+    {
+      id: 2,
+      icon: <GoTasklist />,
+      label: "Students",
+    },
+    {
+      id: 3,
+      icon: <GoTasklist />,
+      label: "Courses",
+    },
+  ];
 
   return (
     <DashboardLayout>
@@ -99,8 +125,22 @@ const DepartmentView = ({ location }) => {
             className="adminCommon_topBar"
           >
             <Grid xs item className="adminCommon_textContainer">
-              <p className="adminCommon_text">{prevData.school.name}</p>
-              <p className="adminCommon_smallNav">
+              <Grid container direction="row" alignItems="center">
+                <Grid xs={11} item>
+                  <p className="adminCommon_text">{prevData.department.name}</p>
+                </Grid>
+                <Grid xs={1} item className="adminCommon_plusIcon">
+                  <GoPlus
+                    size={30}
+                    onClick={() => {
+                      setPopUp(true);
+                    }}
+                    color={colorscheme.green2}
+                  />
+                </Grid>
+              </Grid>
+
+              {/* <p className="adminCommon_smallNav">
                 <Link
                   to={{
                     pathname: "/admin/school",
@@ -114,64 +154,80 @@ const DepartmentView = ({ location }) => {
                 <Link
                   to={{
                     pathname: "/admin/department",
+                    state: {
+                      school: prevData.school,
+                    },
+                  }}
+                  className="adminCommon_smallNavLinks"
+                >
+                  {prevData.school.name}
+                </Link>
+                &gt;{" "}
+                <Link
+                  to={{
+                    pathname: "/admin/program",
                     state: { ...prevData },
                   }}
                   href=""
                   className="adminCommon_smallNavLinks"
                 >
-                  {prevData.school.name}
+                  {prevData.department.name}
                 </Link>
-              </p>
-            </Grid>
-            <Grid xs={1} item className="adminCommon_plusIcon">
-              <GoPlus
-                size={30}
-                onClick={() => {
-                  setPopUp(true);
-                }}
-                color={colorscheme.green2}
+              </p> */}
+              <CustomTabComponent
+                value={tabValue}
+                onChange={handeTabChange}
+                tabList={tabs}
               />
             </Grid>
           </Grid>
         </Grid>
         <Grid item className="adminCommon_botBar">
-          <Grid container direction="row" alignItems="center" spacing={5}>
-            {allDepartment.map((department) => (
-              <Grid item key={department.id} xs={6}>
-                <AdminBoxSmall
-                  type="department"
-                  key={department.id}
-                  cardData={department}
-                  onSubmit={() => {
-                    history.push({
-                      pathname: "/admin/program",
-                      state: {
-                        school: prevData.school,
-                        department: department,
-                      },
-                    });
-                  }}
-                />
-              </Grid>
-            ))}
-          </Grid>
+          {tabValue == 0 ? (
+            <Grid container direction="row">
+              {allProgram.map((program) => (
+                <Grid
+                  item
+                  key={program.id}
+                  xs={6}
+                  className="adminCommon_mainBox"
+                >
+                  <AdminBoxSmall
+                    type="program"
+                    onSubmit={() => {
+                      history.push({
+                        pathname: "/admin/explore/program",
+                        state: {
+                          school: prevData.school,
+                          department: prevData.department,
+                          program: program,
+                        },
+                      });
+                    }}
+                    cardData={program}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          ) : tabValue == 1 ? (
+            <></>
+          ) : (
+            <></>
+          )}
         </Grid>
       </Grid>
       {isPopUp ? (
         <Grid
           container
           justify="center"
-          className="adminDepartment_popUpContainer"
+          className="adminProgram_popUpContainer"
         >
-          <Grid item className="adminDepartment_popUpBox">
-            <Grid
-              container
-              direction="column"
-              className="adminDepartment_formBox"
-            >
+          <Grid item className="adminProgram_popUpBox">
+            <Grid container direction="column" className="adminProgram_formBox">
               <Formik
                 initialValues={{
                   name: "",
+                  numberOfYears: "",
                 }}
                 validationSchema={validationSchema}
                 onSubmit={onSubmit}
@@ -183,28 +239,33 @@ const DepartmentView = ({ location }) => {
                         id="name"
                         name="name"
                         placeHolder="Name"
-                        addStyles="adminDepartment_inputButton"
+                        addStyles="adminProgram_inputButton"
+                      />
+                    </Grid>
+                    <Grid item>
+                      <CustomTextField
+                        id="numberOfYears"
+                        name="numberOfYears"
+                        placeHolder="Number of Years"
+                        addStyles="adminProgram_inputButton"
                       />
                     </Grid>
 
-                    <Grid
-                      item
-                      className="adminDepartment_submitButtonContainer"
-                    >
+                    <Grid item className="adminProgram_submitButtonContainer">
                       <Button
                         type="submit"
                         name="Submit"
-                        addStyles="adminDepartment_submitButton"
+                        addStyles="adminProgram_submitButton"
                       />
                     </Grid>
                   </Grid>
                 </Form>
               </Formik>
             </Grid>
-            <Grid item className="adminDepartment_closeButtonContainer">
+            <Grid item className="adminProgram_closeButtonContainer">
               <ImCross
                 color={colorscheme.red3}
-                className="adminDepartment_closeButton"
+                className="adminProgram_closeButton"
                 onClick={() => {
                   setPopUp(false);
                 }}
@@ -219,4 +280,4 @@ const DepartmentView = ({ location }) => {
   );
 };
 
-export default DepartmentView;
+export default ProgramView;

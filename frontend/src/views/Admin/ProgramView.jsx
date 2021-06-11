@@ -12,47 +12,58 @@ import Button from "../../components/Button";
 import { ImCross } from "react-icons/im";
 import { Formik, Form } from "formik";
 import CustomTextField from "../../components/CustomTextField";
-import {
-  Redirect,
-  useHistory,
-} from "react-router-dom/cjs/react-router-dom.min";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
-const ProgramView = ({ location }) => {
+const GroupView = ({ match, location }) => {
   const history = useHistory();
   const prevData = location.state
     ? location.state
-    : { school: { id: "", name: "" }, department: { id: "", name: "" } };
-  const defaultProgram = [];
-  const defaultDepartment = "";
+    : {
+        school: { id: "", name: "" },
+        department: { id: "", name: "" },
+        program: { id: "", name: "" },
+      };
+  const defaultGroup = [];
+  const defaultProgram = "";
   const [isPopUp, setPopUp] = useState(false);
   const validationSchema = yup.object({
-    name: yup.string("Enter Program Name").required("Program Name Required"),
-    numberOfYears: yup
-      .number("Enter Number of Years")
-      .required("Number of Years Required"),
+    sem: yup
+      .number("Enter Semester Number")
+      .required("Semester Number Required"),
   });
   const onSubmit = async (values) => {
     const data = {
-      name: values.name,
-      max_sems: values.numberOfYears * 2,
-      department_id: prevData.department.id,
+      sem: values.sem,
+      program_id: prevData.program.id,
+      course: [],
     };
-    const position = allProgram.push(data);
+    const dataLocal = {
+      ...data,
+      name: "Semester " + values.sem,
+    };
+    console.log(data);
+    const position = allGroup.push(dataLocal);
     try {
       const responseData = await callAPI({
-        endpoint: `/api/v1/program/`,
+        endpoint: `/api/v1/group/`,
         method: "POST",
         data: data,
       });
-      allProgram[position - 1].id = responseData.data.id;
+      console.log(responseData);
+      allGroup[position - 1].id = responseData.data.id;
     } catch (e) {}
     setPopUp(false);
+  };
+  const programFormatter = (response) => {
+    if (!response.data) {
+      return "";
+    }
+    return response.data.name;
   };
   useEffect(() => {
     if (!location.state) {
       history.replace({
-        pathname: "/admin/school",
+        pathname: "/admin/explore",
         state: { message: "Choose a School" },
       });
     }
@@ -60,28 +71,25 @@ const ProgramView = ({ location }) => {
       setPopUp();
     };
   }, [location]);
-  const programFormatter = (response) => {
+  const groupFormatter = (response) => {
     if (response.data.length === 0) {
       return [];
     }
     let responseData = [];
-    responseData = response.data.map((program) => {
+    responseData = response.data.groups.map((group) => {
       let formattedResponseData = {
-        id: program.id,
-        name: program.name,
-        department_id: program.department_id,
+        id: group.id,
+        name: "Semester " + group.sem,
       };
       return formattedResponseData;
     });
-    const finalData = responseData.filter(
-      (response) => response.department_id == prevData.department.id
-    );
-    return finalData;
+    return responseData;
   };
-  let [allProgram] = useAPI(
-    { endpoint: `/api/v1/program/` },
-    programFormatter,
-    defaultProgram
+
+  let [allGroup, allGroupComplete] = useAPI(
+    { endpoint: `/api/v1/program/${prevData.program.id}/group/` },
+    groupFormatter,
+    defaultGroup
   );
 
   return (
@@ -103,8 +111,21 @@ const ProgramView = ({ location }) => {
             className="adminCommon_topBar"
           >
             <Grid xs item className="adminCommon_textContainer">
-              <p className="adminCommon_text">{prevData.department.name}</p>
-              <p className="adminCommon_smallNav">
+              <Grid container direction="row" alignItems="center">
+                <Grid xs={11} item>
+                  <p className="adminCommon_text">{prevData.program.name}</p>
+                </Grid>
+                <Grid xs={1} item className="adminCommon_plusIcon">
+                  <GoPlus
+                    size={30}
+                    onClick={() => {
+                      setPopUp(true);
+                    }}
+                    color={colorscheme.green2}
+                  />
+                </Grid>
+              </Grid>
+              {/* <p className="adminCommon_smallNav">
                 <Link
                   to={{
                     pathname: "/admin/school",
@@ -125,48 +146,58 @@ const ProgramView = ({ location }) => {
                   className="adminCommon_smallNavLinks"
                 >
                   {prevData.school.name}
-                </Link>
+                </Link>{" "}
                 &gt;{" "}
                 <Link
                   to={{
                     pathname: "/admin/program",
-                    state: { ...prevData },
+                    state: {
+                      school: prevData.school,
+                      department: prevData.department,
+                    },
                   }}
-                  href=""
                   className="adminCommon_smallNavLinks"
                 >
                   {prevData.department.name}
+                </Link>{" "}
+                &gt;{" "}
+                <Link
+                  to={{
+                    pathname: "/admin/group",
+                    state: { ...prevData },
+                  }}
+                  className="adminCommon_smallNavLinks"
+                >
+                  {prevData.program.name}
                 </Link>
-              </p>
-            </Grid>
-            <Grid xs={1} item className="adminCommon_plusIcon">
-              <GoPlus
-                size={30}
-                onClick={() => {
-                  setPopUp(true);
-                }}
-                color={colorscheme.green2}
-              />
+              </p> */}
             </Grid>
           </Grid>
         </Grid>
         <Grid item className="adminCommon_botBar">
-          <Grid container direction="row" alignItems="center" spacing={5}>
-            {allProgram.map((program) => (
-              <Grid item key={program.id} xs={6}>
+          <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+            spacing={5}
+          >
+            {allGroup.map((group) => (
+              <Grid item key={group.id} xs={6}>
                 <AdminBoxSmall
-                  type="program"
+                  type="group"
                   onSubmit={() => {
                     history.push({
-                      pathname: "/admin/group",
+                      pathname: "/admin/explore/group",
                       state: {
                         school: prevData.school,
                         department: prevData.department,
-                        program: program,
+                        program: prevData.program,
+                        group: group,
                       },
                     });
                   }}
-                  cardData={program}
+                  cardData={group}
                 />
               </Grid>
             ))}
@@ -174,17 +205,12 @@ const ProgramView = ({ location }) => {
         </Grid>
       </Grid>
       {isPopUp ? (
-        <Grid
-          container
-          justify="center"
-          className="adminProgram_popUpContainer"
-        >
-          <Grid item className="adminProgram_popUpBox">
-            <Grid container direction="column" className="adminProgram_formBox">
+        <Grid container justify="center" className="adminGroup_popUpContainer">
+          <Grid item className="adminGroup_popUpBox">
+            <Grid container direction="column" className="adminGroup_formBox">
               <Formik
                 initialValues={{
-                  name: "",
-                  numberOfYears: "",
+                  sem: "",
                 }}
                 validationSchema={validationSchema}
                 onSubmit={onSubmit}
@@ -193,36 +219,28 @@ const ProgramView = ({ location }) => {
                   <Grid container direction="column" alignItems="flex-start">
                     <Grid item>
                       <CustomTextField
-                        id="name"
-                        name="name"
-                        placeHolder="Name"
-                        addStyles="adminProgram_inputButton"
-                      />
-                    </Grid>
-                    <Grid item>
-                      <CustomTextField
-                        id="numberOfYears"
-                        name="numberOfYears"
-                        placeHolder="Number of Years"
-                        addStyles="adminProgram_inputButton"
+                        id="sem"
+                        name="sem"
+                        placeHolder="Semester"
+                        addStyles="adminGroup_inputButton"
                       />
                     </Grid>
 
-                    <Grid item className="adminProgram_submitButtonContainer">
+                    <Grid item className="adminGroup_submitButtonContainer">
                       <Button
                         type="submit"
                         name="Submit"
-                        addStyles="adminProgram_submitButton"
+                        addStyles="adminGroup_submitButton"
                       />
                     </Grid>
                   </Grid>
                 </Form>
               </Formik>
             </Grid>
-            <Grid item className="adminProgram_closeButtonContainer">
+            <Grid item className="adminGroup_closeButtonContainer">
               <ImCross
                 color={colorscheme.red3}
-                className="adminProgram_closeButton"
+                className="adminGroup_closeButton"
                 onClick={() => {
                   setPopUp(false);
                 }}
@@ -237,4 +255,4 @@ const ProgramView = ({ location }) => {
   );
 };
 
-export default ProgramView;
+export default GroupView;

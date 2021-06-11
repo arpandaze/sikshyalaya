@@ -1,60 +1,96 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import * as yup from "yup";
 import Grid from "@material-ui/core/Grid";
 import colorscheme from "../../utils/colors";
 import DashboardLayout from "../../components/DashboardLayout/DashboardLayout";
 import AdminBoxSmall from "./components/AdminBoxSmall";
 import { GoPlus } from "react-icons/go";
-import { Formik, Form } from "formik";
-import CustomTextField from "../../components/CustomTextField";
 import "./statics/css/commonView.css";
-import Button from "../../components/Button";
-import { ImCross } from "react-icons/im";
 import useAPI from "../../utils/useAPI";
 import callAPI from "../../utils/API";
-import { Redirect, useHistory } from "react-router-dom";
+import Button from "../../components/Button";
+import { ImCross } from "react-icons/im";
+import { Formik, Form } from "formik";
+import CustomTextField from "../../components/CustomTextField";
+import { Link, useHistory } from "react-router-dom";
+import {} from "react-router-dom";
+import CustomTabComponent from "../../components/CustomTabComponent";
+import { GoTasklist } from "react-icons/go";
 
-const SchoolView = ({ location }) => {
+const DepartmentView = ({ location }) => {
   const history = useHistory();
+  const prevData = location.state
+    ? location.state
+    : { school: { id: "", name: "" } };
+  const defaultDepartment = [];
   const [isPopUp, setPopUp] = useState(false);
+  const [tabValue, setTabValue] = useState(0);
   const validationSchema = yup.object({
-    name: yup.string("Enter School Name").required("School Name Required"),
-    address: yup.string("Enter your Address").required("Address Required"),
+    name: yup
+      .string("Enter Department Name")
+      .required("Department Name Required"),
   });
+  const handeTabChange = (event, value) => {
+    setTabValue(value);
+  };
   const onSubmit = async (values) => {
-    const position = allSchool.push(values);
+    values = {
+      ...values,
+      school_id: prevData.school.id,
+    };
+    const position = allDepartment.push(values);
     try {
       const responseData = await callAPI({
-        endpoint: `/api/v1/school/`,
+        endpoint: `/api/v1/department/`,
         method: "POST",
         data: values,
       });
-      allSchool[position - 1].id = responseData.data.id;
+      allDepartment[position - 1].id = responseData.data.id;
     } catch (e) {}
     setPopUp(false);
   };
-  const defaultSchool = [];
-  const schoolFormatter = (response) => {
+  useEffect(() => {
+    if (!location.state) {
+      history.replace({
+        pathname: "/admin/explore",
+        state: { message: "Choose a School" },
+      });
+    }
+    return () => {
+      setPopUp();
+    };
+  }, [location]);
+  const departmentFormatter = (response) => {
     if (response.data.length === 0) {
       return [];
     }
     let responseData = [];
-    responseData = response.data.map((school) => {
+    let tabs = [];
+    responseData = response.data.map((department) => {
       let formattedResponseData = {
-        id: school.id,
-        name: school.name,
-        address: school.address,
+        id: department.id,
+        name: department.name,
+        school_id: department.school_id,
       };
       return formattedResponseData;
     });
-    return responseData;
+    const finalData = responseData.filter(
+      (response) => response.school_id == prevData.school.id
+    );
+    return finalData;
   };
-
-  let [allSchool, allSchoolComplete] = useAPI(
-    { endpoint: "/api/v1/school/" },
-    schoolFormatter,
-    defaultSchool
+  let [allDepartment, allDepartmentComplete] = useAPI(
+    { endpoint: `/api/v1/department/` },
+    departmentFormatter,
+    defaultDepartment
   );
+  const tabs = [
+    {
+      id: 1,
+      icon: <GoTasklist />,
+      label: "Departments",
+    },
+  ];
   return (
     <DashboardLayout>
       <Grid
@@ -74,57 +110,88 @@ const SchoolView = ({ location }) => {
             className="adminCommon_topBar"
           >
             <Grid xs item className="adminCommon_textContainer">
-              <p className="adminCommon_text">
-                {location.state ? location.state.message : "Schools"}
-              </p>
-            </Grid>
-            <Grid xs={1} item className="adminCommon_plusIcon">
-              <GoPlus
-                size={30}
-                color={colorscheme.green2}
-                onClick={() => {
-                  setPopUp(true);
-                }}
-              />
+              <Grid container direction="row" alignItems="center">
+                <Grid xs={11} item>
+                  <p className="adminCommon_text">{prevData.school.name}</p>
+                </Grid>
+                <Grid xs={1} item className="adminCommon_plusIcon">
+                  <GoPlus
+                    size={30}
+                    onClick={() => {
+                      setPopUp(true);
+                    }}
+                    color={colorscheme.green2}
+                  />
+                </Grid>
+              </Grid>
+              {/* <p className="adminCommon_smallNav">
+                <Link
+                  to={{
+                    pathname: "/admin/school",
+                  }}
+                  className="adminCommon_smallNavLinks"
+                >
+                  {" "}
+                  School{" "}
+                </Link>{" "}
+                &gt;{" "}
+                <Link
+                  to={{
+                    pathname: "/admin/department",
+                    state: { ...prevData },
+                  }}
+                  href=""
+                  className="adminCommon_smallNavLinks"
+                >
+                  {prevData.school.name}
+                </Link>
+              </p> */}
+              {/* <CustomTabComponent
+                value={tabValue}
+                onChange={handeTabChange}
+                tabList={tabs}
+              /> */}
             </Grid>
           </Grid>
         </Grid>
         <Grid item className="adminCommon_botBar">
-          <Grid container direction="row">
-            {allSchool && allSchoolComplete ? (
-              allSchool.map((school) => (
-                <Grid
-                  item
-                  key={school.id}
-                  xs={6}
-                  className="adminCommon_mainBox"
-                >
-                  <AdminBoxSmall
-                    type="school"
-                    cardData={school}
-                    onSubmit={() => {
-                      history.push({
-                        pathname: "/admin/department",
-                        state: { school: school },
-                      });
-                    }}
-                  />
-                </Grid>
-              ))
-            ) : (
-              <></>
-            )}
+          <Grid container direction="row" alignItems="center" spacing={5}>
+            {allDepartment.map((department) => (
+              <Grid item key={department.id} xs={6}>
+                <AdminBoxSmall
+                  type="department"
+                  key={department.id}
+                  cardData={department}
+                  onSubmit={() => {
+                    history.push({
+                      pathname: "/admin/explore/department",
+                      state: {
+                        school: prevData.school,
+                        department: department,
+                      },
+                    });
+                  }}
+                />
+              </Grid>
+            ))}
           </Grid>
         </Grid>
       </Grid>
       {isPopUp ? (
-        <Grid container justify="center" className="adminSchool_popUpContainer">
-          <Grid item className="adminSchool_popUpBox">
-            <Grid container direction="column" className="adminSchool_formBox">
+        <Grid
+          container
+          justify="center"
+          className="adminDepartment_popUpContainer"
+        >
+          <Grid item className="adminDepartment_popUpBox">
+            <Grid
+              container
+              direction="column"
+              className="adminDepartment_formBox"
+            >
               <Formik
                 initialValues={{
                   name: "",
-                  address: "",
                 }}
                 validationSchema={validationSchema}
                 onSubmit={onSubmit}
@@ -136,33 +203,28 @@ const SchoolView = ({ location }) => {
                         id="name"
                         name="name"
                         placeHolder="Name"
-                        addStyles="adminSchool_inputButton"
+                        addStyles="adminDepartment_inputButton"
                       />
                     </Grid>
 
-                    <Grid item>
-                      <CustomTextField
-                        id="address"
-                        name="address"
-                        placeHolder="Address"
-                        addStyles="adminSchool_inputButton"
-                      />
-                    </Grid>
-                    <Grid item className="adminSchool_submitButtonContainer">
+                    <Grid
+                      item
+                      className="adminDepartment_submitButtonContainer"
+                    >
                       <Button
                         type="submit"
                         name="Submit"
-                        addStyles="adminSchool_submitButton"
+                        addStyles="adminDepartment_submitButton"
                       />
                     </Grid>
                   </Grid>
                 </Form>
               </Formik>
             </Grid>
-            <Grid item className="adminSchool_closeButtonContainer">
+            <Grid item className="adminDepartment_closeButtonContainer">
               <ImCross
                 color={colorscheme.red3}
-                className="adminSchool_closeButton"
+                className="adminDepartment_closeButton"
                 onClick={() => {
                   setPopUp(false);
                 }}
@@ -177,4 +239,4 @@ const SchoolView = ({ location }) => {
   );
 };
 
-export default SchoolView;
+export default DepartmentView;
