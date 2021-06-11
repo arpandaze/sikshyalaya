@@ -20,6 +20,7 @@ const Questions = ({ name, val, answerList, reference, ...rest }) => {
     question_text: "",
     question_image: "",
     options: [],
+    answer: [],
   };
   return (
     <Field name={name}>
