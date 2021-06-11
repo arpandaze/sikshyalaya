@@ -73,18 +73,24 @@ const sidebarItems = [
     },
     {
       id: 2,
-      title: "Student",
-      route: "/admin/school",
+      title: "Explore",
+      route: "/admin/explore",
       icon: <IoPeopleOutline className="sideBar_iconStyle" />,
     },
     {
       id: 3,
+      title: "Student",
+      route: "/admin/student",
+      icon: <IoPeopleOutline className="sideBar_iconStyle" />,
+    },
+    {
+      id: 4,
       title: "Teachers",
       route: "/admin/teacher",
       icon: <FaChalkboardTeacher className="sideBar_iconStyle" />,
     },
     {
-      id: 4,
+      id: 5,
       title: "Courses",
       route: "/admin/courses",
       icon: <GoTasklist className="sideBar_iconStyle" />,
