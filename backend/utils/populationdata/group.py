@@ -80,11 +80,11 @@ groups: List[Json] = [
     {
         "program_id": "14",
         "sem": 3,
-        "course": [],
+        "course": [2],
     },
     {
         "program_id": "15",
         "sem": 3,
-        "course": [],
+        "course": [4],
     },
 ]
