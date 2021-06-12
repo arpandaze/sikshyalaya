@@ -1,0 +1,8 @@
+@import "../../../utils/colors.css";
+.fileUpload_label:hover {
+  color: var(--purple2);
+}
+
+.fileUpload_icon:hover {
+  color: var(--purple2);
+}

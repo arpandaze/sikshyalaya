@@ -38,8 +38,10 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         db_obj = User(
             email=obj_in.email,  # noqa
             hashed_password=get_password_hash(obj_in.password),  # noqa
+            roll=obj_in.roll,
             full_name=obj_in.full_name,  # noqa
             dob=obj_in.dob,  # noqa
+            teacher_department_id=obj_in.teacher_department_id,  # noqa
             group_id=obj_in.group_id,  # noqa
             user_type=obj_in.user_type,  # noqa
             contact_number=obj_in.contact_number,  # noqa

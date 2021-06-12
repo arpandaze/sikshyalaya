@@ -19,11 +19,19 @@ class User(Base):
     profile_image = Column(String(100))
     full_name = Column(String, index=True)
     email = Column(String, index=True, nullable=False, unique=True)
+
+    roll = Column(SmallInteger, nullable=True)
+
     group_id = Column(Integer, ForeignKey("group.id", ondelete="cascade"))
     group = relationship("Group", backref="student")
+
     teacher_group = relationship(
         "TeacherGroupCourseAssociation", back_populates="teacher"
     )
+    teacher_department_id = Column(
+        ForeignKey("department.id", ondelete="SET NULL"), nullable=True
+    )
+    teacher_department = relationship("Department", backref="teachers")
 
     dob = Column(Date, nullable=False)
     address = Column(String(length=128), nullable=False)

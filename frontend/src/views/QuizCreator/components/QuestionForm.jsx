@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import Grid from "@material-ui/core/Grid";
 import { Field, FieldArray } from "formik";
 import "../statics/css/quizCreator.css";
@@ -9,6 +9,7 @@ import CustomTextField from "./../../../components/CustomTextField";
 import { BsFilePlus } from "react-icons/bs";
 import { DropzoneDialog } from "material-ui-dropzone";
 import Options from "./Options";
+import QuizContext from "../QuizContext";
 
 const QuestionForm = ({
   name,
@@ -17,14 +18,11 @@ const QuestionForm = ({
   questionHelper,
   answerList,
 }) => {
-  const [selectImage, setSelectedImage] = useState({});
-  const [tempImage, setTempImage] = useState({});
-  const [isPicked, setIsPicked] = useState({});
+  const { selectFile, setSelectedFile } = useContext(QuizContext);
+  const [minimized, setMinimized] = useState(false);
   const [uploadPopUp, setUploadPopUp] = useState(false);
-  const [selectFile, setSelectedFile] = useState([]);
   const [optionImage, setOptionImage] = useState([]);
 
-  const [minimized, setMinimized] = useState(false);
   const handleUploadOpen = () => {
     setUploadPopUp(true);
   };

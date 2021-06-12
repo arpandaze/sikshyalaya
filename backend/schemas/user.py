@@ -14,6 +14,8 @@ class UserBase(BaseModel):
     user_type: int
     address: str = None
     group_id: int = None
+    roll: int = None
+    teacher_department_id: int = None
     contact_number: str = None
     dob: date = None
     teacher_group: List[List[int]] = None
@@ -43,6 +45,7 @@ class AdminUserCreate(BaseModel):
     full_name: str = None
     address: Optional[str] = None
     group_id: Optional[int] = None
+    roll: Optional[int] = None
     contact_number: str = None
     dob: date = None
     join_year: Optional[int] = None
@@ -114,6 +117,7 @@ class UserReturn(BaseModel):
     profile_image: Optional[str] = None
     full_name: Optional[str] = None
     address: str = None
+    roll: int = None
     group: GroupSignInReturn = None
     teacher_group: List[TeacherGroupOfUser] = None
     contact_number: str = None

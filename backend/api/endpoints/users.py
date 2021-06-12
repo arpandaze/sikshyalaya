@@ -40,16 +40,19 @@ router = APIRouter()
 #     users = cruds.crud_user.get_multi(db, skip=skip, limit=limit)
 #     return users
 
+
 @router.get("/teacher/", response_model=List[schemas.user.TeacherShort])
 def get_teachers(
-        db: Session = Depends(deps.get_db),
-        skip: int = 0,
-        limit: int = 200,
-        current_user: models.User = Depends(
-            deps.get_current_active_teacher_or_above),
+    db: Session = Depends(deps.get_db),
+    skip: int = 0,
+    limit: int = 200,
+    current_user: models.User = Depends(deps.get_current_active_teacher_or_above),
 ) -> Any:
-    teachers = db.query(models.User).filter(
-        models.User.user_type == settings.UserType.TEACHER.value).all()
+    teachers = (
+        db.query(models.User)
+        .filter(models.User.user_type == settings.UserType.TEACHER.value)
+        .all()
+    )
     return teachers
 
 
@@ -88,7 +91,7 @@ async def create_user(
         contact_number=user_in.contact_number,
         dob=user_in.dob,
         join_year=user_in.join_year,
-        password=settings.SECRET_KEY
+        password=settings.SECRET_KEY,
     )
     user = cruds.crud_user.create(db, obj_in=user_create)
     cruds.crud_user.verify_user(db=db, db_obj=user)
@@ -114,7 +117,7 @@ async def update_user_me(
     if profile_photo:
         profiles_path = os.path.join(settings.UPLOAD_DIR_ROOT, "profiles")
         content_type = profile_photo.content_type
-        file_extension = content_type[content_type.index("/") + 1:]
+        file_extension = content_type[content_type.index("/") + 1 :]
         new_profile_image = f"{secrets.token_hex(nbytes=16)}.{file_extension}"
         profile_db_path = os.path.join("profiles", new_profile_image)
         new_profile_image_file_path = os.path.join(
@@ -131,8 +134,7 @@ async def update_user_me(
         try:
             if current_user.profile_image != None:
                 os.remove(
-                    os.path.join(settings.UPLOAD_DIR_ROOT,
-                                 current_user.profile_image)
+                    os.path.join(settings.UPLOAD_DIR_ROOT, current_user.profile_image)
                 )
         except Exception:
             pass
@@ -147,12 +149,15 @@ async def update_user_me(
     print(jsonable_encoder(user_in))
 
     user = cruds.crud_user.update(
-        db, db_obj=current_user, obj_in=user_in.dict(exclude_none=True))
+        db, db_obj=current_user, obj_in=user_in.dict(exclude_none=True)
+    )
 
     return user
 
 
-@router.get("/me/", response_model=schemas.user.UserReturn, response_model_exclude_unset=True)
+@router.get(
+    "/me/", response_model=schemas.user.UserReturn, response_model_exclude_none=True
+)
 # @router.get("/me/teacher_group", response_model=schemas.user.UserReturn)
 async def read_user_me(
     db: Session = Depends(deps.get_db),
@@ -166,19 +171,19 @@ async def read_user_me(
 
 # @router.put("/me/profile/")
 # async def update_my_profile_photo(
-    # db: Session = Depends(deps.get_db),
-    # *,
-    # current_user: models.User = Depends(deps.get_current_active_user),
-    # profile_photo: UploadFile = File(...),
+# db: Session = Depends(deps.get_db),
+# *,
+# current_user: models.User = Depends(deps.get_current_active_user),
+# profile_photo: UploadFile = File(...),
 # ):
 
-    # cruds.crud_user.update(
-    # db,
-    # db_obj=current_user,
-    # obj_in=schemas.user.ImageUpdate(profile_image=profile_db_path),
-    # )
+# cruds.crud_user.update(
+# db,
+# db_obj=current_user,
+# obj_in=schemas.user.ImageUpdate(profile_image=profile_db_path),
+# )
 
-    # return {"msg": "success", "profile": new_profile_image}
+# return {"msg": "success", "profile": new_profile_image}
 
 
 @router.get("/{user_id}/", response_model=schemas.user.UserReturn)
@@ -211,8 +216,7 @@ async def update_user(
     db: Session = Depends(deps.get_db),
     user_id: int,
     user_in: schemas.UserUpdate,
-    current_user: models.User = Depends(
-        deps.get_current_admin_or_above),
+    current_user: models.User = Depends(deps.get_current_admin_or_above),
 ) -> Any:
     """
     Update a user.
@@ -245,8 +249,7 @@ async def update_profile_photo(
         os.makedirs(profile_image_path)
     else:
         if os.path.exists(os.path.join(profile_image_path, f"{user.profile_image}")):
-            os.remove(os.path.join(
-                profile_image_path, f"{user.profile_image}"))
+            os.remove(os.path.join(profile_image_path, f"{user.profile_image}"))
 
     async with aiofiles.open(profile_image_file_path, mode="wb") as f:
         content = await profile_photo.read()
