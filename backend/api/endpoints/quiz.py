@@ -350,6 +350,7 @@ async def create_option_files(
                         "image"
                     ] = f"{FILE_OPTION_PATH}/{hashedFileName.hexdigest()}{fileExtension}"
                     alreadyModified.append(index)
+                    break
 
     obj_in = QuizQuestionUpdate(quiz_id=quizid, options=json.dumps(options))
     updated = crud_question.update(db=db, db_obj=question, obj_in=obj_in)
