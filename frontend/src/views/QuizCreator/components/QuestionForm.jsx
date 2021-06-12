@@ -9,7 +9,8 @@ import CustomTextField from "./../../../components/CustomTextField";
 import { BsFilePlus } from "react-icons/bs";
 import { DropzoneDialog } from "material-ui-dropzone";
 import Options from "./Options";
-import QuizContext from "../QuizContext";
+import { FileUpload } from "../../../components/FileUpload";
+import { QuizContext } from "../QuizContext";
 
 const QuestionForm = ({
   name,
@@ -20,26 +21,14 @@ const QuestionForm = ({
 }) => {
   const { selectFile, setSelectedFile } = useContext(QuizContext);
   const [minimized, setMinimized] = useState(false);
-  const [uploadPopUp, setUploadPopUp] = useState(false);
-  const [optionImage, setOptionImage] = useState([]);
-
-  const handleUploadOpen = () => {
-    setUploadPopUp(true);
-  };
-  const handleUploadClose = () => {
-    setUploadPopUp(false);
-  };
 
   const handleUploadSave = (files) => {
-    setSelectedFile([...selectFile, ...files]);
-    setUploadPopUp(false);
-    console.log(selectFile);
-  };
-
-  const handleOptionUpload = (files) => {
-    setOptionImage([...optionImage, [...files]]);
-    setUploadPopUp(false);
-    console.log(optionImage);
+    let newValue = [];
+    if (selectFile[index] && selectFile[index].length) {
+      newValue.push(...selectFile[index]);
+    }
+    newValue.push(...files);
+    setSelectedFile({ ...selectFile, [index]: newValue });
   };
 
   const onDeleteUploadItem = (index) => {
@@ -72,21 +61,16 @@ const QuestionForm = ({
               direction="row"
               alignItems="center"
               justify="center"
-              className="quizCreator_uploadIconContainer"
-              onClick={handleUploadOpen}
             >
-              <p className="quizCreator_uploadIconText">Upload Files</p>
-              <BsFilePlus className="quizCreator_uploadIcon" />
+              <FileUpload
+                label="Upload Question Image"
+                acceptedFiles={["image/jpeg", "image/png"]}
+                handleSave={(files) => {
+                  handleUploadSave(files);
+                }}
+                maxFiles={4}
+              />
             </Grid>
-
-            <DropzoneDialog
-              open={uploadPopUp}
-              maxFileSize={10000000}
-              onSave={handleUploadSave}
-              acceptedFiles={["image/jpeg", "image/png"]}
-              showPreviews={true}
-              onClose={handleUploadClose}
-            />
           </Grid>
 
           <Grid item xs={1} className="quizCreator_removeContainer">
