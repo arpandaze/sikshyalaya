@@ -184,6 +184,8 @@ const QuizCreator = () => {
             }
             let allOptions = JSON.parse(postQuestion.options);
 
+            questionOptionImageData.set("options", postQuestion.options);
+
             if (postResponse.status === 200 && optionFile[index]) {
               for (let i = 0; i < allOptions.length; i++) {
                 if (optionFile[index][i] && optionFile[index][i].length) {
