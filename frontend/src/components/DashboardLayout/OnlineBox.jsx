@@ -87,8 +87,8 @@ const users = [
 	},
 ];
 
-const OnlineBox = () => {
-  return (
+const OnlineBox = ({ miniProfile = true, size, ...rest }) => {
+	return (
 		<Grid
 			container
 			direction="row"
@@ -122,6 +122,8 @@ const OnlineBox = () => {
 								year={user.year}
 								semester={user.semester}
 								program={user.program}
+								miniProfile={miniProfile}
+								size={size}
 							/>
 						</Grid>
 					))}

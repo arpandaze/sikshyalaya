@@ -6,6 +6,7 @@
   flex-grow:1;
   padding:0px 10px;
   position: relative;
+  cursor: pointer;
 }
 
 .online_Image{
@@ -66,6 +67,14 @@
   background-color: var(--white);
   box-shadow: 3px 3px 15px -3px rgba(0, 0, 0, 0.2);
   z-index:2;
+}
+.online_check{
+  position: relative;
+  left:50px;
+  padding-left:5px;
+}
+
+.online_randomCheckBox{
 }
 }
 

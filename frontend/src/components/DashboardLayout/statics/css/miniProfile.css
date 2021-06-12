@@ -5,7 +5,7 @@
   flex-grow:1;
   border-radius:25px;
   z-index: 2;
-  width:180px;
+  width:200px;
   height:250px;
 }
 .miniProfile_root:hover{
@@ -42,9 +42,9 @@
 }
 .miniProfile_nameContainer{
   text-align: center;
-  width:150px;
+  width:180px;
   height:100px;
-  padding:10px 0px 0px 0px;
+  padding:10px 10px 10px 10px;
   white-space: wrap;
 }
 .miniProfile_nameContainer p{
@@ -69,9 +69,9 @@
   height: 120px;
 }
 .miniProfile_nameContainer{
-  width:200px;
+  width:230px;
   height:120px;
-  padding:10px 0px 0px 0px;
+  padding:10px 20px 10px 20px;
 }
 .miniProfile_greenDot{
   width: 20px;
