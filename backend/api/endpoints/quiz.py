@@ -281,9 +281,13 @@ async def create_question_files(
     )
 
     questionImages = []
+    fileIndex = 0
     for file in files:
         fileName, fileExtension = os.path.splitext(file.filename)
-        hashedFileName = sha1((fileName).encode(encoding="UTF-8", errors="strict"))
+        hashedFileName = sha1(
+            (fileName + str(fileIndex)).encode(encoding="UTF-8", errors="strict")
+        )
+        fileIndex = fileIndex + 1
         filename = f"{FILE_PATH}/{hashedFileName.hexdigest()}{fileExtension}"
         async with aiofiles.open(filename, mode="wb") as f:
             content = await file.read()
@@ -327,10 +331,13 @@ async def create_option_files(
         settings.UPLOAD_DIR_ROOT,
         FILE_OPTION_PATH,
     )
-
+    fileIndex = 0
     for file in files:
         fileName, fileExtension = os.path.splitext(file.filename)
-        hashedFileName = sha1((fileName).encode(encoding="UTF-8", errors="strict"))
+        hashedFileName = sha1(
+            (fileName + str(fileIndex)).encode(encoding="UTF-8", errors="strict")
+        )
+        fileIndex = fileIndex + 1
         filename = f"{FILE_PATH}/{hashedFileName.hexdigest()}{fileExtension}"
         async with aiofiles.open(filename, mode="wb") as f:
             content = await file.read()
