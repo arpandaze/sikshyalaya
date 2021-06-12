@@ -248,7 +248,6 @@ async def create_question_files(
     quizid: int,
     id: int,
 ):
-    print(f"I am here {quizid}")
     question = await get_specific_question(
         db, quizid=quizid, id=id, current_user=current_user
     )
@@ -271,7 +270,7 @@ async def create_question_files(
     return updated
 
 
-@router.post("{quizid}/question/{id}/option_image/")
+@router.post("/{quizid}/question/{id}/option_image/")
 async def create_option_files(
     db: Session = Depends(deps.get_db),
     files: List[UploadFile] = File(...),
@@ -296,11 +295,11 @@ async def create_option_files(
             content = await file.read()
             await f.write(content)
 
-    obj_in = QuizQuestionUpdate(option_image=[file.filename for file in files])
-    print(obj_in)
-    updated = crud_question.update(db=db, db_obj=question, obj_in=obj_in)
+    # obj_in = QuizQuestionUpdate(option_image=[file.filename for file in files])
+    # print(obj_in)
+    # updated = crud_question.update(db=db, db_obj=question, obj_in=obj_in)
 
-    return updated
+    return {"msg": "success"}
 
 
 @router.get("/{quizid}/question/{id}/{type}/{filename}")
