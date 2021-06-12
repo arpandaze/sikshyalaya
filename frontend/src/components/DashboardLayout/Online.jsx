@@ -7,7 +7,16 @@ import "./statics/css/online.css";
 import configs from "../../utils/configs";
 import MiniProfile from "./MiniProfile";
 
-const Online = ({ id, username, src, program, semester, year, ...rest }) => {
+const Online = ({
+  id,
+  username,
+  src,
+  program,
+  semester,
+  year,
+  online,
+  ...rest
+}) => {
   return (
     <Grid
       container
@@ -17,7 +26,7 @@ const Online = ({ id, username, src, program, semester, year, ...rest }) => {
       className="online_root"
     >
       <Grid item className="online_ImageRoot">
-        <div className="online_greenDot" hidden={true}></div>
+        <div className="online_greenDot" hidden={!online}></div>
         <Image src={src} addStyles="online_Image" />
       </Grid>
       <Grid item className="online_nameContainer">
@@ -30,6 +39,7 @@ const Online = ({ id, username, src, program, semester, year, ...rest }) => {
           src={src}
           year={year}
           semester={semester}
+          online={online}
           program={program}
           className="online_miniprofileinner"
         />
