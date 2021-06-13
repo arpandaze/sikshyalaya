@@ -47,22 +47,23 @@
 }
 
 .quizCreator_removeContainer {
-  /* height:100%;
-    padding:0px;
-    width:50%;
-    margin:0px auto; */
+  position: relative;
 }
+
 .quizCreator_remove {
   float: right;
   /* width: 100px; */
-  height: 25px;
   background: transparent;
   border: none;
   color: var(--white);
   border: none;
   font-size: 1.1em;
-
   cursor: pointer;
+}
+.quizCreator_remove:hover{
+  transform:scale(1.1);
+  transition:transform 350ms;
+
 }
 .quizCreator_imageCntainer {
   position: relative;
@@ -126,6 +127,18 @@
 .quizCreator_questionTitleContainer {
   height: 70px !important;
   cursor: pointer;
+  border-radius:15px;
+  position: relative;
+}
+.minimizeicon{
+  position: absolute;
+  border-radius: 50%;
+  left:-50px;
+}
+.minimizeicon:hover{
+  background-color:var(--grey4);
+  transition: 350ms ease;
+
 }
 .quizCreator_fileUploadedIcon {
   padding: 10px !important;
@@ -145,6 +158,12 @@
   border-radius: 12px;
   font-size: 1.1em;
   cursor: pointer;
+}
+.quizCreator_addOptions:hover{
+  transform:scale(1.05);
+  transition:350ms ease;
+
+
 }
 .quizCreator_correct {
 }
@@ -166,6 +185,35 @@
 }
 .quizCreator_descriptionFieldContainer {
   width: 80%;
+}
+.quizCreator_fileUploadContainer{
+}
+.quizCreator_please{
+  font-size:0.7rem;
+  font-weight: 100;
+  color:var(--grey2)
+}
+.quizCreator_optionContainer{
+  min-width:30em !important;
+  max-width:60em !important;
+  height:4.3em;
+
+}
+
+.quizCreator_optionCheckbox{
+}
+.quizCreator_optiontextFIeld{
+  min-width:30em !important;
+  padding:0px 5px 0px 0px;
+}
+.options_fileuploadedtext{
+  text-align:center;
+  max-width:16.5em;
+  font-size:1.3rem;
+  font-weight:100;
+  overflow:hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .quizCreator_descriptionField {
@@ -213,11 +261,18 @@
 
 .quizCreator_randomLabel {
 }
-.quizCreator_submitButtonContainer {
+.quizCreator_submitButtonContainer:hover {
+  transform:scale(1.05);
+  transition:350ms ease;
 }
 
 .quizCreator_addQuestionButtonContainer {
   padding: 10px 0px;
+}
+.quizCreator_addQuestionButtonContainer:hover {
+  transform:scale(1.05);
+  transition:350ms ease;
+
 }
 
 .quizCreator_fileUploadtext {
@@ -242,6 +297,7 @@
   scroll-snap-type: y mandatory;
   border: none;
 }
+
 
 .quizCreator_submitButton {
   position: relative;

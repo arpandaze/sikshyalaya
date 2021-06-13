@@ -22,7 +22,6 @@
     cursor:pointer;
   }
   .teacherDash_attendanceButton:hover{
-    background-color:var(--grey4);
     border-bottom: 2px solid var(--red4);
     transform: scale(1.03);
     transition: transform 250ms ease-in-out;
