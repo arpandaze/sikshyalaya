@@ -6,23 +6,43 @@ import { UserContext } from "../../utils/Contexts/UserContext";
 import "./statics/css/online.css";
 import configs from "../../utils/configs";
 import MiniProfile from "./MiniProfile";
+import Checkbox from "../../components/Checkbox";
+import { Formik, Form, Field, FieldArray } from "formik";
 
-const Online = ({ id, username, src, program, semester, year, ...rest }) => {
+
+const Online = ({
+	id,
+	username,
+	src,
+	program,
+	semester,
+	year,
+	miniProfile,
+	size,
+	...rest
+}) => {
 	return (
-			<Grid
-				container
-				direction="row"
-				justify="flex-start"
-				alignItems="center"
-				className="online_root"
-			>
-				<Grid item className="online_ImageRoot">
-					<div className="online_greenDot"></div>
-					<Image src={src} addStyles="online_Image" />
-				</Grid>
-				<Grid item className="online_nameContainer">
-					<p className="online_name">{username}</p>
-				</Grid>
+		<Grid
+			container
+			direction="row"
+			justify="flex-start"
+			alignItems="center"
+			className="online_root"
+			style={{
+				width: size * 15,
+			}}
+		>
+			<Grid item className="online_ImageRoot">
+				<div className="online_greenDot"></div>
+				<Image src={src} addStyles="online_Image" />
+			</Grid>
+			<Grid item className="online_nameContainer" style={{
+				width: size * 10,
+			}
+			}>
+				<p className="online_name">{username}</p>
+			</Grid>
+			{miniProfile ? (
 				<Grid item className="online_miniProfile">
 					<MiniProfile
 						id={id}
@@ -30,10 +50,27 @@ const Online = ({ id, username, src, program, semester, year, ...rest }) => {
 						src={src}
 						year={year}
 						semester={semester}
-					program={program}
-					className="online_miniprofileinner"
+						program={program}
+						className="online_miniprofileinner"
 					/>
 				</Grid>
+			) : (
+					
+					<Formik initialValues={{
+						isPresent: false,
+					}}>
+						<Form>
+							<Grid item className="online_check">
+								<Checkbox
+								id="is_present"
+								name="isPresent"
+								label=""
+								className="online_randomCheckBox"
+								/>
+							</Grid>
+						</Form>
+					</Formik>
+			)}
 		</Grid>
 	);
 };

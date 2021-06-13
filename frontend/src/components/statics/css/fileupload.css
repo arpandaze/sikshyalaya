@@ -1,6 +1,23 @@
 @import "../../../utils/colors.css";
-.fileUpload_label:hover {
+.fileUpload_label{
+  font-size:1rem;
+  font-weight: 600;
+
+}
+.fileUpload_textContainer{
+  padding:5px;
+  border-radius:8px 8px 0px 0px;
+  
+
+}
+.fileUpload_textContainer:hover {
   color: var(--purple2);
+  cursor: pointer;
+  transform:scale(1.05);
+  border-bottom:1px solid var(--purple2);
+  transition:transform 350ms ease;
+}
+.fileUpload_textContainerInnerMost{
 }
 
 .fileUpload_icon:hover {

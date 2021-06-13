@@ -3,11 +3,10 @@
 @media only screen and (min-width: 1280px) {
 .miniProfile_root{
   flex-grow:1;
-  padding:0px 20px;
   border-radius:25px;
   z-index: 2;
-  width:300px;
-  height:280px;
+  width:200px;
+  height:250px;
 }
 .miniProfile_root:hover{
   flex-grow:1;
@@ -43,9 +42,9 @@
 }
 .miniProfile_nameContainer{
   text-align: center;
-  width:150px;
+  width:180px;
   height:100px;
-  padding:10px 0px 0px 0px;
+  padding:10px 10px 10px 10px;
   white-space: wrap;
 }
 .miniProfile_nameContainer p{
@@ -70,9 +69,9 @@
   height: 120px;
 }
 .miniProfile_nameContainer{
-  width:200px;
+  width:230px;
   height:120px;
-  padding:10px 0px 0px 0px;
+  padding:10px 20px 10px 20px;
 }
 .miniProfile_greenDot{
   width: 20px;
