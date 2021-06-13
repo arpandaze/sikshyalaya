@@ -6,6 +6,7 @@ import { BiSend } from "react-icons/bi";
 import Message from "./Message";
 import Image from "../../../components/Image";
 import { UserContext } from "../../../utils/Contexts/UserContext";
+import { WebsocketContext } from "../../../utils/Contexts/WebsocketContext";
 import defaultProfile from "../../../assets/default-profile.svg";
 import callAPI from "../../../utils/API";
 import useAPI from "../../../utils/useAPI";
@@ -19,6 +20,7 @@ const ChatMessageTypes = {
   ANON_MESSAGE: 3,
   USER_JOINED: 4,
   USER_LEFT: 5,
+  ACTIVE_USER_LIST: 6,
 };
 
 const DiscussionBox = ({ classID }) => {
@@ -26,6 +28,7 @@ const DiscussionBox = ({ classID }) => {
 
   const [checked, setChecked] = useState(false);
   const [chat, setChat] = useState([]);
+  const [activeUser, setActiveUser] = useState([]);
   const [message, setMessage] = useState("");
   const [listenReady, setListenReady] = useState(false);
 
@@ -53,24 +56,41 @@ const DiscussionBox = ({ classID }) => {
   const focusField = () => {
     focusTextField.current.focus();
   };
-  const ws = useRef(null);
+  //const ws = useRef(null);
+  const { websocket, setWebsocket } = useContext(WebsocketContext);
 
   useEffect(() => {
-    if (classID && classmates !== null) {
-      ws.current = new WebSocket(
+    if (classID) {
+      if (websocket) {
+        websocket.close();
+      }
+      let ws = new WebSocket(
         `${configs.WEBSOCKET_HOST}/api/v1/class_session/ws/${classID}/`
       );
-      setListenReady(true);
+      setWebsocket(ws);
+      ws.onopen = () => {
+        setListenReady(true);
+      };
     }
-  }, [classID, classmatesComplete]);
+  }, [classID]);
 
   useEffect(() => {
-    if (classID && classmates !== null) {
-      ws.current.onmessage = (event) => {
+    if (websocket) {
+      if (websocket.readyState) {
+        const data = JSON.stringify({ msg_type: 1 });
+        websocket.send(data);
+      }
+    }
+  }, [listenReady]);
+
+  useEffect(() => {
+    if (classmatesComplete && websocket) {
+      websocket.onmessage = (event) => {
         let data = JSON.parse(event.data);
         let history_message = null;
         if (data.msg_type === ChatMessageTypes.MESSAGE_HISTORY) {
           history_message = JSON.parse(data.data);
+
           history_message = history_message.map((item) => {
             if (item.msg_type === ChatMessageTypes.PUBLIC_MESSAGE) {
               return {
@@ -95,7 +115,9 @@ const DiscussionBox = ({ classID }) => {
               return item;
             }
           });
-          setChat([...history_message]);
+          console.log(history_message);
+          console.log(setChat);
+          setChat(() => history_message);
         } else if (data.msg_type === ChatMessageTypes.PUBLIC_MESSAGE) {
           let msgInst = {
             id: parseInt(data.user),
@@ -114,10 +136,19 @@ const DiscussionBox = ({ classID }) => {
             sentTime: data.time,
           };
           setChat([...chat, msgInst]);
+        } else if (data.msg_type === ChatMessageTypes.ACTIVE_USER_LIST) {
+          console.log(data.data);
+          //setActiveUser([...chat, data.data]);
         }
       };
     }
-  }, [chat.length, classmatesComplete, listenReady]);
+  });
+  //}, [
+  //chat.length,
+  //JSON.stringify(activeUser),
+  //classmatesComplete,
+  //listenReady,
+  //]);
 
   const handleChange = (e) => {
     setMessage(e.target.value);
@@ -125,9 +156,9 @@ const DiscussionBox = ({ classID }) => {
   const handleSubmit = () => {
     if (message !== "") {
       if (checked) {
-        ws.current.send(JSON.stringify({ message: message, anon: true }));
+        websocket.send(JSON.stringify({ message: message, anon: true }));
       } else {
-        ws.current.send(JSON.stringify({ message: message }));
+        websocket.send(JSON.stringify({ message: message }));
       }
       setMessage("");
     }

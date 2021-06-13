@@ -68,7 +68,6 @@ const ProfileBar = ({ selected, landing=false }) => {
             <CourseBox courseList={courseList(user)} selected={"1"} /> :
             <OnlineBox />
         }
-				
 			</Grid>
 		</Grid>
 	);
