@@ -13,7 +13,8 @@ import ResourceIcons from "./../../../components/ResourceIcons";
 
 
 const Options = ({ optionName, question, index }) => {
-  const { optionFile, setOptionFile } = useContext(QuizOptionContext);
+	const { optionFile, setOptionFile } = useContext(QuizOptionContext);
+	const [next, setNext] = useState(1);
 
   const handleOptionUploadSave = (files, optionIndex) => {
 		let newOption = { ...optionFile[index], [optionIndex]: files };
@@ -88,14 +89,19 @@ const Options = ({ optionName, question, index }) => {
 											/>
 										) : (
 											<>
-												<Grid container alignItems="center" justify="center" className="quizCreator_filenameinner">
+												<Grid
+													container
+													alignItems="center"
+													justify="center"
+													className="quizCreator_filenameinner"
+												>
 													<Grid item>
-														<ResourceIcons iconType="image" />
+															<ResourceIcons iconType="image" size={10}/>
 													</Grid>
 													<Grid item>
 														{console.log(optionFile[index][optionIndex])}
 														<div className="options_fileuploadedtext">
-															{optionFile[index][optionIndex][optionIndex].name}
+															{optionFile[index][optionIndex][0].name}
 														</div>
 													</Grid>
 												</Grid>
@@ -109,6 +115,7 @@ const Options = ({ optionName, question, index }) => {
 											acceptedFiles={["image/jpeg", "image/png"]}
 											handleSave={(files) => {
 												handleOptionUploadSave(files, optionIndex);
+												setNext(next + 1);
 											}}
 											maxFiles={1}
 										/>
@@ -122,10 +129,14 @@ const Options = ({ optionName, question, index }) => {
 												newHelper.remove(optionIndex);
 											}}
 										>
-                      <ImCross size={15} color={colorscheme.red2} style={{
-                        position: "relative",
-                        top:"2px"
-                      }}/>
+											<ImCross
+												size={15}
+												color={colorscheme.red2}
+												style={{
+													position: "relative",
+													top: "2px",
+												}}
+											/>
 										</button>
 									</Grid>
 								</Grid>

@@ -2,7 +2,7 @@
 .classSession_submit,
 .classSession_addInstructor {
   width: 150px;
-  height: 40px;
+  height: 45px;
   background-color: var(--red4);
   margin-top: 20px;
   color: var(--white);
@@ -10,6 +10,10 @@
   font-size: 1.1em;
   border: none;
   cursor: pointer;
+}
+.classSession_submit:hover,.classSession_addInstructor:hover{
+  transform:scale(1.05);
+  transition:350ms ease;
 }
 .classSession_root {
   flex-grow: 1;
