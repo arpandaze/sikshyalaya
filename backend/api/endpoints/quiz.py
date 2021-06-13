@@ -1,13 +1,14 @@
 from typing import Any, List, Dict
+from pydantic import Json
 
-from random import randint
+from hashlib import sha1
 
 import os
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from core.config import settings
-
+import json
 from models import User
 from models.quiz import QuestionType, AnswerType
 from utils import deps
@@ -31,15 +32,22 @@ from core.config import settings
 
 router = APIRouter()
 
-QUIZ_QUESTION_UPLOAD_DIR: str = "quiz/question_image"
-QUIZ_OPTION_UPLOAD_DIR: str = "quiz/option_image"
+QUIZ_ROUTE: str = "quiz"
+QUIZ_QUESTION_UPLOAD_DIR: str = "question_image"
+QUIZ_OPTION_UPLOAD_DIR: str = "option_image"
+hashedQuestionRoute = sha1(
+    QUIZ_QUESTION_UPLOAD_DIR.encode(encoding="UTF-8", errors="strict")
+)
+hashedOptionRoute = sha1(
+    QUIZ_OPTION_UPLOAD_DIR.encode(encoding="UTF-8", errors="strict")
+)
 
 
 @router.get("/", response_model=List[Quiz])
 async def get_quiz(
     db: Session = Depends(deps.get_db),
     skip: int = 0,
-    limit: int = 100,
+    limit: int = -1,
     current_user: User = Depends(deps.get_current_active_user),
 ) -> Any:
     quiz = crud_quiz.get_multi(db, skip=skip, limit=limit)
@@ -171,20 +179,24 @@ async def create_question(
 
     question = crud_question.create(db, obj_in=obj_in)
 
+    hashedQuizId = sha1(str(quizid).encode(encoding="UTF-8", errors="strict"))
+
+    hashedQuestionId = sha1(str(question.id).encode(encoding="UTF-8", errors="strict"))
+
     # if the question is said to have a IMAGE then only create the folder to store the image
-    FILE_PATH_QUESTION = os.path.join(
+    FILE_PATH = os.path.join(
         settings.UPLOAD_DIR_ROOT,
-        QUIZ_QUESTION_UPLOAD_DIR,
-        f"{quizid}/{question.id}",
+        QUIZ_ROUTE,
+        hashedQuizId.hexdigest(),
+        hashedQuestionId.hexdigest(),
     )
+
+    FILE_PATH_QUESTION = os.path.join(FILE_PATH, hashedQuestionRoute.hexdigest())
+
+    FILE_PATH_OPTION = os.path.join(FILE_PATH, hashedOptionRoute.hexdigest())
 
     if not os.path.exists(FILE_PATH_QUESTION):
         os.makedirs(FILE_PATH_QUESTION)
-
-    # if the Options in answer is said to have a IMAGE then only create the folder to store the image
-    FILE_PATH_OPTION = os.path.join(
-        settings.UPLOAD_DIR_ROOT, QUIZ_OPTION_UPLOAD_DIR, f"{quizid}/{question.id}"
-    )
 
     if not os.path.exists(FILE_PATH_OPTION):
         os.makedirs(FILE_PATH_OPTION)
@@ -248,31 +260,51 @@ async def create_question_files(
     quizid: int,
     id: int,
 ):
-    print(f"I am here {quizid}")
     question = await get_specific_question(
         db, quizid=quizid, id=id, current_user=current_user
     )
 
-    FILE_PATH = os.path.join(
-        settings.UPLOAD_DIR_ROOT, QUIZ_QUESTION_UPLOAD_DIR, f"{quizid}/{id}"
+    hashedQuizId = sha1(str(quizid).encode(encoding="UTF-8", errors="strict"))
+
+    hashedQuestionId = sha1(str(id).encode(encoding="UTF-8", errors="strict"))
+
+    FILE_QUESTION_PATH = os.path.join(
+        QUIZ_ROUTE,
+        hashedQuizId.hexdigest(),
+        hashedQuestionId.hexdigest(),
+        hashedQuestionRoute.hexdigest(),
     )
 
+    FILE_PATH = os.path.join(
+        settings.UPLOAD_DIR_ROOT,
+        FILE_QUESTION_PATH,
+    )
+
+    questionImages = []
+    fileIndex = 0
     for file in files:
-        filename = f"{FILE_PATH}/{file.filename}"
+        fileName, fileExtension = os.path.splitext(file.filename)
+        hashedFileName = sha1(
+            (fileName + str(fileIndex)).encode(encoding="UTF-8", errors="strict")
+        )
+        fileIndex = fileIndex + 1
+        filename = f"{FILE_PATH}/{hashedFileName.hexdigest()}{fileExtension}"
         async with aiofiles.open(filename, mode="wb") as f:
             content = await file.read()
             await f.write(content)
+        questionImages.append(
+            f"{FILE_QUESTION_PATH}/{hashedFileName.hexdigest()}{fileExtension}"
+        )
 
-    obj_in = QuizQuestionUpdate(
-        quiz_id=quizid, question_image=[file.filename for file in files]
-    )
+    obj_in = QuizQuestionUpdate(quiz_id=quizid, question_image=questionImages)
     updated = crud_question.update(db=db, db_obj=question, obj_in=obj_in)
 
     return updated
 
 
-@router.post("{quizid}/question/{id}/option_image/")
+@router.post("/{quizid}/question/{id}/option_image/")
 async def create_option_files(
+    options: List,
     db: Session = Depends(deps.get_db),
     files: List[UploadFile] = File(...),
     current_user=Depends(deps.get_current_active_teacher_or_above),
@@ -280,27 +312,50 @@ async def create_option_files(
     quizid: int,
     id: int,
 ):
+    options = json.loads(options[0])
 
-    # TODO: check if the file is an image?
     question = await get_specific_question(
         db, quizid=quizid, id=id, current_user=current_user
     )
 
-    FILE_PATH = os.path.join(
-        settings.UPLOAD_DIR_ROOT, QUIZ_OPTION_UPLOAD_DIR, f"{quizid}/{id}"
-    )
+    hashedQuizId = sha1(str(quizid).encode(encoding="UTF-8", errors="strict"))
 
+    hashedQuestionId = sha1(str(id).encode(encoding="UTF-8", errors="strict"))
+    FILE_OPTION_PATH = os.path.join(
+        QUIZ_ROUTE,
+        hashedQuizId.hexdigest(),
+        hashedQuestionId.hexdigest(),
+        hashedOptionRoute.hexdigest(),
+    )
+    FILE_PATH = os.path.join(
+        settings.UPLOAD_DIR_ROOT,
+        FILE_OPTION_PATH,
+    )
+    fileIndex = 0
     for file in files:
-        filename = f"{FILE_PATH}/{file.filename}"
+        fileName, fileExtension = os.path.splitext(file.filename)
+        hashedFileName = sha1(
+            (fileName + str(fileIndex)).encode(encoding="UTF-8", errors="strict")
+        )
+        fileIndex = fileIndex + 1
+        filename = f"{FILE_PATH}/{hashedFileName.hexdigest()}{fileExtension}"
         async with aiofiles.open(filename, mode="wb") as f:
             content = await file.read()
             await f.write(content)
+        alreadyModified = []
+        for index, eachDict in enumerate(options):
+            if eachDict["image"] == file.filename:
+                if index not in alreadyModified:
+                    eachDict[
+                        "image"
+                    ] = f"{FILE_OPTION_PATH}/{hashedFileName.hexdigest()}{fileExtension}"
+                    alreadyModified.append(index)
+                    break
 
-    obj_in = QuizQuestionUpdate(option_image=[file.filename for file in files])
-    print(obj_in)
+    obj_in = QuizQuestionUpdate(quiz_id=quizid, options=json.dumps(options))
     updated = crud_question.update(db=db, db_obj=question, obj_in=obj_in)
 
-    return updated
+    return {"msg": "success"}
 
 
 @router.get("/{quizid}/question/{id}/{type}/{filename}")

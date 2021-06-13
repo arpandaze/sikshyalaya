@@ -10,6 +10,7 @@ const FileUpload = ({
   previews = true,
   iconSize = 20,
   handleSave,
+  maxFiles = 3,
 }) => {
   const [uploadPopUp, setUploadPopUp] = useState(false);
 
@@ -29,13 +30,14 @@ const FileUpload = ({
       <DropzoneDialog
         open={uploadPopUp}
         maxFileSize={maxSize}
-        onSave={() => {
-          handleSave();
+        onSave={(files) => {
+          handleSave(files);
           setUploadPopUp(false);
         }}
         acceptedFiles={acceptedFiles}
         showPreviews={previews}
         onClose={handleUploadClose}
+        filesLimit={maxFiles}
       />
     </>
   );

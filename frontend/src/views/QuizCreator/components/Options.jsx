@@ -10,25 +10,25 @@ import CustomTextField from "./../../../components/CustomTextField";
 import Checkbox from "./../../../components/Checkbox";
 import { BsFilePlus } from "react-icons/bs";
 import { DropzoneDialog } from "material-ui-dropzone";
-import QuizContext from "../QuizContext";
+import { QuizContext, QuizOptionContext } from "../QuizContext";
 import { FileUpload } from "../../../components/FileUpload";
+import { IndeterminateCheckBox } from "@material-ui/icons";
 
-const Options = ({ optionName, question, index, answer }) => {
-  const { selectFile, setSelectedFile } = useContext(QuizContext);
-  const [optionImage, setOptionImage] = useState([]);
+const Options = ({ optionName, question, index }) => {
+  const { optionFile, setOptionFile } = useContext(QuizOptionContext);
 
-  const handleOptionUploadSave = (files) => {
-    setSelectedFile(files);
-  };
-
-  const handleOptionUpload = (files) => {
-    setOptionImage([...optionImage, [...files]]);
+  const handleOptionUploadSave = (files, optionIndex) => {
+    let newOption = { ...optionFile[index], [optionIndex]: files };
+    setOptionFile({
+      ...optionFile,
+      [index]: newOption,
+    });
   };
 
   const onDeleteUploadItem = (index) => {
-    let temp = [...selectFile];
-    temp.splice(index, 1);
-    setSelectedFile(temp);
+    // let temp = [...selectFile];
+    // temp.splice(index, 1);
+    // setSelectedFile(temp);
   };
   return (
     <FieldArray name={`${optionName}[${index}].options`}>
@@ -40,11 +40,7 @@ const Options = ({ optionName, question, index, answer }) => {
                 type="button"
                 className="quizCreator_addOptions"
                 onClick={() => {
-                  newHelper.push([]);
-                  answer[index].push({
-                    name: `Option ${question.options.length + 1}`,
-                    value: question.options.length + 1,
-                  });
+                  newHelper.push("");
                 }}
               >
                 Add Options
@@ -63,12 +59,18 @@ const Options = ({ optionName, question, index, answer }) => {
                   justify="center"
                 >
                   <Grid item xs={7}>
-                    <CustomTextField
-                      addStyles="quizCreator_option"
-                      name={`${optionName}[${index}].options[${optionIndex}]`}
-                      placeHolder={`Option ${optionIndex + 1}`}
-                      autoComplete="off"
-                    />
+                    {!(
+                      optionFile[index] &&
+                      optionFile[index][optionIndex] &&
+                      optionFile[index][optionIndex].length
+                    ) && (
+                      <CustomTextField
+                        addStyles="quizCreator_option"
+                        name={`${optionName}[${index}].options[${optionIndex}]`}
+                        placeHolder={`Option ${optionIndex + 1}`}
+                        autoComplete="off"
+                      />
+                    )}
                   </Grid>
                   <Grid item xs={2}>
                     <Checkbox
@@ -87,7 +89,10 @@ const Options = ({ optionName, question, index, answer }) => {
                       <FileUpload
                         label="Upload Image"
                         acceptedFiles={["image/jpeg", "image/png"]}
-                        handleSave={handleOptionUploadSave}
+                        handleSave={(files) => {
+                          handleOptionUploadSave(files, optionIndex);
+                        }}
+                        maxFiles={1}
                       />
                     </Grid>
                   </Grid>
@@ -98,11 +103,6 @@ const Options = ({ optionName, question, index, answer }) => {
                       className="quizCreator_remove"
                       onClick={() => {
                         newHelper.remove(optionIndex);
-
-                        answer[index].splice(optionIndex, 1);
-                        if (answer[index] == null) {
-                          answer[index] = [];
-                        }
                       }}
                     >
                       <ImCross size={15} color={colorscheme.red2} />
