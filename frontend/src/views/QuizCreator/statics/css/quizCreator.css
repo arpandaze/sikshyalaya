@@ -199,6 +199,9 @@
   height:4.3em;
 
 }
+.quizCreator_filenameinner{
+  cursor:pointer;
+}
 
 .quizCreator_optionCheckbox{
 }
@@ -209,7 +212,7 @@
 .options_fileuploadedtext{
   text-align:center;
   max-width:16.5em;
-  font-size:1.3rem;
+  font-size:1.1rem;
   font-weight:100;
   overflow:hidden;
   white-space: nowrap;
