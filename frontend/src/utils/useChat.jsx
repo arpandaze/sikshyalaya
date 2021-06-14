@@ -14,6 +14,8 @@ const useChat = ({ classmates, classID }) => {
   const [classmatesState, setClassmatesState] = useState(null);
   const [classIDState, setClassIDState] = useState(null);
 
+  const [onlineState, setOnlineState] = useState([]);
+
   const onMessage = (event) => {
     let data = JSON.parse(event.data);
     let history_message = null;
@@ -70,8 +72,14 @@ const useChat = ({ classmates, classID }) => {
       };
       return { multi: false, data: msgInst };
     } else if (data.msg_type === ChatMessageTypes.ACTIVE_USER_LIST) {
-      console.log(data.data);
-      //setActiveUser([...chat, data.data]);
+      setOnlineState(JSON.parse(data.data));
+    } else if (data.msg_type === ChatMessageTypes.USER_JOINED) {
+      setOnlineState([...onlineState, parseInt(data.user)]);
+    } else if (data.msg_type === ChatMessageTypes.USER_LEFT) {
+      let onlineList = onlineState;
+      let index = onlineList.indexOf(data.user);
+      onlineList.splice(index, 1);
+      setOnlineState([...onlineList]);
     }
   };
 
@@ -96,6 +104,13 @@ const useChat = ({ classmates, classID }) => {
     websocket.send(JSON.stringify({ message: message, anon: anon }));
   };
 
-  return [history, sendMessage, setClassmatesState, setClassIDState];
+  return [
+    history,
+    sendMessage,
+    setClassmatesState,
+    setClassIDState,
+    onlineState,
+    classmatesState,
+  ];
 };
 export default useChat;
