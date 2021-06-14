@@ -6,9 +6,12 @@ import { BiSend } from "react-icons/bi";
 import Message from "./Message";
 import Image from "../../../components/Image";
 import { UserContext } from "../../../utils/Contexts/UserContext";
+import { WebsocketContext } from "../../../utils/Contexts/WebsocketContext";
 import defaultProfile from "../../../assets/default-profile.svg";
 import callAPI from "../../../utils/API";
 import useAPI from "../../../utils/useAPI";
+import useSocket from "../../../utils/useSocket";
+import useChat from "../../../utils/useChat";
 import configs from "../../../utils/configs";
 import { SettingsInputAntennaTwoTone } from "@material-ui/icons";
 import Switch from "@material-ui/core/Switch";
@@ -19,15 +22,16 @@ const ChatMessageTypes = {
   ANON_MESSAGE: 3,
   USER_JOINED: 4,
   USER_LEFT: 5,
+  ACTIVE_USER_LIST: 6,
 };
 
 const DiscussionBox = ({ classID }) => {
   const { user } = useContext(UserContext);
+  const { chatHistory, sendMessage, setClassmatesState, setClassIDState } =
+    useContext(WebsocketContext);
 
   const [checked, setChecked] = useState(false);
-  const [chat, setChat] = useState([]);
   const [message, setMessage] = useState("");
-  const [listenReady, setListenReady] = useState(false);
 
   const classmateFormatter = (req) => {
     let classmatesObj = {};
@@ -53,85 +57,26 @@ const DiscussionBox = ({ classID }) => {
   const focusField = () => {
     focusTextField.current.focus();
   };
-  const ws = useRef(null);
 
   useEffect(() => {
-    if (classID && classmates !== null) {
-      ws.current = new WebSocket(
-        `${configs.WEBSOCKET_HOST}/api/v1/class_session/ws/${classID}/`
-      );
-      setListenReady(true);
+    if (classmatesComplete) {
+      setClassmatesState(classmates);
     }
-  }, [classID, classmatesComplete]);
-
-  useEffect(() => {
-    if (classID && classmates !== null) {
-      ws.current.onmessage = (event) => {
-        let data = JSON.parse(event.data);
-        let history_message = null;
-        if (data.msg_type === ChatMessageTypes.MESSAGE_HISTORY) {
-          history_message = JSON.parse(data.data);
-          history_message = history_message.map((item) => {
-            if (item.msg_type === ChatMessageTypes.PUBLIC_MESSAGE) {
-              return {
-                id: item.user,
-                name: classmates[parseInt(item.user)].full_name,
-                photo: classmates[parseInt(item.user)].profile_image,
-                text: item.data,
-                sentTime: item.time,
-              };
-            } else if (item.msg_type === ChatMessageTypes.ANON_MESSAGE) {
-              return {
-                id: item.user,
-                name: item.user,
-                photo: null,
-                text: item.data,
-                sentTime: item.time,
-              };
-            }
-          });
-          history_message = history_message.filter((item) => {
-            if (item) {
-              return item;
-            }
-          });
-          setChat([...history_message]);
-        } else if (data.msg_type === ChatMessageTypes.PUBLIC_MESSAGE) {
-          let msgInst = {
-            id: parseInt(data.user),
-            name: classmates[parseInt(data.user)].full_name,
-            photo: classmates[parseInt(data.user)].profile_image,
-            text: data.data,
-            sentTime: data.time,
-          };
-          setChat([...chat, msgInst]);
-        } else if (data.msg_type === ChatMessageTypes.ANON_MESSAGE) {
-          let msgInst = {
-            id: 0,
-            name: data.user,
-            photo: null,
-            text: data.data,
-            sentTime: data.time,
-          };
-          setChat([...chat, msgInst]);
-        }
-      };
+    if (classID) {
+      setClassIDState(classID);
     }
-  }, [chat.length, classmatesComplete, listenReady]);
+  });
 
   const handleChange = (e) => {
     setMessage(e.target.value);
   };
   const handleSubmit = () => {
     if (message !== "") {
-      if (checked) {
-        ws.current.send(JSON.stringify({ message: message, anon: true }));
-      } else {
-        ws.current.send(JSON.stringify({ message: message }));
-      }
+      sendMessage({ message: message, anon: checked });
       setMessage("");
     }
   };
+
   const handleKeyPress = (e) => {
     if (e.keyCode === 13) {
       handleSubmit();
@@ -217,7 +162,7 @@ const DiscussionBox = ({ classID }) => {
                   justify="flex-start"
                 >
                   <Grid item className="discussionBox_messageRoot">
-                    <Message messages={chat} />
+                    <Message messages={chatHistory} />
                   </Grid>
                 </Grid>
               </Grid>

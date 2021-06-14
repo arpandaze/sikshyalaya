@@ -35,7 +35,7 @@ const courses_temp = [
   { sn: "6", code: "COMP 206", name: "Computer Project I", credit: "2" },
   { sn: "7", code: "COMP 208", name: "Laboratory Work", credit: "1" },
 ];
-const ProfileBar = ({ selected, landing=false }) => {
+const ProfileBar = ({ selected, landing = false }) => {
   const { user } = useContext(UserContext);
   const courseList = (userContext) => {
     try {
@@ -53,25 +53,24 @@ const ProfileBar = ({ selected, landing=false }) => {
     }
   };
   return (
-		<Grid
-			container
-			direction="column"
-			alignItems="center"
-			className="profileBar_root"
-		>
-			<Grid xs={12} item className="profileBar_profileBox">
-				<ProfileBox />
-			</Grid>
+    <Grid
+      container
+      direction="column"
+      alignItems="center"
+      className="profileBar_root"
+    >
+      <Grid xs={12} item className="profileBar_profileBox">
+        <ProfileBox />
+      </Grid>
       <Grid xs={12} item className="profileBar_courseBox">
-        {
-          landing ?
-            <CourseBox courseList={courseList(user)} selected={"1"} /> :
-            <OnlineBox />
-        }
-				
-			</Grid>
-		</Grid>
-	);
+        {landing ? (
+          <CourseBox courseList={courseList(user)} selected={"1"} />
+        ) : (
+          <OnlineBox />
+        )}
+      </Grid>
+    </Grid>
+  );
 };
 
 export default ProfileBar;

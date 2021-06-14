@@ -21,7 +21,7 @@ from sqlalchemy.orm import Session
 
 from core.config import settings
 from core.security import get_uid_hash
-from core.websocket import ws
+from core.websocket import ws, ChatMessageTypes
 from cruds import crud_class_session, crud_file, crud_user
 from forms.class_session import ClassSessionCreateForm
 from models import ClassSession as ClassSessionModel
@@ -153,47 +153,6 @@ async def create_upload_files(
     return {"msg": "success"}
 
 
-html = """
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Chat</title>
-    </head>
-    <body>
-        <h1>WebSocket Chat</h1>
-        <form action="" onsubmit="sendMessage(event)">
-            <input type="text" id="messageText" autocomplete="off"/>
-            <button>Send</button>
-        </form>
-        <ul id='messages'>
-        </ul>
-        <script>
-            var ws = new WebSocket("ws://localhost:8080/api/v1/class_session/ws/2/");
-            ws.onmessage = function(event) {
-            console.log(JSON.parse(event.data))
-                    var messages = document.getElementById('messages')
-                    var message = document.createElement('li')
-                    var content = document.createTextNode(`${event.data}`)
-                    message.appendChild(content)
-                    messages.appendChild(message)
-            };
-            function sendMessage(event) {
-                var input = document.getElementById("messageText")
-                data = {
-                    "type":"message",
-                    "message":input.value,
-                    "anon":false,
-                }
-                ws.send(JSON.stringify(data))
-                input.value = ''
-                event.preventDefault()
-            }
-        </script>
-    </body>
-</html>
-"""
-
-
 @router.websocket("/ws/{id}/")
 async def websocket_endpoint(
     db: Session = Depends(deps.get_db),
@@ -214,17 +173,15 @@ async def websocket_endpoint(
     try:
         while True:
             data = await websocket.receive_json()
-            await ws.message(
-                websocket=websocket,
-                user_id=user_id,
-                class_session_id=id,
-                message=data.get("message"),
-                anon=data.get("anon"),
-            )
+            if data.get("msg_type") == ChatMessageTypes.MESSAGE_HISTORY.value:
+                await ws.send_history(websocket, id)
+            else:
+                await ws.message(
+                    websocket=websocket,
+                    user_id=user_id,
+                    class_session_id=id,
+                    message=data.get("message"),
+                    anon=data.get("anon"),
+                )
     except WebSocketDisconnect:
         await ws.disconnect(websocket, class_session_id=id, user_id=user_id)
-
-
-@router.get("/test/test/")
-async def gettestests():
-    return HTMLResponse(html)

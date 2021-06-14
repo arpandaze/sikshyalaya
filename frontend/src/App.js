@@ -2,7 +2,9 @@ import React, { useEffect, useState, useMemo } from "react";
 import Routes from "./Route";
 import "./App.css";
 import { UserContext } from "./utils/Contexts/UserContext";
+import { WebsocketContext } from "./utils/Contexts/WebsocketContext";
 import { get, set } from "idb-keyval";
+import useChat from "./utils/useChat";
 
 function App() {
   const [user, setUser_s] = useState({
@@ -40,6 +42,7 @@ function App() {
     dob: null,
     join_year: null,
   });
+  const [websocket, setWebsocket] = useState(null);
 
   const setUser = (value) => {
     set("user", value).catch(() => {
@@ -51,6 +54,34 @@ function App() {
   const user_context_value = useMemo(
     () => ({ user, setUser }),
     [user, setUser]
+  );
+
+  const [
+    chatHistory,
+    sendMessage,
+    setClassmatesState,
+    setClassIDState,
+    onlineState,
+    classmatesState,
+  ] = useChat({});
+
+  const websocket_context_value = useMemo(
+    () => ({
+      chatHistory,
+      sendMessage,
+      setClassmatesState,
+      setClassIDState,
+      onlineState,
+      classmatesState,
+    }),
+    [
+      chatHistory,
+      sendMessage,
+      setClassmatesState,
+      setClassIDState,
+      onlineState,
+      classmatesState,
+    ]
   );
 
   useEffect(() => {
@@ -65,7 +96,9 @@ function App() {
 
   return (
     <UserContext.Provider value={user_context_value}>
-      <Routes />
+      <WebsocketContext.Provider value={websocket_context_value}>
+        <Routes />
+      </WebsocketContext.Provider>
     </UserContext.Provider>
   );
 }
