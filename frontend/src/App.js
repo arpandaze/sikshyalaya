@@ -4,6 +4,7 @@ import "./App.css";
 import { UserContext } from "./utils/Contexts/UserContext";
 import { WebsocketContext } from "./utils/Contexts/WebsocketContext";
 import { get, set } from "idb-keyval";
+import useChat from "./utils/useChat";
 
 function App() {
   const [user, setUser_s] = useState({
@@ -55,9 +56,12 @@ function App() {
     [user, setUser]
   );
 
+  const [chatHistory, sendMessage, setClassmatesState, setClassIDState] =
+    useChat({});
+
   const websocket_context_value = useMemo(
-    () => ({ websocket, setWebsocket }),
-    [websocket, setWebsocket]
+    () => ({ chatHistory, sendMessage, setClassmatesState, setClassIDState }),
+    [chatHistory, sendMessage, setClassmatesState, setClassIDState]
   );
 
   useEffect(() => {

@@ -1,35 +1,58 @@
 import { useState, useEffect, useContext, useRef } from "react";
 import configs from "./configs.jsx";
 
-const useSocket = ({ endpoint, onMessage, onOpen = null, fire = true }) => {
+const useSocket = ({
+  endpoint = null,
+  onConnect = null,
+  fire = true,
+  close = false,
+  onMessage,
+}) => {
   const [isReady, setIsReady] = useState(false);
+  const [history, setHistory] = useState([]);
+  const [closeState, setCloseState] = useState(close);
+  const [endpointState, setEndpointState] = useState(null);
   const ws = useRef(null);
 
   useEffect(() => {
-    if (fire && endpoint) {
-      ws.current = new WebSocket(`${configs.WEBSOCKET_HOST}/${endpoint}`);
-      if (!onOpen) {
+    console.log(fire, endpoint, endpointState);
+    if (fire && (endpointState || endpoint) != null) {
+      ws.current = new WebSocket(
+        `${configs.WEBSOCKET_HOST}${endpointState || endpoint}`
+      );
+      if (!onConnect) {
         ws.current.onopen = () => {
           setIsReady(true);
         };
       } else {
         ws.current.onopen = (data) => {
-          onOpen(data);
+          setIsReady(true);
+          onConnect(data);
         };
       }
     }
-  }, [endpoint, fire]);
+  }, [endpointState, endpoint, fire]);
 
   useEffect(() => {
-    if (fire) {
+    if (fire && isReady) {
       ws.current.onmessage = (data) => {
-        onMessage(data);
+        let ret = onMessage(data);
+        if (ret) {
+          if (ret.multi) {
+            setHistory([...history, ...ret.data]);
+          } else {
+            setHistory([...history, ret.data]);
+          }
+        }
       };
     }
-    return () => {
-      ws.disconnect();
-    };
-  }, [fire, endpoint, onMessage, onOpen]);
-  return [isReady];
+  }, [fire, endpointState, onMessage, onConnect, isReady]);
+
+  useEffect(() => {
+    if (close && ws.current) {
+      ws.current.close();
+    }
+  }, [closeState, setCloseState]);
+  return [ws.current, history, setEndpointState, isReady, setCloseState];
 };
 export default useSocket;

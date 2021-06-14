@@ -10,6 +10,8 @@ import { WebsocketContext } from "../../../utils/Contexts/WebsocketContext";
 import defaultProfile from "../../../assets/default-profile.svg";
 import callAPI from "../../../utils/API";
 import useAPI from "../../../utils/useAPI";
+import useSocket from "../../../utils/useSocket";
+import useChat from "../../../utils/useChat";
 import configs from "../../../utils/configs";
 import { SettingsInputAntennaTwoTone } from "@material-ui/icons";
 import Switch from "@material-ui/core/Switch";
@@ -25,6 +27,8 @@ const ChatMessageTypes = {
 
 const DiscussionBox = ({ classID }) => {
   const { user } = useContext(UserContext);
+  const { chatHistory, sendMessage, setClassmatesState, setClassIDState } =
+    useContext(WebsocketContext);
 
   const [checked, setChecked] = useState(false);
   const [chat, setChat] = useState([]);
@@ -40,6 +44,7 @@ const DiscussionBox = ({ classID }) => {
         profile_image: item.profile_image,
       };
     });
+    setClassmatesState([1, 2, 3]);
     return classmatesObj;
   };
 
@@ -56,93 +61,109 @@ const DiscussionBox = ({ classID }) => {
   const focusField = () => {
     focusTextField.current.focus();
   };
-  //const ws = useRef(null);
-  const { websocket, setWebsocket } = useContext(WebsocketContext);
 
   useEffect(() => {
+    if (classmatesComplete) {
+      setClassmatesState(classmates);
+    }
     if (classID) {
-      if (websocket) {
-        websocket.close();
-      }
-      let ws = new WebSocket(
-        `${configs.WEBSOCKET_HOST}/api/v1/class_session/ws/${classID}/`
-      );
-      setWebsocket(ws);
-      ws.onopen = () => {
-        setListenReady(true);
-      };
-    }
-  }, [classID]);
-
-  useEffect(() => {
-    if (websocket) {
-      if (websocket.readyState) {
-        const data = JSON.stringify({ msg_type: 1 });
-        websocket.send(data);
-      }
-    }
-  }, [listenReady]);
-
-  useEffect(() => {
-    if (classmatesComplete && websocket) {
-      websocket.onmessage = (event) => {
-        let data = JSON.parse(event.data);
-        let history_message = null;
-        if (data.msg_type === ChatMessageTypes.MESSAGE_HISTORY) {
-          history_message = JSON.parse(data.data);
-
-          history_message = history_message.map((item) => {
-            if (item.msg_type === ChatMessageTypes.PUBLIC_MESSAGE) {
-              return {
-                id: item.user,
-                name: classmates[parseInt(item.user)].full_name,
-                photo: classmates[parseInt(item.user)].profile_image,
-                text: item.data,
-                sentTime: item.time,
-              };
-            } else if (item.msg_type === ChatMessageTypes.ANON_MESSAGE) {
-              return {
-                id: item.user,
-                name: item.user,
-                photo: null,
-                text: item.data,
-                sentTime: item.time,
-              };
-            }
-          });
-          history_message = history_message.filter((item) => {
-            if (item) {
-              return item;
-            }
-          });
-          console.log(history_message);
-          console.log(setChat);
-          setChat(() => history_message);
-        } else if (data.msg_type === ChatMessageTypes.PUBLIC_MESSAGE) {
-          let msgInst = {
-            id: parseInt(data.user),
-            name: classmates[parseInt(data.user)].full_name,
-            photo: classmates[parseInt(data.user)].profile_image,
-            text: data.data,
-            sentTime: data.time,
-          };
-          setChat([...chat, msgInst]);
-        } else if (data.msg_type === ChatMessageTypes.ANON_MESSAGE) {
-          let msgInst = {
-            id: 0,
-            name: data.user,
-            photo: null,
-            text: data.data,
-            sentTime: data.time,
-          };
-          setChat([...chat, msgInst]);
-        } else if (data.msg_type === ChatMessageTypes.ACTIVE_USER_LIST) {
-          console.log(data.data);
-          //setActiveUser([...chat, data.data]);
-        }
-      };
+      setClassIDState(classID);
     }
   });
+
+  //const ws = useRef(null);
+  //const { websocket, setWebsocket } = useContext(WebsocketContext);
+
+  //const onMessage = (event) => {
+  //let data = JSON.parse(event.data);
+  //let history_message = null;
+  //if (data.msg_type === ChatMessageTypes.MESSAGE_HISTORY) {
+  //history_message = JSON.parse(data.data);
+
+  //history_message = history_message.map((item) => {
+  //if (item.msg_type === ChatMessageTypes.PUBLIC_MESSAGE) {
+  //return {
+  //id: item.user,
+  //name: classmates[parseInt(item.user)].full_name,
+  //photo: classmates[parseInt(item.user)].profile_image,
+  //text: item.data,
+  //sentTime: item.time,
+  //};
+  //} else if (item.msg_type === ChatMessageTypes.ANON_MESSAGE) {
+  //return {
+  //id: item.user,
+  //name: item.user,
+  //photo: null,
+  //text: item.data,
+  //sentTime: item.time,
+  //};
+  //}
+  //});
+  //history_message = history_message.filter((item) => {
+  //if (item) {
+  //return item;
+  //}
+  //});
+  //return { multi: true, data: history_message };
+  //} else if (data.msg_type === ChatMessageTypes.PUBLIC_MESSAGE) {
+  //let msgInst = {
+  //id: parseInt(data.user),
+  //name: classmates[parseInt(data.user)].full_name,
+  //photo: classmates[parseInt(data.user)].profile_image,
+  //text: data.data,
+  //sentTime: data.time,
+  //};
+  //return { multi: false, data: msgInst };
+  //} else if (data.msg_type === ChatMessageTypes.ANON_MESSAGE) {
+  //let msgInst = {
+  //id: 0,
+  //name: data.user,
+  //photo: null,
+  //text: data.data,
+  //sentTime: data.time,
+  //};
+  //return { multi: false, data: msgInst };
+  //} else if (data.msg_type === ChatMessageTypes.ACTIVE_USER_LIST) {
+  //console.log(data.data);
+  ////setActiveUser([...chat, data.data]);
+  //}
+  //};
+
+  //const onConnect = (event) => {
+  //event.currentTarget.send(JSON.stringify({ msg_type: 1 }));
+  //};
+
+  //const [websocket, history, setEndpointState] = useSocket({
+  //endpoint: "/api/v1/class_session/ws/" + classID + "/",
+  //onMessage: onMessage,
+  //onConnect: onConnect,
+  //fire: classID && classmatesComplete,
+  //});
+
+  //useEffect(() => {
+  //if (classID) {
+  //if (websocket) {
+  //websocket.close();
+  //}
+  //let ws = new WebSocket(
+  //`${configs.WEBSOCKET_HOST}/api/v1/class_session/ws/${classID}/`
+  //);
+  //setWebsocket(ws);
+  //ws.onopen = () => {
+  //setListenReady(true);
+  //};
+  //}
+  //}, [classID]);
+
+  //useEffect(() => {
+  //if (websocket) {
+  //if (websocket.readyState) {
+  //const data = JSON.stringify({ msg_type: 1 });
+  //websocket.send(data);
+  //}
+  //}
+  //}, [listenReady]);
+
   //}, [
   //chat.length,
   //JSON.stringify(activeUser),
@@ -155,14 +176,11 @@ const DiscussionBox = ({ classID }) => {
   };
   const handleSubmit = () => {
     if (message !== "") {
-      if (checked) {
-        websocket.send(JSON.stringify({ message: message, anon: true }));
-      } else {
-        websocket.send(JSON.stringify({ message: message }));
-      }
+      sendMessage({ message: message, anon: checked });
       setMessage("");
     }
   };
+
   const handleKeyPress = (e) => {
     if (e.keyCode === 13) {
       handleSubmit();
@@ -248,7 +266,7 @@ const DiscussionBox = ({ classID }) => {
                   justify="flex-start"
                 >
                   <Grid item className="discussionBox_messageRoot">
-                    <Message messages={chat} />
+                    <Message messages={chatHistory} />
                   </Grid>
                 </Grid>
               </Grid>
