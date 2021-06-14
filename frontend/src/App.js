@@ -56,12 +56,32 @@ function App() {
     [user, setUser]
   );
 
-  const [chatHistory, sendMessage, setClassmatesState, setClassIDState] =
-    useChat({});
+  const [
+    chatHistory,
+    sendMessage,
+    setClassmatesState,
+    setClassIDState,
+    onlineState,
+    classmatesState,
+  ] = useChat({});
 
   const websocket_context_value = useMemo(
-    () => ({ chatHistory, sendMessage, setClassmatesState, setClassIDState }),
-    [chatHistory, sendMessage, setClassmatesState, setClassIDState]
+    () => ({
+      chatHistory,
+      sendMessage,
+      setClassmatesState,
+      setClassIDState,
+      onlineState,
+      classmatesState,
+    }),
+    [
+      chatHistory,
+      sendMessage,
+      setClassmatesState,
+      setClassIDState,
+      onlineState,
+      classmatesState,
+    ]
   );
 
   useEffect(() => {
