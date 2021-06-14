@@ -1,19 +1,86 @@
 @import "../../../../utils/colors.css";
+
+@keyframes live {
+  0% {
+    background: var(--red4);
+  }
+  50% {
+    background: var(--red5);
+  }
+  100% {
+    background: var(--red4);
+  }
+}
+
 @media only screen and (min-width: 1280px) {
   .quiz_root {
-    width: 96% !important;
-    height: 100vh !important;
+    flex-grow: 1;
+    width: 94% !important;
     margin: 0px auto !important;
     position: relative;
-    flex-grow: 1;
   }
-  .quiz_quizCardContainer {
+  .quiz_activeCourseBar {
     position: relative;
-    top: 0px;
-    margin-top: 40px !important;
-    width: 100%;
+  }
+  .quiz_row {
+    position: relative;
+    top: 20px;
+  }
+  .quiz_row2 {
+    position: relative;
+    margin-top: 80px !important;
+  }
+  .quiz_smallRedBox {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--red4);
+    position: relative;
+    margin-left: 30px !important;
+    animation: live 1s infinite ease-in-out !important;
+  }
+  .quiz_currentContainer {
+    width: 45%;
+    margin-left: 30px;
+  }
+  .quiz_activeTitle {
+    display: inline-block;
+    position: relative;
+    left: 15px;
+    color: var(--primaryTextColor);
+  }
+  .quiz_upCommingCourseBar {
+    position: relative;
+  }
+  .quiz_upCommingContainerBox {
+    width: 50%;
+    padding: 2%;
+    margin: 0px auto;
+  }
+  .quiz_pastIcon {
+    display: inline-block;
+    position: relative;
+    margin-left: 30px !important;
+  }
+  .quiz_pastText {
+    display: inline-block;
+    position: relative;
+    left: 15px;
+    color: var(--primaryTextColor);
+  }
+  .quiz_pastContainer {
+    width: 98%;
+    margin: 0px auto !important;
+  }
+  .quiz_pastInside {
+    padding: 30px;
+    margin: 0px auto !important;
   }
 }
 
 @media only screen and (min-width: 1920px) {
+  .quiz_currentContainer {
+    width: 33%;
+  }
 }
