@@ -31,10 +31,7 @@ const DiscussionBox = ({ classID }) => {
     useContext(WebsocketContext);
 
   const [checked, setChecked] = useState(false);
-  const [chat, setChat] = useState([]);
-  const [activeUser, setActiveUser] = useState([]);
   const [message, setMessage] = useState("");
-  const [listenReady, setListenReady] = useState(false);
 
   const classmateFormatter = (req) => {
     let classmatesObj = {};
@@ -44,7 +41,6 @@ const DiscussionBox = ({ classID }) => {
         profile_image: item.profile_image,
       };
     });
-    setClassmatesState([1, 2, 3]);
     return classmatesObj;
   };
 
@@ -70,106 +66,6 @@ const DiscussionBox = ({ classID }) => {
       setClassIDState(classID);
     }
   });
-
-  //const ws = useRef(null);
-  //const { websocket, setWebsocket } = useContext(WebsocketContext);
-
-  //const onMessage = (event) => {
-  //let data = JSON.parse(event.data);
-  //let history_message = null;
-  //if (data.msg_type === ChatMessageTypes.MESSAGE_HISTORY) {
-  //history_message = JSON.parse(data.data);
-
-  //history_message = history_message.map((item) => {
-  //if (item.msg_type === ChatMessageTypes.PUBLIC_MESSAGE) {
-  //return {
-  //id: item.user,
-  //name: classmates[parseInt(item.user)].full_name,
-  //photo: classmates[parseInt(item.user)].profile_image,
-  //text: item.data,
-  //sentTime: item.time,
-  //};
-  //} else if (item.msg_type === ChatMessageTypes.ANON_MESSAGE) {
-  //return {
-  //id: item.user,
-  //name: item.user,
-  //photo: null,
-  //text: item.data,
-  //sentTime: item.time,
-  //};
-  //}
-  //});
-  //history_message = history_message.filter((item) => {
-  //if (item) {
-  //return item;
-  //}
-  //});
-  //return { multi: true, data: history_message };
-  //} else if (data.msg_type === ChatMessageTypes.PUBLIC_MESSAGE) {
-  //let msgInst = {
-  //id: parseInt(data.user),
-  //name: classmates[parseInt(data.user)].full_name,
-  //photo: classmates[parseInt(data.user)].profile_image,
-  //text: data.data,
-  //sentTime: data.time,
-  //};
-  //return { multi: false, data: msgInst };
-  //} else if (data.msg_type === ChatMessageTypes.ANON_MESSAGE) {
-  //let msgInst = {
-  //id: 0,
-  //name: data.user,
-  //photo: null,
-  //text: data.data,
-  //sentTime: data.time,
-  //};
-  //return { multi: false, data: msgInst };
-  //} else if (data.msg_type === ChatMessageTypes.ACTIVE_USER_LIST) {
-  //console.log(data.data);
-  ////setActiveUser([...chat, data.data]);
-  //}
-  //};
-
-  //const onConnect = (event) => {
-  //event.currentTarget.send(JSON.stringify({ msg_type: 1 }));
-  //};
-
-  //const [websocket, history, setEndpointState] = useSocket({
-  //endpoint: "/api/v1/class_session/ws/" + classID + "/",
-  //onMessage: onMessage,
-  //onConnect: onConnect,
-  //fire: classID && classmatesComplete,
-  //});
-
-  //useEffect(() => {
-  //if (classID) {
-  //if (websocket) {
-  //websocket.close();
-  //}
-  //let ws = new WebSocket(
-  //`${configs.WEBSOCKET_HOST}/api/v1/class_session/ws/${classID}/`
-  //);
-  //setWebsocket(ws);
-  //ws.onopen = () => {
-  //setListenReady(true);
-  //};
-  //}
-  //}, [classID]);
-
-  //useEffect(() => {
-  //if (websocket) {
-  //if (websocket.readyState) {
-  //const data = JSON.stringify({ msg_type: 1 });
-  //websocket.send(data);
-  //}
-  //}
-  //}, [listenReady]);
-
-  //}, [
-  //chat.length,
-  //JSON.stringify(activeUser),
-  //classmatesComplete,
-  //listenReady,
-  //]);
 
   const handleChange = (e) => {
     setMessage(e.target.value);

@@ -15,7 +15,6 @@ const useSocket = ({
   const ws = useRef(null);
 
   useEffect(() => {
-    console.log(fire, endpoint, endpointState);
     if (fire && (endpointState || endpoint) != null) {
       ws.current = new WebSocket(
         `${configs.WEBSOCKET_HOST}${endpointState || endpoint}`
