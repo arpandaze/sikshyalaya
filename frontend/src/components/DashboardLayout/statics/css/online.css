@@ -1,108 +1,80 @@
 @import "../../../../utils/colors.css";
 
-
 @media only screen and (min-width: 1280px) {
-.online_root{
-  flex-grow:1;
-  padding:0px 10px;
-  position: relative;
-  cursor: pointer;
-}
+  .online_root {
+    flex-grow: 1;
+    position: relative;
+    cursor: pointer;
+  }
+  .online_Image {
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    float: left;
+    box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.75);
+  }
+  .online_greenDot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--red1);
+    position: absolute;
+    top: 25px;
+    left: 5px;
+    margin-left: 20px !important;
+    box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.75);
+  }
+  .online_ImageRoot {
+    position: relative;
+  }
+  .online_nameContainer {
+    width: 160px;
+  }
+  .online_nameContainer p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 
-.online_Image{
-  border-radius: 50%;
-	width: 35px;
-	height: 35px;
-  float: left;
-  box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.75);
+  .online_name {
+    padding: 0px 10px;
+    font-size: 0.8em;
+    font-weight: 600;
+    color: var(--grey1);
+    text-overflow: ellipsis;
+  }
+  .online_root:hover {
+    flex-grow: 1;
+    padding: 0px 10px;
+    background: var(--grey4);
+    border-radius: 15px;
+  }
+  .online_check {
+    position: relative;
+    left: 50px;
+    padding-left: 5px;
+  }
 
-}
-.online_greenDot{
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--red1);
-  position: absolute;
-  top:25px;
-  left:5px;
-  margin-left: 20px !important;
-  box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.75);
-
-}
-.online_ImageRoot{
-  position: relative;
-}
-.online_nameContainer{
-  width:160px;
-}
-.online_nameContainer p{
-  overflow:hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-.online_name{
-  padding:0px 10px;
-  font-size: 0.8em;
-  font-weight: 600;
-  color:var(--grey1);
-  text-overflow: ellipsis;
-}
-.online_miniProfile{
-  display:none;
-}
-.online_root:hover{
-  flex-grow:1;
-  padding:0px 10px;
-  background:var(--grey4);
-  border-radius:15px;
-}
-
-.online_root:hover .online_miniProfile{
-  display:inline;
-  position:fixed;
-  border-radius:25px;
-  top:50vh;
-  right:23vw !important;
-  background-color: var(--white);
-  box-shadow: 3px 3px 15px -3px rgba(0, 0, 0, 0.2);
-  z-index:2;
-}
-.online_check{
-  position: relative;
-  left:50px;
-  padding-left:5px;
-}
-
-.online_randomCheckBox{
-}
+  .online_randomCheckBox {
+  }
 }
 
 @media only screen and (min-width: 1920px) {
-
-  .online_Image{
+  .online_Image {
     width: 40px;
     height: 40px;
   }
-  .online_greenDot{
+  .online_greenDot {
     width: 12px;
     height: 12px;
-    top:28px;
-    left:10px;
+    top: 28px;
+    left: 10px;
   }
-  .online_name{
-    padding:0px 20px;
+  .online_name {
+    padding: 0px 20px;
     font-size: 1em;
   }
-  .online_nameContainer{
-    width:250px;
-  }
-  .online_root:hover .online_miniProfile{
-    position: fixed;;
-    top:50vh;
-    right:10vw ;
+  .online_nameContainer {
+    width: 250px;
   }
 }
-  
-
-

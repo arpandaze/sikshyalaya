@@ -16,8 +16,8 @@
     margin: 20px auto !important;
   }
   .onlineBox_userlistContainerOuter {
-    width: 100%;
     overflow-y: scroll;
+    position: relative;
   }
   .onlineBox_greenDot {
     width: 20px;
@@ -33,16 +33,15 @@
     position: relative;
     text-indent: 8px;
   }
+  .onlineBox_miniProfileContainer {
+    position: relative;
+  }
   .onlineBox_userList {
-    padding: 3px 10px;
   }
 }
 @media only screen and (min-width: 1920px) {
   .onlineBox_root {
     max-height: 600px;
-  }
-  .onlineBox_userList {
-    padding: 5px 0px;
   }
   .onlineBox_userlistContainerOuter {
     padding: 0px 20px 20px 20px;

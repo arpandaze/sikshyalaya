@@ -5,7 +5,6 @@ import Image from "../Image";
 import { UserContext } from "../../utils/Contexts/UserContext";
 import "./statics/css/online.css";
 import configs from "../../utils/configs";
-import MiniProfile from "./MiniProfile";
 import Checkbox from "../../components/Checkbox";
 import { Formik, Form, Field, FieldArray } from "formik";
 
@@ -28,24 +27,15 @@ const Online = ({
       justify="flex-start"
       alignItems="center"
       className="online_root"
-      style={{
-        width: size * 15,
-      }}
     >
       <Grid item className="online_ImageRoot">
         <div className="online_greenDot" hidden={!online}></div>
         <Image src={src} addStyles="online_Image" />
       </Grid>
-      <Grid
-        item
-        className="online_nameContainer"
-        style={{
-          width: size * 10,
-        }}
-      >
+      <Grid item className="online_nameContainer">
         <p className="online_name">{username}</p>
       </Grid>
-      {miniProfile ? (
+      {/* {miniProfile ? (
         <Grid item className="online_miniProfile">
           <MiniProfile
             id={id}
@@ -74,7 +64,7 @@ const Online = ({
             </Grid>
           </Form>
         </Formik>
-      )}
+      )} */}
     </Grid>
   );
 };

@@ -9,7 +9,7 @@ import configs from "../../utils/configs";
 import defaultProfile from "../../assets/default-profile.svg";
 
 var end = ["st", "nd", "rd", "th", "th"];
-const OnlineBox = ({ miniProfile = true, size, ...rest }) => {
+const OnlineBox = ({ miniProfile = true, ...rest }) => {
   const {
     chatHistory,
     sendMessage,
@@ -68,17 +68,19 @@ const OnlineBox = ({ miniProfile = true, size, ...rest }) => {
         >
           {classmates.map((user) => (
             <Grid item className="onlineBox_userList">
-              <Online
-                id={user.id}
-                username={user.name}
-                src={user.image}
-                year={user.year}
-                online={user.online}
-                semester={user.semester}
-                program={user.program}
-                miniProfile={miniProfile}
-                size={size}
-              />
+              <Grid container direction="row">
+                <Grid item>
+                  <Online
+                    id={user.id}
+                    username={user.name}
+                    src={user.image}
+                    year={user.year}
+                    online={user.online}
+                    semester={user.semester}
+                    program={user.program}
+                  />
+                </Grid>
+              </Grid>
             </Grid>
           ))}
         </Grid>
