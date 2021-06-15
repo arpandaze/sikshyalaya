@@ -152,6 +152,9 @@ class CommandDefinition:
 
         db_populate.populate_all()
 
+    def pytest(self):
+        os.system("pytest --verbose --color=yes")
+
 
 commands = CommandDefinition()
 
@@ -216,6 +219,11 @@ def dcstart():
 
 
 @click.command()
+def pytest():
+    commands.pytest()
+
+
+@click.command()
 def mkmig():
     commands.mkmig()
 
@@ -264,6 +272,7 @@ main.add_command(populate)
 main.add_command(logs)
 main.add_command(remake)
 main.add_command(dcstart)
+main.add_command(pytest)
 clean.add_command(db)
 clean.add_command(clean_mig)
 clean.add_command(redis)
