@@ -23,8 +23,12 @@
 }
 .quizCard_title {
   margin: 0;
-  font-size: 1.35em;
+  margin-left: 30px;
+  width: 300px;
+  text-indent: 0px;
+  font-size: 1.3em;
   font-weight: 600;
+  word-wrap: break-word;
 }
 .quizCard_timerContainer {
   position: absolute;
@@ -47,7 +51,7 @@
 }
 .quizCard_description {
   width: 85%;
-  height: 190px;
+  max-height: 190px;
   margin: 0px auto;
   text-indent: 0px;
   text-align: justify;
@@ -66,7 +70,7 @@
   position: relative;
 }
 .quizCard_footerInnerContainer {
-  margin: 0px 0px 0px 38px;
+  margin: 0px 0px 0px 50px !important;
 }
 .quizCard_time {
   font-weight: 600;
@@ -75,6 +79,7 @@
 .quizCard_instructorTitle {
   margin: 0;
   font-weight: 600;
+  font-size: 1.09em;
   color: var(--green6);
 }
 .quizCard_instructor {

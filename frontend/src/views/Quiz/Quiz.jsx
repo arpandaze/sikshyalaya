@@ -25,8 +25,12 @@ const Quiz = () => {
       return [];
     }
 
-    let responseData = [];
-    responseData = response.data.map((quiz) => {
+    let responseData = {
+      active: [],
+      past: [],
+    };
+    console.log(response.data);
+    responseData.active = response.data.active.map((quiz) => {
       let formattedResponseData = {
         id: quiz.id,
         date: quiz.date,
@@ -37,15 +41,33 @@ const Quiz = () => {
         is_randomized: quiz.is_randomized,
         display_individual: quiz.display_individual,
         course_id: quiz.course_id,
+        instructor: quiz.instructor,
       };
-
       return formattedResponseData;
     });
 
-    return responseData.reverse();
+    responseData.past = response.data.past.map((quiz) => {
+      let formattedResponseData = {
+        id: quiz.id,
+        date: quiz.date,
+        end_time: quiz.end_time,
+        start_time: quiz.start_time,
+        title: quiz.title,
+        description: quiz.description,
+        is_randomized: quiz.is_randomized,
+        display_individual: quiz.display_individual,
+        course_id: quiz.course_id,
+        instructor: quiz.instructor,
+      };
+      return formattedResponseData;
+    });
+
+    console.log(response.data);
+
+    return responseData;
   };
   let [allQuiz, allQuizComplete] = useAPI(
-    { endpoint: "/api/v1/quiz/" },
+    { endpoint: "/api/v1/quiz/activeandpast" },
     quizFormatter,
     defaultQuizvalue
   );
@@ -54,10 +76,34 @@ const Quiz = () => {
     <DashboardLayout>
       <Grid container direction="column" className="quiz_root" wrap="nowrap">
         <Grid item className="quiz_row">
-          <div className="quiz_smallRedBox"></div>
-          <h1 className="quiz_activeTitle">Active Quiz</h1>
-          <div className="quiz_currentContainer">{/* asds */}</div>
+          <Grid container direction="column">
+            <Grid item>
+              <Grid container direction="row" alignItems="center">
+                <div className="quiz_smallRedBox"></div>
+                <h1 className="quiz_activeTitle">Active Quiz</h1>
+              </Grid>
+            </Grid>
+            <Grid item>
+              <Grid container direction="row">
+                {allQuizComplete && allQuiz.active.length ? (
+                  allQuiz.active.map((data, index) => (
+                    <Grid key={data.id} item className="quiz_cardInside">
+                      <CustomQuizCard
+                        key={data.id}
+                        quiz={data}
+                        image={[...imageList].reverse()[index % 5]}
+                        onClick={onClick}
+                      />
+                    </Grid>
+                  ))
+                ) : (
+                  <p className="quiz_noQuiz">No active Quiz Available</p>
+                )}
+              </Grid>
+            </Grid>
+          </Grid>
         </Grid>
+
         <Grid item className="quiz_row2">
           <Grid container direction="row" alignItems="center">
             <BsCalendar
@@ -70,10 +116,11 @@ const Quiz = () => {
           <br />
           <br />
           <Grid container direction="row" className="quiz_pastContainer">
-            {allQuizComplete && allQuiz.length ? (
-              allQuiz.map((data, index) => (
-                <Grid item className="quiz_pastInside">
+            {allQuizComplete && allQuiz.past.length ? (
+              allQuiz.past.map((data, index) => (
+                <Grid key={data.id} item className="quiz_cardInside">
                   <CustomQuizCard
+                    key={data.id}
                     quiz={data}
                     image={imageList[index % 5]}
                     onClick={onClick}

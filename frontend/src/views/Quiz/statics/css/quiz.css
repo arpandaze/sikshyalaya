@@ -41,7 +41,6 @@
     animation: live 1s infinite ease-in-out !important;
   }
   .quiz_currentContainer {
-    width: 45%;
     margin-left: 30px;
   }
   .quiz_activeTitle {
@@ -73,9 +72,14 @@
     width: 98%;
     margin: 0px auto !important;
   }
-  .quiz_pastInside {
+  .quiz_cardInside {
     padding: 30px;
     margin: 0px auto !important;
+  }
+  .quiz_noQuiz {
+    font-size: 1.25em;
+    font-weight: 500;
+    text-indent: 60px;
   }
 }
 
