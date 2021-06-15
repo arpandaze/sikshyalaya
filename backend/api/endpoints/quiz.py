@@ -1,5 +1,5 @@
+from datetime import datetime
 from typing import Any, List, Dict
-from pydantic import Json
 
 from hashlib import sha1
 
@@ -10,7 +10,7 @@ from sqlalchemy.orm import Session
 from core.config import settings
 import json
 from models import User
-from models.quiz import QuestionType, AnswerType
+from models.quiz import AnswerType
 from utils import deps
 from cruds import crud_quiz, crud_question
 from schemas import (
@@ -72,6 +72,74 @@ async def get_quiz(
 
     if current_user.user_type <= settings.UserType.ADMIN.value:
         return quiz
+
+
+@router.get("/activeandpast", response_model=Dict[str, List[Quiz]])
+async def get_active_quiz(
+    db: Session = Depends(deps.get_db),
+    skip: int = 0,
+    limit: int = -1,
+    current_user: User = Depends(deps.get_current_active_user),
+) -> Any:
+
+    quiz = crud_quiz.get_multi(db, skip=skip, limit=limit)
+    active_quiz_list = []
+    past_quiz_list = []
+
+    if current_user.user_type == settings.UserType.STUDENT.value:
+        active_quiz_list = []
+        for quizItem in quiz:
+            if (quizItem.date == datetime.now().date()) and (
+                quizItem.start_time <= datetime.now().time()
+                and quizItem.end_time > datetime.now().time()
+            ):
+                for group in quizItem.group:
+                    if group.id == current_user.group.id:
+                        active_quiz_list.append(quizItem)
+            elif (quizItem.date <= datetime.now().date()) or (
+                quizItem.date == datetime.now().date()
+                and quizItem.start_time <= datetime.now().time()
+                and quizItem.end_time > datetime.now().time()
+            ):
+                for group in quizItem.group:
+                    if group.id == current_user.group.id:
+                        past_quiz_list.append(quizItem)
+
+    if current_user.user_type == settings.UserType.TEACHER.value:
+
+        for quizItem in quiz:
+            if (quizItem.date == datetime.now().date()) and (
+                quizItem.start_time <= datetime.now().time()
+                and quizItem.end_time > datetime.now().time()
+            ):
+                for instructor in quizItem.instructor:
+                    if current_user.id == instructor.id:
+                        active_quiz_list.append(quizItem)
+            elif (quizItem.date <= datetime.now().date()) or (
+                quizItem.date == datetime.now().date()
+                and quizItem.start_time <= datetime.now().time()
+                and quizItem.end_time > datetime.now().time()
+            ):
+                for instructor in quizItem.instructor:
+                    if current_user.id == instructor.id:
+                        past_quiz_list.append(quizItem)
+
+    if current_user.user_type <= settings.UserType.ADMIN.value:
+        quiz_list = []
+        for quizItem in quiz:
+            if (quizItem.date == datetime.now().date()) and (
+                quizItem.start_time <= datetime.now().time()
+                and quizItem.end_time > datetime.now().time()
+            ):
+                active_quiz_list.append(quizItem)
+            elif (quizItem.date <= datetime.now().date()) or (
+                quizItem.date == datetime.now().date()
+                and quizItem.start_time <= datetime.now().time()
+                and quizItem.end_time > datetime.now().time()
+            ):
+                past_quiz_list
+
+    return {"active": active_quiz_list, "past": past_quiz_list}
 
 
 @router.post("/")
