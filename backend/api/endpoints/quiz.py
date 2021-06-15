@@ -55,8 +55,9 @@ async def get_quiz(
     if current_user.user_type == settings.UserType.STUDENT.value:
         quiz_list = []
         for quizItem in quiz:
-            if quizItem.group_id == current_user.group_id:
-                quiz_list.append(quizItem)
+            for group in quizItem.group:
+                if group.id == current_user.group.id:
+                    quiz_list.append(quizItem)
 
         return quiz_list
 
