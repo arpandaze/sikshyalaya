@@ -1,5 +1,5 @@
 from datetime import date, time
-from typing import Optional, List  # noqa
+from typing import Optional, List, Dict  # noqa
 
 from pydantic import BaseModel, Json
 from schemas import GroupReturn, UserReturnMin
@@ -69,6 +69,7 @@ class QuizQuestionUpdate(QuizQuestionBase):
 
 class QuizQuestionInDBBase(QuizQuestionBase):
     id: Optional[int]
+    options: List[Dict[str, str]]
 
     class Config:
         orm_mode = True
