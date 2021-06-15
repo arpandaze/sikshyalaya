@@ -10,114 +10,46 @@ import circles from "../../assets/circles.png";
 import cycle from "../../assets/cycle.png";
 import stripes from "../../assets/stripes.png";
 import sun from "../../assets/sun.png";
+import useAPI from "../../utils/useAPI";
+import callAPI from "../../utils/API";
 
 const imageList = [boxes, cycle, circles, sun, stripes];
 
-const datas = [
-  {
-    quiz_title: "Aatish Internal Test",
-    quiz_description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet sem sodales, sagittis sapien sit amet, sagittis nunc. Cras commodo sapien a magna vehicula congue. 1.Pellentesque sodales vel nibh sed condimentum. 2.In pulvinar posuere lacus imperdiet gravida.3. Donec eget scelerisque orci, eget tempus mi. 4. Fusce iaculis ligula a interdum euismod. Sed velit quam, placerat sed ultricies id, porta vel loremsssss. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet sem sodales, sagittis sapien sit amet, sagittis nunc. Cras commodo sapien a magna vehicula congue. 1.Pellentesque sodales vel nibh sed condimentum. 2.In pulvinar posuere lacus imperdiet gravida.3. Donec eget scelerisque orci, eget tempus mi. 4. Fusce iaculis ligula a interdum euismod. Sed velit quam, placerat sed ultricies id, porta vel lorem.",
-    quiz_course: "COMP 102",
-    quiz_instructor: "Dr. Dil Bahadur Gurung",
-    start_time: "12:00 am",
-    end_time: "2:00 am",
-    date: "14th June 2021",
-    isRandomized: "True",
-    questions: [
-      {
-        question_text: "Rushab k ramro nai ho ta?",
-        question_type: "1",
-        options: ["True", "False"],
-        answer: "1",
-        marks: "10",
-      },
-    ],
-  },
-  {
-    quiz_title: "Abhijeet Internal Test",
-    quiz_description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet sem sodales, sagittis sapien sit amet, sagittis nunc. Cras commodo sapien a magna vehicula congue. 1.Pellentesque sodales vel nibh sed condimentum. 2.In pulvinar posuere lacus imperdiet gravida.3. Donec eget scelerisque orci, eget tempus mi. 4. Fusce iaculis ligula a interdum euismod. Sed velit quam, placerat sed ultricies id, porta vel lorem. ",
-    quiz_course: "COMP 102",
-    quiz_instructor: "Dr. Dil Bahadur Gurung",
-    start_time: "12:00 am",
-    end_time: "2:00 am",
-    date: "14th June 2021",
-    isRandomized: "True",
-    questions: [
-      {
-        question_text: "Rushab k ramro nai ho ta?",
-        question_type: "1",
-        options: ["True", "False"],
-        answer: "1",
-        marks: "10",
-      },
-    ],
-  },
-  {
-    quiz_title: "Yugesh Internal Test",
-    quiz_description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet sem sodales, sagittis sapien sit amet, sagittis nunc. Cras commodo sapien a magna vehicula congue. 1.Pellentesque sodales vel nibh sed condimentum. 2.In pulvinar posuere lacus imperdiet gravida.3. Donec eget scelerisque orci, eget tempus mi. 4. Fusce iaculis ligula a interdum euismod. Sed velit quam, placerat sed ultricies id, porta vel lorem. ",
-    quiz_course: "COMP 102",
-    quiz_instructor: "Dr. Dil Bahadur Gurung",
-    start_time: "12:00 am",
-    end_time: "2:00 am",
-    date: "14th June 2021",
-    isRandomized: "True",
-    questions: [
-      {
-        question_text: "Rushab k ramro nai ho ta?",
-        question_type: "1",
-        options: ["True", "False"],
-        answer: "1",
-        marks: "10",
-      },
-    ],
-  },
-  {
-    quiz_title: "Rushab Internal Test",
-    quiz_description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet sem sodales, sagittis sapien sit amet, sagittis nunc. Cras commodo sapien a magna vehicula congue. 1.Pellentesque sodales vel nibh sed condimentum. 2.In pulvinar posuere lacus imperdiet gravida.3. Donec eget scelerisque orci, eget tempus mi. 4. Fusce iaculis ligula a interdum euismod. Sed velit quam, placerat sed ultricies id, porta vel lorem. ",
-    quiz_course: "COMP 102",
-    quiz_instructor: "Dr. Dil Bahadur Gurung",
-    start_time: "12:00 am",
-    end_time: "2:00 am",
-    date: "14th June 2021",
-    isRandomized: "True",
-    questions: [
-      {
-        question_text: "Rushab k ramro nai ho ta?",
-        question_type: "1",
-        options: ["True", "False"],
-        answer: "1",
-        marks: "10",
-      },
-    ],
-  },
-  {
-    quiz_title: "Arpan Internal Test",
-    quiz_description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet sem sodales, sagittis sapien sit amet, sagittis nunc. Cras commodo sapien a magna vehicula congue. 1.Pellentesque sodales vel nibh sed condimentum. 2.In pulvinar posuere lacus imperdiet gravida.3. Donec eget scelerisque orci, eget tempus mi. 4. Fusce iaculis ligula a interdum euismod. Sed velit quam, placerat sed ultricies id, porta vel lorem. ",
-    quiz_course: "COMP 102",
-    quiz_instructor: "Dr. Dil Bahadur Gurung",
-    start_time: "12:00 am",
-    end_time: "2:00 am",
-    date: "14th June 2021",
-    isRandomized: "True",
-    questions: [
-      {
-        question_text: "Rushab k ramro nai ho ta?",
-        question_type: "1",
-        options: ["True", "False"],
-        answer: "1",
-        marks: "10",
-      },
-    ],
-  },
-];
+const datas = [];
 
 const onClick = () => {};
 const Quiz = () => {
+  const defaultQuizvalue = [];
+  const quizFormatter = (response) => {
+    if (response.data.length === 0) {
+      return [];
+    }
+
+    let responseData = [];
+    responseData = response.data.map((quiz) => {
+      let formattedResponseData = {
+        id: quiz.id,
+        date: quiz.date,
+        end_time: quiz.end_time,
+        start_time: quiz.start_time,
+        title: quiz.title,
+        description: quiz.description,
+        is_randomized: quiz.is_randomized,
+        display_individual: quiz.display_individual,
+        course_id: quiz.course_id,
+      };
+
+      return formattedResponseData;
+    });
+
+    return responseData.reverse();
+  };
+  let [allQuiz, allQuizComplete] = useAPI(
+    { endpoint: "/api/v1/quiz/" },
+    quizFormatter,
+    defaultQuizvalue
+  );
+
   return (
     <DashboardLayout>
       <Grid container direction="column" className="quiz_root" wrap="nowrap">
@@ -138,15 +70,19 @@ const Quiz = () => {
           <br />
           <br />
           <Grid container direction="row" className="quiz_pastContainer">
-            {datas.map((data, index) => (
-              <Grid item className="quiz_pastInside">
-                <CustomQuizCard
-                  quiz={data}
-                  image={imageList[index % 5]}
-                  onClick={onClick}
-                />
-              </Grid>
-            ))}
+            {allQuizComplete && allQuiz.length ? (
+              allQuiz.map((data, index) => (
+                <Grid item className="quiz_pastInside">
+                  <CustomQuizCard
+                    quiz={data}
+                    image={imageList[index % 5]}
+                    onClick={onClick}
+                  />
+                </Grid>
+              ))
+            ) : (
+              <></>
+            )}
           </Grid>
         </Grid>
       </Grid>
