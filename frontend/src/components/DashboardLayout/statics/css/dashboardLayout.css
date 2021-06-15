@@ -29,27 +29,6 @@
 
 @media only screen and (min-width: 1920px) {
   .dashboardLayout_mainRoot {
-    flex-grow: 1;
-    width: 100vw;
     max-width: 1920px;
-    margin: 0px auto;
-  }
-  .dashboardLayout_sideBar {
-    height: 100vh;
-    border-right: 1px solid rgba(127, 127, 127, 0.2);
-  }
-  .dashboardLayout_mainArea {
-    height: 100vh;
-    position: relative;
-    overflow: hidden;
-    overflow-y: scroll;
-  }
-  .dashboardLayout_profileBar {
-    height: 100vh;
-    cursor: pointer;
-    border-left: 1px solid rgba(127, 127, 127, 0.2);
-    position: relative;
-    overflow: hidden;
-    overflow-y: scroll;
   }
 }
