@@ -7,6 +7,7 @@ import os
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from sqlalchemy.sql.expression import true
 from core.config import settings
 import json
 from models import User
@@ -210,6 +211,10 @@ async def get_question(
         )  # quiz not found in database
 
     questions = crud_question.get_all_by_quiz_id(db, quiz_id=quiz.id)
+    for question in questions:
+        if len(question.answer) > 1:
+            question.multiple = True
+
     return questions
 
 
@@ -224,6 +229,8 @@ async def get_specific_question(
     questions = await get_question(db, quizid=quizid, current_user=current_user)
     for question in questions:
         if question.id == id:
+            if len(question.answer) > 1:
+                question.multiple = True
             return question
 
     raise HTTPException(
