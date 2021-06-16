@@ -36,6 +36,13 @@ function App() {
           },
         },
         sem: null,
+        course: {
+          course_code: null,
+          course_credit: null,
+          course_name: null,
+          department_id: null,
+          id: null,
+        },
       },
     ],
     contact_number: null,

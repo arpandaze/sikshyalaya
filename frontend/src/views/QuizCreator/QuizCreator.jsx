@@ -18,37 +18,12 @@ import CustomTextField from "../../components/CustomTextField";
 import Question from "./components/Question";
 import { QuizContext, QuizOptionContext } from "./QuizContext";
 import { ImCross } from "react-icons/im";
+import GroupBox from "./components/GroupBox";
 
 const validationSchema = yup.object({
   quiz_title: yup.string("Enter the title of the quiz").required(),
   quiz_description: yup.string("Enter description").required(),
-  whoseQuizInfo: yup
-    .object()
-    .required("Group required")
-    .typeError("Group required"),
 });
-
-const groupFormatter = (response) => {
-  if (!response.data.length) {
-    return [];
-  }
-  let responseData = [];
-  responseData = response.data.map((data) => {
-    let formattedData = {
-      id: data.id,
-      semester: data.sem,
-      program_id: data.program.id,
-      program_name: data.program.name,
-      course_id: data.course[0].id,
-      course_code: data.course[0].course_code,
-      course_name: data.course[0].course_name,
-    };
-
-    return formattedData;
-  });
-
-  return responseData;
-};
 
 const QuizCreator = () => {
   const [popup, setPopup] = useState(false);
@@ -67,22 +42,48 @@ const QuizCreator = () => {
     () => ({ optionFile, setOptionFile }),
     [optionFile, setOptionFile]
   );
+  const groupFormatter = (response) => {
+    if (!response.data.length) {
+      return [];
+    }
+    let tempCourse = [];
+    let responseData = [];
+    responseData = response.data.map((data) => {
+      let formattedData = {
+        id: data.id,
+        semester: data.sem,
+        program_id: data.program.id,
+        program_name: data.program.name,
+        course_id: data.course[0].id,
+        course_code: data.course[0].course_code,
+        course_name: data.course[0].course_name,
+      };
 
+      return formattedData;
+    });
+
+    return responseData;
+  };
   const [groups, groupsComplete] = useAPI(
     { endpoint: "/api/v1/group/" },
     groupFormatter
   );
 
   if (groups && groups.length && groupsComplete) {
+    console.log(groups);
     groups.map((group, index) => {
       groupList.push({
         name: `${group.program_name}, Sem ${group.semester} [Course ${group.course_code}]`,
-        value: { group: group.id, course: group.course_id },
+        group: group.id,
+        course: group.course_id,
       });
     });
   }
 
   const quizPostFormatter = (quiz) => {
+    let tempGroupList = [];
+    quiz.whoseQuizInfo &&
+      quiz.whoseQuizInfo.map((grp) => tempGroupList.push(grp.group));
     const postquizValues = {
       end_time: formatISO(quiz.end_time, { representation: "time" }),
       start_time: formatISO(quiz.start_time, { representation: "time" }),
@@ -90,12 +91,13 @@ const QuizCreator = () => {
       title: quiz.quiz_title,
       description: quiz.quiz_description,
       is_randomized: quiz.isRandomized,
-      display_individual: false,
-      group: [quiz.whoseQuizInfo.group],
+      display_individual: quiz.displayIndividual,
+      group: tempGroupList,
       instructor: [user.id],
-      course_id: quiz.whoseQuizInfo.course,
+      course_id: quiz.whoseQuizInfo[0].course,
     };
 
+    console.log(postquizValues);
     return postquizValues;
   };
 
@@ -239,7 +241,8 @@ const QuizCreator = () => {
                     start_time: new Date(),
                     end_time: new Date(),
                     isRandomized: false,
-                    whoseQuizInfo: null,
+                    whoseQuizInfo: [],
+                    displayIndividual: false,
                   }}
                   validationSchema={validationSchema}
                   onSubmit={onSubmitHandler}
@@ -281,14 +284,11 @@ const QuizCreator = () => {
                             />
                           </Grid>
                           <Grid item className="quizCreator_groupBoxOuter">
-                            <div
-                              className="quizCreator_groupButton"
-                              onClick={() => {
-                                setPopup(true);
-                              }}
-                            >
-                              Group
-                            </div>
+                            <GroupBox
+                              name="whoseQuizInfo"
+                              groupList={groupList}
+                              quizInfo={values.whoseQuizInfo}
+                            />
                           </Grid>
                           <Grid item>
                             <Grid
@@ -318,9 +318,9 @@ const QuizCreator = () => {
                           </Grid>
                           <Grid
                             container
-                            direction="row"
+                            direction="column"
                             alignItems="center"
-                            justify="center"
+                            justify="flex-start"
                             className="quizCreator_randomContainer"
                             wrap="nowrap"
                           >
@@ -329,6 +329,14 @@ const QuizCreator = () => {
                                 id="is_randomized"
                                 name="isRandomized"
                                 label="Randomize Questions"
+                                className="quizCreator_randomCheckBox"
+                              />
+                            </Grid>
+                            <Grid item className="quizCreator_check">
+                              <Checkbox
+                                id="displayIndividual"
+                                name="displayIndividual"
+                                label="Display Individually"
                                 className="quizCreator_randomCheckBox"
                               />
                             </Grid>
@@ -367,78 +375,6 @@ const QuizCreator = () => {
                             </Grid>
                           </Grid>
                         </Grid>
-                        {popup ? (
-                          <Grid
-                            container
-                            justify="center"
-                            alignItems="center"
-                            className="quizCreator_popUpContainer"
-                          >
-                            <Grid item className="quizCreator_popUpBox">
-                              <Grid
-                                container
-                                className="quizCreator_popUptopBar"
-                                alignItems="center"
-                                justify="center"
-                              >
-                                <Grid
-                                  item
-                                  xs={9}
-                                  className="quizCreator_popupTitleContainer"
-                                >
-                                  <p className="quizCreator_popupTitle">
-                                    Group
-                                  </p>
-                                </Grid>
-                                <Grid
-                                  item
-                                  xs={1}
-                                  className="quizCreator_closeButtonContainer"
-                                >
-                                  <ImCross
-                                    color={colorscheme.red3}
-                                    className="quizCreator_closeButton"
-                                    onClick={() => {
-                                      setPopup(false);
-                                    }}
-                                  />
-                                </Grid>
-                              </Grid>
-                              <Grid
-                                container
-                                direction="column"
-                                className="quizCreator_formBoxinner"
-                              >
-                                <Grid
-                                  item
-                                  xs={12}
-                                  className="quizCreator_userlistContainerOuter"
-                                >
-                                  <Grid
-                                    container
-                                    direction="column"
-                                    className="quizCreator_userlistContainer"
-                                    alignItems="flex-start"
-                                    wrap="nowrap"
-                                  >
-                                    {groupList.map((groupName) => (
-                                      <Grid item>
-                                        <Checkbox
-                                          id="quiz_group"
-                                          name="whoseQuizInfo"
-                                          label={groupName.name}
-                                          className="quizCreator_groupCheckbox"
-                                        />
-                                      </Grid>
-                                    ))}
-                                  </Grid>
-                                </Grid>
-                              </Grid>
-                            </Grid>
-                          </Grid>
-                        ) : (
-                          <></>
-                        )}
                       </Form>
                     </>
                   )}
