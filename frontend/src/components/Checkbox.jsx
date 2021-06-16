@@ -1,6 +1,7 @@
 import { Field } from "formik";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import colorscheme from "../utils/colors";
 
 const CustomCheckbox = ({ id, name, label, className }) => {
   return (
@@ -14,6 +15,7 @@ const CustomCheckbox = ({ id, name, label, className }) => {
                 checked={field.value}
                 name={label}
                 className={className}
+                color="primary"
                 inputProps={{ "aria-label": "primary checkbox" }}
                 {...field}
               />
