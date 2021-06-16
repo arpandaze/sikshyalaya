@@ -83,6 +83,18 @@ class QuizQuestion(QuizQuestionInDBBase):
     pass
 
 
+class QuizQuestionwoutAnswer(BaseModel):
+    id: Optional[int]
+    question_text: str = None
+    question_image: List[str] = None
+    options: List[Dict[str, str]]
+    quiz_id: int
+    multiple: bool = False
+
+    class Config:
+        orm_mode = True
+
+
 # XXX
 # XXX
 # Quiz Answer schema

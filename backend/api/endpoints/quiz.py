@@ -7,6 +7,7 @@ import os
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from sqlalchemy.sql.expression import true
 from core.config import settings
 import json
 from models import User
@@ -23,6 +24,7 @@ from schemas import (
     QuizQuestion,
     QuizQuestionCreate,
     QuizQuestionUpdate,
+    QuizQuestionwoutAnswer,
 )
 
 from fastapi import FastAPI, File, UploadFile, HTTPException
@@ -125,7 +127,6 @@ async def get_active_quiz(
                         past_quiz_list.append(quizItem)
 
     if current_user.user_type <= settings.UserType.ADMIN.value:
-        quiz_list = []
         for quizItem in quiz:
             if (quizItem.date == datetime.now().date()) and (
                 quizItem.start_time <= datetime.now().time()
@@ -137,7 +138,7 @@ async def get_active_quiz(
                 and quizItem.start_time <= datetime.now().time()
                 and quizItem.end_time > datetime.now().time()
             ):
-                past_quiz_list
+                past_quiz_list.append(quizItem)
 
     return {"active": active_quiz_list, "past": past_quiz_list}
 
@@ -196,7 +197,7 @@ async def update_quiz(
     return quiz
 
 
-@router.get("/{quizid}/question", response_model=List[QuizQuestion])
+@router.get("/{quizid}/question", response_model=List[QuizQuestionwoutAnswer])
 async def get_question(
     db: Session = Depends(deps.get_db),
     *,
@@ -210,10 +211,14 @@ async def get_question(
         )  # quiz not found in database
 
     questions = crud_question.get_all_by_quiz_id(db, quiz_id=quiz.id)
+    for question in questions:
+        if len(question.answer) > 1:
+            question.multiple = True
+
     return questions
 
 
-@router.get("/{quizid}/question/{id}", response_model=QuizQuestion)
+@router.get("/{quizid}/question/{id}", response_model=QuizQuestionwoutAnswer)
 async def get_specific_question(
     db: Session = Depends(deps.get_db),
     *,
@@ -224,6 +229,8 @@ async def get_specific_question(
     questions = await get_question(db, quizid=quizid, current_user=current_user)
     for question in questions:
         if question.id == id:
+            if len(question.answer) > 1:
+                question.multiple = True
             return question
 
     raise HTTPException(
