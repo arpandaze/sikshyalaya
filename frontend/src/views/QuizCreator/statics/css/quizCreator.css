@@ -329,7 +329,6 @@
   left: 0px;
   z-index: 2;
   background: rgba(15, 15, 15, 0.5);
-  border: 1px solid black;
 }
 .quizCreator_popUpBox {
   width: 600px;
@@ -341,16 +340,17 @@
 }
 .quizCreator_closeButtonContainer {
   width: 20px;
-
   height: 20px;
+
 }
 .quizCreator_popupTitle {
   font-weight: bold;
-
   font-size: 1.5rem;
+
 }
 .quizCreator_popupTitleContainer {
   padding: 0px !important;
+
   margin: 0px !important;
 }
 .quizCreator_closeButton {
@@ -358,7 +358,6 @@
   height: 100%;
   cursor: pointer;
   position: relative;
-
   left: 40px;
 }
 
@@ -366,7 +365,7 @@
 }
 .quizCreator_userlistContainerOuter {
   height: inherit;
-  width: inherit;
+  width: 100%;
 }
 .quizCreator_userlistContainer {
   height: 400px;
@@ -377,7 +376,22 @@
   height: 400px;
   margin: 0px auto;
 }
-.quizCreator_groupCheckbox {
+
+.quizCreator_instructorFieldOuter {
+  padding:10px;
+}
+
+.quizCreator_instructorField{
+ 
+}
+.quizCreator_instructorFieldInner{
+  width:20em
+}
+.quizCreator_removeButton{
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  padding: 10px;
 }
 
 .MuiPickersToolbar-toolbar,
