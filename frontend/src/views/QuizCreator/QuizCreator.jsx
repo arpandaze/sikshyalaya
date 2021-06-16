@@ -25,28 +25,6 @@ const validationSchema = yup.object({
   quiz_description: yup.string("Enter description").required(),
 });
 
-const groupFormatter = (response) => {
-  if (!response.data.length) {
-    return [];
-  }
-  let responseData = [];
-  responseData = response.data.map((data) => {
-    let formattedData = {
-      id: data.id,
-      semester: data.sem,
-      program_id: data.program.id,
-      program_name: data.program.name,
-      course_id: data.course[0].id,
-      course_code: data.course[0].course_code,
-      course_name: data.course[0].course_name,
-    };
-
-    return formattedData;
-  });
-
-  return responseData;
-};
-
 const QuizCreator = () => {
   const [popup, setPopup] = useState(false);
   const { user } = useContext(UserContext);
@@ -64,7 +42,28 @@ const QuizCreator = () => {
     () => ({ optionFile, setOptionFile }),
     [optionFile, setOptionFile]
   );
+  const groupFormatter = (response) => {
+    if (!response.data.length) {
+      return [];
+    }
+    let tempCourse = [];
+    let responseData = [];
+    responseData = response.data.map((data) => {
+      let formattedData = {
+        id: data.id,
+        semester: data.sem,
+        program_id: data.program.id,
+        program_name: data.program.name,
+        course_id: data.course[0].id,
+        course_code: data.course[0].course_code,
+        course_name: data.course[0].course_name,
+      };
 
+      return formattedData;
+    });
+
+    return responseData;
+  };
   const [groups, groupsComplete] = useAPI(
     { endpoint: "/api/v1/group/" },
     groupFormatter
@@ -92,7 +91,7 @@ const QuizCreator = () => {
       title: quiz.quiz_title,
       description: quiz.quiz_description,
       is_randomized: quiz.isRandomized,
-      display_individual: false,
+      display_individual: quiz.displayIndividual,
       group: tempGroupList,
       instructor: [user.id],
       course_id: quiz.whoseQuizInfo[0].course,
@@ -243,6 +242,7 @@ const QuizCreator = () => {
                     end_time: new Date(),
                     isRandomized: false,
                     whoseQuizInfo: [],
+                    displayIndividual: false,
                   }}
                   validationSchema={validationSchema}
                   onSubmit={onSubmitHandler}
@@ -318,9 +318,9 @@ const QuizCreator = () => {
                           </Grid>
                           <Grid
                             container
-                            direction="row"
+                            direction="column"
                             alignItems="center"
-                            justify="center"
+                            justify="flex-start"
                             className="quizCreator_randomContainer"
                             wrap="nowrap"
                           >
@@ -329,6 +329,14 @@ const QuizCreator = () => {
                                 id="is_randomized"
                                 name="isRandomized"
                                 label="Randomize Questions"
+                                className="quizCreator_randomCheckBox"
+                              />
+                            </Grid>
+                            <Grid item className="quizCreator_check">
+                              <Checkbox
+                                id="displayIndividual"
+                                name="displayIndividual"
+                                label="Display Individually"
                                 className="quizCreator_randomCheckBox"
                               />
                             </Grid>
