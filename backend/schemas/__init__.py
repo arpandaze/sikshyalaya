@@ -45,6 +45,7 @@ from .quiz import (
     QuizQuestionCreate,
     QuizQuestionUpdate,
     QuizQuestionInDB,
+    QuizQuestionwoutAnswer,
 )
 
 from .file import File, FileCreate, FileUpdate, FileInDB
