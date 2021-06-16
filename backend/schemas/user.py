@@ -2,6 +2,7 @@ from typing import Any, Optional, List
 from datetime import date
 from schemas.program import ProgramInDB
 from schemas.group import GroupSignInReturn, Group
+from schemas.course import CourseInDB
 from core.config import settings
 
 from pydantic import BaseModel, EmailStr
@@ -106,6 +107,7 @@ class GroupOfTeacherGroupOfUser(BaseModel):
 class TeacherGroupOfUser(BaseModel):
     group_id: int
     group: GroupOfTeacherGroupOfUser
+    course: CourseInDB
 
     class Config:
         orm_mode = True
