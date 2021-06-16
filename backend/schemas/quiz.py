@@ -89,6 +89,7 @@ class QuizQuestionwoutAnswer(BaseModel):
     question_image: List[str] = None
     options: List[Dict[str, str]]
     quiz_id: int
+    multiple: bool = False
 
     class Config:
         orm_mode = True
