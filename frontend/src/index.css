@@ -22,6 +22,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.MuiCheckbox-colorPrimary.Mui-checked {
+  color: var(--red4) !important;
+}
 
 @media only screen and (min-width: 1366px) {
   body {
