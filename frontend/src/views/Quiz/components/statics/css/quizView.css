@@ -23,6 +23,20 @@
   .quizView_questionContainer {
     padding: 20px;
   }
+  .quizView_buttonContainer {
+    width: 160px;
+    height: 45px;
+    margin: 0px auto 50px auto !important;
+  }
+  .quizView_button {
+    width: 160px;
+    height: 45px;
+    margin: 0px auto;
+    background-color: var(--red4);
+    color: var(--white);
+    border-radius: 15px;
+    font-size: 1.15em;
+  }
 }
 
 @media only screen and (min-width: 1920px) {
