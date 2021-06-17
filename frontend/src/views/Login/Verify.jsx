@@ -55,8 +55,10 @@ const Verify = () => {
       ) : (
         <>
           <DelayedRedirect to="/login" timeout="3" />
-          <h2>{verifyState.msg}!</h2>
-          <h2>Redirecting!</h2>
+          <div style={{ textAlign: "center" }}>
+            <h2>{verifyState.msg}!</h2>
+            <h2>Redirecting...</h2>
+          </div>
         </>
       )}
     </Login>
