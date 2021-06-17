@@ -9,27 +9,33 @@ import useAPI from "../../../utils/useAPI";
 import "./statics/css/quizView.css";
 import CustomTabComponent from "../../../components/CustomTabComponent";
 import QuestionView from "./QuestionView";
+import Button from "../../../components/Button";
+import { Formik, Form } from "formik";
 
 const QuizView = ({ location }) => {
   const history = useHistory();
   const defaultQuestionvalue = [];
+  let quizDefaultValue = {};
   const questionFormatter = (response) => {
     if (response.data.length === 0) {
       return [];
     }
     let responseData = [];
-    responseData = response.data.map((question) => {
+    responseData = response.data.map((question, index) => {
       let formattedResponseData = {
         id: question.id,
         question_text: question.question_text,
         question_image: question.question_image,
         options: question.options,
         quiz_id: question.quiz_id,
+        is_multiple: question.multiple,
       };
+      const temp = question.multiple ? question.options.map(() => false) : "";
+      quizDefaultValue[question.id] = temp;
       return formattedResponseData;
     });
-    console.log(responseData);
-    return responseData;
+    console.log([...responseData].reverse());
+    return responseData.reverse();
   };
   let [allQuestion, allQuestionComplete] = useAPI(
     { endpoint: `/api/v1/quiz/${location.state.quiz.id}/question` },
@@ -37,13 +43,15 @@ const QuizView = ({ location }) => {
     defaultQuestionvalue
   );
   useEffect(() => {
-    console.log(location.state);
     if (!location.state) {
       history.replace({
         pathname: "/quiz",
       });
     }
   }, [location]);
+  const onSubmit = async (values) => {
+    console.log(values);
+  };
   return (
     <DashboardLayout>
       <Grid container direction="column" className="quizView_root">
@@ -61,19 +69,44 @@ const QuizView = ({ location }) => {
         </Grid>
         <Grid item className="quizView_botBar">
           <Grid container direction="column">
-            {allQuestionComplete && allQuestion.length ? (
-              allQuestion.map((question, index) => (
-                <Grid item className="quizView_questionContainer">
-                  <QuestionView
-                    data={question}
-                    position={index}
-                    length={allQuestion.length}
-                  />
-                </Grid>
-              ))
-            ) : (
-              <></>
-            )}
+            <Formik
+              initialValues={{
+                questions: quizDefaultValue,
+              }}
+              onSubmit={onSubmit}
+            >
+              <Form>
+                {allQuestionComplete && allQuestion.length ? (
+                  allQuestion.map((question, index) => (
+                    <Grid
+                      item
+                      key={index}
+                      className="quizView_questionContainer"
+                    >
+                      <QuestionView
+                        data={question}
+                        position={index}
+                        length={allQuestion.length}
+                        multiple={question.is_multiple}
+                      />
+                    </Grid>
+                  ))
+                ) : (
+                  <></>
+                )}
+                {allQuestionComplete && allQuestion.length ? (
+                  <Grid item className="quizView_buttonContainer">
+                    <Button
+                      name="Submit"
+                      type="submit"
+                      addStyles="quizView_button"
+                    />
+                  </Grid>
+                ) : (
+                  <></>
+                )}
+              </Form>
+            </Formik>
           </Grid>
         </Grid>
       </Grid>

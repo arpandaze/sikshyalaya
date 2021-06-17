@@ -25,7 +25,9 @@ body {
 .MuiCheckbox-colorPrimary.Mui-checked {
   color: var(--red4) !important;
 }
-
+.MuiRadio-colorPrimary.Mui-checked {
+  color: var(--red4) !important;
+}
 @media only screen and (min-width: 1366px) {
   body {
     font-size: var(calc(--base-font-size * 1.3));
