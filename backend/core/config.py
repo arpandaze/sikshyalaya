@@ -20,10 +20,24 @@ class Settings(BaseSettings):
     SERVER_NAME: str = os.environ.get("SERVER_NAME")
 
     PROTOCAL: str = os.environ.get("PROTOCAL")
-    SERVER_HOST: str = os.environ.get("SERVER_HOST")
-    SERVER_HOST_URL: AnyHttpUrl = f"{PROTOCAL}://{SERVER_HOST}"
-    SERVER_PORT: int = os.environ.get("SERVER_PORT")
-    SERVER_URL: AnyHttpUrl = f"{SERVER_HOST_URL}:{SERVER_PORT}" if SERVER_PORT else SERVER_HOST_URL
+
+    SERVER_FRONTEND_HOST: str = os.environ.get("SERVER_FRONTEND_HOST")
+    SERVER_FRONTEND_HOST_URL: AnyHttpUrl = f"{PROTOCAL}://{SERVER_FRONTEND_HOST}"
+    SERVER_FRONTEND_PORT: int = os.environ.get("SERVER_FRONTEND_PORT")
+    SERVER_FRONTEND_URL: AnyHttpUrl = (
+        f"{SERVER_FRONTEND_HOST_URL}:{SERVER_FRONTEND_PORT}"
+        if SERVER_FRONTEND_PORT
+        else SERVER_FRONTEND_HOST_URL
+    )
+
+    SERVER_BACKEND_HOST: str = os.environ.get("SERVER_BACKEND_HOST")
+    SERVER_BACKEND_HOST_URL: AnyHttpUrl = f"{PROTOCAL}://{SERVER_BACKEND_HOST}"
+    SERVER_BACKEND_PORT: int = os.environ.get("SERVER_BACKEND_PORT")
+    SERVER_BACKEND_URL: AnyHttpUrl = (
+        f"{SERVER_BACKEND_HOST_URL}:{SERVER_BACKEND_PORT}"
+        if SERVER_BACKEND_PORT
+        else SERVER_BACKEND_HOST_URL
+    )
 
     UPLOAD_DIR_ROOT: str = "../file_server"
 

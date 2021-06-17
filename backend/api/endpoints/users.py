@@ -231,6 +231,17 @@ async def update_user(
     return user
 
 
+@router.delete("/{user_id}/")
+async def delete_user(
+    *,
+    db: Session = Depends(deps.get_db),
+    user_id: int,
+    current_user: models.User = Depends(deps.get_current_admin_or_above),
+) -> Any:
+    cruds.crud_user.remove(db, id=user_id)
+    return {"msg": "success"}
+
+
 @router.put("/{user_id}/profile")
 async def update_profile_photo(
     db: Session = Depends(deps.get_db),
