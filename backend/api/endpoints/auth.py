@@ -105,8 +105,8 @@ async def test_session_token(
 
 
 @router.post("/password-recovery/", response_model=schemas.Msg)
-@throttle.ip_throttle(rate=3, per=1 * 60 * 60)
-@throttle.ip_throttle(rate=1, per=20)
+# @throttle.ip_throttle(rate=3, per=1 * 60 * 60)
+# @throttle.ip_throttle(rate=1, per=20)
 async def recover_password(
     request: Request,
     email: str,
