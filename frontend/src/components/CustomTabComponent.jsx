@@ -26,9 +26,10 @@ const CustomTabComponent = ({
         indicatorColor="secondary"
         textColor="secondary"
       >
-        {tabList.map((tab) => (
-          <Tab key={tab.id} icon={tab.icon} label={tab.label} />
-        ))}
+        {tabList &&
+          tabList.map((tab) => (
+            <Tab key={tab.id} icon={tab.icon} label={tab.label} />
+          ))}
       </Tabs>
     </div>
   );

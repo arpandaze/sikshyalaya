@@ -28,6 +28,7 @@ import ClassSessionCreator from "./views/ClassSessionCreator/ClassSessionCreator
 import HomeRedirector from "./components/HomeRedirector";
 import ExploreView from "./views/Admin/ExploreView";
 import configs from "./utils/configs";
+import QuizView from "./views/Quiz/components/QuizView";
 
 const Routes = () => {
   return (
@@ -38,6 +39,7 @@ const Routes = () => {
       <StudentRoute exact path="/note" component={Notes} />
       <StudentRoute exact path="/landing" component={Landing} />
       <StudentRoute exact path="/profile" component={Profile} />
+      <StudentRoute exact path="/quiz/questions" component={QuizView} />
 
       {/* Teacher Routes */}
       <TeacherRoute

@@ -1,0 +1,38 @@
+@import "../../../../../utils/colors.css";
+
+@media only screen and (min-width: 1280px) {
+  .questionView_root {
+    flex-grow: 1;
+    width: 800px !important;
+    margin: 0px auto !important;
+    border: 2.2px solid rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    border-radius: 15px;
+  }
+  .questionView_top {
+    height: 120px;
+    border-bottom: 2.2px solid rgba(0, 0, 0, 0.12);
+  }
+  .questionView_topInside {
+    height: 120px;
+    text-indent: 20px;
+  }
+  .questionView_titleLabel {
+    margin: 0px;
+    color: var(--grey6);
+    font-size: 1.1em;
+  }
+  .questionView_questionTitle {
+    margin-top: 10px !important;
+    font-size: 1.4em;
+  }
+  .questionView_bot {
+  }
+
+  .questionView_optionContainer {
+    border: 1px solid black;
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+}

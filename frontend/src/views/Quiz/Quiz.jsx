@@ -12,13 +12,17 @@ import stripes from "../../assets/stripes.png";
 import sun from "../../assets/sun.png";
 import useAPI from "../../utils/useAPI";
 import callAPI from "../../utils/API";
+import {
+  Redirect,
+  useHistory,
+} from "react-router-dom/cjs/react-router-dom.min";
 
 const imageList = [boxes, cycle, circles, sun, stripes];
 
 const datas = [];
 
-const onClick = () => {};
 const Quiz = () => {
+  const history = useHistory();
   const defaultQuizvalue = [];
   const quizFormatter = (response) => {
     if (response.data.length === 0) {
@@ -29,7 +33,6 @@ const Quiz = () => {
       active: [],
       past: [],
     };
-    console.log(response.data);
     responseData.active = response.data.active.map((quiz) => {
       let formattedResponseData = {
         id: quiz.id,
@@ -62,8 +65,6 @@ const Quiz = () => {
       return formattedResponseData;
     });
 
-    console.log(response.data);
-
     return responseData;
   };
   let [allQuiz, allQuizComplete] = useAPI(
@@ -85,14 +86,19 @@ const Quiz = () => {
             </Grid>
             <Grid item>
               <Grid container direction="row">
-                {allQuizComplete && allQuiz.active.length ? (
-                  allQuiz.active.map((data, index) => (
+                {allQuizComplete && allQuiz.past.length ? (
+                  allQuiz.past.map((data, index) => (
                     <Grid key={data.id} item className="quiz_cardInside">
                       <CustomQuizCard
                         key={data.id}
                         quiz={data}
                         image={[...imageList].reverse()[index % 5]}
-                        onClick={onClick}
+                        onClick={() => {
+                          history.push({
+                            pathname: "/quiz/questions",
+                            state: { quiz: data },
+                          });
+                        }}
                       />
                     </Grid>
                   ))
@@ -123,7 +129,6 @@ const Quiz = () => {
                     key={data.id}
                     quiz={data}
                     image={imageList[index % 5]}
-                    onClick={onClick}
                   />
                 </Grid>
               ))
