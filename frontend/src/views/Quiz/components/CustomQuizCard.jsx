@@ -34,7 +34,9 @@ const CustomQuizCard = ({ quiz, image, onClick }) => {
             </Grid>
           </Grid>
         </Grid>
-        <p className="quizCard_course">{quiz.quiz_course} (50 marks)</p>
+        <p className="quizCard_course">
+          {quiz.quiz_course} ({quiz.total_marks} marks)
+        </p>
         <p className="quizCard_date">{dateConverter(quiz.date)}</p>
         <div className="quizCard_descriptionContainer">
           <p className="quizCard_description">{quiz.description}</p>
@@ -48,7 +50,7 @@ const CustomQuizCard = ({ quiz, image, onClick }) => {
               <p className="quizCard_instructorTitle"> Instructors : </p>
               {quiz.instructor.map((instructor) => (
                 <p key={instructor.id} className="quizCard_instructor">
-                  {instructor.id}
+                  {instructor.full_name}
                 </p>
               ))}
             </Grid>

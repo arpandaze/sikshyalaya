@@ -48,10 +48,12 @@ const Quiz = () => {
         display_individual: quiz.display_individual,
         course_id: quiz.course_id,
         instructor: quiz.instructor,
+        total_marks: quiz.total_marks,
       };
       return formattedResponseData;
     });
 
+    console.log(tempResponse);
     tempResponse.filter((response) => {
       const tempEndDateTime = new Date(response.date + " " + response.end_time);
       const tempStartDateTime = new Date(
@@ -68,7 +70,6 @@ const Quiz = () => {
         ? responseData.active.push(response)
         : responseData.past.push(response);
     });
-
     return responseData;
   };
   let [allQuiz, allQuizComplete] = useAPI(
