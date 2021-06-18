@@ -29,6 +29,7 @@ class CRUDQuiz(CRUDBase[Quiz, QuizCreate, QuizUpdate]):
             group=group,
             instructor=instructor,
             course_id=obj_in.course_id,
+            total_marks=obj_in.total_marks,
         )
 
         db.add(db_obj)
@@ -43,6 +44,15 @@ crud_quiz = CRUDQuiz(Quiz)
 class CRUDQuizQuestion(CRUDBase[QuizQuestion, QuizQuestionCreate, QuizQuestionUpdate]):
     def get_all_by_quiz_id(self, db: Session, *, quiz_id: int) -> List[QuizQuestion]:
         return db.query(self.model).filter(self.model.quiz_id == quiz_id).all()
+
+    def get_by_quiz_id_question_id(
+        self, db: Session, *, quiz_id: int, questionid: int
+    ) -> QuizQuestion:
+        return (
+            db.query(self.model)
+            .filter(self.model.quiz_id == quiz_id, self.model.id == questionid)
+            .first()
+        )
 
 
 crud_question = CRUDQuizQuestion(QuizQuestion)

@@ -76,73 +76,6 @@ async def get_quiz(
         return quiz
 
 
-@router.get("/activeandpast", response_model=Dict[str, List[Quiz]])
-async def get_active_quiz(
-    db: Session = Depends(deps.get_db),
-    skip: int = 0,
-    limit: int = -1,
-    current_user: User = Depends(deps.get_current_active_user),
-) -> Any:
-
-    quiz = crud_quiz.get_multi(db, skip=skip, limit=limit)
-    active_quiz_list = []
-    past_quiz_list = []
-
-    if current_user.user_type == settings.UserType.STUDENT.value:
-        active_quiz_list = []
-        for quizItem in quiz:
-            if (quizItem.date == datetime.now().date()) and (
-                quizItem.start_time <= datetime.now().time()
-                and quizItem.end_time > datetime.now().time()
-            ):
-                for group in quizItem.group:
-                    if group.id == current_user.group.id:
-                        active_quiz_list.append(quizItem)
-            elif (quizItem.date <= datetime.now().date()) or (
-                quizItem.date == datetime.now().date()
-                and quizItem.start_time <= datetime.now().time()
-                and quizItem.end_time > datetime.now().time()
-            ):
-                for group in quizItem.group:
-                    if group.id == current_user.group.id:
-                        past_quiz_list.append(quizItem)
-
-    if current_user.user_type == settings.UserType.TEACHER.value:
-
-        for quizItem in quiz:
-            if (quizItem.date == datetime.now().date()) and (
-                quizItem.start_time <= datetime.now().time()
-                and quizItem.end_time > datetime.now().time()
-            ):
-                for instructor in quizItem.instructor:
-                    if current_user.id == instructor.id:
-                        active_quiz_list.append(quizItem)
-            elif (quizItem.date <= datetime.now().date()) or (
-                quizItem.date == datetime.now().date()
-                and quizItem.start_time <= datetime.now().time()
-                and quizItem.end_time > datetime.now().time()
-            ):
-                for instructor in quizItem.instructor:
-                    if current_user.id == instructor.id:
-                        past_quiz_list.append(quizItem)
-
-    if current_user.user_type <= settings.UserType.ADMIN.value:
-        for quizItem in quiz:
-            if (quizItem.date == datetime.now().date()) and (
-                quizItem.start_time <= datetime.now().time()
-                and quizItem.end_time > datetime.now().time()
-            ):
-                active_quiz_list.append(quizItem)
-            elif (quizItem.date <= datetime.now().date()) or (
-                quizItem.date == datetime.now().date()
-                and quizItem.start_time <= datetime.now().time()
-                and quizItem.end_time > datetime.now().time()
-            ):
-                past_quiz_list.append(quizItem)
-
-    return {"active": active_quiz_list, "past": past_quiz_list}
-
-
 @router.post("/")
 async def create_quiz(
     db: Session = Depends(deps.get_db),
@@ -211,10 +144,6 @@ async def get_question(
         )  # quiz not found in database
 
     questions = crud_question.get_all_by_quiz_id(db, quiz_id=quiz.id)
-    for question in questions:
-        if len(question.answer) > 1:
-            question.multiple = True
-
     return questions
 
 
@@ -226,16 +155,17 @@ async def get_specific_question(
     id: int,
     current_user: User = Depends(deps.get_current_active_user),
 ) -> Any:
-    questions = await get_question(db, quizid=quizid, current_user=current_user)
-    for question in questions:
-        if question.id == id:
-            if len(question.answer) > 1:
-                question.multiple = True
-            return question
 
-    raise HTTPException(
-        status_code=404, detail="Error ID: 136"
-    )  # question specific to that id not found
+    question = crud_question.get_by_quiz_id_question_id(
+        db=db, quiz_id=quizid, questionid=id
+    )
+
+    if not question:
+        raise HTTPException(
+            status_code=404, detail="Error ID: 136"
+        )  # question specific to that id not found
+
+    return question
 
 
 @router.post("/{quizid}/question")
@@ -254,6 +184,12 @@ async def create_question(
     # ]
 
     question = crud_question.create(db, obj_in=obj_in)
+    quiz = crud_quiz.get(db=db, id=quizid)
+
+    newMarks = quiz.total_marks + question.marks
+    newQuiz = QuizUpdate(total_marks=newMarks)
+
+    crud_quiz.update(db=db, db_obj=quiz, obj_in=newQuiz)
 
     hashedQuizId = sha1(str(quizid).encode(encoding="UTF-8", errors="strict"))
 
