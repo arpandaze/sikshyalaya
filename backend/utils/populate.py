@@ -177,6 +177,7 @@ def populate_quiz():
                 instructor=quiz["instructor"],
                 course_id=quiz["course_id"],
                 date=quiz["date"],
+                total_marks=quiz["total_marks"]
             )
 
             crud_quiz.create(db, obj_in=quiz)
