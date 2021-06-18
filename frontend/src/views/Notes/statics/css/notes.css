@@ -8,7 +8,7 @@
     flex-grow: 1;
   }
   .notes_creator {
-    height: 96vh;
+    height: 90vh;
     overflow: hidden;
     overflow-y: scroll;
   }
