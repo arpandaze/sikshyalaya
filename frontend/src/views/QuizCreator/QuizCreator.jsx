@@ -10,6 +10,8 @@ import { formatISO } from "date-fns";
 import "./statics/css/quizCreator.css";
 import colorscheme from "../../utils/colors";
 import { UserContext } from "../../utils/Contexts/UserContext";
+import TextField from "@material-ui/core/TextField";
+import { BiMinus } from "react-icons/bi";
 import callAPI from "../../utils/API";
 import useAPI from "../../utils/useAPI";
 import configs from "../../utils/configs";
@@ -26,7 +28,11 @@ const validationSchema = yup.object({
 });
 
 const QuizCreator = () => {
-  const [popup, setPopup] = useState(false);
+  let answerList = [];
+
+  const groupList = [];
+
+	const [popup, setPopup] = useState(false);
   const { user } = useContext(UserContext);
   const endPage = useRef(null);
   const [selectFile, setSelectedFile] = useState({});
@@ -34,9 +40,7 @@ const QuizCreator = () => {
     () => ({ selectFile, setSelectedFile }),
     [selectFile, setSelectedFile]
   );
-  let answerList = [];
 
-  const groupList = [];
   const [optionFile, setOptionFile] = useState({});
   const quizOptionFile = useMemo(
     () => ({ optionFile, setOptionFile }),
@@ -79,6 +83,8 @@ const QuizCreator = () => {
       });
     });
   }
+
+
 
   const quizPostFormatter = (quiz) => {
     let tempGroupList = [];
@@ -123,7 +129,6 @@ const QuizCreator = () => {
           text: "",
         };
         if (
-          optionFile[index] &&
           optionFile[index][optionIndex] &&
           optionFile[index][optionIndex].length
         ) {
