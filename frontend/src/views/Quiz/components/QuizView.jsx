@@ -34,8 +34,7 @@ const QuizView = ({ location }) => {
       quizDefaultValue[question.id] = temp;
       return formattedResponseData;
     });
-    console.log([...responseData].reverse());
-    return responseData.reverse();
+    return responseData;
   };
   let [allQuestion, allQuestionComplete] = useAPI(
     { endpoint: `/api/v1/quiz/${location.state.quiz.id}/question` },

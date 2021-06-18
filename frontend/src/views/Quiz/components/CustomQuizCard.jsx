@@ -10,7 +10,7 @@ import { format } from "date-fns";
 
 const CustomQuizCard = ({ quiz, image, onClick }) => {
   const dateConverter = (date) => format(new Date(date), "PPP");
-  const timeConverter = (time) => format(new Date(time), "HH:mm aaaa");
+  const timeConverter = (time) => format(new Date(time), "hh:mm aaa");
   return (
     <Card className="quizCard_root" variant="outlined" onClick={onClick}>
       <CardContent className="quizCard_imageContainer">
@@ -25,7 +25,12 @@ const CustomQuizCard = ({ quiz, image, onClick }) => {
                 color={colorscheme.red4}
                 className="quizCard_timerIcon"
               />
-              <p className="quizCard_timerTime">50 min</p>
+              <p className="quizCard_timerTime">
+                {parseInt(quiz.totalTime[0]) !== 0 &&
+                  parseInt(quiz.totalTime[0]) + " hours "}
+                {parseInt(quiz.totalTime[1]) !== 0 &&
+                  parseInt(quiz.totalTime[1]) + " min"}
+              </p>
             </Grid>
           </Grid>
         </Grid>
