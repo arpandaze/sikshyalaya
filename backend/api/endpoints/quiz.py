@@ -130,6 +130,17 @@ async def update_quiz(
     return quiz
 
 
+@router.post("/{quizid}/submit")
+async def submit_answer(
+    db: Session = Depends(deps.get_db),
+    *,
+    quizid: int,
+    questionAnswer: QuizAnswer,
+    current_user: User = Depends(deps.get_current_active_user),
+):
+    pass
+
+
 @router.get("/{quizid}/question", response_model=List[QuizQuestionwoutAnswer])
 async def get_question(
     db: Session = Depends(deps.get_db),
