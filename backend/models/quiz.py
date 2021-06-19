@@ -83,6 +83,11 @@ class QuizQuestion(Base):
 # for storing user answers
 class QuizAnswer(Base):
     id = Column(Integer, primary_key=True)
+    marks_gotten = Column(Integer)
+    total_marks = Column(Integer)
+    options_selected = Column(ARRAY(Integer))
+    question_id = Column(Integer, ForeignKey("quiz_question.id", ondelete="cascade"))
+    user_id = Column(Integer, ForeignKey("user.id", ondelete="cascade"))
     # user_id
     # question_id
     __tablename__ = "quiz_answer"  # noqa
