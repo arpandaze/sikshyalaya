@@ -114,7 +114,11 @@ class QuizQuestionwoutAnswer(BaseModel):
 
 
 class QuizAnswerBase(BaseModel):
-    pass
+    marks_gotten: int
+    total_marks: int
+    options_selected: List[int]
+    question_id: int
+    user_id: int
 
 
 class QuizAnswerCreate(QuizAnswerBase):
@@ -122,7 +126,11 @@ class QuizAnswerCreate(QuizAnswerBase):
 
 
 class QuizAnswerUpdate(QuizAnswerBase):
-    pass
+    marks_gotten: int = None
+    total_marks: int = None
+    options_selected: List[int] = None
+    question_id: int = None
+    user_id: int = None
 
 
 class QuizAnswerInDBBase(QuizAnswerBase):
