@@ -53,7 +53,7 @@ class CommandDefinition:
                 generator.create_crud(item)
 
     def start(self):
-        from scripts import launch
+        from misc.scripts import launch
 
         launch.run()
 

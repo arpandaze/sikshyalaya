@@ -87,7 +87,7 @@ def run():
         except:
             pass
     uvicorn.run(
-        "scripts.launch:app",
+        "misc.scripts.launch:app",
         host=settings.UVICORN_HOST,
         port=settings.UVICORN_PORT,
         reload=True if settings.DEV_MODE else False,

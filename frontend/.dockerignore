@@ -1,0 +1,5 @@
+.git/
+.vim/
+.vscode/
+docker-stack.yml
+node_modules

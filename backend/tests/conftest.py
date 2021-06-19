@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 
 from core.config import settings
 from core.db import SessionLocal
-from scripts.launch import app
+from misc.scripts.launch import app
 from cruds import crud_user
 from schemas import user as user_schemas
 import datetime

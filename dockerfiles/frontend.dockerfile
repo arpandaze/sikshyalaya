@@ -1,4 +1,4 @@
-FROM node:15-alpine
+FROM node:15-alpine as reactbuilder
 
 WORKDIR /app
 
@@ -9,4 +9,9 @@ RUN yarn install
 
 COPY ./ /app/
 
-# RUN yarn run start
+RUN yarn build
+
+FROM nginx:1.20-alpine
+WORKDIR /var/www/html
+COPY ./misc/etc/nginx.conf /etc/nginx/nginx.conf
+COPY --from=reactbuilder /app/build/ .
