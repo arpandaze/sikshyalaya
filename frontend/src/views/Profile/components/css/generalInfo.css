@@ -1,0 +1,44 @@
+@import "../../../../utils/colors.css";
+.generalInfo_root {
+  width: 100%;
+  height: 100%;
+}
+.generalInfo_titleBar {
+  height: 50px;
+}
+.generalInfo_title {
+  font-size: 1.4em;
+  font-weight: bold;
+  text-indent: 30px;
+}
+.generalInfo_topPart {
+}
+.generalInfo_imageContainer {
+  position: relative;
+  width: 150px;
+  height: 150px;
+}
+.generalInfo_image {
+  position: relative;
+  top: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.generalInfo_formContainer {
+  height: 100%;
+  width: 100%;
+  padding: 20px 50px 30px 50px;
+}
+.generalInfo_inputField {
+  width: 100%;
+}
+.generalInfo_button {
+  max-width: 200px;
+  min-width: 200px;
+  height: 50px;
+  margin-top: 20px !important;
+  background-color: var(--red4);
+  color: var(--white);
+  border-radius: 15px;
+  font-size: 1.2em;
+}

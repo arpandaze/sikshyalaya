@@ -1,0 +1,30 @@
+@import "../../../../utils/colors.css";
+
+.profileTab_tabs {
+}
+.profileTabs_topPart {
+  margin: 4px 0 0 0 !important;
+  box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.2);
+}
+.profileTabs_imageContainer {
+}
+.profileTabs_image {
+  position: relative;
+  top: 5px;
+  border-radius: 50%;
+}
+.profileTabs_nameContainer {
+}
+.profileTabs_name {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+.profileTabs_departname {
+  font-size: 0.9em;
+  font-weight: 600;
+  color: var(--secondaryTextColor);
+}
+.profileTabs_tabIconContainer {
+  height: 300px;
+  margin: 15px 0 0 0 !important;
+}
