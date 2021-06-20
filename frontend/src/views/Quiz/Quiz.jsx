@@ -46,7 +46,7 @@ const Quiz = () => {
         description: quiz.description,
         is_randomized: quiz.is_randomized,
         display_individual: quiz.display_individual,
-        course_id: quiz.course_id,
+        course_code: quiz.course.course_code,
         instructor: quiz.instructor,
         total_marks: quiz.total_marks,
       };
