@@ -81,6 +81,10 @@ class UserUpdate(BaseModel):
     profile_image: Optional[str]
 
 
+class PasswordUpdate(BaseModel):
+    password: str
+
+
 class UserInDBBase(UserBase):
     id: Optional[int] = None
     teacher_group: List[Group]
