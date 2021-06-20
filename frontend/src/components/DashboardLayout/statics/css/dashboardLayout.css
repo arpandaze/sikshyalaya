@@ -19,7 +19,6 @@
   }
   .dashboardLayout_profileBar {
     height: 100vh;
-    cursor: pointer;
     border-left: 1px solid rgba(127, 127, 127, 0.2);
     position: relative;
     overflow-y: scroll;

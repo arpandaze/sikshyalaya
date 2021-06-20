@@ -9,8 +9,10 @@
     background: var(--secondary);
     position: relative;
     border: 1px solid var(--grey6);
+    cursor: pointer;
   }
   .profileBox_root:hover {
+    border: 1px solid var(--grey1);
   }
   .profileBox_image {
     object-fit: cover;
