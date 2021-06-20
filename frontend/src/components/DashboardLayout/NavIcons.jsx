@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import colorscheme from "../../utils/colors";
 import Grid from "@material-ui/core/Grid";
-import { Tooltip } from "@material-ui/core";
 import { IconContext } from "react-icons";
 import "./statics/css/navIcons.css";
 
 const NavIcons = ({ title, path, icon, ...rest }) => {
   const [hovered, setHovered] = useState(false);
-  const tooltip = false;
 
   return (
     <Grid

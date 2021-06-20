@@ -23,13 +23,13 @@
 
 @media only screen and (min-width: 1280px) {
   .note_root {
+    flex-grow: 1;
     width: 100% !important;
     height: 700px;
     position: relative;
     background: var(--white);
     border-radius: 20px;
-    box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);
-    flex-grow: 1;
+    border: 1px solid var(--grey6);
   }
   .note_notePadTop {
     width: 100%;

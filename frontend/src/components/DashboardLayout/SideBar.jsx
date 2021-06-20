@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { AiOutlineDashboard } from "react-icons/ai";
 import { BiNotepad } from "react-icons/bi";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { RiSurveyLine } from "react-icons/ri";
 import { IoPeopleOutline } from "react-icons/io5";
 import { GoTasklist } from "react-icons/go";
+import { RiLogoutBoxLine } from "react-icons/ri";
 import Grid from "@material-ui/core/Grid";
 import iconbig from "../../assets/logo-large.svg";
 import Image from "../Image";
@@ -13,6 +14,8 @@ import NavIcons from "./NavIcons";
 import "./statics/css/sideBar.css";
 import { UserContext } from "../../utils/Contexts/UserContext";
 import configs from "../../utils/configs";
+import Button from "@material-ui/core/Button";
+import { useHistory } from "react-router";
 
 const sidebarItems = [
   //Student
@@ -99,9 +102,11 @@ const sidebarItems = [
 ];
 
 const SideBar = () => {
+  const history = useHistory();
   const { user } = useContext(UserContext);
   const admin = configs.USER_TYPES.ADMIN === user.user_type;
   const teacher = configs.USER_TYPES.TEACHER === user.user_type;
+  const [buttonType, setButtonType] = useState(true);
 
   return (
     <div className="sideBar_root">
@@ -131,6 +136,27 @@ const SideBar = () => {
             </Link>
           ))}
         </Grid>
+        <div className="sideBar_logOutContainer">
+          <Button
+            onMouseOver={() => {
+              setButtonType(false);
+            }}
+            onMouseOut={() => {
+              setButtonType(true);
+            }}
+            variant={buttonType ? "outlined" : "contained"}
+            color="primary"
+            startIcon={<RiLogoutBoxLine />}
+            onClick={() => {
+              history.push({
+                pathname: "/logout",
+              });
+            }}
+            className="sideBar_logOutButton"
+          >
+            Logout
+          </Button>
+        </div>
       </Grid>
     </div>
   );

@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Formik, Field, Form } from "formik";
 import Button from "../../components/Button";
 import * as yup from "yup";
 import Grid from "@material-ui/core/Grid";
-import Login from "./Login";
 import "./statics/css/forgotPassword.css";
-import configs from "../../utils/configs";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import callAPI from "../../utils/API";
 
 const validationSchema = yup.object({

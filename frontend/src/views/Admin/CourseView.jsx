@@ -13,7 +13,6 @@ import { ImCross } from "react-icons/im";
 import { Formik, Form } from "formik";
 import CustomTextField from "../../components/CustomTextField";
 import { Link, useHistory } from "react-router-dom";
-import {} from "react-router-dom";
 
 const CourseView = ({ location }) => {
   const history = useHistory();
