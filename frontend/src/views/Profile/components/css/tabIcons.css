@@ -6,10 +6,14 @@
     cursor: pointer;
     padding: 10px;
   }
+  .tabIcons_iconContainer {
+    height: 30px;
+    width: 30px;
+  }
   .tabIcons_nameContainer {
-    width: 70%;
+    width: 80%;
     font-weight: 500;
-    font-size: 1.1em;
+    font-size: 0.95em;
     text-indent: 5px;
   }
   .tabIcons_nameText {
@@ -24,4 +28,10 @@
 }
 
 @media only screen and (min-width: 1920px) {
+  .tabIcons_nameContainer {
+    width: 80%;
+    font-weight: 500;
+    font-size: 1.1em;
+    text-indent: 15px;
+  }
 }
