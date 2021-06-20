@@ -8,3 +8,4 @@ from .personal_note import personalNotes
 from .teacher_note import teacherNotes
 from .quiz import quizzes, quizQuestions
 from .class_session import classSessions
+from .quiz_answer import quizAnswers
