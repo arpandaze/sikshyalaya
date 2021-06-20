@@ -73,6 +73,13 @@
     width: 98%;
     margin: 0px auto !important;
   }
+
+  .quiz_noActiveClass {
+    margin: 0px;
+    font-size: 1.25em;
+    font-weight: 500;
+    text-indent: 35px;
+  }
 }
 
 @media only screen and (min-width: 1920px) {
