@@ -225,6 +225,7 @@ quizQuestions: List[Json] = [
         "question_image": ["this is questionOne"],
         "options": quizQuestionOption,
         "answer": [0, 3],
+        "marks": 6,
         "quiz_id": 1,
     },
     {
@@ -232,6 +233,7 @@ quizQuestions: List[Json] = [
         "question_image": None,
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 2,
     },
     {
@@ -239,6 +241,7 @@ quizQuestions: List[Json] = [
         "question_image": None,
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 3,
     },
     {
@@ -246,6 +249,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 4,
     },
     {
@@ -253,6 +257,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 5,
     },
     {
@@ -260,6 +265,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 1,
     },
     {
@@ -267,6 +273,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 2,
     },
     {
@@ -274,6 +281,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 3,
     },
     {
@@ -281,6 +289,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 4,
     },
     {
@@ -288,6 +297,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 5,
     },
     {
@@ -295,6 +305,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 6,
     },
     {
@@ -302,6 +313,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 7,
     },
     {
@@ -309,6 +321,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 8,
     },
     {
@@ -316,6 +329,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 9,
     },
     {
@@ -323,6 +337,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 1,
     },
     {
@@ -330,6 +345,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 2,
     },
     {
@@ -337,6 +353,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 3,
     },
     {
@@ -344,6 +361,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 1,
     },
     {
@@ -351,6 +369,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 5,
     },
     {
@@ -358,6 +377,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 7,
     },
     {
@@ -365,6 +385,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 8,
     },
     {
@@ -372,6 +393,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 2,
     },
     {
@@ -379,6 +401,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 6,
     },
     {
@@ -386,6 +409,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 3,
     },
     {
@@ -395,6 +419,7 @@ quizQuestions: List[Json] = [
         ],
         "options": quizQuestionOptionOnewithImageJSON,
         "answer": [1],
+        "marks": 6,
         "quiz_id": 11,
     },
     {
@@ -402,6 +427,7 @@ quizQuestions: List[Json] = [
         "question_image": [],
         "options": quizQuestionOptionTwowithImageJSON,
         "answer": [2],
+        "marks": 6,
         "quiz_id": 11,
     },
     {
@@ -409,6 +435,7 @@ quizQuestions: List[Json] = [
         "question_image": [],
         "options": quizQuestionOptionThreewithImageJSON,
         "answer": [0],
+        "marks": 6,
         "quiz_id": 11,
     },
     {
@@ -416,6 +443,7 @@ quizQuestions: List[Json] = [
         "question_image": [],
         "options": quizQuestionOptionFourwithImageJSON,
         "answer": [0, 2, 3],
+        "marks": 7,
         "quiz_id": 11,
     },
 ]

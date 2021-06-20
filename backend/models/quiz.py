@@ -11,8 +11,10 @@ from sqlalchemy import (
     ARRAY,
 )
 import enum
-from sqlalchemy.ext.hybrid import hybrid_property
+
 from sqlalchemy.orm import relationship
+
+from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.sql.sqltypes import JSON
 from .association_tables import (
     group_quiz_association_table,
@@ -43,18 +45,6 @@ class Quiz(Base):
     __tablename__ = "quiz"  # noqa
 
 
-class AnswerType(enum.Enum):
-    TEXT_OPTIONS: int = 1
-    IMAGE_OPTIONS: int = 2
-    FILE_UPLOAD: int = 3
-    TEXT_TYPING: int = 4
-
-
-class QuestionType(enum.Enum):
-    TEXT: int = 1
-    IMAGE: int = 2
-
-
 class QuizQuestion(Base):
     id = Column(Integer, primary_key=True)
 
@@ -78,11 +68,3 @@ class QuizQuestion(Base):
             return True
         else:
             return False
-
-
-# for storing user answers
-class QuizAnswer(Base):
-    id = Column(Integer, primary_key=True)
-    # user_id
-    # question_id
-    __tablename__ = "quiz_answer"  # noqa

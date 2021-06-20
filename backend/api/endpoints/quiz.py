@@ -7,11 +7,9 @@ import os
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from sqlalchemy.sql.expression import true
 from core.config import settings
 import json
 from models import User
-from models.quiz import AnswerType
 from utils import deps
 from cruds import crud_quiz, crud_question
 from schemas import (
@@ -239,16 +237,16 @@ async def update_question(
         os.makedirs(FILE_PATH_QUESTION)
 
     # on option_type update, create folder to store image if not already present
-    if (obj_in.answer_type == AnswerType.IMAGE_OPTIONS.value) and (
-        question.answer_type != obj_in.answer_type
-    ):
-        FILE_PATH_OPTION = os.path.join(
-            "static", QUIZ_OPTION_UPLOAD_DIR, f"{quizid}/{question.id}"
-        )
-        FILE_PATH_OPTION = os.path.join(current_directory, FILE_PATH_OPTION)
+    # if (obj_in.answer_type == AnswerType.IMAGE_OPTIONS.value) and (
+    #     question.answer_type != obj_in.answer_type
+    # ):
+    #     FILE_PATH_OPTION = os.path.join(
+    #         "static", QUIZ_OPTION_UPLOAD_DIR, f"{quizid}/{question.id}"
+    #     )
+    #     FILE_PATH_OPTION = os.path.join(current_directory, FILE_PATH_OPTION)
 
-        if not os.path.exists(FILE_PATH_OPTION):
-            os.makedirs(FILE_PATH_OPTION)
+    #     if not os.path.exists(FILE_PATH_OPTION):
+    #         os.makedirs(FILE_PATH_OPTION)
 
     if question.quiz_id == quizid == obj_in.quiz_id:
         question = crud_question.update(db, db_obj=question, obj_in=obj_in)

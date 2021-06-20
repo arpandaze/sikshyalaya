@@ -2,7 +2,7 @@ from datetime import date, time
 from typing import Optional, List, Dict  # noqa
 
 from pydantic import BaseModel, Json
-from schemas import GroupReturn, UserReturnMin, TeacherShort
+from schemas import GroupReturn, CourseMin, TeacherShort
 
 
 class QuizBase(BaseModel):
@@ -48,9 +48,22 @@ class QuizInDB(QuizInDBBase):
     pass
 
 
-class Quiz(QuizInDBBase):
+class Quiz(BaseModel):
+    id: Optional[int]
+    course: CourseMin
+    end_time: time
+    start_time: time
+    date: date
+    title: str
+    description: str
+    is_randomized: bool
+    display_individual: bool
+    total_marks: int
     group: List[GroupReturn]
     instructor: List[TeacherShort]
+
+    class Config:
+        orm_mode = True
 
 
 # XXX
@@ -106,35 +119,3 @@ class QuizQuestionwoutAnswer(BaseModel):
 
     class Config:
         orm_mode = True
-
-
-# XXX
-# XXX
-# Quiz Answer schema
-
-
-class QuizAnswerBase(BaseModel):
-    pass
-
-
-class QuizAnswerCreate(QuizAnswerBase):
-    pass
-
-
-class QuizAnswerUpdate(QuizAnswerBase):
-    pass
-
-
-class QuizAnswerInDBBase(QuizAnswerBase):
-    id: Optional[int]
-
-    class Config:
-        orm_mode = True
-
-
-class QuizAnswerInDB(QuizAnswerInDBBase):
-    pass
-
-
-class QuizAnswer(QuizAnswerInDBBase):
-    pass
