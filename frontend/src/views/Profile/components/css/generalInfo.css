@@ -15,12 +15,14 @@
 }
 .generalInfo_imageContainer {
   position: relative;
+}
+.generalInfo_imageWrapper {
   width: 150px;
   height: 150px;
+  position: relative;
 }
 .generalInfo_image {
-  position: relative;
-  top: 10px;
+  object-fit: cover;
   border-radius: 50%;
   cursor: pointer;
 }

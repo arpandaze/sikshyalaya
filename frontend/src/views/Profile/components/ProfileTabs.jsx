@@ -24,23 +24,21 @@ const ProfileTabs = ({ tabs }) => {
     setUserInfo(formattedData);
   }, [user]);
   return (
-    <div>
-      <Grid
-        container
-        direction="column"
-        alignItems="flex_start"
-        justify="flex-start"
-        className="profileTabs_tabs"
-      >
-        <Grid item xs={12}>
-          <Grid
-            container
-            direction="row"
-            alignItems="center"
-            justify="flex-start"
-            className="profileTabs_topPart"
-          >
-            <Grid item xs={4} className="profileTabs_imageContainer">
+    <Grid
+      container
+      direction="column"
+      justify="flex-start"
+      className="profileTabs_tabs"
+    >
+      <Grid item xs={12}>
+        <Grid
+          container
+          direction="row"
+          justify="flex-start"
+          className="profileTabs_topPart"
+        >
+          <Grid item xs={5} className="profileTabs_imageContainer">
+            <Grid container justify="center">
               <Image
                 src={
                   userInfo.image
@@ -51,32 +49,30 @@ const ProfileTabs = ({ tabs }) => {
                 addStyles="profileTabs_image"
               />
             </Grid>
-            <Grid item xs={7} className="profileTabs_nameContainer">
-              <Grid
-                container
-                direction="column"
-                alignItems="center"
-                justify="center"
-              >
-                <Grid item>
-                  <span className="profileTabs_name">{userInfo.name}</span>
-                </Grid>
-                <Grid item>
-                  <span className="profileTabs_departname">
-                    {userInfo.department}
-                  </span>
-                </Grid>
+          </Grid>
+          <Grid item xs={7} className="profileTabs_nameContainer">
+            <Grid container direction="column">
+              <Grid item>
+                <p className="profileTabs_name">{userInfo.name}</p>
+              </Grid>
+              <Grid item>
+                <p className="profileTabs_departname">{userInfo.department}</p>
               </Grid>
             </Grid>
           </Grid>
         </Grid>
-        <Grid item className="profileTabs_tabIconContainer">
-          {tabs.map((item) => (
-            <TabIcons name={item.name} icon={item.icon} id={item.id} />
-          ))}
-        </Grid>
       </Grid>
-    </div>
+      <Grid item className="profileTabs_tabIconContainer">
+        {tabs.map((item, index) => (
+          <TabIcons
+            key={index}
+            name={item.name}
+            icon={item.icon}
+            id={item.id}
+          />
+        ))}
+      </Grid>
+    </Grid>
   );
 };
 

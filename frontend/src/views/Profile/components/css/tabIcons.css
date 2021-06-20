@@ -1,19 +1,27 @@
 @import "../../../../utils/colors.css";
-.tabIcons_root {
-  cursor: pointer;
-}
-.tabIcons_iconContainer {
-  padding: 10px;
-}
-.tabIcons_nameContainer {
-  width: 70%;
-  font-weight: 500;
-  font-size: 1.1em;
+
+@media only screen and (min-width: 1280px) {
+  .tabIcons_root {
+    height: 60px;
+    cursor: pointer;
+    padding: 10px;
+  }
+  .tabIcons_nameContainer {
+    width: 70%;
+    font-weight: 500;
+    font-size: 1.1em;
+    text-indent: 5px;
+  }
+  .tabIcons_nameText {
+    margin: 0px;
+  }
+  .tabIcons_root:hover {
+    background-color: var(--grey3);
+  }
+  .tabIcons_root:hover .tabIcons_nameContainer {
+    color: var(--red3);
+  }
 }
 
-.tabIcons_root:hover {
-  background-color: var(--grey3);
-}
-.tabIcons_root:hover .tabIcons_nameContainer {
-  color: var(--red3);
+@media only screen and (min-width: 1920px) {
 }

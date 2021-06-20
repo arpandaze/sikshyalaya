@@ -23,17 +23,15 @@ const TabIcons = ({ name, icon, id }) => {
         }}
         onClick={() => setTabId(id)}
       >
-        <Grid item className="tabIcons_iconContainer">
-          <IconContext.Provider
-            value={{
-              color: hovered ? colorscheme.red3 : colorscheme.grey2,
-            }}
-          >
-            {icon}
-          </IconContext.Provider>
-        </Grid>
+        <IconContext.Provider
+          value={{
+            color: hovered ? colorscheme.red3 : colorscheme.grey2,
+          }}
+        >
+          {icon}
+        </IconContext.Provider>
         <Grid item className="tabIcons_nameContainer">
-          <p>{name}</p>
+          <p className="tabIcons_nameText">{name}</p>
         </Grid>
       </Grid>
     </div>

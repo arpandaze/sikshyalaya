@@ -35,43 +35,31 @@ const Profile = () => {
   return (
     <DashboardLayout>
       <ProfileContext.Provider value={id_value}>
-        <Grid
-          container
-          direction="row"
-          alignItems="flex-start"
-          justify="flex-start"
-          className="profile_root"
-        >
-          <Grid item xs={12}>
+        <Grid container direction="column" className="profile_root">
+          <Grid item className="profile_topBar">
+            <Grid
+              container
+              className="profile_topBarInside"
+              alignItems="center"
+            >
+              <Grid item>
+                <p className="profile_title">My profile</p>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item className="profile_botBar">
             <Grid
               container
               direction="row"
               alignItems="flex-start"
-              justfiy="flex-start"
+              justify="center"
               className="profile_mainContainer"
             >
-              <Grid item xs={12}>
-                <Grid
-                  container
-                  direction="row"
-                  alignItems="center"
-                  justify="flex-start"
-                  className="profile_topBar"
-                >
-                  <Grid item xs={12} className="profile_titleBox">
-                    <p className="profile_title">My profile</p>
-                  </Grid>
-                </Grid>
+              <Grid item xs={3} className="profile_tabsContainer">
+                <ProfileTabs tabs={tabs} />
               </Grid>
-              <Grid item xs={12}>
-                <Grid container direction="row" className="profile_Container">
-                  <Grid item xs={3} className="profile_tabsContainer">
-                    <ProfileTabs tabs={tabs} />
-                  </Grid>
-                  <Grid item xs={8} className="profile_profileBox">
-                    <RenderForm />
-                  </Grid>
-                </Grid>
+              <Grid item xs={8} className="profile_profileBox">
+                <RenderForm />
               </Grid>
             </Grid>
           </Grid>

@@ -72,8 +72,11 @@ const GeneralInfo = () => {
         <Grid item xs={12} className="generalInfo_topPart">
           <Grid container direction="row" alignItems="center" justify="center">
             <Grid item className="generalInfo_imageContainer">
-              <label for="photo-upload" className="generalInfo_imageContainer">
-                <div>
+              <label
+                htmlFor="photo-upload"
+                className="generalInfo_imageContainer"
+              >
+                <div className="generalInfo_imageWrapper">
                   <Image
                     src={
                       isPicked === true
@@ -100,13 +103,23 @@ const GeneralInfo = () => {
         <Grid item xs={12}>
           <Formik
             enableReinitialize={true}
-            initialValues={{
-              name: user.full_name,
-              address: user.address,
-              email: user.email,
-              phone_number: user.contact_number,
-              dob: user.dob,
-            }}
+            initialValues={
+              user
+                ? {
+                    name: user.full_name,
+                    address: user.address,
+                    email: user.email,
+                    phone_number: user.contact_number,
+                    dob: user.dob,
+                  }
+                : {
+                    name: "",
+                    address: "",
+                    email: "",
+                    phone_number: "",
+                    dob: null,
+                  }
+            }
             validationSchema={validationSchema}
             onSubmit={onSubmit}
           >
