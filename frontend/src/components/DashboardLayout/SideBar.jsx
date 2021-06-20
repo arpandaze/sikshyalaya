@@ -3,7 +3,7 @@ import { AiOutlineDashboard } from "react-icons/ai";
 import { BiNotepad } from "react-icons/bi";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { RiSurveyLine } from "react-icons/ri";
-import { IoPeopleOutline } from "react-icons/io5";
+import { IoPersonOutline } from "react-icons/io5";
 import { GoTasklist } from "react-icons/go";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { IoPerson } from "react-icons/io5";
@@ -31,7 +31,7 @@ const sidebarItems = [
       id: 2,
       title: "Profile",
       route: "/profile",
-      icon: <IoPerson className="sideBar_iconStyle" />,
+      icon: <IoPersonOutline className="sideBar_iconStyle" />,
     },
     {
       id: 3,
@@ -85,13 +85,13 @@ const sidebarItems = [
       id: 2,
       title: "Explore",
       route: "/admin/explore",
-      icon: <IoPeopleOutline className="sideBar_iconStyle" />,
+      icon: <IoPersonOutline className="sideBar_iconStyle" />,
     },
     {
       id: 3,
       title: "Student",
       route: "/admin/student",
-      icon: <IoPeopleOutline className="sideBar_iconStyle" />,
+      icon: <IoPersonOutline className="sideBar_iconStyle" />,
     },
     {
       id: 4,

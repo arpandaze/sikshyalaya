@@ -8,11 +8,15 @@
     padding-top: 10px;
   }
   .profileTabs_imageContainer {
+    height: 100% !important;
+  }
+  .profielTabs_imageContainerInside {
+    width: 100px;
+    height: 100px;
+    margin: 0px auto;
   }
   .profileTabs_image {
     object-fit: cover;
-    width: 75% !important;
-    height: auto !important;
     position: relative;
     border-radius: 50%;
   }
@@ -20,7 +24,6 @@
     overflow: hidden;
     white-space: nowrap;
   }
-
   .profileTabs_name {
     margin: 0px;
     font-size: 0.95em;
