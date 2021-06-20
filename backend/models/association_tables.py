@@ -21,6 +21,15 @@ user_class_session_association_table = Table(
     Column("user_id", Integer, ForeignKey("user.id", ondelete="CASCADE")),
 )
 
+attendant_class_session_association_table = Table(
+    "attendant_class_session_association",
+    Base.metadata,
+    Column(
+        "class_session_id", Integer, ForeignKey("class_session.id", ondelete="CASCADE")
+    ),
+    Column("user_id", Integer, ForeignKey("user.id", ondelete="CASCADE")),
+)
+
 user_permission_association_table = Table(
     "user_permission_association",
     Base.metadata,

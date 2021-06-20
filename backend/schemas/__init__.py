@@ -3,6 +3,7 @@ from .class_session import (
     ClassSessionUpdate,
     ClassSessionCreate,
     ClassSessionInDB,
+    AttendanceUpdate,
 )
 from .course import Course, CourseCreate, CourseUpdate, CourseInDB
 from .department import Department, DepartmentCreate, DepartmentUpdate, DepartmentInDB

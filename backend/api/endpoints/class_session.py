@@ -31,6 +31,8 @@ from schemas.class_session import (
     ClassSessionCreate,
     ClassSessionReturn,
     ClassSessionUpdate,
+    ClassSessionTeacherReturn,
+    AttendanceUpdate,
 )
 from schemas.file import FileCreate
 from utils import deps
@@ -111,6 +113,17 @@ def get_specific_class_session(
     return class_session
 
 
+@router.get("/{id}/attendance", response_model=ClassSessionTeacherReturn)
+def get_class_session_with_attendance(
+    db: Session = Depends(deps.get_db),
+    user=Depends(get_current_active_teacher_or_above),
+    *,
+    id: int,
+) -> Any:
+    class_session = crud_class_session.get_user_class_session(db=db, user=user, id=id)
+    return class_session
+
+
 @router.put("/{id}/", response_model=ClassSession)
 def update_class_session(
     db: Session = Depends(deps.get_db), *, id: int, obj_in: ClassSessionUpdate
@@ -120,37 +133,56 @@ def update_class_session(
     return class_session
 
 
-@router.post("/{id}/file/")
-async def create_upload_files(
+@router.put("/{id}/attendance")
+def attendance_of_class_session(
     db: Session = Depends(deps.get_db),
-    files: List[UploadFile] = File(...),
-    current_teacher=Depends(
-        get_current_active_teacher_or_above
-    ),  # FIXME : Get current user ?
     *,
     id: int,
-):
+    obj_in: AttendanceUpdate,
+    current_teacher=Depends(get_current_active_teacher_or_above),
+) -> Any:
     class_session = crud_class_session.get_user_class_session(
         db=db, user=current_teacher, id=id
     )
-
     if not class_session:
-        raise HTTPException(status_code=403, detail="Error ID: 100")  # Access denied!
-
-    FILE_PATH = os.path.join("static", settings.UPLOAD_DIR_ROOT)
-    working_directory = os.getcwd()
-    FILE_PATH = os.path.join(working_directory, FILE_PATH)
-
-    for file in files:
-        filename = f"{FILE_PATH}/{id}/{file.filename}"
-        async with aiofiles.open(filename, mode="wb") as f:
-            content = await file.read()
-            await f.write(content)
-
-    obj_in = ClassSessionUpdate(file=[file.filename for file in files])
-    crud_class_session.update(db=db, db_obj=class_session, obj_in=obj_in)
-
+        raise HTTPException(status_code=403, detail="Class session access denied!")
+    class_session = crud_class_session.attendance_update(
+        db, db_obj=class_session, obj_in=obj_in
+    )
     return {"msg": "success"}
+
+
+# @router.post("/{id}/file/")
+# async def create_upload_files(
+# db: Session = Depends(deps.get_db),
+# files: List[UploadFile] = File(...),
+# current_teacher=Depends(
+# get_current_active_teacher_or_above
+# ),  # FIXME : Get current user ?
+# *,
+# id: int,
+# ):
+# class_session = crud_class_session.get_user_class_session(
+# db=db, user=current_teacher, id=id
+# )
+
+# if not class_session:
+# raise HTTPException(status_code=403, detail="Error ID: 100")  # Access denied!
+
+# FILE_PATH = os.path.join("static", settings.UPLOAD_DIR_ROOT)
+# working_directory = os.getcwd()
+# FILE_PATH = os.path.join(working_directory, FILE_PATH)
+
+# for file in files:
+# filename = f"{FILE_PATH}/{id}/{file.filename}"
+# async with aiofiles.open(filename, mode="wb") as f:
+# content = await file.read()
+# await f.write(content)
+
+# obj_in = ClassSessionUpdate(file=[file.filename for file in files])
+# crud_class_session.update(db=db, db_obj=class_session, obj_in=obj_in)
+
+# return {"msg": "success"}
 
 
 @router.websocket("/ws/{id}/")
