@@ -11,7 +11,8 @@ import { DatePicker } from "../../../components/CustomDateTime";
 import Button from "../../../components/Button";
 import callAPI from "../../../utils/API";
 import "./css/generalInfo.css";
-import { formatISO } from "date-fns/esm";
+import { parseISO } from "date-fns";
+import { format } from "date-fns";
 
 const validationSchema = yup.object({
   name: yup.string("Enter your Name").required("Name is required"),
@@ -36,7 +37,7 @@ const GeneralInfo = () => {
     setSelectedImage(e.target.files[0]);
   };
   const onSubmit = async (value) => {
-    let date = formatISO(value.dob, { representation: "date" });
+    let date = format(value.dob, "yyyy-MM-dd");
     let formData = new FormData();
     formData.append("full_name", value.name);
     formData.append("address", value.address);
@@ -59,17 +60,20 @@ const GeneralInfo = () => {
   };
   return (
     <div>
-      <Grid
-        container
-        direction="row"
-        alignItems="flex-start"
-        justify="flex-start"
-        className="generalInfo_root"
-      >
-        <Grid item xs={12} className="generalInfo_titleBar">
-          <p className="generalInfo_title">General Information</p>
+      <Grid container direction="column" className="generalInfo_root">
+        <Grid item>
+          <Grid
+            container
+            direction="row"
+            alignItems="center"
+            className="generalInfo_titleBar"
+          >
+            <Grid item>
+              <p className="generalInfo_title">General Information</p>
+            </Grid>
+          </Grid>
         </Grid>
-        <Grid item xs={12} className="generalInfo_topPart">
+        <Grid item className="generalInfo_topPart">
           <Grid container direction="row" alignItems="center" justify="center">
             <Grid item className="generalInfo_imageContainer">
               <label
@@ -100,26 +104,16 @@ const GeneralInfo = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item>
           <Formik
             enableReinitialize={true}
-            initialValues={
-              user
-                ? {
-                    name: user.full_name,
-                    address: user.address,
-                    email: user.email,
-                    phone_number: user.contact_number,
-                    dob: user.dob,
-                  }
-                : {
-                    name: "",
-                    address: "",
-                    email: "",
-                    phone_number: "",
-                    dob: null,
-                  }
-            }
+            initialValues={{
+              name: user.full_name,
+              address: user.address,
+              email: user.email,
+              phone_number: user.contact_number,
+              dob: new Date(user.dob),
+            }}
             validationSchema={validationSchema}
             onSubmit={onSubmit}
           >

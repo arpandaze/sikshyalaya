@@ -34,6 +34,7 @@ const ProfileTabs = ({ tabs }) => {
         <Grid
           container
           direction="row"
+          alignItems="center"
           justify="flex-start"
           className="profileTabs_topPart"
         >

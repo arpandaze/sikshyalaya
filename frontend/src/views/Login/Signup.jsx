@@ -12,6 +12,7 @@ import CustomTextField from "./../../components/CustomTextField";
 import useAPI from "../../utils/useAPI";
 import DelayedRedirect from "../../components/DelayedRedirect";
 import { DatePicker } from "../../components/CustomDateTime";
+import { format } from "date-fns";
 
 const semester = [
   { name: "I", value: 1 },
@@ -73,7 +74,7 @@ const Signup = () => {
   const onSubmit = async (data, { setErrors }) => {
     console.log(data);
     let group_id_list = group.filter((item) => {
-      if (item.sem === data.semester && item.program.id === data.program) {
+      if (item.sem === data.semester && item.program_id === data.program) {
         return item;
       }
     });
@@ -82,7 +83,7 @@ const Signup = () => {
       throw "No matching group found!";
     }
     let group_id = group_id_list[0].id;
-
+    let date = format(data.dob, "yyyy-MM-dd");
     let req_data = {
       email: data.email,
       full_name: [data.first_name, data.middle_name, data.last_name]
@@ -91,7 +92,7 @@ const Signup = () => {
       address: data.address,
       group_id: group_id,
       contact_number: data.phone_number,
-      dob: data.dob,
+      dob: date,
       join_year: parseInt(data.join_year),
       password: data.password,
     };
@@ -107,7 +108,7 @@ const Signup = () => {
         message: "Check your email for verification!",
       });
     } else {
-      setSubmitState({ code: 4, message: response.data.detail });
+      setSubmitState({ code: 4, message: response.data.detail.msg });
     }
   };
 
