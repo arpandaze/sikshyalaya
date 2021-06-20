@@ -75,11 +75,13 @@ def test_verification_email(client: TestClient) -> None:
     assert verify_req.status_code == 200
 
 
-def test_web_session_authentication(client: TestClient) -> None:
+def test_web_session_authentication(
+    client: TestClient, username=None, password=None, remember_me=None
+) -> None:
     data = {
-        "username": "test_student@test.com",
-        "password": "testold",
-        "remember_me": True,
+        "username": username or "test_student@test.com",
+        "password": password or "testold",
+        "remember_me": remember_me or True,
     }
 
     req = client.post(
@@ -189,6 +191,41 @@ def test_login_with_new_password(client: TestClient):
 
     assert req.status_code == 200, "Couldn't login with new password"
     assert req.cookies.get("session"), "Cookie not returned with new password"
+
+
+def test_change_password(client: TestClient):
+    wrong_data = {
+        "current_password": "testwrong",
+        "new_password": "newtest",
+    }
+
+    req = client.post(
+        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/auth/change-password/",
+        json=wrong_data,
+        headers=headers,
+    )
+
+    assert req.status_code != 200
+
+    data = {
+        "current_password": "test",
+        "new_password": "newtest",
+    }
+
+    req = client.post(
+        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/auth/change-password/",
+        json=data,
+        headers=headers,
+    )
+
+    assert req.status_code == 200
+
+    test_web_session_authentication(
+        client=client,
+        username="test_student@test.com",
+        password="newtest",
+        remember_me=True,
+    )
 
 
 def test_logout(client: TestClient) -> None:
