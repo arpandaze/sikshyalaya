@@ -202,19 +202,21 @@ const Notes = () => {
                 justify="center"
                 className="notes_creatorTopInside"
               >
-                <Grid xs={9} item className="notes_textContainer">
+                <Grid xs={10} item className="notes_textContainer">
                   <p className="notes_text">Notes</p>
                 </Grid>
-                <Grid xs={1} item className="notes_plusIcon">
+                <Grid item xs={1} className="notes_plusButtonContainer">
                   {isNewNote ? (
-                    <GoPlus
-                      size={26}
-                      color={colorscheme.green2}
-                      onClick={() => {
-                        setIsNewNote(false);
-                        handleCreateNote();
-                      }}
-                    />
+                    <div item className="notes_plusButton">
+                      <GoPlus
+                        size={20}
+                        color={colorscheme.green2}
+                        onClick={() => {
+                          setIsNewNote(false);
+                          handleCreateNote();
+                        }}
+                      />
+                    </div>
                   ) : (
                     <></>
                   )}

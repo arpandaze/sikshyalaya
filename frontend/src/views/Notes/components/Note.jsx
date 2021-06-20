@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import colorscheme from "../../../utils/colors";
 import { ImCross } from "react-icons/im";
 import { FiTrash } from "react-icons/fi";
-import { FaAppStoreIos } from "react-icons/fa";
+import { RiSendPlane2Fill } from "react-icons/ri";
 import "./statics/css/note.css";
 import Button from "../../../components/Button";
 import Tag from "./Tag";
@@ -193,7 +193,7 @@ const Note = ({
           </Grid>
           <Grid item className="note_saveButtonContainer">
             <div className="note_saveButton">
-              <FaAppStoreIos
+              <RiSendPlane2Fill
                 size={20}
                 color={colorscheme.green2}
                 onClick={() => {

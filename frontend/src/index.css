@@ -32,8 +32,8 @@ body {
   box-shadow: none !important;
 }
 .MuiButton-outlinedPrimary {
-  border: 1px solid var(--black) !important;
-  color: var(--black) !important;
+  border: 1px solid var(--grey1) !important;
+  color: var(--grey1) !important;
 }
 .MuiButton-containedPrimary {
   background-color: var(--red4) !important;

@@ -95,19 +95,19 @@
 
 @media only screen and (min-width: 1920px) {
   .smallCards_container {
-    height: 220px;
+    height: 230px;
   }
   .smallCards_row1 {
-    height: 220px;
+    height: 230px;
   }
 
   .smallCards_row_col_box {
-    height: 220px;
+    height: 230px;
   }
 
   .smallCards_row2 {
     position: relative;
-    height: 220px;
+    height: 230px;
   }
 
   .smallCards_buttonContainer {
