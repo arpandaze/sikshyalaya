@@ -97,10 +97,10 @@ async def sign_up(
     return schemas.Msg(msg="Success")
 
 
-@router.post("/change-password")
+@router.post("/change-password/")
 async def change_password(
-    current_password:str= Body(...),
-    new_password:str= Body(...),
+    current_password: str = Body(...),
+    new_password: str = Body(...),
     current_user: models.User = Depends(deps.get_current_user),
     db: Session = Depends(deps.get_db),
 ) -> Any:
