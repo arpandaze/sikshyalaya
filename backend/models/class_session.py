@@ -2,7 +2,10 @@ from sqlalchemy import Boolean, Column, Integer, String, DateTime, ForeignKey, A
 from sqlalchemy.orm import relationship
 
 from core.db import Base
-from .association_tables import user_class_session_association_table
+from .association_tables import (
+    user_class_session_association_table,
+    attendant_class_session_association_table,
+)
 
 
 class ClassSession(Base):
@@ -17,4 +20,9 @@ class ClassSession(Base):
     group_id = Column(Integer, ForeignKey("group.id", ondelete="cascade"))
     group = relationship("Group", backref="class_session", uselist=False)
     description = Column(String)
+    attendant = relationship(
+        "User",
+        secondary=attendant_class_session_association_table,
+        backref="attended_class_session",
+    )
     __tablename__ = "class_session"
