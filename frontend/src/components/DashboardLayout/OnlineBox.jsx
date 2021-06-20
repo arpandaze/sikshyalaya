@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import "./statics/css/onlineBox.css";
-import Profile from "./../../assets/pp.jpg";
 import Online from "./Online";
 import { WebsocketContext } from "../../utils/Contexts/WebsocketContext";
 import { UserContext } from "../../utils/Contexts/UserContext";

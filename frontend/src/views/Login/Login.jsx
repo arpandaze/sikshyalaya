@@ -9,7 +9,6 @@ import { Redirect } from "react-router-dom";
 import configs from "../../utils/configs";
 
 const Login = (props) => {
-  const [active, setActive] = useState(0);
   const { user, setUser } = useContext(UserContext);
   return (
     <div className="login_root">

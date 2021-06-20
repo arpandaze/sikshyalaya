@@ -8,7 +8,6 @@ import CustomTextField from "./../../../components/CustomTextField";
 import Checkbox from "./../../../components/Checkbox";
 import { QuizContext, QuizOptionContext } from "../QuizContext";
 import { FileUpload } from "../../../components/FileUpload";
-import { IndeterminateCheckBox } from "@material-ui/icons";
 import ResourceIcons from "./../../../components/ResourceIcons";
 
 const Options = ({ optionName, question, index }) => {

@@ -13,7 +13,6 @@ import useAPI from "../../../utils/useAPI";
 import useSocket from "../../../utils/useSocket";
 import useChat from "../../../utils/useChat";
 import configs from "../../../utils/configs";
-import { SettingsInputAntennaTwoTone } from "@material-ui/icons";
 import Switch from "@material-ui/core/Switch";
 
 const ChatMessageTypes = {

@@ -12,9 +12,7 @@ import Button from "../../components/Button";
 import { ImCross } from "react-icons/im";
 import { Formik, Form } from "formik";
 import CustomTextField from "../../components/CustomTextField";
-import { Link, useHistory } from "react-router-dom";
-import {} from "react-router-dom";
-import CustomTabComponent from "../../components/CustomTabComponent";
+import { useHistory } from "react-router-dom";
 import { GoTasklist } from "react-icons/go";
 
 const DepartmentView = ({ location }) => {

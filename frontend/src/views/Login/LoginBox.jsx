@@ -5,17 +5,9 @@ import * as yup from "yup";
 import Grid from "@material-ui/core/Grid";
 import Login from "./Login";
 import "./statics/css/loginCommon.css";
-import colorscheme from "../../utils/colors";
-import { Link } from "react-router-dom";
-import axios from "axios";
 import Checkbox from "../../components/Checkbox";
-import configs from "../../utils/configs";
-import { get, set } from "idb-keyval";
 import { UserContext } from "../../utils/Contexts/UserContext";
-import {
-  Redirect,
-  useHistory,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import callAPI from "../../utils/API";
 import CustomTextField from "./../../components/CustomTextField";
 
