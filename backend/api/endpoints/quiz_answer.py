@@ -37,7 +37,7 @@ async def get_specific_answer():
     pass
 
 
-@router.post("/")
+@router.post("/{quiz_id}")
 async def submit_answer(
     db: Session = Depends(deps.get_db),
     *,

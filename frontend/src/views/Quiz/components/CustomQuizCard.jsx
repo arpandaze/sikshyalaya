@@ -35,7 +35,7 @@ const CustomQuizCard = ({ quiz, image, onClick }) => {
           </Grid>
         </Grid>
         <p className="quizCard_course">
-          {quiz.quiz_course} ({quiz.total_marks} marks)
+          {quiz.course_code} ({quiz.total_marks} marks)
         </p>
         <p className="quizCard_date">{dateConverter(quiz.date)}</p>
         <div className="quizCard_descriptionContainer">
