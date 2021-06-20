@@ -6,6 +6,7 @@ import { RiSurveyLine } from "react-icons/ri";
 import { IoPeopleOutline } from "react-icons/io5";
 import { GoTasklist } from "react-icons/go";
 import { RiLogoutBoxLine } from "react-icons/ri";
+import { IoPerson } from "react-icons/io5";
 import Grid from "@material-ui/core/Grid";
 import iconbig from "../../assets/logo-large.svg";
 import Image from "../Image";
@@ -28,12 +29,18 @@ const sidebarItems = [
     },
     {
       id: 2,
+      title: "Profile",
+      route: "/profile",
+      icon: <IoPerson className="sideBar_iconStyle" />,
+    },
+    {
+      id: 3,
       title: "Quiz",
       route: "/quiz",
       icon: <RiSurveyLine className="sideBar_iconStyle" />,
     },
     {
-      id: 3,
+      id: 4,
       title: "Note",
       route: "/note",
       icon: <BiNotepad className="sideBar_iconStyle" />,
