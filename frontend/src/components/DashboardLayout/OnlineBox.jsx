@@ -53,7 +53,7 @@ const OnlineBox = ({ miniProfile = true, ...rest }) => {
   }, [classmatesState, JSON.stringify(onlineState)]);
   return (
     <Grid container direction="column" className="onlineBox_root">
-      <Grid item className="online_titleBar">
+      <Grid item className="onlineBox_titleBar">
         <Grid container direction="row" alignItems="center">
           <div className="onlineBox_greenDot"></div>
           <p className="onlineBox_courseTextTitle">Online Users</p>
@@ -67,19 +67,15 @@ const OnlineBox = ({ miniProfile = true, ...rest }) => {
         >
           {classmates.map((user) => (
             <Grid item className="onlineBox_userList">
-              <Grid container direction="row">
-                <Grid item>
-                  <Online
-                    id={user.id}
-                    username={user.name}
-                    src={user.image}
-                    year={user.year}
-                    online={user.online}
-                    semester={user.semester}
-                    program={user.program}
-                  />
-                </Grid>
-              </Grid>
+              <Online
+                id={user.id}
+                username={user.name}
+                src={user.image}
+                year={user.year}
+                online={user.online}
+                semester={user.semester}
+                program={user.program}
+              />
             </Grid>
           ))}
         </Grid>

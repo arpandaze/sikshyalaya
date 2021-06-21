@@ -1,0 +1,31 @@
+@import "../../../../utils/colors.css";
+
+@media only screen and (min-width: 1280px) {
+  .mini_root {
+    height: 200px;
+    position: relative;
+    cursor: pointer;
+    padding: 10px;
+  }
+  .mini_imageRoot {
+    width: 100px;
+    height: 100px;
+  }
+  .mini_image {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .mini_nameText {
+    font-size: 0.95em;
+    font-weight: 600;
+    text-indent: 20px;
+  }
+  .mini_nameContainer p {
+    margin: 5px;
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+}

@@ -2,7 +2,6 @@
 
 @media only screen and (min-width: 1280px) {
   .onlineBox_root {
-    min-height: 300px;
     max-height: 800px;
     border-radius: 25px;
     position: relative;
@@ -10,14 +9,18 @@
     background: var(--secondary);
     border: 1px solid var(--grey6);
   }
-  .online_titleBar {
+  .onlineBox_titleBar {
     width: 90%;
     height: 50px !important;
     margin: 20px auto !important;
   }
   .onlineBox_userlistContainerOuter {
+    height: 500px;
     overflow-y: scroll;
     position: relative;
+  }
+  .onlineBox_userlistContainer {
+    width: 100% !important;
   }
   .onlineBox_greenDot {
     width: 20px;
@@ -40,10 +43,4 @@
   }
 }
 @media only screen and (min-width: 1920px) {
-  .onlineBox_root {
-    max-height: 600px;
-  }
-  .onlineBox_userlistContainerOuter {
-    padding: 0px 20px 20px 20px;
-  }
 }
