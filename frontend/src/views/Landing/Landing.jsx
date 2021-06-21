@@ -44,7 +44,6 @@ const Landing = () => {
           title2: "Today's Topic",
           title2Description: item.description,
           bottomText: instructors_name,
-          id: 1,
           button: false,
           time: start_time.toLocaleTimeString().replace(":00", ""),
         });
