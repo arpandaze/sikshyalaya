@@ -50,17 +50,19 @@ const QuizCreator = () => {
     if (!response.data.length) {
       return [];
     }
-    let tempCourse = [];
+    let tempCourseID = [];
+    let tempCourseName = [];
+    let tempCourseCode = [];
     let responseData = [];
-    responseData = response.data.map((data) => {
+    responseData = response.data.map((data, index) => {
       let formattedData = {
         id: data.id,
         semester: data.sem,
         program_id: data.program.id,
         program_name: data.program.name,
-        course_id: data.course[0].id,
-        course_code: data.course[0].course_code,
-        course_name: data.course[0].course_name,
+        course_id: [data.course.map((item) => item.id)],
+        course_code: [data.course.map((item) => item.course_code)],
+        course_name: [data.course.map((item) => item.course_name)],
       };
 
       return formattedData;
@@ -74,7 +76,6 @@ const QuizCreator = () => {
   );
 
   if (groups && groups.length && groupsComplete) {
-    console.log(groups);
     groups.map((group, index) => {
       groupList.push({
         name: `${group.program_name}, Sem ${group.semester} [Course ${group.course_code}]`,
@@ -82,12 +83,16 @@ const QuizCreator = () => {
         course: group.course_id,
       });
     });
+    console.log(groupList);
   }
 
   const quizPostFormatter = (quiz) => {
-    let tempGroupList = [];
+    let tempList = [];
+    let tempCourseList = [];
     quiz.whoseQuizInfo &&
-      quiz.whoseQuizInfo.map((grp) => tempGroupList.push(grp.group));
+      quiz.whoseQuizInfo.map(
+        (grp) => (tempList.push(grp.group), tempCourseList.push(grp.course))
+      );
     const postquizValues = {
       end_time: formatISO(quiz.end_time, { representation: "time" }),
       start_time: formatISO(quiz.start_time, { representation: "time" }),
@@ -96,9 +101,9 @@ const QuizCreator = () => {
       description: quiz.quiz_description,
       is_randomized: quiz.isRandomized,
       display_individual: quiz.displayIndividual,
-      group: tempGroupList,
-      instructor: [user.id],
-      course_id: quiz.whoseQuizInfo[0].course,
+      group: tempList,
+      instructor: user.id,
+      course_id: tempCourseList,
     };
 
     return postquizValues;
@@ -126,6 +131,7 @@ const QuizCreator = () => {
           text: "",
         };
         if (
+          optionFile &&
           optionFile[index][optionIndex] &&
           optionFile[index][optionIndex].length
         ) {
@@ -149,75 +155,75 @@ const QuizCreator = () => {
     quiz = quizPostFormatter(quiz);
     console.log(quiz);
 
-    // let newQuizId = null;
+    let newQuizId = null;
 
-    // let postResponse = await callAPI({
-    //   endpoint: `/api/v1/quiz/`,
-    //   method: "POST",
-    //   data: quiz,
-    // });
-    // newQuizId = postResponse.data.id;
+    let postResponse = await callAPI({
+      endpoint: `/api/v1/quiz/`,
+      method: "POST",
+      data: quiz,
+    });
+    newQuizId = postResponse.data.id;
 
-    // if (postResponse.status === 200 && newQuizId) {
-    //   if (questions) {
-    //     questions.map(async (question, index) => {
-    //       let postQuestion = quizQuestionPostFormatter(
-    //         question,
-    //         index,
-    //         newQuizId
-    //       );
+    if (postResponse.status === 200 && newQuizId) {
+      if (questions) {
+        questions.map(async (question, index) => {
+          let postQuestion = quizQuestionPostFormatter(
+            question,
+            index,
+            newQuizId
+          );
 
-    //       if (question) {
-    //         postResponse = await callAPI({
-    //           endpoint: `/api/v1/quiz/${newQuizId}/question`,
-    //           method: "POST",
-    //           data: postQuestion,
-    //         });
+          if (question) {
+            postResponse = await callAPI({
+              endpoint: `/api/v1/quiz/${newQuizId}/question`,
+              method: "POST",
+              data: postQuestion,
+            });
 
-    //         let newquestionId = postResponse.data.id;
-    //         let questionOptionImageData = new FormData();
-    //         let questionImageData = new FormData();
+            let newquestionId = postResponse.data.id;
+            let questionOptionImageData = new FormData();
+            let questionImageData = new FormData();
 
-    //         if (postResponse.status === 200 && selectFile[index]) {
-    //           for (let i = 0; i < selectFile[index].length; i++) {
-    //             questionImageData.append("files", selectFile[index][i]);
-    //           }
+            if (postResponse.status === 200 && selectFile[index]) {
+              for (let i = 0; i < selectFile[index].length; i++) {
+                questionImageData.append("files", selectFile[index][i]);
+              }
 
-    //           let imageResponse = await callAPI({
-    //             endpoint: `/api/v1/quiz/${newQuizId}/question/${newquestionId}/question_image/`,
-    //             method: "POST",
-    //             data: questionImageData,
-    //             headers: { "Content-Type": "multipart/form-data" },
-    //           });
-    //         }
-    //         let allOptions = JSON.parse(postQuestion.options);
+              let imageResponse = await callAPI({
+                endpoint: `/api/v1/quiz/${newQuizId}/question/${newquestionId}/question_image/`,
+                method: "POST",
+                data: questionImageData,
+                headers: { "Content-Type": "multipart/form-data" },
+              });
+            }
+            let allOptions = JSON.parse(postQuestion.options);
 
-    //         questionOptionImageData.set("options", postQuestion.options);
+            questionOptionImageData.set("options", postQuestion.options);
 
-    //         if (postResponse.status === 200 && optionFile[index]) {
-    //           for (let i = 0; i < allOptions.length; i++) {
-    //             if (optionFile[index][i] && optionFile[index][i].length) {
-    //               questionOptionImageData.append(
-    //                 "files",
-    //                 optionFile[index][i][0]
-    //               );
-    //             }
-    //           }
+            if (postResponse.status === 200 && optionFile[index]) {
+              for (let i = 0; i < allOptions.length; i++) {
+                if (optionFile[index][i] && optionFile[index][i].length) {
+                  questionOptionImageData.append(
+                    "files",
+                    optionFile[index][i][0]
+                  );
+                }
+              }
 
-    //           let optionResponse = await callAPI({
-    //             endpoint: `/api/v1/quiz/${newQuizId}/question/${newquestionId}/option_image/`,
-    //             method: "POST",
-    //             data: questionOptionImageData,
-    //             headers: { "Content-Type": "multipart/form-data" },
-    //           });
-    //         }
-    //       }
-    //     });
-    //   }
-    // }
-    // answerList = [];
-    // setSelectedFile({});
-    // setOptionFile({});
+              let optionResponse = await callAPI({
+                endpoint: `/api/v1/quiz/${newQuizId}/question/${newquestionId}/option_image/`,
+                method: "POST",
+                data: questionOptionImageData,
+                headers: { "Content-Type": "multipart/form-data" },
+              });
+            }
+          }
+        });
+      }
+    }
+    answerList = [];
+    setSelectedFile({});
+    setOptionFile({});
   };
 
   return (
@@ -254,7 +260,6 @@ const QuizCreator = () => {
                 >
                   {({ values, setFieldValue }) => (
                     <>
-                      {console.log(l++)}
                       <Form className="quizCreator_formBox">
                         <Grid
                           container
