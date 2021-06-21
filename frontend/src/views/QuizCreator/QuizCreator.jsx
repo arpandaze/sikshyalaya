@@ -10,6 +10,8 @@ import { formatISO } from "date-fns";
 import "./statics/css/quizCreator.css";
 import colorscheme from "../../utils/colors";
 import { UserContext } from "../../utils/Contexts/UserContext";
+import TextField from "@material-ui/core/TextField";
+import { BiMinus } from "react-icons/bi";
 import callAPI from "../../utils/API";
 import useAPI from "../../utils/useAPI";
 import configs from "../../utils/configs";
@@ -38,6 +40,7 @@ const QuizCreator = () => {
   let answerList = [];
 
   const groupList = [];
+
   const [optionFile, setOptionFile] = useState({});
   const quizOptionFile = useMemo(
     () => ({ optionFile, setOptionFile }),
@@ -123,7 +126,6 @@ const QuizCreator = () => {
           text: "",
         };
         if (
-          optionFile[index] &&
           optionFile[index][optionIndex] &&
           optionFile[index][optionIndex].length
         ) {

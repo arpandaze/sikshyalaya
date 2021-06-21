@@ -1,0 +1,100 @@
+@import "../../../../utils/colors.css";
+
+@keyframes live {
+  0% {
+    background: var(--red4);
+  }
+  50% {
+    background: var(--red5);
+  }
+  100% {
+    background: var(--red4);
+  }
+}
+
+@media only screen and (min-width: 1280px) {
+  .quizLanding_root {
+    flex-grow: 1;
+    width: 94% !important;
+    margin: 0px auto !important;
+    position: relative;
+  }
+  .quizLanding_titlContainer{
+    position: relative;
+  }
+  .quizLanding_addquizButtoncontainer{
+    position:absolute;
+    right:50px;
+  }
+  .quizLanding_addquizButton{
+    
+  }
+  .quiz_activeCourseBar {
+    position: relative;
+  }
+  .quizLanding_row {
+    position: relative;
+    top: 20px;
+  }
+  .quizLanding_row2 {
+    position: relative;
+    margin-top: 80px !important;
+  }
+  .quizLanding_smallRedBox {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--red4);
+    position: relative;
+    margin-left: 30px !important;
+    animation: live 1s infinite ease-in-out !important;
+  }
+  .quizLanding_currentContainer {
+    margin-left: 30px;
+  }
+  .quizLanding_activeTitle {
+    display: inline-block;
+    position: relative;
+    left: 15px;
+    color: var(--primaryTextColor);
+  }
+  .quizLanding_upCommingCourseBar {
+    position: relative;
+  }
+  .quizLanding_upCommingContainerBox {
+    width: 50%;
+    padding: 2%;
+    margin: 0px auto;
+  }
+  .quizLanding_pastIcon {
+    display: inline-block;
+    position: relative;
+    margin-left: 30px !important;
+  }
+  .quizLanding_pastText {
+    display: inline-block;
+    position: relative;
+    left: 15px;
+    color: var(--primaryTextColor);
+  }
+  .quizLanding_pastContainer {
+    width: 98%;
+    margin: 0px auto !important;
+  }
+  .quizLanding_cardInside {
+    padding: 30px;
+    margin: 0px auto !important;
+  }
+  .quizLanding_noQuiz {
+    font-size: 1.25em;
+    font-weight: 500;
+    text-indent: 60px;
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  .quizLanding_currentContainer {
+    width: 33%;
+  }
+}

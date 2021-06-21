@@ -1,0 +1,43 @@
+@import "../../../../../utils/colors.css";
+
+@media only screen and (min-width: 1280px) {
+  .quizView_root {
+    flex-grow: 1;
+    width: 100% !important;
+    margin: 0px auto !important;
+  }
+  .quizView_topBar {
+    height: 120px;
+    box-shadow: 0px 3px 13px -4px rgba(0, 0, 0, 0.2);
+  }
+  .quizView_quizTitle {
+    margin: 0;
+    font-size: 1.4em;
+    font-weight: 600;
+    text-indent: 20px;
+  }
+  .quizView_botBar {
+    /* border: 1px solid black; */
+  }
+
+  .quizView_questionContainer {
+    padding: 20px;
+  }
+  .quizView_buttonContainer {
+    width: 160px;
+    height: 45px;
+    margin: 0px auto 50px auto !important;
+  }
+  .quizView_button {
+    width: 160px;
+    height: 45px;
+    margin: 0px auto;
+    background-color: var(--red4);
+    color: var(--white);
+    border-radius: 15px;
+    font-size: 1.15em;
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+}

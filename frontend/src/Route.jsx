@@ -23,6 +23,7 @@ import AdminRoute from "./components/AdminRoute";
 import Verify from "./views/Login/Verify";
 import Logout from "./views/Login/Logout";
 import QuizCreator from "./views/QuizCreator/QuizCreator";
+import QuizCreatorLanding from "./views/QuizCreatorLanding/QuizCreatorLanding";
 import NotFound from "./views/404/404";
 import ClassSessionCreator from "./views/ClassSessionCreator/ClassSessionCreator";
 import HomeRedirector from "./components/HomeRedirector";
@@ -49,6 +50,11 @@ const Routes = () => {
         component={TeacherDashboard}
       />
       <TeacherRoute exact path="/quiz-creator" component={QuizCreator} />
+      <TeacherRoute
+        exact
+        path="/quiz-creator-landing"
+        component={QuizCreatorLanding}
+      />
       <TeacherRoute
         exact
         path="/class-session-create"

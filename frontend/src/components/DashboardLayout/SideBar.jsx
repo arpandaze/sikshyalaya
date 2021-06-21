@@ -59,7 +59,7 @@ const sidebarItems = [
     {
       id: 2,
       title: "Quiz",
-      route: "/quiz-creator",
+      route: "/quiz-creator-landing",
       icon: <RiSurveyLine className="sideBar_iconStyle" />,
     },
     {
