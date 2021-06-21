@@ -82,50 +82,55 @@ const PasswordChange = () => {
             validationSchema={validationSchema}
             onSubmit={onSubmit}
           >
-            <Form>
-              <Grid
-                container
-                direction="row"
-                alignItems="center"
-                justify="center"
-                className="changePw_formContainer"
-              >
-                <Grid item xs={10}>
-                  <CustomTextField
-                    name="current_password"
-                    type="password"
-                    placeHolder="Current Password"
-                    id="current_password"
-                    addStyles="changePw_inputField"
-                  />
+            {({ resetForm }) => (
+              <Form>
+                <Grid
+                  container
+                  direction="row"
+                  alignItems="center"
+                  justify="center"
+                  className="changePw_formContainer"
+                >
+                  <Grid item xs={10}>
+                    <CustomTextField
+                      name="current_password"
+                      type="password"
+                      placeHolder="Current Password"
+                      id="current_password"
+                      addStyles="changePw_inputField"
+                    />
+                  </Grid>
+                  <Grid item xs={10}>
+                    <CustomTextField
+                      name="new_password"
+                      type="password"
+                      placeHolder="New Password"
+                      id="new_password"
+                      addStyles="changePw_inputField"
+                    />
+                  </Grid>
+                  <Grid item xs={10}>
+                    <CustomTextField
+                      name="confirm_password"
+                      type="password"
+                      placeHolder="Confirm Password"
+                      id="confirm_password"
+                      addStyles="changePw_inputField"
+                    />
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      name="Save"
+                      type="submit"
+                      onClick={() => {
+                        resetForm(initialValues);
+                      }}
+                      addStyles="changePw_button"
+                    />
+                  </Grid>
                 </Grid>
-                <Grid item xs={10}>
-                  <CustomTextField
-                    name="new_password"
-                    type="password"
-                    placeHolder="New Password"
-                    id="new_password"
-                    addStyles="changePw_inputField"
-                  />
-                </Grid>
-                <Grid item xs={10}>
-                  <CustomTextField
-                    name="confirm_password"
-                    type="password"
-                    placeHolder="Confirm Password"
-                    id="confirm_password"
-                    addStyles="changePw_inputField"
-                  />
-                </Grid>
-                <Grid item>
-                  <Button
-                    name="Save"
-                    type="submit"
-                    addStyles="changePw_button"
-                  />
-                </Grid>
-              </Grid>
-            </Form>
+              </Form>
+            )}
           </Formik>
         </Grid>
       </Grid>
