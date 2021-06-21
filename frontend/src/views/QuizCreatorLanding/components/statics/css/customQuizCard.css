@@ -1,0 +1,92 @@
+@import "../../../../../utils/colors.css";
+.quizCard_root {
+  width: 450px !important;
+  min-height: 400px !important;
+  border-radius: 15px !important;
+  cursor: pointer;
+}
+.quizCard_root:hover {
+  border: 2px solid var(--blue6);
+}
+.quizCard_image {
+  width: 100% !important;
+}
+.quizCard_infoContainer {
+  text-indent: 30px;
+}
+.quizCard_date {
+  font-weight: 600;
+  color: var(--grey1);
+}
+.quizCard_titleContainer {
+  position: relative;
+}
+.quizCard_title {
+  margin: 0;
+  margin-left: 30px;
+  width: 300px;
+  text-indent: 0px;
+  font-size: 1.3em;
+  font-weight: 600;
+  word-wrap: break-word;
+}
+.quizCard_timerContainer {
+  position: absolute;
+  right: 30px;
+}
+.quizCard_timerIcon {
+  width: 23px;
+  height: 23px;
+}
+.quizCard_timerTime {
+  margin: 0;
+  text-indent: 8px;
+  font-size: 1.09em;
+  font-weight: 600;
+  color: var(--red4);
+}
+.quizCard_course {
+  color: var(--blue7);
+  font-weight: 600;
+}
+.quizCard_description {
+  width: 85%;
+  max-height: 190px;
+  margin: 0px auto;
+  text-indent: 0px;
+  text-align: justify;
+}
+.quizCard_descriptionContainer p {
+  width: 390px;
+  overflow: hidden;
+  word-wrap: normal;
+  text-overflow: ellipsis;
+}
+.quizCard_description {
+  text-overflow: ellipsis !important;
+}
+.quizCard_footer {
+  margin: 30px auto;
+  position: relative;
+}
+.quizCard_footerInnerContainer {
+  margin: 0px 0px 0px 50px !important;
+}
+.quizCard_time {
+  font-weight: 600;
+  color: var(--grey1);
+}
+.quizCard_instructorTitle {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.09em;
+  color: var(--green6);
+}
+.quizCard_instructor {
+  margin: 0;
+  text-indent: 0px;
+  width: 200px;
+  font-weight: 600;
+  color: var(--green6);
+  text-align: right;
+}

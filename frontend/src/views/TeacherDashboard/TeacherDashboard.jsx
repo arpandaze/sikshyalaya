@@ -9,7 +9,7 @@ import Button from "../../components/Button";
 import { ImCross } from "react-icons/im";
 import { Formik, Form } from "formik";
 import CustomTextField from "../../components/CustomTextField";
-import Online from "../../components/DashboardLayout/Online";;
+import Student from "./components/Student";
 
 const users = [
 	{
@@ -219,15 +219,13 @@ const TeacherDashbaord = () => {
 									>
 										{users.map((user) => (
 											<Grid item className="teacherDash_userList">
-												<Online
+												<Student
 													id={user.id}
 													username={user.name}
 													src={user.image}
 													year={user.year}
 													semester={user.semester}
 													program={user.program}
-													miniProfile={false}
-													size={32}
 												/>
 											</Grid>
 										))}

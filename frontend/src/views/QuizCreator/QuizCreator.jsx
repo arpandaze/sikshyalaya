@@ -37,6 +37,9 @@ const QuizCreator = () => {
     () => ({ selectFile, setSelectedFile }),
     [selectFile, setSelectedFile]
   );
+  let answerList = [];
+
+	const groupList = [];
 
   const [optionFile, setOptionFile] = useState({});
   const quizOptionFile = useMemo(
