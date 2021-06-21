@@ -110,7 +110,7 @@ async def change_password(
 
     if not user:
         raise HTTPException(
-            status_code=401, detail="Error ID: 111"
+            status_code=403, detail="Error ID: 111"
         )  # Incorrect email or password
 
     data = schemas.user.PasswordUpdate(

@@ -14,6 +14,7 @@ const Logout = () => {
         })
         .catch(() => {
           window.localStorage.clear();
+          window.location = "/login";
         });
     }
   });
