@@ -7,6 +7,8 @@ import { IoPersonOutline } from "react-icons/io5";
 import { GoTasklist } from "react-icons/go";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { IoPerson } from "react-icons/io5";
+import { VscTelescope } from "react-icons/vsc";
+import { BsBook } from "react-icons/bs";
 import Grid from "@material-ui/core/Grid";
 import iconbig from "../../assets/logo-large.svg";
 import Image from "../Image";
@@ -85,7 +87,7 @@ const sidebarItems = [
       id: 2,
       title: "Explore",
       route: "/admin/explore",
-      icon: <IoPersonOutline className="sideBar_iconStyle" />,
+      icon: <VscTelescope className="sideBar_iconStyle" />,
     },
     {
       id: 3,
@@ -103,7 +105,7 @@ const sidebarItems = [
       id: 5,
       title: "Courses",
       route: "/admin/courses",
-      icon: <GoTasklist className="sideBar_iconStyle" />,
+      icon: <BsBook className="sideBar_iconStyle" />,
     },
   ],
 ];

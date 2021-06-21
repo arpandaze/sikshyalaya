@@ -10,19 +10,18 @@
     width: 500px;
     height: 500px;
     overflow: auto;
-    overflow-X:hidden;
+    overflow-x: hidden;
     margin-bottom: 10px !important;
   }
 
   .discussionBox_messageRoot {
     position: absolute;
   }
-  
+
   .discussionBox_inputField {
     margin-bottom: 10px !important;
   }
   .discussionBox_textFieldRoot {
-
   }
   .discussionBox_textField {
     padding: 10px;
@@ -30,7 +29,7 @@
     max-width: 95%;
     border-radius: 10px;
   }
-  
+
   .discussionBox_sendButtonContainer {
   }
 
@@ -43,13 +42,11 @@
     margin: 0px auto !important;
     background: var(--white);
     border-radius: 15px;
-    box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--grey6);
   }
   .discussionBox_discussionBoxInside {
-
   }
   .discussionBox_discussionBoxTop {
-
   }
   .discussionBox_smallBlueBox {
     width: 20px;
@@ -58,7 +55,6 @@
     background: var(--blue);
     position: relative;
     margin-left: 20px !important;
-
   }
   .discussionBox_discussionBoxTitle {
     position: relative;
