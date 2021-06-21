@@ -4,10 +4,16 @@ import CourseBox from "./CourseBox";
 import OnlineBox from "./OnlineBox";
 import ProfileBox from "./ProfileBox";
 import "./statics/css/profileBar.css";
+import AlertMessage from "../AlertMessage";
 import { UserContext } from "../../utils/Contexts/UserContext";
+import { AlertContext } from "./AlertContext";
 
 const ProfileBar = ({ selected, landing = false }) => {
   const { user } = useContext(UserContext);
+  const { alert, setAlert } = useContext(AlertContext);
+  const renderAlert = () => {
+    return <AlertMessage severity={alert.severity} message={alert.message} />;
+  };
   const courseList = (userContext) => {
     try {
       let courseList = userContext.group.course.map((item, index) => {
@@ -39,6 +45,9 @@ const ProfileBar = ({ selected, landing = false }) => {
         ) : (
           <OnlineBox />
         )}
+      </Grid>
+      <Grid item className="profileBar_GlobalAlertBox">
+        {alert && alert.message && alert.severity ? renderAlert() : <></>}
       </Grid>
     </Grid>
   );

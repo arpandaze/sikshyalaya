@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Formik, Form } from "formik";
 import * as yup from "yup";
 import Grid from "@material-ui/core/Grid";
@@ -6,8 +6,7 @@ import callAPI from "../../../utils/API";
 import CustomTextField from "./../../../components/CustomTextField";
 import "./css/changePassword.css";
 import Button from "../../../components/Button";
-import AlertMessage from "../../../components/AlertMessage";
-import DelayedRedirect from "../../../components/DelayedRedirect";
+import { AlertContext } from "../../../components/DashboardLayout/AlertContext";
 
 const validationSchema = yup.object({
   current_password: yup
@@ -26,7 +25,7 @@ const validationSchema = yup.object({
 });
 
 const PasswordChange = () => {
-  const [alert, setAlert] = useState(null);
+  const { alert, setAlert } = useContext(AlertContext);
   const onSubmit = async (value) => {
     let data = {
       current_password: value.current_password,
@@ -39,35 +38,26 @@ const PasswordChange = () => {
       data: data,
     });
     if (resp.status === 200) {
-      setAlert(1);
+      setAlert({
+        severity: "success",
+        message: "Password changed successfully, Logging out",
+      });
+      setTimeout(() => {
+        setAlert(null);
+      }, 2000);
     } else {
-      setAlert(2);
-    }
-  };
-  const renderAlert = () => {
-    if (alert === 1) {
-      return (
-        <div>
-          <AlertMessage
-            severity="success"
-            message="Password changed successfully, Logging out"
-          />
-          <DelayedRedirect timeout={4} to="/logout" />
-        </div>
-      );
-    } else if (alert === 2) {
-      return (
-        <AlertMessage
-          severity="error"
-          message="Current Password does not match"
-        />
-      );
+      setAlert({
+        severity: "error",
+        message: "Current Password does not match",
+      });
+      setTimeout(() => {
+        setAlert(null);
+      }, 2000);
     }
   };
 
   return (
     <div>
-      {renderAlert()}
       <Grid container direction="column" className="changePw_root">
         <Grid item>
           <Grid
@@ -95,12 +85,12 @@ const PasswordChange = () => {
             <Form>
               <Grid
                 container
-                direction="column"
+                direction="row"
                 alignItems="center"
                 justify="center"
                 className="changePw_formContainer"
               >
-                <Grid item>
+                <Grid item xs={10}>
                   <CustomTextField
                     name="current_password"
                     type="password"
@@ -109,7 +99,7 @@ const PasswordChange = () => {
                     addStyles="changePw_inputField"
                   />
                 </Grid>
-                <Grid item>
+                <Grid item xs={10}>
                   <CustomTextField
                     name="new_password"
                     type="password"
@@ -118,7 +108,7 @@ const PasswordChange = () => {
                     addStyles="changePw_inputField"
                   />
                 </Grid>
-                <Grid item>
+                <Grid item xs={10}>
                   <CustomTextField
                     name="confirm_password"
                     type="password"
