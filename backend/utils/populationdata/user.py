@@ -4,8 +4,8 @@ import datetime
 
 users: List[Json] = [
     {
-        "full_name": "Bal Krishna Bal",
-        "email": "bal.bal@gmail.com",
+        "full_name": "Mike Hunt",
+        "email": "mike.hunt@gmail.com",
         "is_active": True,
         "user_type": 2,
         "address": "Dhulikhel, Kavre",

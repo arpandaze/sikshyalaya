@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 from utils import deps
 from cruds import crud_department
-from schemas import Department, DepartmentUpdate
+from schemas import Department, DepartmentUpdate, Course
 from models import User
 from fastapi import HTTPException
 from core import settings
@@ -70,3 +70,15 @@ def update_department(
         department = crud_department.get(db, id)
         crud_department.update(db, db_obj=department, obj_in=obj_in)
         return {"status": "success"}
+
+
+@router.get("/{id}/courses/", response_model=List[Course])
+def get_department_course(
+    db: Session = Depends(deps.get_db),
+    *,
+    id: int,
+    current_user: User = Depends(deps.get_current_admin_or_above),
+) -> Any:
+    department = crud_department.get(db, id)
+    courses = department.courses
+    return courses
