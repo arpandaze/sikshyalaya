@@ -140,82 +140,82 @@ const QuizCreator = () => {
   };
 
   const onSubmitHandler = async (values) => {
-    console.log(JSON.stringify(values));
     let quiz = values;
     let questions = quiz.questions;
     delete quiz.questions;
 
     quiz = quizPostFormatter(quiz);
+    console.log(quiz);
 
-    let newQuizId = null;
+    // let newQuizId = null;
 
-    let postResponse = await callAPI({
-      endpoint: `/api/v1/quiz/`,
-      method: "POST",
-      data: quiz,
-    });
-    newQuizId = postResponse.data.id;
+    // let postResponse = await callAPI({
+    //   endpoint: `/api/v1/quiz/`,
+    //   method: "POST",
+    //   data: quiz,
+    // });
+    // newQuizId = postResponse.data.id;
 
-    if (postResponse.status === 200 && newQuizId) {
-      if (questions) {
-        questions.map(async (question, index) => {
-          let postQuestion = quizQuestionPostFormatter(
-            question,
-            index,
-            newQuizId
-          );
+    // if (postResponse.status === 200 && newQuizId) {
+    //   if (questions) {
+    //     questions.map(async (question, index) => {
+    //       let postQuestion = quizQuestionPostFormatter(
+    //         question,
+    //         index,
+    //         newQuizId
+    //       );
 
-          if (question) {
-            postResponse = await callAPI({
-              endpoint: `/api/v1/quiz/${newQuizId}/question`,
-              method: "POST",
-              data: postQuestion,
-            });
+    //       if (question) {
+    //         postResponse = await callAPI({
+    //           endpoint: `/api/v1/quiz/${newQuizId}/question`,
+    //           method: "POST",
+    //           data: postQuestion,
+    //         });
 
-            let newquestionId = postResponse.data.id;
-            let questionOptionImageData = new FormData();
-            let questionImageData = new FormData();
+    //         let newquestionId = postResponse.data.id;
+    //         let questionOptionImageData = new FormData();
+    //         let questionImageData = new FormData();
 
-            if (postResponse.status === 200 && selectFile[index]) {
-              for (let i = 0; i < selectFile[index].length; i++) {
-                questionImageData.append("files", selectFile[index][i]);
-              }
+    //         if (postResponse.status === 200 && selectFile[index]) {
+    //           for (let i = 0; i < selectFile[index].length; i++) {
+    //             questionImageData.append("files", selectFile[index][i]);
+    //           }
 
-              let imageResponse = await callAPI({
-                endpoint: `/api/v1/quiz/${newQuizId}/question/${newquestionId}/question_image/`,
-                method: "POST",
-                data: questionImageData,
-                headers: { "Content-Type": "multipart/form-data" },
-              });
-            }
-            let allOptions = JSON.parse(postQuestion.options);
+    //           let imageResponse = await callAPI({
+    //             endpoint: `/api/v1/quiz/${newQuizId}/question/${newquestionId}/question_image/`,
+    //             method: "POST",
+    //             data: questionImageData,
+    //             headers: { "Content-Type": "multipart/form-data" },
+    //           });
+    //         }
+    //         let allOptions = JSON.parse(postQuestion.options);
 
-            questionOptionImageData.set("options", postQuestion.options);
+    //         questionOptionImageData.set("options", postQuestion.options);
 
-            if (postResponse.status === 200 && optionFile[index]) {
-              for (let i = 0; i < allOptions.length; i++) {
-                if (optionFile[index][i] && optionFile[index][i].length) {
-                  questionOptionImageData.append(
-                    "files",
-                    optionFile[index][i][0]
-                  );
-                }
-              }
+    //         if (postResponse.status === 200 && optionFile[index]) {
+    //           for (let i = 0; i < allOptions.length; i++) {
+    //             if (optionFile[index][i] && optionFile[index][i].length) {
+    //               questionOptionImageData.append(
+    //                 "files",
+    //                 optionFile[index][i][0]
+    //               );
+    //             }
+    //           }
 
-              let optionResponse = await callAPI({
-                endpoint: `/api/v1/quiz/${newQuizId}/question/${newquestionId}/option_image/`,
-                method: "POST",
-                data: questionOptionImageData,
-                headers: { "Content-Type": "multipart/form-data" },
-              });
-            }
-          }
-        });
-      }
-    }
-    answerList = [];
-    setSelectedFile({});
-    setOptionFile({});
+    //           let optionResponse = await callAPI({
+    //             endpoint: `/api/v1/quiz/${newQuizId}/question/${newquestionId}/option_image/`,
+    //             method: "POST",
+    //             data: questionOptionImageData,
+    //             headers: { "Content-Type": "multipart/form-data" },
+    //           });
+    //         }
+    //       }
+    //     });
+    //   }
+    // }
+    // answerList = [];
+    // setSelectedFile({});
+    // setOptionFile({});
   };
 
   return (

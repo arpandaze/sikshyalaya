@@ -35,13 +35,22 @@ const Quiz = () => {
       past: [],
     };
     const currentDateTime = new Date();
-
     let tempResponse = response.data.map((quiz) => {
+      let tempEndTime = new Date(quiz.date + " " + quiz.end_time);
+      let tempStartTime = new Date(quiz.date + " " + quiz.start_time);
+      tempEndTime = new Date(tempEndTime.toLocaleString().toString() + " UTC");
+      tempStartTime = new Date(
+        tempStartTime.toLocaleString().toString() + " UTC"
+      );
       let formattedResponseData = {
         id: quiz.id,
         date: quiz.date,
-        end_time: quiz.end_time,
-        start_time: quiz.start_time,
+        end_time: tempEndTime
+          .toLocaleTimeString("en-US", { hour12: false })
+          .split(" ")[0],
+        start_time: tempStartTime
+          .toLocaleTimeString("en-US", { hour12: false })
+          .split(" ")[0],
         title: quiz.title,
         description: quiz.description,
         is_randomized: quiz.is_randomized,
@@ -49,24 +58,22 @@ const Quiz = () => {
         course_code: quiz.course.course_code,
         instructor: quiz.instructor,
         total_marks: quiz.total_marks,
+        startDateTime: tempStartTime,
+        endDateTime: tempEndTime,
       };
+      console.log(quiz.date + " " + quiz.start_time, formattedResponseData);
       return formattedResponseData;
     });
 
-    console.log(tempResponse);
     tempResponse.filter((response) => {
-      const tempEndDateTime = new Date(response.date + " " + response.end_time);
-      const tempStartDateTime = new Date(
-        response.date + " " + response.start_time
-      );
-      const quizDate = new Date(
-        tempEndDateTime.toLocaleString().toString() + " UTC"
-      );
-      response.totalTime = new Date(tempEndDateTime - tempStartDateTime)
+      response.totalTime = new Date(
+        response.endDateTime - response.startDateTime
+      )
         .toISOString()
         .substr(11, 8)
         .split(":");
-      currentDateTime <= quizDate
+      currentDateTime >= response.startDateTime &&
+      currentDateTime <= response.endDateTime
         ? responseData.active.push(response)
         : responseData.past.push(response);
     });
