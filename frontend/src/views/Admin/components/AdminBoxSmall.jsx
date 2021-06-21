@@ -25,6 +25,11 @@ const AdminBoxSmall = ({ cardData, onSubmit, type, ...rest }) => {
             >
               <Grid item className="adminBoxSmall_row_col_1">
                 <p className="adminBoxSmall_row_col_1_bold">{data.name}</p>
+                {data.code ? (
+                  <p className="adminBoxSmall_row_col_1_bold">{data.code}</p>
+                ) : (
+                  <></>
+                )}
               </Grid>
             </Grid>
           </Grid>
