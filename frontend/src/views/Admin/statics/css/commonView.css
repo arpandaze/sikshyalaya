@@ -2,15 +2,13 @@
 
 @media only screen and (min-width: 720px) {
   .adminCommon_root {
-    width: 100%;
+    width: 100% !important;
     height: 100vh;
-    margin: 0px auto !important;
-    flex-grow: 1;
   }
   .adminCommon_topBarContainer {
     width: 100%;
     background: var(--white);
-    box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid var(--grey6);
   }
   .adminCommon_topBar {
   }
@@ -42,7 +40,19 @@
     cursor: pointer;
     height: 30px;
   }
-
+  .adminCommon_plusIconContainer {
+    width: 25px;
+    height: 25px;
+    padding: 8px;
+    border-radius: 50%;
+  }
+  .adminCommon_plusIconContainer:hover {
+    background: radial-gradient(
+      circle,
+      rgba(0, 194, 165, 1) 0%,
+      rgba(0, 194, 165, 0.23) 0%
+    );
+  }
   /*Admin School*/
   .adminSchool_popUpContainer {
     width: 100%;
@@ -347,7 +357,7 @@
   }
   .adminTeacher_popUpBox {
     width: 550px;
-    height: 480px;
+    height: 490px;
     position: relative;
     margin-top: 180px !important;
     margin-left: -250px !important;
@@ -369,7 +379,7 @@
   }
   .adminTeacher_formBox {
     width: 420px !important;
-    margin: 50px auto;
+    margin: 35px auto;
   }
   .adminTeacher_submitButtonContainer {
     margin: 20px auto !important;

@@ -80,11 +80,15 @@ const ProfileBox = () => {
               <p className="profileBox_profileText">{userState.name}</p>
             </Grid>
             <Grid item className="profileBox_textBox3">
-              <p className="profileBox_departmentText">
-                {userState.department}
-                <br />
-                {userState.year} Year /{userState.semester} Semester
-              </p>
+              {userState.department ? (
+                <p className="profileBox_departmentText">
+                  {userState.department}
+                  <br />
+                  {userState.year} Year /{userState.semester} Semester
+                </p>
+              ) : (
+                <p className="profileBox_departmentText">Admin Panel</p>
+              )}
             </Grid>
           </Grid>
         </Grid>

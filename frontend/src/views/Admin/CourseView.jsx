@@ -85,13 +85,15 @@ const CourseView = ({ location, ...rest }) => {
               <p className="adminCommon_text">Courses</p>
             </Grid>
             <Grid xs={1} item className="adminCommon_plusIcon">
-              <GoPlus
-                size={30}
-                color={colorscheme.green2}
-                onClick={() => {
-                  setPopUp(true);
-                }}
-              />
+              <div className="adminCommon_plusIconContainer">
+                <GoPlus
+                  size={25}
+                  color={colorscheme.green2}
+                  onClick={() => {
+                    setPopUp(true);
+                  }}
+                />
+              </div>
             </Grid>
           </Grid>
         </Grid>

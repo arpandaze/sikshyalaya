@@ -47,25 +47,25 @@ const StudentView = ({ location, ...rest }) => {
   const [selectedUser, setSelectedUser] = useState(null);
 
   const studentFormatter = (values) => {
-    console.log(values);
-    return values.data.map((item) => {
+    const data = values.data.filter((response) => response.user_type == "4");
+    const finalData = data.map((item) => {
       return {
         id: item.id,
         name: item.full_name,
+        email: item.email,
+        program: item.group.program.id,
+        semester: item.group.sem,
+        dob: item.dob,
+        address: item.address,
+        contact_number: item.contact_number,
+        join_year: item.join_year,
+        user_type: item.user_type,
       };
     });
+
+    return finalData;
   };
-  const studentEditFormatter = (values) => {
-    return {
-      id: values.data.id,
-      full_name: values.data.full_name,
-      email: values.data.email,
-      dob: values.data.dob,
-      address: values.data.address,
-      contact_number: values.data.contact_number,
-      join_year: values.data.join_year,
-    };
-  };
+
   const studentDefault = [];
   const [students] = useAPI(
     { endpoint: `/api/v1/users/` },
@@ -88,8 +88,9 @@ const StudentView = ({ location, ...rest }) => {
   const [program] = useAPI({ endpoint: "/api/v1/program/" }, programFormatter);
 
   const onSubmit = async (data) => {
+    console.log(data);
     let group_id_list = group.filter((item) => {
-      if (item.sem === data.semester && item.program.id === data.program) {
+      if (item.sem === data.semester && item.program_id === data.program) {
         return item;
       }
     });
@@ -98,6 +99,8 @@ const StudentView = ({ location, ...rest }) => {
       throw "No matching group found!";
     }
     let group_id = group_id_list[0].id;
+    console.log("sgd");
+    console.log(group_id);
 
     let req_data = {
       email: data.email,
@@ -130,8 +133,16 @@ const StudentView = ({ location, ...rest }) => {
         (currentValue) => currentValue.id == selectedUser.id
       );
       students[position] = {
-        name: req_data.full_name,
         id: selectedUser.id,
+        name: req_data.full_name,
+        email: req_data.email,
+        program: data.program,
+        semester: data.semester,
+        dob: req_data.dob,
+        address: req_data.address,
+        contact_number: req_data.contact_number,
+        join_year: req_data.join_year,
+        user_type: req_data.user_type,
       };
     }
 
@@ -140,16 +151,6 @@ const StudentView = ({ location, ...rest }) => {
       setEditState(false);
       setSelectedUser(null);
     }
-  };
-
-  const loadUser = async (id) => {
-    const postResponse = studentEditFormatter(
-      await callAPI({
-        endpoint: `/api/v1/users/${id}`,
-        method: "GET",
-      })
-    );
-    setSelectedUser(postResponse);
   };
 
   return (
@@ -174,13 +175,15 @@ const StudentView = ({ location, ...rest }) => {
               <p className="adminCommon_text">Student</p>
             </Grid>
             <Grid xs={1} item className="adminCommon_plusIcon">
-              <GoPlus
-                size={30}
-                color={colorscheme.green2}
-                onClick={() => {
-                  setPopUp(true);
-                }}
-              />
+              <div className="adminCommon_plusIconContainer">
+                <GoPlus
+                  size={25}
+                  color={colorscheme.green2}
+                  onClick={() => {
+                    setPopUp(true);
+                  }}
+                />
+              </div>
             </Grid>
           </Grid>
         </Grid>
@@ -202,7 +205,7 @@ const StudentView = ({ location, ...rest }) => {
                   onEdit={() => {
                     setEditState(true);
                     setPopUp(true);
-                    loadUser(item.id);
+                    setSelectedUser(item);
                   }}
                 />
               </Grid>
@@ -225,7 +228,7 @@ const StudentView = ({ location, ...rest }) => {
                 initialValues={
                   selectedUser
                     ? {
-                        full_name: selectedUser.full_name,
+                        full_name: selectedUser.name,
                         address: selectedUser.address,
                         program: selectedUser.program,
                         semester: selectedUser.semester,
@@ -237,7 +240,6 @@ const StudentView = ({ location, ...rest }) => {
                     : {
                         full_name: "",
                         address: "",
-                        program: "",
                         semester: "",
                         join_year: "",
                         dob: null,
@@ -277,6 +279,29 @@ const StudentView = ({ location, ...rest }) => {
                     </Grid>
                     <Grid item xs={6} style={{ padding: "0px 20px 0px 0px" }}>
                       <CustomTextField
+                        name="program"
+                        dropdown={true}
+                        type="text"
+                        placeHolder="Program"
+                        menuItems={program || []}
+                        id="program"
+                        addStyles="adminStudent_inputButton"
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <CustomTextField
+                        name="semester"
+                        dropdown={true}
+                        type="text"
+                        placeHolder="Semester"
+                        menuItems={semester}
+                        id="semester"
+                        addStyles="adminStudent_inputButton"
+                        style={{ maxWidth: "20" }}
+                      />
+                    </Grid>
+                    <Grid item xs={6} style={{ padding: "0px 20px 0px 0px" }}>
+                      <CustomTextField
                         id="join_year"
                         name="join_year"
                         placeHolder="Join"
@@ -286,10 +311,16 @@ const StudentView = ({ location, ...rest }) => {
                       />
                     </Grid>
                     <Grid item xs={6}>
-                      <DatePicker
-                        id="dob"
-                        label="Birth Date"
-                        className="adminStudent_inputButton"
+                      <DatePicker id="dob" name="dob" label="Birth Date" />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <CustomTextField
+                        name="email"
+                        type="text"
+                        placeHolder="Email"
+                        id="email"
+                        addStyles="adminStudent_inputButton"
+                        autoComplete="on"
                       />
                     </Grid>
                     <Grid item xs={12}>
@@ -298,16 +329,6 @@ const StudentView = ({ location, ...rest }) => {
                         type="text"
                         placeHolder="Phone Number"
                         id="phone_number"
-                        addStyles="adminStudent_inputButton"
-                        autoComplete="on"
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <CustomTextField
-                        name="email"
-                        type="text"
-                        placeHolder="Email"
-                        id="email"
                         addStyles="adminStudent_inputButton"
                         autoComplete="on"
                       />

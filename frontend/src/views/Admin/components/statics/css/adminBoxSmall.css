@@ -10,7 +10,11 @@
     height: 180px;
     background: var(--white);
     border-radius: 20px;
-    box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--grey6);
+    cursor: pointer;
+  }
+  .adminBoxSmall_container:hover {
+    border: 1px solid var(--blue6);
   }
   .adminBoxSmall_image {
     border-radius: 50%;

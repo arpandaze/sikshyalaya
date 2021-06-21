@@ -152,13 +152,15 @@ const ProgramView = ({ location }) => {
                   <p className="adminCommon_text">{prevData.department.name}</p>
                 </Grid>
                 <Grid xs={1} item className="adminCommon_plusIcon">
-                  <GoPlus
-                    size={30}
-                    onClick={() => {
-                      setPopUp(true);
-                    }}
-                    color={colorscheme.green2}
-                  />
+                  <div className="adminCommon_plusIconContainer">
+                    <GoPlus
+                      size={25}
+                      onClick={() => {
+                        setPopUp(true);
+                      }}
+                      color={colorscheme.green2}
+                    />
+                  </div>
                 </Grid>
               </Grid>
 
