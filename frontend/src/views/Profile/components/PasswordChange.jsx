@@ -123,7 +123,11 @@ const PasswordChange = () => {
                       name="Save"
                       type="submit"
                       onClick={() => {
-                        resetForm(initialValues);
+                        resetForm({
+                          current_password: "",
+                          new_password: "",
+                          confirm_password: "",
+                        });
                       }}
                       addStyles="changePw_button"
                     />
