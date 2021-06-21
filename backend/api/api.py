@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from api.endpoints import program, teacher_note, users, group, quiz
+from api.endpoints import program, quiz_answer, teacher_note, users, group, quiz
 from api.endpoints import (
     program,
     users,
@@ -32,4 +32,7 @@ api_router.include_router(
     teacher_note.router, prefix="/teacher_note", tags=["Teacher Notes"]
 )
 api_router.include_router(group.router, prefix="/group", tags=["Groups"])
-api_router.include_router(quiz.router, prefix="/quiz", tags=["Quiz"])
+api_router.include_router(quiz.router, prefix="/quiz", tags=["Quizzes"])
+api_router.include_router(
+    quiz_answer.router, prefix="/quizanswer", tags=["Quiz Answers"]
+)

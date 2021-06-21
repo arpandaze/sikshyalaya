@@ -12,11 +12,7 @@ import Button from "../../components/Button";
 import { ImCross } from "react-icons/im";
 import { Formik, Form } from "formik";
 import CustomTextField from "../../components/CustomTextField";
-import {
-  Redirect,
-  useHistory,
-} from "react-router-dom/cjs/react-router-dom.min";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import CustomTabComponent from "../../components/CustomTabComponent";
 import { GoTasklist } from "react-icons/go";
 
@@ -26,6 +22,7 @@ const ProgramView = ({ location }) => {
     ? location.state
     : { school: { id: "", name: "" }, department: { id: "", name: "" } };
   const defaultProgram = [];
+  const defaultCourse = [];
   const [isPopUp, setPopUp] = useState(false);
   const [tabValue, setTabValue] = useState(0);
   const validationSchema = yup.object({
@@ -80,10 +77,35 @@ const ProgramView = ({ location }) => {
     );
     return finalData;
   };
+  const courseFormatter = (response) => {
+    if (response.data.length === 0) {
+      return [];
+    }
+    let responseData = [];
+    responseData = response.data.map((course) => {
+      let formattedResponseData = {
+        id: course.id,
+        code: course.course_code,
+        name: course.course_name,
+        credit: course.course_credit,
+        department_id: course.department_id,
+      };
+      return formattedResponseData;
+    });
+    const finalData = responseData.filter(
+      (response) => response.department_id == prevData.department.id
+    );
+    return finalData;
+  };
   let [allProgram] = useAPI(
     { endpoint: `/api/v1/program/` },
     programFormatter,
     defaultProgram
+  );
+  let [allCourses] = useAPI(
+    { endpoint: `/api/v1/department/${prevData.department.id}/courses/` },
+    courseFormatter,
+    defaultCourse
   );
   const handeTabChange = (event, newValue) => {
     setTabValue(newValue);
@@ -212,7 +234,27 @@ const ProgramView = ({ location }) => {
           ) : tabValue == 1 ? (
             <></>
           ) : (
-            <></>
+            <Grid container direction="row">
+              {allCourses.map((course) => (
+                <Grid
+                  item
+                  key={course.id}
+                  xs={6}
+                  className="adminCommon_mainBox"
+                >
+                  <AdminBoxSmall
+                    type="course"
+                    onSubmit={() => {
+                      history.push({
+                        pathname: "/admin/explore/program",
+                        state: {},
+                      });
+                    }}
+                    cardData={course}
+                  />
+                </Grid>
+              ))}
+            </Grid>
           )}
         </Grid>
       </Grid>

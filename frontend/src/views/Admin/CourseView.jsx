@@ -1,73 +1,67 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import Grid from "@material-ui/core/Grid";
 import colorscheme from "../../utils/colors";
 import DashboardLayout from "../../components/DashboardLayout/DashboardLayout";
-import AdminBoxSmall from "./components/AdminBoxSmall";
+import Students from "./components/Student";
 import { GoPlus } from "react-icons/go";
 import "./statics/css/commonView.css";
 import useAPI from "../../utils/useAPI";
-import callAPI from "../../utils/API";
 import Button from "../../components/Button";
 import { ImCross } from "react-icons/im";
 import { Formik, Form } from "formik";
+import callAPI from "../../utils/API";
 import CustomTextField from "../../components/CustomTextField";
-import { Link, useHistory } from "react-router-dom";
-import {} from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { DatePicker } from "../../components/CustomDateTime";
+import AdminBoxSmall from "./components/AdminBoxSmall";
 
-const CourseView = ({ location }) => {
+const validationSchema = yup.object({
+  full_name: yup.string("Enter your name").required("Name is required"),
+  address: yup.string("Enter your address").required("Address is required"),
+  join_year: yup.number("Enter Joined Year").required("Join year is required"),
+  dob: yup.string("Enter Date of Birth").required("Date of Birth is required"),
+  phone_number: yup.number().typeError("Not a valid phone number"),
+  email: yup
+    .string("Enter your email")
+    .email("Enter a valid email!")
+    .required("Email is required"),
+  semester: yup.number().required("Semester is required"),
+  program: yup.number().required("Program is required"),
+});
+
+const CourseView = ({ location, ...rest }) => {
   const history = useHistory();
-  const mountRef = useRef(true);
-  const prevData = location.state
-    ? location.state
-    : { school: { id: "", name: "" } };
-  const defaultDepartment = [];
-  const defaultSchool = "";
   const [isPopUp, setPopUp] = useState(false);
-  const validationSchema = yup.object({
-    name: yup
-      .string("Enter Department Name")
-      .required("Department Name Required"),
-  });
-  const onSubmit = async (values) => {
-    values = {
-      ...values,
-      school_id: prevData.school.id,
-    };
-    const position = allDepartment.push(values);
-    try {
-      const responseData = await callAPI({
-        endpoint: `/api/v1/department/`,
-        method: "POST",
-        data: values,
-      });
-      allDepartment[position - 1].id = responseData.data.id;
-    } catch (e) {}
-    setPopUp(false);
-  };
-  const departmentFormatter = (response) => {
+  const [editState, setEditState] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const defaultCourse = [];
+
+  const courseFormatter = (response) => {
     if (response.data.length === 0) {
       return [];
     }
     let responseData = [];
-    responseData = response.data.map((department) => {
+    responseData = response.data.map((course) => {
       let formattedResponseData = {
-        id: department.id,
-        name: department.name,
-        school_id: department.school_id,
+        id: course.id,
+        code: course.course_code,
+        name: course.course_name,
+        credit: course.course_credit,
+        department_id: course.department_id,
       };
       return formattedResponseData;
     });
-    const finalData = responseData.filter(
-      (response) => response.school_id == prevData.school.id
-    );
-    return finalData;
+    return responseData;
   };
-  let [allDepartment, allDepartmentComplete] = useAPI(
-    { endpoint: `/api/v1/department/` },
-    departmentFormatter,
-    defaultDepartment
+
+  let [allCourses] = useAPI(
+    { endpoint: `/api/v1/course/` },
+    courseFormatter,
+    defaultCourse
   );
+
+  const onSubmit = async (data) => {};
 
   return (
     <DashboardLayout>
@@ -88,61 +82,50 @@ const CourseView = ({ location }) => {
             className="adminCommon_topBar"
           >
             <Grid xs item className="adminCommon_textContainer">
-              <p className="adminCommon_text">{prevData.school.name}</p>
-              <p className="adminCommon_smallNav">
-                <Link
-                  to={{
-                    pathname: "/admin/school",
-                  }}
-                  className="adminCommon_smallNavLinks"
-                >
-                  {" "}
-                  School{" "}
-                </Link>{" "}
-                &gt;{" "}
-                <Link
-                  to={{
-                    pathname: "/admin/department",
-                    state: { ...prevData },
-                  }}
-                  href=""
-                  className="adminCommon_smallNavLinks"
-                >
-                  {prevData.school.name}
-                </Link>
-              </p>
+              <p className="adminCommon_text">Courses</p>
             </Grid>
             <Grid xs={1} item className="adminCommon_plusIcon">
               <GoPlus
                 size={30}
+                color={colorscheme.green2}
                 onClick={() => {
                   setPopUp(true);
                 }}
-                color={colorscheme.green2}
               />
             </Grid>
           </Grid>
         </Grid>
+
         <Grid item className="adminCommon_botBar">
-          <Grid container direction="row" alignItems="center" spacing={5}>
-            {allDepartment.map((department) => (
-              <Grid item key={department.id} xs={6}>
-                <AdminBoxSmall
-                  type="department"
-                  key={department.id}
-                  cardData={department}
-                  onSubmit={() => {
-                    history.push({
-                      pathname: "/admin/program",
-                      state: {
-                        school: prevData.school,
-                        department: department,
-                      },
-                    });
-                  }}
-                />
-              </Grid>
-            ))}
+          <Grid
+            container
+            direction="row"
+            justify="flex-start"
+            alignItems="flex-start"
+            className="adminCommon_innerContainer"
+            wrap="wrap"
+          >
+            <Grid container direction="row">
+              {allCourses.map((course) => (
+                <Grid
+                  item
+                  key={course.id}
+                  xs={6}
+                  className="adminCommon_mainBox"
+                >
+                  <AdminBoxSmall
+                    type="course"
+                    onSubmit={() => {
+                      history.push({
+                        pathname: "/admin/explore/program",
+                        state: {},
+                      });
+                    }}
+                    cardData={course}
+                  />
+                </Grid>
+              ))}
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
@@ -150,52 +133,121 @@ const CourseView = ({ location }) => {
         <Grid
           container
           justify="center"
-          className="adminDepartment_popUpContainer"
+          className="adminTeacher_popUpContainer"
         >
-          <Grid item className="adminDepartment_popUpBox">
-            <Grid
-              container
-              direction="column"
-              className="adminDepartment_formBox"
-            >
+          <Grid item className="adminTeacher_popUpBox">
+            <Grid container direction="column" className="adminTeacher_formBox">
               <Formik
-                initialValues={{
-                  name: "",
-                }}
+                enableReinitialize={true}
+                initialValues={
+                  selectedUser
+                    ? {
+                        full_name: selectedUser.full_name,
+                        address: selectedUser.address,
+                        program: selectedUser.program,
+                        semester: selectedUser.semester,
+                        join_year: selectedUser.join_year,
+                        dob: selectedUser.dob,
+                        email: selectedUser.email,
+                        phone_number: selectedUser.contact_number,
+                      }
+                    : {
+                        full_name: "",
+                        address: "",
+                        program: "",
+                        semester: "",
+                        join_year: "",
+                        dob: null,
+                        phone_number: "",
+                        email: "",
+                        password: "",
+                        confirm_password: "",
+                      }
+                }
                 validationSchema={validationSchema}
                 onSubmit={onSubmit}
               >
                 <Form>
-                  <Grid container direction="column" alignItems="flex-start">
-                    <Grid item>
+                  <Grid
+                    container
+                    direction="row"
+                    justify="flex-start"
+                    alignItems="flex-start"
+                  >
+                    <Grid item xs={6} style={{ padding: "0px 20px 0px 0px" }}>
                       <CustomTextField
-                        id="name"
-                        name="name"
-                        placeHolder="Name"
-                        addStyles="adminDepartment_inputButton"
+                        name="full_name"
+                        type="text"
+                        placeHolder="Full Name"
+                        id="full_name"
+                        addStyles="adminTeacher_inputButton"
                       />
                     </Grid>
-
-                    <Grid
-                      item
-                      className="adminDepartment_submitButtonContainer"
-                    >
+                    <Grid item xs={6}>
+                      <CustomTextField
+                        name="address"
+                        type="text"
+                        placeHolder="Address"
+                        id="address"
+                        addStyles="adminTeacher_inputButton"
+                      />
+                    </Grid>
+                    <Grid item xs={6} style={{ padding: "0px 20px 0px 0px" }}>
+                      <CustomTextField
+                        id="join_year"
+                        name="join_year"
+                        placeHolder="Join"
+                        label="Join year"
+                        type="text"
+                        className="adminTeacher_inputButton"
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <DatePicker
+                        id="dob"
+                        label="Birth Date"
+                        className="adminTeacher_inputButton"
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <CustomTextField
+                        name="phone_number"
+                        type="text"
+                        placeHolder="Phone Number"
+                        id="phone_number"
+                        addStyles="adminTeacher_inputButton"
+                        autoComplete="on"
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <CustomTextField
+                        name="email"
+                        type="text"
+                        placeHolder="Email"
+                        id="email"
+                        addStyles="adminTeacher_inputButton"
+                        autoComplete="on"
+                      />
+                    </Grid>
+                    <Grid item className="adminTeacher_submitButtonContainer">
                       <Button
+                        name="Save"
                         type="submit"
-                        name="Submit"
-                        addStyles="adminDepartment_submitButton"
+                        addStyles="adminTeacher_submitButton"
                       />
                     </Grid>
                   </Grid>
                 </Form>
               </Formik>
             </Grid>
-            <Grid item className="adminDepartment_closeButtonContainer">
+            <Grid item className="adminSchool_closeButtonContainer">
               <ImCross
                 color={colorscheme.red3}
-                className="adminDepartment_closeButton"
+                className="adminSchool_closeButton"
                 onClick={() => {
                   setPopUp(false);
+                  setEditState(false);
+                  setSelectedUser(null);
                 }}
               />
             </Grid>

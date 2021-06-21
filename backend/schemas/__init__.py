@@ -3,8 +3,9 @@ from .class_session import (
     ClassSessionUpdate,
     ClassSessionCreate,
     ClassSessionInDB,
+    AttendanceUpdate,
 )
-from .course import Course, CourseCreate, CourseUpdate, CourseInDB
+from .course import Course, CourseCreate, CourseUpdate, CourseInDB, CourseMin
 from .department import Department, DepartmentCreate, DepartmentUpdate, DepartmentInDB
 from .group import Group, GroupCreate, GroupInDB, GroupUpdate, GroupReturn
 from .msg import Msg
@@ -30,22 +31,33 @@ from .user_permission import (
     UserPermissionInDB,
 )
 from .token import Token, TokenPayload
-from .user import User, UserCreate, UserInDB, UserUpdate, UserReturnMin, UserSignUp
+from .user import (
+    User,
+    UserCreate,
+    UserInDB,
+    UserUpdate,
+    UserReturnMin,
+    UserSignUp,
+    TeacherShort,
+)
 
 from .quiz import (
     Quiz,
     QuizCreate,
     QuizUpdate,
     QuizInDB,
-    QuizAnswer,
-    QuizAnswerCreate,
-    QuizAnswerUpdate,
-    QuizAnswerInDB,
     QuizQuestion,
     QuizQuestionCreate,
     QuizQuestionUpdate,
     QuizQuestionInDB,
     QuizQuestionwoutAnswer,
+)
+
+from .quiz_answer import (
+    QuizAnswer,
+    QuizAnswerCreate,
+    QuizAnswerUpdate,
+    QuizAnswerInDB,
 )
 
 from .file import File, FileCreate, FileUpdate, FileInDB

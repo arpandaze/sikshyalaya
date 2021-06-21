@@ -33,6 +33,10 @@ class ClassSessionUpdate(ClassSessionBase):
     group_id: int = None
 
 
+class AttendanceUpdate(BaseModel):
+    attendant: List[int]
+
+
 # properties to return via the api
 class ClassSessionInDBBase(ClassSessionBase):
     id: Optional[int]
@@ -43,7 +47,6 @@ class ClassSessionInDBBase(ClassSessionBase):
 
 class ClassSession(ClassSessionInDBBase):
     instructor: List[TeacherShort]
-    pass
 
 
 class ClassSessionReturn(BaseModel):
@@ -58,6 +61,19 @@ class ClassSessionReturn(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class AttendantOfClassSession(BaseModel):
+    id: str
+    full_name: str
+    roll: int
+
+    class Config:
+        orm_mode = True
+
+
+class ClassSessionTeacherReturn(ClassSessionReturn):
+    attendant: List[AttendantOfClassSession]
 
 
 class ClassSessionInDB(ClassSessionInDBBase):

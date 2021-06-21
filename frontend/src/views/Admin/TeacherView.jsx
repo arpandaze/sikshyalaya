@@ -12,7 +12,7 @@ import { ImCross } from "react-icons/im";
 import { Formik, Form } from "formik";
 import callAPI from "../../utils/API";
 import CustomTextField from "../../components/CustomTextField";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { DatePicker } from "../../components/CustomDateTime";
 
 const validationSchema = yup.object({

@@ -3,7 +3,6 @@ import Grid from "@material-ui/core/Grid";
 import colorscheme from "../../../utils/colors";
 import { IconContext } from "react-icons";
 import { FaUserEdit } from "react-icons/fa";
-import { Link } from "react-router-dom";
 import "./statics/css/student.css";
 
 const Students = ({ name, onEdit, ...rest }) => {

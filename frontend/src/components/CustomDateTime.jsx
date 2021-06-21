@@ -9,26 +9,29 @@ import {
 } from "@material-ui/pickers";
 import { BiTimeFive } from "react-icons/bi";
 import { formatISO } from "date-fns";
+import "./statics/css/customTextField.css";
 
 const DatePicker = ({ id, label, ...rest }) => {
   return (
     <Field name={id} {...rest}>
       {({ field, form: { setFieldValue } }) => (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <KeyboardDatePicker
-            id={id}
-            margin="normal"
-            label={label}
-            inputVariant="outlined"
-            format="MM/dd/yyyy"
-            value={field.value}
-            onChange={(value) => setFieldValue(id, value)}
-            KeyboardButtonProps={{
-              "aria-label": "change time",
-            }}
-            InputLabelProps={{ shrink: true }}
-            {...rest}
-          />
+          <div className="customField_root">
+            <KeyboardDatePicker
+              id={id}
+              margin="normal"
+              label={label}
+              inputVariant="outlined"
+              format="MM/dd/yyyy"
+              value={field.value}
+              onChange={(value) => setFieldValue(id, value)}
+              KeyboardButtonProps={{
+                "aria-label": "change time",
+              }}
+              InputLabelProps={{ shrink: true }}
+              {...rest}
+            />
+          </div>
         </MuiPickersUtilsProvider>
       )}
     </Field>

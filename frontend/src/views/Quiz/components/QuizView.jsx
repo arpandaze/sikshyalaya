@@ -6,6 +6,7 @@ import {
   useHistory,
 } from "react-router-dom/cjs/react-router-dom.min";
 import useAPI from "../../../utils/useAPI";
+import callAPI from "../../../utils/API";
 import "./statics/css/quizView.css";
 import CustomTabComponent from "../../../components/CustomTabComponent";
 import QuestionView from "./QuestionView";
@@ -34,8 +35,7 @@ const QuizView = ({ location }) => {
       quizDefaultValue[question.id] = temp;
       return formattedResponseData;
     });
-    console.log([...responseData].reverse());
-    return responseData.reverse();
+    return responseData;
   };
   let [allQuestion, allQuestionComplete] = useAPI(
     { endpoint: `/api/v1/quiz/${location.state.quiz.id}/question` },
@@ -50,7 +50,31 @@ const QuizView = ({ location }) => {
     }
   }, [location]);
   const onSubmit = async (values) => {
-    console.log(values);
+    let temp = Object.entries(values.questions);
+    let single = [];
+    let multiple = [];
+    temp.map((data, index) => {
+      Array.isArray(data[1]) ? multiple.push(data) : single.push(data);
+    });
+    let data = {};
+    single.map((value) => {
+      data[value[0]] = parseInt(value[1]);
+    });
+    multiple.map((value) => {
+      let temp = [];
+      value[1].map((v, i) => {
+        if (v) {
+          temp.push(i);
+        }
+      });
+      data[value[0]] = temp;
+    });
+    await callAPI({
+      endpoint: `/api/v1/quizanswer/${location.state.quiz.id}/`,
+      method: "POST",
+      data: data,
+      headers: { "Content-Type": "multipart/form-data" },
+    });
   };
   return (
     <DashboardLayout>

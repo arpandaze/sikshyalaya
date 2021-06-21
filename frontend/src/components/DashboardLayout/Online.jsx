@@ -1,12 +1,7 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import Grid from "@material-ui/core/Grid";
-import colorscheme from "../../utils/colors";
 import Image from "../Image";
-import { UserContext } from "../../utils/Contexts/UserContext";
 import "./statics/css/online.css";
-import configs from "../../utils/configs";
-import Checkbox from "../../components/Checkbox";
-import { Formik, Form, Field, FieldArray } from "formik";
 
 const Online = ({
   id,

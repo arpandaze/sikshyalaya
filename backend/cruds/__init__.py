@@ -8,7 +8,7 @@ from .personal_note import crud_personal_note
 from .program import crud_program
 from .teacher_note import crud_teacher_note
 from .class_session import crud_class_session
-
+from .quiz_answer import crud_quiz_answer
 
 # For a new basic set of CRUD operations you could just do
 

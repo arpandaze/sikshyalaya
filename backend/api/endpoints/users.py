@@ -27,18 +27,18 @@ from datetime import date
 router = APIRouter()
 
 
-# @router.get("/", response_model=List[schemas.User])
-# def read_users(
-#         db: Session = Depends(deps.get_db),
-#         skip: int = 0,
-#         limit: int = 100,
-#         current_user: models.User = Depends(deps.get_current_active_superuser),
-# ) -> Any:
-#     """
-#     Retrieve users.
-#     """
-#     users = cruds.crud_user.get_multi(db, skip=skip, limit=limit)
-#     return users
+@router.get("/", response_model=List[schemas.user.UserReturn])
+def read_users(
+    db: Session = Depends(deps.get_db),
+    skip: int = 0,
+    limit: int = 100,
+    current_user: models.User = Depends(deps.get_current_admin_or_above),
+) -> Any:
+    """
+    Retrieve users.
+    """
+    users = cruds.crud_user.get_multi(db, skip=skip, limit=limit)
+    return users
 
 
 @router.get("/teacher/", response_model=List[schemas.user.TeacherShort])
@@ -56,18 +56,18 @@ def get_teachers(
     return teachers
 
 
-@router.get("/", response_model=schemas.User)
-async def read_users(
-    db: Session = Depends(deps.get_db),
-    skip: int = 0,
-    limit: int = 100,
-    # current_user: models.User = Depends(deps.get_current_active_superuser),
-) -> Any:
-    """
-    Retrieve users.
-    """
-    users = cruds.crud_user.get_by_email_test(db, email="test@test.com")
-    return users
+# @router.get("/", response_model=schemas.User)
+# async def read_users(
+# db: Session = Depends(deps.get_db),
+# skip: int = 0,
+# limit: int = 100,
+# # current_user: models.User = Depends(deps.get_current_active_superuser),
+# ) -> Any:
+# """
+# Retrieve users.
+# """
+# users = cruds.crud_user.get_by_email_test(db, email="test@test.com")
+# return users
 
 
 @router.post("/", response_model=schemas.User)

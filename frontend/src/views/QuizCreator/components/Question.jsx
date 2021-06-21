@@ -23,45 +23,44 @@ const Questions = ({ name, val, answerList, reference, ...rest }) => {
     answer: [],
   };
   return (
-    <Field name={name}>
-      {({ field }) => (
-        <FieldArray name={name}>
-          {(questionHelper) => (
-            <>
-              {val &&
-                val.length !== 0 &&
-                val.map((question, index) => (
-                  <>
-                    <Grid container direction="column" wrap="nowrap">
-                      <div key={index + 1}>
-                        <QuestionForm
-                          name={name}
-                          index={index}
-                          question={question}
-                          questionHelper={questionHelper}
-                          answerList={answerList}
-                        />
-                      </div>
-                    </Grid>
-                  </>
-                ))}
-              <Grid item className="quizCreator_addQuestionButtonContainer">
-                <button
-                  type="button"
-                  className="quizCreator_addQuestionButton"
-                  onClick={() => {
-                    questionHelper.push(questionInitialValue);
-                    answerList.push([]);
-                  }}
+    <FieldArray name={name}>
+      {(questionHelper) => (
+        <>
+          {val &&
+            val.length !== 0 &&
+            val.map((question, index) => (
+              <>
+                <Grid
+                  container
+                  key={index + 1}
+                  direction="column"
+                  wrap="nowrap"
                 >
-                  Add Question
-                </button>
-              </Grid>
-            </>
-          )}
-        </FieldArray>
+                  <QuestionForm
+                    name={name}
+                    index={index}
+                    question={question}
+                    questionHelper={questionHelper}
+                    answerList={answerList}
+                  />
+                </Grid>
+              </>
+            ))}
+          <Grid item className="quizCreator_addQuestionButtonContainer">
+            <button
+              type="button"
+              className="quizCreator_addQuestionButton"
+              onClick={() => {
+                questionHelper.push(questionInitialValue);
+                answerList.push([]);
+              }}
+            >
+              Add Question
+            </button>
+          </Grid>
+        </>
       )}
-    </Field>
+    </FieldArray>
   );
 };
 

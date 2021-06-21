@@ -12,7 +12,7 @@ import Button from "../../components/Button";
 import { ImCross } from "react-icons/im";
 import useAPI from "../../utils/useAPI";
 import callAPI from "../../utils/API";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const SchoolView = ({ location }) => {
   const history = useHistory();

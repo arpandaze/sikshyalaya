@@ -34,3 +34,12 @@ class CourseInDB(CourseInDBBase):
 
 class Course(CourseInDBBase):
     pass
+
+
+class CourseMin(BaseModel):
+    id: Optional[int]
+    course_code: str
+    course_name: str
+
+    class Config:
+        orm_mode = True

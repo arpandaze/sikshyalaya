@@ -9,6 +9,7 @@ import useAPI from "../../utils/useAPI";
 import callAPI from "../../utils/API";
 import "./statics/css/notes.css";
 import { UserContext } from "../../utils/Contexts/UserContext";
+import { format } from "date-fns";
 
 const Notes = () => {
   const { user } = useContext(UserContext);
@@ -23,16 +24,12 @@ const Notes = () => {
 
     let responseData = [];
     responseData = response.data.map((note) => {
-      const notesDate = new Date(note.last_updated_time + "+05:45");
+      console.log(note.last_updated_time);
+      const tempDate = new Date(note.last_updated_time);
+      const notesDate = new Date(tempDate.toLocaleString().toString() + " UTC");
       let formattedResponseData = {
         id: note.id,
-        last_updated_time: notesDate.toLocaleString("en-AU", {
-          day: "numeric", // numeric, 2-digit
-          year: "numeric", // numeric, 2-digit
-          month: "short", // numeric, 2-digit, long, short, narrow
-          hour: "numeric", // numeric, 2-digit
-          minute: "numeric", // numeric, 2-digit
-        }),
+        last_updated_time: format(notesDate, "do LLL yyy , hh:mm aaa"),
         user_id: note.user_id,
         title: note.title,
         tags: note.tags,
@@ -159,14 +156,10 @@ const Notes = () => {
           id: selectedNote.id,
         };
         allNotes[selectedNote.position] = data;
-        allNotes[selectedNote.position].last_updated_time =
-          notesDate.toLocaleString("en-AU", {
-            day: "numeric", // numeric, 2-digit
-            year: "numeric", // numeric, 2-digit
-            month: "short", // numeric, 2-digit, long, short, narrow
-            hour: "numeric", // numeric, 2-digit
-            minute: "numeric", // numeric, 2-digit
-          });
+        allNotes[selectedNote.position].last_updated_time = format(
+          notesDate,
+          "do LLL yyy , hh:mm aaa"
+        );
         newSelect = {
           id: selectedNote.id,
           position: selectedNote.position,
@@ -209,19 +202,21 @@ const Notes = () => {
                 justify="center"
                 className="notes_creatorTopInside"
               >
-                <Grid xs={9} item className="notes_textContainer">
+                <Grid xs={10} item className="notes_textContainer">
                   <p className="notes_text">Notes</p>
                 </Grid>
-                <Grid xs={1} item className="notes_plusIcon">
+                <Grid item xs={1} className="notes_plusButtonContainer">
                   {isNewNote ? (
-                    <GoPlus
-                      size={26}
-                      color={colorscheme.green2}
-                      onClick={() => {
-                        setIsNewNote(false);
-                        handleCreateNote();
-                      }}
-                    />
+                    <div item className="notes_plusButton">
+                      <GoPlus
+                        size={20}
+                        color={colorscheme.green2}
+                        onClick={() => {
+                          setIsNewNote(false);
+                          handleCreateNote();
+                        }}
+                      />
+                    </div>
                   ) : (
                     <></>
                   )}

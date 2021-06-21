@@ -48,9 +48,10 @@ const QuestionView = ({ data, position, length, multiple, ...rest }) => {
             className="questionView_questionImageContainerRed"
           >
             {data.question_image && data.question_image.length ? (
-              data.question_image.map((image) => (
+              data.question_image.map((image, index) => (
                 <Grid
                   item
+                  key={index}
                   className="questionView_questionImageContainerInside"
                 >
                   <Image

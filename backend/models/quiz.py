@@ -11,7 +11,10 @@ from sqlalchemy import (
     ARRAY,
 )
 import enum
+
 from sqlalchemy.orm import relationship
+
+from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.sql.sqltypes import JSON
 from .association_tables import (
     group_quiz_association_table,
@@ -36,21 +39,10 @@ class Quiz(Base):
     instructor = relationship(
         "User", secondary=instructor_quiz_association_table, backref="quiz"
     )
+    total_marks = Column(Integer, default=0)
     course_id = Column(Integer, ForeignKey("course.id", ondelete="cascade"))
     course = relationship("Course", backref="quiz")
     __tablename__ = "quiz"  # noqa
-
-
-class AnswerType(enum.Enum):
-    TEXT_OPTIONS: int = 1
-    IMAGE_OPTIONS: int = 2
-    FILE_UPLOAD: int = 3
-    TEXT_TYPING: int = 4
-
-
-class QuestionType(enum.Enum):
-    TEXT: int = 1
-    IMAGE: int = 2
 
 
 class QuizQuestion(Base):
@@ -61,7 +53,7 @@ class QuizQuestion(Base):
 
     # if IMAGE_OPTIONS in combination with option_image is present then, we show all the image in option_image, and then show all the options present in options
     options = Column(JSON, nullable=False)
-
+    marks = Column(Integer, default=0)
     # if IMAGE_Options present and answer == 0, then check answer_image
     answer = Column(ARRAY(Integer), nullable=True)
 
@@ -70,10 +62,9 @@ class QuizQuestion(Base):
 
     __tablename__ = "quiz_question"  # noqa
 
-
-# for storing user answers
-class QuizAnswer(Base):
-    id = Column(Integer, primary_key=True)
-    # user_id
-    # question_id
-    __tablename__ = "quiz_answer"  # noqa
+    @hybrid_property
+    def multiple(self):
+        if len(self.answer) > 1:
+            return True
+        else:
+            return False

@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import { Field } from "formik";
-import MenuItem from "@material-ui/core/MenuItem";
-import { TextField } from "@material-ui/core";
 import "./statics/css/customTabComponent.css";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";

@@ -28,11 +28,8 @@ const validationSchema = yup.object({
 });
 
 const QuizCreator = () => {
-  let answerList = [];
-
-  const groupList = [];
-
-	const [popup, setPopup] = useState(false);
+  let l = 0;
+  const [popup, setPopup] = useState(false);
   const { user } = useContext(UserContext);
   const endPage = useRef(null);
   const [selectFile, setSelectedFile] = useState({});
@@ -103,7 +100,6 @@ const QuizCreator = () => {
       course_id: quiz.whoseQuizInfo[0].course,
     };
 
-    console.log(postquizValues);
     return postquizValues;
   };
 
@@ -145,6 +141,7 @@ const QuizCreator = () => {
   };
 
   const onSubmitHandler = async (values) => {
+    console.log(JSON.stringify(values));
     let quiz = values;
     let questions = quiz.questions;
     delete quiz.questions;
@@ -251,9 +248,12 @@ const QuizCreator = () => {
                   }}
                   validationSchema={validationSchema}
                   onSubmit={onSubmitHandler}
+                  validateOnChange={false}
+                  validateOnBlur={false}
                 >
                   {({ values, setFieldValue }) => (
                     <>
+                      {console.log(l++)}
                       <Form className="quizCreator_formBox">
                         <Grid
                           container
@@ -265,7 +265,7 @@ const QuizCreator = () => {
                         >
                           <Grid
                             item
-                            xs={110}
+                            xs={10}
                             className="quizCreator_titleFieldContainer"
                           >
                             <CustomTextField

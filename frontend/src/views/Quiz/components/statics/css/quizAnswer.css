@@ -30,6 +30,10 @@
   }
   .quizAnswer_optionImage {
     width: 200px;
+    height: 200px;
+    margin-top: 20px;
+    object-fit: cover;
+    margin-top: 0px;
   }
 }
 

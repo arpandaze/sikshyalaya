@@ -66,8 +66,24 @@ const QuizAnswer = ({ options, onPopUp, name, multiple = false, ...rest }) => {
             {options.map((option, index) => (
               <FormControlLabel
                 key={index}
-                label={option.text}
-                className="quizAnswer_answerCheckContainer"
+                label={
+                  option.image != "" ? (
+                    <Image
+                      src={configs.PUBLIC_FILES_PATH + "/" + option.image}
+                      className="quizAnswer_optionImage"
+                      onClick={() => {
+                        onPopUp(option.image);
+                      }}
+                    />
+                  ) : (
+                    option.text
+                  )
+                }
+                className={
+                  !option.image
+                    ? "quizAnswer_answerContainer"
+                    : "quizAnswer_whenImageContainer"
+                }
                 control={
                   <Checkbox
                     name={`${name}.${index}`}

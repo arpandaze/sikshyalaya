@@ -1,6 +1,6 @@
 @import "../../../../utils/colors.css";
 
-@media only screen and (min-width: 720px) {
+@media only screen and (min-width: 1280px) {
   .notes_root {
     width: 98% !important;
     margin: 0px auto !important;
@@ -8,7 +8,7 @@
     flex-grow: 1;
   }
   .notes_creator {
-    height: 96vh;
+    height: 90vh;
     overflow: hidden;
     overflow-y: scroll;
   }
@@ -24,21 +24,32 @@
     line-height: 60px;
   }
   .notes_creatorTopInside {
+    position: relative;
     height: 60px !important;
   }
   .notes_textContainer {
     height: 60px !important;
   }
   .notes_text {
-    height: 60px !important;
     margin: 0;
     font-weight: bold !important;
     font-size: 1.9em !important;
   }
-  .notes_plusIcon {
-    cursor: pointer !important;
-    position: relative;
-    height: 40px;
+  .notes_plusButtonContainer {
+    height: 60px !important;
+  }
+  .notes_plusButton {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+  .notes_plusButton:hover {
+    background: var(--green2);
+    background: radial-gradient(
+      circle,
+      rgba(0, 194, 165, 1) 0%,
+      rgba(0, 194, 165, 0.23) 0%
+    );
   }
   .notes_creatorBot {
     position: relative !important;
@@ -82,13 +93,6 @@
     height: 90px !important;
   }
   .notes_text {
-    height: 90px !important;
-    margin: 0;
     font-size: 2.5em !important;
-  }
-  .notes_plusIcon {
-    cursor: pointer;
-    position: relative;
-    height: 30px !important;
   }
 }

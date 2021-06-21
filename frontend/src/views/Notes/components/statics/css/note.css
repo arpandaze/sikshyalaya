@@ -23,13 +23,13 @@
 
 @media only screen and (min-width: 1280px) {
   .note_root {
+    flex-grow: 1;
     width: 100% !important;
     height: 700px;
     position: relative;
     background: var(--white);
     border-radius: 20px;
-    box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);
-    flex-grow: 1;
+    border: 1px solid var(--grey6);
   }
   .note_notePadTop {
     width: 100%;
@@ -58,15 +58,23 @@
     height: 60px;
   }
   .note_closeButton {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    cursor: pointer;
+    width: 18px;
+    height: 18px;
     padding: 12px;
+    border-radius: 100%;
+    cursor: pointer;
     position: absolute;
-    top: 5px;
+    top: 10px;
     right: 10px;
     margin: 0;
+  }
+  .note_closeButton:hover {
+    background: var(--red4);
+    background: radial-gradient(
+      circle,
+      rgba(241, 75, 75, 1) 0%,
+      rgba(241, 75, 75, 0.23) 0%
+    );
   }
   .note_notePadBot {
     width: 100%;
@@ -166,23 +174,38 @@
     right: 20px;
   }
   .note_saveButton {
-    bottom: 50px;
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     padding: 10px;
     border-radius: 100%;
     cursor: pointer;
+  }
+  .note_saveButton:hover {
+    background: var(--green2);
+    background: radial-gradient(
+      circle,
+      rgba(0, 194, 165, 1) 0%,
+      rgba(0, 194, 165, 0.23) 0%
+    );
   }
   .note_trashButtonContainer {
     position: relative;
     left: 20px;
   }
   .note_trashButton {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     padding: 10px;
     border-radius: 50%;
     cursor: pointer;
+  }
+  .note_trashButton:hover {
+    background: var(--red4);
+    background: radial-gradient(
+      circle,
+      rgba(241, 75, 75, 1) 0%,
+      rgba(241, 75, 75, 0.23) 0%
+    );
   }
 }
 
@@ -204,8 +227,8 @@
   .note_titleText:focus {
   }
   .note_closeButton {
-    width: 25px;
-    height: 25px;
+    width: 18px;
+    height: 18px;
   }
   .note_notePadBot {
     height: 750px;

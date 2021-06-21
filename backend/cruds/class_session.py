@@ -4,7 +4,7 @@ from cruds.base import CRUDBase
 from cruds.user import crud_user
 from models import ClassSession
 from models import User
-from schemas import ClassSessionCreate, ClassSessionUpdate
+from schemas import ClassSessionCreate, ClassSessionUpdate, AttendanceUpdate
 from sqlalchemy.orm import Session
 from core.config import settings
 
@@ -26,6 +26,16 @@ class CRUDClassSession(CRUDBase[ClassSession, ClassSessionCreate, ClassSessionUp
             group_id=obj_in.group_id,
         )
 
+        db.add(db_obj)
+        db.commit()
+        db.refresh(db_obj)
+        return db_obj
+
+    def attendance_update(
+        self, db: Session, *, db_obj: ClassSession, obj_in: AttendanceUpdate
+    ) -> Any:
+        students = [crud_user.get_by_id(db=db, id=item) for item in obj_in.attendant]
+        db_obj.attendant = students
         db.add(db_obj)
         db.commit()
         db.refresh(db_obj)

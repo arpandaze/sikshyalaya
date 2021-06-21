@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date, datetime
 from typing import Optional, List
 from datetime import datetime
 
@@ -16,17 +16,19 @@ class PersonalNoteBase(BaseModel):
 
 
 # properties to recieve via
-class PersonalNoteCreate(PersonalNoteBase):
-    last_updated_time = datetime.now()
+class PersonalNoteCreate(BaseModel):
+    user_id: int
+    tags: List[str] = None
+    title: str
+    content: str
 
 
 # properties to recive via API on Update
-class PersonalNoteUpdate(PersonalNoteBase):
+class PersonalNoteUpdate(BaseModel):
     user_id: int = None
     tags: List[str] = None
     title: str = None
     content: str = None
-    last_updated_time = datetime.now()
 
 
 # properties to return via the api

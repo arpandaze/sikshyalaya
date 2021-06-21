@@ -82,9 +82,12 @@ def run():
     reload_blacklist = ["tests", ".pytest_cache"]
     reload_dirs = os.listdir()
     for dir in reload_blacklist:
-        reload_dirs.remove(dir)
+        try:
+            reload_dirs.remove(dir)
+        except:
+            pass
     uvicorn.run(
-        "scripts.launch:app",
+        "misc.scripts.launch:app",
         host=settings.UVICORN_HOST,
         port=settings.UVICORN_PORT,
         reload=True if settings.DEV_MODE else False,

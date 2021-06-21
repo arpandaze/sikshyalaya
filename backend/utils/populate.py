@@ -1,4 +1,5 @@
 import json
+from schemas.quiz_answer import QuizAnswerCreate
 
 from pydantic.types import ConstrainedStr
 
@@ -14,6 +15,7 @@ from utils.populationdata import (
     quizzes,
     classSessions,
     quizQuestions,
+    quizAnswers,
 )
 from utils.utils import send_verification_email
 from core.db import redis_session_client
@@ -33,6 +35,7 @@ from cruds import (
     crud_quiz,
     crud_class_session,
     crud_question,
+    crud_quiz_answer,
 )
 
 from schemas import (
@@ -48,6 +51,7 @@ from schemas import (
     ClassSessionCreate,
     QuizCreate,
     QuizQuestionCreate,
+    QuizAnswer,
 )
 
 db = SessionLocal()
@@ -156,7 +160,6 @@ def populate_personal_note():
                 tags=personalNote["tags"],
                 title=personalNote["title"].strip(),
                 content=personalNote["content"],
-                last_updated_time=personalNote["last_updated_time"],
             )
             crud_personal_note.create(db, obj_in=personalNote)
         except Exception as e:  # noqa
@@ -178,6 +181,7 @@ def populate_quiz():
                 instructor=quiz["instructor"],
                 course_id=quiz["course_id"],
                 date=quiz["date"],
+                total_marks=quiz["total_marks"],
             )
 
             crud_quiz.create(db, obj_in=quiz)
@@ -212,8 +216,24 @@ def populate_quiz_question():
                 options=quiz_question["options"],
                 answer=quiz_question["answer"],
                 quiz_id=quiz_question["quiz_id"],
+                marks=quiz_question["marks"],
             )
             crud_question.create(db, obj_in=quiz_question)
+        except Exception as e:
+            print(e)
+
+
+def populate_quiz_answer():
+    for quiz_answer in quizAnswers:
+        try:
+            quiz_answer = QuizAnswerCreate(
+                marks_obtained=quiz_answer["marks_obtained"],
+                options_selected=quiz_answer["options_selected"],
+                quiz_id=quiz_answer["quiz_id"],
+                student_id=quiz_answer["student_id"],
+            )
+
+            crud_quiz_answer.create(db, obj_in=quiz_answer)
         except Exception as e:
             print(e)
 
@@ -230,3 +250,4 @@ def populate_all():
     populate_quiz()
     populate_class_session()
     populate_quiz_question()
+    populate_quiz_answer()

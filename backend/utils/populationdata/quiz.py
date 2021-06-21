@@ -14,9 +14,63 @@ quizQuestionOptionJSON = [
     {"image": "", "text": "this is first text."},
 ]
 
+quizQuestionOptionOnewithImageJSON = [
+    {"image": "", "text": "1946"},
+    {"image": "", "text": "1945"},
+    {"image": "", "text": "1942"},
+    {"image": "", "text": "1948"},
+]
+
+quizQuestionOptionTwowithImageJSON = [
+    {"image": "", "text": "Sludge"},
+    {"image": "", "text": "Solid Cubes"},
+    {"image": "", "text": "Drink"},
+    {"image": "", "text": "Slurppy"},
+]
+
+quizQuestionOptionThreewithImageJSON = [
+    {
+        "image": "quiz\\17ba0791499db908433b80f37c5fbc89b870084b\\bc33ea4e26e5e1af1408321416956113a4658763\\fb7e182fe941107926b16887993a6927619ff40d/c7cdfbe7307f1d894abdc7375556d2fb11e9ad61.jpg",
+        "text": "",
+    },
+    {
+        "image": "quiz\\17ba0791499db908433b80f37c5fbc89b870084b\\bc33ea4e26e5e1af1408321416956113a4658763\\fb7e182fe941107926b16887993a6927619ff40d/5d36953ff5df1774e3d904e1f318d4272bbefe15.jpg",
+        "text": "",
+    },
+    {
+        "image": "quiz\\17ba0791499db908433b80f37c5fbc89b870084b\\bc33ea4e26e5e1af1408321416956113a4658763\\fb7e182fe941107926b16887993a6927619ff40d/e36699bdcbacf3f4343f92e2b510495721333477.jpg",
+        "text": "",
+    },
+    {
+        "image": "quiz\\17ba0791499db908433b80f37c5fbc89b870084b\\bc33ea4e26e5e1af1408321416956113a4658763\\fb7e182fe941107926b16887993a6927619ff40d/67a46f8a9919b5153169d425a8655f9bb34d67f5.jpg",
+        "text": "",
+    },
+]
+
+quizQuestionOptionFourwithImageJSON = [
+    {
+        "image": "quiz\\17ba0791499db908433b80f37c5fbc89b870084b\\0a57cb53ba59c46fc4b692527a38a87c78d84028\\fb7e182fe941107926b16887993a6927619ff40d/a382c0edbe563fa4860840d8e916ca58e4c39b84.jpg",
+        "text": "",
+    },
+    {
+        "image": "quiz\\17ba0791499db908433b80f37c5fbc89b870084b\\0a57cb53ba59c46fc4b692527a38a87c78d84028\\fb7e182fe941107926b16887993a6927619ff40d/5d6a61444c616ed86e5d545789eb8ef5a98ea7a5.jpg",
+        "text": "",
+    },
+    {
+        "image": "quiz\\17ba0791499db908433b80f37c5fbc89b870084b\\0a57cb53ba59c46fc4b692527a38a87c78d84028\\fb7e182fe941107926b16887993a6927619ff40d/e822336366d583a989742b02719ecaabb2ced2b5.jpg",
+        "text": "",
+    },
+    {
+        "image": "quiz\\17ba0791499db908433b80f37c5fbc89b870084b\\0a57cb53ba59c46fc4b692527a38a87c78d84028\\fb7e182fe941107926b16887993a6927619ff40d/ec0188f3a7f911e311e1e2f36602d10ba63cdef1.jpg",
+        "text": "",
+    },
+]
 
 quizQuestionOption = json.dumps(quizQuestionOptionJSON)
-
+quizQuestionOptionOnewithImageJSON = json.dumps(quizQuestionOptionOnewithImageJSON)
+quizQuestionOptionTwowithImageJSON = json.dumps(quizQuestionOptionTwowithImageJSON)
+quizQuestionOptionThreewithImageJSON = json.dumps(quizQuestionOptionThreewithImageJSON)
+quizQuestionOptionFourwithImageJSON = json.dumps(quizQuestionOptionFourwithImageJSON)
 
 quizzes: List[Json] = [
     {
@@ -26,6 +80,7 @@ quizzes: List[Json] = [
         "title": "Fundamentals of Computer First Quiz",
         "description": "Quiz for Course COMP101, which is to test the understanding of students on the basic fundamentals of Computer Programming.",
         "is_randomized": True,
+        "total_marks": 100,
         "display_individual": False,
         "group": [1, 3, 5, 6],
         "instructor": [9],
@@ -38,6 +93,7 @@ quizzes: List[Json] = [
         "title": "Introduction to Environemental Engineering quiz",
         "description": "Quiz for Course ENVE101, which is to test the understanding of students on the fundamentals of Environmental Enginnering.",
         "is_randomized": False,
+        "total_marks": 200,
         "display_individual": True,
         "group": [1, 3, 5, 6, 17],
         "instructor": [10],
@@ -50,6 +106,7 @@ quizzes: List[Json] = [
         "title": "Elements of Engineering First Quiz",
         "description": "Quiz for Course ENGG101, which is to test the understanding of students on the elementaries of engineering.",
         "is_randomized": False,
+        "total_marks": 50,
         "display_individual": False,
         "group": [4],
         "instructor": [10],
@@ -62,6 +119,7 @@ quizzes: List[Json] = [
         "title": "Fundamentals of Computer First Quiz",
         "description": "Quiz for Course COMP101, which is to test the understanding of students on the basic fundamentals of Computer Programming.",
         "is_randomized": True,
+        "total_marks": 25,
         "display_individual": False,
         "group": [1, 3, 5, 6],
         "instructor": [8],
@@ -74,6 +132,7 @@ quizzes: List[Json] = [
         "title": "Advanced Environmental Engineering Third Quiz",
         "description": "Quiz for Course ENVE201, which is to test the understanding of students on the advanced knowledge of environmental engineering.",
         "is_randomized": True,
+        "total_marks": 100,
         "display_individual": False,
         "group": [2, 6],
         "instructor": [8],
@@ -86,6 +145,7 @@ quizzes: List[Json] = [
         "title": "Advanced Engineering Third Quiz",
         "description": "Quiz for Course ENGG211, which is to test the understanding of students on the advanced knowledge of engineering.",
         "is_randomized": True,
+        "total_marks": 20,
         "display_individual": False,
         "group": [4],
         "instructor": [10],
@@ -98,6 +158,7 @@ quizzes: List[Json] = [
         "title": "Basics of Law First Quiz",
         "description": "Quiz for Course LLB101, which is to test the understanding of students on the basic human rights.",
         "is_randomized": True,
+        "total_marks": 50,
         "display_individual": True,
         "group": [9],
         "instructor": [8, 9],
@@ -110,6 +171,7 @@ quizzes: List[Json] = [
         "title": "Criminal Law Second Quiz",
         "description": "Quiz for Course LLB202, which is to test the understanding of students on criminal laws and rights surrounding them.",
         "is_randomized": False,
+        "total_marks": 40,
         "display_individual": False,
         "group": [7],
         "instructor": [9, 10],
@@ -122,6 +184,7 @@ quizzes: List[Json] = [
         "title": "Information Systems Basics Quiz",
         "description": "Quiz for Course IST101, which is to test the understanding of students on the basic fundamentals of Computer Information Systems.",
         "is_randomized": True,
+        "total_marks": 90,
         "display_individual": False,
         "group": [7, 8],
         "instructor": [10, 8],
@@ -134,10 +197,24 @@ quizzes: List[Json] = [
         "title": "Business and Management Studies First Quiz",
         "description": "Quiz for Course BMS222, which is to test the understanding of students on topics within the depths of Business and Management Studies",
         "is_randomized": False,
+        "total_marks": 10,
         "display_individual": True,
         "group": [7],
         "instructor": [9, 10, 8],
         "course_id": 10,
+    },
+    {
+        "end_time": time(23, 45, 00),
+        "start_time": time(14, 35, 00),
+        "date": date(2021, 6, 18),
+        "title": "History",
+        "description": "If you are neutral in situations of injustice, you have chosen the side of the oppressor. If an elephant has its foot on the tail of a mouse and you say that you are neutral, the mouse will not appreciate your neutrality.",
+        "is_randomized": False,
+        "total_marks": 25,
+        "display_individual": False,
+        "group": [2],
+        "instructor": [9, 10, 8],
+        "course_id": 1,
     },
 ]
 
@@ -148,6 +225,7 @@ quizQuestions: List[Json] = [
         "question_image": ["this is questionOne"],
         "options": quizQuestionOption,
         "answer": [0, 3],
+        "marks": 6,
         "quiz_id": 1,
     },
     {
@@ -155,6 +233,7 @@ quizQuestions: List[Json] = [
         "question_image": None,
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 2,
     },
     {
@@ -162,6 +241,7 @@ quizQuestions: List[Json] = [
         "question_image": None,
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 3,
     },
     {
@@ -169,6 +249,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 4,
     },
     {
@@ -176,6 +257,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 5,
     },
     {
@@ -183,6 +265,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 1,
     },
     {
@@ -190,6 +273,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 2,
     },
     {
@@ -197,6 +281,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 3,
     },
     {
@@ -204,6 +289,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 4,
     },
     {
@@ -211,6 +297,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 5,
     },
     {
@@ -218,6 +305,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 6,
     },
     {
@@ -225,6 +313,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 7,
     },
     {
@@ -232,6 +321,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 8,
     },
     {
@@ -239,6 +329,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 9,
     },
     {
@@ -246,6 +337,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 1,
     },
     {
@@ -253,6 +345,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 2,
     },
     {
@@ -260,6 +353,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 3,
     },
     {
@@ -267,6 +361,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 1,
     },
     {
@@ -274,6 +369,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 5,
     },
     {
@@ -281,6 +377,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 7,
     },
     {
@@ -288,6 +385,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 8,
     },
     {
@@ -295,6 +393,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 2,
     },
     {
@@ -302,6 +401,7 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 6,
     },
     {
@@ -309,6 +409,41 @@ quizQuestions: List[Json] = [
         "question_image": ["questionImg"],
         "options": quizQuestionOption,
         "answer": [2, 3, 4],
+        "marks": 6,
         "quiz_id": 3,
+    },
+    {
+        "question_text": "What year did World War II end?",
+        "question_image": [
+            """quiz/17ba0791499db908433b80f37c5fbc89b870084b/f6e1126cedebf23e1463aee73f9df08783640400/9a3c4946e15e1fecacfc8360f751d985e5b0eb36/d8e56f5a1118b55cdadebfb1e468c2ae142e0750.jpg"""
+        ],
+        "options": quizQuestionOptionOnewithImageJSON,
+        "answer": [1],
+        "marks": 6,
+        "quiz_id": 11,
+    },
+    {
+        "question_text": "In what form was chocolate originally enjoyed?",
+        "question_image": [],
+        "options": quizQuestionOptionTwowithImageJSON,
+        "answer": [2],
+        "marks": 6,
+        "quiz_id": 11,
+    },
+    {
+        "question_text": "Which one of the following is Alan Turing?",
+        "question_image": [],
+        "options": quizQuestionOptionThreewithImageJSON,
+        "answer": [0],
+        "marks": 6,
+        "quiz_id": 11,
+    },
+    {
+        "question_text": "Tick all Female",
+        "question_image": [],
+        "options": quizQuestionOptionFourwithImageJSON,
+        "answer": [0, 2, 3],
+        "marks": 7,
+        "quiz_id": 11,
     },
 ]

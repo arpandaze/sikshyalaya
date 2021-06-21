@@ -97,6 +97,29 @@ async def sign_up(
     return schemas.Msg(msg="Success")
 
 
+@router.post("/change-password/")
+async def change_password(
+    current_password: str = Body(...),
+    new_password: str = Body(...),
+    current_user: models.User = Depends(deps.get_current_user),
+    db: Session = Depends(deps.get_db),
+) -> Any:
+    user = cruds.crud_user.authenticate(
+        db, email=current_user.email, password=current_password
+    )
+
+    if not user:
+        raise HTTPException(
+            status_code=403, detail="Error ID: 111"
+        )  # Incorrect email or password
+
+    data = schemas.user.PasswordUpdate(
+        password=new_password,
+    )
+
+    cruds.crud_user.update(db=db, db_obj=current_user, obj_in=data)
+
+
 @router.get("/web/test/")
 async def test_session_token(
     current_user: models.User = Depends(deps.get_current_user),
@@ -122,9 +145,7 @@ async def recover_password(
             status_code=404,
             detail="Error ID: 113",
         )  # The user with this username does not exist in the system.
-    await send_reset_password_email(
-        user=user
-    )
+    await send_reset_password_email(user=user)
     return {"msg": "Password recovery email sent"}
 
 

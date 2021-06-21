@@ -1,6 +1,6 @@
 import axios from "axios";
 import configs from "./configs";
-import { del } from "idb-keyval";
+import { clear } from "idb-keyval";
 
 const callAPI = async ({
   endpoint,
@@ -45,7 +45,14 @@ const callAPI = async ({
       response_obj = error.response;
     });
   if (response_obj.status == 401) {
-    window.location = "/login";
+    clear()
+      .then(() => {
+        window.location = "/login";
+      })
+      .catch(() => {
+        window.localStorage.clear();
+        window.location = "/login";
+      });
   }
 
   return response_obj;

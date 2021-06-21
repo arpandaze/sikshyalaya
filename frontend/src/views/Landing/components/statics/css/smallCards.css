@@ -6,7 +6,7 @@
     height: 180px;
     border-radius: 20px;
     background: var(--secondary);
-    box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--grey6);
   }
   .smallCards_root {
     flex-grow: 1;
@@ -95,19 +95,19 @@
 
 @media only screen and (min-width: 1920px) {
   .smallCards_container {
-    height: 220px;
+    height: 230px;
   }
   .smallCards_row1 {
-    height: 220px;
+    height: 230px;
   }
 
   .smallCards_row_col_box {
-    height: 220px;
+    height: 230px;
   }
 
   .smallCards_row2 {
     position: relative;
-    height: 220px;
+    height: 230px;
   }
 
   .smallCards_buttonContainer {

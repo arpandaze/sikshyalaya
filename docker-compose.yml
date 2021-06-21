@@ -8,11 +8,19 @@ services:
     env_file:
       - .env
     build:
-      context: ./
-      dockerfile: ./dockerfiles/backend.dockerfile
-    command: sh ./scripts/gunicorn_launch.sh
+      context: ./backend
+      dockerfile: ../dockerfiles/backend.dockerfile
+    command: sh ./misc/scripts/gunicorn_launch.sh
     networks:
       - internal
+
+  frontend:
+    container_name: frontend
+    env_file:
+      - .env
+    build:
+      context: ./frontend
+      dockerfile: ../dockerfiles/frontend.dockerfile
 
   postgres:
     image: postgres:13-alpine
@@ -59,8 +67,6 @@ services:
       dockerfile: ./file_server.dockerfile
     networks:
       - internal
-    ports:
-      - "8081:80"
     volumes:
       - uploads:/usr/share/nginx/html
 

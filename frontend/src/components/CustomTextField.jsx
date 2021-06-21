@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Field } from "formik";
 import MenuItem from "@material-ui/core/MenuItem";
 import { TextField } from "@material-ui/core";
@@ -9,22 +9,17 @@ const CustomTextField = ({
   dropdown = false,
   type,
   placeHolder,
-  menuItems,
+  menuItems = [null],
   addStyles,
   value,
   ...rest
 }) => {
   const isDropdown = dropdown;
-  const [option, setOption] = useState("");
-
-  const handleChange = (e) => {
-    setOption(e.target.value);
-  };
 
   return !isDropdown ? (
     <>
       <Field name={name} {...rest}>
-        {({ field, form: { touched, errors }, meta }) => (
+        {({ field, form: { setFieldValue, touched, errors }, meta }) => (
           <div className="customField_root">
             <TextField
               error={meta.touched && meta.error ? true : false}
@@ -32,7 +27,6 @@ const CustomTextField = ({
               type={type}
               margin="normal"
               label={placeHolder}
-              value={value}
               variant="outlined"
               className={addStyles}
               {...rest}

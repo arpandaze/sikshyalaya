@@ -12,6 +12,10 @@ services:
         ports:
           - "8080:80"
 
+    frontend:
+      ports:
+        - "3001:80"
+
     pgadmin:
         environment:
             - PGADMIN_LISTEN_PORT=5050
@@ -21,6 +25,8 @@ services:
     file_server:
         volumes:
             - ./file_server:/usr/share/nginx/html
+        ports:
+          - "8081:80"
 
     mailhog:
         image: mailhog/mailhog:latest

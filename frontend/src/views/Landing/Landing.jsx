@@ -79,9 +79,13 @@ const Landing = () => {
             <br />
             <br />
             <div className="landing_currentContainer">
-              {classSession.active.map((details) => (
-                <SmallCards cardData={details} />
-              ))}
+              {classSession && classSession.active.length ? (
+                classSession.active.map((details) => (
+                  <SmallCards cardData={details} />
+                ))
+              ) : (
+                <p className="quiz_noActiveClass">No active Class Available</p>
+              )}
             </div>
           </Grid>
           <Grid item className="landing_row2">

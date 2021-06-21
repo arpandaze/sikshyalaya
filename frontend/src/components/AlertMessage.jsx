@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Alert from "@material-ui/lab/Alert";
+import { Alert, AlertTitle } from "@material-ui/lab";
 import IconButton from "@material-ui/core/IconButton";
 import Collapse from "@material-ui/core/Collapse";
 import CloseIcon from "@material-ui/icons/Close";
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 
 function AlertMessage({ message, severity }) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = useState(true);
 
   return (
     <div className={classes.root}>
@@ -36,8 +36,11 @@ function AlertMessage({ message, severity }) {
             </IconButton>
           }
         >
+          <AlertTitle>
+            {severity.charAt(0).toUpperCase() + severity.slice(1)}
+          </AlertTitle>
           {message}
-        </Alert>{" "}
+        </Alert>
       </Collapse>
     </div>
   );

@@ -16,6 +16,7 @@ import {
   Redirect,
   useHistory,
 } from "react-router-dom/cjs/react-router-dom.min";
+import { format, differenceInHours } from "date-fns";
 
 const imageList = [boxes, cycle, circles, sun, stripes];
 
@@ -33,7 +34,9 @@ const Quiz = () => {
       active: [],
       past: [],
     };
-    responseData.active = response.data.active.map((quiz) => {
+    const currentDateTime = new Date();
+
+    let tempResponse = response.data.map((quiz) => {
       let formattedResponseData = {
         id: quiz.id,
         date: quiz.date,
@@ -43,32 +46,34 @@ const Quiz = () => {
         description: quiz.description,
         is_randomized: quiz.is_randomized,
         display_individual: quiz.display_individual,
-        course_id: quiz.course_id,
+        course_code: quiz.course.course_code,
         instructor: quiz.instructor,
+        total_marks: quiz.total_marks,
       };
       return formattedResponseData;
     });
 
-    responseData.past = response.data.past.map((quiz) => {
-      let formattedResponseData = {
-        id: quiz.id,
-        date: quiz.date,
-        end_time: quiz.end_time,
-        start_time: quiz.start_time,
-        title: quiz.title,
-        description: quiz.description,
-        is_randomized: quiz.is_randomized,
-        display_individual: quiz.display_individual,
-        course_id: quiz.course_id,
-        instructor: quiz.instructor,
-      };
-      return formattedResponseData;
+    console.log(tempResponse);
+    tempResponse.filter((response) => {
+      const tempEndDateTime = new Date(response.date + " " + response.end_time);
+      const tempStartDateTime = new Date(
+        response.date + " " + response.start_time
+      );
+      const quizDate = new Date(
+        tempEndDateTime.toLocaleString().toString() + " UTC"
+      );
+      response.totalTime = new Date(tempEndDateTime - tempStartDateTime)
+        .toISOString()
+        .substr(11, 8)
+        .split(":");
+      currentDateTime <= quizDate
+        ? responseData.active.push(response)
+        : responseData.past.push(response);
     });
-
     return responseData;
   };
   let [allQuiz, allQuizComplete] = useAPI(
-    { endpoint: "/api/v1/quiz/activeandpast" },
+    { endpoint: "/api/v1/quiz/" },
     quizFormatter,
     defaultQuizvalue
   );
