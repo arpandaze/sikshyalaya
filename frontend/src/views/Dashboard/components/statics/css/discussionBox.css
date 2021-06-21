@@ -28,8 +28,11 @@
     width: 93%;
     max-width: 95%;
     border-radius: 10px;
+    border: 1px solid var(--grey6);
   }
-
+  .discussionBox_textField:focus {
+    outline: none;
+  }
   .discussionBox_sendButtonContainer {
   }
 
