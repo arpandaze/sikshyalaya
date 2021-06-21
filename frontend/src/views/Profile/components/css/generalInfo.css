@@ -1,46 +1,67 @@
 @import "../../../../utils/colors.css";
-.generalInfo_root {
-  width: 100%;
-  height: 100%;
+
+@media only screen and (min-width: 1280px) {
+  .generalInfo_root {
+    height: 550px;
+  }
+  .generalInfo_titleBar {
+    width: 100%;
+    height: 50px;
+  }
+  .generalInfo_title {
+    font-size: 1.4em;
+    font-weight: bold;
+    text-indent: 30px;
+    margin: 0px !important;
+  }
+  .generalInfo_topPart {
+    width: 100%;
+  }
+  .generalInfo_imageContainer {
+    position: relative;
+  }
+  .generalInfo_imageWrapper {
+    width: 110px;
+    height: 110px;
+    position: relative;
+  }
+  .generalInfo_image {
+    object-fit: cover;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .generalInfo_formContainer {
+    height: 100%;
+    width: 100%;
+    padding: 10px 30px 20px 30px;
+  }
+  .generalInfo_inputField {
+    width: 100%;
+  }
+  .generalInfo_button {
+    max-width: 200px;
+    min-width: 200px;
+    height: 50px;
+    background-color: var(--red4);
+    color: var(--white);
+    border-radius: 15px;
+    font-size: 1.2em;
+  }
 }
-.generalInfo_titleBar {
-  height: 50px;
-}
-.generalInfo_title {
-  font-size: 1.4em;
-  font-weight: bold;
-  text-indent: 30px;
-}
-.generalInfo_topPart {
-}
-.generalInfo_imageContainer {
-  position: relative;
-}
-.generalInfo_imageWrapper {
-  width: 150px;
-  height: 150px;
-  position: relative;
-}
-.generalInfo_image {
-  object-fit: cover;
-  border-radius: 50%;
-  cursor: pointer;
-}
-.generalInfo_formContainer {
-  height: 100%;
-  width: 100%;
-  padding: 20px 50px 30px 50px;
-}
-.generalInfo_inputField {
-  width: 100%;
-}
-.generalInfo_button {
-  max-width: 200px;
-  min-width: 200px;
-  height: 50px;
-  margin-top: 20px !important;
-  background-color: var(--red4);
-  color: var(--white);
-  border-radius: 15px;
-  font-size: 1.2em;
+
+@media only screen and (min-width: 1920px) {
+  .generalInfo_root {
+    height: 630px;
+  }
+
+  .generalInfo_imageWrapper {
+    width: 150px;
+    height: 150px;
+    position: relative;
+  }
+  .generalInfo_formContainer {
+    height: 100%;
+    width: 100%;
+    padding: 20px 50px 30px 50px;
+  }
 }

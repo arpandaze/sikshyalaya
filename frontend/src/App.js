@@ -3,6 +3,7 @@ import Routes from "./Route";
 import "./App.css";
 import { UserContext } from "./utils/Contexts/UserContext";
 import { WebsocketContext } from "./utils/Contexts/WebsocketContext";
+import { AlertContext } from "./components/DashboardLayout/AlertContext";
 import { get, set } from "idb-keyval";
 import useChat from "./utils/useChat";
 
@@ -51,6 +52,8 @@ function App() {
   });
   const [websocket, setWebsocket] = useState(null);
 
+  const [alert, setAlert] = useState(null);
+
   const setUser = (value) => {
     set("user", value).catch(() => {
       window.localStorage.setItem("user", JSON.stringify(value));
@@ -61,6 +64,11 @@ function App() {
   const user_context_value = useMemo(
     () => ({ user, setUser }),
     [user, setUser]
+  );
+
+  const alert_context_value = useMemo(
+    () => ({ alert, setAlert }),
+    [alert, setAlert]
   );
 
   const [
@@ -104,7 +112,9 @@ function App() {
   return (
     <UserContext.Provider value={user_context_value}>
       <WebsocketContext.Provider value={websocket_context_value}>
-        <Routes />
+        <AlertContext.Provider value={alert_context_value}>
+          <Routes />
+        </AlertContext.Provider>
       </WebsocketContext.Provider>
     </UserContext.Provider>
   );

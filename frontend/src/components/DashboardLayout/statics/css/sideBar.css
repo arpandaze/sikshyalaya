@@ -32,8 +32,10 @@
     text-decoration: none !important;
   }
   .sideBar_logOutContainer {
-    width: 130px;
-    height: 45px;
+    width: 125px;
+    height: 42px;
+    position: fixed;
+    bottom: 40px;
   }
   .sideBar_logOutButton {
     width: 100%;

@@ -7,6 +7,10 @@
     padding: 0px;
     position: relative;
   }
+  .profile_icons {
+    width: 100%;
+    height: 100%;
+  }
 
   .profile_topBar {
     height: 80px;
@@ -23,18 +27,15 @@
     text-indent: 40px;
   }
   .profile_mainContainer {
-    width: 90% !important;
+    width: 100% !important;
     margin: 20px auto !important;
   }
   .profile_tabsContainer {
-    height: 340px;
+    height: 300px;
     border-radius: 15px;
     border: 1px solid var(--grey6);
   }
   .profile_profileBox {
-    height: 700px;
-    max-height: 700px;
-    max-height: 800px;
     margin-left: 20px !important;
     border-radius: 15px;
     border: 1px solid var(--grey6);
@@ -42,4 +43,13 @@
 }
 
 @media only screen and (min-width: 1920px) {
+  .profile_mainContainer {
+    width: 90% !important;
+    margin: 20px auto !important;
+  }
+  .profile_tabsContainer {
+    height: 320px;
+    border-radius: 15px;
+    border: 1px solid var(--grey6);
+  }
 }

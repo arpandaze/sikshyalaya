@@ -14,17 +14,17 @@ const tabs = [
   {
     id: 1,
     name: "General Information",
-    icon: <IoMdInformationCircleOutline size={30} />,
+    icon: <IoMdInformationCircleOutline className="profile_icons" />,
   },
   {
     id: 2,
     name: "Security",
-    icon: <BiShieldQuarter size={30} />,
+    icon: <BiShieldQuarter className="profile_icons" />,
   },
   {
     id: 3,
     name: "Sessions",
-    icon: <IoMdInformationCircleOutline size={30} />,
+    icon: <IoMdInformationCircleOutline className="profile_icons" />,
   },
 ];
 

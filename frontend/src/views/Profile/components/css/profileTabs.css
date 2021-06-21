@@ -8,28 +8,33 @@
     padding-top: 10px;
   }
   .profileTabs_imageContainer {
+    height: 100% !important;
+  }
+  .profielTabs_imageContainerInside {
+    width: 100px;
+    height: 100px;
+    margin: 0px auto;
   }
   .profileTabs_image {
-    width: 90% !important;
-    height: auto !important;
+    object-fit: cover;
     position: relative;
     border-radius: 50%;
   }
   .profileTabs_nameContainer {
-    padding-top: 10px;
+    overflow: hidden;
+    white-space: nowrap;
   }
   .profileTabs_name {
     margin: 0px;
-    font-size: 1.2em;
+    font-size: 0.95em;
     font-weight: bold;
-    text-indent: 10px;
+    text-overflow: ellipsis;
   }
   .profileTabs_departname {
     margin: 0px;
-    font-size: 0.9em;
+    font-size: 0.85em;
     font-weight: 600;
     color: var(--secondaryTextColor);
-    text-indent: 10px;
   }
   .profileTabs_tabIconContainer {
     margin: 15px 0 0 0 !important;
@@ -37,4 +42,16 @@
 }
 
 @media only screen and (min-width: 1920px) {
+  .profileTabs_name {
+    margin: 0px;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-overflow: ellipsis;
+  }
+  .profileTabs_departname {
+    margin: 0px;
+    font-size: 1em;
+    font-weight: 600;
+    color: var(--secondaryTextColor);
+  }
 }

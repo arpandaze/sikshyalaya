@@ -34,11 +34,12 @@ const ProfileTabs = ({ tabs }) => {
         <Grid
           container
           direction="row"
+          alignItems="center"
           justify="flex-start"
           className="profileTabs_topPart"
         >
           <Grid item xs={5} className="profileTabs_imageContainer">
-            <Grid container justify="center">
+            <div className="profielTabs_imageContainerInside">
               <Image
                 src={
                   userInfo.image
@@ -48,7 +49,7 @@ const ProfileTabs = ({ tabs }) => {
                 alt="profile-image"
                 addStyles="profileTabs_image"
               />
-            </Grid>
+            </div>
           </Grid>
           <Grid item xs={7} className="profileTabs_nameContainer">
             <Grid container direction="column">
@@ -61,16 +62,16 @@ const ProfileTabs = ({ tabs }) => {
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
-      <Grid item className="profileTabs_tabIconContainer">
-        {tabs.map((item, index) => (
-          <TabIcons
-            key={index}
-            name={item.name}
-            icon={item.icon}
-            id={item.id}
-          />
-        ))}
+        <Grid item className="profileTabs_tabIconContainer">
+          {tabs.map((item, index) => (
+            <TabIcons
+              key={index}
+              name={item.name}
+              icon={item.icon}
+              id={item.id}
+            />
+          ))}
+        </Grid>
       </Grid>
     </Grid>
   );

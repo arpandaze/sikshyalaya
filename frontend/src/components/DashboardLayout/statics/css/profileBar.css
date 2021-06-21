@@ -13,6 +13,11 @@
     width: 85% !important;
     margin-top: 5% !important;
   }
+  .profileBar_GlobalAlertBox {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+  }
 }
 
 @media only screen and (min-width: 1920px) {
