@@ -29,6 +29,7 @@ import HomeRedirector from "./components/HomeRedirector";
 import ExploreView from "./views/Admin/ExploreView";
 import configs from "./utils/configs";
 import QuizView from "./views/Quiz/components/QuizView";
+import StudentView from "./views/Admin/StudentView";
 
 const Routes = () => {
   return (
@@ -67,7 +68,7 @@ const Routes = () => {
       />
       <AdminRoute exact path="/admin/explore/Program" component={ProgramView} />
       <AdminRoute exact path="/admin/explore/group" component={GroupView} />
-      <AdminRoute exact path="/admin/student" component={ExploreView} />
+      <AdminRoute exact path="/admin/student" component={StudentView} />
       <AdminRoute exact path="/admin/teacher" component={TeacherView} />
       <AdminRoute exact path="/admin/courses" component={CourseView} />
 

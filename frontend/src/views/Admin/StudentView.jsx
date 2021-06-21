@@ -14,7 +14,6 @@ import callAPI from "../../utils/API";
 import CustomTextField from "../../components/CustomTextField";
 import { useHistory } from "react-router-dom";
 import { DatePicker } from "../../components/CustomDateTime";
-import AdminBoxSmall from "./components/AdminBoxSmall";
 
 const validationSchema = yup.object({
   full_name: yup.string("Enter your name").required("Name is required"),
@@ -30,38 +29,128 @@ const validationSchema = yup.object({
   program: yup.number().required("Program is required"),
 });
 
-const CourseView = ({ location, ...rest }) => {
+const semester = [
+  { name: "I", value: 1 },
+  { name: "II", value: 2 },
+  { name: "III", value: 3 },
+  { name: "IV", value: 4 },
+  { name: "V", value: 5 },
+  { name: "VI", value: 6 },
+  { name: "VII", value: 7 },
+  { name: "VIII", value: 8 },
+];
+
+const StudentView = ({ location, ...rest }) => {
   const history = useHistory();
   const [isPopUp, setPopUp] = useState(false);
   const [editState, setEditState] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
-  const defaultCourse = [];
 
-  const courseFormatter = (response) => {
-    if (response.data.length === 0) {
-      return [];
-    }
-    let responseData = [];
-    responseData = response.data.map((course) => {
-      let formattedResponseData = {
-        id: course.id,
-        code: course.course_code,
-        name: course.course_name,
-        credit: course.course_credit,
-        department_id: course.department_id,
+  const studentFormatter = (values) => {
+    console.log(values);
+    return values.data.map((item) => {
+      return {
+        id: item.id,
+        name: item.full_name,
       };
-      return formattedResponseData;
     });
-    return responseData;
   };
-
-  let [allCourses] = useAPI(
-    { endpoint: `/api/v1/course/` },
-    courseFormatter,
-    defaultCourse
+  const studentEditFormatter = (values) => {
+    return {
+      id: values.data.id,
+      full_name: values.data.full_name,
+      email: values.data.email,
+      dob: values.data.dob,
+      address: values.data.address,
+      contact_number: values.data.contact_number,
+      join_year: values.data.join_year,
+    };
+  };
+  const studentDefault = [];
+  const [students] = useAPI(
+    { endpoint: `/api/v1/users/` },
+    studentFormatter,
+    studentDefault
   );
 
-  const onSubmit = async (data) => {};
+  const programFormatter = (value) =>
+    value.data.map((item) => ({
+      name: item.name,
+      value: item.id,
+    }));
+
+  const groupFormatter = (value) => {
+    return value.data;
+  };
+
+  const [group] = useAPI({ endpoint: "/api/v1/group/all/" }, groupFormatter);
+
+  const [program] = useAPI({ endpoint: "/api/v1/program/" }, programFormatter);
+
+  const onSubmit = async (data) => {
+    let group_id_list = group.filter((item) => {
+      if (item.sem === data.semester && item.program.id === data.program) {
+        return item;
+      }
+    });
+
+    if (!group_id_list.length) {
+      throw "No matching group found!";
+    }
+    let group_id = group_id_list[0].id;
+
+    let req_data = {
+      email: data.email,
+      full_name: data.full_name,
+      address: data.address,
+      group_id: group_id,
+      contact_number: data.phone_number,
+      dob: data.dob,
+      join_year: parseInt(data.join_year),
+    };
+
+    let response;
+    if (!editState) {
+      response = await callAPI({
+        endpoint: "/api/v1/auth/signup",
+        method: "POST",
+        data: req_data,
+      });
+      students.push({
+        name: req_data.full_name,
+        id: response.data.id,
+      });
+    } else {
+      response = await callAPI({
+        endpoint: `/api/v1/users/${selectedUser.id}`,
+        method: "PUT",
+        data: req_data,
+      });
+      const position = students.findIndex(
+        (currentValue) => currentValue.id == selectedUser.id
+      );
+      students[position] = {
+        name: req_data.full_name,
+        id: selectedUser.id,
+      };
+    }
+
+    if (response.status && response.status == 200) {
+      setPopUp(false);
+      setEditState(false);
+      setSelectedUser(null);
+    }
+  };
+
+  const loadUser = async (id) => {
+    const postResponse = studentEditFormatter(
+      await callAPI({
+        endpoint: `/api/v1/users/${id}`,
+        method: "GET",
+      })
+    );
+    setSelectedUser(postResponse);
+  };
 
   return (
     <DashboardLayout>
@@ -82,7 +171,7 @@ const CourseView = ({ location, ...rest }) => {
             className="adminCommon_topBar"
           >
             <Grid xs item className="adminCommon_textContainer">
-              <p className="adminCommon_text">Courses</p>
+              <p className="adminCommon_text">Student</p>
             </Grid>
             <Grid xs={1} item className="adminCommon_plusIcon">
               <GoPlus
@@ -105,38 +194,32 @@ const CourseView = ({ location, ...rest }) => {
             className="adminCommon_innerContainer"
             wrap="wrap"
           >
-            <Grid container direction="row">
-              {allCourses.map((course) => (
-                <Grid
-                  item
-                  key={course.id}
-                  xs={6}
-                  className="adminCommon_mainBox"
-                >
-                  <AdminBoxSmall
-                    type="course"
-                    onSubmit={() => {
-                      history.push({
-                        pathname: "/admin/explore/program",
-                        state: {},
-                      });
-                    }}
-                    cardData={course}
-                  />
-                </Grid>
-              ))}
-            </Grid>
+            {students.map((item) => (
+              <Grid xs={6} item key={item.id}>
+                <Students
+                  key={item.id}
+                  name={item.name}
+                  onEdit={() => {
+                    setEditState(true);
+                    setPopUp(true);
+                    loadUser(item.id);
+                  }}
+                />
+              </Grid>
+            ))}
           </Grid>
         </Grid>
+        <br />
+        <br />
       </Grid>
       {isPopUp ? (
         <Grid
           container
           justify="center"
-          className="adminTeacher_popUpContainer"
+          className="adminStudent_popUpContainer"
         >
-          <Grid item className="adminTeacher_popUpBox">
-            <Grid container direction="column" className="adminTeacher_formBox">
+          <Grid item className="adminStudent_popUpBox">
+            <Grid container direction="column" className="adminStudent_formBox">
               <Formik
                 enableReinitialize={true}
                 initialValues={
@@ -180,7 +263,7 @@ const CourseView = ({ location, ...rest }) => {
                         type="text"
                         placeHolder="Full Name"
                         id="full_name"
-                        addStyles="adminTeacher_inputButton"
+                        addStyles="adminStudent_inputButton"
                       />
                     </Grid>
                     <Grid item xs={6}>
@@ -189,7 +272,7 @@ const CourseView = ({ location, ...rest }) => {
                         type="text"
                         placeHolder="Address"
                         id="address"
-                        addStyles="adminTeacher_inputButton"
+                        addStyles="adminStudent_inputButton"
                       />
                     </Grid>
                     <Grid item xs={6} style={{ padding: "0px 20px 0px 0px" }}>
@@ -199,14 +282,14 @@ const CourseView = ({ location, ...rest }) => {
                         placeHolder="Join"
                         label="Join year"
                         type="text"
-                        className="adminTeacher_inputButton"
+                        className="adminStudent_inputButton"
                       />
                     </Grid>
                     <Grid item xs={6}>
                       <DatePicker
                         id="dob"
                         label="Birth Date"
-                        className="adminTeacher_inputButton"
+                        className="adminStudent_inputButton"
                       />
                     </Grid>
                     <Grid item xs={12}>
@@ -215,7 +298,7 @@ const CourseView = ({ location, ...rest }) => {
                         type="text"
                         placeHolder="Phone Number"
                         id="phone_number"
-                        addStyles="adminTeacher_inputButton"
+                        addStyles="adminStudent_inputButton"
                         autoComplete="on"
                       />
                     </Grid>
@@ -225,15 +308,15 @@ const CourseView = ({ location, ...rest }) => {
                         type="text"
                         placeHolder="Email"
                         id="email"
-                        addStyles="adminTeacher_inputButton"
+                        addStyles="adminStudent_inputButton"
                         autoComplete="on"
                       />
                     </Grid>
-                    <Grid item className="adminTeacher_submitButtonContainer">
+                    <Grid item className="adminStudent_submitButtonContainer">
                       <Button
                         name="Save"
                         type="submit"
-                        addStyles="adminTeacher_submitButton"
+                        addStyles="adminStudent_submitButton"
                       />
                     </Grid>
                   </Grid>
@@ -260,4 +343,4 @@ const CourseView = ({ location, ...rest }) => {
   );
 };
 
-export default CourseView;
+export default StudentView;
