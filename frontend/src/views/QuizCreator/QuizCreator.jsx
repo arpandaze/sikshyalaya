@@ -39,7 +39,7 @@ const QuizCreator = () => {
   );
   let answerList = [];
 
-	const groupList = [];
+  const groupList = [];
 
   const [optionFile, setOptionFile] = useState({});
   const quizOptionFile = useMemo(
@@ -83,8 +83,6 @@ const QuizCreator = () => {
       });
     });
   }
-
-
 
   const quizPostFormatter = (quiz) => {
     let tempGroupList = [];

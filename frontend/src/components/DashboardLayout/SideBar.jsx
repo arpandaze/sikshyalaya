@@ -19,93 +19,93 @@ import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router";
 
 const sidebarItems = [
-	//Student
-	[
-		{
-			id: 1,
-			title: "Dashboard",
-			route: "/class",
-			icon: <AiOutlineDashboard className="sideBar_iconStyle" />,
-		},
-		{
-			id: 2,
-			title: "Profile",
-			route: "/profile",
-			icon: <IoPersonOutline className="sideBar_iconStyle" />,
-		},
-		{
-			id: 3,
-			title: "Quiz",
-			route: "/quiz",
-			icon: <RiSurveyLine className="sideBar_iconStyle" />,
-		},
-		{
-			id: 4,
-			title: "Note",
-			route: "/note",
-			icon: <BiNotepad className="sideBar_iconStyle" />,
-		},
-	],
-	//Teacher
-	[
-		{
-			id: 1,
-			title: "Dashboard",
-			route: "/teacher-dashboard",
-			icon: <AiOutlineDashboard className="sideBar_iconStyle" />,
-		},
-		{
-			id: 2,
-			title: "Quiz",
-			route: "/quiz-creator-landing",
-			icon: <RiSurveyLine className="sideBar_iconStyle" />,
-		},
-		{
-			id: 3,
-			title: "Class",
-			route: "/class-session-create",
-			icon: <FaChalkboardTeacher className="sideBar_iconStyle" />,
-		},
-		{
-			id: 4,
-			title: "Note",
-			route: "/teacher/note",
-			icon: <BiNotepad className="sideBar_iconStyle" />,
-		},
-	],
-	//Admin
-	[
-		{
-			id: 1,
-			title: "Dashboard",
-			route: "/admin",
-			icon: <AiOutlineDashboard className="sideBar_iconStyle" />,
-		},
-		{
-			id: 2,
-			title: "Explore",
-			route: "/admin/explore",
-			icon: <IoPersonOutline className="sideBar_iconStyle" />,
-		},
-		{
-			id: 3,
-			title: "Student",
-			route: "/admin/student",
-			icon: <IoPersonOutline className="sideBar_iconStyle" />,
-		},
-		{
-			id: 4,
-			title: "Teachers",
-			route: "/admin/teacher",
-			icon: <FaChalkboardTeacher className="sideBar_iconStyle" />,
-		},
-		{
-			id: 5,
-			title: "Courses",
-			route: "/admin/courses",
-			icon: <GoTasklist className="sideBar_iconStyle" />,
-		},
-	],
+  //Student
+  [
+    {
+      id: 1,
+      title: "Dashboard",
+      route: "/class",
+      icon: <AiOutlineDashboard className="sideBar_iconStyle" />,
+    },
+    {
+      id: 2,
+      title: "Profile",
+      route: "/profile",
+      icon: <IoPersonOutline className="sideBar_iconStyle" />,
+    },
+    {
+      id: 3,
+      title: "Quiz",
+      route: "/quiz",
+      icon: <RiSurveyLine className="sideBar_iconStyle" />,
+    },
+    {
+      id: 4,
+      title: "Note",
+      route: "/note",
+      icon: <BiNotepad className="sideBar_iconStyle" />,
+    },
+  ],
+  //Teacher
+  [
+    {
+      id: 1,
+      title: "Dashboard",
+      route: "/teacher-dashboard",
+      icon: <AiOutlineDashboard className="sideBar_iconStyle" />,
+    },
+    {
+      id: 2,
+      title: "Quiz",
+      route: "/quiz-creator-landing",
+      icon: <RiSurveyLine className="sideBar_iconStyle" />,
+    },
+    {
+      id: 3,
+      title: "Class",
+      route: "/class-session-create",
+      icon: <FaChalkboardTeacher className="sideBar_iconStyle" />,
+    },
+    {
+      id: 4,
+      title: "Note",
+      route: "/teacher/note",
+      icon: <BiNotepad className="sideBar_iconStyle" />,
+    },
+  ],
+  //Admin
+  [
+    {
+      id: 1,
+      title: "Dashboard",
+      route: "/admin",
+      icon: <AiOutlineDashboard className="sideBar_iconStyle" />,
+    },
+    {
+      id: 2,
+      title: "Explore",
+      route: "/admin/explore",
+      icon: <IoPersonOutline className="sideBar_iconStyle" />,
+    },
+    {
+      id: 3,
+      title: "Student",
+      route: "/admin/student",
+      icon: <IoPersonOutline className="sideBar_iconStyle" />,
+    },
+    {
+      id: 4,
+      title: "Teachers",
+      route: "/admin/teacher",
+      icon: <FaChalkboardTeacher className="sideBar_iconStyle" />,
+    },
+    {
+      id: 5,
+      title: "Courses",
+      route: "/admin/courses",
+      icon: <GoTasklist className="sideBar_iconStyle" />,
+    },
+  ],
 ];
 
 const SideBar = () => {
