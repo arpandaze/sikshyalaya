@@ -10,6 +10,7 @@ import useAPI from "../../utils/useAPI";
 
 const Landing = () => {
   const classSessionFormatter = (value) => {
+    console.log(value);
     if (!value.data.length) {
       return { active: [], other: [] };
     }
