@@ -1,6 +1,7 @@
 /* Login Page */
 ::-webkit-scrollbar {
-  width: 6px; /* width of the entire scrollbar */
+  width: 0px;
+  /* width: 0px; width of the entire scrollbar */
 }
 ::-webkit-scrollbar-track {
   /* color of the tracking area */
