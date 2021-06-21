@@ -122,13 +122,6 @@ const PasswordChange = () => {
                     <Button
                       name="Save"
                       type="submit"
-                      onClick={() => {
-                        resetForm({
-                          current_password: "",
-                          new_password: "",
-                          confirm_password: "",
-                        });
-                      }}
                       addStyles="changePw_button"
                     />
                   </Grid>
