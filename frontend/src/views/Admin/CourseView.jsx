@@ -17,17 +17,20 @@ import { DatePicker } from "../../components/CustomDateTime";
 import AdminBoxSmall from "./components/AdminBoxSmall";
 
 const validationSchema = yup.object({
-  full_name: yup.string("Enter your name").required("Name is required"),
-  address: yup.string("Enter your address").required("Address is required"),
-  join_year: yup.number("Enter Joined Year").required("Join year is required"),
-  dob: yup.string("Enter Date of Birth").required("Date of Birth is required"),
-  phone_number: yup.number().typeError("Not a valid phone number"),
-  email: yup
-    .string("Enter your email")
-    .email("Enter a valid email!")
-    .required("Email is required"),
-  semester: yup.number().required("Semester is required"),
-  program: yup.number().required("Program is required"),
+  course_name: yup
+    .string("Enter Course Name")
+    .required("Course Name is required"),
+  course_code: yup
+    .string("Enter Course Code")
+    .required("Course Code is required"),
+  course_credit: yup
+    .number("Enter Course Credit")
+    .typeError("Invalid Input")
+    .required("Course Credit is required"),
+  department_id: yup
+    .number("Enter Department")
+    .typeError("Invalid Input")
+    .required("Course Credit is required"),
 });
 
 const CourseView = ({ location, ...rest }) => {
@@ -36,7 +39,21 @@ const CourseView = ({ location, ...rest }) => {
   const [editState, setEditState] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const defaultCourse = [];
-
+  let creditList = [
+    { name: "1", value: "1" },
+    { name: "2", value: "2" },
+    { name: "3", value: "3" },
+    { name: "4", value: "4" },
+  ];
+  const departmentFormatter = (value) =>
+    value.data.map((item) => ({
+      name: item.name,
+      value: item.id,
+    }));
+  const [department] = useAPI(
+    { endpoint: "/api/v1/department/" },
+    departmentFormatter
+  );
   const courseFormatter = (response) => {
     if (response.data.length === 0) {
       return [];
@@ -61,7 +78,29 @@ const CourseView = ({ location, ...rest }) => {
     defaultCourse
   );
 
-  const onSubmit = async (data) => {};
+  const onSubmit = async (values) => {
+    const data = {
+      course_code: values.course_code,
+      course_name: values.course_name,
+      course_credit: parseInt(values.course_credit),
+      department_id: values.department_id,
+    };
+    const position = allCourses.push({
+      code: values.course_code,
+      name: values.course_name,
+      credit: parseInt(values.course_credit),
+      department_id: values.department_id,
+    });
+    try {
+      const responseData = await callAPI({
+        endpoint: `/api/v1/course/`,
+        method: "POST",
+        data: data,
+      });
+      allCourses[position - 1].id = responseData.data.id;
+    } catch (e) {}
+    setPopUp(false);
+  };
 
   return (
     <DashboardLayout>
@@ -141,31 +180,12 @@ const CourseView = ({ location, ...rest }) => {
             <Grid container direction="column" className="adminTeacher_formBox">
               <Formik
                 enableReinitialize={true}
-                initialValues={
-                  selectedUser
-                    ? {
-                        full_name: selectedUser.full_name,
-                        address: selectedUser.address,
-                        program: selectedUser.program,
-                        semester: selectedUser.semester,
-                        join_year: selectedUser.join_year,
-                        dob: selectedUser.dob,
-                        email: selectedUser.email,
-                        phone_number: selectedUser.contact_number,
-                      }
-                    : {
-                        full_name: "",
-                        address: "",
-                        program: "",
-                        semester: "",
-                        join_year: "",
-                        dob: null,
-                        phone_number: "",
-                        email: "",
-                        password: "",
-                        confirm_password: "",
-                      }
-                }
+                initialValues={{
+                  course_name: "",
+                  course_code: "",
+                  course_credit: null,
+                  department_id: null,
+                }}
                 validationSchema={validationSchema}
                 onSubmit={onSubmit}
               >
@@ -176,59 +196,45 @@ const CourseView = ({ location, ...rest }) => {
                     justify="flex-start"
                     alignItems="flex-start"
                   >
-                    <Grid item xs={6} style={{ padding: "0px 20px 0px 0px" }}>
+                    <Grid item xs={12} style={{ padding: "0px 20px 0px 0px" }}>
                       <CustomTextField
-                        name="full_name"
+                        name="course_name"
                         type="text"
-                        placeHolder="Full Name"
-                        id="full_name"
+                        placeHolder="Course Name"
+                        id="course_name"
                         addStyles="adminTeacher_inputButton"
                       />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} style={{ padding: "0px 20px 0px 0px" }}>
                       <CustomTextField
-                        name="address"
+                        name="course_code"
                         type="text"
-                        placeHolder="Address"
-                        id="address"
+                        placeHolder="Course Code"
+                        id="course_code"
                         addStyles="adminTeacher_inputButton"
                       />
                     </Grid>
-                    <Grid item xs={6} style={{ padding: "0px 20px 0px 0px" }}>
+                    <Grid item xs={12} style={{ padding: "0px 20px 0px 0px" }}>
                       <CustomTextField
-                        id="join_year"
-                        name="join_year"
-                        placeHolder="Join"
-                        label="Join year"
+                        name="course_credit"
+                        dropdown={true}
                         type="text"
-                        className="adminTeacher_inputButton"
+                        placeHolder="Credit"
+                        menuItems={creditList}
+                        id="credit"
+                        addStyles="adminStudent_inputButton"
                       />
                     </Grid>
-                    <Grid item xs={6}>
-                      <DatePicker
-                        id="dob"
-                        label="Birth Date"
-                        className="adminTeacher_inputButton"
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
+
+                    <Grid item xs={12} style={{ padding: "0px 20px 0px 0px" }}>
                       <CustomTextField
-                        name="phone_number"
+                        name="department_id"
+                        dropdown={true}
                         type="text"
-                        placeHolder="Phone Number"
-                        id="phone_number"
-                        addStyles="adminTeacher_inputButton"
-                        autoComplete="on"
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <CustomTextField
-                        name="email"
-                        type="text"
-                        placeHolder="Email"
-                        id="email"
-                        addStyles="adminTeacher_inputButton"
-                        autoComplete="on"
+                        placeHolder="Department"
+                        menuItems={department || []}
+                        id="department_id"
+                        addStyles="adminStudent_inputButton"
                       />
                     </Grid>
                     <Grid item className="adminTeacher_submitButtonContainer">
