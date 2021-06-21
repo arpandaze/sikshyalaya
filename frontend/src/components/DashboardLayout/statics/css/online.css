@@ -3,15 +3,24 @@
 @media only screen and (min-width: 1280px) {
   .online_root {
     flex-grow: 1;
+    width: 100% !important;
     position: relative;
     cursor: pointer;
+    margin: 0px auto !important;
+    border-top: 1px solid var(--grey7);
+    border-bottom: 1px solid var(--grey7);
   }
-  .online_Image {
-    border-radius: 50%;
+  .online_ImageRoot {
     width: 35px;
     height: 35px;
-    float: left;
-    box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.75);
+    position: relative;
+    margin-left: 15px !important;
+  }
+  .online_Image {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 50%;
+    object-fit: cover;
   }
   .online_greenDot {
     width: 10px;
@@ -22,40 +31,35 @@
     top: 25px;
     left: 5px;
     margin-left: 20px !important;
-    box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.75);
-  }
-  .online_ImageRoot {
-    position: relative;
   }
   .online_nameContainer {
     width: 160px;
+    text-indent: 15px;
   }
   .online_nameContainer p {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
   }
-
   .online_name {
-    padding: 0px 10px;
     font-size: 0.8em;
     font-weight: 600;
     color: var(--grey1);
     text-overflow: ellipsis;
   }
   .online_root:hover {
-    flex-grow: 1;
-    padding: 0px 10px;
-    background: var(--grey4);
-    border-radius: 15px;
+    border-top: 1px solid var(--grey6);
+    border-bottom: 1px solid var(--grey6);
   }
   .online_check {
     position: relative;
     left: 50px;
     padding-left: 5px;
   }
-
   .online_randomCheckBox {
+  }
+  .online_disabled {
+    display: none;
   }
 }
 
@@ -67,11 +71,10 @@
   .online_greenDot {
     width: 12px;
     height: 12px;
-    top: 28px;
-    left: 10px;
+    top: 22px;
+    left: 5px;
   }
   .online_name {
-    padding: 0px 20px;
     font-size: 1em;
   }
   .online_nameContainer {
