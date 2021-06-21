@@ -153,8 +153,8 @@ const SideBar = () => {
             onMouseOut={() => {
               setButtonType(true);
             }}
-            variant={buttonType ? "outlined" : "contained"}
-            color="primary"
+            variant="outlined"
+            color={buttonType ? "primary" : "secondary"}
             startIcon={<RiLogoutBoxLine />}
             onClick={() => {
               history.push({
