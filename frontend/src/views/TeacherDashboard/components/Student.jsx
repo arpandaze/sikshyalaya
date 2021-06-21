@@ -6,7 +6,7 @@ import "./statics/css/students.css";
 import { Formik, Form } from "formik";
 
 const Student = ({ id, username, src, program, semester, year, ...rest }) => {
-	return (
+  return (
 		<Grid
 			container
 			direction="row"
