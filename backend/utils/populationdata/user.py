@@ -37,7 +37,7 @@ users: List[Json] = [
         "user_type": 4,
         "roll": 34,
         "address": "Rampur, Palpa",
-        "group_id": 1,
+        "group_id": 2,
         "contact_number": "9821694321",
         "teacher_group": [],
         "dob": datetime.datetime(2001, 8, 1),
