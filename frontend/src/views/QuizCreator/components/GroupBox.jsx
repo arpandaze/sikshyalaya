@@ -3,10 +3,20 @@ import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { Field } from "formik";
-import { ImCross } from "react-icons/im";
-import colorscheme from "../../../utils/colors";
 
 const GroupBox = ({ name, groupList, quizInfo }) => {
+  const [newOption, setNewOption] = useState([]);
+  const handleDisable = (value) => {
+    if (value && value.length) {
+      let filtered = groupList.filter(
+        (item) => value[0].course !== item.course
+      );
+      setNewOption(filtered);
+    } else {
+      setNewOption([]);
+    }
+  };
+
   return (
     <Field name={name}>
       {({ field, form: { setFieldValue } }) => (
@@ -24,12 +34,13 @@ const GroupBox = ({ name, groupList, quizInfo }) => {
                   multiple
                   id={name}
                   options={groupList}
-                  getOptionLabel={(option) => option.name}
-                  onChange={(option, value) => {
+                  getOptionLabel={(option) => {
+                    return option.name;
+                  }}
+                  getOptionDisabled={(option) => newOption.includes(option)}
+                  onChange={(e, value) => {
                     setFieldValue(name, value);
-                    console.log(value);
-                    groupList.filter((opt) => opt.course !== value[0].course);
-                    console.log(groupList);
+                    handleDisable(value);
                   }}
                   style={{ width: 400 }}
                   renderInput={(params) => (

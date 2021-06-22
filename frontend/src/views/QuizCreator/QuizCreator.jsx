@@ -38,7 +38,7 @@ const QuizCreator = () => {
     [selectFile, setSelectedFile]
   );
   let answerList = [];
-
+  let groups = [];
   const groupList = [];
 
   const [optionFile, setOptionFile] = useState({});
@@ -46,53 +46,38 @@ const QuizCreator = () => {
     () => ({ optionFile, setOptionFile }),
     [optionFile, setOptionFile]
   );
-  const groupFormatter = (response) => {
-    if (!response.data.length) {
-      return [];
-    }
-    let tempCourseID = [];
-    let tempCourseName = [];
-    let tempCourseCode = [];
-    let responseData = [];
-    responseData = response.data.map((data, index) => {
+  const groupFormatter = () => {
+    groups = user.teacher_group.map((data, index) => {
       let formattedData = {
-        id: data.id,
-        semester: data.sem,
-        program_id: data.program.id,
-        program_name: data.program.name,
-        course_id: [data.course.map((item) => item.id)],
-        course_code: [data.course.map((item) => item.course_code)],
-        course_name: [data.course.map((item) => item.course_name)],
+        id: data.group.id,
+        semester: data.group.sem,
+        program_id: data.group.program.id,
+        program_name: data.group.program.name,
+        course_id: data.course.id,
+        course_code: data.course.course_code,
+        course_name: data.course.course_name,
       };
-
       return formattedData;
     });
-
-    return responseData;
   };
-  const [groups, groupsComplete] = useAPI(
-    { endpoint: "/api/v1/group/" },
-    groupFormatter
-  );
 
-  if (groups && groups.length && groupsComplete) {
-    groups.map((group, index) => {
-      groupList.push({
-        name: `${group.program_name}, Sem ${group.semester} [Course ${group.course_code}]`,
-        group: group.id,
-        course: group.course_id,
+  useEffect(() => {
+    groupFormatter();
+    if (groups && groups.length) {
+      groups.map((group, index) => {
+        groupList.push({
+          name: `${group.program_name}, Sem ${group.semester} [Course ${group.course_code}]`,
+          group: group.id,
+          course: group.course_id,
+        });
       });
-    });
-    console.log(groupList);
-  }
+    }
+  }, [user]);
 
   const quizPostFormatter = (quiz) => {
     let tempList = [];
-    let tempCourseList = [];
     quiz.whoseQuizInfo &&
-      quiz.whoseQuizInfo.map(
-        (grp) => (tempList.push(grp.group), tempCourseList.push(grp.course))
-      );
+      quiz.whoseQuizInfo.map((grp) => tempList.push(grp.group));
     const postquizValues = {
       end_time: formatISO(quiz.end_time, { representation: "time" }),
       start_time: formatISO(quiz.start_time, { representation: "time" }),
@@ -102,9 +87,9 @@ const QuizCreator = () => {
       is_randomized: quiz.isRandomized,
       display_individual: quiz.displayIndividual,
       group: tempList,
-      instructor: user.id,
-      course_id: tempCourseList,
+      course_id: quiz.whoseQuizInfo[0].course,
     };
+    console.log(postquizValues);
 
     return postquizValues;
   };
