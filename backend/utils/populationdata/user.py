@@ -106,7 +106,7 @@ users: List[Json] = [
         "address": "Jitgadhi, Butwal",
         "group_id": None,
         "contact_number": "9833584635",
-        "teacher_group": [[2, 1], [9, 1], [25, 1]],
+        "teacher_group": [[2, 5], [9, 2], [25, 1],[3,5]],
         "dob": datetime.datetime(1885, 9, 14),
         "join_year": 2000,
         "password": "test",

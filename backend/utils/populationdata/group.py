@@ -5,7 +5,7 @@ groups: List[Json] = [
     {
         "program_id": "1",
         "sem": 2,
-        "course": [1, 3],
+        "course": [2, 5],
     },
     {
         "program_id": "1",
