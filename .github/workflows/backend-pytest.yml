@@ -1,0 +1,28 @@
+name: Backend PyTest
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - backend/**
+      - .github/**
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Poetry Install
+        run: pip3 install poetry && poetry config virtualenvs.create false && cd backend && poetry install
+
+      - name: Docker Start
+        run: cd backend && python manage.py remake
+
+      - name: Run PyTest
+        run: cd backend && python manage.py pytest

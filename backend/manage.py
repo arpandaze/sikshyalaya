@@ -1,15 +1,12 @@
-# Forgive me my lord for I have sinned
-# This is probably worst code I have written so far lol
-
 import os
+import sys
 from time import sleep
+
+import click
+from dotenv import load_dotenv
 
 # RCOUNT: 145
 
-import click
-
-
-from dotenv import load_dotenv
 
 if __name__ == "__main__":
     load_dotenv("../.env.development")
@@ -134,9 +131,10 @@ class CommandDefinition:
 
     def cleandb(self):
         try:
-            from core.db import engine
-            from alembic.config import Config
             from alembic import command
+            from alembic.config import Config
+
+            from core.db import engine
 
             self.cleanmig()
             engine.execute("DROP schema public CASCADE")
@@ -153,7 +151,8 @@ class CommandDefinition:
         db_populate.populate_all()
 
     def pytest(self):
-        os.system("pytest --verbose --color=yes")
+        ec = int(os.system("pytest --verbose --color=yes") / 256)
+        sys.exit(ec)
 
 
 commands = CommandDefinition()
