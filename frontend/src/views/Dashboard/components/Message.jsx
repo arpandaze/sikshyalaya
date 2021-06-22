@@ -61,7 +61,7 @@ const Message = ({ messages }) => {
                         backgroundColor:
                           user.id == msg.id
                             ? colorscheme.red4
-                            : colorscheme.blue,
+                            : colorscheme.purple,
                       }}
                     >
                       <span style={{ color: colorscheme.white }}>
