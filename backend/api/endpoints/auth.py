@@ -1,39 +1,35 @@
-from cruds import group
-from fastapi import UploadFile, File
+import json
 import os
-from fastapi.params import Cookie
-from fastapi import Cookie as ReqCookie
-from sqlalchemy.sql.expression import update
-from schemas.user import UserUpdate, VerifyUser
-from typing import Any
+from typing import Any, List
 
-from fastapi import (
-    APIRouter,
-    Body,
-    Depends,
-    HTTPException,
-    Request,
-)
+import aiofiles
+from fastapi import APIRouter, Body
+from fastapi import Cookie as ReqCookie
+from fastapi import Depends, File, HTTPException, Request, UploadFile
+from fastapi.params import Cookie
 from sqlalchemy.orm import Session
+from sqlalchemy.sql.expression import update
 from sqlalchemy.sql.functions import current_user
 from starlette.responses import JSONResponse, Response
-from utils.utils import expire_web_session
 
 import cruds
 import models
 import schemas
 from core import throttle
-from core.security import get_password_hash, create_sesssion_token
 from core.config import settings
+from core.db import redis_session_client
+from core.security import create_sesssion_token, get_password_hash
+from cruds import group
+from schemas.user import UserUpdate, VerifyUser
 from utils import deps
 from utils.utils import (
+    expire_web_session,
     generate_password_reset_token,
     send_reset_password_email,
+    send_verification_email,
     verify_password_reset_token,
     verify_user_verify_token,
-    send_verification_email,
 )
-import aiofiles
 
 router = APIRouter()
 
@@ -45,6 +41,7 @@ async def login_web_session(
     db: Session = Depends(deps.get_db),
     *,
     form_data: schemas.LoginData,
+    request: Request,
     response: Response,
 ) -> Any:
     if not form_data.username:
@@ -60,7 +57,7 @@ async def login_web_session(
         )  # Incorrect email or password
     elif not user.is_active:
         raise HTTPException(status_code=401, detail="Error ID: 112")  # Inactive user
-    session_token = await create_sesssion_token(user, form_data.remember_me)
+    session_token = await create_sesssion_token(user, request, form_data.remember_me)
     response.set_cookie("session", session_token, httponly=True)
     return user
 
@@ -120,11 +117,34 @@ async def change_password(
     cruds.crud_user.update(db=db, db_obj=current_user, obj_in=data)
 
 
-@router.get("/web/test/")
-async def test_session_token(
+@router.get("/active-sessions/", response_model=List[schemas.auth.ActiveSession])
+async def get_active_sessions(
     current_user: models.User = Depends(deps.get_current_user),
 ) -> Any:
-    return current_user.email
+    active_sessions = json.loads(
+        await redis_session_client.client.get(
+            f"user_{current_user.id}_sessions", encoding="utf-8"
+        )
+    )
+    return active_sessions.get("sessions")
+
+
+@router.get("/logout-all-sessions/")
+async def logout_all_sessions(
+    current_user: models.User = Depends(deps.get_current_user),
+) -> Any:
+    active_sessions = json.loads(
+        await redis_session_client.client.get(f"user_{current_user.id}_sessions", encoding="utf-8")
+    )
+
+    for session in active_sessions.get("sessions"):
+        await redis_session_client.client.expire(session.get("token"), 0)
+
+    await redis_session_client.client.expire(f"user_{current_user.id}_sessions", 0)
+
+    resp = JSONResponse({"status": "success"})
+    resp.delete_cookie("session")
+    return resp
 
 
 @router.post("/password-recovery/", response_model=schemas.Msg)

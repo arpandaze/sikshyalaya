@@ -3,6 +3,7 @@ import logging
 import os
 from pathlib import Path
 from typing import Any, Dict, Optional
+import json
 
 import emails
 from emails.template import JinjaTemplate
@@ -140,7 +141,23 @@ async def verify_user_verify_token(token: str) -> Optional[int]:
 
 
 async def expire_web_session(token: str) -> Any:
-    return await redis_session_client.client.expire(f"sess_{token}", 0)
+    user_id = await redis_session_client.client.get(token, encoding="utf-8")
+    active_sessions = await redis_session_client.client.get(
+        f"user_{user_id}_sessions", encoding="utf-8"
+    )
+
+    if active_sessions:
+        active_sessions = json.loads(active_sessions)
+        new_active_sessions = [
+            item for item in active_sessions["sessions"] if item["token"] != token
+        ]
+
+        active_sessions["sessions"] = new_active_sessions
+
+        data = {f"user_{user_id}_sessions": json.dumps(active_sessions)}
+        await redis_session_client.client.mset(data)
+
+    return await redis_session_client.client.expire(token, 0)
 
 
 def get_super_admin() -> User:
