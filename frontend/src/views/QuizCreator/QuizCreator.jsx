@@ -21,6 +21,7 @@ import Question from "./components/Question";
 import { QuizContext, QuizOptionContext } from "./QuizContext";
 import { ImCross } from "react-icons/im";
 import GroupBox from "./components/GroupBox";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const validationSchema = yup.object({
   quiz_title: yup.string("Enter the title of the quiz").required(),
@@ -29,6 +30,8 @@ const validationSchema = yup.object({
 
 const QuizCreator = () => {
   let l = 0;
+
+  const history = useHistory();
   const [popup, setPopup] = useState(false);
   const { user } = useContext(UserContext);
   const endPage = useRef(null);
@@ -87,9 +90,9 @@ const QuizCreator = () => {
       is_randomized: quiz.isRandomized,
       display_individual: quiz.displayIndividual,
       group: tempList,
+      instructor: [user.id],
       course_id: quiz.whoseQuizInfo[0].course,
     };
-    console.log(postquizValues);
 
     return postquizValues;
   };
@@ -117,6 +120,7 @@ const QuizCreator = () => {
         };
         if (
           optionFile &&
+          optionFile[index] &&
           optionFile[index][optionIndex] &&
           optionFile[index][optionIndex].length
         ) {
@@ -206,9 +210,11 @@ const QuizCreator = () => {
         });
       }
     }
+
     answerList = [];
     setSelectedFile({});
     setOptionFile({});
+    history.push("/quiz-creator-landing");
   };
 
   return (
