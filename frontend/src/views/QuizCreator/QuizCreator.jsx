@@ -6,7 +6,7 @@ import * as yup from "yup";
 import Checkbox from "./../../components/Checkbox";
 import Grid from "@material-ui/core/Grid";
 import DateFnsUtils from "@date-io/date-fns";
-import { formatISO } from "date-fns";
+import { formatISO, format, parseISO } from "date-fns";
 import "./statics/css/quizCreator.css";
 import colorscheme from "../../utils/colors";
 import { UserContext } from "../../utils/Contexts/UserContext";
@@ -79,11 +79,14 @@ const QuizCreator = () => {
 
   const quizPostFormatter = (quiz) => {
     let tempList = [];
+    const endtimeUTC = new Date(quiz.end_time).toUTCString().slice(-12, -4);
+    const startTimeUTC = new Date(quiz.start_time).toUTCString().slice(-12, -4);
+    console.log(endtimeUTC);
     quiz.whoseQuizInfo &&
       quiz.whoseQuizInfo.map((grp) => tempList.push(grp.group));
     const postquizValues = {
-      end_time: formatISO(quiz.end_time, { representation: "time" }),
-      start_time: formatISO(quiz.start_time, { representation: "time" }),
+      end_time: endtimeUTC,
+      start_time: startTimeUTC,
       date: formatISO(quiz.quiz_date, { representation: "date" }),
       title: quiz.quiz_title,
       description: quiz.quiz_description,
