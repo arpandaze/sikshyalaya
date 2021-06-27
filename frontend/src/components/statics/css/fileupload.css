@@ -1,23 +1,26 @@
 @import "../../../utils/colors.css";
-.fileUpload_label{
-  font-size:1rem;
+.fileUpload_label {
+  font-size: 1rem;
   font-weight: 600;
-
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
-.fileUpload_textContainer{
-  padding:5px;
-  border-radius:8px 8px 0px 0px;
-  
-
+.fileUpload_textContainer {
+  padding: 5px;
+  border-radius: 8px 8px 0px 0px;
 }
 .fileUpload_textContainer:hover {
   color: var(--purple2);
   cursor: pointer;
-  transform:scale(1.05);
-  border-bottom:1px solid var(--purple2);
-  transition:transform 350ms ease;
+  transform: scale(1.05);
+  border-bottom: 1px solid var(--purple2);
+  transition: transform 350ms ease;
 }
-.fileUpload_textContainerInnerMost{
+.fileUpload_textContainerInnerMost {
 }
 
 .fileUpload_icon:hover {
