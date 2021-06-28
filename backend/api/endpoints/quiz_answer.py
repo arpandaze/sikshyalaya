@@ -20,16 +20,37 @@ router = APIRouter()
 async def get_answers(
     db: Session = Depends(deps.get_db),
     *,
-    quizid: int,
-    questionAnswer: QuizAnswer,
     current_user: User = Depends(deps.get_current_active_user),
 ):
     pass
 
 
 @router.get("/{quizid}")
-async def get_answers_quiz():
-    pass
+async def get_answers_quiz(
+    db: Session = Depends(deps.get_db),
+    *,
+    quizid: int,
+    current_user: User = Depends(deps.get_current_active_user),
+):
+    return crud_quiz_answer.get_by_quiz_id(
+        db=db, quizId=quizid, studentId=current_user.id
+    )
+
+
+@router.get("/{quizid}/exists/")
+async def check_existence(
+    db: Session = Depends(deps.get_db),
+    *,
+    quizid: int,
+    current_user: User = Depends(deps.get_current_active_user),
+):
+    answer = crud_quiz_answer.get_by_quiz_id(
+        db=db, quizId=quizid, studentId=current_user.id
+    )
+    if not answer:
+        return {"exists": False}
+    else:
+        return {"exists": True}
 
 
 @router.get("/{id}")
@@ -75,5 +96,11 @@ async def submit_answer(
         student_id=current_user.id,
     )
 
-    questionAnswer = crud_quiz_answer.create(db, obj_in=questionAnswer)
-    return questionAnswer
+    try:
+        questionAnswer = crud_quiz_answer.create(db, obj_in=questionAnswer)
+        return questionAnswer
+    except:
+        raise HTTPException(
+            status_code=400,
+            detail="Error ID: 142",  # could not populate answer
+        )
