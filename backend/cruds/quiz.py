@@ -9,7 +9,8 @@ from sqlalchemy.orm import Session
 class CRUDQuiz(CRUDBase[Quiz, QuizCreate, QuizUpdate]):
     def create(self, db: Session, *, obj_in: QuizCreate) -> Any:
         if obj_in.instructor:
-            instructor = [crud_user.get(db=db, id=id) for id in obj_in.instructor]
+            instructor = [crud_user.get(db=db, id=id)
+                          for id in obj_in.instructor]
         else:
             instructor = []
 
@@ -45,7 +46,7 @@ class CRUDQuizQuestion(CRUDBase[QuizQuestion, QuizQuestionCreate, QuizQuestionUp
         return (
             db.query(self.model)
             .filter(self.model.quiz_id == quiz_id)
-            .order_by(self.model.id.desc())
+            .order_by(self.model.id.asc())
             .all()
         )
 
