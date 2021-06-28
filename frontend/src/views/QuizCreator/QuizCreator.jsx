@@ -79,11 +79,13 @@ const QuizCreator = () => {
 
   const quizPostFormatter = (quiz) => {
     let tempList = [];
+    const startTime = Date.parse(new Date(quiz.start_time));
+    const endTime = Date.parse(new Date(quiz.end_time));
     quiz.whoseQuizInfo &&
       quiz.whoseQuizInfo.map((grp) => tempList.push(grp.group));
     const postquizValues = {
-      end_time: quiz.end_time.toISOString(),
-      start_time: quiz.start_time.toISOString(),
+      end_time: endTime,
+      start_time: startTime,
       title: quiz.quiz_title,
       description: quiz.quiz_description,
       is_randomized: quiz.isRandomized,

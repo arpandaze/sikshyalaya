@@ -40,11 +40,15 @@ const Quiz = () => {
     const currentDateTime = new Date();
 
     let tempResponse = response.data.map((quiz) => {
+      const startTime = new Date(quiz.start_time);
+      const endTime = new Date(quiz.end_time);
       let formattedResponseData = {
         id: quiz.id,
-        date: quiz.date,
-        end_time: quiz.end_time,
-        start_time: quiz.start_time,
+        date: new Date(
+          startTime.toLocaleDateString() + " UTC"
+        ).toLocaleDateString(),
+        end_time: new Date(endTime.toLocaleString() + " UTC"),
+        start_time: new Date(startTime.toLocaleString() + " UTC"),
         title: quiz.title,
         description: quiz.description,
         is_randomized: quiz.is_randomized,
@@ -56,20 +60,13 @@ const Quiz = () => {
       return formattedResponseData;
     });
 
-    console.log(tempResponse);
     tempResponse.filter((response) => {
-      const tempEndDateTime = new Date(response.date + " " + response.end_time);
-      const tempStartDateTime = new Date(
-        response.date + " " + response.start_time
-      );
-      const quizDate = new Date(
-        tempEndDateTime.toLocaleString().toString() + " UTC"
-      );
-      response.totalTime = new Date(tempEndDateTime - tempStartDateTime)
+      response.totalTime = new Date(response.end_time - response.start_time)
         .toISOString()
         .substr(11, 8)
         .split(":");
-      currentDateTime <= quizDate
+      currentDateTime >= response.start_time &&
+      currentDateTime <= response.end_time
         ? responseData.active.push(response)
         : responseData.past.push(response);
     });
