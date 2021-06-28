@@ -3,11 +3,13 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from models import User
 from utils import deps
-from cruds import crud_quiz_answer, crud_question
+from datetime import datetime, timedelta
+from cruds import crud_quiz_answer, crud_question, crud_quiz
 from schemas import (
     QuizAnswer,
     QuizAnswerCreate,
     QuizAnswerUpdate,
+    QuizAnsweronlySelected,
 )
 
 from typing import Any, Optional, List, Dict  # noqa
@@ -25,16 +27,30 @@ async def get_answers(
     pass
 
 
-@router.get("/{quizid}")
+@router.get("/{quizid}", response_model=QuizAnswer, response_model_exclude_none=True)
 async def get_answers_quiz(
     db: Session = Depends(deps.get_db),
     *,
     quizid: int,
     current_user: User = Depends(deps.get_current_active_user),
 ):
-    return crud_quiz_answer.get_by_quiz_id(
+    answer = crud_quiz_answer.get_by_quiz_id(
         db=db, quizId=quizid, studentId=current_user.id
     )
+
+    marks = answer.marks_obtained
+    answer.marks_obtained = None
+
+    quiz = crud_quiz.get(db=db, id=quizid)
+
+    if (
+        quiz
+        and quiz.end_time
+        and quiz.end_time <= (datetime.utcnow() - timedelta(seconds=15))
+    ):
+        answer.marks_obtained = marks
+
+    return answer
 
 
 @router.get("/{quizid}/exists/")
@@ -58,7 +74,7 @@ async def get_specific_answer():
     pass
 
 
-@router.post("/{quiz_id}")
+@router.post("/{quiz_id}", response_model=QuizAnsweronlySelected)
 async def submit_answer(
     db: Session = Depends(deps.get_db),
     *,
