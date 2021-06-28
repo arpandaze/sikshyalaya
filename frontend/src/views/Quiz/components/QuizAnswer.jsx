@@ -87,7 +87,13 @@ const QuizAnswer = ({ options, onPopUp, name, multiple = false, ...rest }) => {
                 control={
                   <Checkbox
                     name={`${name}.${index}`}
-                    checked={field.value[index]}
+                    checked={
+                      field.value &&
+                      field.value.find((element) => element == index) !=
+                        undefined
+                        ? true
+                        : false
+                    }
                     color="primary"
                     onChange={field.onChange}
                   />
