@@ -94,10 +94,22 @@ const Quiz = () => {
                         key={data.id}
                         quiz={data}
                         image={[...imageList].reverse()[index % 5]}
-                        onClick={() => {
+                        onClick={async () => {
+                          const tempResponse = await callAPI({
+                            endpoint: `/api/v1/quizanswer/${data.id}/exists/`,
+                            method: "GET",
+                          });
+                          let quizDefaults = null;
+                          if (tempResponse.data.exists) {
+                            const answerList = await callAPI({
+                              endpoint: `/api/v1/quizanswer/${data.id}`,
+                              method: "GET",
+                            });
+                            quizDefaults = answerList.data.options_selected;
+                          }
                           history.push({
                             pathname: "/quiz/questions",
-                            state: { quiz: data },
+                            state: { quiz: data, quizDefaults: quizDefaults },
                           });
                         }}
                       />

@@ -14,15 +14,17 @@ import { AlertContext } from "../../../components/DashboardLayout/AlertContext";
 const QuizView = ({ location }) => {
   const { alert, setAlert } = useContext(AlertContext);
   const [exist, setExist] = useState(true);
+  const [quizDefaultValue, setQuizDefaultValue] = useState({});
   const history = useHistory();
   const defaultQuestionvalue = [];
-  let quizDefaultValue = {};
-  const existFormatter = (response) => {
-    return response.data.exists;
-  };
   const questionFormatter = (response) => {
     if (response.data.length === 0) {
       return [];
+    }
+    let flag = false;
+    if (!location.state.quizDefaults) {
+      setExist(false);
+      flag = true;
     }
     let responseData = [];
     responseData = response.data.map((question, index) => {
@@ -35,10 +37,22 @@ const QuizView = ({ location }) => {
         marks: question.marks,
         is_multiple: question.multiple,
       };
-      const temp = question.multiple ? question.options.map(() => false) : "";
-      quizDefaultValue[question.id] = temp;
+      if (flag) {
+        const dataToAdd = question.multiple ? [] : "";
+        const stateTemp = { ...quizDefaultValue };
+        stateTemp[question.id] = dataToAdd;
+        setQuizDefaultValue({ ...stateTemp });
+      }
       return formattedResponseData;
     });
+    if (!flag) {
+      let tempDefaults = {};
+      let tempAnswerList = Object.entries(location.state.quizDefaults);
+      tempAnswerList.map((v) => {
+        tempDefaults[v[0]] = Array.isArray(v[1]) ? v[1] : v[1].toString();
+      });
+      setQuizDefaultValue({ ...tempDefaults });
+    }
     return responseData;
   };
   let [allQuestion, allQuestionComplete] = useAPI(
@@ -46,24 +60,12 @@ const QuizView = ({ location }) => {
     questionFormatter,
     defaultQuestionvalue
   );
-  useEffect(async () => {
+  useEffect(() => {
     if (!location.state) {
       history.replace({
         pathname: "/quiz",
       });
     }
-    const tempResponse = await callAPI({
-      endpoint: `/api/v1/quizanswer/${location.state.quiz.id}/exists/`,
-      method: "GET",
-    });
-    if (tempResponse.data.exists) {
-      const answerList = await callAPI({
-        endpoint: `/api/v1/quizanswer/${location.state.quiz.id}`,
-        method: "GET",
-      });
-      const tempAnswerList = Object.entries(answerList.data.options_selected);
-    }
-    setExist(tempResponse.data.exists);
   }, [location]);
   const onSubmit = async (values) => {
     let temp = Object.entries(values.questions);
@@ -133,8 +135,9 @@ const QuizView = ({ location }) => {
         <Grid item className="quizView_botBar">
           <Grid container direction="column">
             <Formik
+              enableReinitialize={true}
               initialValues={{
-                questions: quizDefaultValue,
+                questions: { ...quizDefaultValue },
               }}
               onSubmit={onSubmit}
             >
