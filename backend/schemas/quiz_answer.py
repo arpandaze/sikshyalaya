@@ -4,7 +4,7 @@ from pydantic import BaseModel
 
 
 class QuizAnswerBase(BaseModel):
-    marks_obtained: int
+    marks_obtained: int = None
     options_selected: Dict[int, List[int]]
     quiz_id: int
     student_id: int
@@ -34,3 +34,13 @@ class QuizAnswerInDB(QuizAnswerInDBBase):
 
 class QuizAnswer(QuizAnswerInDBBase):
     pass
+
+
+class QuizAnsweronlySelected(BaseModel):
+    id: Optional[int]
+    options_selected: Dict[int, List[int]]
+    quiz_id: int
+    student_id: int
+
+    class Config:
+        orm_mode = True
