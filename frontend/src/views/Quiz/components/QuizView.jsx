@@ -1,10 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import Grid from "@material-ui/core/Grid";
 import DashboardLayout from "../../../components/DashboardLayout/DashboardLayout";
-import {
-  Redirect,
-  useHistory,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import useAPI from "../../../utils/useAPI";
 import callAPI from "../../../utils/API";
 import "./statics/css/quizView.css";
@@ -12,8 +9,10 @@ import CustomTabComponent from "../../../components/CustomTabComponent";
 import QuestionView from "./QuestionView";
 import Button from "../../../components/Button";
 import { Formik, Form } from "formik";
+import { AlertContext } from "../../../components/DashboardLayout/AlertContext";
 
 const QuizView = ({ location }) => {
+  const { alert, setAlert } = useContext(AlertContext);
   const history = useHistory();
   const defaultQuestionvalue = [];
   let quizDefaultValue = {};
@@ -29,6 +28,7 @@ const QuizView = ({ location }) => {
         question_image: question.question_image,
         options: question.options,
         quiz_id: question.quiz_id,
+        marks: question.marks,
         is_multiple: question.multiple,
       };
       const temp = question.multiple ? question.options.map(() => false) : "";
@@ -69,12 +69,24 @@ const QuizView = ({ location }) => {
       });
       data[value[0]] = temp;
     });
-    await callAPI({
+    const submitResponse = await callAPI({
       endpoint: `/api/v1/quizanswer/${location.state.quiz.id}/`,
       method: "POST",
       data: data,
       headers: { "Content-Type": "multipart/form-data" },
     });
+    if (submitResponse.status === 200) {
+      setAlert({
+        severity: "success",
+        message: "Quiz Submitted successfully!",
+      });
+      history.replace({
+        pathname: "/quiz",
+      });
+      setTimeout(() => {
+        setAlert(null);
+      }, 2000);
+    }
   };
   return (
     <DashboardLayout>

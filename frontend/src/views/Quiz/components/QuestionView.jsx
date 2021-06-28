@@ -25,8 +25,16 @@ const QuestionView = ({ data, position, length, multiple, ...rest }) => {
             justify="center"
             className="questionView_topInside"
           >
-            <Grid item className="questionView_titleLabel">
-              Question {position + 1} of {length}{" "}
+            <Grid item className="questionView_questionTitleMarkContainer">
+              <Grid container>
+                <Grid item className="questionView_titleLabel">
+                  Question {position + 1} of {length}
+                </Grid>
+
+                <Grid item className="questionView_questionMarks">
+                  {data.marks} marks
+                </Grid>
+              </Grid>
             </Grid>
             <Grid item className="questionView_questionTitle">
               {data.question_text}

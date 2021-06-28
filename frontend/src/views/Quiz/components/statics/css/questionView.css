@@ -18,15 +18,28 @@
     text-indent: 20px;
   }
   .questionView_titleLabel {
+    width: 85%;
     margin: 0px;
     color: var(--white);
     font-size: 1.1em;
+  }
+  .questionView_questionTitleMarkContainer {
+    height: 30px;
+    position: relative;
   }
   .questionView_questionTitle {
     font-weight: 600;
     color: var(--white);
     margin-top: 10px !important;
     font-size: 1.4em;
+  }
+  .questionView_questionMarks {
+    text-align: right;
+    width: 15%;
+    margin: 0px;
+    padding-right: 10px;
+    color: var(--white);
+    font-size: 1.1em;
   }
   .questionView_bot {
     border-radius: 0 0 15px 15px;

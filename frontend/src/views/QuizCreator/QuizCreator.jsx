@@ -15,7 +15,7 @@ import { BiMinus } from "react-icons/bi";
 import callAPI from "../../utils/API";
 import useAPI from "../../utils/useAPI";
 import configs from "../../utils/configs";
-import { DatePicker, TimePicker } from "../../components/CustomDateTime";
+import { DateTimePicker } from "../../components/CustomDateTime";
 import CustomTextField from "../../components/CustomTextField";
 import Question from "./components/Question";
 import { QuizContext, QuizOptionContext } from "./QuizContext";
@@ -79,15 +79,13 @@ const QuizCreator = () => {
 
   const quizPostFormatter = (quiz) => {
     let tempList = [];
-    const endtimeUTC = new Date(quiz.end_time).toUTCString().slice(-12, -4);
-    const startTimeUTC = new Date(quiz.start_time).toUTCString().slice(-12, -4);
-    console.log(endtimeUTC);
+    const startTime = Date.parse(new Date(quiz.start_time));
+    const endTime = Date.parse(new Date(quiz.end_time));
     quiz.whoseQuizInfo &&
       quiz.whoseQuizInfo.map((grp) => tempList.push(grp.group));
     const postquizValues = {
-      end_time: endtimeUTC,
-      start_time: startTimeUTC,
-      date: formatISO(quiz.quiz_date, { representation: "date" }),
+      end_time: endTime,
+      start_time: startTime,
       title: quiz.quiz_title,
       description: quiz.quiz_description,
       is_randomized: quiz.isRandomized,
@@ -305,18 +303,15 @@ const QuizCreator = () => {
                               spacing={2}
                             >
                               <Grid item className="quizCreator_quizStartTime">
-                                <TimePicker
+                                <DateTimePicker
                                   id="start_time"
                                   label="Start Time"
                                 />
                               </Grid>
                               <Grid item className="quizCreator_quizEndTime">
-                                <TimePicker id="end_time" label="End Time" />
-                              </Grid>
-                              <Grid item className="quizCreator_quizDateField">
-                                <DatePicker
-                                  id="quiz_date"
-                                  label="Choose quiz date"
+                                <DateTimePicker
+                                  id="end_time"
+                                  label="End Time"
                                 />
                               </Grid>
                             </Grid>
