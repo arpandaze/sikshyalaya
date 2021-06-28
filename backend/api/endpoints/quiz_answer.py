@@ -97,7 +97,7 @@ async def submit_answer(
                 correctCount = correctCount / len(question.answer)
 
             else:
-                questionAnswer[question.id] = [questionOption]
+                questionAnswer[question.id] = questionOption
 
                 if questionOption == question.answer[0]:
                     correctCount = 1
