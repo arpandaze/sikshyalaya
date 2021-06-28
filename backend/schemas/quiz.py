@@ -113,6 +113,7 @@ class QuizQuestionwoutAnswer(BaseModel):
     options: List[Dict[str, str]]
     quiz_id: int
     multiple: bool = False
+    marks: int
 
     class Config:
         orm_mode = True
