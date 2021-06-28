@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Grid from "@material-ui/core/Grid";
 import DashboardLayout from "../../../components/DashboardLayout/DashboardLayout";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
@@ -13,9 +13,13 @@ import { AlertContext } from "../../../components/DashboardLayout/AlertContext";
 
 const QuizView = ({ location }) => {
   const { alert, setAlert } = useContext(AlertContext);
+  const [exist, setExist] = useState(true);
   const history = useHistory();
   const defaultQuestionvalue = [];
   let quizDefaultValue = {};
+  const existFormatter = (response) => {
+    return response.data.exists;
+  };
   const questionFormatter = (response) => {
     if (response.data.length === 0) {
       return [];
@@ -42,12 +46,24 @@ const QuizView = ({ location }) => {
     questionFormatter,
     defaultQuestionvalue
   );
-  useEffect(() => {
+  useEffect(async () => {
     if (!location.state) {
       history.replace({
         pathname: "/quiz",
       });
     }
+    const tempResponse = await callAPI({
+      endpoint: `/api/v1/quizanswer/${location.state.quiz.id}/exists/`,
+      method: "GET",
+    });
+    if (tempResponse.data.exists) {
+      const answerList = await callAPI({
+        endpoint: `/api/v1/quizanswer/${location.state.quiz.id}`,
+        method: "GET",
+      });
+      const tempAnswerList = Object.entries(answerList.data.options_selected);
+    }
+    setExist(tempResponse.data.exists);
   }, [location]);
   const onSubmit = async (values) => {
     let temp = Object.entries(values.questions);
@@ -79,6 +95,17 @@ const QuizView = ({ location }) => {
       setAlert({
         severity: "success",
         message: "Quiz Submitted successfully!",
+      });
+      history.replace({
+        pathname: "/quiz",
+      });
+      setTimeout(() => {
+        setAlert(null);
+      }, 2000);
+    } else {
+      setAlert({
+        severity: "error",
+        message: "Quiz has already been submitted",
       });
       history.replace({
         pathname: "/quiz",
@@ -130,7 +157,7 @@ const QuizView = ({ location }) => {
                 ) : (
                   <></>
                 )}
-                {allQuestionComplete && allQuestion.length ? (
+                {allQuestionComplete && allQuestion.length && !exist ? (
                   <Grid item className="quizView_buttonContainer">
                     <Button
                       name="Submit"
