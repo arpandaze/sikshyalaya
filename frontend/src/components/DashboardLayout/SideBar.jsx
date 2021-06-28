@@ -154,7 +154,7 @@ const SideBar = () => {
               setButtonType(true);
             }}
             variant="outlined"
-            color={buttonType ? "primary" : "secondary"}
+            color="primary"
             startIcon={<RiLogoutBoxLine />}
             onClick={() => {
               history.push({

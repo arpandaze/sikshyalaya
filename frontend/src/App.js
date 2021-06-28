@@ -2,10 +2,23 @@ import React, { useEffect, useState, useMemo } from "react";
 import Routes from "./Route";
 import "./App.css";
 import { UserContext } from "./utils/Contexts/UserContext";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { WebsocketContext } from "./utils/Contexts/WebsocketContext";
 import { AlertContext } from "./components/DashboardLayout/AlertContext";
 import { get, set } from "idb-keyval";
 import useChat from "./utils/useChat";
+import colorscheme from "./utils/colors";
+
+const colorTheme = createMuiTheme({
+  palette: {
+    primary: {
+      main: colorscheme.red4,
+    },
+    secondary: {
+      main: colorscheme.purple2,
+    },
+  },
+});
 
 function App() {
   const [user, setUser_s] = useState({
@@ -112,9 +125,11 @@ function App() {
   return (
     <UserContext.Provider value={user_context_value}>
       <WebsocketContext.Provider value={websocket_context_value}>
-        <AlertContext.Provider value={alert_context_value}>
-          <Routes />
-        </AlertContext.Provider>
+        <MuiThemeProvider theme={colorTheme}>
+          <AlertContext.Provider value={alert_context_value}>
+            <Routes />
+          </AlertContext.Provider>
+        </MuiThemeProvider>
       </WebsocketContext.Provider>
     </UserContext.Provider>
   );
