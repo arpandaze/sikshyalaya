@@ -43,7 +43,7 @@ const CustomQuizCard = ({ quiz, image, onClick }) => {
         </div>
         <Grid container direction="row" className="quizCard_footer">
           <p className="quizCard_time">
-            Start Time: {timeConverter(quiz.date + " " + quiz.start_time)}
+            Start Time: {timeConverter(quiz.start_time)}
           </p>
           <Grid item className="quizCard_footerInnerContainer">
             <Grid container direction="column" alignItems="flex-end">

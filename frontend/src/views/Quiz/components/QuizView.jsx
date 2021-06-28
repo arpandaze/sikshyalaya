@@ -29,6 +29,7 @@ const QuizView = ({ location }) => {
         question_image: question.question_image,
         options: question.options,
         quiz_id: question.quiz_id,
+        marks: question.marks,
         is_multiple: question.multiple,
       };
       const temp = question.multiple ? question.options.map(() => false) : "";
