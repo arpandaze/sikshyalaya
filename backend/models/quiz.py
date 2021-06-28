@@ -5,8 +5,7 @@ from sqlalchemy import (
     Integer,
     ForeignKey,
     String,
-    Date,
-    Time,
+    DateTime,
     Boolean,
     ARRAY,
 )
@@ -26,9 +25,8 @@ from core.db import Base
 
 class Quiz(Base):
     id = Column(Integer, primary_key=True)
-    date = Column(Date)
-    end_time = Column(Time)
-    start_time = Column(Time)
+    end_time = Column(DateTime)
+    start_time = Column(DateTime)
     title = Column(String, nullable=True)
     description = Column(String, nullable=True)
     is_randomized = Column(Boolean, default=False)

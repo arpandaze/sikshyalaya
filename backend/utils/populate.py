@@ -180,7 +180,6 @@ def populate_quiz():
                 group=quiz["group"],
                 instructor=quiz["instructor"],
                 course_id=quiz["course_id"],
-                date=quiz["date"],
                 total_marks=quiz["total_marks"],
             )
 

@@ -21,7 +21,6 @@ class CRUDQuiz(CRUDBase[Quiz, QuizCreate, QuizUpdate]):
         db_obj = Quiz(
             end_time=obj_in.end_time,
             start_time=obj_in.start_time,
-            date=obj_in.date,
             title=obj_in.title,
             description=obj_in.description,
             is_randomized=obj_in.is_randomized,

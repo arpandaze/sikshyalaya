@@ -1,4 +1,4 @@
-from datetime import date, time
+from datetime import datetime
 from typing import Optional, List, Dict  # noqa
 
 from pydantic import BaseModel, Json
@@ -6,9 +6,8 @@ from schemas import GroupReturn, CourseMin, TeacherShort
 
 
 class QuizBase(BaseModel):
-    end_time: time
-    start_time: time
-    date: date
+    end_time: datetime
+    start_time: datetime
     title: str
     description: str
     is_randomized: bool
@@ -24,9 +23,8 @@ class QuizCreate(QuizBase):
 
 
 class QuizUpdate(QuizBase):
-    end_time: time = None
-    start_time: time = None
-    date: date = None
+    end_time: datetime = None
+    start_time: datetime = None
     title: str = None
     description: str = None
     is_randomized: bool = None
@@ -51,9 +49,8 @@ class QuizInDB(QuizInDBBase):
 class Quiz(BaseModel):
     id: Optional[int]
     course: CourseMin
-    end_time: time
-    start_time: time
-    date: date
+    end_time: datetime
+    start_time: datetime
     title: str
     description: str
     is_randomized: bool
