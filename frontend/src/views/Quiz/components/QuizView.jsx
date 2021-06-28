@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Grid from "@material-ui/core/Grid";
 import DashboardLayout from "../../../components/DashboardLayout/DashboardLayout";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
@@ -16,6 +16,9 @@ const QuizView = ({ location }) => {
   const history = useHistory();
   const defaultQuestionvalue = [];
   let quizDefaultValue = {};
+  const existFormatter = (response) => {
+    return response.data.exists;
+  };
   const questionFormatter = (response) => {
     if (response.data.length === 0) {
       return [];
@@ -41,6 +44,10 @@ const QuizView = ({ location }) => {
     { endpoint: `/api/v1/quiz/${location.state.quiz.id}/question` },
     questionFormatter,
     defaultQuestionvalue
+  );
+  let [existCheck, existComplete] = useAPI(
+    { endpoint: `/api/v1/quizanswer/${location.state.quiz.id}/exists/` },
+    existFormatter
   );
   useEffect(() => {
     if (!location.state) {
@@ -86,66 +93,81 @@ const QuizView = ({ location }) => {
       setTimeout(() => {
         setAlert(null);
       }, 2000);
+    } else {
+      setAlert({
+        severity: "error",
+        message: "Quiz has already been submitted",
+      });
+      history.replace({
+        pathname: "/quiz",
+      });
+      setTimeout(() => {
+        setAlert(null);
+      }, 2000);
     }
   };
   return (
     <DashboardLayout>
-      <Grid container direction="column" className="quizView_root">
-        <Grid item>
-          <Grid
-            container
-            direction="row"
-            alignItems="center"
-            className="quizView_topBar"
-          >
-            <p className="quizView_quizTitle">
-              {location.state && location.state.quiz.title}
-            </p>
-          </Grid>
-        </Grid>
-        <Grid item className="quizView_botBar">
-          <Grid container direction="column">
-            <Formik
-              initialValues={{
-                questions: quizDefaultValue,
-              }}
-              onSubmit={onSubmit}
+      {!existCheck && existComplete && allQuestion ? (
+        <Grid container direction="column" className="quizView_root">
+          <Grid item>
+            <Grid
+              container
+              direction="row"
+              alignItems="center"
+              className="quizView_topBar"
             >
-              <Form>
-                {allQuestionComplete && allQuestion.length ? (
-                  allQuestion.map((question, index) => (
-                    <Grid
-                      item
-                      key={index}
-                      className="quizView_questionContainer"
-                    >
-                      <QuestionView
-                        data={question}
-                        position={index}
-                        length={allQuestion.length}
-                        multiple={question.is_multiple}
+              <p className="quizView_quizTitle">
+                {location.state && location.state.quiz.title}
+              </p>
+            </Grid>
+          </Grid>
+          <Grid item className="quizView_botBar">
+            <Grid container direction="column">
+              <Formik
+                initialValues={{
+                  questions: quizDefaultValue,
+                }}
+                onSubmit={onSubmit}
+              >
+                <Form>
+                  {allQuestionComplete && allQuestion.length ? (
+                    allQuestion.map((question, index) => (
+                      <Grid
+                        item
+                        key={index}
+                        className="quizView_questionContainer"
+                      >
+                        <QuestionView
+                          data={question}
+                          position={index}
+                          length={allQuestion.length}
+                          multiple={question.is_multiple}
+                        />
+                      </Grid>
+                    ))
+                  ) : (
+                    <></>
+                  )}
+                  {allQuestionComplete && allQuestion.length ? (
+                    <Grid item className="quizView_buttonContainer">
+                      <Button
+                        name="Submit"
+                        type="submit"
+                        addStyles="quizView_button"
                       />
                     </Grid>
-                  ))
-                ) : (
-                  <></>
-                )}
-                {allQuestionComplete && allQuestion.length ? (
-                  <Grid item className="quizView_buttonContainer">
-                    <Button
-                      name="Submit"
-                      type="submit"
-                      addStyles="quizView_button"
-                    />
-                  </Grid>
-                ) : (
-                  <></>
-                )}
-              </Form>
-            </Formik>
+                  ) : (
+                    <></>
+                  )}
+                </Form>
+              </Formik>
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
+      ) : (
+        <></>
+      )}
     </DashboardLayout>
   );
 };
