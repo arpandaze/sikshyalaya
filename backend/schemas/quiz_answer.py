@@ -1,11 +1,11 @@
-from typing import Optional, List, Dict  # noqa
+from typing import Optional, List, Dict, Any  # noqa
 
 from pydantic import BaseModel
 
 
 class QuizAnswerBase(BaseModel):
     marks_obtained: int = None
-    options_selected: Dict[int, List[int]]
+    options_selected: Dict[int, Any]
     quiz_id: int
     student_id: int
 
@@ -16,7 +16,7 @@ class QuizAnswerCreate(QuizAnswerBase):
 
 class QuizAnswerUpdate(QuizAnswerBase):
     marks_obtained: int = None
-    options_selected: Dict[int, List[int]] = None
+    options_selected: Dict[int, Any] = None
     quiz_id: int = None
     student_id: int = None
 
@@ -38,7 +38,7 @@ class QuizAnswer(QuizAnswerInDBBase):
 
 class QuizAnsweronlySelected(BaseModel):
     id: Optional[int]
-    options_selected: Dict[int, List[int]]
+    options_selected: Dict[int, Any]
     quiz_id: int
     student_id: int
 
