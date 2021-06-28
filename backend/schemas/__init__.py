@@ -58,6 +58,7 @@ from .quiz_answer import (
     QuizAnswerCreate,
     QuizAnswerUpdate,
     QuizAnswerInDB,
+    QuizAnsweronlySelected,
 )
 
 from .file import File, FileCreate, FileUpdate, FileInDB
