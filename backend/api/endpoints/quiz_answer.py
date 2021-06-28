@@ -90,11 +90,12 @@ async def submit_answer(
         if question.id in questionAnswer.keys():
             questionOption = questionAnswer[question.id]
             if question.multiple:
-                for answer in questionOption:
-                    if answer in question.answer:
-                        correctCount = correctCount + 1
+                if len(question.answer) >= len(questionOption):
+                    for answer in questionOption:
+                        if answer in question.answer:
+                            correctCount = correctCount + 1
 
-                correctCount = correctCount / len(question.answer)
+                    correctCount = correctCount / len(question.answer)
 
             else:
                 questionAnswer[question.id] = questionOption
