@@ -42,7 +42,12 @@ crud_quiz = CRUDQuiz(Quiz)
 
 class CRUDQuizQuestion(CRUDBase[QuizQuestion, QuizQuestionCreate, QuizQuestionUpdate]):
     def get_all_by_quiz_id(self, db: Session, *, quiz_id: int) -> List[QuizQuestion]:
-        return db.query(self.model).filter(self.model.quiz_id == quiz_id).all()
+        return (
+            db.query(self.model)
+            .filter(self.model.quiz_id == quiz_id)
+            .order_by(self.model.id.desc())
+            .all()
+        )
 
     def get_by_quiz_id_question_id(
         self, db: Session, *, quiz_id: int, questionid: int
