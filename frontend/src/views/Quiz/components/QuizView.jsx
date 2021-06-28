@@ -13,6 +13,7 @@ import { AlertContext } from "../../../components/DashboardLayout/AlertContext";
 
 const QuizView = ({ location }) => {
   const { alert, setAlert } = useContext(AlertContext);
+  const [exist, setExist] = useState(true);
   const history = useHistory();
   const defaultQuestionvalue = [];
   let quizDefaultValue = {};
@@ -45,16 +46,24 @@ const QuizView = ({ location }) => {
     questionFormatter,
     defaultQuestionvalue
   );
-  let [existCheck, existComplete] = useAPI(
-    { endpoint: `/api/v1/quizanswer/${location.state.quiz.id}/exists/` },
-    existFormatter
-  );
-  useEffect(() => {
+  useEffect(async () => {
     if (!location.state) {
       history.replace({
         pathname: "/quiz",
       });
     }
+    const tempResponse = await callAPI({
+      endpoint: `/api/v1/quizanswer/${location.state.quiz.id}/exists/`,
+      method: "GET",
+    });
+    if (tempResponse.data.exists) {
+      const answerList = await callAPI({
+        endpoint: `/api/v1/quizanswer/${location.state.quiz.id}`,
+        method: "GET",
+      });
+      const tempAnswerList = Object.entries(answerList.data.options_selected);
+    }
+    setExist(tempResponse.data.exists);
   }, [location]);
   const onSubmit = async (values) => {
     let temp = Object.entries(values.questions);
@@ -108,66 +117,62 @@ const QuizView = ({ location }) => {
   };
   return (
     <DashboardLayout>
-      {!existCheck && existComplete && allQuestion ? (
-        <Grid container direction="column" className="quizView_root">
-          <Grid item>
-            <Grid
-              container
-              direction="row"
-              alignItems="center"
-              className="quizView_topBar"
-            >
-              <p className="quizView_quizTitle">
-                {location.state && location.state.quiz.title}
-              </p>
-            </Grid>
-          </Grid>
-          <Grid item className="quizView_botBar">
-            <Grid container direction="column">
-              <Formik
-                initialValues={{
-                  questions: quizDefaultValue,
-                }}
-                onSubmit={onSubmit}
-              >
-                <Form>
-                  {allQuestionComplete && allQuestion.length ? (
-                    allQuestion.map((question, index) => (
-                      <Grid
-                        item
-                        key={index}
-                        className="quizView_questionContainer"
-                      >
-                        <QuestionView
-                          data={question}
-                          position={index}
-                          length={allQuestion.length}
-                          multiple={question.is_multiple}
-                        />
-                      </Grid>
-                    ))
-                  ) : (
-                    <></>
-                  )}
-                  {allQuestionComplete && allQuestion.length ? (
-                    <Grid item className="quizView_buttonContainer">
-                      <Button
-                        name="Submit"
-                        type="submit"
-                        addStyles="quizView_button"
-                      />
-                    </Grid>
-                  ) : (
-                    <></>
-                  )}
-                </Form>
-              </Formik>
-            </Grid>
+      <Grid container direction="column" className="quizView_root">
+        <Grid item>
+          <Grid
+            container
+            direction="row"
+            alignItems="center"
+            className="quizView_topBar"
+          >
+            <p className="quizView_quizTitle">
+              {location.state && location.state.quiz.title}
+            </p>
           </Grid>
         </Grid>
-      ) : (
-        <></>
-      )}
+        <Grid item className="quizView_botBar">
+          <Grid container direction="column">
+            <Formik
+              initialValues={{
+                questions: quizDefaultValue,
+              }}
+              onSubmit={onSubmit}
+            >
+              <Form>
+                {allQuestionComplete && allQuestion.length ? (
+                  allQuestion.map((question, index) => (
+                    <Grid
+                      item
+                      key={index}
+                      className="quizView_questionContainer"
+                    >
+                      <QuestionView
+                        data={question}
+                        position={index}
+                        length={allQuestion.length}
+                        multiple={question.is_multiple}
+                      />
+                    </Grid>
+                  ))
+                ) : (
+                  <></>
+                )}
+                {allQuestionComplete && allQuestion.length && !exist ? (
+                  <Grid item className="quizView_buttonContainer">
+                    <Button
+                      name="Submit"
+                      type="submit"
+                      addStyles="quizView_button"
+                    />
+                  </Grid>
+                ) : (
+                  <></>
+                )}
+              </Form>
+            </Formik>
+          </Grid>
+        </Grid>
+      </Grid>
     </DashboardLayout>
   );
 };
