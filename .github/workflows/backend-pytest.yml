@@ -22,7 +22,7 @@ jobs:
         run: pip3 install poetry && poetry config virtualenvs.create false && cd backend && poetry install
 
       - name: Docker Start
-        run: cd backend && python manage.py remake
+        run: cd backend && python manage.py remakeall
 
       - name: Run PyTest
         run: cd backend && python manage.py pytest
