@@ -87,6 +87,10 @@ class CommandDefinition:
         os.system(f"docker-compose logs -f -t")
 
     def remake(self):
+        self.cleandb()
+        self.populate()
+
+    def remakeall(self):
         from alembic import command
         from alembic.config import Config
 
@@ -108,7 +112,7 @@ class CommandDefinition:
             try:
                 if not rev_created:
                     command.revision(
-                        config=alembic_cfg, autogenerate=True, message="Remake"
+                        config=alembic_cfg, autogenerate=True, message="Remake All"
                     )
                     rev_created = True
 
@@ -248,6 +252,11 @@ def logs():
 
 
 @click.command()
+def remakeall():
+    commands.remakeall()
+
+
+@click.command()
 def remake():
     commands.remake()
 
@@ -269,6 +278,7 @@ main.add_command(mkmig)
 main.add_command(mig)
 main.add_command(populate)
 main.add_command(logs)
+main.add_command(remakeall)
 main.add_command(remake)
 main.add_command(dcstart)
 main.add_command(pytest)
