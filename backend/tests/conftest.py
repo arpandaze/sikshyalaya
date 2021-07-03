@@ -47,18 +47,19 @@ def super_user_client() -> Generator:
         "remember_me": True,
     }
 
-    req = requests.post(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/auth/web/",
-        json=data,
-        headers=headers,
-    )
+    super_user_cookies = None
+    with TestClient(app) as c:
+        req = c.post(
+            f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/auth/web/",
+            json=data,
+        )
+        super_user_cookies = req.cookies
 
     assert req.status_code == 200
     assert req.cookies.get("session"), "Cookie not returned!"
 
-    # yield req.cookies.get("session")
     with TestClient(app) as c:
-        c.cookies = req.cookies
+        c.cookies = super_user_cookies
         yield c
 
     crud_user.remove(db=SessionLocal(), id=super_user_obj.id)
