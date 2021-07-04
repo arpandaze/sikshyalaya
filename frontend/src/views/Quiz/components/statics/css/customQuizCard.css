@@ -3,6 +3,7 @@
   width: 450px !important;
   min-height: 400px !important;
   border-radius: 15px !important;
+  margin: 0px auto;
   cursor: pointer;
 }
 .quizCard_root:hover {

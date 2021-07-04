@@ -73,8 +73,9 @@
     margin: 0px auto !important;
   }
   .quiz_cardInside {
-    padding: 30px;
-    margin: 0px auto !important;
+    width: 50%;
+    margin-top: 20px !important;
+    margin-bottom: 50px !important;
   }
   .quiz_noQuiz {
     font-size: 1.25em;

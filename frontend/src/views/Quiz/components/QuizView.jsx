@@ -21,6 +21,7 @@ const QuizView = ({ location }) => {
     if (response.data.length === 0) {
       return [];
     }
+    let quizDefaults = {};
     let flag = false;
     if (!location.state.quizDefaults) {
       setExist(false);
@@ -40,8 +41,7 @@ const QuizView = ({ location }) => {
       if (flag) {
         const dataToAdd = question.multiple ? [] : "";
         const stateTemp = { ...quizDefaultValue };
-        stateTemp[question.id] = dataToAdd;
-        setQuizDefaultValue({ ...stateTemp });
+        quizDefaults[question.id] = dataToAdd;
       }
       return formattedResponseData;
     });
@@ -52,6 +52,8 @@ const QuizView = ({ location }) => {
         tempDefaults[v[0]] = Array.isArray(v[1]) ? v[1] : v[1].toString();
       });
       setQuizDefaultValue({ ...tempDefaults });
+    } else {
+      setQuizDefaultValue({ ...quizDefaults });
     }
     return responseData;
   };
@@ -66,6 +68,7 @@ const QuizView = ({ location }) => {
         pathname: "/quiz",
       });
     }
+    console.log(location.state.quizDefaults);
   }, [location]);
   const onSubmit = async (values) => {
     let temp = Object.entries(values.questions);
@@ -80,9 +83,9 @@ const QuizView = ({ location }) => {
     });
     multiple.map((value) => {
       let temp = [];
-      value[1].map((v, i) => {
-        if (v) {
-          temp.push(i);
+      value[1].map((v) => {
+        if (v !== undefined && v.length) {
+          temp.push(v[0]);
         }
       });
       data[value[0]] = temp;
