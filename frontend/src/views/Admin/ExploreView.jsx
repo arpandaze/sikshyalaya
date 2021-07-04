@@ -8,7 +8,7 @@ import { GoPlus } from "react-icons/go";
 import { Formik, Form } from "formik";
 import CustomTextField from "../../components/CustomTextField";
 import "./statics/css/commonView.css";
-import Button from "../../components/Button";
+import CustomButton from "../../components/CustomButton";
 import { ImCross } from "react-icons/im";
 import useAPI from "../../utils/useAPI";
 import callAPI from "../../utils/API";
@@ -164,7 +164,7 @@ const SchoolView = ({ location }) => {
                       />
                     </Grid>
                     <Grid item className="adminSchool_submitButtonContainer">
-                      <Button
+                      <CustomButton
                         type="submit"
                         name="Submit"
                         addStyles="adminSchool_submitButton"

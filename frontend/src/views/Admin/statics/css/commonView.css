@@ -348,7 +348,7 @@
   }
   .adminStudent_popUpDisplayBox {
     width: 600px;
-    height: 550px;
+    height: 620px;
     position: relative;
     margin-top: 80px !important;
     margin-left: -250px !important;
@@ -402,6 +402,13 @@
     margin: 2px 0px 0px 5px;
     font-size: 1em;
     font-weight: 600;
+  }
+  .adminStudent_resendButtonContainer {
+    margin-top: 20px !important;
+  }
+  .adminStudent_resendButton {
+    width: 100%;
+    height: 100%;
   }
   /*Admin Teacher*/
   .adminTeacher_popUpContainer {

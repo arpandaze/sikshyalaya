@@ -7,8 +7,10 @@ import Students from "./components/Student";
 import { GoPlus } from "react-icons/go";
 import "./statics/css/commonView.css";
 import useAPI from "../../utils/useAPI";
-import Button from "../../components/Button";
+import CustomButton from "../../components/CustomButton";
+import Button from "@material-ui/core/Button";
 import { ImCross } from "react-icons/im";
+import { BiMailSend } from "react-icons/bi";
 import { Formik, Form } from "formik";
 import callAPI from "../../utils/API";
 import CustomTextField from "../../components/CustomTextField";
@@ -50,6 +52,7 @@ const StudentView = ({ location, ...rest }) => {
   const [isEdit, setEdit] = useState(false);
   const [editState, setEditState] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [buttonType, setButtonType] = useState(true);
 
   const studentFormatter = (values) => {
     const data = values.data.filter((response) => response.user_type == "4");
@@ -357,7 +360,7 @@ const StudentView = ({ location, ...rest }) => {
                       />
                     </Grid>
                     <Grid item className="adminStudent_submitButtonContainer">
-                      <Button
+                      <CustomButton
                         name="Save"
                         type="submit"
                         addStyles="adminStudent_submitButton"
@@ -453,12 +456,37 @@ const StudentView = ({ location, ...rest }) => {
                     <a className="adminStudent_fieldTitle">Cotnact No: </a>
                     {selectedUser.contact_number}
                   </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    className="adminStudent_resendButtonContainer"
+                  >
+                    <Button
+                      onMouseOver={() => {
+                        setButtonType(false);
+                      }}
+                      onMouseOut={() => {
+                        setButtonType(true);
+                      }}
+                      variant="outlined"
+                      color="primary"
+                      startIcon={<BiMailSend />}
+                      onClick={() => {
+                        history.push({
+                          pathname: "/logout",
+                        });
+                      }}
+                      className="adminStudent_resendButton"
+                    >
+                      Resend Verification
+                    </Button>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
             <Grid item className="adminStudent_displayStatus">
               <Grid container direction="row" alignItems="center">
-                {0 ? (
+                {selectedUser.is_active ? (
                   <>
                     <div className="adminStudent_active"></div>
                     <p className="adminStudent_statusText">Active</p>

@@ -5,7 +5,7 @@ import "./statics/css/teacherDashboard.css";
 import * as yup from "yup";
 import Profile from "./../../assets/pp.jpg";
 import colorscheme from "../../utils/colors";
-import Button from "../../components/Button";
+import CustomButton from "../../components/CustomButton";
 import { ImCross } from "react-icons/im";
 import { Formik, Form } from "formik";
 import CustomTextField from "../../components/CustomTextField";

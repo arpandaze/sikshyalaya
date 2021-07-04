@@ -8,7 +8,7 @@ import { GoPlus } from "react-icons/go";
 import "./statics/css/commonView.css";
 import useAPI from "../../utils/useAPI";
 import callAPI from "../../utils/API";
-import Button from "../../components/Button";
+import CustomButton from "../../components/CustomButton";
 import { ImCross } from "react-icons/im";
 import { Formik, Form } from "formik";
 import CustomTextField from "../../components/CustomTextField";
@@ -211,7 +211,7 @@ const DepartmentView = ({ location }) => {
                       item
                       className="adminDepartment_submitButtonContainer"
                     >
-                      <Button
+                      <CustomButton
                         type="submit"
                         name="Submit"
                         addStyles="adminDepartment_submitButton"

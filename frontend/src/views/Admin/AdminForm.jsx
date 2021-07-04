@@ -1,6 +1,6 @@
 import React from "react";
 import { Formik, Field, Form } from "formik";
-import Button from "../../components/Button";
+import CustomButton from "../../components/CustomButton";
 import * as yup from "yup";
 import Grid from "@material-ui/core/Grid";
 import colorscheme from "../../utils/colors";
@@ -168,7 +168,10 @@ const Profile = () => {
                       </Field>
                     </Grid>
                     <Grid item className="buttonContainer">
-                      <Button name="Save" colorStyles={styleSheet.saveButton} />
+                      <CustomButton
+                        name="Save"
+                        colorStyles={styleSheet.saveButton}
+                      />
                     </Grid>
                   </Grid>
                 </Form>

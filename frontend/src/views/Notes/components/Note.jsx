@@ -5,7 +5,7 @@ import { ImCross } from "react-icons/im";
 import { FiTrash } from "react-icons/fi";
 import { RiSendPlane2Fill } from "react-icons/ri";
 import "./statics/css/note.css";
-import Button from "../../../components/Button";
+import CustomButton from "../../../components/CustomButton";
 import Tag from "./Tag";
 import ReactQuill from "react-quill";
 import Delta from "quill-delta";
@@ -150,7 +150,7 @@ const Note = ({
                 )}
               </Grid>
               <Grid item>
-                <Button
+                <CustomButton
                   name="+"
                   addStyles={
                     tagClass ? "note_tagPlusButton" : "note_tagErrorButton"

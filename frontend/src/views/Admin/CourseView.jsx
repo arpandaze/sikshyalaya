@@ -7,7 +7,7 @@ import Students from "./components/Student";
 import { GoPlus } from "react-icons/go";
 import "./statics/css/commonView.css";
 import useAPI from "../../utils/useAPI";
-import Button from "../../components/Button";
+import CustomButton from "../../components/CustomButton";
 import { ImCross } from "react-icons/im";
 import { Formik, Form } from "formik";
 import callAPI from "../../utils/API";
@@ -238,7 +238,7 @@ const CourseView = ({ location, ...rest }) => {
                       />
                     </Grid>
                     <Grid item className="adminTeacher_submitButtonContainer">
-                      <Button
+                      <CustomButton
                         name="Save"
                         type="submit"
                         addStyles="adminTeacher_submitButton"

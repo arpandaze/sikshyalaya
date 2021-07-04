@@ -1,6 +1,6 @@
 import React from "react";
 import { Formik, Field, Form } from "formik";
-import Button from "../../components/Button";
+import CustomButton from "../../components/CustomButton";
 import * as yup from "yup";
 import Grid from "@material-ui/core/Grid";
 import "./statics/css/forgotPassword.css";
@@ -72,7 +72,7 @@ const ForgotPassword = ({ setResetState }) => {
               alignItems="center"
             >
               <Grid item xs={12}>
-                <Button
+                <CustomButton
                   type="submit"
                   name="Reset Password"
                   addStyles="forgotPassword_Button"
@@ -99,7 +99,7 @@ const ForgotPassword = ({ setResetState }) => {
               </Grid>
 
               <Grid item>
-                <Button
+                <CustomButton
                   type="button"
                   onClick={() => {
                     history.push("/login");

@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import { Formik, Form, FieldArray, Field } from "formik";
 import CustomTextField from "../../components/CustomTextField";
 import DashboardLayout from "../../components/DashboardLayout/DashboardLayout";
-import Button from "../../components/Button";
+import CustomButton from "../../components/CustomButton";
 import { BiMinus } from "react-icons/bi";
 import * as yup from "yup";
 import colorscheme from "../../utils/colors";
@@ -383,7 +383,7 @@ const ClassSessionCreator = () => {
                           </Grid>
 
                           <Grid item>
-                            <Button
+                            <CustomButton
                               name="Submit"
                               type="submit"
                               addStyles="classSession_submit"
