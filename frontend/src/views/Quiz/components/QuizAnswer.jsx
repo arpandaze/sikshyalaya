@@ -10,11 +10,18 @@ import "./statics/css/quizAnswer.css";
 
 const QuizAnswer = ({ options, onPopUp, name, multiple = false, ...rest }) => {
   const [value, setValue] = useState();
-
   const handleChange = (e) => {
     setValue(e.target.value);
   };
-
+  const handleCheck = (v, i) => {
+    if (v) {
+      for (let j = 0; j < v.length; j++) {
+        if (v[j] && v[j][0].length > 0 && v[j][0] == i.toString()) {
+          return true;
+        }
+      }
+    }
+  };
   return !multiple ? (
     <>
       <Field name={name}>
@@ -63,8 +70,11 @@ const QuizAnswer = ({ options, onPopUp, name, multiple = false, ...rest }) => {
       <Field name={name} {...rest}>
         {({ field, form }) => (
           <div className="quizAnswer_root">
+            {console.log(field)}
             {options.map((option, index) => (
               <FormControlLabel
+                {...field}
+                name={`${name}.${index}`}
                 key={index}
                 label={
                   option.image != "" ? (
@@ -84,21 +94,7 @@ const QuizAnswer = ({ options, onPopUp, name, multiple = false, ...rest }) => {
                     ? "quizAnswer_answerContainer"
                     : "quizAnswer_whenImageContainer"
                 }
-                control={
-                  <Checkbox
-                    name={`${name}.${index}`}
-                    checked={
-                      field.value &&
-                      field.value.find((element) => element == index) !=
-                        undefined
-                        ? true
-                        : false
-                    }
-                    color="primary"
-                    onChange={field.onChange}
-                  />
-                }
-                {...field}
+                control={<Checkbox color="primary" value={index.toString()} />}
               />
             ))}
           </div>

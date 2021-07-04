@@ -132,8 +132,6 @@ const Quiz = () => {
             />
             <h1 className="quiz_pastText">Past Quizzes</h1>
           </Grid>
-          <br />
-          <br />
           <Grid container direction="row" className="quiz_pastContainer">
             {allQuizComplete && allQuiz.past.length ? (
               allQuiz.past.map((data, index) => (
