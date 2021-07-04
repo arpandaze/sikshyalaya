@@ -12,8 +12,12 @@ import { ImCross } from "react-icons/im";
 import { Formik, Form } from "formik";
 import callAPI from "../../utils/API";
 import CustomTextField from "../../components/CustomTextField";
+import TextField from "@material-ui/core/TextField";
+import configs from "../../utils/configs";
 import { useHistory } from "react-router-dom";
 import { DatePicker } from "../../components/CustomDateTime";
+import Image from "../../components/Image";
+import defaultProfile from "../../assets/default-profile.svg";
 
 const validationSchema = yup.object({
   full_name: yup.string("Enter your name").required("Name is required"),
@@ -43,6 +47,7 @@ const semester = [
 const StudentView = ({ location, ...rest }) => {
   const history = useHistory();
   const [isPopUp, setPopUp] = useState(false);
+  const [isEdit, setEdit] = useState(false);
   const [editState, setEditState] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
 
@@ -52,6 +57,7 @@ const StudentView = ({ location, ...rest }) => {
       return {
         id: item.id,
         name: item.full_name,
+        profile_image: item.profile_image,
         email: item.email,
         program: item.group.program.id,
         semester: item.group.sem,
@@ -60,6 +66,7 @@ const StudentView = ({ location, ...rest }) => {
         contact_number: item.contact_number,
         join_year: item.join_year,
         user_type: item.user_type,
+        is_active: item.is_active,
       };
     });
 
@@ -191,31 +198,47 @@ const StudentView = ({ location, ...rest }) => {
         <Grid item className="adminCommon_botBar">
           <Grid
             container
-            direction="row"
+            direction="column"
             justify="flex-start"
             alignItems="flex-start"
             className="adminCommon_innerContainer"
             wrap="wrap"
           >
-            {students.map((item) => (
-              <Grid xs={6} item key={item.id}>
-                <Students
-                  key={item.id}
-                  name={item.name}
-                  onEdit={() => {
-                    setEditState(true);
-                    setPopUp(true);
-                    setSelectedUser(item);
-                  }}
-                />
+            <Grid item className="adminCommon_searchComponentContainer"></Grid>
+            <Grid item>
+              <Grid
+                container
+                direction="row"
+                justify="flex-start"
+                alignItems="flex-start"
+              >
+                {students.map((item) => (
+                  <Grid xs={6} item key={item.id}>
+                    <Students
+                      key={item.id}
+                      name={item.name}
+                      onView={() => {
+                        setEditState(true);
+                        setPopUp(true);
+                        setSelectedUser(item);
+                      }}
+                      onEdit={() => {
+                        setEditState(true);
+                        setPopUp(true);
+                        setEdit(true);
+                        setSelectedUser(item);
+                      }}
+                    />
+                  </Grid>
+                ))}
               </Grid>
-            ))}
+            </Grid>
           </Grid>
         </Grid>
         <br />
         <br />
       </Grid>
-      {isPopUp ? (
+      {isPopUp && isEdit ? (
         <Grid
           container
           justify="center"
@@ -351,6 +374,111 @@ const StudentView = ({ location, ...rest }) => {
                 onClick={() => {
                   setPopUp(false);
                   setEditState(false);
+                  setEdit(false);
+                  setSelectedUser(null);
+                }}
+              />
+            </Grid>
+          </Grid>
+        </Grid>
+      ) : isPopUp && !isEdit ? (
+        <Grid
+          container
+          justify="center"
+          className="adminStudent_popUpContainer"
+        >
+          {/* full_name: selectedUser.name,
+                        address: selectedUser.address,
+                        program: selectedUser.program,
+                        semester: selectedUser.semester,
+                        join_year: selectedUser.join_year,
+                        dob: selectedUser.dob,
+                        email: selectedUser.email,
+                        phone_number: selectedUser.contact_number, */}
+          <Grid item className="adminStudent_popUpDisplayBox">
+            <Grid
+              container
+              direction="column"
+              className="adminStudent_displayBox"
+              alignItems="center"
+            >
+              <Grid item className="adminStudent_displayProfile">
+                <Image
+                  src={
+                    selectedUser.profile_image
+                      ? configs.PUBLIC_FILES_PATH +
+                        "/" +
+                        selectedUser.profile_image
+                      : defaultProfile
+                  }
+                  alt="profile-image"
+                  addStyles="adminStudent_displayProfileImage"
+                />
+              </Grid>
+              <Grid item className="adminStudent_displayContainer">
+                <Grid container direction="row">
+                  <Grid item className="adminStudent_displayDetails">
+                    <a className="adminStudent_fieldTitle">Name:</a>{" "}
+                    {selectedUser.name}
+                  </Grid>
+                  <Grid item className="adminStudent_displayDetails">
+                    <a className="adminStudent_fieldTitle">Address: </a>{" "}
+                    {selectedUser.address}
+                  </Grid>
+                  <Grid item className="adminStudent_displayDetails">
+                    <a className="adminStudent_fieldTitle">Program: </a>
+                    {
+                      program.filter(
+                        (element) => element.value == selectedUser.program
+                      )[0].name
+                    }
+                  </Grid>
+                  <Grid item className="adminStudent_displayDetails">
+                    <a className="adminStudent_fieldTitle">Semester: </a>
+                    {selectedUser.semester}
+                  </Grid>
+                  <Grid item className="adminStudent_displayDetails">
+                    <a className="adminStudent_fieldTitle">Year Joined: </a>
+                    {selectedUser.join_year}
+                  </Grid>
+                  <Grid item className="adminStudent_displayDetails">
+                    <a className="adminStudent_fieldTitle">Date of Birth: </a>
+                    {selectedUser.dob}
+                  </Grid>
+                  <Grid item className="adminStudent_displayDetails">
+                    <a className="adminStudent_fieldTitle">Email: </a>
+                    {selectedUser.email}
+                  </Grid>
+                  <Grid item className="adminStudent_displayDetails">
+                    <a className="adminStudent_fieldTitle">Cotnact No: </a>
+                    {selectedUser.contact_number}
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item className="adminStudent_displayStatus">
+              <Grid container direction="row" alignItems="center">
+                {0 ? (
+                  <>
+                    <div className="adminStudent_active"></div>
+                    <p className="adminStudent_statusText">Active</p>
+                  </>
+                ) : (
+                  <>
+                    <div className="adminStudent_inactive"></div>
+                    <p className="adminStudent_statusText">Inactive</p>
+                  </>
+                )}
+              </Grid>
+            </Grid>
+            <Grid item className="adminSchool_closeButtonContainer">
+              <ImCross
+                color={colorscheme.red3}
+                className="adminSchool_closeButton"
+                onClick={() => {
+                  setPopUp(false);
+                  setEditState(false);
+                  setEdit(false);
                   setSelectedUser(null);
                 }}
               />
