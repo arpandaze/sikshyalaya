@@ -94,6 +94,20 @@ async def sign_up(
     return schemas.Msg(msg="Success")
 
 
+@router.post("/resend-verification-email/")
+async def resend_verification_email(
+    email: str,
+    current_user: models.User = Depends(deps.get_current_admin_or_above),
+    db: Session = Depends(deps.get_db),
+):
+    user = cruds.crud_user.get_by_email(db=db, email=email)
+    if not user:
+        raise HTTPException(status_code="404", detail="User doesn't exist")
+
+    await send_verification_email(user)
+    return schemas.Msg(msg="Success")
+
+
 @router.post("/change-password/")
 async def change_password(
     current_password: str = Body(...),
@@ -134,7 +148,9 @@ async def logout_all_sessions(
     current_user: models.User = Depends(deps.get_current_user),
 ) -> Any:
     active_sessions = json.loads(
-        await redis_session_client.client.get(f"user_{current_user.id}_sessions", encoding="utf-8")
+        await redis_session_client.client.get(
+            f"user_{current_user.id}_sessions", encoding="utf-8"
+        )
     )
 
     for session in active_sessions.get("sessions"):
