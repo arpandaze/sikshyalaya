@@ -63,7 +63,7 @@ function App() {
     dob: null,
     join_year: null,
   });
-  const [websocket, setWebsocket] = useState(null);
+  // const [websocket, setWebsocket] = useState(null);
 
   const [alert, setAlert] = useState(null);
 
