@@ -31,8 +31,20 @@
   .adminStudentBox_studentNameText {
     margin: 0;
   }
+  .adminStudentBox_editButtonContainer {
+    width: 40px;
+    height: 40px;
+    padding: 5px 6px 6px 8px;
+    border-radius: 50%;
+  }
+  .adminStudentBox_editButtonContainer:hover {
+    background: radial-gradient(
+      circle,
+      rgba(241, 75, 75, 1) 0%,
+      rgba(241, 75, 75, 0.23) 0%
+    );
+  }
   .adminStudentBox_editIcon {
-    margin-top: 6px;
     width: 26px;
     height: 26px;
   }

@@ -5,13 +5,14 @@ import { IconContext } from "react-icons";
 import { FaUserEdit } from "react-icons/fa";
 import "./statics/css/student.css";
 
-const Students = ({ name, onEdit, ...rest }) => {
+const Students = ({ name, onView, onEdit, ...rest }) => {
   return (
     <Grid
       container
       direction="row"
       className="adminStudentBox_root"
       alignItems="center"
+      onClick={onView}
     >
       <Grid item xs={12} className="adminStudentBox_innerContainer">
         <Grid
@@ -24,7 +25,7 @@ const Students = ({ name, onEdit, ...rest }) => {
           <Grid item className="adminStudentBox_studentName">
             <p className="adminStudentBox_studentNameText">{name}</p>
           </Grid>
-          <Grid item>
+          <Grid item className="adminStudentBox_editButtonContainer">
             <IconContext.Provider
               value={{ className: "adminStudentBox_editIcon" }}
             >

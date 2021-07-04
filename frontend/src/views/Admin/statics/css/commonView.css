@@ -53,6 +53,9 @@
       rgba(0, 194, 165, 0.23) 0%
     );
   }
+  .adminCommon_searchComponentContainer {
+    width: 50% !important;
+  }
   /*Admin School*/
   .adminSchool_popUpContainer {
     width: 100%;
@@ -343,7 +346,63 @@
     border-radius: 12px;
     font-size: 1.1em;
   }
-
+  .adminStudent_popUpDisplayBox {
+    width: 600px;
+    height: 550px;
+    position: relative;
+    margin-top: 80px !important;
+    margin-left: -250px !important;
+    border-radius: 15px;
+    background: var(--white);
+    box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.2);
+  }
+  .adminStudent_displayContainer {
+    margin: 30px auto !important;
+  }
+  .adminStudent_fieldTitle {
+    margin: 0px;
+    color: var(--grey1);
+  }
+  .adminStudent_displayBox {
+    width: 420px !important;
+    margin: 50px auto;
+  }
+  .adminStudent_displayProfile {
+    width: 200px;
+    height: 200px;
+  }
+  .adminStudent_displayProfileImage {
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .adminStudent_displayDetails {
+    width: 50%;
+    font-size: 1em;
+    padding: 10px;
+  }
+  .adminStudent_displayStatus {
+    position: absolute;
+    width: 90px;
+    top: 20px;
+    left: 20px;
+  }
+  .adminStudent_active {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: var(--red4);
+  }
+  .adminStudent_inactive {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: var(--grey2);
+  }
+  .adminStudent_statusText {
+    margin: 2px 0px 0px 5px;
+    font-size: 1em;
+    font-weight: 600;
+  }
   /*Admin Teacher*/
   .adminTeacher_popUpContainer {
     width: 100%;
