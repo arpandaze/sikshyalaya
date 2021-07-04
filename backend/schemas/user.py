@@ -130,6 +130,7 @@ class UserReturn(BaseModel):
     dob: date = None
     user_type: int = None
     join_year: Optional[int] = None
+    is_active: bool = None
 
     class Config:
         orm_mode = True
