@@ -238,14 +238,14 @@ def test_logout(client: TestClient) -> None:
     assert response.status_code == 200
 
 
-def test_delete_user(db, client: TestClient):
+def test_delete_user(db, super_user_client: TestClient):
     data = {
         "username": "test_superadmin@test.com",
         "password": "test",
         "remember_me": False,
     }
 
-    req = client.post(
+    req = super_user_client.post(
         f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/auth/web/",
         json=data,
         headers=headers,
@@ -256,7 +256,7 @@ def test_delete_user(db, client: TestClient):
 
     user = crud_user.get_by_email(db, email="test_student@test.com")
 
-    delete_req = client.delete(
+    delete_req = super_user_client.delete(
         f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/users/{user.id}/",
     )
 
