@@ -8,7 +8,7 @@ import configs from "../../../utils/configs";
 import { UserContext } from "../../../utils/Contexts/UserContext";
 import CustomTextField from "./../../../components/CustomTextField";
 import { DatePicker } from "../../../components/CustomDateTime";
-import Button from "../../../components/Button";
+import CustomButton from "../../../components/CustomButton";
 import callAPI from "../../../utils/API";
 import "./css/generalInfo.css";
 import { parseISO } from "date-fns";
@@ -126,7 +126,7 @@ const GeneralInfo = () => {
                   justify="center"
                   className="generalInfo_formContainer"
                 >
-                  <Grid item xs={6}>
+                  <Grid item xs={6} style={{ padding: "0px 20px 0px 0px" }}>
                     <CustomTextField
                       name="name"
                       type="text"
@@ -135,7 +135,7 @@ const GeneralInfo = () => {
                       addStyles="generalInfo_inputField"
                     />
                   </Grid>
-                  <Grid item xs={6}>
+                  <Grid item xs={6} style={{ padding: "0px 20px 0px 0px" }}>
                     <CustomTextField
                       name="address"
                       type="text"
@@ -173,7 +173,7 @@ const GeneralInfo = () => {
                 </Grid>
                 <Grid container alignItems="center" justify="center">
                   <Grid item>
-                    <Button
+                    <CustomButton
                       name="Save"
                       disabled={!(selectImage || props.dirty)}
                       type="submit"

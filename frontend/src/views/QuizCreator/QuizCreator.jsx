@@ -1,6 +1,6 @@
 import React, { useState, useRef, useContext, useEffect, useMemo } from "react";
 import { Formik, Form, Field, FieldArray } from "formik";
-import Button from "../../components/Button";
+import CustomButton from "../../components/CustomButton";
 import DashboardLayout from "../../components/DashboardLayout/DashboardLayout";
 import * as yup from "yup";
 import Checkbox from "./../../components/Checkbox";

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Formik, Form } from "formik";
-import Button from "../../components/Button";
+import CustomButton from "../../components/CustomButton";
 import * as yup from "yup";
 import Grid from "@material-ui/core/Grid";
 import Login from "./Login";
@@ -263,7 +263,7 @@ const Signup = () => {
                     />
                   </Grid>
                   <Grid item className="signup_buttonContainer">
-                    <Button
+                    <CustomButton
                       name="Signup"
                       type="submit"
                       addStyles="signup_button"

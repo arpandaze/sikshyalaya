@@ -10,7 +10,7 @@ import callAPI from "../../../utils/API";
 import "./statics/css/quizView.css";
 import CustomTabComponent from "../../../components/CustomTabComponent";
 import QuestionView from "./QuestionView";
-import Button from "../../../components/Button";
+import CustomButton from "../../../components/CustomButton";
 import { Formik, Form } from "formik";
 
 const QuizView = ({ location }) => {
@@ -120,7 +120,7 @@ const QuizView = ({ location }) => {
                 )}
                 {allQuestionComplete && allQuestion.length ? (
                   <Grid item className="quizView_buttonContainer">
-                    <Button
+                    <CustomButton
                       name="Submit"
                       type="submit"
                       addStyles="quizView_button"

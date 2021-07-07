@@ -1,7 +1,7 @@
 import React from "react";
 import "./statics/css/button.css";
 
-const Button = ({ children, name, addStyles, onClicked, ...rest }) => {
+const CustomButton = ({ children, name, addStyles, onClicked, ...rest }) => {
   return (
     <button
       id={name}
@@ -14,4 +14,4 @@ const Button = ({ children, name, addStyles, onClicked, ...rest }) => {
   );
 };
 
-export default Button;
+export default CustomButton;

@@ -5,7 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import callAPI from "../../../utils/API";
 import CustomTextField from "./../../../components/CustomTextField";
 import "./css/changePassword.css";
-import Button from "../../../components/Button";
+import CustomButton from "../../../components/CustomButton";
 import { AlertContext } from "../../../components/DashboardLayout/AlertContext";
 
 const validationSchema = yup.object({
@@ -119,7 +119,7 @@ const PasswordChange = () => {
                     />
                   </Grid>
                   <Grid item>
-                    <Button
+                    <CustomButton
                       name="Save"
                       type="submit"
                       addStyles="changePw_button"
