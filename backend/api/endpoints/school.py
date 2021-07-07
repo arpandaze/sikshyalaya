@@ -26,7 +26,7 @@ async def create_school(
     db: Session = Depends(deps.get_db),
     user=Depends(deps.get_current_admin_or_above),
     *,
-    school_in: SchoolCreate
+    school_in: SchoolCreate,
 ):
     school = crud_school.create(db, obj_in=school_in)
     return school
@@ -37,7 +37,7 @@ async def get_school(
     db: Session = Depends(deps.get_db),
     user=Depends(deps.get_current_active_user),
     *,
-    school_id: int
+    school_id: int,
 ):
     school = crud_school.get(db, school_id)
     return school
@@ -49,8 +49,19 @@ async def update_school(
     user=Depends(deps.get_current_admin_or_above),
     *,
     school_id: int,
-    school_update: SchoolUpdate
+    school_update: SchoolUpdate,
 ):
     school = crud_school.get(db, school_id)
     school = crud_school.update(db, db_obj=school, obj_in=school_update)
     return school
+
+
+@router.delete("/{school_id}/")
+async def delete_school(
+    db: Session = Depends(deps.get_db),
+    user=Depends(deps.get_current_admin_or_above),
+    *,
+    school_id: int,
+):
+    crud_school.remove(db=db, id=school_id)
+    return {"msg": "success"}
