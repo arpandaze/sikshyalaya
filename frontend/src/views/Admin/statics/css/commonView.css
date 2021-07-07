@@ -54,7 +54,7 @@
     );
   }
   .adminCommon_searchComponentContainer {
-    width: 50% !important;
+    width: 100% !important;
   }
   /*Admin School*/
   .adminSchool_popUpContainer {
@@ -302,7 +302,6 @@
   }
   .adminStudent_popUpBox {
     width: 550px;
-    height: 560px;
     position: relative;
     margin-top: 80px !important;
     margin-left: -250px !important;
@@ -336,7 +335,6 @@
     background: transparent;
     border: 0px;
     font-size: 1.1em;
-    border-bottom: 1px solid rgba(15, 15, 15, 0.3);
   }
   .adminStudent_submitButton {
     width: 150px;

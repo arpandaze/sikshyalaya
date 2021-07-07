@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import * as yup from "yup";
 import Grid from "@material-ui/core/Grid";
 import colorscheme from "../../utils/colors";
@@ -20,6 +20,9 @@ import { useHistory } from "react-router-dom";
 import { DatePicker } from "../../components/CustomDateTime";
 import Image from "../../components/Image";
 import defaultProfile from "../../assets/default-profile.svg";
+import { AlertContext } from "../../components/DashboardLayout/AlertContext";
+import StudentPagination from "./components/StudentPagination";
+import { set } from "idb-keyval";
 
 const validationSchema = yup.object({
   full_name: yup.string("Enter your name").required("Name is required"),
@@ -48,11 +51,13 @@ const semester = [
 
 const StudentView = ({ location, ...rest }) => {
   const history = useHistory();
+  const [filter, setFilter] = useState("");
   const [isPopUp, setPopUp] = useState(false);
   const [isEdit, setEdit] = useState(false);
   const [editState, setEditState] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [buttonType, setButtonType] = useState(true);
+  const { alert, setAlert } = useContext(AlertContext);
 
   const studentFormatter = (values) => {
     const data = values.data.filter((response) => response.user_type == "4");
@@ -98,7 +103,6 @@ const StudentView = ({ location, ...rest }) => {
   const [program] = useAPI({ endpoint: "/api/v1/program/" }, programFormatter);
 
   const onSubmit = async (data) => {
-    console.log(data);
     let group_id_list = group.filter((item) => {
       if (item.sem === data.semester && item.program_id === data.program) {
         return item;
@@ -160,6 +164,21 @@ const StudentView = ({ location, ...rest }) => {
       setPopUp(false);
       setEditState(false);
       setSelectedUser(null);
+      setAlert({
+        severity: "success",
+        message: "Changes Saved Successfully",
+      });
+      setTimeout(() => {
+        setAlert(null);
+      }, 2000);
+    } else {
+      setAlert({
+        severity: "error",
+        message: "Error Occurred while Saving",
+      });
+      setTimeout(() => {
+        setAlert(null);
+      }, 2000);
     }
   };
 
@@ -191,6 +210,7 @@ const StudentView = ({ location, ...rest }) => {
                   color={colorscheme.green2}
                   onClick={() => {
                     setPopUp(true);
+                    setEdit(true);
                   }}
                 />
               </div>
@@ -205,36 +225,27 @@ const StudentView = ({ location, ...rest }) => {
             justify="flex-start"
             alignItems="flex-start"
             className="adminCommon_innerContainer"
-            wrap="wrap"
           >
-            <Grid item className="adminCommon_searchComponentContainer"></Grid>
-            <Grid item>
-              <Grid
-                container
-                direction="row"
-                justify="flex-start"
-                alignItems="flex-start"
-              >
-                {students.map((item) => (
-                  <Grid xs={6} item key={item.id}>
-                    <Students
-                      key={item.id}
-                      name={item.name}
-                      onView={() => {
-                        setEditState(true);
-                        setPopUp(true);
-                        setSelectedUser(item);
-                      }}
-                      onEdit={() => {
-                        setEditState(true);
-                        setPopUp(true);
-                        setEdit(true);
-                        setSelectedUser(item);
-                      }}
-                    />
-                  </Grid>
-                ))}
-              </Grid>
+            <Grid item className="adminCommon_searchComponentContainer">
+              <TextField
+                variant="outlined"
+                label="Enter Search Query"
+                style={{ width: "100%" }}
+                onChange={(e) => {
+                  setFilter(e.target.value);
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} style={{ width: "100%" }}>
+              <StudentPagination
+                fetchEndpoint="/api/v1/users/"
+                formatter={studentFormatter}
+                search={filter}
+                setSelectedUser={setSelectedUser}
+                setEdit={setEdit}
+                setEditState={setEditState}
+                setPopUp={setPopUp}
+              />
             </Grid>
           </Grid>
         </Grid>
@@ -390,14 +401,6 @@ const StudentView = ({ location, ...rest }) => {
           justify="center"
           className="adminStudent_popUpContainer"
         >
-          {/* full_name: selectedUser.name,
-                        address: selectedUser.address,
-                        program: selectedUser.program,
-                        semester: selectedUser.semester,
-                        join_year: selectedUser.join_year,
-                        dob: selectedUser.dob,
-                        email: selectedUser.email,
-                        phone_number: selectedUser.contact_number, */}
           <Grid item className="adminStudent_popUpDisplayBox">
             <Grid
               container
@@ -456,31 +459,56 @@ const StudentView = ({ location, ...rest }) => {
                     <a className="adminStudent_fieldTitle">Cotnact No: </a>
                     {selectedUser.contact_number}
                   </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                    className="adminStudent_resendButtonContainer"
-                  >
-                    <Button
-                      onMouseOver={() => {
-                        setButtonType(false);
-                      }}
-                      onMouseOut={() => {
-                        setButtonType(true);
-                      }}
-                      variant="outlined"
-                      color="primary"
-                      startIcon={<BiMailSend />}
-                      onClick={() => {
-                        history.push({
-                          pathname: "/logout",
-                        });
-                      }}
-                      className="adminStudent_resendButton"
+                  {!selectedUser.is_active ? (
+                    <Grid
+                      item
+                      xs={12}
+                      className="adminStudent_resendButtonContainer"
                     >
-                      Resend Verification
-                    </Button>
-                  </Grid>
+                      <Button
+                        onMouseOver={() => {
+                          setButtonType(false);
+                        }}
+                        onMouseOut={() => {
+                          setButtonType(true);
+                        }}
+                        variant="outlined"
+                        color="primary"
+                        startIcon={<BiMailSend />}
+                        onClick={async () => {
+                          const response = await callAPI({
+                            endpoint: `/api/v1/auth/resend-verification-email/?email=${selectedUser.email}`,
+                            method: "POST",
+                          });
+                          if (response.status && response.status == 200) {
+                            setPopUp(false);
+                            setEditState(false);
+                            setSelectedUser(null);
+                            setAlert({
+                              severity: "success",
+                              message: "Reset Email Sent",
+                            });
+                            setTimeout(() => {
+                              setAlert(null);
+                            }, 2000);
+                          } else {
+                            setAlert({
+                              severity: "error",
+                              message: "Reset Email Failed",
+                            });
+                            setTimeout(() => {
+                              setAlert(null);
+                            }, 2000);
+                          }
+                        }}
+                        className="adminStudent_resendButton"
+                      >
+                        Resend Verification
+                      </Button>
+                    </Grid>
+                  ) : (
+                    <></>
+                  )}
                 </Grid>
               </Grid>
             </Grid>

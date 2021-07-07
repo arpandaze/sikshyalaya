@@ -126,7 +126,7 @@ const GeneralInfo = () => {
                   justify="center"
                   className="generalInfo_formContainer"
                 >
-                  <Grid item xs={6}>
+                  <Grid item xs={6} style={{ padding: "0px 20px 0px 0px" }}>
                     <CustomTextField
                       name="name"
                       type="text"
@@ -135,7 +135,7 @@ const GeneralInfo = () => {
                       addStyles="generalInfo_inputField"
                     />
                   </Grid>
-                  <Grid item xs={6}>
+                  <Grid item xs={6} style={{ padding: "0px 20px 0px 0px" }}>
                     <CustomTextField
                       name="address"
                       type="text"
