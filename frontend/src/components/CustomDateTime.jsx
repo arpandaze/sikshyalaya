@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Field } from "formik";
 import DateFnsUtils from "@date-io/date-fns";
 import {
@@ -8,7 +8,6 @@ import {
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 import { BiTimeFive } from "react-icons/bi";
-import { formatISO } from "date-fns";
 import "./statics/css/customTextField.css";
 
 const DatePicker = ({ id, label, ...rest }) => {

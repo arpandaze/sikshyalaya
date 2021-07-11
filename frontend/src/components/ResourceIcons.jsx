@@ -23,7 +23,7 @@ const iconList = {
   zip: <AiOutlineFileZip className="resourceIcons_iconStyle" />,
 };
 
-const ResourceIcons = ({ iconType, ...rest }) => {
+const ResourceIcons = ({ iconType }) => {
   return <div className="resourceIcons_icons">{iconList[iconType]}</div>;
 };
 

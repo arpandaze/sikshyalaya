@@ -1,25 +1,16 @@
 import React, { useState, useRef, useContext, useEffect, useMemo } from "react";
-import { Formik, Form, Field, FieldArray } from "formik";
-import CustomButton from "../../components/CustomButton";
+import { Formik, Form } from "formik";
 import DashboardLayout from "../../components/DashboardLayout/DashboardLayout";
 import * as yup from "yup";
 import Checkbox from "./../../components/Checkbox";
 import Grid from "@material-ui/core/Grid";
-import DateFnsUtils from "@date-io/date-fns";
-import { formatISO, format, parseISO } from "date-fns";
 import "./statics/css/quizCreator.css";
-import colorscheme from "../../utils/colors";
 import { UserContext } from "../../utils/Contexts/UserContext";
-import TextField from "@material-ui/core/TextField";
-import { BiMinus } from "react-icons/bi";
 import callAPI from "../../utils/API";
-import useAPI from "../../utils/useAPI";
-import configs from "../../utils/configs";
 import { DateTimePicker } from "../../components/CustomDateTime";
 import CustomTextField from "../../components/CustomTextField";
 import Question from "./components/Question";
 import { QuizContext, QuizOptionContext } from "./QuizContext";
-import { ImCross } from "react-icons/im";
 import GroupBox from "./components/GroupBox";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 

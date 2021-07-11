@@ -5,14 +5,13 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import useAPI from "../../../utils/useAPI";
 import callAPI from "../../../utils/API";
 import "./statics/css/quizView.css";
-import CustomTabComponent from "../../../components/CustomTabComponent";
 import QuestionView from "./QuestionView";
 import CustomButton from "../../../components/CustomButton";
 import { Formik, Form } from "formik";
 import { AlertContext } from "../../../components/DashboardLayout/AlertContext";
 
 const QuizView = ({ location }) => {
-  const { alert, setAlert } = useContext(AlertContext);
+  const { setAlert } = useContext(AlertContext);
   const [exist, setExist] = useState(true);
   const [quizDefaultValue, setQuizDefaultValue] = useState({});
   const history = useHistory();
@@ -40,7 +39,6 @@ const QuizView = ({ location }) => {
       };
       if (flag) {
         const dataToAdd = question.multiple ? [] : "";
-        const stateTemp = { ...quizDefaultValue };
         quizDefaults[question.id] = dataToAdd;
       }
       return formattedResponseData;

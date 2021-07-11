@@ -12,15 +12,9 @@ import stripes from "../../assets/stripes.png";
 import sun from "../../assets/sun.png";
 import useAPI from "../../utils/useAPI";
 import callAPI from "../../utils/API";
-import {
-  Redirect,
-  useHistory,
-} from "react-router-dom/cjs/react-router-dom.min";
-import { format, differenceInHours } from "date-fns";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const imageList = [boxes, cycle, circles, sun, stripes];
-
-const datas = [];
 
 const Quiz = () => {
   const history = useHistory();

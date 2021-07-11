@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import colorscheme from "../../utils/colors";
 import Grid from "@material-ui/core/Grid";
 import Image from "../Image";
 import { StylesProvider } from "@material-ui/core/styles";

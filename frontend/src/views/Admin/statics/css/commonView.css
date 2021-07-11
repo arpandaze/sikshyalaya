@@ -359,6 +359,7 @@
   }
   .adminStudent_fieldTitle {
     margin: 0px;
+    display: inline;
     color: var(--grey1);
   }
   .adminStudent_displayBox {

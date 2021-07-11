@@ -8,7 +8,7 @@ const AdminRoute = ({ component: Component, ...rest }) => {
   useEffect(() => {
     get("user")
       .then((value) => {
-        if (value.user_type != configs.USER_TYPES.TEACHER) {
+        if (value.user_type !== configs.USER_TYPES.TEACHER) {
           setIsLoggedIn(false);
         } else {
           setIsLoggedIn(true);

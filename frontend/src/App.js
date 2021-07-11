@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
-import Routes from "./Route";
+import Routes from "./Routes";
 import "./App.css";
 import { UserContext } from "./utils/Contexts/UserContext";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";

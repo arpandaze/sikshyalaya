@@ -13,15 +13,6 @@ const QuizAnswer = ({ options, onPopUp, name, multiple = false, ...rest }) => {
   const handleChange = (e) => {
     setValue(e.target.value);
   };
-  const handleCheck = (v, i) => {
-    if (v) {
-      for (let j = 0; j < v.length; j++) {
-        if (v[j] && v[j][0].length > 0 && v[j][0] == i.toString()) {
-          return true;
-        }
-      }
-    }
-  };
   return !multiple ? (
     <>
       <Field name={name}>
@@ -41,7 +32,7 @@ const QuizAnswer = ({ options, onPopUp, name, multiple = false, ...rest }) => {
                   value={index.toString()}
                   control={<Radio color="primary" />}
                   label={
-                    option.image != "" ? (
+                    option.image !== "" ? (
                       <Image
                         src={configs.PUBLIC_FILES_PATH + "/" + option.image}
                         className="quizAnswer_optionImage"
@@ -77,7 +68,7 @@ const QuizAnswer = ({ options, onPopUp, name, multiple = false, ...rest }) => {
                 name={`${name}.${index}`}
                 key={index}
                 label={
-                  option.image != "" ? (
+                  option.image !== "" ? (
                     <Image
                       src={configs.PUBLIC_FILES_PATH + "/" + option.image}
                       className="quizAnswer_optionImage"

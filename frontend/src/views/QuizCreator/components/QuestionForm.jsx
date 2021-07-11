@@ -1,12 +1,8 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import Grid from "@material-ui/core/Grid";
-import { Field, FieldArray } from "formik";
-import { GoPlus } from "react-icons/go";
 import { ImCross } from "react-icons/im";
 import colorscheme from "../../../utils/colors";
 import CustomTextField from "./../../../components/CustomTextField";
-import { BsFilePlus } from "react-icons/bs";
-import { DropzoneDialog } from "material-ui-dropzone";
 import Options from "./Options";
 import { FileUpload } from "../../../components/FileUpload";
 import { QuizContext } from "../QuizContext";

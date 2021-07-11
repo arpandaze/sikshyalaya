@@ -3,10 +3,8 @@ import Grid from "@material-ui/core/Grid";
 import DashboardLayout from "../../components/DashboardLayout/DashboardLayout";
 import "./statics/css/classSession.css";
 import ClassResource from "./components/ClassResource";
-import useAPI from "../../utils/useAPI";
 import callAPI from "../../utils/API";
 import DiscussionBox from "./components/DiscussionBox";
-import colorscheme from "../../utils/colors";
 import ConditionalRendering from "../../components/ConditionalRendering";
 
 const resourceList = [

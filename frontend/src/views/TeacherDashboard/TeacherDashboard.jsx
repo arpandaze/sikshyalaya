@@ -1,14 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import DashboardLayout from "../../components/DashboardLayout/DashboardLayout";
 import "./statics/css/teacherDashboard.css";
-import * as yup from "yup";
 import Profile from "./../../assets/pp.jpg";
 import colorscheme from "../../utils/colors";
-import CustomButton from "../../components/CustomButton";
 import { ImCross } from "react-icons/im";
-import { Formik, Form } from "formik";
-import CustomTextField from "../../components/CustomTextField";
 import Student from "./components/Student";
 
 const users = [

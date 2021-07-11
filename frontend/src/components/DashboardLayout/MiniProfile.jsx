@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Image from "../Image";
 import "./statics/css/miniProfile.css";

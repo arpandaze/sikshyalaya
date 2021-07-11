@@ -11,7 +11,6 @@ import { DatePicker } from "../../../components/CustomDateTime";
 import CustomButton from "../../../components/CustomButton";
 import callAPI from "../../../utils/API";
 import "./css/generalInfo.css";
-import { parseISO } from "date-fns";
 import { format } from "date-fns";
 
 const validationSchema = yup.object({

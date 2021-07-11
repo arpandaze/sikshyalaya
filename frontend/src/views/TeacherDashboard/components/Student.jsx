@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Image from "../../../components/Image";
 import Checkbox from "../../../components/Checkbox";
 import "./statics/css/students.css";
 import { Formik, Form } from "formik";
 
-const Student = ({ id, username, src, program, semester, year, ...rest }) => {
+const Student = ({ id, username, src, program, semester, year }) => {
   return (
     <Grid
       container

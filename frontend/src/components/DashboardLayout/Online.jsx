@@ -1,9 +1,7 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Image from "../Image";
 import MiniProfile from "./MiniProfile";
-import { Formik, Form } from "formik";
-import CustomTextField from "../../components/Checkbox";
 import "./statics/css/online.css";
 
 const Online = ({

@@ -3,7 +3,6 @@ import * as yup from "yup";
 import Grid from "@material-ui/core/Grid";
 import colorscheme from "../../utils/colors";
 import DashboardLayout from "../../components/DashboardLayout/DashboardLayout";
-import Students from "./components/Student";
 import { GoPlus } from "react-icons/go";
 import "./statics/css/commonView.css";
 import useAPI from "../../utils/useAPI";
@@ -13,7 +12,6 @@ import { Formik, Form } from "formik";
 import callAPI from "../../utils/API";
 import CustomTextField from "../../components/CustomTextField";
 import { useHistory } from "react-router-dom";
-import { DatePicker } from "../../components/CustomDateTime";
 import AdminBoxSmall from "./components/AdminBoxSmall";
 
 const validationSchema = yup.object({

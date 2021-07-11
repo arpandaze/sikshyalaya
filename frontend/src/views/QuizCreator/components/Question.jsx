@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
-import { Field, FieldArray } from "formik";
+import { FieldArray } from "formik";
 import "../statics/css/quizCreator.css";
 import "./statics/css/questions.css";
 import QuestionForm from "./QuestionForm";

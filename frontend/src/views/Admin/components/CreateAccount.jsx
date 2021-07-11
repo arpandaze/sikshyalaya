@@ -7,7 +7,6 @@ import { DatePicker } from "../../../components/CustomDateTime";
 import CustomButton from "../../../components/CustomButton";
 import colorscheme from "../../../utils/colors";
 import useAPI from "../../../utils/useAPI";
-import callAPI from "../../../utils/API";
 import { ImCross } from "react-icons/im";
 import { Formik, Form } from "formik";
 

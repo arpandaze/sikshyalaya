@@ -8,7 +8,6 @@ import {
 import useAPI from "../../../utils/useAPI";
 import callAPI from "../../../utils/API";
 import "./statics/css/quizView.css";
-import CustomTabComponent from "../../../components/CustomTabComponent";
 import QuestionView from "./QuestionView";
 import CustomButton from "../../../components/CustomButton";
 import { Formik, Form } from "formik";

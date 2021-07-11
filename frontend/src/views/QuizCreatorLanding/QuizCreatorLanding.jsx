@@ -13,12 +13,7 @@ import sun from "../../assets/sun.png";
 import useAPI from "../../utils/useAPI";
 import Button from "@material-ui/core/Button";
 import { GoPlus } from "react-icons/go";
-import callAPI from "../../utils/API";
-import {
-  Redirect,
-  useHistory,
-} from "react-router-dom/cjs/react-router-dom.min";
-import { format, differenceInHours } from "date-fns";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const imageList = [boxes, cycle, circles, sun, stripes];
 

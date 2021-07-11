@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import Login from "./views/Login/LoginBox";
 import ClassSession from "./views/Dashboard/ClassSession";
 import Notes from "./views/Notes/Notes";
@@ -28,7 +28,6 @@ import NotFound from "./views/404/404";
 import ClassSessionCreator from "./views/ClassSessionCreator/ClassSessionCreator";
 import HomeRedirector from "./components/HomeRedirector";
 import ExploreView from "./views/Admin/ExploreView";
-import configs from "./utils/configs";
 import QuizView from "./views/Quiz/components/QuizView";
 import StudentView from "./views/Admin/StudentView";
 

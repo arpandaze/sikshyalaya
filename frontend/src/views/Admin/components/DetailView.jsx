@@ -43,38 +43,38 @@ const DetailView = ({
           <Grid item className="adminStudent_displayContainer">
             <Grid container direction="row">
               <Grid item className="adminStudent_displayDetails">
-                <a className="adminStudent_fieldTitle">Name:</a>{" "}
+                <p className="adminStudent_fieldTitle">Name:</p>{" "}
                 {selectedUser.name}
               </Grid>
               <Grid item className="adminStudent_displayDetails">
-                <a className="adminStudent_fieldTitle">Address: </a>{" "}
+                <p className="adminStudent_fieldTitle">Address: </p>{" "}
                 {selectedUser.address}
               </Grid>
               {detailType === "student" ? (
                 <Grid item className="adminStudent_displayDetails">
-                  <a className="adminStudent_fieldTitle">Program: </a>
+                  <p className="adminStudent_fieldTitle">Program: </p>
                   {selectedUser.programName}
                 </Grid>
               ) : (
                 <Grid item className="adminStudent_displayDetails">
-                  <a className="adminStudent_fieldTitle">Department: </a>
+                  <p className="adminStudent_fieldTitle">Department: </p>
                   {selectedUser.department}
                 </Grid>
               )}
               <Grid item className="adminStudent_displayDetails">
-                <a className="adminStudent_fieldTitle">Year Joined: </a>
+                <p className="adminStudent_fieldTitle">Year Joined: </p>
                 {selectedUser.join_year}
               </Grid>
               <Grid item className="adminStudent_displayDetails">
-                <a className="adminStudent_fieldTitle">Date of Birth: </a>
+                <p className="adminStudent_fieldTitle">Date of Birth: </p>
                 {selectedUser.dob}
               </Grid>
               <Grid item className="adminStudent_displayDetails">
-                <a className="adminStudent_fieldTitle">Email: </a>
+                <p className="adminStudent_fieldTitle">Email: </p>
                 {selectedUser.email}
               </Grid>
               <Grid item className="adminStudent_displayDetails">
-                <a className="adminStudent_fieldTitle">Cotnact No: </a>
+                <p className="adminStudent_fieldTitle">Cotnact No: </p>
                 {selectedUser.contact_number}
               </Grid>
               {!selectedUser.is_active ? (

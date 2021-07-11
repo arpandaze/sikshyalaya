@@ -116,7 +116,7 @@ const QuestionView = ({ data, position, length, multiple, ...rest }) => {
           <Grid item className="questionView_popUpBox">
             <Grid container direction="column">
               <Image
-                src={popUpImage != "" ? popUpImage : ""}
+                src={popUpImage !== "" ? popUpImage : ""}
                 className="questionView_questionPopUpImage"
               />
 

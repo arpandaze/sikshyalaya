@@ -1,12 +1,12 @@
 import React, { useState, useRef, useContext, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
-import { Field, FieldArray } from "formik";
+import { FieldArray } from "formik";
 import "../statics/css/quizCreator.css";
 import { ImCross } from "react-icons/im";
 import colorscheme from "../../../utils/colors";
 import CustomTextField from "./../../../components/CustomTextField";
 import Checkbox from "./../../../components/Checkbox";
-import { QuizContext, QuizOptionContext } from "../QuizContext";
+import { QuizOptionContext } from "../QuizContext";
 import { FileUpload } from "../../../components/FileUpload";
 import ResourceIcons from "./../../../components/ResourceIcons";
 

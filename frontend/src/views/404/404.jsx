@@ -37,8 +37,8 @@ const NotFound = () => {
             spacing={3}
           >
             <Grid item className="notFound_404Message">
-              <a className="notFound_404giant404">404</a>
-              <a className="notFound_pageNotFound">Page Not found</a>
+              <p className="notFound_404giant404">404</p>
+              <p className="notFound_pageNotFound">Page Not found</p>
 
               <p className="notFound_hmm">
                 Hmm... Seems like you're lost in a perpetual black hole. Please
@@ -54,7 +54,7 @@ const NotFound = () => {
                 spacing={2}
               >
                 <Grid item classname="notfound_textContainer">
-                  <a classname="notfound_returnText>">Return to Dashboard</a>
+                  <p classname="notfound_returnText>">Return to Dashboard</p>
                 </Grid>
                 <Grid item classname="notFound_returnHome">
                   <Link to="/landing">
