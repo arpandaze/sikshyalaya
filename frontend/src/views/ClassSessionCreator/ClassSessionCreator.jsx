@@ -249,7 +249,6 @@ const ClassSessionCreator = () => {
                                                   title="Remove"
                                                   type="button"
                                                   onClick={() => {
-                                                    console.log(arrayHelpers);
                                                     arrayHelpers.remove(index);
                                                   }}
                                                   className="classSession_removeButton"

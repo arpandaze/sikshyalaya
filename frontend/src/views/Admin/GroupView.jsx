@@ -83,7 +83,6 @@ const StudentView = ({ location, ...rest }) => {
   );
 
   const programFormatter = (value) => {
-    console.log(value);
     return value.data.map((item) => ({
       name: item.name,
       value: item.id,

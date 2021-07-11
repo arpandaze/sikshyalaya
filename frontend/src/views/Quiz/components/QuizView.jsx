@@ -66,7 +66,6 @@ const QuizView = ({ location }) => {
         pathname: "/quiz",
       });
     }
-    console.log(location.state.quizDefaults);
   }, [location]);
   const onSubmit = async (values) => {
     let temp = Object.entries(values.questions);

@@ -61,7 +61,6 @@ const QuizAnswer = ({ options, onPopUp, name, multiple = false, ...rest }) => {
       <Field name={name} {...rest}>
         {({ field, form }) => (
           <div className="quizAnswer_root">
-            {console.log(field)}
             {options.map((option, index) => (
               <FormControlLabel
                 {...field}

@@ -24,7 +24,6 @@ const Notes = () => {
 
     let responseData = [];
     responseData = response.data.map((note) => {
-      console.log(note.last_updated_time);
       const tempDate = new Date(note.last_updated_time);
       const notesDate = new Date(tempDate.toLocaleString().toString() + " UTC");
       let formattedResponseData = {
@@ -57,7 +56,6 @@ const Notes = () => {
   }, [allNotes]);
 
   const handleSelectNote = (i, p) => {
-    console.log(i + " " + p);
     setSelectedNote({ id: i, position: p });
   };
 
@@ -169,15 +167,12 @@ const Notes = () => {
           content: JSON.stringify(data.content),
         };
         delete data.last_updated_time;
-        console.log(data);
         await callAPI({
           endpoint: `/api/v1/personal_note/${selectedNote.id}`,
           method: "PUT",
           data: data,
         });
-      } catch (e) {
-        console.log(e);
-      }
+      } catch (e) {}
     }
 
     setIsNewNote(true);

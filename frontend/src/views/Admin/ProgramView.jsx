@@ -41,7 +41,6 @@ const GroupView = ({ match, location }) => {
       ...data,
       name: "Semester " + values.sem,
     };
-    console.log(data);
     const position = allGroup.push(dataLocal);
     try {
       const responseData = await callAPI({
@@ -49,7 +48,6 @@ const GroupView = ({ match, location }) => {
         method: "POST",
         data: data,
       });
-      console.log(responseData);
       allGroup[position - 1].id = responseData.data.id;
     } catch (e) {}
     setPopUp(false);

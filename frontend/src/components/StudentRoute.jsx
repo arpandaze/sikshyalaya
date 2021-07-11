@@ -15,7 +15,6 @@ const AdminRoute = ({ component: Component, ...rest }) => {
         }
       })
       .catch((e) => {
-        console.log(e);
         setIsLoggedIn(false);
       });
   });

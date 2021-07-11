@@ -45,7 +45,6 @@ const StudentPagination = ({
     if (search != "" && dataComplete && data) {
       let temp = [...data];
       let filtered = temp.filter((element) => {
-        console.log(element);
         return (
           element.name.toLowerCase().search(search.toLowerCase()) !== -1 ||
           program

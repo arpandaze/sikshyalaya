@@ -134,7 +134,6 @@ const QuizCreator = () => {
     delete quiz.questions;
 
     quiz = quizPostFormatter(quiz);
-    console.log(quiz);
 
     let newQuizId = null;
 

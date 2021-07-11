@@ -72,7 +72,6 @@ const Signup = () => {
   const [group] = useAPI({ endpoint: "/api/v1/group/all/" }, groupFormatter);
 
   const onSubmit = async (data, { setErrors }) => {
-    console.log(data);
     let group_id_list = group.filter((item) => {
       if (item.sem === data.semester && item.program_id === data.program) {
         return item;

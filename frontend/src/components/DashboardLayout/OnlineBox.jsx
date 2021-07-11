@@ -25,7 +25,6 @@ const OnlineBox = ({ miniProfile = true, ...rest }) => {
     if (classmatesState) {
       let year = Math.floor(user.group ? user.group.sem / 2 : 0);
       let cmates = Object.keys(classmatesState).map((item) => {
-        console.log(item, typeof parseInt(item), onlineState);
         return {
           id: item,
           name: classmatesState[item].full_name,
@@ -47,7 +46,6 @@ const OnlineBox = ({ miniProfile = true, ...rest }) => {
             : "NaN",
         };
       });
-      console.log(cmates);
       setClassmates(cmates);
     }
   }, [classmatesState, JSON.stringify(onlineState)]);
