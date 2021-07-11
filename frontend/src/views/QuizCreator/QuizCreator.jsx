@@ -20,10 +20,7 @@ const validationSchema = yup.object({
 });
 
 const QuizCreator = () => {
-  let l = 0;
-
   const history = useHistory();
-  const [popup, setPopup] = useState(false);
   const { user } = useContext(UserContext);
   const endPage = useRef(null);
   const [selectFile, setSelectedFile] = useState({});

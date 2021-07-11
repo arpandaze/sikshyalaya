@@ -16,9 +16,6 @@ import { GoPlus } from "react-icons/go";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const imageList = [boxes, cycle, circles, sun, stripes];
-
-const datas = [];
-
 const Quiz = () => {
   const history = useHistory();
   const [buttonType, setButtonType] = useState(true);

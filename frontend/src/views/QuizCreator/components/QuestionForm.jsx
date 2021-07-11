@@ -28,11 +28,6 @@ const QuestionForm = ({
     setSelectedFile({ ...selectFile, [index]: newValue });
   };
 
-  const onDeleteUploadItem = (index) => {
-    let temp = [...selectFile];
-    temp.splice(index, 1);
-    setSelectedFile(temp);
-  };
   return (
     <>
       <Grid

@@ -3,19 +3,19 @@ import * as yup from "yup";
 import Grid from "@material-ui/core/Grid";
 import Students from "./Student";
 import useAPI from "../../../utils/useAPI";
-const validationSchema = yup.object({
-  full_name: yup.string("Enter your name").required("Name is required"),
-  address: yup.string("Enter your address").required("Address is required"),
-  join_year: yup.number("Enter Joined Year").required("Join year is required"),
-  dob: yup.string("Enter Date of Birth").required("Date of Birth is required"),
-  phone_number: yup.number().typeError("Not a valid phone number"),
-  email: yup
-    .string("Enter your email")
-    .email("Enter a valid email!")
-    .required("Email is required"),
-  semester: yup.number().required("Semester is required"),
-  program: yup.number().required("Program is required"),
-});
+// const validationSchema = yup.object({
+//   full_name: yup.string("Enter your name").required("Name is required"),
+//   address: yup.string("Enter your address").required("Address is required"),
+//   join_year: yup.number("Enter Joined Year").required("Join year is required"),
+//   dob: yup.string("Enter Date of Birth").required("Date of Birth is required"),
+//   phone_number: yup.number().typeError("Not a valid phone number"),
+//   email: yup
+//     .string("Enter your email")
+//     .email("Enter a valid email!")
+//     .required("Email is required"),
+//   semester: yup.number().required("Semester is required"),
+//   program: yup.number().required("Program is required"),
+// });
 const TeacherPagination = ({
   fetchEndpoint,
   formatter,

@@ -8,13 +8,10 @@ const RenderForm = () => {
   switch (tabId) {
     case 1:
       return <GeneralInfo />;
-      break;
     case 2:
       return <PasswordChange />;
-      break;
     case 3:
       return <></>;
-      break;
     default:
       return <GeneralInfo />;
   }

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext, useEffect } from "react";
+import React, { useState, useRef, useContext } from "react";
 import Grid from "@material-ui/core/Grid";
 import { FieldArray } from "formik";
 import "../statics/css/quizCreator.css";

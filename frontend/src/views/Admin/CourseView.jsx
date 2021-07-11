@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import * as yup from "yup";
 import Grid from "@material-ui/core/Grid";
 import colorscheme from "../../utils/colors";
@@ -34,8 +34,6 @@ const validationSchema = yup.object({
 const CourseView = ({ location, ...rest }) => {
   const history = useHistory();
   const [isPopUp, setPopUp] = useState(false);
-  const [editState, setEditState] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null);
   const defaultCourse = [];
   let creditList = [
     { name: "1", value: "1" },
@@ -252,8 +250,6 @@ const CourseView = ({ location, ...rest }) => {
                 className="adminSchool_closeButton"
                 onClick={() => {
                   setPopUp(false);
-                  setEditState(false);
-                  setSelectedUser(null);
                 }}
               />
             </Grid>
