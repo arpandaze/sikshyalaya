@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import * as yup from "yup";
 import Grid from "@material-ui/core/Grid";
 import colorscheme from "../../utils/colors";
 import DashboardLayout from "../../components/DashboardLayout/DashboardLayout";
-import Students from "./components/Student";
 import { GoPlus } from "react-icons/go";
 import "./statics/css/commonView.css";
 import useAPI from "../../utils/useAPI";
@@ -12,8 +11,13 @@ import { ImCross } from "react-icons/im";
 import { Formik, Form } from "formik";
 import callAPI from "../../utils/API";
 import CustomTextField from "../../components/CustomTextField";
-import { useHistory } from "react-router-dom";
+import TextField from "@material-ui/core/TextField";
+import { format } from "date-fns";
 import { DatePicker } from "../../components/CustomDateTime";
+import { AlertContext } from "../../components/DashboardLayout/AlertContext";
+import TeacherPagination from "./components/TeacherPagination";
+import DetailView from "./components/DetailView";
+import CreateAccount from "./components/CreateAccount";
 
 const validationSchema = yup.object({
   full_name: yup.string("Enter your name").required("Name is required"),
@@ -29,82 +33,39 @@ const validationSchema = yup.object({
   program: yup.number().required("Program is required"),
 });
 
-const semester = [
-  { name: "I", value: 1 },
-  { name: "II", value: 2 },
-  { name: "III", value: 3 },
-  { name: "IV", value: 4 },
-  { name: "V", value: 5 },
-  { name: "VI", value: 6 },
-  { name: "VII", value: 7 },
-  { name: "VIII", value: 8 },
-];
-
 const TeacherView = ({ location, ...rest }) => {
-  const history = useHistory();
+  const [filter, setFilter] = useState("");
   const [isPopUp, setPopUp] = useState(false);
+  const [isEdit, setEdit] = useState(false);
   const [editState, setEditState] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
+  const { setAlert } = useContext(AlertContext);
 
   const teacherFormatter = (values) => {
-    return values.data.map((item) => {
+    const finalData = values.data.map((item) => {
       return {
         id: item.id,
         name: item.full_name,
       };
     });
+    return finalData;
   };
-  const teacherEditFormatter = (values) => {
-    return {
-      id: values.data.id,
-      full_name: values.data.full_name,
-      email: values.data.email,
-      dob: values.data.dob,
-      address: values.data.address,
-      contact_number: values.data.contact_number,
-      join_year: values.data.join_year,
-    };
-  };
+
   const teacherDefault = [];
-  const [students] = useAPI(
+  const [teachers] = useAPI(
     { endpoint: `/api/v1/users/teacher/` },
     teacherFormatter,
     teacherDefault
   );
 
-  const programFormatter = (value) =>
-    value.data.map((item) => ({
-      name: item.name,
-      value: item.id,
-    }));
-
-  const groupFormatter = (value) => {
-    return value.data;
-  };
-
-  const [group] = useAPI({ endpoint: "/api/v1/group/all/" }, groupFormatter);
-
-  const [program] = useAPI({ endpoint: "/api/v1/program/" }, programFormatter);
-
   const onSubmit = async (data) => {
-    let group_id_list = group.filter((item) => {
-      if (item.sem === data.semester && item.program.id === data.program) {
-        return item;
-      }
-    });
-
-    if (!group_id_list.length) {
-      throw "No matching group found!";
-    }
-    let group_id = group_id_list[0].id;
-
+    let date = format(data.dob, "yyyy-MM-dd");
     let req_data = {
       email: data.email,
       full_name: data.full_name,
       address: data.address,
-      group_id: group_id,
       contact_number: data.phone_number,
-      dob: data.dob,
+      dob: date,
       join_year: parseInt(data.join_year),
     };
 
@@ -115,7 +76,7 @@ const TeacherView = ({ location, ...rest }) => {
         method: "POST",
         data: req_data,
       });
-      students.push({
+      teachers.push({
         name: req_data.full_name,
         id: response.data.id,
       });
@@ -125,12 +86,20 @@ const TeacherView = ({ location, ...rest }) => {
         method: "PUT",
         data: req_data,
       });
-      const position = students.findIndex(
+      const position = teachers.findIndex(
         (currentValue) => currentValue.id == selectedUser.id
       );
-      students[position] = {
-        name: req_data.full_name,
+      teachers[position] = {
         id: selectedUser.id,
+        name: req_data.full_name,
+        email: req_data.email,
+        program: data.program,
+        semester: data.semester,
+        dob: req_data.dob,
+        address: req_data.address,
+        contact_number: req_data.contact_number,
+        join_year: req_data.join_year,
+        user_type: req_data.user_type,
       };
     }
 
@@ -138,17 +107,22 @@ const TeacherView = ({ location, ...rest }) => {
       setPopUp(false);
       setEditState(false);
       setSelectedUser(null);
+      setAlert({
+        severity: "success",
+        message: "Changes Saved Successfully",
+      });
+      setTimeout(() => {
+        setAlert(null);
+      }, 2000);
+    } else {
+      setAlert({
+        severity: "error",
+        message: "Error Occurred while Saving",
+      });
+      setTimeout(() => {
+        setAlert(null);
+      }, 2000);
     }
-  };
-
-  const loadUser = async (id) => {
-    const postResponse = teacherEditFormatter(
-      await callAPI({
-        endpoint: `/api/v1/users/${id}`,
-        method: "GET",
-      })
-    );
-    setSelectedUser(postResponse);
   };
 
   return (
@@ -179,6 +153,7 @@ const TeacherView = ({ location, ...rest }) => {
                   color={colorscheme.green2}
                   onClick={() => {
                     setPopUp(true);
+                    setEdit(true);
                   }}
                 />
               </div>
@@ -189,154 +164,56 @@ const TeacherView = ({ location, ...rest }) => {
         <Grid item className="adminCommon_botBar">
           <Grid
             container
-            direction="row"
+            direction="column"
             justify="flex-start"
             alignItems="flex-start"
             className="adminCommon_innerContainer"
-            wrap="wrap"
           >
-            {students.map((item) => (
-              <Grid xs={6} item key={item.id}>
-                <Students
-                  key={item.id}
-                  name={item.name}
-                  onEdit={() => {
-                    setEditState(true);
-                    setPopUp(true);
-                    loadUser(item.id);
-                  }}
-                />
-              </Grid>
-            ))}
+            <Grid item className="adminCommon_searchComponentContainer">
+              <TextField
+                variant="outlined"
+                label="Enter Search Query"
+                style={{ width: "100%" }}
+                onChange={(e) => {
+                  setFilter(e.target.value);
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} style={{ width: "100%" }}>
+              <TeacherPagination
+                fetchEndpoint="/api/v1/users/teacher/"
+                formatter={teacherFormatter}
+                search={filter}
+                setSelectedUser={setSelectedUser}
+                setEdit={setEdit}
+                setEditState={setEditState}
+                setPopUp={setPopUp}
+              />
+            </Grid>
           </Grid>
         </Grid>
         <br />
         <br />
       </Grid>
-      {isPopUp ? (
-        <Grid
-          container
-          justify="center"
-          className="adminTeacher_popUpContainer"
-        >
-          <Grid item className="adminTeacher_popUpBox">
-            <Grid container direction="column" className="adminTeacher_formBox">
-              <Formik
-                enableReinitialize={true}
-                initialValues={
-                  selectedUser
-                    ? {
-                        full_name: selectedUser.full_name,
-                        address: selectedUser.address,
-                        program: selectedUser.program,
-                        semester: selectedUser.semester,
-                        join_year: selectedUser.join_year,
-                        dob: selectedUser.dob,
-                        email: selectedUser.email,
-                        phone_number: selectedUser.contact_number,
-                      }
-                    : {
-                        full_name: "",
-                        address: "",
-                        program: "",
-                        semester: "",
-                        join_year: "",
-                        dob: null,
-                        phone_number: "",
-                        email: "",
-                        password: "",
-                        confirm_password: "",
-                      }
-                }
-                validationSchema={validationSchema}
-                onSubmit={onSubmit}
-              >
-                <Form>
-                  <Grid
-                    container
-                    direction="row"
-                    justify="flex-start"
-                    alignItems="flex-start"
-                  >
-                    <Grid item xs={6} style={{ padding: "0px 20px 0px 0px" }}>
-                      <CustomTextField
-                        name="full_name"
-                        type="text"
-                        placeHolder="Full Name"
-                        id="full_name"
-                        addStyles="adminTeacher_inputButton"
-                      />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <CustomTextField
-                        name="address"
-                        type="text"
-                        placeHolder="Address"
-                        id="address"
-                        addStyles="adminTeacher_inputButton"
-                      />
-                    </Grid>
-                    <Grid item xs={6} style={{ padding: "0px 20px 0px 0px" }}>
-                      <CustomTextField
-                        id="join_year"
-                        name="join_year"
-                        placeHolder="Join"
-                        label="Join year"
-                        type="text"
-                        className="adminTeacher_inputButton"
-                      />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <DatePicker
-                        id="dob"
-                        label="Birth Date"
-                        className="adminTeacher_inputButton"
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <CustomTextField
-                        name="phone_number"
-                        type="text"
-                        placeHolder="Phone Number"
-                        id="phone_number"
-                        addStyles="adminTeacher_inputButton"
-                        autoComplete="on"
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <CustomTextField
-                        name="email"
-                        type="text"
-                        placeHolder="Email"
-                        id="email"
-                        addStyles="adminTeacher_inputButton"
-                        autoComplete="on"
-                      />
-                    </Grid>
-                    <Grid item className="adminTeacher_submitButtonContainer">
-                      <CustomButton
-                        name="Save"
-                        type="submit"
-                        addStyles="adminTeacher_submitButton"
-                      />
-                    </Grid>
-                  </Grid>
-                </Form>
-              </Formik>
-            </Grid>
-            <Grid item className="adminSchool_closeButtonContainer">
-              <ImCross
-                color={colorscheme.red3}
-                className="adminSchool_closeButton"
-                onClick={() => {
-                  setPopUp(false);
-                  setEditState(false);
-                  setSelectedUser(null);
-                }}
-              />
-            </Grid>
-          </Grid>
-        </Grid>
+      {isPopUp && isEdit ? (
+        <CreateAccount
+          selectedUser={selectedUser}
+          setSelectedUser={setSelectedUser}
+          setEdit={setEdit}
+          setEditState={setEditState}
+          setPopUp={setPopUp}
+          onSubmit={onSubmit}
+          detailType="teacher"
+        />
+      ) : isPopUp && !isEdit ? (
+        <DetailView
+          selectedUser={selectedUser}
+          setSelectedUser={setSelectedUser}
+          setEdit={setEdit}
+          setEditState={setEditState}
+          setPopUp={setPopUp}
+          detailType="teacher"
+        />
       ) : (
         <></>
       )}
