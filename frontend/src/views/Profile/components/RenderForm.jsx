@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { ProfileContext } from "../ProfileContext";
 import GeneralInfo from "./GeneralInfo";
 import PasswordChange from "./PasswordChange";
+import Session from "./Session";
 
 const RenderForm = () => {
   const { tabId } = useContext(ProfileContext);
@@ -11,7 +12,7 @@ const RenderForm = () => {
     case 2:
       return <PasswordChange />;
     case 3:
-      return <></>;
+      return <Session />;
     default:
       return <GeneralInfo />;
   }

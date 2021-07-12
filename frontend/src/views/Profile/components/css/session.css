@@ -1,0 +1,85 @@
+@import "../../../../utils/colors.css";
+
+@media only screen and (min-width: 1280px) {
+  .session_root {
+    height: 330px;
+  }
+  .session_titleContainer {
+    height: 60px;
+    border-bottom: 1px solid var(--grey6);
+  }
+  .session_title {
+    margin: 0;
+    width: 200px !important;
+    font-size: 1.3em;
+    font-weight: bold;
+    text-indent: 15px;
+  }
+  .session_bodyRoot {
+    height: 210px;
+  }
+  .session_sessionContainer {
+    overflow-y: scroll;
+  }
+  .session_eachSessionRoot {
+    height: 70px;
+    border-bottom: 1px solid var(--grey6);
+  }
+
+  .session_eachSessionRoot:hover {
+    background-color: var(--red8);
+  }
+  .session_iconContainer {
+    width: 70px !important;
+    height: 70px !important;
+  }
+  .session_info {
+    width: 400px !important;
+    margin-top: 10px;
+  }
+  .session_device {
+    margin: 0;
+    font-size: 1.15em;
+    font-weight: 600;
+    text-indent: 5px;
+    color: var(--primaryTextColor);
+  }
+  .session_browser {
+    margin: 0;
+    color: var(--secondaryTextColor);
+    text-indent: 5px;
+    font-weight: 600;
+  }
+  .session_ip1 {
+    margin: 0;
+    text-indent: 5px;
+    font-weight: 600;
+    color: var(--accentColor);
+  }
+  .session_ip2 {
+    margin: 0;
+    text-indent: 5px;
+    font-weight: 600;
+    color: var(--accentColor);
+  }
+  .session_button {
+    width: 100px !important;
+  }
+  .session_logout {
+    position: relative;
+  }
+  .session_logoutText {
+    position: absolute;
+    right: 20px;
+    font-weight: bold;
+    font-size: 1.1em;
+    color: var(--accentColor);
+    cursor: pointer;
+  }
+  .session_logoutText:hover {
+    color: var(--red41);
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+}
