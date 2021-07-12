@@ -104,19 +104,23 @@ def test_put_specific_school(super_user_client):
     assert created_school_specific.get("address") == "Newland"
 
 
-def test_delete_school(super_user_client):
-    get_req = super_user_client.get(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/school/",
-    )
-    assert get_req.status_code == 200
+def test_delete_school(super_user_client, school_id=None):
+    if not school_id:
+        get_req = super_user_client.get(
+            f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/school/",
+        )
+        assert get_req.status_code == 200
 
-    schools = get_req.json()
-    created_school = [
-        school
-        for school in schools
-        if (school.get("name") == "Updated School")
-        and (school.get("address") == "Newland")
-    ]
+        schools = get_req.json()
+        created_school = [
+            school
+            for school in schools
+            if (school.get("name") == "Updated School")
+            and (school.get("address") == "Newland")
+        ]
+
+    else:
+        created_school = [{"id": school_id}]
 
     delete_req = super_user_client.delete(
         f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/school/{created_school[0]['id']}/",
