@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 class DepartmentBase(BaseModel):
     name: str
-    school_id: int
+    school_id: Optional[int]
 
 
 class DepartmentCreate(DepartmentBase):
