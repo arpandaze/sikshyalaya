@@ -99,18 +99,25 @@ def test_put_specific_department(super_user_client):
     assert created_department_specific.get("name") == "Updated Department"
 
 
-def test_delete_department(super_user_client):
+def test_delete_department(super_user_client, department_id=None):
     get_req = super_user_client.get(
         f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/department/",
     )
     assert get_req.status_code == 200
 
     departments = get_req.json()
-    created_department = [
-        department
-        for department in departments
-        if (department.get("name") == "Updated Department")
-    ]
+    if not department_id:
+        created_department = [
+            department
+            for department in departments
+            if (department.get("name") == "Updated Department")
+        ]
+    else:
+        created_department = [
+            department
+            for department in departments
+            if (department.get("id") == department_id)
+        ]
 
     delete_req = super_user_client.delete(
         f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/department/{created_department[0]['id']}/",
@@ -127,7 +134,10 @@ def test_delete_department(super_user_client):
     filtered_department = [
         department
         for department in departments
-        if (department.get("name") == "Updated School")
+        if (
+            department.get("name") == "Updated School"
+            or department.get("name") == "Test Department"
+        )
     ]
     assert not filtered_department
     test_school.test_delete_school(
