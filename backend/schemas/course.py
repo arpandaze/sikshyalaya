@@ -18,7 +18,10 @@ class CourseCreate(CourseBase):
 
 # properties to recieve via API on update
 class CourseUpdate(CourseBase):
-    pass
+    course_code: Optional[str]
+    course_name: Optional[str]
+    course_credit: Optional[int]
+    department_id: Optional[int]
 
 
 class CourseInDBBase(CourseBase):
