@@ -16,7 +16,8 @@ class ProgramCreate(ProgramBase):
 
 # properties to recive via API on Update
 class ProgramUpdate(ProgramBase):
-    pass
+    name: Optional[str]
+    department_id: Optional[int]
 
 
 # properties to return via the api
