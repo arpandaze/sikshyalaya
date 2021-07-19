@@ -15,7 +15,6 @@ router = APIRouter()
 
 
 @router.get("/", response_model=List[Program])
-@cache(timeout=60)
 async def get_programs(
     db: Session = Depends(deps.get_db),
     skip: int = 0,
@@ -30,7 +29,7 @@ async def create_program(
     db: Session = Depends(deps.get_db),
     user=Depends(deps.get_current_admin_or_above),
     *,
-    program_in: ProgramCreate
+    program_in: ProgramCreate,
 ) -> Any:
     program = crud_program.create(db, obj_in=Program(**program_in.dict()))
     for sem_iter in range(program_in.max_sems):
@@ -49,7 +48,31 @@ async def get_program(
     db: Session = Depends(deps.get_db),
     user=Depends(deps.get_current_active_user),
     *,
-    program_id: int
+    program_id: int,
 ) -> Any:
     program = crud_program.get(db, program_id)
     return program
+
+
+@router.put("/{program_id}/")
+def update_program(
+    db: Session = Depends(deps.get_db),
+    *,
+    program_id: int,
+    obj_in: ProgramUpdate,
+    current_user=Depends(deps.get_current_admin_or_above),
+) -> Any:
+    department = crud_program.get(db, program_id)
+    crud_program.update(db, db_obj=department, obj_in=obj_in)
+    return {"status": "success"}
+
+
+@router.delete("/{program_id}/")
+async def delete_program(
+    db: Session = Depends(deps.get_db),
+    user=Depends(deps.get_current_admin_or_above),
+    *,
+    program_id: int,
+):
+    crud_program.remove(db=db, id=program_id)
+    return {"msg": "success"}
