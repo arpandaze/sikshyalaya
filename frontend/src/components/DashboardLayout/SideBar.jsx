@@ -153,7 +153,7 @@ const SideBar = () => {
             }}
             variant="outlined"
             color="primary"
-            startIcon={<RiLogoutBoxLine />}
+            startIcon={<RiLogoutBoxLine className="logoutButton_icon" />}
             onClick={() => {
               history.push({
                 pathname: "/logout",

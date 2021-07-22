@@ -1,36 +1,33 @@
 @import "../../../../utils/colors.css";
-@media only screen and (min-width: 1920px) {
+@media only screen and (min-width: 1280px) {
   .mainDash_root {
-    width: 95% !important;
-    height: 100vh !important;
+    width: 98% !important;
     margin: 0px auto !important;
     position: relative !important;
     flex-grow: 1 !important;
   }
-
   .mainDash_topBar {
     width: 100% !important;
     height: 20px !important;
-    margin-top: 50px !important;
+    margin-top: 20px !important;
   }
   .mainDash_botBar {
     width: 100% !important;
-    height: 810px !important;
+    height: 660px !important;
     margin-top: 20px !important;
   }
   .mainDash_leftContainer {
-    height: 810px !important;
+    height: 660px !important;
   }
   .mainDash_middleContainer {
-    height: 810px !important;
+    height: 660px !important;
   }
   .mainDash_rightContainer {
     height: 810px !important;
   }
   .mainDash_activeClassBoxContainer {
-    width: 95% !important;
-    height: 250px !important;
-    background: var(--white) !important;
+    width: 92% !important;
+    height: 220px;
     border-radius: 15px !important;
     border: 1px solid var(--grey6);
   }
@@ -39,8 +36,8 @@
   .mainDash_activeClassBoxTop {
   }
   .mainDash_smallRedBox {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
     background: var(--red4);
     position: relative;
@@ -50,19 +47,17 @@
   .mainDash_activeClassTitle {
     position: relative;
     left: 15px;
-    font-size: 1.7em;
+    font-size: 1.5em;
   }
   .mainDash_activeClassInside {
     list-style-type: none;
   }
   .mainDash_activeClassBoxBottom {
     position: relative;
-    height: 172px;
   }
   .mainDash_activeClassListContainer {
     height: 140px;
-    margin: 8px auto auto 45px;
-    background: var(--secondary);
+    margin: 8px auto auto 20px;
   }
   .mainDash_activeClassListrow1 {
     height: 140px;
@@ -94,7 +89,7 @@
   .mainDash_activeClassListrow_col_1_bold {
     margin: 0px;
     padding: 0px;
-    font-size: 1.7em;
+    font-size: 1.2em;
     font-weight: bold;
     color: var(--primaryTextColor);
   }
@@ -103,6 +98,189 @@
     margin: 0px;
     padding: 0px;
     font-size: 0.8em;
+    font-weight: 600;
+    color: var(--secondaryTextColor);
+  }
+
+  .mainDash_activeClassListrow_col_2_bold {
+    margin: 0px;
+    padding: 0px;
+    font-size: 0.9em;
+    font-weight: bold;
+    color: var(--primaryTextColor);
+  }
+
+  .mainDash_activeClassListrow_col_2_light {
+    margin: 0px;
+    padding: 0px;
+    font-size: 0.9em;
+    font-weight: 600;
+    color: var(--secondaryTextColor);
+  }
+
+  .mainDash_activeClassListrow2_bot {
+    position: absolute;
+    bottom: 0px;
+    text-align: right;
+  }
+
+  .mainDash_activeClassListrow2_bot_text {
+    font-size: 0.9em;
+    color: var(--blue);
+  }
+
+  .mainDash_activeClassListtimeText {
+    font-size: 1em;
+    font-weight: 400;
+    color: var(--primaryTextColor);
+  }
+  .mainDash_classResourcesBoxContainer {
+    width: 92% !important;
+    height: 415px !important;
+    margin-top: 15px !important;
+    border-radius: 15px !important;
+    border: 1px solid var(--grey6);
+  }
+  .mainDash_classResourceBoxInside {
+  }
+  .mainDash_classResourceBoxTop {
+  }
+  .mainDash_smallPurpleBox {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--purple);
+    position: relative;
+    margin-left: 20px !important;
+  }
+  .mainDash_classResourceTitle {
+    position: relative;
+    left: 15px;
+    font-size: 1.5em;
+  }
+  .mainDash_classResourceBoxBottom {
+    height: 440px;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+  .mainDash_discussionBoxContainer {
+    width: 96%;
+    height: 642px !important;
+    margin: 0px auto !important;
+    background: var(--white) !important;
+    border-radius: 15px !important;
+  }
+  .mainDash_discussionBoxInside {
+  }
+  .mainDash_discussionBoxTop {
+    width: 100%;
+    height: 100px;
+  }
+  .mainDash_smallBlueBox {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--blue);
+    position: relative;
+    margin-left: 20px !important;
+  }
+  .mainDash_discussionBoxTitle {
+    position: relative;
+    left: 15px;
+    font-size: 1.7em;
+  }
+  .mainDash_discussionBoxBottom {
+    height: 700px;
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  .mainDash_topBar {
+    height: 50px !important;
+    margin-top: 30px !important;
+  }
+  .mainDash_botBar {
+    height: 840px !important;
+  }
+  .mainDash_leftContainer {
+    height: 840px !important;
+  }
+  .mainDash_middleContainer {
+    height: 840px !important;
+  }
+  .mainDash_activeClassBoxContainer {
+    width: 90% !important;
+    height: 230px;
+    border-radius: 15px !important;
+    border: 1px solid var(--grey6);
+  }
+  .mainDash_activeClassBoxInside {
+  }
+  .mainDash_activeClassBoxTop {
+  }
+  .mainDash_smallRedBox {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--red4);
+    position: relative;
+    margin-left: 20px !important;
+    animation: live 1s infinite ease-in-out !important;
+  }
+  .mainDash_activeClassTitle {
+    position: relative;
+    left: 15px;
+    font-size: 1.5em;
+  }
+  .mainDash_activeClassInside {
+    list-style-type: none;
+  }
+  .mainDash_activeClassBoxBottom {
+    position: relative;
+  }
+  .mainDash_activeClassListContainer {
+    height: 140px;
+    margin: 8px auto auto 40px;
+  }
+  .mainDash_activeClassListrow1 {
+    height: 140px;
+  }
+
+  .mainDash_activeClassListrow_col_box {
+    height: 140px;
+    position: relative;
+  }
+
+  .mainDash_activeClassListrow2 {
+    position: relative;
+    height: 140px;
+  }
+
+  .mainDash_activeClassListbuttonContainer {
+    position: relative;
+  }
+
+  .mainDash_activeClassListrow_col_1 {
+    position: relative;
+    top: -20px;
+  }
+
+  .mainDash_activeClassListrow_col_2 {
+    position: relative;
+  }
+
+  .mainDash_activeClassListrow_col_1_bold {
+    margin: 0px;
+    padding: 0px;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--primaryTextColor);
+  }
+
+  .mainDash_activeClassListrow_col_1_light {
+    margin: 0px;
+    padding: 0px;
+    font-size: 0.9em;
     font-weight: 600;
     color: var(--secondaryTextColor);
   }
@@ -140,10 +318,9 @@
     color: var(--primaryTextColor);
   }
   .mainDash_classResourcesBoxContainer {
-    width: 95% !important;
-    height: 510px !important;
-    margin-top: 40px !important;
-    background: var(--white) !important;
+    width: 92% !important;
+    height: 555px !important;
+    margin-top: 15px !important;
     border-radius: 15px !important;
     border: 1px solid var(--grey6);
   }
@@ -162,20 +339,19 @@
   .mainDash_classResourceTitle {
     position: relative;
     left: 15px;
-    font-size: 1.7em;
+    font-size: 1.5em;
   }
   .mainDash_classResourceBoxBottom {
-    height: 430px;
+    height: 440px;
     overflow: hidden;
     overflow-y: auto;
   }
   .mainDash_discussionBoxContainer {
-    width: 95% !important;
-    height: 800px !important;
+    width: 96%;
+    height: 822px !important;
     margin: 0px auto !important;
     background: var(--white) !important;
     border-radius: 15px !important;
-    border: 1px solid var(--grey6);
   }
   .mainDash_discussionBoxInside {
   }
@@ -198,118 +374,6 @@
   }
   .mainDash_discussionBoxBottom {
     height: 700px;
-  }
-}
-
-@media only screen and (max-width: 1919px) {
-  .mainDash_root {
-    width: 98% !important;
-    height: 100vh !important;
-    margin: 0px auto !important;
-    position: relative !important;
-    flex-grow: 1 !important;
-  }
-
-  .mainDash_topBar {
-    width: 100% !important;
-    height: 10px !important;
-    margin-top: 50px !important;
-  }
-  .mainDash_botBar {
-    width: 100% !important;
-    height: 700px !important;
-    margin-top: 20px !important;
-  }
-  .mainDash_leftContainer {
-    height: 750px !important;
-  }
-  .mainDash_middleContainer {
-    height: 750px !important;
-  }
-  .mainDash_rightContainer {
-    height: 750px !important;
-  }
-  .mainDash_activeClassBoxContainer {
-    width: 90% !important;
-    height: calc(180px + 2vw) !important;
-    max-height: 250px;
-    background: var(--white) !important;
-    border-radius: 15px !important;
-    border: 1px solid var(--grey6);
-  }
-  .mainDash_activeClassBoxInside {
-  }
-  .mainDash_activeClassBoxTop {
-  }
-  .mainDash_smallRedBox {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: var(--red4);
-    position: relative;
-    margin-left: 20px !important;
-    animation: live 1s infinite ease-in-out !important;
-  }
-  .mainDash_activeClassTitle {
-    position: relative;
-    left: 15px;
-    font-size: 1.3em;
-  }
-  .mainDash_activeClassBoxBottom {
-  }
-  .mainDash_classResourcesBoxContainer {
-    width: 90% !important;
-    height: 412px !important;
-    margin-top: 40px !important;
-    background: var(--white) !important;
-    border-radius: 15px !important;
-    border: 1px solid var(--grey6);
-  }
-  .mainDash_classResourceBoxInside {
-  }
-  .mainDash_classResourceBoxTop {
-  }
-  .mainDash_smallPurpleBox {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: var(--purple);
-    position: relative;
-    margin-left: 20px !important;
-  }
-  .mainDash_classResourceTitle {
-    position: relative;
-    left: 15px;
-    font-size: 1.3em;
-  }
-  .mainDash_classResourceBoxBottom {
-    height: 345px;
-    overflow: hidden;
-    overflow-y: auto;
-  }
-  .mainDash_discussionBoxContainer {
-    height: 650px !important;
-    margin: 0px auto !important;
-    background: var(--white) !important;
-    border-radius: 15px !important;
-    border: 1px solid var(--grey6);
-  }
-  .mainDash_discussionBoxInside {
-  }
-  .mainDash_discussionBoxTop {
-  }
-  .mainDash_smallBlueBox {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: var(--blue);
-    position: relative;
-    margin-left: 20px !important;
-  }
-  .mainDash_discussionBoxTitle {
-    position: relative;
-    left: 15px;
-    font-size: 1.3em;
   }
 }
 
