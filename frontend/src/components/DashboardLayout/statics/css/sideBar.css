@@ -43,7 +43,7 @@
   .sideBar_logOutButton {
     width: 100%;
     height: 100%;
-    font-size: 0.7em !important;
+    font-size: 0.7em;
   }
 }
 
@@ -60,5 +60,11 @@
   }
   .sideBar_sidebarLink {
     margin: 25px auto;
+  }
+  .logoutButton_icon {
+    width: 18px;
+  }
+  .sideBar_logOutButton {
+    font-size: 1em;
   }
 }
