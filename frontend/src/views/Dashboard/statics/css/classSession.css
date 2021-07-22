@@ -197,7 +197,7 @@
 @media only screen and (min-width: 1920px) {
   .mainDash_topBar {
     height: 50px !important;
-    margin-top: 50px !important;
+    margin-top: 30px !important;
   }
   .mainDash_botBar {
     height: 840px !important;
@@ -210,7 +210,7 @@
   }
   .mainDash_activeClassBoxContainer {
     width: 90% !important;
-    height: 270px;
+    height: 230px;
     border-radius: 15px !important;
     border: 1px solid var(--grey6);
   }
@@ -240,7 +240,7 @@
   }
   .mainDash_activeClassListContainer {
     height: 140px;
-    margin: 8px auto auto 20px;
+    margin: 8px auto auto 40px;
   }
   .mainDash_activeClassListrow1 {
     height: 140px;
@@ -272,7 +272,7 @@
   .mainDash_activeClassListrow_col_1_bold {
     margin: 0px;
     padding: 0px;
-    font-size: 1.2em;
+    font-size: 1.5em;
     font-weight: bold;
     color: var(--primaryTextColor);
   }
@@ -280,7 +280,7 @@
   .mainDash_activeClassListrow_col_1_light {
     margin: 0px;
     padding: 0px;
-    font-size: 0.8em;
+    font-size: 0.9em;
     font-weight: 600;
     color: var(--secondaryTextColor);
   }
@@ -288,7 +288,7 @@
   .mainDash_activeClassListrow_col_2_bold {
     margin: 0px;
     padding: 0px;
-    font-size: 0.9em;
+    font-size: 1.1em;
     font-weight: bold;
     color: var(--primaryTextColor);
   }
@@ -319,7 +319,7 @@
   }
   .mainDash_classResourcesBoxContainer {
     width: 92% !important;
-    height: 540px !important;
+    height: 555px !important;
     margin-top: 15px !important;
     border-radius: 15px !important;
     border: 1px solid var(--grey6);

@@ -32,18 +32,28 @@
     text-decoration: none !important;
   }
   .sideBar_logOutContainer {
+    width: 95px;
+    height: 35px;
+    position: fixed;
+    bottom: 30px;
+  }
+  .logoutButton_icon {
+    width: 12px;
+  }
+  .sideBar_logOutButton {
+    width: 100%;
+    height: 100%;
+    font-size: 0.7em !important;
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  .sideBar_logOutContainer {
     width: 125px;
     height: 42px;
     position: fixed;
     bottom: 40px;
   }
-  .sideBar_logOutButton {
-    width: 100%;
-    height: 100%;
-  }
-}
-
-@media only screen and (min-width: 1920px) {
   .sideBar_horizontalLine {
     width: 70px !important;
     margin: -10px auto !important;
