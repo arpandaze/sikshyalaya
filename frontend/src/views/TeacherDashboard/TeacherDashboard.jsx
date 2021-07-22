@@ -134,16 +134,7 @@ const TeacherDashbaord = () => {
         wrap="nowrap"
         className="teacherDash_root"
       >
-        <Grid item className="teacherDash_topBar">
-          <div
-            className="teacherDash_attendanceButton"
-            onClick={() => {
-              setPopup(true);
-            }}
-          >
-            Attendance
-          </div>
-        </Grid>
+        <Grid item className="teacherDash_topBar"></Grid>
         <Grid item className="teacherDash_botBar">
           <Grid container direction="row" justify="center" alignItems="center">
             <Grid item className="teacherDash_leftContainer" xs={4}>
@@ -157,83 +148,15 @@ const TeacherDashbaord = () => {
                   item
                   className="teacherDash_activeClassBoxContainer"
                 ></Grid>
-                <Grid item className="teacherDash_quizBoxContainer"></Grid>
-                <Grid item className="teacherDash_resourceBoxContainer"></Grid>
+                <Grid item className="teacherDash_attendanceContainer"></Grid>
               </Grid>
             </Grid>
-            <Grid item className="teacherDash_middleContainer" xs={8}>
+            <Grid item className="teacherDash_rightContainer" xs={8}>
               <div className="teacherDash_discussionBoxContainer"></div>
             </Grid>
           </Grid>
         </Grid>
       </Grid>
-      {popup ? (
-        <Grid
-          container
-          justify="center"
-          alignItems="center"
-          className="teacherDash_popUpContainer"
-        >
-          <Grid item className="teacherDash_popUpBox">
-            <Grid
-              container
-              className="teacherDash_popUptopBar"
-              alignItems="center"
-              justify="center"
-            >
-              <Grid item xs={9} className="teacherDash_popupTitleContainer">
-                <p className="teacherDash_popupTitle">Attendance</p>
-              </Grid>
-              <Grid item xs={1} className="teacherDash_closeButtonContainer">
-                <ImCross
-                  color={colorscheme.red3}
-                  className="teacherDash_closeButton"
-                  onClick={() => {
-                    setPopup(false);
-                  }}
-                />
-              </Grid>
-            </Grid>
-            <Grid container direction="column" className="teacherDash_formBox">
-              <Grid
-                container
-                direction="column"
-                alignItems="center"
-                justify="center"
-              >
-                <Grid
-                  item
-                  xs={12}
-                  className="teacherDash_userlistContainerOuter"
-                >
-                  <Grid
-                    container
-                    direction="column"
-                    className="teacherDash_userlistContainer"
-                    alignItems="center"
-                    wrap="nowrap"
-                  >
-                    {users.map((user) => (
-                      <Grid item className="teacherDash_userList">
-                        <Student
-                          id={user.id}
-                          username={user.name}
-                          src={user.image}
-                          year={user.year}
-                          semester={user.semester}
-                          program={user.program}
-                        />
-                      </Grid>
-                    ))}
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-      ) : (
-        <></>
-      )}
     </DashboardLayout>
   );
 };

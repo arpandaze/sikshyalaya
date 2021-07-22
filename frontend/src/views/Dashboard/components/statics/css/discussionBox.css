@@ -3,7 +3,6 @@
 @media only screen and (min-width: 1280px) {
   .discussionBox_discussionBoxContainer {
     width: 500px;
-    height: 590px;
   }
   .discussionBox_chatBox {
     position: relative;
@@ -86,6 +85,6 @@
   }
 
   .discussionBox_discussionBoxBottom {
-    height: 700px;
+    height: 720px;
   }
 }

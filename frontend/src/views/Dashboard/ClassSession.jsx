@@ -312,7 +312,9 @@ const Dashboard = ({ match }) => {
                 </Grid>
               </Grid>
               <Grid item className="mainDash_middleContainer" xs={8}>
-                <DiscussionBox classID={classDetails.id} />
+                <Grid item className="mainDash_discussionBoxContainer">
+                  <DiscussionBox classID={classDetails.id} />
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
