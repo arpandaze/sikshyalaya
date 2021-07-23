@@ -1,0 +1,99 @@
+@import "../../../../utils/colors.css";
+
+@keyframes live {
+  0% {
+    background: var(--red4);
+  }
+  50% {
+    background: var(--red5);
+  }
+  100% {
+    background: var(--red4);
+  }
+}
+
+@media only screen and (min-width: 1280px) {
+  .landing_root {
+    flex-grow: 1;
+    width: 94% !important;
+    margin: 0px auto !important;
+    position: relative;
+  }
+  .landing_activeCourseBar {
+    position: relative;
+  }
+  .landing_row {
+    position: relative;
+    top: 20px;
+  }
+  .landing_row2 {
+    position: relative;
+    margin-top: 80px !important;
+  }
+  .landing_smallRedBox {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--red4);
+    position: relative;
+    margin-left: 30px !important;
+    animation: live 1s infinite ease-in-out !important;
+  }
+  .landing_currentContainer {
+    width: 45%;
+    margin-left: 30px;
+  }
+  .landing_activeTitle {
+    display: inline-block;
+    position: relative;
+    left: 15px;
+    color: var(--primaryTextColor);
+  }
+  .landing_upCommingCourseBar {
+    position: relative;
+  }
+  .landing_upCommingContainerBox {
+    width: 50%;
+    padding: 2% 5% 0 5%;
+    margin: 0px auto;
+  }
+  .landing_upcomingIcon {
+    display: inline-block;
+    position: relative;
+    margin-left: 30px !important;
+  }
+  .landing_upcomingText {
+    display: inline-block;
+    position: relative;
+    left: 15px;
+    color: var(--primaryTextColor);
+  }
+  .landing_upCommingContainer {
+    width: 98%;
+    margin: 0px auto !important;
+  }
+
+  .quiz_noActiveClass {
+    margin: 0px;
+    font-size: 1.25em;
+    font-weight: 500;
+    text-indent: 35px;
+  }
+  
+  .teacherLanding_header{
+    width:100%;
+    position: relative;
+  }
+  .landing_addsessionButton{
+    position: absolute;
+    right:50px;
+    top:30px
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  .landing_currentContainer {
+    width: 33%;
+  }
+}

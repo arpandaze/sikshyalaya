@@ -29,6 +29,124 @@
     background: var(--white) !important;
     border-radius: 15px !important;
     border: 1px solid var(--grey6);
+    border: 1px solid var(--black);
+  }
+  .teacherDash_activeClassBoxContainer {
+    width: 92% !important;
+    height: 220px;
+    border-radius: 15px !important;
+    border: 1px solid var(--grey6);
+    border: 1px solid var(--black);
+
+  }
+  .teacherDash_activeClassBoxInside {
+
+  }
+  .teacherDash_activeClassBoxTop {
+
+  }
+  .teacherDash_smallRedBox {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--red4);
+    position: relative;
+    margin-left: 20px !important;
+    animation: live 1s infinite ease-in-out !important;
+  }
+  .teacherDash_activeClassTitle {
+    position: relative;
+    left: 15px;
+    font-size: 1.5em;
+    padding:5px;
+  }
+  .teacherDash_activeClassInside {
+    list-style-type: none;
+  }
+  .teacherDash_activeClassBoxBottom {
+    position: relative;
+    padding:10px 5px 10px 15px;
+  }
+  .teacherDash_activeClassListContainer {
+    height: 140px;
+    margin: 8px auto auto 20px;
+  }
+  .teacherDash_activeClassListrow1 {
+    height: 140px;
+  }
+
+  .teacherDash_activeClassListrow_col_box {
+    height: 140px;
+    position: relative;
+  }
+
+  .teacherDash_activeClassListrow2 {
+    position: relative;
+    height: 140px;
+  }
+
+  .teacherDash_activeClassListbuttonContainer {
+    position: relative;
+    border: 1px solid var(--red4);
+  }
+
+  .teacherDash_activeClassListrow_col_1 {
+    position: relative;
+    top: -20px;
+  }
+
+  .teacherDash_activeClassListrow_col_2 {
+    position: relative;
+  }
+
+  .teacherDash_activeClassListrow_col_1_bold {
+    margin: 0px;
+    padding: 0px;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--primaryTextColor);
+  }
+
+  .teacherDash_activeClassListrow_col_1_light {
+    margin: 0px;
+    padding: 0px;
+    font-size: 0.8em;
+    font-weight: 600;
+    color: var(--secondaryTextColor);
+  }
+
+  .teacherDash_activeClassListrow_col_2_bold {
+    margin: 0px;
+    padding: 0px;
+    font-size: 0.9em;
+    font-weight: bold;
+    color: var(--primaryTextColor);
+  }
+
+  .teacherDash_activeClassListrow_col_2_light {
+    margin: 0px;
+    padding: 0px;
+    font-size: 0.9em;
+    max-width: 80%;
+    font-weight: 600;
+    color: var(--secondaryTextColor);
+  }
+
+  .teacherDash_activeClassListrow2_bot {
+    position: absolute;
+    bottom: 0px;
+    text-align: right;
+  }
+
+  .teacherDash_activeClassListrow2_bot_text {
+    font-size: 0.9em;
+    color: var(--blue);
+  }
+
+  .teacherDash_activeClassListtimeText {
+    font-size: 1em;
+    font-weight: 400;
+    color: var(--primaryTextColor);
   }
   .teacherDash_attendanceContainer {
     width: 92% !important;
@@ -70,6 +188,7 @@
     height: 700px;
     margin: 0px auto;
   }
+  
 }
 
 @media only screen and (min-width: 1920px) {

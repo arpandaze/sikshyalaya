@@ -1,0 +1,128 @@
+@import "../../../../../utils/colors.css";
+
+@media only screen and (min-width: 1280px) {
+  .smallCards_container {
+    width: 100% !important;
+    height: 180px;
+    border-radius: 20px;
+    background: var(--secondary);
+    border: 1px solid var(--grey6);
+  }
+  .smallCards_root {
+    flex-grow: 1;
+  }
+
+  .smallCards_row1 {
+    height: 180px;
+  }
+
+  .smallCards_row_col_box {
+    height: 180px;
+    position: relative;
+  }
+
+  .smallCards_row2 {
+    position: relative;
+    height: 180px;
+  }
+
+  .smallCards_buttonContainer {
+    position: relative;
+    top: 10px;
+  }
+
+  .smallCards_row_col_1 {
+    position: absolute;
+    top: 8%;
+  }
+
+  .smallCards_row_col_2 {
+    position: absolute;
+    bottom: 20px;
+  }
+
+  .smallCards_row_col_1_bold {
+    margin: 0px;
+    padding: 0px;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--primaryTextColor);
+  }
+
+  .smallCards_row_col_1_light {
+    margin: 0px;
+    padding: 0px;
+    font-size: 0.8em;
+    font-weight: 600;
+    color: var(--secondaryTextColor);
+  }
+
+  .smallCards_row_col_2_bold {
+    margin: 0px;
+    padding: 0px;
+    font-size: 1em;
+    font-weight: bold;
+    color: var(--primaryTextColor);
+  }
+
+  .smallCards_row_col_2_light {
+    margin: 0px;
+    padding: 0px;
+    font-size: 0.8em;
+    font-weight: 600;
+    color: var(--secondaryTextColor);
+  }
+
+  .smallCards_row2_bot {
+    position: absolute;
+    bottom: 20px;
+    text-align: right;
+  }
+
+  .smallCards_row2_bot_text {
+    margin: 0;
+    font-size: 0.7em;
+    color: var(--blue);
+  }
+
+  .smallCards_timeText {
+    margin: 0;
+    font-size: 1em;
+    font-weight: 400;
+    color: var(--primaryTextColor);
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  .smallCards_container {
+    height: 230px;
+  }
+  .smallCards_row1 {
+    height: 230px;
+  }
+
+  .smallCards_row_col_box {
+    height: 230px;
+  }
+
+  .smallCards_row2 {
+    position: relative;
+    height: 230px;
+  }
+
+  .smallCards_buttonContainer {
+    top: 20px;
+  }
+
+  .smallCards_row_col_2_bold {
+    font-size: 1.1em;
+  }
+
+  .smallCards_row_col_2_light {
+    font-size: 0.9em;
+  }
+
+  .smallCards_row2_bot_text {
+    font-size: 0.9em;
+  }
+}
