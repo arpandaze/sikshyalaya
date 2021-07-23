@@ -54,7 +54,7 @@ def get_specific_department(
 
 
 # update a specific department, can be called by only superadmin and admin
-@router.put("/{id}/", response_model=Department)
+@router.put("/{id}/")
 def update_department(
     db: Session = Depends(deps.get_db),
     *,
@@ -82,3 +82,14 @@ def get_department_course(
     department = crud_department.get(db, id)
     courses = department.courses
     return courses
+
+
+@router.delete("/{department_id}/")
+async def delete_department(
+    db: Session = Depends(deps.get_db),
+    user=Depends(deps.get_current_admin_or_above),
+    *,
+    department_id: int,
+):
+    crud_department.remove(db=db, id=department_id)
+    return {"msg": "success"}
