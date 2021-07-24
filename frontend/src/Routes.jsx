@@ -8,6 +8,7 @@ import TeacherLanding from "./views/TeacherLanding/TeacherLanding";
 import Quiz from "./views/Quiz/Quiz";
 import Profile from "./views/Profile/Profile";
 import TeacherDashboard from "./views/TeacherDashboard/TeacherDashboard";
+import Attendance from "./views/TeacherDashboard/Attendance";
 import AdminDashboard from "./views/Admin/AdminDashboard";
 import SchoolView from "./views/Admin/SchoolView";
 import DepartmentView from "./views/Admin/DepartmentView";
@@ -81,6 +82,7 @@ const Routes = () => {
 
 			{/* Common Routes */}
 			<Route exact path="/login" component={Login} />
+			<Route exact path="/attendance" component={Attendance} />
 			<Route exact path="/reset" component={ResetPassword} />
 			<Route exact path="/signup" component={Signup} />
 			<Route exact path="/verify" component={Verify} />
