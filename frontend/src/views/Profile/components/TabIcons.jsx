@@ -26,7 +26,7 @@ const TabIcons = ({ name, icon, id }) => {
         <Grid item className="tabIcons_iconContainer">
           <IconContext.Provider
             value={{
-              color: hovered ? colorscheme.red3 : colorscheme.grey2,
+              color: hovered ? colorscheme.red3 : "#4e4e4e",
             }}
           >
             {icon}
