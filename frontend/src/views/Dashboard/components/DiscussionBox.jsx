@@ -1,12 +1,12 @@
-import React, { useState, useContext, useEffect, useRef } from "react";
+import React, {useState, useContext, useEffect, useRef} from "react";
 import Grid from "@material-ui/core/Grid";
 import "./statics/css/discussionBox.css";
 import colorscheme from "../../../utils/colors";
-import { BiSend } from "react-icons/bi";
+import {BiSend} from "react-icons/bi";
 import Message from "./Message";
 import Image from "../../../components/Image";
-import { UserContext } from "../../../utils/Contexts/UserContext";
-import { WebsocketContext } from "../../../utils/Contexts/WebsocketContext";
+import {UserContext} from "../../../utils/Contexts/UserContext";
+import {WebsocketContext} from "../../../utils/Contexts/WebsocketContext";
 import defaultProfile from "../../../assets/default-profile.svg";
 import callAPI from "../../../utils/API";
 import useAPI from "../../../utils/useAPI";
@@ -24,9 +24,9 @@ const ChatMessageTypes = {
   ACTIVE_USER_LIST: 6,
 };
 
-const DiscussionBox = ({ classID }) => {
-  const { user } = useContext(UserContext);
-  const { chatHistory, sendMessage, setClassmatesState, setClassIDState } =
+const DiscussionBox = ({classDetails}) => {
+  const {user} = useContext(UserContext);
+  const {chatHistory, sendMessage, setClassmatesState, setClassIDState} =
     useContext(WebsocketContext);
 
   const [checked, setChecked] = useState(false);
@@ -40,13 +40,19 @@ const DiscussionBox = ({ classID }) => {
         profile_image: item.profile_image,
       };
     });
+    classDetails.teachers.map((teacher) => {
+      classmatesObj[teacher.id] = {
+        full_name: teacher.full_name,
+        profile_image: teacher.profile_image,
+      }
+    })
     return classmatesObj;
   };
 
   const [classmates, classmatesComplete] = useAPI(
     {
-      endpoint: `/api/v1/group/${user.group.id}/student/`,
-      fire: user.group.id,
+      endpoint: `/api/v1/group/${classDetails.groupID}/student/`,
+      fire: classDetails.groupID,
     },
     classmateFormatter,
     null
@@ -61,8 +67,8 @@ const DiscussionBox = ({ classID }) => {
     if (classmatesComplete) {
       setClassmatesState(classmates);
     }
-    if (classID) {
-      setClassIDState(classID);
+    if (classDetails.classID) {
+      setClassIDState(classDetails.classID);
     }
   });
 
@@ -71,7 +77,7 @@ const DiscussionBox = ({ classID }) => {
   };
   const handleSubmit = () => {
     if (message !== "") {
-      sendMessage({ message: message, anon: checked });
+      sendMessage({message: message, anon: checked});
       setMessage("");
     }
   };

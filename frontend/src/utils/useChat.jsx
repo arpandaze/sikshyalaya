@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect, useContext} from "react";
 import useSocket from "./useSocket";
+import {UserContext} from "./Contexts/UserContext";
 
 const ChatMessageTypes = {
   MESSAGE_HISTORY: 1,
@@ -10,7 +11,7 @@ const ChatMessageTypes = {
   ACTIVE_USER_LIST: 6,
 };
 
-const useChat = ({ classmates, classID }) => {
+const useChat = ({classmates, classID, user}) => {
   const [classmatesState, setClassmatesState] = useState(null);
   const [classIDState, setClassIDState] = useState(null);
 
@@ -30,13 +31,24 @@ const useChat = ({ classmates, classID }) => {
 
       history_message = history_message.map((item) => {
         if (item.msg_type === ChatMessageTypes.PUBLIC_MESSAGE) {
-          return {
-            id: item.user,
-            name: classmates[parseInt(item.user)].full_name,
-            photo: classmates[parseInt(item.user)].profile_image,
-            text: item.data,
-            sentTime: item.time,
-          };
+          if (parseInt(item.user) !== user.id) {
+            return {
+              id: item.user,
+              name: classmates[parseInt(item.user)].full_name,
+              photo: classmates[parseInt(item.user)].profile_image,
+              text: item.data,
+              sentTime: item.time,
+            };
+          }
+          else {
+            return {
+              id: item.user,
+              name: user.full_name,
+              photo: user.profile_image,
+              text: item.data,
+              sentTime: item.time,
+            };
+          }
         } else if (item.msg_type === ChatMessageTypes.ANON_MESSAGE) {
           return {
             id: item.user,
@@ -52,16 +64,28 @@ const useChat = ({ classmates, classID }) => {
           return item;
         }
       });
-      return { multi: true, data: history_message };
+      return {multi: true, data: history_message};
     } else if (data.msg_type === ChatMessageTypes.PUBLIC_MESSAGE) {
-      let msgInst = {
-        id: parseInt(data.user),
-        name: classmates[parseInt(data.user)].full_name,
-        photo: classmates[parseInt(data.user)].profile_image,
-        text: data.data,
-        sentTime: data.time,
-      };
-      return { multi: false, data: msgInst };
+      if (parseInt(data.user) !== user.id) {
+        let msgInst = {
+          id: parseInt(data.user),
+          name: classmates[parseInt(data.user)].full_name,
+          photo: classmates[parseInt(data.user)].profile_image,
+          text: data.data,
+          sentTime: data.time,
+        };
+        return {multi: false, data: msgInst};
+      }
+      else {
+        let msgInst = {
+          id: user.id,
+          name: user.full_name,
+          photo: user.profile_image,
+          text: data.data,
+          sentTime: data.time,
+        };
+        return {multi: false, data: msgInst};
+      }
     } else if (data.msg_type === ChatMessageTypes.ANON_MESSAGE) {
       let msgInst = {
         id: 0,
@@ -70,7 +94,7 @@ const useChat = ({ classmates, classID }) => {
         text: data.data,
         sentTime: data.time,
       };
-      return { multi: false, data: msgInst };
+      return {multi: false, data: msgInst};
     } else if (data.msg_type === ChatMessageTypes.ACTIVE_USER_LIST) {
       setOnlineState(JSON.parse(data.data));
     } else if (data.msg_type === ChatMessageTypes.USER_JOINED) {
@@ -84,7 +108,7 @@ const useChat = ({ classmates, classID }) => {
   };
 
   const onConnect = (event) => {
-    event.currentTarget.send(JSON.stringify({ msg_type: 1 }));
+    event.currentTarget.send(JSON.stringify({msg_type: 1}));
   };
 
   const [websocket, history, setEndpointState] = useSocket({
@@ -100,8 +124,8 @@ const useChat = ({ classmates, classID }) => {
     }
   });
 
-  const sendMessage = ({ message, anon }) => {
-    websocket.send(JSON.stringify({ message: message, anon: anon }));
+  const sendMessage = ({message, anon}) => {
+    websocket.send(JSON.stringify({message: message, anon: anon}));
   };
 
   return [
