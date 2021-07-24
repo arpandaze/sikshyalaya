@@ -1,18 +1,18 @@
-import React, {useState, useContext, useEffect, useRef} from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import Grid from "@material-ui/core/Grid";
 import "./statics/css/discussionBox.css";
-import colorscheme from "../../../utils/colors";
-import {BiSend} from "react-icons/bi";
+import colorscheme from "../utils/colors";
+import { BiSend } from "react-icons/bi";
 import Message from "./Message";
-import Image from "../../../components/Image";
-import {UserContext} from "../../../utils/Contexts/UserContext";
-import {WebsocketContext} from "../../../utils/Contexts/WebsocketContext";
-import defaultProfile from "../../../assets/default-profile.svg";
-import callAPI from "../../../utils/API";
-import useAPI from "../../../utils/useAPI";
-import useSocket from "../../../utils/useSocket";
-import useChat from "../../../utils/useChat";
-import configs from "../../../utils/configs";
+import Image from "./Image";
+import { UserContext } from "../utils/Contexts/UserContext";
+import { WebsocketContext } from "../utils/Contexts/WebsocketContext";
+import defaultProfile from "../assets/default-profile.svg";
+import callAPI from "../utils/API";
+import useAPI from "../utils/useAPI";
+import useSocket from "../utils/useSocket";
+import useChat from "../utils/useChat";
+import configs from "../utils/configs";
 import Switch from "@material-ui/core/Switch";
 
 const ChatMessageTypes = {
@@ -24,9 +24,9 @@ const ChatMessageTypes = {
   ACTIVE_USER_LIST: 6,
 };
 
-const DiscussionBox = ({classDetails}) => {
-  const {user} = useContext(UserContext);
-  const {chatHistory, sendMessage, setClassmatesState, setClassIDState} =
+const DiscussionBox = ({ classDetails }) => {
+  const { user } = useContext(UserContext);
+  const { chatHistory, sendMessage, setClassmatesState, setClassIDState } =
     useContext(WebsocketContext);
 
   const [checked, setChecked] = useState(false);
@@ -44,8 +44,8 @@ const DiscussionBox = ({classDetails}) => {
       classmatesObj[teacher.id] = {
         full_name: teacher.full_name,
         profile_image: teacher.profile_image,
-      }
-    })
+      };
+    });
     return classmatesObj;
   };
 
@@ -77,7 +77,7 @@ const DiscussionBox = ({classDetails}) => {
   };
   const handleSubmit = () => {
     if (message !== "") {
-      sendMessage({message: message, anon: checked});
+      sendMessage({ message: message, anon: checked });
       setMessage("");
     }
   };

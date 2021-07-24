@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import DashboardLayout from "../../components/DashboardLayout/DashboardLayout";
 import "../Dashboard/statics/css/classSession.css";
-import ClassResource from "../Dashboard/components/ClassResource"
+import ClassResource from "../Dashboard/components/ClassResource";
 import callAPI from "../../utils/API";
-import DiscussionBox from "../Dashboard/components/DiscussionBox.jsx"
+import DiscussionBox from "../../components/DiscussionBox.jsx";
 import ConditionalRendering from "../../components/ConditionalRendering";
 
 const resourceList = [
@@ -97,7 +97,7 @@ const getFileType = (item) => {
   }
 };
 
-const Dashboard = ({match}) => {
+const Dashboard = ({ match }) => {
   const [pageState, setPageState] = useState(0);
 
   const classDetailsDefault = {

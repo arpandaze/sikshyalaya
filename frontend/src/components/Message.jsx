@@ -1,12 +1,12 @@
 import React, { useEffect, useContext, useRef } from "react";
 import Grid from "@material-ui/core/Grid";
 import "./statics/css/discussionBox.css";
-import colorscheme from "../../../utils/colors";
-import Image from "../../../components/Image";
-import { UserContext } from "../../../utils/Contexts/UserContext";
+import colorscheme from "../utils/colors";
+import Image from "./Image";
+import { UserContext } from "../utils/Contexts/UserContext";
 import "./statics/css/message.css";
-import configs from "../../../utils/configs";
-import defaultProfile from "../../../assets/default-profile.svg";
+import configs from "../utils/configs";
+import defaultProfile from "../assets/default-profile.svg";
 import { format } from "date-fns";
 
 const Message = ({ messages }) => {
