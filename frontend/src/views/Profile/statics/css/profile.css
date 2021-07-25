@@ -15,7 +15,7 @@
   .profile_topBar {
     height: 80px;
     background: var(--white);
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid var(--grey6);
   }
   .profile_topBarInside {
     height: 80px;
@@ -31,7 +31,7 @@
     margin: 20px auto !important;
   }
   .profile_tabsContainer {
-    height: 300px;
+    height: 320px;
     border-radius: 15px;
     border: 1px solid var(--grey6);
   }

@@ -4,7 +4,7 @@ import DashboardLayout from "../../components/DashboardLayout/DashboardLayout";
 import "./statics/css/classSession.css";
 import ClassResource from "./components/ClassResource";
 import callAPI from "../../utils/API";
-import DiscussionBox from "./components/DiscussionBox";
+import DiscussionBox from "../../components/DiscussionBox";
 import ConditionalRendering from "../../components/ConditionalRendering";
 
 const resourceList = [
@@ -109,6 +109,9 @@ const Dashboard = ({ match }) => {
     bottomText: null,
     button: null,
     resources: [],
+    groupID: null,
+    classID: null,
+    teachers: [],
   };
 
   const [classDetails, setClassDetails] = useState(classDetailsDefault);
@@ -167,6 +170,9 @@ const Dashboard = ({ match }) => {
         bottomText: instructors_name,
         button: true,
         resources: resources,
+        groupID: class_details.group_id,
+        teachers: class_details.instructor,
+        classID: class_details.id,
       });
     } else {
       setPageState(1);
@@ -313,7 +319,7 @@ const Dashboard = ({ match }) => {
               </Grid>
               <Grid item className="mainDash_middleContainer" xs={8}>
                 <Grid item className="mainDash_discussionBoxContainer">
-                  <DiscussionBox classID={classDetails.id} />
+                  <DiscussionBox classDetails={classDetails} />
                 </Grid>
               </Grid>
             </Grid>

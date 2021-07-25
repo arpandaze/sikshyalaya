@@ -18,6 +18,8 @@
   }
   .tabIcons_nameText {
     margin: 0px;
+    font-weight: bold;
+    color: #4e4e4e;
   }
   .tabIcons_root:hover {
     background-color: var(--grey3);

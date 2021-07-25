@@ -9,6 +9,7 @@ import { IoMdInformationCircleOutline } from "react-icons/io";
 import { BiShieldQuarter } from "react-icons/bi";
 import { ProfileContext } from "./ProfileContext";
 import RenderForm from "./components/RenderForm";
+import { MdDevices } from "react-icons/md";
 
 const tabs = [
   {
@@ -24,7 +25,7 @@ const tabs = [
   {
     id: 3,
     name: "Sessions",
-    icon: <IoMdInformationCircleOutline className="profile_icons" />,
+    icon: <MdDevices className="profile_icons" />,
   },
 ];
 
@@ -43,7 +44,7 @@ const Profile = () => {
               alignItems="center"
             >
               <Grid item>
-                <p className="profile_title">My profile</p>
+                <p className="profile_title">My Profile</p>
               </Grid>
             </Grid>
           </Grid>
