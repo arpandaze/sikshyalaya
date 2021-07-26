@@ -206,7 +206,7 @@ const QuizCreator = () => {
   };
 
   return (
-    <DashboardLayout>
+    <DashboardLayout rightbar={null}>
       <QuizOptionContext.Provider value={quizOptionFile}>
         <QuizContext.Provider value={quiz_file}>
           <Grid

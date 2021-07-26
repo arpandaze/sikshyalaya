@@ -8,7 +8,7 @@ import AlertMessage from "../AlertMessage";
 import { UserContext } from "../../utils/Contexts/UserContext";
 import { AlertContext } from "./AlertContext";
 
-const ProfileBar = ({ selected, landing = false }) => {
+const ProfileBar = ({ selected, mode = false }) => {
   const { user } = useContext(UserContext);
   const { alert, setAlert } = useContext(AlertContext);
   const renderAlert = () => {
@@ -40,10 +40,14 @@ const ProfileBar = ({ selected, landing = false }) => {
         <ProfileBox />
       </Grid>
       <Grid xs={12} item className="profileBar_courseBox">
-        {landing ? (
+        {mode === 1 ? (
           <CourseBox courseList={courseList(user)} selected={"1"} />
-        ) : (
+        ) : mode === 2 ? (
           <OnlineBox />
+        ) : mode === 3 ? (
+          <></> //attendance
+        ) : (
+          <></>
         )}
       </Grid>
       <Grid item className="profileBar_GlobalAlertBox">

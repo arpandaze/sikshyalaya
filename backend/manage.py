@@ -152,10 +152,14 @@ class CommandDefinition:
     def populate(self):
         from utils import populate as db_populate
 
+        sleep(5)
         db_populate.populate_all()
 
     def pytest(self):
-        ec = int(os.system("pytest --verbose --color=yes") / 256)
+        ec = int(
+            os.system("pytest --verbose --color=yes tests/api/api_v1/test_program.py")
+            / 256
+        )
         sys.exit(ec)
 
 

@@ -69,7 +69,7 @@ const Quiz = () => {
   );
 
   return (
-    <DashboardLayout>
+    <DashboardLayout mode={4}>
       <Grid container direction="column" className="quiz_root" wrap="nowrap">
         <Grid item className="quiz_row">
           <Grid container direction="column">
@@ -133,7 +133,31 @@ const Quiz = () => {
                   <CustomQuizCard
                     key={data.id}
                     quiz={data}
-                    image={imageList[index % 5]}
+                    image={[...imageList].reverse()[index % 5]}
+                    onClick={async () => {
+                      const tempResponse = await callAPI({
+                        endpoint: `/api/v1/quizanswer/${data.id}/exists/`,
+                        method: "GET",
+                      });
+                      let quizDefaults = null;
+                      let marks_obtained = null;
+                      if (tempResponse.data.exists) {
+                        const answerList = await callAPI({
+                          endpoint: `/api/v1/quizanswer/${data.id}`,
+                          method: "GET",
+                        });
+                        quizDefaults = answerList.data.options_selected;
+                        marks_obtained = answerList.data.marks_obtained;
+                      }
+                      history.push({
+                        pathname: "/quiz/questions",
+                        state: {
+                          quiz: data,
+                          quizDefaults: quizDefaults,
+                          marks_obtained: marks_obtained,
+                        },
+                      });
+                    }}
                   />
                 </Grid>
               ))

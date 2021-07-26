@@ -6,58 +6,8 @@ import ClassResource from "./components/ClassResource";
 import callAPI from "../../utils/API";
 import DiscussionBox from "../../components/DiscussionBox";
 import ConditionalRendering from "../../components/ConditionalRendering";
-
-const resourceList = [
-  {
-    id: "1",
-    name: "How a man goes under the water",
-    url: "hi under the water.com",
-    type: "pdf",
-    time: "Sat May 22 2021 14:45:06 GMT+0545",
-  },
-  {
-    id: "2",
-    name: "Breaking! Ku opens bhajan group",
-    url: "hi under the water.com",
-    type: "image",
-    time: "Sat May 22 2021 14:40:06 GMT+0545",
-  },
-  {
-    id: "3",
-    name: "Ku fountain has high nitrogen content suggesting urination",
-    url: "hi under the water.com",
-    type: "presentation",
-    time: "Sat May 22 2021 14:22:06 GMT+0545",
-  },
-  {
-    id: "4",
-    name: "Find out on the next episode of Dragon Ball Z",
-    url: "hi under the water.com",
-    type: "document",
-    time: "Sat May 22 2021 13:52:06 GMT+0545",
-  },
-  {
-    id: "5",
-    name: "RPG's advertisement profile",
-    url: "hi under the water.com",
-    type: "link",
-    time: "Sat May 22 2021 12:52:06 GMT+0545",
-  },
-  {
-    id: "6",
-    name: "Rushab is also under the water",
-    url: "hi under the water.com",
-    type: "zip",
-    time: "Sat May 22 2021 11:52:06 GMT+0545",
-  },
-  {
-    id: "6",
-    name: "Rushab is also under the water",
-    url: "hi under the water.com",
-    type: "zip",
-    time: "Sat May 22 2021 15:26:44 GMT+0545",
-  },
-];
+import noClass from "../../assets/bulletin.svg";
+import Image from "../../components/Image";
 
 const getFileType = (item) => {
   switch (item) {
@@ -118,15 +68,17 @@ const Dashboard = ({ match }) => {
 
   const classSessionFormatter = (value) => {
     if (!value.data.length) {
-      return [];
+      return null;
     }
+    const currentDateTime = new Date();
     let active_class_session = value.data.filter((item) => {
-      let start_time = new Date(item.start_time + "+05:45");
-      let end_time = new Date(item.end_time + "+05:45");
-      if (
-        end_time.getTime() > Date.now() &&
-        start_time.getTime() < Date.now()
-      ) {
+      let start_time = new Date(
+        new Date(item.start_time).toLocaleString() + " UTC"
+      );
+      let end_time = new Date(
+        new Date(item.end_time).toLocaleString() + " UTC"
+      );
+      if (end_time > currentDateTime && start_time < currentDateTime) {
         return item;
       }
     });
@@ -327,7 +279,21 @@ const Dashboard = ({ match }) => {
         </Grid>
       </ConditionalRendering>
       <ConditionalRendering condition={pageState == 1}>
-        <h1>No class session active right now!</h1>
+        <Grid container direction="row">
+          <Grid
+            container
+            item
+            xs={12}
+            alignItems="center"
+            justify="center"
+            className="mainDash_noClassContainer"
+          >
+            <div className="mainDash_noClassImage">
+              <Image src={noClass} />
+              <p className="mainDash_noClass">No active class sessions!</p>
+            </div>
+          </Grid>
+        </Grid>
       </ConditionalRendering>
     </DashboardLayout>
   );
