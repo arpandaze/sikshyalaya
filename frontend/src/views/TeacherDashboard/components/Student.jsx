@@ -14,15 +14,19 @@ const Student = ({
   program,
   semester,
   year,
-  onClick,
-  currentState,
+  onChanged,
+  idSet,
+  userIdArray,
 }) => {
-  const [value, setValue] = useState();
   const [checked, setChecked] = useState(false);
-  // const onChangeHandler = (e) => {
-  // 	setChecked(e.target.checked);
-  // 	onClick;
-  // };
+  const onChangeHandler = (e) => {
+    setChecked(e.target.checked);
+    if (e.target.checked) {
+      idSet([...userIdArray, id]);
+    } else {
+      idSet(userIdArray.filter((item) => item != id));
+    }
+  };
 
   return (
     <Grid
@@ -45,7 +49,7 @@ const Student = ({
           name="isPresent"
           label=""
           className="student_randomCheckBox"
-          // onChange={onChangeHandler}
+          onChange={onChangeHandler}
           checked={checked}
         />
       </Grid>

@@ -11,6 +11,7 @@ import Button from "@material-ui/core/Button";
 import configs from "../../utils/configs";
 import noClass from "../../assets/bulletin.svg";
 import Image from "../../components/Image";
+import defaultProfile from "../../assets/default-profile.svg";
 
 const getFileType = (item) => {
   switch (item) {
@@ -138,64 +139,50 @@ const Dashboard = ({ match }) => {
       setPageState(1);
     }
   }, []);
-  groupID = classDetails.groupID;
-  console.log(groupID);
 
   useEffect(async () => {
-    let class_details = null;
-    try {
-      const req = await callAPI({
-        endpoint: `/api/v1/group/9/student/`,
-      });
-      class_details = req.data;
-    } catch (e) {
-      console.log(e);
-    }
-
-    if (class_details) {
-      class_details.student.map((student) => {
-        students.push({
-          id: student.id,
-          name: student.full_name,
-          profile_image:
-            configs.PUBLIC_FILES_PATH + "/" + student.profile_image,
+    if (classDetails.groupID) {
+      let class_details = null;
+      try {
+        const req = await callAPI({
+          endpoint: `/api/v1/group/${classDetails.groupID}/student/`,
         });
-      });
+        class_details = req.data;
+      } catch (e) {
+        console.log(e);
+      }
+
+      if (class_details) {
+        class_details.student.map((student) => {
+          students.push({
+            id: student.id,
+            name: student.full_name,
+            profile_image: student.profile_image
+              ? configs.PUBLIC_FILES_PATH + "/" + student.profile_image
+              : defaultProfile,
+          });
+        });
+      }
     }
-  }, []);
-  console.log(students);
+  }, [classDetails.groupID]);
   const [ids, setIDs] = useState([]);
-  const [state, setState] = useState(true);
+  const [checked, setChecked] = useState([]);
 
   const postAttendance = async () => {
     let data = null;
 
     data = {
-      attendant: [],
+      attendant: ids,
     };
     const postAttendants = await callAPI({
-      endpoint: `/api/v1/class_session/${groupID}/attendance`,
+      endpoint: `/api/v1/class_session/${classDetails.groupID}/attendance`,
       method: "PUT",
       data: data,
     });
   };
 
-  // const handleChange = (event, a) => {
-  // 	setChecked(event.target.checked);
-  // };
-
-  // const onClickHandler = (a) => {
-  // 	console.log(checked);
-  // 	if (checked) {
-  // 		setIDs((prevIDs) => [...prevIDs, a]);
-  // 	} else {
-  // 		let x = ids.filter((b) => a != b);
-  // 		setIDs(x);
-  // 	}
-  // };
-
   return (
-    <DashboardLayout rightbar={null}>
+    <DashboardLayout>
       <ConditionalRendering condition={pageState == 0}>
         <Grid
           container
@@ -341,22 +328,11 @@ const Dashboard = ({ match }) => {
                               id={user.id}
                               username={user.name}
                               src={user.profile_image}
-                              // currentState={checked}
-                              onClick={(e) => {
-                                // setChecked(e.target.checked);
-                                if (e.target.checked) {
-                                  setState([...ids, user.id]);
-                                } else {
-                                  setState(
-                                    ids.filter((item) => item != user.id)
-                                  );
-                                }
-                                console.log(e);
-                              }}
+                              idSet={setIDs}
+                              userIdArray={ids}
                             />
                           ))}
                         </Grid>
-                        {console.log(ids)}
                       </Grid>
                     </Grid>
                   </Grid>
