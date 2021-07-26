@@ -37,15 +37,13 @@
     border: 1px solid var(--grey6);
   }
   .teacherDash_activeClassBoxInside {
-
   }
   .teacherDash_activeClassBoxTop {
+  }
+  .teacherDash_middleContainer {
+    border: 1px solid black;
+  }
 
-  }
-  .teacherDash_middleContainer{
-    border:1px solid black;
-  }
- 
   .teacherDash_smallRedBox {
     width: 18px;
     height: 18px;
@@ -59,14 +57,14 @@
     position: relative;
     left: 15px;
     font-size: 1.5em;
-    padding:5px;
+    padding: 5px;
   }
   .teacherDash_activeClassInside {
     list-style-type: none;
   }
   .teacherDash_activeClassBoxBottom {
     position: relative;
-    padding:10px 5px 10px 15px;
+    padding: 10px 5px 10px 15px;
   }
   .teacherDash_activeClassListContainer {
     height: 140px;
@@ -195,19 +193,15 @@
     margin-top: 15px !important;
     border-radius: 15px !important;
     border: 1px solid var(--grey6);
-
   }
-  .teacherDash_addsessionButton{
+  .teacherDash_addsessionButton {
     position: absolute;
-    left:130px;
-
+    left: 130px;
   }
   .teacherDash_classResourceBoxInside {
-
   }
   .teacherDash_classResourceBoxTop {
-    position:relative;
-
+    position: relative;
   }
   .teacherDash_smallPurpleBox {
     width: 20px;
@@ -225,6 +219,20 @@
   .teacherDash_classResourceBoxBottom {
     height: 440px;
     overflow-x: scroll;
+  }
+  .teacherDashboard_noClassImage {
+    width: 350px !important;
+  }
+  .teacherDashboard_noClassContainer {
+    margin-top: 250px !important;
+  }
+  .teacherDashboard_noClass {
+    width: 400px !important;
+    margin: 0px;
+    margin-top: 50px;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: 600;
   }
 }
 
@@ -252,6 +260,6 @@
     height: 840px !important;
   }
   .teacherDash_classResourcesBoxContainer {
-    height:530px !important;
+    height: 530px !important;
   }
 }
