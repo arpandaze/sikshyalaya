@@ -418,7 +418,7 @@ async def get_image(
         )  # no file exist in the path
 
 
-@router.delete("/{quizid}")
+@router.delete("/{quizid}/")
 async def delete_quiz(
     db: Session = Depends(deps.get_db),
     *,
