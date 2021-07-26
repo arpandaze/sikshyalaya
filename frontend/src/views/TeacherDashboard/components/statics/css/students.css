@@ -9,18 +9,16 @@
   }
   .student_Image {
     border-radius: 50%;
-    width: 35px;
-    height: 35px;
+    width: 20px;
+    height: 20px;
     float: left;
-    box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.75);
   }
   .student_ImageRoot {
     padding:0px 10px;
     position: relative;
-
   }
   .student_nameContainer {
-    width: 40vh;
+    width: 250px;
   }
   .student_nameContainer p {
     overflow: hidden;
@@ -28,7 +26,7 @@
     text-overflow: ellipsis;
   }
   .student_name {
-    padding: 0px 10px;
+    padding: 0px 5px;
     font-size: 0.8em;
     font-weight: 600;
     color: var(--grey1);
@@ -43,17 +41,15 @@
     position: absolute;
     right:0px;
     top:5px;
- 
   }
   .student_randomCheckBox {
   }
 }
 
 @media only screen and (min-width: 1920px) {
-  
   .student_Image {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
   }
   .student_greenDot {
     width: 12px;
@@ -62,10 +58,14 @@
     left: 10px;
   }
   .student_name {
-    padding: 0px 20px;
+    padding: 0px 5px;
     font-size: 1em;
   }
   .student_nameContainer {
-    width: 360px;
+    width: 320px;
+  }
+  .student_check {
+    position: absolute;
+    top:15%;
   }
 }
