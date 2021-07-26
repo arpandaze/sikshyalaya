@@ -192,6 +192,20 @@
   .mainDash_discussionBoxBottom {
     height: 700px;
   }
+  .mainDash_noClassImage {
+    width: 350px !important;
+  }
+  .mainDash_noClassContainer {
+    margin-top: 250px !important;
+  }
+  .mainDash_noClass {
+    width: 400px !important;
+    margin: 0px;
+    margin-top: 50px;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: 600;
+  }
 }
 
 @media only screen and (min-width: 1920px) {

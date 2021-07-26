@@ -71,7 +71,7 @@ const Quiz = () => {
   );
 
   return (
-    <DashboardLayout>
+    <DashboardLayout mode={4}>
       <Grid container direction="column" className="quiz_root" wrap="nowrap">
         <Grid item className="quiz_row">
           <Grid container direction="column">

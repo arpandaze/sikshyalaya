@@ -56,7 +56,7 @@ const Quiz = () => {
         .substr(11, 8)
         .split(":");
       currentDateTime >= response.start_time &&
-        currentDateTime <= response.end_time
+      currentDateTime <= response.end_time
         ? responseData.active.push(response)
         : responseData.past.push(response);
     });
@@ -69,7 +69,7 @@ const Quiz = () => {
   );
 
   return (
-    <DashboardLayout>
+    <DashboardLayout mode={4}>
       <Grid container direction="column" className="quiz_root" wrap="nowrap">
         <Grid item className="quiz_row">
           <Grid container direction="column">
@@ -151,7 +151,11 @@ const Quiz = () => {
                       }
                       history.push({
                         pathname: "/quiz/questions",
-                        state: { quiz: data, quizDefaults: quizDefaults, marks_obtained: marks_obtained },
+                        state: {
+                          quiz: data,
+                          quizDefaults: quizDefaults,
+                          marks_obtained: marks_obtained,
+                        },
                       });
                     }}
                   />
