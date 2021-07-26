@@ -5,6 +5,7 @@ from hashlib import sha1
 
 import os
 
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from core.config import settings
@@ -415,3 +416,38 @@ async def get_image(
         raise HTTPException(
             status_code=404, detail="Error ID: 141"
         )  # no file exist in the path
+
+
+@router.delete("/{quizid}")
+async def delete_quiz(
+    db: Session = Depends(deps.get_db),
+    *,
+    quizid=int,
+    current_user: User = Depends(deps.get_current_active_teacher),
+):
+    quiz = crud_quiz.get(db, id=quizid)
+
+    for instructor in quiz.instructor:
+
+        if instructor.id == current_user.id:
+
+            print(instructor.id, current_user.id)
+            quiz = crud_quiz.remove(db, id=quizid)
+
+            hashedQuizId = sha1(str(quizid).encode(encoding="UTF-8", errors="strict"))
+
+            FILE_PATH = os.path.join(
+                settings.UPLOAD_DIR_ROOT,
+                QUIZ_ROUTE,
+                hashedQuizId.hexdigest(),
+            )
+
+            if os.path.exists(FILE_PATH):
+                os.rmdir(FILE_PATH)
+
+            return {"msg": "delete success"}
+
+    raise HTTPException(
+        status_code=403,
+        detail="Error ID: 142",
+    )  # teacher not associated with the quiz
