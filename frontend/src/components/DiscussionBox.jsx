@@ -178,7 +178,7 @@ const DiscussionBox = ({ classDetails }) => {
                   alignItems="center"
                   justify="flex-start"
                 >
-                  <Grid item xs={11} className="discussionBox_textFieldRoot">
+                  <Grid item className="discussionBox_textFieldRoot">
                     <input
                       name="chat_input"
                       type="text"
@@ -191,17 +191,13 @@ const DiscussionBox = ({ classDetails }) => {
                       onKeyDown={handleKeyPress}
                     />
                   </Grid>
-                  <Grid
-                    item
-                    xs={1}
-                    className="discussionBox_sendButtonContainer"
-                  >
+                  <Grid item className="discussionBox_sendButtonContainer">
                     <button
                       type="submit"
                       name="submit"
                       style={{
                         border: "none",
-                        backgroundColor: colorscheme.white,
+                        background: "transparent",
                       }}
                       onClick={() => {
                         handleSubmit();

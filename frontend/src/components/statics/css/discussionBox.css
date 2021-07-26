@@ -23,9 +23,9 @@
   .discussionBox_textFieldRoot {
   }
   .discussionBox_textField {
-    padding: 10px;
-    width: 93%;
-    max-width: 95%;
+    padding: 15px;
+    width: 450px;
+    min-width: 450px;
     border-radius: 10px;
     border: 1px solid var(--grey6);
   }
@@ -33,11 +33,24 @@
     outline: none;
   }
   .discussionBox_sendButtonContainer {
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 50%;
+    margin: 2px !important;
   }
 
+  .discussionBox_sendButtonContainer:hover {
+    background: var(--green2);
+    background: radial-gradient(
+      circle,
+      rgba(0, 194, 165, 1) 0%,
+      rgba(0, 194, 165, 0.23) 0%
+    );
+  }
   .discussionBox_sendButton {
     position: relative;
-    top: 2px;
+    top: 8px;
+    left: 5px;
   }
   .discussionBox_root {
     height: 650px;
@@ -73,6 +86,9 @@
     position: relative;
     width: 700px;
     height: 620px;
+  }
+  .discussionBox_textField {
+    width: 610px;
   }
   .discussionBox_root {
     width: 95% !important;
