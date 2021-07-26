@@ -41,7 +41,6 @@
   .teacherDash_activeClassBoxTop {
   }
   .teacherDash_middleContainer {
-    border: 1px solid black;
   }
 
   .teacherDash_smallRedBox {
@@ -161,7 +160,6 @@
     margin: 0px auto !important;
     background: var(--white) !important;
     border-radius: 15px !important;
-    border: 1px solid var(--grey6);
   }
   .teacherDash_closeButtonContainer {
     width: 20px;
@@ -196,7 +194,7 @@
   }
   .teacherDash_addsessionButton {
     position: absolute;
-    left: 130px;
+    left: 130px !important;
   }
   .teacherDash_classResourceBoxInside {
   }
@@ -251,13 +249,13 @@
   }
   .teacherDash_activeClassBoxContainer {
     width: 90% !important;
-    height: 290px;
+    height: 250px;
   }
   .teacherDash_attendanceContainer {
     height: 540px !important;
   }
   .teacherDash_discussionBoxContainer {
-    height: 840px !important;
+    height: 860px !important;
   }
   .teacherDash_classResourcesBoxContainer {
     height: 530px !important;

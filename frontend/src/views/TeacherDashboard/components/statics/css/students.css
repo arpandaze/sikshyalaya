@@ -14,7 +14,7 @@
     float: left;
   }
   .student_ImageRoot {
-    padding:0px 10px;
+    padding: 0px 10px;
     position: relative;
   }
   .student_nameContainer {
@@ -34,13 +34,13 @@
   }
   .student_root:hover {
     flex-grow: 1;
-    border: 1px solid var(--grey6);
-    border-radius: 15px;
+    border-top: 1px solid var(--grey6);
+    border-bottom: 1px solid var(--grey6);
   }
   .student_check {
     position: absolute;
-    right:0px;
-    top:5px;
+    right: 0px;
+    top: 5px;
   }
   .student_randomCheckBox {
   }
@@ -66,6 +66,6 @@
   }
   .student_check {
     position: absolute;
-    top:15%;
+    top: 15%;
   }
 }

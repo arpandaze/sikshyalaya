@@ -58,6 +58,7 @@ const Dashboard = ({ match }) => {
   const [buttonType, setButtonType] = useState(true);
 
   const [pageState, setPageState] = useState(0);
+  const [doneState, setDoneState] = useState(0);
 
   const classDetailsDefault = {
     id: null,
@@ -179,6 +180,7 @@ const Dashboard = ({ match }) => {
       method: "PUT",
       data: data,
     });
+    setDoneState(doneState + 1);
   };
 
   return (
@@ -330,6 +332,7 @@ const Dashboard = ({ match }) => {
                               src={user.profile_image}
                               idSet={setIDs}
                               userIdArray={ids}
+                              doneClicked={doneState}
                             />
                           ))}
                         </Grid>
@@ -339,7 +342,9 @@ const Dashboard = ({ match }) => {
                 </Grid>
               </Grid>
               <Grid item className="teacherDash_middleContainer" xs={8}>
-                <DiscussionBox classDetails={classDetails} />
+                <Grid item className="teacherDash_discussionBoxContainer">
+                  <DiscussionBox classDetails={classDetails} />
+                </Grid>
               </Grid>
             </Grid>
           </Grid>

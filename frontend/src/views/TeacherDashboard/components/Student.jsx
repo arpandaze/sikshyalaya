@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import Image from "../../../components/Image";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -6,18 +6,7 @@ import "./statics/css/students.css";
 import { Formik, Form } from "formik";
 import { ImCross } from "react-icons/im";
 
-const Student = ({
-  id,
-  username,
-  state,
-  src,
-  program,
-  semester,
-  year,
-  onChanged,
-  idSet,
-  userIdArray,
-}) => {
+const Student = ({ id, username, src, idSet, userIdArray, doneClicked }) => {
   const [checked, setChecked] = useState(false);
   const onChangeHandler = (e) => {
     setChecked(e.target.checked);
@@ -27,6 +16,11 @@ const Student = ({
       idSet(userIdArray.filter((item) => item != id));
     }
   };
+  useEffect(() => {
+    if (doneClicked != 0) {
+      setChecked(false);
+    }
+  }, [doneClicked]);
 
   return (
     <Grid
