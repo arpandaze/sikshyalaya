@@ -42,15 +42,14 @@ const Routes = () => {
 			<StudentRoute exact path="/landing" component={Landing} />
 			<StudentRoute exact path="/profile" component={Profile} />
 			<StudentRoute exact path="/quiz/questions" component={QuizView} />
-
-			{/* Teacher Routes */}
+			{/* Teacher Routes */}.{" "}
+			<TeacherRoute exact path="/teacher-landing" component={TeacherLanding} />
 			<TeacherRoute
 				exact
 				path="/teacher-dashboard"
 				component={TeacherDashboard}
 			/>
 			<TeacherRoute exact path="/quiz-creator" component={QuizCreator} />
-			<TeacherRoute exact path="/teacher-landing" component={TeacherLanding} />
 			<TeacherRoute
 				exact
 				path="/quiz-creator-landing"
@@ -62,7 +61,6 @@ const Routes = () => {
 				component={ClassSessionCreator}
 			/>
 			<TeacherRoute exact path="/teacher/note" component={Notes} />
-
 			{/*Admin Routes*/}
 			<AdminRoute exact path="/adminForm" component={AdminForm} />
 			<AdminRoute exact path="/admin" component={AdminDashboard} />
@@ -78,7 +76,6 @@ const Routes = () => {
 			<AdminRoute exact path="/admin/student" component={StudentView} />
 			<AdminRoute exact path="/admin/teacher" component={TeacherView} />
 			<AdminRoute exact path="/admin/courses" component={CourseView} />
-
 			{/* Common Routes */}
 			<Route exact path="/login" component={Login} />
 			<Route exact path="/reset" component={ResetPassword} />

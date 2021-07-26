@@ -29,15 +29,12 @@
     background: var(--white) !important;
     border-radius: 15px !important;
     border: 1px solid var(--grey6);
-    border: 1px solid var(--black);
   }
   .teacherDash_activeClassBoxContainer {
     width: 92% !important;
     height: 220px;
     border-radius: 15px !important;
     border: 1px solid var(--grey6);
-    border: 1px solid var(--black);
-
   }
   .teacherDash_activeClassBoxInside {
 
@@ -45,6 +42,10 @@
   .teacherDash_activeClassBoxTop {
 
   }
+  .teacherDash_middleContainer{
+    border:1px solid black;
+  }
+ 
   .teacherDash_smallRedBox {
     width: 18px;
     height: 18px;
@@ -188,7 +189,43 @@
     height: 700px;
     margin: 0px auto;
   }
-  
+  .teacherDash_classResourcesBoxContainer {
+    width: 92% !important;
+    height: 415px !important;
+    margin-top: 15px !important;
+    border-radius: 15px !important;
+    border: 1px solid var(--grey6);
+
+  }
+  .teacherDash_addsessionButton{
+    position: absolute;
+    left:130px;
+
+  }
+  .teacherDash_classResourceBoxInside {
+
+  }
+  .teacherDash_classResourceBoxTop {
+    position:relative;
+
+  }
+  .teacherDash_smallPurpleBox {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--purple);
+    position: relative;
+    margin-left: 20px !important;
+  }
+  .teacherDash_classResourceTitle {
+    position: relative;
+    left: 15px;
+    font-size: 1.5em;
+  }
+  .teacherDash_classResourceBoxBottom {
+    height: 440px;
+    overflow-x: scroll;
+  }
 }
 
 @media only screen and (min-width: 1920px) {
@@ -213,5 +250,8 @@
   }
   .teacherDash_discussionBoxContainer {
     height: 840px !important;
+  }
+  .teacherDash_classResourcesBoxContainer {
+    height:530px !important;
   }
 }
