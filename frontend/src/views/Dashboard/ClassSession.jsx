@@ -132,7 +132,7 @@ const Dashboard = ({ match }) => {
   }, []);
 
   return (
-    <DashboardLayout>
+    <DashboardLayout mode={2}>
       <ConditionalRendering condition={pageState == 0}>
         <Grid
           container

@@ -34,7 +34,7 @@ const Profile = () => {
   const id_value = useMemo(() => ({ tabId, setTabId }), [tabId, setTabId]);
 
   return (
-    <DashboardLayout>
+    <DashboardLayout mode={1}>
       <ProfileContext.Provider value={id_value}>
         <Grid container direction="column" className="profile_root">
           <Grid item className="profile_topBar">
