@@ -2,6 +2,8 @@ from typing import Optional, List, Dict, Any  # noqa
 
 from pydantic import BaseModel
 
+from schemas import Name
+
 
 class QuizAnswerBase(BaseModel):
     marks_obtained: int = None
@@ -41,6 +43,17 @@ class QuizAnsweronlySelected(BaseModel):
     options_selected: Dict[int, Any]
     quiz_id: int
     student_id: int
+
+    class Config:
+        orm_mode = True
+
+
+class QuizAnswerwithName(BaseModel):
+    id: Optional[int]
+    marks_obtained: int
+    options_selected: Dict[int, Any]
+    quiz_id: int
+    student: Name
 
     class Config:
         orm_mode = True
