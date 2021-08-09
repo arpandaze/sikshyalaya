@@ -10,6 +10,7 @@ from schemas import (
     QuizAnswerCreate,
     QuizAnswerUpdate,
     QuizAnsweronlySelected,
+    QuizAnswerwithName,
 )
 
 from typing import Any, Optional, List, Dict  # noqa
@@ -53,7 +54,7 @@ async def get_answers_quiz(
     return answer
 
 
-@router.get("/{quizid}/getAnswersAsTeacher/")
+@router.get("/{quizid}/getAnswersAsTeacher/", response_model=List[QuizAnswerwithName])
 async def get_quiz_answers_as_teacher(
     db: Session = Depends(deps.get_db),
     *,
