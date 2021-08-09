@@ -427,6 +427,9 @@ async def delete_quiz(
 ):
     quiz = crud_quiz.get(db, id=quizid)
 
+    if not quiz:
+        raise HTTPException(status_code=404, detail="Error ID: 143")
+
     for instructor in quiz.instructor:
 
         if instructor.id == current_user.id:

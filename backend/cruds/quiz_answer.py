@@ -13,5 +13,8 @@ class CRUDQuizAnswer(CRUDBase[QuizAnswer, QuizAnswerCreate, QuizAnswerUpdate]):
             .first()
         )
 
+    def get_all_by_quiz_id_as_teacher(self, db: Session, *, quizId: int):
+        return db.query(self.model).filter_by(quiz_id=quizId).all()
+
 
 crud_quiz_answer = CRUDQuizAnswer(QuizAnswer)
