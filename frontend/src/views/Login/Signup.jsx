@@ -219,7 +219,11 @@ const Signup = () => {
                     />
                   </Grid>
                   <Grid item xs={6}>
-                    <DatePicker id="dob" className="signup_inputButton" />
+                    <DatePicker
+                      id="dob"
+                      label="Date of Birth"
+                      className="signup_inputButton"
+                    />
                   </Grid>
                   <Grid item xs={12}>
                     <CustomTextField
