@@ -39,6 +39,7 @@ from .user import (
     UserReturnMin,
     UserSignUp,
     TeacherShort,
+    Name,
 )
 
 from .quiz import (
@@ -59,6 +60,7 @@ from .quiz_answer import (
     QuizAnswerUpdate,
     QuizAnswerInDB,
     QuizAnsweronlySelected,
+    QuizAnswerwithName,
 )
 
 from .file import File, FileCreate, FileUpdate, FileInDB
