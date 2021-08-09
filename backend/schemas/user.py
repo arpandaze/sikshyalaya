@@ -140,3 +140,11 @@ class UserReturn(BaseModel):
 # Additional properties stored in DB
 class UserInDB(UserInDBBase):
     hashed_password: str
+
+
+class Name(BaseModel):
+    id: int
+    full_name: str
+
+    class Config:
+        orm_mode = True
