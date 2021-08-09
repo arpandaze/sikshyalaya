@@ -33,59 +33,59 @@ import QuizView from "./views/Quiz/components/QuizView";
 import StudentView from "./views/Admin/StudentView";
 
 const Routes = () => {
-	return (
-		<Switch>
-			{/* Student Routes */}
-			<StudentRoute exact path="/class/:classID?" component={ClassSession} />
-			<StudentRoute exact path="/quiz" component={Quiz} />
-			<StudentRoute exact path="/note" component={Notes} />
-			<StudentRoute exact path="/landing" component={Landing} />
-			<StudentRoute exact path="/profile" component={Profile} />
-			<StudentRoute exact path="/quiz/questions" component={QuizView} />
-			{/* Teacher Routes */}.{" "}
-			<TeacherRoute exact path="/teacher-landing" component={TeacherLanding} />
-			<TeacherRoute
-				exact
-				path="/teacher-dashboard"
-				component={TeacherDashboard}
-			/>
-			<TeacherRoute exact path="/quiz-creator" component={QuizCreator} />
-			<TeacherRoute
-				exact
-				path="/quiz-creator-landing"
-				component={QuizCreatorLanding}
-			/>
-			<TeacherRoute
-				exact
-				path="/class-session-create"
-				component={ClassSessionCreator}
-			/>
-			<TeacherRoute exact path="/teacher/note" component={Notes} />
-			{/*Admin Routes*/}
-			<AdminRoute exact path="/adminForm" component={AdminForm} />
-			<AdminRoute exact path="/admin" component={AdminDashboard} />
-			<AdminRoute exact path="/admin/explore" component={ExploreView} />
-			<AdminRoute exact path="/admin/explore/school" component={SchoolView} />
-			<AdminRoute
-				exact
-				path="/admin/explore/department"
-				component={DepartmentView}
-			/>
-			<AdminRoute exact path="/admin/explore/Program" component={ProgramView} />
-			<AdminRoute exact path="/admin/explore/group" component={GroupView} />
-			<AdminRoute exact path="/admin/student" component={StudentView} />
-			<AdminRoute exact path="/admin/teacher" component={TeacherView} />
-			<AdminRoute exact path="/admin/courses" component={CourseView} />
-			{/* Common Routes */}
-			<Route exact path="/login" component={Login} />
-			<Route exact path="/reset" component={ResetPassword} />
-			<Route exact path="/signup" component={Signup} />
-			<Route exact path="/verify" component={Verify} />
-			<Route exact path="/logout" component={Logout} />
-			<HomeRedirector />
-			<Route exact path="*" component={NotFound} />
-		</Switch>
-	);
+  return (
+    <Switch>
+      {/* Student Routes */}
+      <StudentRoute exact path="/class/:classID?" component={ClassSession} />
+      <StudentRoute exact path="/quiz" component={Quiz} />
+      <StudentRoute exact path="/note" component={Notes} />
+      <StudentRoute exact path="/landing" component={Landing} />
+      <StudentRoute exact path="/profile" component={Profile} />
+      <StudentRoute exact path="/quiz/questions" component={QuizView} />
+      {/* Teacher Routes */}.{" "}
+      <TeacherRoute exact path="/teacher-landing" component={TeacherLanding} />
+      <TeacherRoute
+        exact
+        path="/teacher-dashboard"
+        component={TeacherDashboard}
+      />
+      <TeacherRoute exact path="/quiz-creator" component={QuizCreator} />
+      <TeacherRoute
+        exact
+        path="/quiz-creator-landing"
+        component={QuizCreatorLanding}
+      />
+      <TeacherRoute
+        exact
+        path="/class-session-create"
+        component={ClassSessionCreator}
+      />
+      <TeacherRoute exact path="/teacher/note" component={Notes} />
+      {/*Admin Routes*/}
+      <AdminRoute exact path="/adminForm" component={AdminForm} />
+      <AdminRoute exact path="/admin" component={AdminDashboard} />
+      <AdminRoute exact path="/admin/explore" component={ExploreView} />
+      <AdminRoute exact path="/admin/explore/school" component={SchoolView} />
+      <AdminRoute
+        exact
+        path="/admin/explore/department"
+        component={DepartmentView}
+      />
+      <AdminRoute exact path="/admin/explore/Program" component={ProgramView} />
+      <AdminRoute exact path="/admin/explore/group" component={GroupView} />
+      <AdminRoute exact path="/admin/student" component={StudentView} />
+      <AdminRoute exact path="/admin/teacher" component={TeacherView} />
+      <AdminRoute exact path="/admin/courses" component={CourseView} />
+      {/* Common Routes */}
+      <Route exact path="/login" component={Login} />
+      <Route exact path="/reset" component={ResetPassword} />
+      <Route exact path="/signup" component={Signup} />
+      <Route exact path="/verify" component={Verify} />
+      <Route exact path="/logout" component={Logout} />
+      <HomeRedirector />
+      <Route exact path="*" component={NotFound} />
+    </Switch>
+  );
 };
 
 export default Routes;
