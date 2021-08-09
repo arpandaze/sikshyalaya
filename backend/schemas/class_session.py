@@ -66,7 +66,7 @@ class ClassSessionReturn(BaseModel):
 class AttendantOfClassSession(BaseModel):
     id: str
     full_name: str
-    roll: int
+    roll: Optional[int]
 
     class Config:
         orm_mode = True

@@ -10,6 +10,7 @@ import useAPI from "../../utils/useAPI";
 import Button from "@material-ui/core/Button";
 import { GoPlus } from "react-icons/go";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { format } from "date-fns";
 
 const Landing = () => {
   const [buttonType, setButtonType] = useState(true);
@@ -35,8 +36,8 @@ const Landing = () => {
         })
         .join(" and ");
       if (
-        end_time.getTime() > currentDateTime &&
-        start_time.getTime() < currentDateTime
+        end_time.getTime() > currentDateTime.getTime() &&
+        start_time.getTime() < currentDateTime.getTime()
       ) {
         active_class_session.push({
           id: item.id,
@@ -56,7 +57,7 @@ const Landing = () => {
           title2Description: item.description,
           bottomText: instructors_name,
           button: false,
-          time: start_time.toLocaleTimeString().replace(":00", ""),
+          time: format(start_time, "HH:mm aaa"),
         });
       }
     });
