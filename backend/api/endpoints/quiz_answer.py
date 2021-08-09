@@ -53,6 +53,28 @@ async def get_answers_quiz(
     return answer
 
 
+@router.get("/{quizid}/getAnswersAsTeacher/")
+async def get_quiz_answers_as_teacher(
+    db: Session = Depends(deps.get_db),
+    *,
+    quizid: int,
+    current_user: User = Depends(deps.get_current_active_teacher_or_above),
+):
+    if current_user.quiz:
+        for quiz in current_user.quiz:
+            if quiz.id == quizid:
+                answers = crud_quiz_answer.get_all_by_quiz_id_as_teacher(
+                    db=db, quizId=quizid
+                )
+                if len(answers) >= 1:
+                    return answers
+
+    raise HTTPException(
+        status_code=404,
+        detail="Error ID: 143",  # could not populate answer
+    )
+
+
 @router.get("/{quizid}/exists/")
 async def check_existence(
     db: Session = Depends(deps.get_db),
