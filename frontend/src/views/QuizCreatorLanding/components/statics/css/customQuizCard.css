@@ -25,11 +25,56 @@
 .quizCard_root:hover .quizCard_crossbutton {
   display: inline;
 }
+.popUp_resultItemContainer {
+}
+.popUp_resultItem {
+  height: 70px;
+  padding-top: 15px;
+  position: relative;
+  cursor: pointer;
+  border-bottom: 1px solid var(--grey6);
+}
+.popUp_resultItem:hover {
+}
+.popUp_TitleContainer {
+  position: relative;
+  margin-bottom: 10px !important;
+  border-bottom: 1px solid var(--red4);
+}
+.popUp_Title1 {
+  font-size: 1.1em;
+  font-weight: 600;
+}
+.popUp_Title2 {
+  position: absolute;
+  right: 10px;
+  font-size: 1.1em;
+  font-weight: 600;
+}
+.popUp_resultName {
+  margin: 0px;
+  font-size: 1.1em;
+  margin-left: 10px;
+}
+.popUp_resultMarks {
+  margin: 0px;
+  position: absolute;
+  right: 10px;
+  font-size: 1.1em;
+  color: var(--grey2);
+}
+.popUp_resultProfileImageContainer {
+  width: 40px;
+  height: 40px;
+}
+.popUp_resultProfileImage {
+  width: 40px;
+  border-radius: 50% !important;
+}
 .popUp_resultSection {
   width: 800px;
   height: 580px;
   overflow-y: auto;
-  border: 1px solid black;
 }
 .quizCard_popup {
   width: 100%;

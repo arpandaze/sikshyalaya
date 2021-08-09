@@ -10,6 +10,7 @@ import { format } from "date-fns";
 import { ImCross } from "react-icons/im";
 import useAPI from "../../../utils/useAPI";
 import Button from "@material-ui/core/Button";
+import pp from "../../../assets/pp.jpg";
 
 import callAPI from "../../../utils/API";
 import { AlertContext } from "../../../components/DashboardLayout/AlertContext";
@@ -118,7 +119,9 @@ const CustomQuizCard = ({ quiz, image, onClick }) => {
                 endpoint: `/api/v1/quizanswer/${quiz.id}/getAnswersAsTeacher/`,
                 method: "GET",
               });
-              setResultList([...tempResponse.data]);
+              if (tempResponse.data.length) {
+                setResultList([...tempResponse.data]);
+              }
               setResultPopUp(true);
             }}
             className="quizCard_crossbutton"
@@ -164,16 +167,39 @@ const CustomQuizCard = ({ quiz, image, onClick }) => {
               </div>
             </Grid>
             <Grid item className="popUp_resultSection">
-              {resultList.length ? (
-                resultList.map((item, index) => (
-                  <p key={index}>
-                    {item.id}
-                    {item.marks_obtained}
-                  </p>
-                ))
-              ) : (
-                <></>
-              )}
+              <Grid
+                item
+                container
+                direction="column"
+                className="popUp_resultItemContainer"
+              >
+                <Grid container item className="popUp_TitleContainer">
+                  <p className="popUp_Title1">Name</p>
+                  <p className="popUp_Title2">Marks Obtained</p>
+                </Grid>
+                {resultList.length ? (
+                  resultList.map((item, index) => (
+                    <Grid item className="popUp_resultItem">
+                      <Grid container direction="row" alignItems="center">
+                        <div className="popUp_resultProfileImageContainer">
+                          <Image
+                            src={pp}
+                            className="popUp_resultProfileImage"
+                          />
+                        </div>
+                        <p key={index} className="popUp_resultName">
+                          {item.student.full_name}
+                        </p>
+                        <p key={index} className="popUp_resultMarks">
+                          {item.marks_obtained}
+                        </p>
+                      </Grid>
+                    </Grid>
+                  ))
+                ) : (
+                  <></>
+                )}
+              </Grid>
             </Grid>
           </Grid>
         </div>
