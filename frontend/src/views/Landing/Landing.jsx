@@ -7,6 +7,7 @@ import { BsCalendar } from "react-icons/bs";
 import { StylesProvider } from "@material-ui/core/styles";
 import "./statics/css/landing.css";
 import useAPI from "../../utils/useAPI";
+import { format } from "date-fns";
 
 const Landing = () => {
   const classSessionFormatter = (value) => {
@@ -15,17 +16,24 @@ const Landing = () => {
     }
     let active_class_session = [];
     let class_session = [];
+
+    const currentDateTime = new Date();
     value.data.map((item) => {
-      let start_time = new Date(item.start_time + "+05:45");
-      let end_time = new Date(item.end_time + "+05:45");
+      let start_time = new Date(
+        new Date(item.start_time).toLocaleString() + " UTC"
+      );
+      let end_time = new Date(
+        new Date(item.end_time).toLocaleString() + " UTC"
+      );
+
       let instructors_name = item.instructor
         .map((instructor) => {
           return instructor.full_name;
         })
         .join(" and ");
       if (
-        end_time.getTime() > Date.now() &&
-        start_time.getTime() < Date.now()
+        end_time.getTime() > currentDateTime &&
+        start_time.getTime() < currentDateTime
       ) {
         active_class_session.push({
           id: item.id,
@@ -45,7 +53,7 @@ const Landing = () => {
           title2Description: item.description,
           bottomText: instructors_name,
           button: false,
-          time: start_time.toLocaleTimeString().replace(":00", ""),
+          time: format(start_time, "HH:mm aaa"),
         });
       }
     });
