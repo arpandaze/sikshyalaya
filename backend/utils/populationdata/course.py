@@ -3,10 +3,10 @@ from pydantic import Json
 
 courses: List[Json] = [
     {
-        "course_code": "COMP101",
-        "course_name": "Fundamentals of Programming",
-        "course_credit": 2,
-        "department_id": 1,
+        "course_code": "MCSC201",
+        "course_name": "Discrete Structures / Mathematics",
+        "course_credit": 3,
+        "department_id": 10,
     },
     {
         "course_code": "COMP202",
@@ -15,16 +15,34 @@ courses: List[Json] = [
         "department_id": 1,
     },
     {
+        "course_code": "MATH208",
+        "course_name": "Statistics and Probability",
+        "course_credit": 3,
+        "department_id": 10,
+    },
+    {
+        "course_code": "EEEG211",
+        "course_name": "Electronics Engineering I",
+        "course_credit": 2,
+        "department_id": 3,
+    },
+    {
+        "course_code": "EEEG202",
+        "course_name": "Digital Logics and Circuits",
+        "course_credit": 2,
+        "department_id": 3,
+    },
+    {
         "course_code": "ENVE101",
         "course_name": "Introduction to Environmental Engineering",
         "course_credit": 2,
-        "department_id": 3,
+        "department_id": 11,
     },
     {
         "course_code": "ENVE201",
         "course_name": "Environmental Engineering Advanced",
         "course_credit": 2,
-        "department_id": 3,
+        "department_id": 11,
     },
     {
         "course_code": "ENGG111",
