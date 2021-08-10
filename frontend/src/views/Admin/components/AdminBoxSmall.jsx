@@ -40,9 +40,13 @@ const AdminBoxSmall = ({ cardData, onSubmit, type, ...rest }) => {
               justify="center"
               alignItems="flex-end"
             >
-              <Grid item className="adminBoxSmall_buttonContainer">
-                <FancyButton color={colorscheme.purple} onSubmit={onSubmit} />
-              </Grid>
+              {type !== "course" ? (
+                <Grid item className="adminBoxSmall_buttonContainer">
+                  <FancyButton color={colorscheme.purple} onSubmit={onSubmit} />
+                </Grid>
+              ) : (
+                <></>
+              )}
 
               <Grid item className="adminBoxSmall_row2_bot">
                 <p className="adminBoxSmall_row2_bot_text">

@@ -147,6 +147,8 @@ const StudentView = ({ location, ...rest }) => {
         method: "PUT",
         data: req_data,
       });
+      console.log(prevData);
+      console.log(data);
       const position = students.findIndex(
         (currentValue) => currentValue.id == selectedUser.id
       );
@@ -154,6 +156,12 @@ const StudentView = ({ location, ...rest }) => {
         name: req_data.full_name,
         id: selectedUser.id,
       };
+      if (
+        prevData.group.name === "Semester " + data.semester ||
+        prevData.department.id === data.program
+      ) {
+        students.splice(position, 1);
+      }
     }
 
     if (response.status && response.status == 200) {
