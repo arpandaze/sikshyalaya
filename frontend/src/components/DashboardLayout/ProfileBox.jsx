@@ -22,7 +22,7 @@ const ProfileBox = () => {
   });
   useEffect(() => {
     try {
-      let year = Math.floor(user.group ? user.group.sem / 2 : 0);
+      let year = Math.ceil(user.group ? user.group.sem / 2 : 0);
       let department = null;
       try {
         department = user.group.program.name;

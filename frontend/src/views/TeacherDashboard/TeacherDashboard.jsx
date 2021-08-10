@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import DashboardLayout from "../../components/DashboardLayout/DashboardLayout";
-import "../TeacherDashboard/statics/css/teacherDashboard.css";
 import ClassResource from "../Dashboard/components/ClassResource";
 import callAPI from "../../utils/API";
 import DiscussionBox from "../../components/DiscussionBox.jsx";
@@ -12,6 +11,7 @@ import configs from "../../utils/configs";
 import noClass from "../../assets/bulletin.svg";
 import Image from "../../components/Image";
 import defaultProfile from "../../assets/default-profile.svg";
+import "./statics/css/teacherDashboard.css";
 
 const getFileType = (item) => {
   switch (item) {
@@ -311,7 +311,7 @@ const Dashboard = ({ match }) => {
                             variant={buttonType ? "outlined" : "contained"}
                             color="primary"
                             onClick={postAttendance}
-                            className="teacherDash_addsessionButton"
+                            className="teacherDash_doneAttendanceButton"
                           >
                             Done
                           </Button>

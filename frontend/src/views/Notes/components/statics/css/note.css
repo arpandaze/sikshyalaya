@@ -21,7 +21,7 @@
   }
 }
 
-@media only screen and (min-width: 1280px) {
+@media only screen and (min-width: 720px) {
   .note_root {
     flex-grow: 1;
     width: 100% !important;
@@ -41,6 +41,7 @@
     position: relative;
   }
   .note_titleText {
+    width: 95% !important;
     height: 60px;
     position: relative;
     font-weight: 600;
@@ -137,6 +138,7 @@
     background-color: var(--grey4);
     outline: none;
     border: 0px;
+    top: -3px;
   }
   .note_reactQuillContainer {
     width: 100%;

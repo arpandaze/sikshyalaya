@@ -10,7 +10,7 @@ import { format } from "date-fns";
 import { ImCross } from "react-icons/im";
 import useAPI from "../../../utils/useAPI";
 import Button from "@material-ui/core/Button";
-import pp from "../../../assets/pp.jpg";
+import pp from "../../../assets/default-profile.svg";
 
 import callAPI from "../../../utils/API";
 import { AlertContext } from "../../../components/DashboardLayout/AlertContext";

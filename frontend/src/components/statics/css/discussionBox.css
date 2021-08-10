@@ -1,6 +1,6 @@
 @import "../../../utils/colors.css";
 
-@media only screen and (min-width: 1280px) {
+@media only screen and (min-width: 720px) {
   .discussionBox_discussionBoxContainer {
     width: 500px;
   }
@@ -37,6 +37,7 @@
     height: 50px !important;
     border-radius: 50%;
     margin: 2px !important;
+    position: relative !important;
   }
 
   .discussionBox_sendButtonContainer:hover {
@@ -48,7 +49,7 @@
     );
   }
   .discussionBox_sendButton {
-    position: relative;
+    position: relative !important;
     top: 8px;
     left: 5px;
   }

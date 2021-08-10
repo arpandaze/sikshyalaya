@@ -191,7 +191,7 @@ const DiscussionBox = ({ classDetails }) => {
                       onKeyDown={handleKeyPress}
                     />
                   </Grid>
-                  <Grid item className="discussionBox_sendButtonContainer">
+                  {/* <Grid item className="discussionBox_sendButtonContainer">
                     <button
                       type="submit"
                       name="submit"
@@ -210,7 +210,7 @@ const DiscussionBox = ({ classDetails }) => {
                         className="discussionBox_sendButton"
                       />
                     </button>
-                  </Grid>
+                  </Grid> */}
                 </Grid>
               </Grid>
             </Grid>

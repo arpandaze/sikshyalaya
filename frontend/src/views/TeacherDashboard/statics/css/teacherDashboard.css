@@ -192,9 +192,9 @@
     border-radius: 15px !important;
     border: 1px solid var(--grey6);
   }
-  .teacherDash_addsessionButton {
-    position: absolute;
-    left: 130px !important;
+  .teacherDash_doneAttendanceButton {
+    position: absolute !important;
+    right: 20px !important;
   }
   .teacherDash_classResourceBoxInside {
   }
