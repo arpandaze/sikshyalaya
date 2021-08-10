@@ -150,16 +150,7 @@ const CourseView = ({ location, ...rest }) => {
                   xs={6}
                   className="adminCommon_mainBox"
                 >
-                  <AdminBoxSmall
-                    type="course"
-                    onSubmit={() => {
-                      history.push({
-                        pathname: "/admin/explore/program",
-                        state: {},
-                      });
-                    }}
-                    cardData={course}
-                  />
+                  <AdminBoxSmall type="course" cardData={course} />
                 </Grid>
               ))}
             </Grid>
