@@ -36,8 +36,8 @@ const Landing = () => {
         })
         .join(" and ");
       if (
-        end_time.getTime() > currentDateTime.getTime() &&
-        start_time.getTime() < currentDateTime.getTime()
+        end_time.getTime() > currentDateTime &&
+        start_time.getTime() < currentDateTime
       ) {
         active_class_session.push({
           id: item.id,
