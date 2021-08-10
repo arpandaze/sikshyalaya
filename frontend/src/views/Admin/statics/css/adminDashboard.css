@@ -1,5 +1,5 @@
 @import "../../../../utils/colors.css";
-@media only screen and (min-width: 1920px) {
+@media only screen and (min-width: 720px) {
   .admin_root {
     width: 95% !important;
     height: 100vh !important;
@@ -7,177 +7,75 @@
     position: relative !important;
     flex-grow: 1 !important;
   }
-
-  .admin_topBar {
+  .admin_mainBar {
     width: 100% !important;
-    height: 50px !important;
-    margin-top: 50px !important;
-  }
-  .admin_botBar {
-    width: 100% !important;
-    height: 810px !important;
-    margin-top: 20px !important;
-  }
-  .admin_leftContainer {
-    height: 810px !important;
+    height: 740px !important;
+    margin-top: 35px !important;
   }
   .admin_middleContainer {
-    height: 810px !important;
+    height: 730px !important;
   }
-  .admin_rightContainer {
-    height: 810px !important;
-  }
-  .admin_activeClassBoxContainer {
-    width: 95% !important;
-    height: 250px !important;
+  .admin_customCards {
+    height: 330px !important;
+    margin-top: 20px !important;
     background: var(--white) !important;
     border-radius: 15px !important;
-    border: 1px solid var(--grey6);
-  }
-  .admin_activeClassBoxInside {
-  }
-  .admin_activeClassBoxTop {
-  }
-  .admin_smallRedBox {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: var(--red4);
-    position: relative;
-    margin-left: 20px !important;
-  }
-  .admin_activeClassTitle {
-    position: relative;
-    left: 15px;
-    font-size: 1.7em;
-  }
-  .admin_classResourcesBoxContainer {
-    width: 95% !important;
-    height: 510px !important;
-    margin-top: 40px !important;
-    background: var(--white) !important;
-    border-radius: 15px !important;
-    border: 1px solid var(--grey6);
-  }
-  .admin_classResourceBoxInside {
-  }
-  .admin_classResourceBoxTop {
-  }
-  .admin_smallPurpleBox {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: var(--purple);
-    position: relative;
-    margin-left: 20px !important;
-  }
-  .admin_classResourceTitle {
-    position: relative;
-    left: 15px;
-    font-size: 1.7em;
-  }
-  .admin_discussionBoxContainer {
-    width: 95% !important;
-    height: 800px !important;
     margin: 0px auto !important;
-    background: var(--white) !important;
-    border-radius: 15px !important;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
     border: 1px solid var(--grey6);
   }
-  .admin_discussionBoxInside {
+  .admin_customCards:hover .admin_imageTextContainer {
+    display: block;
   }
-  .admin_discussionBoxTop {
+  @keyframes textMove {
+    from {
+      right: -100%;
+    }
+    to {
+      right: 0px;
+    }
   }
-  .admin_smallBlueBox {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: var(--blue);
+  @keyframes textEffect {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  .admin_compImage {
+    width: 85%;
+    height: 85%;
+    margin: 0px auto;
     position: relative;
-    margin-left: 20px !important;
   }
-  .admin_discussionBoxTitle {
-    position: relative;
-    left: 15px;
-    font-size: 1.7em;
+  .admin_imageTextContainer {
+    display: none;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    opacity: 0.85;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    text-align: center;
+    z-index: 1;
+    border-radius: 0px 0px 15px 15px !important;
+    animation: textMove 0.25s ease-out;
+    background: var(--red4);
   }
-  .admin_postBoxContainer {
-    width: 95% !important;
-    height: 250px !important;
-    background: var(--white) !important;
-    border-radius: 15px !important;
-    border: 1px solid var(--grey6);
-  }
-  .admin_postBoxInside {
-  }
-  .admin_postBoxTop {
-  }
-  .admin_smallGreenBox {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: var(--green2);
-    position: relative;
-    margin-left: 20px !important;
-  }
-  .admin_postBoxTitle {
-    position: relative;
-    left: 15px;
-    font-size: 1.7em;
-  }
-  .admin_quizBoxContainer {
-    width: 95% !important;
-    height: 250px !important;
-    background: var(--white) !important;
-    border-radius: 15px !important;
-    margin-top: 25px !important;
-    border: 1px solid var(--grey6);
-  }
-  .admin_quizBoxInside {
-  }
-  .admin_quizBoxTop {
-  }
-  .admin_smallYellowBox {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: var(--yellow);
-    position: relative;
-    margin-left: 20px !important;
-  }
-  .admin_quizBoxTitle {
-    position: relative;
-    left: 15px;
-    font-size: 1.7em;
-  }
-  .admin_tbdBoxContainer {
-    width: 95% !important;
-    height: 250px !important;
-    background: var(--white) !important;
-    border-radius: 15px !important;
-    margin-top: 25px !important;
-    border: 1px solid var(--grey6);
-  }
-  .admin_tbdBoxInside {
-  }
-  .admin_tbdBoxTop {
-  }
-  .admin_smallBlueBox {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: var(--blue);
-    position: relative;
-    margin-left: 20px !important;
-  }
-  .admin_tbdBoxTitle {
-    position: relative;
-    left: 15px;
-    font-size: 1.7em;
+  .admin_imageText {
+    margin: 0px;
+    color: var(--primary);
+    transition-delay: 1s;
+    animation: textEffect 1.25s;
+    font-size: 1.2em;
   }
 }
 
-@media only screen and (max-width: 1919px) {
+@media only screen and (min-width: 1920px) {
   .admin_root {
     width: 98% !important;
     height: 100vh !important;
@@ -185,172 +83,33 @@
     position: relative !important;
     flex-grow: 1 !important;
   }
-
-  .admin_topBar {
-    width: 100% !important;
-    height: 50px !important;
-    margin-top: 50px !important;
-  }
-  .admin_botBar {
+  .admin_mainBar {
     width: 100% !important;
     height: 700px !important;
-    margin-top: 20px !important;
-  }
-  .admin_leftContainer {
-    height: 750px !important;
+    margin-top: 35px !important;
   }
   .admin_middleContainer {
-    height: 750px !important;
+    height: 810px !important;
   }
-  .admin_rightContainer {
-    height: 750px !important;
-  }
-  .admin_activeClassBoxContainer {
-    width: 90% !important;
-    height: calc(180px + 2vw) !important;
-    max-height: 250px;
-    background: var(--white) !important;
-    border-radius: 15px !important;
-    border: 1px solid var(--grey6);
-  }
-  .admin_activeClassBoxInside {
-  }
-  .admin_activeClassBoxTop {
-  }
-  .admin_smallRedBox {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: var(--red4);
-    position: relative;
-    margin-left: 20px !important;
-  }
-  .admin_activeClassTitle {
-    position: relative;
-    left: 15px;
-    font-size: 1.3em;
-  }
-  .admin_classResourcesBoxContainer {
-    width: 90% !important;
-    height: 412px !important;
+  .admin_customCards {
+    height: 420px !important;
     margin-top: 40px !important;
     background: var(--white) !important;
     border-radius: 15px !important;
+    margin: 20px auto !important;
+    cursor: pointer;
     border: 1px solid var(--grey6);
   }
-  .admin_classResourceBoxInside {
+  .admin_compImage {
+    width: 85%;
+    height: 85%;
+    margin: 0px auto;
   }
-  .admin_classResourceBoxTop {
+  .admin_imageTextContainer {
+    height: 55px;
+    line-height: 55px;
   }
-  .admin_smallPurpleBox {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: var(--purple);
-    position: relative;
-    margin-left: 20px !important;
-  }
-  .admin_classResourceTitle {
-    position: relative;
-    left: 15px;
-    font-size: 1.3em;
-  }
-  .admin_discussionBoxContainer {
-    height: 650px !important;
-    margin: 0px auto !important;
-    background: var(--white) !important;
-    border-radius: 15px !important;
-    border: 1px solid var(--grey6);
-  }
-  .admin_discussionBoxInside {
-  }
-  .admin_discussionBoxTop {
-  }
-  .admin_smallBlueBox {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: var(--blue);
-    position: relative;
-    margin-left: 20px !important;
-  }
-  .admin_discussionBoxTitle {
-    position: relative;
-    left: 15px;
-    font-size: 1.3em;
-  }
-  .admin_postBoxContainer {
-    width: 90% !important;
-    height: 200px !important;
-    background: var(--white) !important;
-    border-radius: 15px !important;
-    border: 1px solid var(--grey6);
-  }
-  .admin_postBoxInside {
-  }
-  .admin_postBoxTop {
-  }
-  .admin_smallGreenBox {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: var(--green2);
-    position: relative;
-    margin-left: 20px !important;
-  }
-  .admin_postBoxTitle {
-    position: relative;
-    left: 15px;
-    font-size: 1.3em;
-  }
-  .admin_quizBoxContainer {
-    width: 90% !important;
-    height: 200px !important;
-    background: var(--white) !important;
-    border-radius: 15px !important;
-    margin-top: 25px !important;
-    border: 1px solid var(--grey6);
-  }
-  .admin_quizBoxInside {
-  }
-  .admin_quizBoxTop {
-  }
-  .admin_smallYellowBox {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: var(--yellow);
-    position: relative;
-    margin-left: 20px !important;
-  }
-  .admin_quizBoxTitle {
-    position: relative;
-    left: 15px;
-    font-size: 1.3em;
-  }
-  .admin_tbdBoxContainer {
-    width: 90% !important;
-    height: 200px !important;
-    background: var(--white) !important;
-    border-radius: 15px !important;
-    margin-top: 25px !important;
-    border: 1px solid var(--grey6);
-  }
-  .admin_tbdBoxInside {
-  }
-  .admin_tbdBoxTop {
-  }
-  .admin_smallBlueBox {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: var(--blue);
-    position: relative;
-    margin-left: 20px !important;
-  }
-  .admin_tbdBoxTitle {
-    position: relative;
-    left: 15px;
-    font-size: 1.3em;
+  .admin_imageText {
+    font-size: 1.5em;
   }
 }

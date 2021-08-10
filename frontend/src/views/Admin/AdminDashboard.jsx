@@ -1,9 +1,16 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import DashboardLayout from "../../components/DashboardLayout/DashboardLayout";
+import student from "../../assets/student.svg";
+import teacher from "../../assets/teacher.svg";
+import explore from "../../assets/explore.svg";
+import course from "../../assets/course.svg";
+import Image from "../../components/Image";
 import "./statics/css/adminDashboard.css";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const AdminDashboard = () => {
+  const history = useHistory();
   return (
     <DashboardLayout>
       <Grid
@@ -14,149 +21,98 @@ const AdminDashboard = () => {
         wrap="nowrap"
         className="admin_root"
       >
-        <Grid item className="admin_topBar"></Grid>
-        <Grid item className="admin_botBar">
+        <Grid item className="admin_mainBar">
           <Grid container direction="row" justify="center" alignItems="center">
-            <Grid item className="admin_leftContainer" xs={4}>
+            <Grid
+              item
+              container
+              direction="row"
+              className="admin_middleContainer"
+              xs={12}
+            >
               <Grid
                 container
-                direction="column"
-                justify="center"
+                direction="row"
                 alignItems="center"
+                item
+                xs={5}
+                className="admin_customCards"
+                onClick={() => {
+                  history.push({
+                    pathname: "/admin/teacher",
+                  });
+                }}
               >
-                <Grid item className="admin_activeClassBoxContainer">
-                  <Grid
-                    container
-                    direction="row"
-                    alignItems="center"
-                    className="admin_activeClassBoxInside"
-                  >
-                    <Grid item>
-                      <Grid
-                        container
-                        direction="row"
-                        alignItems="center"
-                        className="admin_activeClassBoxTop"
-                      >
-                        <div className="admin_smallRedBox"></div>
-                        <h1 className="admin_activeClassTitle">Active Class</h1>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <Grid item className="admin_classResourcesBoxContainer">
-                  <Grid
-                    container
-                    direction="row"
-                    alignItems="center"
-                    className="admin_classResourceBoxInside"
-                  >
-                    <Grid item>
-                      <Grid
-                        container
-                        direction="row"
-                        alignItems="center"
-                        className="admin_classResourceBoxTop"
-                      >
-                        <div className="admin_smallPurpleBox"></div>
-                        <h1 className="admin_classResourceTitle">
-                          Class Resource
-                        </h1>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Grid>
+                <div className="admin_compImage">
+                  <Image src={teacher} />
+                </div>
+                <div className="admin_imageTextContainer">
+                  <p className="admin_imageText">Teacher</p>
+                </div>
+                <div className="admin_imageTextContainer2"></div>
               </Grid>
-            </Grid>
-            <Grid item className="admin_middleContainer" xs={4}>
-              <Grid item className="admin_discussionBoxContainer">
-                <Grid
-                  container
-                  direction="row"
-                  alignItems="center"
-                  className="admin_quizBoxInside"
-                >
-                  <Grid item>
-                    <Grid
-                      container
-                      direction="row"
-                      alignItems="center"
-                      className="admin_quizBoxTop"
-                    >
-                      <div className="admin_smallBlueBox"></div>
-                      <h1 className="admin_quizBoxTitle">Discussion</h1>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item className="admin_rightContainer" xs={4}>
               <Grid
                 container
-                direction="column"
-                justify="center"
+                direction="row"
                 alignItems="center"
+                item
+                xs={5}
+                className="admin_customCards"
+                onClick={() => {
+                  history.push({
+                    pathname: "/admin/student",
+                  });
+                }}
               >
-                <Grid item className="admin_postBoxContainer">
-                  <Grid
-                    container
-                    direction="row"
-                    alignItems="center"
-                    className="admin_postBoxInside"
-                  >
-                    <Grid item>
-                      <Grid
-                        container
-                        direction="row"
-                        alignItems="center"
-                        className="admin_postBoxTop"
-                      >
-                        <div className="admin_smallGreenBox"></div>
-                        <h1 className="admin_postBoxTitle">Post</h1>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <Grid item className="admin_quizBoxContainer">
-                  <Grid
-                    container
-                    direction="row"
-                    alignItems="center"
-                    className="admin_quizBoxInside"
-                  >
-                    <Grid item>
-                      <Grid
-                        container
-                        direction="row"
-                        alignItems="center"
-                        className="admin_quizBoxTop"
-                      >
-                        <div className="admin_smallYellowBox"></div>
-                        <h1 className="admin_quizBoxTitle">Quiz</h1>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <Grid item className="admin_tbdBoxContainer">
-                  <Grid
-                    container
-                    direction="row"
-                    alignItems="center"
-                    className="admin_tbdBoxInside"
-                  >
-                    <Grid item>
-                      <Grid
-                        container
-                        direction="row"
-                        alignItems="center"
-                        className="admin_tbdBoxTop"
-                      >
-                        <div className="admin_smallBlueBox"></div>
-                        <h1 className="admin_tbdBoxTitle">TBD</h1>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Grid>
+                <div className="admin_compImage">
+                  <Image src={student} />
+                </div>
+                <div className="admin_imageTextContainer">
+                  <p className="admin_imageText">Student</p>
+                </div>
+                <div className="admin_imageTextContainer2"></div>
+              </Grid>
+              <Grid
+                container
+                direction="row"
+                alignItems="center"
+                item
+                xs={5}
+                className="admin_customCards"
+                onClick={() => {
+                  history.push({
+                    pathname: "/admin/explore",
+                  });
+                }}
+              >
+                <div className="admin_compImage">
+                  <Image src={explore} />
+                </div>
+                <div className="admin_imageTextContainer">
+                  <p className="admin_imageText">Explore</p>
+                </div>
+                <div className="admin_imageTextContainer2"></div>
+              </Grid>
+              <Grid
+                container
+                direction="row"
+                alignItems="center"
+                item
+                xs={5}
+                className="admin_customCards"
+                onClick={() => {
+                  history.push({
+                    pathname: "/admin/course",
+                  });
+                }}
+              >
+                <div className="admin_compImage">
+                  <Image src={course} />
+                </div>
+                <div className="admin_imageTextContainer">
+                  <p className="admin_imageText">Course</p>
+                </div>
+                <div className="admin_imageTextContainer2"></div>
               </Grid>
             </Grid>
           </Grid>
