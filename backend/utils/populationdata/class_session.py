@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 
 classSessions: List[Json] = [
     {
-        "start_time": datetime.utcnow() - timedelta(hours=-2),
+        "start_time": datetime.utcnow() + timedelta(hours=-2),
         "is_active": True,
         "instructor": [10, 9],
         "course_id": 1,
