@@ -1,44 +1,44 @@
 from typing import List
 from pydantic import Json
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 classSessions: List[Json] = [
     {
-        "start_time": datetime(2021, 6, 12, 12, 00, 00),
+        "start_time": datetime.utcnow() - timedelta(hours=-2),
         "is_active": True,
         "instructor": [10, 9],
         "course_id": 1,
         "group_id": 2,
-        "description": "Starting with the Fundamentals of Programming",
-        "end_time": datetime(2021, 6, 12, 14, 00, 00),
+        "description": "Mathematical Structures, what are they?",
+        "end_time": datetime(2022, 6, 12, 14, 00, 00),
     },
     {
-        "start_time": datetime.now(),
+        "start_time": datetime(2021, 8, 20, 14, 00, 00),
         "is_active": True,
         "instructor": [10, 9],
         "course_id": 1,
         "group_id": 2,
-        "description": "This is a long class session",
-        "end_time": datetime(2022, 6, 12, 12, 00, 00),
+        "description": "This is another class session",
+        "end_time": datetime(2021, 8, 20, 16, 00, 00),
     },
     {
-        "start_time": datetime(2021, 10, 22, 14, 00, 00),
+        "start_time": datetime(2021, 8, 20, 16, 00, 00),
         "is_active": True,
         "instructor": [8, 9],
         "course_id": 3,
-        "group_id": 3,
+        "group_id": 2,
         "description": "Starting with the Intro to Environmental Sustainability",
-        "end_time": datetime(2021, 10, 22, 18, 00, 00),
+        "end_time": datetime(2021, 8, 20, 18, 00, 00),
     },
     {
-        "start_time": datetime(2021, 8, 1, 9, 00, 00),
+        "start_time": datetime(2021, 8, 19, 20, 00, 00),
         "is_active": True,
         "instructor": [8],
         "course_id": 2,
         "group_id": 2,
         "description": "Starting with Algorithms, and Time Complexity of Algorithms",
-        "end_time": datetime(2021, 8, 1, 12, 00, 00),
+        "end_time": datetime(2021, 8, 19, 22, 00, 00),
     },
     {
         "start_time": datetime(2021, 3, 4, 13, 00, 00),

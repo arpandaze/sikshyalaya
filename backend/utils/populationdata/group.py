@@ -5,52 +5,52 @@ groups: List[Json] = [
     {
         "program_id": "1",
         "sem": 2,
-        "course": [2, 5],
+        "course": [6, 7, 8, 9, 10],
     },
     {
         "program_id": "1",
         "sem": 3,
-        "course": [2, 4],
+        "course": [1, 2, 3, 4, 5],
     },
     {
         "program_id": "2",
-        "sem": 1,
-        "course": [1, 3],
+        "sem": 2,
+        "course": [6, 7, 8, 9, 10],
+    },
+    {
+        "program_id": "2",
+        "sem": 3,
+        "course": [1, 2, 3, 4, 5],
     },
     {
         "program_id": "3",
-        "sem": 2,
-        "course": [5, 6],
-    },
-    {
-        "program_id": "4",
         "sem": 1,
         "course": [1, 3],
     },
     {
-        "program_id": "5",
+        "program_id": "4",
         "sem": 4,
         "course": [1, 3, 4],
     },
     {
-        "program_id": "6",
+        "program_id": "5",
         "sem": 2,
-        "course": [9, 10],
+        "course": [9, 10, 11],
     },
     {
         "program_id": "7",
         "sem": 3,
-        "course": [9, 10],
+        "course": [9, 10, 12],
     },
     {
         "program_id": "8",
         "sem": 5,
-        "course": [7, 8],
+        "course": [7, 8, 13],
     },
     {
         "program_id": "9",
         "sem": 6,
-        "course": [11, 12],
+        "course": [11, 12, 15],
     },
     {
         "program_id": "11",
