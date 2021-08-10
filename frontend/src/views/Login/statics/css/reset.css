@@ -1,6 +1,6 @@
 @import "../../../../utils/colors.css";
 
-@media only screen and (min-width: 1280px) {
+@media only screen and (min-width: 720px) {
   .resetCommon_logoBox {
     width: 200px;
     position: absolute;
@@ -90,9 +90,10 @@
     font-size: 1.2em;
   }
   .resetCommon_feedBackMessages {
-    margin: 100px;
-    font-size: 1.4em;
-    font-weight: 500;
+    margin: 50px;
+  }
+  .resetCommon_feedBackImage {
+    margin-top: 100px !important;
   }
 }
 

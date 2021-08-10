@@ -4,7 +4,10 @@ import Login from "./Login";
 import Grid from "@material-ui/core/Grid";
 import "./statics/css/verify.css";
 import DelayedRedirect from "../../components/DelayedRedirect";
+import verify from "../../assets/verify.svg";
+import emailVerify from "../../assets/emailVerify.svg";
 import callAPI from "../../utils/API";
+import Image from "../../components/Image";
 
 const Verify = () => {
   const [verifyToken, setVerifyToken] = useState(null);
@@ -40,10 +43,10 @@ const Verify = () => {
     <Login>
       {verifyState.id === 1 ? (
         <Grid container direction="column" alignItems="center" justify="center">
-          <Grid item xs={12}>
-            <h2>Click the button below to verify your account.</h2>
+          <Grid item xs={8}>
+            <Image src={emailVerify} />
           </Grid>
-          <Grid item>
+          <Grid item className="verify_buttonContainer">
             <CustomButton
               type="button"
               name="Verify"
@@ -55,10 +58,18 @@ const Verify = () => {
       ) : (
         <>
           <DelayedRedirect to="/login" timeout="3" />
-          <div style={{ textAlign: "center" }}>
-            <h2>{verifyState.msg}!</h2>
+          <Grid
+            container
+            direction="column"
+            alignItems="center"
+            justify="center"
+          >
+            <Grid item xs={6}>
+              <Image src={verify} />
+            </Grid>
             <h2>Redirecting...</h2>
-          </div>
+            <h2>{verifyState.msg}!</h2>
+          </Grid>
         </>
       )}
     </Login>

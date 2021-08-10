@@ -8,6 +8,10 @@ import "./statics/css/reset.css";
 import callAPI from "../../utils/API";
 import { useHistory } from "react-router-dom";
 import ForgotPassword from "./ForgotPassword";
+import Image from "../../components/Image";
+import resetSuccess from "../../assets/resetSuccess.svg";
+import resetMailSent from "../../assets/resetMailSent.svg";
+import resetNotValid from "../../assets/resetNotValid.svg";
 import DelayedRedirect from "../../components/DelayedRedirect";
 
 const validationSchema = yup.object({
@@ -167,28 +171,55 @@ const ResetPassword = () => {
             </Grid>
           </>
         ) : resetState == states.reset_success ? (
-          <div>
-            <h1 className="resetCommon_feedBackMessages">
+          <Grid
+            container
+            item
+            direction="column"
+            justify="center"
+            alignItems="center"
+          >
+            <Grid item xs={6} className="resetCommon_feedBackImage">
+              <Image src={resetSuccess} />
+            </Grid>
+            <h2 className="resetCommon_feedBackMessages">
               Your Password has been reset successfully!
-            </h1>
+            </h2>
             <DelayedRedirect timeout={3} to="/login" />
-          </div>
+          </Grid>
         ) : resetState == states.reset_email_success ? (
-          <div>
-            <h1 className="resetCommon_feedBackMessages">
+          <Grid
+            container
+            item
+            direction="column"
+            justify="center"
+            alignItems="center"
+          >
+            <Grid item xs={6} className="resetCommon_feedBackImage">
+              <Image src={resetMailSent} />
+            </Grid>
+            <h2 className="resetCommon_feedBackMessages">
               Password reset email has been sent!
-            </h1>
+            </h2>
             <DelayedRedirect timeout={3} to="/login" />
-          </div>
+          </Grid>
         ) : resetState == states.send_email ? (
           <ForgotPassword setResetState={(state) => setResetState(state)} />
         ) : (
-          <div>
-            <h1 className="resetCommon_feedBackMessages">
+          <Grid
+            container
+            item
+            direction="column"
+            justify="center"
+            alignItems="center"
+          >
+            <Grid item xs={6} className="resetCommon_feedBackImage">
+              <Image src={resetNotValid} />
+            </Grid>
+            <h2 className="resetCommon_feedBackMessages">
               Valid token not found!
-            </h1>
+            </h2>
             <DelayedRedirect timeout={3} to="/login" />
-          </div>
+          </Grid>
         )}
       </Grid>
     </Login>

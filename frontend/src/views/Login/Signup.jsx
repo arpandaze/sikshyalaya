@@ -13,6 +13,8 @@ import useAPI from "../../utils/useAPI";
 import DelayedRedirect from "../../components/DelayedRedirect";
 import { DatePicker } from "../../components/CustomDateTime";
 import { format } from "date-fns";
+import Image from "../../components/Image";
+import signupImg from "../../assets/signupImg.svg";
 
 const semester = [
   { name: "I", value: 1 },
@@ -306,11 +308,14 @@ const Signup = () => {
           </Grid>
         </Grid>
       ) : (
-        <div>
+        <Grid container direction="column" justify="center" alignItems="center">
+          <Grid xs={6}>
+            <Image src={signupImg} />
+          </Grid>
           <DelayedRedirect timeout={5} to="/login" />
           <h1>{submitState.message}</h1>
           <h1>Redirecting in few seconds!</h1>
-        </div>
+        </Grid>
       )}
     </Login>
   );
