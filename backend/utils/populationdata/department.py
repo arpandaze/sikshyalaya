@@ -11,8 +11,8 @@ departments: List[Json] = [
         "school_id": 2,
     },
     {
-        "name": "Department of Environmental Science and Engineering",
-        "school_id": 1,
+        "name": "Department of Electrical and Electronics Engineering",
+        "school_id": 2,
     },
     {
         "name": "Department of Management",
@@ -37,5 +37,13 @@ departments: List[Json] = [
     {
         "name": "Department of Education",
         "school_id": 7,
+    },
+    {
+        "name": "Department of Mathematics",
+        "school_id": 1,
+    },
+    {
+        "name": "Department of Environemental Science and Engineering",
+        "school_id": 1,
     },
 ]
