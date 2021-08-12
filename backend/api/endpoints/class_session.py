@@ -59,6 +59,7 @@ async def create_class_session(
     *,
     form: ClassSessionCreateForm = Depends(),
 ) -> Any:
+    course_id=None
     for item in user.teacher_group:
         course_id = item.course.id if item.group.id == form.group else course_id
 

@@ -23,7 +23,7 @@ const OnlineBox = ({ miniProfile = true, ...rest }) => {
   const [classmates, setClassmates] = useState([]);
   useEffect(() => {
     if (classmatesState) {
-      let year = Math.floor(user.group ? user.group.sem / 2 : 0);
+      let year = Math.ceil(user.group ? user.group.sem / 2 : 0);
       let cmates = Object.keys(classmatesState).map((item) => {
         return {
           id: item,
