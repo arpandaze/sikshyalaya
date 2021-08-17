@@ -29,6 +29,7 @@ const ClassResource = ({ resourceList, ...rest }) => {
                 </li>
               </a>
               <li className="classResource_resourceListTimeText">
+                {console.log(resource.time)}
                 {timeDifference(resource.time)}
               </li>
               <div className="classResource_seperator"></div>
@@ -43,7 +44,8 @@ const ClassResource = ({ resourceList, ...rest }) => {
 const timeDifference = (postDate) => {
   const date1 = new Date(postDate);
   const date2 = new Date();
-  const diffTime = Math.abs(date2 - date1);
+  const date3 = new Date(date1.toLocaleString() + " UTC").toLocaleString();
+  const diffTime = Math.abs(date2 - date3);
   const diffSeconds = diffTime / 1000;
   let timeDiff;
   let timeLetter;

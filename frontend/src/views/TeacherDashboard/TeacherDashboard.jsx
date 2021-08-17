@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Grid from "@material-ui/core/Grid";
 import DashboardLayout from "../../components/DashboardLayout/DashboardLayout";
 import ClassResource from "../Dashboard/components/ClassResource";
@@ -12,7 +12,9 @@ import configs from "../../utils/configs";
 import noClass from "../../assets/bulletin.svg";
 import Image from "../../components/Image";
 import defaultProfile from "../../assets/default-profile.svg";
+import { AlertContext } from "../../components/DashboardLayout/AlertContext";
 import "./statics/css/teacherDashboard.css";
+import { BsFilePlus } from "react-icons/bs";
 
 const getFileType = (item) => {
   switch (item) {
@@ -56,10 +58,10 @@ const students = [];
 let groupID = null;
 
 const Dashboard = ({ match }) => {
-  const [next, setNext] = useState(1);
   const [optionFile, setOptionFile] = useState([]);
   const [buttonType, setButtonType] = useState(true);
 
+  const { alert, setAlert } = useContext(AlertContext);
   const [pageState, setPageState] = useState(0);
   const [doneState, setDoneState] = useState(0);
 
@@ -78,9 +80,6 @@ const Dashboard = ({ match }) => {
   };
 
   const [classDetails, setClassDetails] = useState(classDetailsDefault);
-  const handleOptionUploadSave = (files) => {
-    setOptionFile([...optionFile, ...files]);
-  };
 
   const classSessionFormatter = (value) => {
     if (!value.data.length) {
@@ -100,7 +99,6 @@ const Dashboard = ({ match }) => {
     });
     return active_class_session[0];
   };
-
   useEffect(async () => {
     let class_details = null;
     if (match.params.classID) {
@@ -146,6 +144,30 @@ const Dashboard = ({ match }) => {
       setPageState(1);
     }
   }, []);
+
+  const handleUploadSave = (files) => {
+    setOptionFile([...optionFile, ...files]);
+  };
+  const handleSubmit = async () => {
+    let formData = new FormData();
+    formData.append("class_id", classDetails.classID);
+    if (optionFile) {
+      [...optionFile].map((item) => {
+        formData.append("files", item);
+      });
+    }
+    let resp = await callAPI({
+      endpoint: `/api/v1/class_session/${classDetails.classID}/files`,
+      method: "PUT",
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    if (resp.status === 200) {
+      window.location = "/teacher-dashboard";
+    }
+  };
 
   useEffect(async () => {
     if (classDetails.groupID) {
@@ -314,8 +336,30 @@ const Dashboard = ({ match }) => {
                               Class Resource
                             </h1>
                           </Grid>
-
+                        </Grid>
+                      </Grid>
+                      <Grid item>
+                        <Grid
+                          container
+                          direction="column"
+                          alignItems="center"
+                          className="teacherDash_classResourceBoxBottom"
+                        >
                           <Grid item>
+                            <ClassResource
+                              resourceList={classDetails.resources}
+                            />
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                      <Grid item>
+                        <Grid
+                          container
+                          direction="row"
+                          alignItems="center"
+                          className="teacherDashboard_bottomPart"
+                        >
+                          <Grid item className="teacherDash_uploadIcon">
                             <FileUpload
                               label="Upload"
                               acceptedFiles={[
@@ -333,28 +377,37 @@ const Dashboard = ({ match }) => {
                                 "application/x-zip-compressed",
                               ]}
                               handleSave={(files) => {
-                                handleOptionUploadSave(files);
-                                setNext(next + 1);
+                                handleUploadSave(files);
                               }}
                             />
                           </Grid>
-                        </Grid>
-                      </Grid>
-                      <Grid item>
-                        <Grid
-                          container
-                          direction="column"
-                          alignItems="center"
-                          className="teacherDashboard_classResourceBoxBottom"
-                        >
-                          <Grid item>
-                            <ClassResource
-                              resourceList={classDetails.resources}
-                            />
-                          </Grid>
+                          {optionFile && optionFile.length ? (
+                            <Grid item className="teacherDash_submitContainer">
+                              <Button
+                                onMouseOver={() => {
+                                  setButtonType(false);
+                                }}
+                                onMouseOut={() => {
+                                  setButtonType(true);
+                                }}
+                                variant={buttonType ? "outlined" : "contained"}
+                                color="primary"
+                                onClick={() => {
+                                  handleSubmit();
+                                }}
+                                className="teacherDash_crossbutton"
+                              >
+                                Upload
+                              </Button>
+                            </Grid>
+                          ) : (
+                            <></>
+                          )}
                         </Grid>
                       </Grid>
                     </Grid>
+
+                    {/*Attendance part*/}
                     {/* <Grid
                       container
                       direction="column"

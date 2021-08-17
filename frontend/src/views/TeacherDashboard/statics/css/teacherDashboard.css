@@ -146,6 +146,11 @@
     font-weight: 400;
     color: var(--primaryTextColor);
   }
+  .teacherDashboard_uploadContainer {
+  }
+  .teacherDashboard_uploadWrapper {
+    width: 270px !important;
+  }
   .teacherDash_attendanceContainer {
     width: 92% !important;
     height: 410px !important;
@@ -171,6 +176,17 @@
     cursor: pointer;
     position: relative;
     left: 40px;
+  }
+  .uploadIcon {
+    margin-top: 5px !important;
+    margin-left: 25px !important;
+    cursor: pointer;
+  }
+  .uploadIcon:hover {
+    color: var(--purple);
+  }
+  .teacherDashboard_bottomPart {
+    border-top: 1px solid var(--grey6);
   }
   .teacherDash_userlistContainerOuter {
     height: inherit;
@@ -215,9 +231,10 @@
     font-size: 1.5em;
   }
   .teacherDash_classResourceBoxBottom {
-    height: 440px;
+    height: 415px;
     overflow-x: scroll;
   }
+
   .teacherDashboard_noClassImage {
     width: 350px !important;
   }
@@ -251,6 +268,21 @@
     overflow: hidden;
     overflow-y: auto;
   }
+  .teacherDash_uploadIcon {
+    width: 270px;
+    margin-left: 10px !important;
+    margin-top: 5px !important;
+  }
+
+  .teacherDash_submitContainer {
+  }
+  .teacherDash_crossbutton:nth-child(2) {
+    margin-left: 25px !important;
+  }
+  .teacherDash_crossbutton:hover {
+    opacity: 0.8;
+    cursor: pointer;
+  }
 }
 
 @media only screen and (min-width: 1920px) {
@@ -283,6 +315,9 @@
   .teacherDashboard_classResourceTitle {
     text-indent: 10px;
     font-size: 1.5em;
+  }
+  .teacherDashboard_uploadWrapper {
+    width: 100px;
   }
   .teacherDash_attendanceContainer {
     height: 540px !important;

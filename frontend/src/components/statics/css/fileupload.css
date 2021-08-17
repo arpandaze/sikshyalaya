@@ -18,9 +18,6 @@
   .fileUpload_textContainer:hover {
     color: var(--purple2);
     cursor: pointer;
-    transform: scale(1.05);
-    border-bottom: 1px solid var(--purple2);
-    transition: transform 350ms ease;
   }
   .fileUpload_textContainerInnerMost {
   }
