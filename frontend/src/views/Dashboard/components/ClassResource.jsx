@@ -44,7 +44,7 @@ const ClassResource = ({ resourceList, ...rest }) => {
 const timeDifference = (postDate) => {
   const date1 = new Date(postDate);
   const date2 = new Date();
-  const date3 = new Date(date1.toLocaleString() + " UTC").toLocaleString();
+  const date3 = new Date(date1.toLocaleString() + " UTC");
   const diffTime = Math.abs(date2 - date3);
   const diffSeconds = diffTime / 1000;
   let timeDiff;
