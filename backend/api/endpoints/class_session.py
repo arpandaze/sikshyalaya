@@ -59,7 +59,7 @@ async def create_class_session(
     *,
     form: ClassSessionCreateForm = Depends(),
 ) -> Any:
-    course_id=None
+    course_id = None
     for item in user.teacher_group:
         course_id = item.course.id if item.group.id == form.group else course_id
 
@@ -132,6 +132,39 @@ def update_class_session(
     class_session = crud_class_session.get(db, id)
     class_session = crud_class_session.update(db, db_obj=class_session, obj_in=obj_in)
     return class_session
+
+
+@router.put("/{id}/files", response_model=ClassSession)
+async def update_class_session(
+    db: Session = Depends(deps.get_db),
+    *,
+    class_id: int,
+    files: List[UploadFile] = File(None),
+) -> Any:
+    hasher = sha256()
+    hasher.update(bytes(f"{class_id}_{settings.SECRET_KEY}", "utf-8"))
+    db_folder_path = os.path.join("class_files", hasher.hexdigest())
+    folder_path = os.path.join(settings.UPLOAD_DIR_ROOT, db_folder_path)
+
+    if not os.path.exists(folder_path):
+        os.makedirs(folder_path)
+
+    for file in files:
+        file_path = os.path.join(folder_path, file.filename)
+        async with aiofiles.open(file_path, mode="wb") as f:
+            content = await file.read()
+            await f.write(content)
+
+        db.add(
+            FileModel(
+                name=file.filename,
+                path=db_folder_path,
+                file_type=file.content_type,
+                description=None,
+                class_session=class_id,
+            )
+        )
+        db.commit()
 
 
 @router.put("/{id}/attendance")
