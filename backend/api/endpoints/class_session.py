@@ -134,13 +134,15 @@ def update_class_session(
     return class_session
 
 
-@router.put("/{id}/files", response_model=ClassSession)
+@router.put("/{class_id}/files", response_model=ClassSession)
 async def update_class_session(
     db: Session = Depends(deps.get_db),
     *,
     class_id: int,
     files: List[UploadFile] = File(None),
 ) -> Any:
+    class_session = crud_class_session.get(db, class_id)
+
     hasher = sha256()
     hasher.update(bytes(f"{class_id}_{settings.SECRET_KEY}", "utf-8"))
     db_folder_path = os.path.join("class_files", hasher.hexdigest())
@@ -161,10 +163,12 @@ async def update_class_session(
                 path=db_folder_path,
                 file_type=file.content_type,
                 description=None,
-                class_session=class_id,
+                class_session=class_session,
             )
         )
         db.commit()
+
+    return {"msg": "success"}
 
 
 @router.put("/{id}/attendance")
