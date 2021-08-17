@@ -232,6 +232,25 @@
     font-size: 1.5em;
     font-weight: 600;
   }
+  .teacherDashboard_classResourceTitleContainer {
+    width: 140px !important;
+  }
+  .teacherDashboard_smallPurpleBox {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--purple);
+    margin-left: 10px !important;
+  }
+  .teacherDashboard_classResourceTitle {
+    text-indent: 10px;
+    font-size: 1.1em;
+  }
+  .teacherDashboard_classResourceBoxBottom {
+    height: 440px;
+    overflow: hidden;
+    overflow-y: auto;
+  }
 }
 
 @media only screen and (min-width: 1920px) {
@@ -250,6 +269,20 @@
   .teacherDash_activeClassBoxContainer {
     width: 90% !important;
     height: 250px;
+  }
+  .teacherDashboard_classResourceTitleContainer {
+    width: 250px !important;
+  }
+  .teacherDashboard_smallPurpleBox {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--purple);
+    margin-left: 10px !important;
+  }
+  .teacherDashboard_classResourceTitle {
+    text-indent: 10px;
+    font-size: 1.5em;
   }
   .teacherDash_attendanceContainer {
     height: 540px !important;

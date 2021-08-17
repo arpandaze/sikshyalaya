@@ -5,6 +5,7 @@ import ClassResource from "../Dashboard/components/ClassResource";
 import callAPI from "../../utils/API";
 import DiscussionBox from "../../components/DiscussionBox.jsx";
 import ConditionalRendering from "../../components/ConditionalRendering";
+import { FileUpload } from "../../components/FileUpload";
 import Student from "./components/Student";
 import Button from "@material-ui/core/Button";
 import configs from "../../utils/configs";
@@ -55,6 +56,8 @@ const students = [];
 let groupID = null;
 
 const Dashboard = ({ match }) => {
+  const [next, setNext] = useState(1);
+  const [optionFile, setOptionFile] = useState([]);
   const [buttonType, setButtonType] = useState(true);
 
   const [pageState, setPageState] = useState(0);
@@ -75,6 +78,9 @@ const Dashboard = ({ match }) => {
   };
 
   const [classDetails, setClassDetails] = useState(classDetailsDefault);
+  const handleOptionUploadSave = (files) => {
+    setOptionFile([...optionFile, ...files]);
+  };
 
   const classSessionFormatter = (value) => {
     if (!value.data.length) {
@@ -288,6 +294,70 @@ const Dashboard = ({ match }) => {
                     <Grid
                       container
                       direction="column"
+                      className="teacherDashboard_classResourceBoxInside"
+                    >
+                      <Grid item>
+                        <Grid
+                          container
+                          direction="row"
+                          alignItems="center"
+                          className="teacherDashboard_classResourceBoxTop"
+                        >
+                          <Grid item>
+                            <div className="teacherDashboard_smallPurpleBox"></div>
+                          </Grid>
+                          <Grid
+                            item
+                            className="teacherDashboard_classResourceTitleContainer"
+                          >
+                            <h1 className="teacherDashboard_classResourceTitle">
+                              Class Resource
+                            </h1>
+                          </Grid>
+
+                          <Grid item>
+                            <FileUpload
+                              label="Upload"
+                              acceptedFiles={[
+                                "application/msword",
+                                "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                                "image/jpeg",
+                                "image/png",
+                                "application/pdf",
+                                "application/vnd.ms-powerpoint",
+                                "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+                                "application/vnd.rar",
+                                "application/x-tar",
+                                "application/zip",
+                                "application/x-7z-compressed",
+                                "application/x-zip-compressed",
+                              ]}
+                              handleSave={(files) => {
+                                handleOptionUploadSave(files);
+                                setNext(next + 1);
+                              }}
+                            />
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                      <Grid item>
+                        <Grid
+                          container
+                          direction="column"
+                          alignItems="center"
+                          className="teacherDashboard_classResourceBoxBottom"
+                        >
+                          <Grid item>
+                            <ClassResource
+                              resourceList={classDetails.resources}
+                            />
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                    {/* <Grid
+                      container
+                      direction="column"
                       className="teacherDash_classResourceBoxInside"
                     >
                       <Grid item>
@@ -337,7 +407,7 @@ const Dashboard = ({ match }) => {
                           ))}
                         </Grid>
                       </Grid>
-                    </Grid>
+                    </Grid> */}
                   </Grid>
                 </Grid>
               </Grid>

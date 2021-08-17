@@ -1,28 +1,44 @@
 @import "../../../utils/colors.css";
-.fileUpload_label {
-  font-size: 1rem;
-  font-weight: 600;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-.fileUpload_textContainer {
-  padding: 5px;
-  border-radius: 8px 8px 0px 0px;
-}
-.fileUpload_textContainer:hover {
-  color: var(--purple2);
-  cursor: pointer;
-  transform: scale(1.05);
-  border-bottom: 1px solid var(--purple2);
-  transition: transform 350ms ease;
-}
-.fileUpload_textContainerInnerMost {
+
+@media only screen and (min-width: 1280px) {
+  .fileUpload_label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  .fileUpload_textContainer {
+    padding: 5px;
+    border-radius: 8px 8px 0px 0px;
+  }
+  .fileUpload_textContainer:hover {
+    color: var(--purple2);
+    cursor: pointer;
+    transform: scale(1.05);
+    border-bottom: 1px solid var(--purple2);
+    transition: transform 350ms ease;
+  }
+  .fileUpload_textContainerInnerMost {
+  }
+
+  .fileUpload_icon:hover {
+    color: var(--purple2);
+  }
 }
 
-.fileUpload_icon:hover {
-  color: var(--purple2);
+@media only screen and (min-width: 1920px) {
+  .fileUpload_label {
+    font-size: 1rem;
+    font-weight: 600;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
 }

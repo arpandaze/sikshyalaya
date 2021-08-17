@@ -12,7 +12,6 @@ import ResourceIcons from "./../../../components/ResourceIcons";
 
 const Options = ({ optionName, question, index }) => {
   const { optionFile, setOptionFile } = useContext(QuizOptionContext);
-  const [next, setNext] = useState(1);
   const optionRef = useRef(null);
 
   const handleOptionUploadSave = (files, optionIndex) => {
@@ -109,7 +108,6 @@ const Options = ({ optionName, question, index }) => {
                         acceptedFiles={["image/jpeg", "image/png"]}
                         handleSave={(files) => {
                           handleOptionUploadSave(files, optionIndex);
-                          setNext(next + 1);
                         }}
                         maxFiles={1}
                       />

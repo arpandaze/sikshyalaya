@@ -134,7 +134,7 @@ def update_class_session(
     return class_session
 
 
-@router.put("/{class_id}/files", response_model=ClassSession)
+@router.put("/{class_id}/files")
 async def update_class_session(
     db: Session = Depends(deps.get_db),
     *,
@@ -167,8 +167,8 @@ async def update_class_session(
             )
         )
         db.commit()
+    return {"msg":"success"}
 
-    return {"msg": "success"}
 
 
 @router.put("/{id}/attendance")

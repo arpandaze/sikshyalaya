@@ -4,6 +4,7 @@ import { Formik, Form, FieldArray, Field } from "formik";
 import CustomTextField from "../../components/CustomTextField";
 import DashboardLayout from "../../components/DashboardLayout/DashboardLayout";
 import CustomButton from "../../components/CustomButton";
+import { FileUpload } from "../../components/FileUpload";
 import { BiMinus } from "react-icons/bi";
 import * as yup from "yup";
 import colorscheme from "../../utils/colors";
@@ -24,21 +25,12 @@ import { BsFilePlus } from "react-icons/bs";
 const ClassSessionCreator = () => {
   const [selectFile, setSelectedFile] = useState([]);
   const { user } = useContext(UserContext);
-  const [uploadPopUp, setUploadPopUp] = useState(false);
   const { alert, setAlert } = useContext(AlertContext);
 
   const [group, setGroup] = useState(null);
 
-  const handleUploadOpen = () => {
-    setUploadPopUp(true);
-  };
-  const handleUploadClose = () => {
-    setUploadPopUp(false);
-  };
-
   const handleUploadSave = (files) => {
     setSelectedFile([...selectFile, ...files]);
-    setUploadPopUp(false);
   };
   const onDeleteUploadItem = (index) => {
     let temp = [...selectFile];
@@ -98,7 +90,6 @@ const ClassSessionCreator = () => {
   );
 
   const onSubmit = async (values) => {
-    console.log(values);
     let formData = new FormData();
     formData.append("start_time", values.start_time.toISOString());
     formData.append("end_time", values.end_time.toISOString());
@@ -319,12 +310,27 @@ const ClassSessionCreator = () => {
                             direction="row"
                             alignItems="center"
                             className="classSession_uploadIconContainer"
-                            onClick={handleUploadOpen}
                           >
-                            <BsFilePlus className="classSession_uploadIcon" />
-                            <p className="classSession_uploadIconText">
-                              Upload Files
-                            </p>
+                            <FileUpload
+                              label="Upload"
+                              acceptedFiles={[
+                                "application/msword",
+                                "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                                "image/jpeg",
+                                "image/png",
+                                "application/pdf",
+                                "application/vnd.ms-powerpoint",
+                                "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+                                "application/vnd.rar",
+                                "application/x-tar",
+                                "application/zip",
+                                "application/x-7z-compressed",
+                                "application/x-zip-compressed",
+                              ]}
+                              handleSave={(files) => {
+                                handleUploadSave(files);
+                              }}
+                            />
                           </Grid>
 
                           <p className="classSession_uploadFileListContainer">
@@ -355,27 +361,6 @@ const ClassSessionCreator = () => {
                                 ))
                               : "No Files Added"}
                           </p>
-                          <DropzoneDialog
-                            open={uploadPopUp}
-                            maxFileSize={10000000}
-                            onSave={handleUploadSave}
-                            acceptedFiles={[
-                              "application/msword",
-                              "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-                              "image/jpeg",
-                              "image/png",
-                              "application/pdf",
-                              "application/vnd.ms-powerpoint",
-                              "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-                              "application/vnd.rar",
-                              "application/x-tar",
-                              "application/zip",
-                              "application/x-7z-compressed",
-                              "application/x-zip-compressed",
-                            ]}
-                            showPreviews={true}
-                            onClose={handleUploadClose}
-                          />
                         </Grid>
                       </Grid>
 
