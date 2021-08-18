@@ -81,7 +81,7 @@ const Quiz = () => {
             </Grid>
             <Grid item>
               <Grid container direction="row">
-                {allQuizComplete && allQuiz.active.length ? (
+                {allQuizComplete && allQuiz.active && allQuiz.active.length ? (
                   allQuiz.active.map((data, index) => (
                     <Grid key={data.id} item className="quiz_cardInside">
                       <CustomQuizCard
@@ -127,7 +127,7 @@ const Quiz = () => {
             <h1 className="quiz_pastText">Past Quizzes</h1>
           </Grid>
           <Grid container direction="row" className="quiz_pastContainer">
-            {allQuizComplete && allQuiz.past.length ? (
+            {allQuizComplete && allQuiz.past && allQuiz.past.length ? (
               allQuiz.past.map((data, index) => (
                 <Grid key={data.id} item className="quiz_cardInside">
                   <CustomQuizCard
