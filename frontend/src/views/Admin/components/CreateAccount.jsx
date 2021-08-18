@@ -75,7 +75,7 @@ const CreateAccount = ({
                     address: "",
                     semester: "",
                     join_year: "",
-                    dob: null,
+                    dob: new Date(),
                     phone_number: "",
                     email: "",
                     password: "",
