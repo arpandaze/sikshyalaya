@@ -84,3 +84,18 @@ instructor_quiz_association_table = Table(
     Column("instructor_id", Integer, ForeignKey("user.id", ondelete="CASCADE")),
     Column("quiz_id", Integer, ForeignKey("quiz.id", ondelete="CASCADE")),
 )
+
+
+assignment_group_association_table = Table(
+    "assignment_group_association",
+    Base.metadata,
+    Column("group_id", Integer, ForeignKey("group.id", ondelete="CASCADE")),
+    Column("assignment_id", Integer, ForeignKey("assignment.id", ondelete="CASCADE")),
+)
+
+assignment_instructor_association_table = Table(
+    "assignment_instructor_association",
+    Base.metadata, 
+    Column("instructor_id", Integer, ForeignKey("user.id", ondelete="CASCADE")),
+    Column("assignment_id", Integer, ForeignKey("assignment.id", ondelete="CASCADE"))
+)
