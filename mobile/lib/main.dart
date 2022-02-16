@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sikshyalaya/screens/login/login.dart';
+import 'package:sikshyalaya/screens/login/login_screen.dart';
 import 'package:sikshyalaya/theme.dart';
 
 void main() {
@@ -25,7 +25,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: SafeArea(top: true, child: LoginScreen()),
+      home: const SafeArea(top: true, bottom: true, child: LoginScreen()),
       title: 'Sikshyalaya',
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
