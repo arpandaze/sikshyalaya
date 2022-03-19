@@ -2,7 +2,6 @@ import uvicorn
 import os
 from fastapi import FastAPI
 from fastapi.openapi.docs import (
-    get_redoc_html,
     get_swagger_ui_html,
     get_swagger_ui_oauth2_redirect_html,
 )
@@ -51,12 +50,8 @@ async def custom_swagger_ui_html():
         openapi_url=app.openapi_url,
         title=app.title + " - API Documentaion",
         oauth2_redirect_url=app.swagger_ui_oauth2_redirect_url,
-        swagger_js_url=settings.SERVER_FRONTEND_HOST_URL
-        + ":8081"
-        + "/statics/swagger-ui-bundle.js",
-        swagger_css_url=settings.SERVER_FRONTEND_HOST_URL
-        + ":8081"
-        + "/statics/swagger-ui.css",
+        # swagger_js_url=f"{settings.FRONTEND_URL_BASE}/statics/swagger-ui-bundle.js",
+        # swagger_css_url=f"{settings.FRONTEND_URL_BASE}/statics/swagger-ui.css",
     )
 
 
@@ -81,19 +76,21 @@ app.include_router(router, prefix=settings.API_V1_STR)
 def run():
     reload_blacklist = ["tests", ".pytest_cache"]
     reload_dirs = os.listdir()
+
     for dir in reload_blacklist:
         try:
             reload_dirs.remove(dir)
         except:
             pass
+
     uvicorn.run(
         "misc.scripts.launch:app",
-        host=settings.UVICORN_HOST,
-        port=settings.UVICORN_PORT,
-        reload=True if settings.DEV_MODE else False,
+        host=settings.BACKEND_HOST,
+        port=settings.BACKEND_PORT,
+        reload=settings.DEV_MODE,
         reload_dirs=reload_dirs,
-        debug=True if settings.DEV_MODE else False,
-        workers=settings.UVICORN_WORKERS,
+        debug=settings.DEV_MODE,
+        workers=settings.WORKERS,
     )
 
 

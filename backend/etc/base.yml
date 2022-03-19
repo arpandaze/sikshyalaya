@@ -1,0 +1,54 @@
+backend:
+  PROJECT_NAME : MyProject
+  SERVER_NAME : MyServer
+
+  DEV_MODE : True
+
+  PROTOCAL : http
+  BACKEND_HOST : localhost
+  BACKEND_PORT : 8080
+  API_V1_STR : "/api/v1"
+
+  WORKERS : 8
+
+  FIRST_SUPERUSER : "admin@app.local"
+  FIRST_SUPERUSER_PASSWORD : "password"
+
+  SECRET_KEY : 28472B4B6250655368566D5971337436763979244226452948404D635166546A
+
+  SESSION_EXPIRE_TIME : 3600
+  SESSION_EXPIRE_TIME_EXTENDED : 2592000
+
+  FRONTEND_HOST : localhost
+  FRONTEND_PORT : 3001
+
+  UPLOAD_DIR_ROOT : ../file_server
+
+  BACKEND_CORS_ORIGINS :
+    - http://localhost:3001
+    - http://localhost
+
+  ALLOWED_EMAIL_HOST:
+    - gmail.com
+
+  POSTGRES_SERVER : ""
+  POSTGRES_USER : ""
+  POSTGRES_PASSWORD : ""
+  POSTGRES_DB : ""
+
+  REDIS_HOST : ""
+  REDIS_PORT : ""
+  REDIS_PASSWORD : ""
+
+  SMTP_TLS : False
+  SMTP_PORT : 1025
+  SMTP_HOST : localhost
+  SMTP_USER : smptuser
+  SMTP_PASSWORD : smtppass
+
+  EMAILS_FROM_EMAIL : "noreply@app.local"
+  EMAIL_RESET_TOKEN_EXPIRE_HOURS : 48
+  EMAIL_VERIFY_EXPIRE_HOURS : 48
+  EMAIL_TEMPLATES_DIR : templates/email-templates/
+
+  USERS_OPEN_REGISTRATION : True

@@ -1,0 +1,56 @@
+backend:
+  PROJECT_NAME : Sikshyalaya
+  SERVER_NAME : Sikshyalaya
+
+  DEV_MODE : True
+
+  PROTOCAL : http
+  BACKEND_HOST : localhost
+  BACKEND_PORT : 8080
+  API_V1_STR : "/api/v1"
+
+  WORKERS : 16
+
+  FIRST_SUPERUSER : "admin@sikshyalaya.local"
+  FIRST_SUPERUSER_PASSWORD : "password"
+
+  SECRET_KEY : 28472B4B6250655368566D5971337436763979244226452948404D635166546A
+
+  SESSION_EXPIRE_TIME : 3600
+  SESSION_EXPIRE_TIME_EXTENDED : 2592000
+
+  FRONTEND_HOST : localhost
+  FRONTEND_PORT : 3001
+
+  UPLOAD_DIR_ROOT : ../file_server
+
+  BACKEND_CORS_ORIGINS :
+    - http://localhost:3001
+    - http://localhost
+
+  ALLOWED_EMAIL_HOST:
+    - ku.edu.np
+    - student.ku.edu.np
+    - gmail.com
+
+  POSTGRES_SERVER : localhost
+  POSTGRES_USER : postadmin
+  POSTGRES_PASSWORD : postpass
+  POSTGRES_DB : sikshyalaya
+
+  REDIS_HOST : localhost
+  REDIS_PORT : 6379
+  REDIS_PASSWORD : redispass
+
+  SMTP_TLS : False
+  SMTP_PORT : 1025
+  SMTP_HOST : localhost
+  SMTP_USER : smptuser
+  SMTP_PASSWORD : smtppass
+
+  EMAILS_FROM_EMAIL : "noreply@app.local"
+  EMAIL_RESET_TOKEN_EXPIRE_HOURS : 48
+  EMAIL_VERIFY_EXPIRE_HOURS : 48
+  EMAIL_TEMPLATES_DIR : templates/email-templates/
+
+  USERS_OPEN_REGISTRATION : True
