@@ -50,8 +50,8 @@ async def custom_swagger_ui_html():
         openapi_url=app.openapi_url,
         title=app.title + " - API Documentaion",
         oauth2_redirect_url=app.swagger_ui_oauth2_redirect_url,
-        # swagger_js_url=f"{settings.FRONTEND_URL_BASE}/statics/swagger-ui-bundle.js",
-        # swagger_css_url=f"{settings.FRONTEND_URL_BASE}/statics/swagger-ui.css",
+        swagger_js_url=f"{settings.STATIC_URL_BASE}/static/swagger-ui-bundle.js",
+        swagger_css_url=f"{settings.STATIC_URL_BASE}/static/swagger-ui.css",
     )
 
 

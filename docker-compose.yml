@@ -1,8 +1,10 @@
 version: "3"
 services:
   backend:
-    image: registry.gitlab.com/arpandaze/sikshyalaya/file_server:latest
+    image: registry.gitlab.com/arpandaze/sikshyalaya/backend:latest
     container_name: backend
+    environment:
+      - CONFIG_PATH=etc/dock.yml
     depends_on:
       - postgres
       - redis
@@ -42,10 +44,6 @@ services:
       - postgres
     env_file:
       - .env
-    environment:
-        - PGADMIN_LISTEN_PORT=5050
-        - PGADMIN_DEFAULT_EMAIL=${PGADMIN_USER}
-        - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASS}
     ports:
       - "5050:5050"
     logging:

@@ -20,16 +20,6 @@ class Settings(BaseSettings):
 
     PROTOCAL: str
 
-    FRONTEND_HOST: str
-    FRONTEND_PORT: int
-
-    @property
-    def FRONTEND_URL_BASE(self):
-        if self.FRONTEND_PORT == 80:
-            return f"{self.PROTOCAL}://{self.FRONTEND_HOST}"
-        else:
-            return f"{self.PROTOCAL}://{self.FRONTEND_HOST}:{self.FRONTEND_PORT}"
-
     BACKEND_HOST: str
     BACKEND_PORT: int
 
@@ -40,6 +30,25 @@ class Settings(BaseSettings):
         else:
             return f"{self.PROTOCAL}://{self.BACKEND_HOST}:{self.BACKEND_PORT}"
 
+    STATIC_HOST: str
+    STATIC_PORT: int
+
+    @property
+    def STATIC_URL_BASE(self):
+        if self.STATIC_PORT == 80:
+            return f"{self.PROTOCAL}://{self.STATIC_HOST}"
+        else:
+            return f"{self.PROTOCAL}://{self.STATIC_HOST}:{self.STATIC_PORT}"
+
+    FRONTEND_HOST: str
+    FRONTEND_PORT: int
+
+    @property
+    def FRONTEND_URL_BASE(self):
+        if self.FRONTEND_PORT == 80:
+            return f"{self.PROTOCAL}://{self.FRONTEND_HOST}"
+        else:
+            return f"{self.PROTOCAL}://{self.FRONTEND_HOST}:{self.FRONTEND_PORT}"
 
     UPLOAD_DIR_ROOT: str
 

@@ -1,6 +1,6 @@
 backend:
-  PROJECT_NAME : MyProject
-  SERVER_NAME : MyServer
+  PROJECT_NAME : Sikshyalaya
+  SERVER_NAME : Sikshyalaya
 
   DEV_MODE : True
 
@@ -9,9 +9,9 @@ backend:
   BACKEND_PORT : 8080
   API_V1_STR : "/api/v1"
 
-  WORKERS : 8
+  WORKERS : 16
 
-  FIRST_SUPERUSER : "admin@app.local"
+  FIRST_SUPERUSER : "admin@sikshyalaya.local"
   FIRST_SUPERUSER_PASSWORD : "password"
 
   SECRET_KEY : 28472B4B6250655368566D5971337436763979244226452948404D635166546A
@@ -32,20 +32,22 @@ backend:
     - http://localhost
 
   ALLOWED_EMAIL_HOST:
+    - ku.edu.np
+    - student.ku.edu.np
     - gmail.com
 
-  POSTGRES_SERVER : ""
-  POSTGRES_USER : ""
-  POSTGRES_PASSWORD : ""
-  POSTGRES_DB : ""
+  POSTGRES_SERVER : postgres
+  POSTGRES_USER : postadmin
+  POSTGRES_PASSWORD : postpass
+  POSTGRES_DB : sikshyalaya
 
-  REDIS_HOST : ""
-  REDIS_PORT : ""
-  REDIS_PASSWORD : ""
+  REDIS_HOST : redis
+  REDIS_PORT : 6379
+  REDIS_PASSWORD : redispass
 
   SMTP_TLS : False
   SMTP_PORT : 1025
-  SMTP_HOST : localhost
+  SMTP_HOST : mailhog
   SMTP_USER : smptuser
   SMTP_PASSWORD : smtppass
 
