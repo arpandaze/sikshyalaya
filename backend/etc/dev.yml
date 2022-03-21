@@ -6,7 +6,7 @@ backend:
 
   PROTOCAL : http
   BACKEND_HOST : localhost
-  BACKEND_PORT : 8080
+  BACKEND_PORT : 8181
   API_V1_STR : "/api/v1"
 
   WORKERS : 16
