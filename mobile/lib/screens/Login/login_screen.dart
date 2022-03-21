@@ -42,12 +42,14 @@ class LoginScreen extends StatelessWidget {
                   CustomTextField(
                     placeHolder: "Email",
                     margin: const EdgeInsets.fromLTRB(0, 60, 0, 0),
-                    onChanged: (value) => context.read<LoginBloc>().add(EmailChanged(value)),
+                    onChanged: (value) =>
+                        context.read<LoginBloc>().add(EmailChanged(value)),
                   ),
                   CustomTextField(
                     placeHolder: "Password",
                     isPassword: true,
-                    onChanged: (value) => context.read<LoginBloc>().add(PasswordChanged(value)),
+                    onChanged: (value) =>
+                        context.read<LoginBloc>().add(PasswordChanged(value)),
                     margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                   ),
                   Container(
@@ -69,6 +71,7 @@ class LoginScreen extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(vertical: 10),
                           ),
                           CustomFilledButton(
+                            text: "Login",
                             onPressed: () =>
                                 context.read<LoginBloc>().add(FormSubmitted()),
                           ),
