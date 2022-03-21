@@ -1,15 +1,9 @@
 import os
 import sys
 from time import sleep
-
 import click
-from dotenv import load_dotenv
 
 # RCOUNT: 145
-
-
-if __name__ == "__main__":
-    load_dotenv("../.env.development")
 
 
 class CommandDefinition:
@@ -59,6 +53,7 @@ class CommandDefinition:
         from alembic.config import Config
 
         alembic_cfg = Config("alembic.ini")
+
         msg = input("Enter a message: ")
         command.revision(config=alembic_cfg, autogenerate=True, message=msg)
         click.echo("Inside migrate")
@@ -144,7 +139,8 @@ class CommandDefinition:
             engine.execute("DROP schema public CASCADE")
             engine.execute("CREATE schema public")
             alembic_cfg = Config("alembic.ini")
-            command.revision(config=alembic_cfg, autogenerate=True, message="cleandb")
+            command.revision(config=alembic_cfg,
+                             autogenerate=True, message="cleandb")
             command.upgrade(alembic_cfg, "head")
         except Exception as e:
             print(e)
@@ -157,7 +153,8 @@ class CommandDefinition:
 
     def pytest(self):
         ec = int(
-            os.system("pytest --verbose --color=yes tests/api/api_v1/test_program.py")
+            os.system(
+                "pytest --verbose --color=yes tests/api/api_v1/test_program.py")
             / 256
         )
         sys.exit(ec)

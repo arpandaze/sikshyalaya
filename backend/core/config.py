@@ -1,126 +1,112 @@
 import enum
 import os
-import secrets
-from typing import Any, Dict, List, Optional, Union
+from typing import List, Optional
+import yaml
 
 from pydantic import (
     AnyHttpUrl,
     BaseSettings,
     EmailStr,
     PostgresDsn,
-    validator,
 )
 
 
 class Settings(BaseSettings):
-    API_V1_STR: str = "/api/v1"
-    SECRET_KEY: str = secrets.token_urlsafe(32)
-    SESSION_EXPIRE_TIME: int = 60 * 60  # Seconds
-    SESSION_EXPIRE_TIME_EXTENDED: int = 30 * 24 * 60 * 60  # Minutes
-    SERVER_NAME: str = os.environ.get("SERVER_NAME")
+    API_V1_STR: str
+    SECRET_KEY: str
+    SESSION_EXPIRE_TIME: int
+    SESSION_EXPIRE_TIME_EXTENDED: int
+    SERVER_NAME: str
 
-    PROTOCAL: str = os.environ.get("PROTOCAL")
+    PROTOCAL: str
 
-    SERVER_FRONTEND_HOST: str = os.environ.get("SERVER_FRONTEND_HOST")
-    SERVER_FRONTEND_HOST_URL: AnyHttpUrl = f"{PROTOCAL}://{SERVER_FRONTEND_HOST}"
-    SERVER_FRONTEND_PORT: int = os.environ.get("SERVER_FRONTEND_PORT")
-    SERVER_FRONTEND_URL: AnyHttpUrl = (
-        f"{SERVER_FRONTEND_HOST_URL}:{SERVER_FRONTEND_PORT}"
-        if SERVER_FRONTEND_PORT
-        else SERVER_FRONTEND_HOST_URL
-    )
+    BACKEND_HOST: str
+    BACKEND_PORT: int
 
-    SERVER_BACKEND_HOST: str = os.environ.get("SERVER_BACKEND_HOST")
-    SERVER_BACKEND_HOST_URL: AnyHttpUrl = f"{PROTOCAL}://{SERVER_BACKEND_HOST}"
-    SERVER_BACKEND_PORT: int = os.environ.get("SERVER_BACKEND_PORT")
-    SERVER_BACKEND_URL: AnyHttpUrl = (
-        f"{SERVER_BACKEND_HOST_URL}:{SERVER_BACKEND_PORT}"
-        if SERVER_BACKEND_PORT
-        else SERVER_BACKEND_HOST_URL
-    )
+    @property
+    def BACKEND_URL_BASE(self):
+        if self.BACKEND_PORT == 80:
+            return f"{self.PROTOCAL}://{self.BACKEND_HOST}"
+        else:
+            return f"{self.PROTOCAL}://{self.BACKEND_HOST}:{self.BACKEND_PORT}"
 
-    UPLOAD_DIR_ROOT: str = "../file_server"
+    STATIC_HOST: str
+    STATIC_PORT: int
 
-    UVICORN_HOST: str = os.environ.get("UVICORN_HOST")
-    UVICORN_PORT: int = os.environ.get("UVICORN_PORT")
-    UVICORN_WORKERS: int = os.environ.get("UVICORN_WORKERS")
-    DEV_MODE: bool = True if os.environ.get("MODE") == "DEV" else False
+    @property
+    def STATIC_URL_BASE(self):
+        if self.STATIC_PORT == 80:
+            return f"{self.PROTOCAL}://{self.STATIC_HOST}"
+        else:
+            return f"{self.PROTOCAL}://{self.STATIC_HOST}:{self.STATIC_PORT}"
 
-    BACKEND_CORS_ORIGINS: List[AnyHttpUrl] = [
-        "http://localhost:3001",
-        "http://localhost",
-    ]
+    FRONTEND_HOST: str
+    FRONTEND_PORT: int
 
-    ALLOWED_EMAIL_HOST: List[str] = [
-        "ku.edu.np",
-        "student.ku.edu.np",
-        "test.com",  # FIXME: Remove this on deployment
-        "gmail.com",
-    ]
+    @property
+    def FRONTEND_URL_BASE(self):
+        if self.FRONTEND_PORT == 80:
+            return f"{self.PROTOCAL}://{self.FRONTEND_HOST}"
+        else:
+            return f"{self.PROTOCAL}://{self.FRONTEND_HOST}:{self.FRONTEND_PORT}"
 
-    @validator("BACKEND_CORS_ORIGINS", pre=True)
-    def assemble_cors_origins(cls, v: Union[str, List[str]]) -> Union[List[str], str]:
-        if isinstance(v, str) and not v.startswith("["):
-            return [i.strip() for i in v.split(",")]
-        elif isinstance(v, (list, str)):
-            return v
-        raise ValueError(v)
+    UPLOAD_DIR_ROOT: str
+
+    WORKERS: int
+    DEV_MODE: bool
+
+    BACKEND_CORS_ORIGINS: List[AnyHttpUrl]
+
+    ALLOWED_EMAIL_HOST: List[str]
 
     PROJECT_NAME: str
 
-    POSTGRES_SERVER: str = os.environ.get("POSTGRES_SERVER")
-    POSTGRES_USER: str = os.environ.get("POSTGRES_USER")
-    POSTGRES_PASSWORD: str = os.environ.get("POSTGRES_PASSWORD")
-    POSTGRES_DB: str = os.environ.get("POSTGRES_DB")
-    SQLALCHEMY_DATABASE_URI: Optional[PostgresDsn] = None
+    POSTGRES_SERVER: str
+    POSTGRES_USER: str
+    POSTGRES_PASSWORD: str
+    POSTGRES_DB: str
 
-    REDIS_HOST: str = os.environ.get("REDIS_HOST")
-    REDIS_PORT: str = os.environ.get("REDIS_PORT")
-    REDIS_PASSWORD: str = os.environ.get("REDIS_PASSWORD")
-
-    @validator("SQLALCHEMY_DATABASE_URI", pre=True)
-    def assemble_db_connection(cls, v: Optional[str], values: Dict[str, Any]) -> Any:
-        if isinstance(v, str):
-            return v
+    @property
+    def POSTGRES_DATABASE_URI(self):
         return PostgresDsn.build(
             scheme="postgresql",
-            user=values.get("POSTGRES_USER"),
-            password=values.get("POSTGRES_PASSWORD"),
-            host=values.get("POSTGRES_SERVER"),
-            path=f"/{values.get('POSTGRES_DB') or ''}",
+            user=self.POSTGRES_USER,
+            password=self.POSTGRES_PASSWORD,
+            host=self.POSTGRES_SERVER,
+            path=f"/{self.POSTGRES_DB or ''}",
         )
 
-    SMTP_TLS: bool = True
-    SMTP_PORT: Optional[int] = None
-    SMTP_HOST: Optional[str] = None
-    SMTP_USER: Optional[str] = None
-    SMTP_PASSWORD: Optional[str] = None
-    EMAILS_FROM_EMAIL: Optional[EmailStr] = None
-    EMAILS_FROM_NAME: Optional[str] = None
+    REDIS_HOST: str
+    REDIS_PORT: str
+    REDIS_PASSWORD: str
 
-    @validator("EMAILS_FROM_NAME")
-    def get_project_name(cls, v: Optional[str], values: Dict[str, Any]) -> str:
-        if not v:
-            return values["PROJECT_NAME"]
-        return v
+    SMTP_TLS: bool
+    SMTP_PORT: Optional[int]
+    SMTP_HOST: Optional[str]
+    SMTP_USER: Optional[str]
+    SMTP_PASSWORD: Optional[str]
+
+    EMAILS_FROM_EMAIL: Optional[EmailStr]
+
+    @property
+    def EMAILS_FROM_NAME(self):
+        return self.PROJECT_NAME
 
     EMAIL_RESET_TOKEN_EXPIRE_HOURS: int = 48
     EMAIL_VERIFY_EXPIRE_HOURS: int = 48
-    EMAIL_TEMPLATES_DIR: str = "templates/email-templates/"
-    EMAILS_ENABLED: bool = False
+    EMAIL_TEMPLATES_DIR: str
 
-    @validator("EMAILS_ENABLED", pre=True)
-    def get_emails_enabled(cls, v: bool, values: Dict[str, Any]) -> bool:  # noqa
+    @property
+    def EMAILS_ENABLED(self):
         return bool(
-            values.get("SMTP_HOST")
-            and values.get("SMTP_PORT")
-            and values.get("EMAILS_FROM_EMAIL")
+            self.SMTP_HOST
+            and self.SMTP_PORT
+            and self.EMAILS_FROM_EMAIL
         )
 
-    EMAIL_TEST_USER: EmailStr = "test@example.com"  # type: ignore
-    FIRST_SUPERUSER: EmailStr = os.environ.get("FIRST_SUPERUSER")
-    FIRST_SUPERUSER_PASSWORD: str = os.environ.get("FIRST_SUPERUSER_PASSWORD")
-    USERS_OPEN_REGISTRATION: bool = True
+    FIRST_SUPERUSER: EmailStr
+    FIRST_SUPERUSER_PASSWORD: str
+    USERS_OPEN_REGISTRATION: bool
 
     class UserType(enum.Enum):
         SUPERADMIN: int = 1
@@ -132,4 +118,15 @@ class Settings(BaseSettings):
         case_sensitive = True
 
 
-settings = Settings()
+configs = {}
+
+with open("etc/base.yml", "r") as base_config_file:
+    configs = yaml.load(base_config_file.read(), yaml.Loader)
+
+config_path = os.environ.get("CONFIG_PATH") or "etc/dev.yml"
+
+with open(config_path, "r") as config_file:
+    custom_configs = yaml.load(config_file.read(), yaml.Loader)
+    configs.update(custom_configs)
+
+settings = Settings(**configs["backend"])

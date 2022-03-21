@@ -1,6 +1,7 @@
 .vim/
 .vscode/
 .idea/
+.env
 .mypy_cache/
 docker-stack.yml
 __pycache__/
@@ -10,5 +11,4 @@ node_modules/
 **/whls/*
 static/
 uploaded_files/
-file_server/
 !.keep

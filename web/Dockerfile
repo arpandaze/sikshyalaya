@@ -12,6 +12,8 @@ COPY ./ /app/
 RUN yarn build
 
 FROM nginx:1.20-alpine
+
 WORKDIR /var/www/html
-COPY ./misc/etc/nginx.conf /etc/nginx/nginx.conf
+
+COPY nginx.conf /etc/nginx/nginx.conf
 COPY --from=reactbuilder /app/build/ .

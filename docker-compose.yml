@@ -1,26 +1,23 @@
 version: "3"
 services:
   backend:
+    image: registry.gitlab.com/arpandaze/sikshyalaya/backend:latest
     container_name: backend
+    environment:
+      - CONFIG_PATH=etc/dock.yml
     depends_on:
       - postgres
       - redis
-    env_file:
-      - .env
-    build:
-      context: ./backend
-      dockerfile: ../dockerfiles/backend.dockerfile
-    command: sh ./misc/scripts/gunicorn_launch.sh
     networks:
       - internal
+    ports:
+      - "8080:80"
 
-  frontend:
-    container_name: frontend
-    env_file:
-      - .env
-    build:
-      context: ./frontend
-      dockerfile: ../dockerfiles/frontend.dockerfile
+  web:
+    image: registry.gitlab.com/arpandaze/sikshyalaya/web:latest
+    container_name: web
+    ports:
+      - "3001:80"
 
   postgres:
     image: postgres:13-alpine
@@ -33,6 +30,8 @@ services:
       - .env
     environment:
       - PGDATA=/var/lib/postgres/data
+    ports:
+      - "5432:5432"
 
   pgadmin:
     image: dpage/pgadmin4
@@ -43,7 +42,6 @@ services:
       - internal
     depends_on:
       - postgres
-
     env_file:
       - .env
     ports:
@@ -56,23 +54,34 @@ services:
     container_name: redis
     env_file:
       - .env
-    command: redis-server --requirepass ${SECRET_KEY}
+    command: redis-server --requirepass ${REDIS_PASSWORD}
     networks:
       - internal
+    ports:
+      - "6379:6379"
 
   file_server:
+    image: registry.gitlab.com/arpandaze/sikshyalaya/file_server:latest
     container_name: file_server
-    build:
-      context: ./dockerfiles
-      dockerfile: ./file_server.dockerfile
     networks:
       - internal
     volumes:
-      - uploads:/usr/share/nginx/html
+      - ./.files:/contents/files
+    ports:
+      - "8081:80"
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: mailhog
+    networks:
+      - internal
+    ports:
+      - "8025:8025"
+      - "1025:1025"
+
 
 volumes:
   persistent:
-  uploads:
 
 networks:
   internal:
