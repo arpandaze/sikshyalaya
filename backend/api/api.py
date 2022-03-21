@@ -12,6 +12,7 @@ from api.endpoints import (
     class_session,
     personal_note,
     teacher_note,
+    assignment,
 )
 
 api_router = APIRouter()
@@ -36,3 +37,4 @@ api_router.include_router(quiz.router, prefix="/quiz", tags=["Quizzes"])
 api_router.include_router(
     quiz_answer.router, prefix="/quizanswer", tags=["Quiz Answers"]
 )
+api_router.include_router(assignment.router, prefix="/assignment", tags=["Assignments"])

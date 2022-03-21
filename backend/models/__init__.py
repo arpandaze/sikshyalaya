@@ -11,3 +11,4 @@ from .user_permission import UserPermission
 from .quiz import Quiz, QuizQuestion
 from .quiz_answer import QuizAnswer  # noqa: F401
 from .file import File
+from .assignment import Assignment

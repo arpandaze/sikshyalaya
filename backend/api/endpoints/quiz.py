@@ -4,7 +4,7 @@ from typing import Any, List, Dict
 from hashlib import sha1
 
 import os
-
+import shutil
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
@@ -446,7 +446,7 @@ async def delete_quiz(
             )
 
             if os.path.exists(FILE_PATH):
-                os.rmdir(FILE_PATH)
+                shutil.rmtree(FILE_PATH)
 
             return {"msg": "delete success"}
 

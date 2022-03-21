@@ -65,3 +65,5 @@ from .quiz_answer import (
 
 from .file import File, FileCreate, FileUpdate, FileInDB
 from .auth import LoginData
+
+from .assignment import Assignment, AssignmentCreate, AssignmentUpdate, AssignmentInDB
