@@ -4,11 +4,14 @@ class CustomTextField extends StatelessWidget {
   final EdgeInsets margin;
   final String placeHolder;
   final bool isPassword;
+  final ValueChanged? onChanged;
+
   const CustomTextField({
     Key? key,
     required this.placeHolder,
     this.isPassword = false,
     this.margin = const EdgeInsets.all(0),
+    this.onChanged,
   }) : super(key: key);
 
   @override
@@ -19,12 +22,13 @@ class CustomTextField extends StatelessWidget {
       margin: margin,
       child: TextField(
         obscureText: isPassword,
+        onChanged: onChanged,
         decoration: InputDecoration(
-            contentPadding:
-                const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
-            hintText: placeHolder),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
+          hintText: placeHolder,
+        ),
       ),
     );
   }
