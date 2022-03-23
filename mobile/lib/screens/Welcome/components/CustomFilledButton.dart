@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class CustomFilledButton extends StatelessWidget {
   final String buttonText;
   final Color colorType;
+  final Color textColor;
   final Widget onPressed;
   const CustomFilledButton({
     Key? key,
     required this.buttonText,
     required this.colorType,
+    required this.textColor,
     required this.onPressed,
   }) : super(key: key);
 
@@ -20,8 +22,7 @@ class CustomFilledButton extends StatelessWidget {
       ),
       padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
       color: colorType,
-      child: Text(buttonText,
-          style: TextStyle(color: Theme.of(context).colorScheme.onPrimary)),
+      child: Text(buttonText, style: TextStyle(color: textColor)),
       onPressed: () {
         Navigator.push(
           context,

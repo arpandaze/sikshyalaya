@@ -78,6 +78,9 @@ class WelcomeScreen extends StatelessWidget {
                                     child: CustomFilledButton(
                                       onPressed: const LoginScreen(),
                                       buttonText: "Login",
+                                      textColor: Theme.of(context)
+                                          .colorScheme
+                                          .onPrimary,
                                       colorType:
                                           Theme.of(context).colorScheme.primary,
                                     ),
@@ -91,6 +94,9 @@ class WelcomeScreen extends StatelessWidget {
                                       colorType: Theme.of(context)
                                           .colorScheme
                                           .secondary,
+                                      textColor: Theme.of(context)
+                                          .colorScheme
+                                          .onPrimary,
                                       onPressed: const Signup(),
                                     ),
                                   ),
