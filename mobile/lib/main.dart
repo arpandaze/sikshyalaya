@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:sikshyalaya/screens/Assignment/assignment_screen.dart';
 import 'package:sikshyalaya/screens/Welcome/welcome_screen.dart';
 import 'package:sikshyalaya/screens/Student/student_wrapper.dart';
+import 'package:sikshyalaya/screens/Assignment/assignment_screen.dart';
 import 'package:sikshyalaya/theme.dart';
 
 void main() {
@@ -26,7 +28,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const SafeArea(top: true, bottom: true, child: Student()),
+      home: const SafeArea(top: true, bottom: true, child: AssignmentScreen()),
       title: 'Sikshyalaya',
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
