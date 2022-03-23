@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:sikshyalaya/components/nav_bar.dart';
 import 'package:sikshyalaya/screens/Dashboard/student_dashboard.dart';
 import 'package:sikshyalaya/components/top_bar.dart';
+import 'package:sikshyalaya/screens/Quiz/student_quizview.dart';
 
 class Student extends StatelessWidget {
   const Student({Key? key}) : super(key: key);
