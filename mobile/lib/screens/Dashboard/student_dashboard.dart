@@ -62,15 +62,15 @@ class StudentDashboard extends StatelessWidget {
               height: 200,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(25),
-                  color: Theme.of(context).colorScheme.surface),
+                  color: Theme.of(context).colorScheme.background),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
                     child: Text(
                       "11",
-                      style: Theme.of(context).textTheme.headline2,
+                      style: Theme.of(context).textTheme.headline1,
                     ),
                   ),
                   Row(
@@ -79,13 +79,13 @@ class StudentDashboard extends StatelessWidget {
                       Container(
                         child: Text(
                           "45",
-                          style: Theme.of(context).textTheme.headline4,
+                          style: Theme.of(context).textTheme.headline3,
                         ),
                       ),
                       Container(
                         child: Text(
                           "PM",
-                          style: Theme.of(context).textTheme.headline4,
+                          style: Theme.of(context).textTheme.headline3,
                         ),
                       ),
                     ],
@@ -108,7 +108,7 @@ class StudentDashboard extends StatelessWidget {
               margin: const EdgeInsets.fromLTRB(0, 30, 0, 0),
               child: Text(
                 'Upcomming Classes',
-                style: Theme.of(context).textTheme.headline5,
+                style: Theme.of(context).textTheme.headline4,
               ),
             ),
             Container(
@@ -144,7 +144,7 @@ class StudentDashboard extends StatelessWidget {
                         margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
                         child: Text(
                           'Dr. Satyendra Lohani',
-                          style: Theme.of(context).textTheme.headline6,
+                          style: Theme.of(context).textTheme.subtitle2,
                         ),
                       )
                     ],
@@ -161,7 +161,7 @@ class StudentDashboard extends StatelessWidget {
                         margin: EdgeInsets.fromLTRB(8, 0, 20, 0),
                         child: Text(
                           'Today 8:45 am',
-                          style: Theme.of(context).textTheme.headline6,
+                          style: Theme.of(context).textTheme.subtitle2,
                         ),
                       )
                     ],

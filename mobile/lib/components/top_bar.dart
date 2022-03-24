@@ -23,7 +23,7 @@ class TopBar extends StatelessWidget {
           Container(
             margin: EdgeInsets.fromLTRB(20, size.height * 0.038, 0, 0),
             child:
-                Text('Dashboard', style: Theme.of(context).textTheme.headline5),
+                Text('Dashboard', style: Theme.of(context).textTheme.headline4),
           ),
           Container(
             margin: EdgeInsets.fromLTRB(0, size.height * 0.038, 20, 0),
@@ -38,13 +38,13 @@ class TopBar extends StatelessWidget {
                       Container(
                         child: Text(
                           'Hello, Yugesh',
-                          style: Theme.of(context).textTheme.headline6,
+                          style: Theme.of(context).textTheme.subtitle1,
                         ),
                       ),
                       Container(
                         child: Text(
                           'CS II/II',
-                          style: Theme.of(context).textTheme.subtitle2,
+                          style: Theme.of(context).textTheme.caption,
                           textAlign: TextAlign.right,
                         ),
                       )
