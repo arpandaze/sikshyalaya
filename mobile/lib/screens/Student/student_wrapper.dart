@@ -1,10 +1,16 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:sikshyalaya/screens/Notes/student_notes.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:sikshyalaya/components/nav_bar.dart';
 import 'package:sikshyalaya/screens/Dashboard/student_dashboard.dart';
+import 'package:sikshyalaya/screens/Notes/student_notes.dart';
 import 'package:sikshyalaya/components/top_bar.dart';
+<<<<<<< HEAD
 import 'package:sikshyalaya/screens/Quiz/student_quizview.dart';
+=======
+import 'package:sikshyalaya/screens/Notes/note_view.dart';
+>>>>>>> student-notes
 
 class Student extends StatelessWidget {
   const Student({Key? key}) : super(key: key);

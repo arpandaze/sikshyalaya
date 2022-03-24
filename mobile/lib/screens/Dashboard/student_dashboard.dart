@@ -22,6 +22,40 @@ class StudentDashboard extends StatelessWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(25),
                   color: Theme.of(context).colorScheme.primary),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    width: size.width * 0.40,
+                    child: Text(
+                      'Ongoing',
+                      style: Theme.of(context).textTheme.headline6,
+                      textAlign: TextAlign.right,
+                    ),
+                  ),
+                  Container(
+                    width: size.width * 0.40,
+                    child: Text(
+                      'COMP 204',
+                      style: Theme.of(context).textTheme.headline5,
+                    ),
+                  ),
+                  Container(
+                    width: size.width * 0.40,
+                    child: Text(
+                      'Microprocessor and Assembly Language',
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                  ),
+                  Container(
+                    width: size.width * 0.40,
+                    child: Text(
+                      'Dr. Gajendra Sharma',
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                  ),
+                ],
+              ),
             ),
             Container(
               width: size.width * 0.40,
@@ -29,6 +63,41 @@ class StudentDashboard extends StatelessWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(25),
                   color: Theme.of(context).colorScheme.surface),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    child: Text(
+                      "11",
+                      style: Theme.of(context).textTheme.headline2,
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        child: Text(
+                          "45",
+                          style: Theme.of(context).textTheme.headline4,
+                        ),
+                      ),
+                      Container(
+                        child: Text(
+                          "PM",
+                          style: Theme.of(context).textTheme.headline4,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    child: Text(
+                      "Sunday",
+                      style: Theme.of(context).textTheme.headline5,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
