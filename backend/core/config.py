@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     SERVER_NAME: str
 
     PROTOCAL: str
+    MODE: str
 
     BACKEND_HOST: str
     BACKEND_PORT: int
@@ -53,7 +54,13 @@ class Settings(BaseSettings):
     UPLOAD_DIR_ROOT: str
 
     WORKERS: int
-    DEV_MODE: bool
+
+    @property
+    def DEV_MODE(self):
+        if self.MODE == "dev":
+            return True
+        else:
+            return False
 
     BACKEND_CORS_ORIGINS: List[AnyHttpUrl]
 

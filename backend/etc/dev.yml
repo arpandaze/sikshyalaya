@@ -1,8 +1,7 @@
 backend:
+  MODE: dev
   PROJECT_NAME : Sikshyalaya
   SERVER_NAME : Sikshyalaya
-
-  DEV_MODE : True
 
   PROTOCAL : http
   BACKEND_HOST : localhost
@@ -35,6 +34,7 @@ backend:
     - ku.edu.np
     - student.ku.edu.np
     - gmail.com
+    - test.local
 
   POSTGRES_SERVER : localhost
   POSTGRES_USER : postadmin

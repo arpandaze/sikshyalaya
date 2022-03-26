@@ -35,7 +35,10 @@ def send_email(
         smtp_options["user"] = settings.SMTP_USER
     if settings.SMTP_PASSWORD:
         smtp_options["password"] = settings.SMTP_PASSWORD
+
     response = message.send(to=email_to, render=environment, smtp=smtp_options)
+
+    print(response)
     logging.info(f"send email result: {response}")
 
 
@@ -58,7 +61,7 @@ async def send_reset_password_email(user: User) -> None:
     with open(Path(settings.EMAIL_TEMPLATES_DIR) / "reset-password.html") as f:
         template_str = f.read()
 
-    server_host = settings.SERVER_FRONTEND_URL
+    server_host = settings.FRONTEND_URL_BASE
 
     reset_token = await generate_password_reset_token(uid=user.id)
     link = f"{server_host}/reset/?token={reset_token}"
@@ -84,7 +87,7 @@ async def send_verification_email(user: User) -> None:
         template_str = f.read()
     verification_token = await generate_verify_token(user.id)
 
-    server_host = settings.SERVER_FRONTEND_URL
+    server_host = settings.FRONTEND_URL_BASE
 
     link = f"{server_host}/verify/?token={verification_token}"
     send_email(

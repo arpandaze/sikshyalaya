@@ -1,8 +1,7 @@
 backend:
+  MODE: dev
   PROJECT_NAME : MyProject
   SERVER_NAME : MyServer
-
-  DEV_MODE : True
 
   PROTOCAL : http
   BACKEND_HOST : localhost

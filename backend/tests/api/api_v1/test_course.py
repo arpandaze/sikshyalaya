@@ -1,9 +1,9 @@
+from core.config import settings
 from api.endpoints.course import create_course
 from tests.api.api_v1 import test_department
 from fastapi.encoders import jsonable_encoder
 import models
 
-from core.config import settings
 from . import test_department
 
 
@@ -30,7 +30,7 @@ def test_post_course(super_user_client, db):
     }
 
     post_req = super_user_client.post(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/course/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/course/",
         json=data,
     )
     assert post_req.status_code == 200, "Course post request failed"
@@ -38,7 +38,7 @@ def test_post_course(super_user_client, db):
 
 def test_get_course(super_user_client):
     get_req = super_user_client.get(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/course/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/course/",
     )
     assert get_req.status_code == 200
 
@@ -52,7 +52,7 @@ def test_get_course(super_user_client):
 
 def test_get_specific_course(super_user_client):
     get_req = super_user_client.get(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/course/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/course/",
     )
     assert get_req.status_code == 200
 
@@ -62,7 +62,7 @@ def test_get_specific_course(super_user_client):
     ]
 
     specific_get_req = super_user_client.get(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/course/{created_course[0]['id']}/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/course/{created_course[0]['id']}/",
     )
 
     assert specific_get_req.status_code == 200
@@ -74,7 +74,7 @@ def test_get_specific_course(super_user_client):
 
 def test_put_specific_course(super_user_client):
     get_req = super_user_client.get(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/course/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/course/",
     )
     assert get_req.status_code == 200
 
@@ -90,14 +90,14 @@ def test_put_specific_course(super_user_client):
     }
 
     put_req = super_user_client.put(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/course/{created_course[0]['id']}/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/course/{created_course[0]['id']}/",
         json=data,
     )
 
     assert put_req.status_code == 200
 
     specific_get_req = super_user_client.get(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/course/{created_course[0]['id']}/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/course/{created_course[0]['id']}/",
     )
 
     assert specific_get_req.status_code == 200
@@ -111,7 +111,7 @@ def test_put_specific_course(super_user_client):
 
 def test_delete_course(super_user_client, course_id=None):
     get_req = super_user_client.get(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/course/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/course/",
     )
     assert get_req.status_code == 200
 
@@ -128,13 +128,13 @@ def test_delete_course(super_user_client, course_id=None):
         ]
 
     delete_req = super_user_client.delete(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/course/{created_course[0]['id']}/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/course/{created_course[0]['id']}/",
     )
 
     assert delete_req.status_code == 200
 
     get_req = super_user_client.get(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/course/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/course/",
     )
     assert get_req.status_code == 200
 
