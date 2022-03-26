@@ -28,7 +28,7 @@ def db() -> Generator:
 def super_user_client() -> Generator:
     db = SessionLocal()
     super_user = user_schemas.UserCreate(
-        email="test_superadmin@test.com",
+        email="test_superadmin@test.local",
         user_type=1,
         password="test",
         full_name="Test Super Admin",
@@ -42,7 +42,7 @@ def super_user_client() -> Generator:
     crud_user.verify_user(db=db, db_obj=super_user_obj)
 
     data = {
-        "username": "test_superadmin@test.com",
+        "username": "test_superadmin@test.local",
         "password": "test",
         "remember_me": True,
     }
@@ -50,7 +50,7 @@ def super_user_client() -> Generator:
     super_user_cookies = None
     with TestClient(app) as c:
         req = c.post(
-            f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/auth/web/",
+            f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/auth/web/",
             json=data,
         )
         super_user_cookies = req.cookies

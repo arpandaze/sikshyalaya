@@ -139,7 +139,7 @@ async def submit_answer(
     try:
         questionAnswer = crud_quiz_answer.create(db, obj_in=questionAnswer)
         return questionAnswer
-    except:
+    except Exception:
         raise HTTPException(
             status_code=400,
             detail="Error ID: 142",  # could not populate answer

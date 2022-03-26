@@ -25,4 +25,4 @@ RUN mv ./misc/etc/gunicorn.conf.py .
 
 EXPOSE 80
 
-CMD ["./misc/scripts/gunicorn_launch.sh"]
+CMD ["./misc/scripts/docker-entrypoint.sh"]

@@ -56,20 +56,6 @@ def get_teachers(
     return teachers
 
 
-# @router.get("/", response_model=schemas.User)
-# async def read_users(
-# db: Session = Depends(deps.get_db),
-# skip: int = 0,
-# limit: int = 100,
-# # current_user: models.User = Depends(deps.get_current_active_superuser),
-# ) -> Any:
-# """
-# Retrieve users.
-# """
-# users = cruds.crud_user.get_by_email_test(db, email="test@test.com")
-# return users
-
-
 @router.post("/", response_model=schemas.User)
 async def create_user(
     *,

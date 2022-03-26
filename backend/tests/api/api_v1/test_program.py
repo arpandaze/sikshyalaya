@@ -22,7 +22,7 @@ def test_post_program(super_user_client, db):
 
     data = {"name": "Test Program", "department_id": department_id, "max_sems": 8}
     post_req = super_user_client.post(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/program/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/program/",
         json=data,
     )
     assert post_req.status_code == 200, "Program post request failed"
@@ -30,7 +30,7 @@ def test_post_program(super_user_client, db):
 
 def test_get_program(super_user_client):
     get_req = super_user_client.get(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/program/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/program/",
     )
     assert get_req.status_code == 200
 
@@ -43,7 +43,7 @@ def test_get_program(super_user_client):
 
 def test_get_specific_program(super_user_client):
     get_req = super_user_client.get(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/program/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/program/",
     )
     assert get_req.status_code == 200
 
@@ -53,7 +53,7 @@ def test_get_specific_program(super_user_client):
     ]
 
     specific_get_req = super_user_client.get(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/program/{created_program[0]['id']}/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/program/{created_program[0]['id']}/",
     )
 
     assert specific_get_req.status_code == 200
@@ -65,7 +65,7 @@ def test_get_specific_program(super_user_client):
 
 def test_put_specific_program(super_user_client):
     get_req = super_user_client.get(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/program/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/program/",
     )
     assert get_req.status_code == 200
 
@@ -79,14 +79,14 @@ def test_put_specific_program(super_user_client):
     }
 
     put_req = super_user_client.put(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/program/{created_program[0]['id']}/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/program/{created_program[0]['id']}/",
         json=data,
     )
 
     assert put_req.status_code == 200
 
     specific_get_req = super_user_client.get(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/program/{created_program[0]['id']}/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/program/{created_program[0]['id']}/",
     )
 
     assert specific_get_req.status_code == 200
@@ -98,7 +98,7 @@ def test_put_specific_program(super_user_client):
 
 def test_delete_program(super_user_client, program_id=None):
     get_req = super_user_client.get(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/program/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/program/",
     )
     assert get_req.status_code == 200
 
@@ -115,13 +115,13 @@ def test_delete_program(super_user_client, program_id=None):
         ]
 
     delete_req = super_user_client.delete(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/program/{created_program[0]['id']}/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/program/{created_program[0]['id']}/",
     )
 
     assert delete_req.status_code == 200
 
     get_req = super_user_client.get(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/program/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/program/",
     )
     assert get_req.status_code == 200
 

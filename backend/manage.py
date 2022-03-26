@@ -139,8 +139,7 @@ class CommandDefinition:
             engine.execute("DROP schema public CASCADE")
             engine.execute("CREATE schema public")
             alembic_cfg = Config("alembic.ini")
-            command.revision(config=alembic_cfg,
-                             autogenerate=True, message="cleandb")
+            command.revision(config=alembic_cfg, autogenerate=True, message="cleandb")
             command.upgrade(alembic_cfg, "head")
         except Exception as e:
             print(e)
@@ -154,7 +153,15 @@ class CommandDefinition:
     def pytest(self):
         ec = int(
             os.system(
-                "pytest --verbose --color=yes tests/api/api_v1/test_program.py")
+                "pytest --verbose --color=yes tests/api/api_v1/")
+            / 256
+        )
+        sys.exit(ec)
+
+    def build_push(self):
+        ec = int(
+            os.system(
+                "docker build -t registry.gitlab.com/arpandaze/sikshyalaya/backend . && docker push registry.gitlab.com/arpandaze/sikshyalaya/backend")
             / 256
         )
         sys.exit(ec)
@@ -226,6 +233,10 @@ def dcstart():
 def pytest():
     commands.pytest()
 
+@click.command()
+def build_push():
+    commands.build_push()
+
 
 @click.command()
 def mkmig():
@@ -283,6 +294,7 @@ main.add_command(remakeall)
 main.add_command(remake)
 main.add_command(dcstart)
 main.add_command(pytest)
+main.add_command(build_push)
 clean.add_command(db)
 clean.add_command(clean_mig)
 clean.add_command(redis)

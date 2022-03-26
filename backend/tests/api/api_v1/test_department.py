@@ -19,7 +19,7 @@ def test_post_department(super_user_client, db):
 
     data = {"name": "Test Department", "school_id": school_id}
     post_req = super_user_client.post(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/department/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/department/",
         json=data,
     )
     assert post_req.status_code == 200, "Department post request failed"
@@ -27,7 +27,7 @@ def test_post_department(super_user_client, db):
 
 def test_get_department(super_user_client):
     get_req = super_user_client.get(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/department/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/department/",
     )
     assert get_req.status_code == 200
 
@@ -42,7 +42,7 @@ def test_get_department(super_user_client):
 
 def test_get_specific_department(super_user_client):
     get_req = super_user_client.get(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/department/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/department/",
     )
     assert get_req.status_code == 200
 
@@ -54,7 +54,7 @@ def test_get_specific_department(super_user_client):
     ]
 
     specific_get_req = super_user_client.get(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/department/{created_department[0]['id']}/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/department/{created_department[0]['id']}/",
     )
 
     assert specific_get_req.status_code == 200
@@ -66,7 +66,7 @@ def test_get_specific_department(super_user_client):
 
 def test_put_specific_department(super_user_client):
     get_req = super_user_client.get(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/department/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/department/",
     )
     assert get_req.status_code == 200
 
@@ -82,14 +82,14 @@ def test_put_specific_department(super_user_client):
     }
 
     put_req = super_user_client.put(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/department/{created_department[0]['id']}/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/department/{created_department[0]['id']}/",
         json=data,
     )
 
     assert put_req.status_code == 200
 
     specific_get_req = super_user_client.get(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/department/{created_department[0]['id']}/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/department/{created_department[0]['id']}/",
     )
 
     assert specific_get_req.status_code == 200
@@ -101,7 +101,7 @@ def test_put_specific_department(super_user_client):
 
 def test_delete_department(super_user_client, department_id=None):
     get_req = super_user_client.get(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/department/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/department/",
     )
     assert get_req.status_code == 200
 
@@ -120,13 +120,13 @@ def test_delete_department(super_user_client, department_id=None):
         ]
 
     delete_req = super_user_client.delete(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/department/{created_department[0]['id']}/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/department/{created_department[0]['id']}/",
     )
 
     assert delete_req.status_code == 200
 
     get_req = super_user_client.get(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/department/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/department/",
     )
     assert get_req.status_code == 200
 

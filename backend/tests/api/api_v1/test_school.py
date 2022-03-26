@@ -9,6 +9,7 @@ from cruds import crud_user
 import re
 
 
+
 headers = {
     "accept": "application/json",
     "Content-Type": "application/json",
@@ -18,7 +19,7 @@ headers = {
 def test_post_school(super_user_client):
     data = {"name": "Test School", "address": "Testland"}
     post_req = super_user_client.post(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/school/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/school/",
         json=data,
     )
     assert post_req.status_code == 200, "School post request failed"
@@ -26,7 +27,7 @@ def test_post_school(super_user_client):
 
 def test_get_school(super_user_client):
     get_req = super_user_client.get(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/school/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/school/",
     )
     assert get_req.status_code == 200
 
@@ -42,7 +43,7 @@ def test_get_school(super_user_client):
 
 def test_get_specific_school(super_user_client):
     get_req = super_user_client.get(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/school/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/school/",
     )
     assert get_req.status_code == 200
 
@@ -55,7 +56,7 @@ def test_get_specific_school(super_user_client):
     ]
 
     specific_get_req = super_user_client.get(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/school/{created_school[0]['id']}/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/school/{created_school[0]['id']}/",
     )
 
     assert specific_get_req.status_code == 200
@@ -68,7 +69,7 @@ def test_get_specific_school(super_user_client):
 
 def test_put_specific_school(super_user_client):
     get_req = super_user_client.get(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/school/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/school/",
     )
     assert get_req.status_code == 200
 
@@ -86,14 +87,14 @@ def test_put_specific_school(super_user_client):
     }
 
     put_req = super_user_client.put(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/school/{created_school[0]['id']}/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/school/{created_school[0]['id']}/",
         json=data,
     )
 
     assert put_req.status_code == 200
 
     specific_get_req = super_user_client.get(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/school/{created_school[0]['id']}/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/school/{created_school[0]['id']}/",
     )
 
     assert specific_get_req.status_code == 200
@@ -107,7 +108,7 @@ def test_put_specific_school(super_user_client):
 def test_delete_school(super_user_client, school_id=None):
     if not school_id:
         get_req = super_user_client.get(
-            f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/school/",
+            f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/school/",
         )
         assert get_req.status_code == 200
 
@@ -123,13 +124,13 @@ def test_delete_school(super_user_client, school_id=None):
         created_school = [{"id": school_id}]
 
     delete_req = super_user_client.delete(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/school/{created_school[0]['id']}/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/school/{created_school[0]['id']}/",
     )
 
     assert delete_req.status_code == 200
 
     get_req = super_user_client.get(
-        f"{settings.SERVER_BACKEND_URL}{settings.API_V1_STR}/school/",
+        f"{settings.BACKEND_URL_BASE}{settings.API_V1_STR}/school/",
     )
     assert get_req.status_code == 200
 
