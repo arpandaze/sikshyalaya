@@ -23,7 +23,7 @@ class AppTheme with ChangeNotifier {
           error: Color(0xFFFFCE37),
           onError: Color(0xFFFFFFFF),
           background: Color(0xFFFFFFFF),
-          onBackground: Color(0xFF000000),
+          onBackground: Color(0xFF2A292F),
           surface: Color(0xFFEEEDED),
           onSurface: Color(0xFF000000)),
       textTheme: TextTheme(
@@ -59,18 +59,18 @@ class AppTheme with ChangeNotifier {
           color: const Color(0xFF000000),
         ),
         headline6: GoogleFonts.openSans(
-            fontSize: 12,
+            fontSize: 18,
             fontWeight: FontWeight.w400,
             letterSpacing: 0.9,
             color: const Color(0xFF000000),
-            height: 2),
+            height: 1.0),
         subtitle1: GoogleFonts.openSans(
             fontSize: 14,
             fontWeight: FontWeight.w500,
             letterSpacing: 0.15,
             color: const Color(0xFF000000)),
         subtitle2: GoogleFonts.openSans(
-            fontSize: 14,
+            fontSize: 12,
             fontWeight: FontWeight.w500,
             letterSpacing: 0.1,
             color: const Color(0xFF000000)),
