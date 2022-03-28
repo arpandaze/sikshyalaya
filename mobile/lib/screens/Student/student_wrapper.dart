@@ -27,7 +27,7 @@ class Student extends StatelessWidget {
             children: <Widget>[
               Container(
                 padding: EdgeInsets.fromLTRB(
-                    0, size.height * 0.12, 0, size.height * 0.12),
+                    0, size.height * 0.10, 0, size.height * 0.08),
                 child: Profile(size: size),
               ),
               //TopBar
