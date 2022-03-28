@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:sikshyalaya/screens/Profile/profile.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:sikshyalaya/components/nav_bar.dart';
 import 'package:sikshyalaya/screens/Dashboard/student_dashboard.dart';
@@ -26,8 +27,8 @@ class Student extends StatelessWidget {
             children: <Widget>[
               Container(
                 padding: EdgeInsets.fromLTRB(
-                    0, size.height * 0.14, 0, size.height * 0.12),
-                child: StudentNotes(size: size),
+                    0, size.height * 0.12, 0, size.height * 0.12),
+                child: Profile(size: size),
               ),
               //TopBar
               Positioned(

@@ -13,37 +13,44 @@ class NavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: size.width,
-      height: size.height * 0.10,
-      decoration:
-          BoxDecoration(color: Theme.of(context).colorScheme.background),
+      height: size.height * 0.08,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Container(
-            margin: EdgeInsets.fromLTRB(0, 0, 0, size.height * 0.02),
+            width: size.width * 0.2,
             height: size.width * 0.06,
-            child: Image.asset('assets/images/home.png', fit: BoxFit.cover),
+            child: SvgPicture.asset(
+              "assets/images/home.svg",
+            ),
           ),
           Container(
-            margin: EdgeInsets.fromLTRB(0, 0, 0, size.height * 0.02),
+            width: size.width * 0.2,
             height: size.width * 0.06,
-            child: Image.asset('assets/images/quiz.png', fit: BoxFit.cover),
+            child: SvgPicture.asset(
+              "assets/images/quiz.svg",
+            ),
           ),
           Container(
-            margin: EdgeInsets.fromLTRB(0, 0, 0, size.height * 0.02),
+            width: size.width * 0.2,
             height: size.width * 0.06,
-            child:
-                Image.asset('assets/images/assignment.png', fit: BoxFit.cover),
+            child: SvgPicture.asset(
+              "assets/images/assignment.svg",
+            ),
           ),
           Container(
-            margin: EdgeInsets.fromLTRB(0, 0, 0, size.height * 0.02),
+            width: size.width * 0.2,
             height: size.width * 0.06,
-            child: Image.asset('assets/images/note.png', fit: BoxFit.cover),
+            child: SvgPicture.asset(
+              "assets/images/note.svg",
+            ),
           ),
           Container(
-            margin: EdgeInsets.fromLTRB(0, 0, 0, size.height * 0.02),
+            width: size.width * 0.2,
             height: size.width * 0.06,
-            child: Image.asset('assets/images/message.png', fit: BoxFit.cover),
+            child: SvgPicture.asset(
+              "assets/images/message.svg",
+            ),
           ),
         ],
       ),

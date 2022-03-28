@@ -37,7 +37,7 @@ class StudentDashboard extends StatelessWidget {
                     child: Text('COMP 207',
                         style: Theme.of(context).textTheme.headline5),
                   ),
-                  SizedBox(
+                  Container(
                     width: size.width * 0.40,
                     child: Text('Microprocessor and Assembly Language',
                         style: Theme.of(context).textTheme.bodyText1),

@@ -13,26 +13,25 @@ class TopBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: size.width,
-      height: size.height * 0.13,
-      decoration:
-          BoxDecoration(color: Theme.of(context).colorScheme.background),
+      height: size.height * 0.10,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            margin: EdgeInsets.fromLTRB(20, size.height * 0.038, 0, 0),
+            margin: EdgeInsets.fromLTRB(20, size.height * 0.025, 0, 0),
             child:
                 Text('Dashboard', style: Theme.of(context).textTheme.headline4),
           ),
           Container(
-            margin: EdgeInsets.fromLTRB(0, size.height * 0.038, 20, 0),
+            margin: EdgeInsets.fromLTRB(0, size.height * 0.012, 20, 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Container(
