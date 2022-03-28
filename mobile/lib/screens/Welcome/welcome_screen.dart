@@ -12,9 +12,8 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: body(context),
-    );
+        backgroundColor: Theme.of(context).colorScheme.background,
+        body: body(context));
   }
 
   Widget body(BuildContext context) {
@@ -97,7 +96,7 @@ class WelcomeScreen extends StatelessWidget {
                                       textColor: Theme.of(context)
                                           .colorScheme
                                           .onPrimary,
-                                      onPressed: const Signup(),
+                                      onPressed: const SignupScreen(),
                                     ),
                                   ),
                                 )

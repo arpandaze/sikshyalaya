@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sikshyalaya/global/route/route_bloc.dart';
 
 class CustomFilledButton extends StatelessWidget {
   final String buttonText;
   final Color colorType;
   final Color textColor;
-  final Widget onPressed;
+  final Widget? onPressed;
   const CustomFilledButton({
     Key? key,
     required this.buttonText,
     required this.colorType,
     required this.textColor,
-    required this.onPressed,
+    this.onPressed,
   }) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +27,9 @@ class CustomFilledButton extends StatelessWidget {
       color: colorType,
       child: Text(buttonText, style: TextStyle(color: textColor)),
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => onPressed),
-        );
+        if (onPressed != null) {
+          context.read<RouteBloc>().add(RouteChangeEvent(page: onPressed!));
+        }
       },
     );
   }
