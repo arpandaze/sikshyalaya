@@ -8,7 +8,6 @@ class StudentDashboard extends StatelessWidget {
   }) : super(key: key);
 
   final Size size;
-
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -25,33 +24,29 @@ class StudentDashboard extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
+                  SizedBox(
                     width: size.width * 0.40,
                     child: Text(
                       'Ongoing',
-                      style: Theme.of(context).textTheme.headline6,
+                      style: Theme.of(context).textTheme.subtitle1,
                       textAlign: TextAlign.right,
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: size.width * 0.40,
-                    child: Text(
-                      'COMP 204',
-                      style: Theme.of(context).textTheme.headline5,
-                    ),
+                    child: Text('COMP 207',
+                        style: Theme.of(context).textTheme.headline5),
                   ),
-                  Container(
+                  SizedBox(
                     width: size.width * 0.40,
-                    child: Text(
-                      'Microprocessor and Assembly Language',
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
+                    child: Text('Microprocessor and Assembly Language',
+                        style: Theme.of(context).textTheme.bodyText1),
                   ),
-                  Container(
+                  SizedBox(
                     width: size.width * 0.40,
                     child: Text(
                       'Dr. Gajendra Sharma',
-                      style: Theme.of(context).textTheme.headline6,
+                      style: Theme.of(context).textTheme.subtitle1,
                     ),
                   ),
                 ],
@@ -134,14 +129,14 @@ class StudentDashboard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                        margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
                         child: Text(
                           'COMP 207',
                           style: Theme.of(context).textTheme.headline5,
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                        margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
                         child: Text(
                           'Dr. Satyendra Lohani',
                           style: Theme.of(context).textTheme.subtitle2,
@@ -158,7 +153,7 @@ class StudentDashboard extends StatelessWidget {
                         size: 20,
                       ),
                       Container(
-                        margin: EdgeInsets.fromLTRB(8, 0, 20, 0),
+                        margin: const EdgeInsets.fromLTRB(8, 0, 20, 0),
                         child: Text(
                           'Today 8:45 am',
                           style: Theme.of(context).textTheme.subtitle2,

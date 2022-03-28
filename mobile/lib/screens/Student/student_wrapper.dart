@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:sikshyalaya/components/nav_bar.dart';
 import 'package:sikshyalaya/screens/Dashboard/student_dashboard.dart';
+import 'package:sikshyalaya/screens/Notes/student_notes.dart';
+import 'package:sikshyalaya/screens/Quiz/student_quiz.dart';
 import 'package:sikshyalaya/components/top_bar.dart';
 import 'package:sikshyalaya/screens/Assignment/assignment_screen.dart';
 
@@ -25,7 +27,7 @@ class Student extends StatelessWidget {
               Container(
                 padding: EdgeInsets.fromLTRB(
                     0, size.height * 0.14, 0, size.height * 0.12),
-                child: AssignmentScreen(size: size),
+                child: StudentNotes(size: size),
               ),
               //TopBar
               Positioned(

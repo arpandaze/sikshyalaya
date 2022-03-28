@@ -28,7 +28,7 @@ class AppTheme with ChangeNotifier {
           onSurface: Color(0xFF000000)),
       textTheme: TextTheme(
         headline1: GoogleFonts.openSans(
-            fontSize: 97,
+            fontSize: 75,
             fontWeight: FontWeight.w500,
             height: 1.0,
             letterSpacing: -1.5,
@@ -41,19 +41,19 @@ class AppTheme with ChangeNotifier {
           color: const Color(0xFF000000),
         ),
         headline3: GoogleFonts.openSans(
-            fontSize: 48,
+            fontSize: 35,
             height: 1.0,
             letterSpacing: -0.5,
             fontWeight: FontWeight.w500,
             color: const Color(0xFF000000)),
         headline4: GoogleFonts.openSans(
-          fontSize: 30,
+          fontSize: 22,
           fontWeight: FontWeight.w600,
           color: const Color(0xFF000000),
           letterSpacing: 0.25,
         ),
         headline5: GoogleFonts.openSans(
-          fontSize: 24,
+          fontSize: 20,
           height: 1.0,
           fontWeight: FontWeight.w600,
           color: const Color(0xFF000000),
@@ -65,7 +65,7 @@ class AppTheme with ChangeNotifier {
             color: const Color(0xFF000000),
             height: 2),
         subtitle1: GoogleFonts.openSans(
-            fontSize: 18,
+            fontSize: 14,
             fontWeight: FontWeight.w500,
             letterSpacing: 0.15,
             color: const Color(0xFF000000)),
@@ -75,7 +75,7 @@ class AppTheme with ChangeNotifier {
             letterSpacing: 0.1,
             color: const Color(0xFF000000)),
         bodyText1: GoogleFonts.openSans(
-            fontSize: 16,
+            fontSize: 14,
             fontWeight: FontWeight.w400,
             letterSpacing: 0.8,
             color: const Color(0xFF000000),
@@ -93,7 +93,7 @@ class AppTheme with ChangeNotifier {
             height: 1.0,
             color: Color(0xFFFFFFFF)),
         caption: GoogleFonts.openSans(
-          fontSize: 14,
+          fontSize: 12,
           fontWeight: FontWeight.w500,
           letterSpacing: 0.4,
           color: const Color(0xFFF14B4B),
