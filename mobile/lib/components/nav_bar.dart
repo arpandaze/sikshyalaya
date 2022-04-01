@@ -6,6 +6,7 @@ import 'package:sikshyalaya/screens/Assignment/assignment_screen.dart';
 import 'package:sikshyalaya/screens/Dashboard/student_dashboard.dart';
 import 'package:sikshyalaya/screens/Notes/student_notes.dart';
 import 'package:sikshyalaya/screens/Quiz/student_quiz.dart';
+import 'package:sikshyalaya/screens/Chat/student_chat.dart';
 
 class NavBar extends StatelessWidget {
   const NavBar({
@@ -29,7 +30,7 @@ class NavBar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 GestureDetector(
-                  child: Container(
+                  child: SizedBox(
                     width: size.width * 0.2,
                     height: size.width * 0.06,
                     child: SvgPicture.asset('assets/images/home.svg'),
@@ -39,7 +40,7 @@ class NavBar extends StatelessWidget {
                       ),
                 ),
                 GestureDetector(
-                  child: Container(
+                  child: SizedBox(
                       width: size.width * 0.2,
                       height: size.width * 0.06,
                       child: SvgPicture.asset('assets/images/quiz.svg')),
@@ -48,7 +49,7 @@ class NavBar extends StatelessWidget {
                       ),
                 ),
                 GestureDetector(
-                  child: Container(
+                  child: SizedBox(
                     width: size.width * 0.2,
                     height: size.width * 0.06,
                     child: SvgPicture.asset('assets/images/assignment.svg'),
@@ -58,7 +59,7 @@ class NavBar extends StatelessWidget {
                       ),
                 ),
                 GestureDetector(
-                  child: Container(
+                  child: SizedBox(
                     width: size.width * 0.2,
                     height: size.width * 0.06,
                     child: SvgPicture.asset('assets/images/note.svg'),
@@ -68,13 +69,13 @@ class NavBar extends StatelessWidget {
                       ),
                 ),
                 GestureDetector(
-                  child: Container(
+                  child: SizedBox(
                     width: size.width * 0.2,
                     height: size.width * 0.06,
                     child: SvgPicture.asset('assets/images/message.svg'),
                   ),
                   onTap: () => context.read<NavBloc>().add(
-                        const NavChangeEvent(page: StudentNotes()),
+                        const NavChangeEvent(page: StudentChat()),
                       ),
                 ),
               ],
