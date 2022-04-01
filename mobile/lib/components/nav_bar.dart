@@ -14,67 +14,182 @@ class NavBar extends StatelessWidget {
   }) : super(key: key);
 
   final Size size;
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<NavBloc, NavState>(
-        buildWhen: (prev, next) => true,
+        buildWhen: (prev, next) => prev != next,
         builder: (context, state) {
           return Container(
             width: size.width,
             height: size.height * 0.10,
-            decoration:
-                BoxDecoration(color: Theme.of(context).colorScheme.background),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 GestureDetector(
                   child: Container(
-                    width: size.width * 0.2,
-                    height: size.width * 0.06,
-                    child: SvgPicture.asset('assets/images/home.svg'),
+                    child: Align(
+                      child:
+                          Stack(alignment: Alignment.center, children: <Widget>[
+                        if (state.pindex == 1)
+                          Container(
+                            width: size.width * 0.18,
+                            height: size.width * 0.16,
+                            margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                            child: SvgPicture.asset('assets/images/select.svg',
+                                color: Theme.of(context).colorScheme.primary),
+                          )
+                        else
+                          SizedBox(
+                            width: size.width * 0.18,
+                            height: size.width * 0.16,
+                          ),
+                        SizedBox(
+                          width: size.width * 0.18,
+                          height: size.width * 0.06,
+                          child: Icon(Icons.home,
+                              color: state.pindex == 1
+                                  ? Theme.of(context).colorScheme.primary
+                                  : Theme.of(context).colorScheme.onSurface),
+                        )
+                      ]),
+                    ),
                   ),
                   onTap: () => context.read<NavBloc>().add(
-                        const NavChangeEvent(page: StudentDashboard()),
+                        const NavChangeEvent(
+                            page: StudentDashboard(), pindex: 1),
                       ),
                 ),
                 GestureDetector(
                   child: Container(
-                      width: size.width * 0.2,
-                      height: size.width * 0.06,
-                      child: SvgPicture.asset('assets/images/quiz.svg')),
+                    child: Align(
+                      child:
+                          Stack(alignment: Alignment.center, children: <Widget>[
+                        if (state.pindex == 2)
+                          Container(
+                            width: size.width * 0.18,
+                            height: size.width * 0.16,
+                            margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                            child: SvgPicture.asset('assets/images/select.svg',
+                                color: Theme.of(context).colorScheme.primary),
+                          )
+                        else
+                          SizedBox(
+                            width: size.width * 0.18,
+                            height: size.width * 0.16,
+                          ),
+                        SizedBox(
+                          width: size.width * 0.18,
+                          height: size.width * 0.06,
+                          child: Icon(Icons.quiz,
+                              color: state.pindex == 2
+                                  ? Theme.of(context).colorScheme.primary
+                                  : Theme.of(context).colorScheme.onSurface),
+                        )
+                      ]),
+                    ),
+                  ),
                   onTap: () => context.read<NavBloc>().add(
-                        const NavChangeEvent(page: StudentQuiz()),
+                        const NavChangeEvent(page: StudentQuiz(), pindex: 2),
                       ),
                 ),
                 GestureDetector(
                   child: Container(
-                    width: size.width * 0.2,
-                    height: size.width * 0.06,
-                    child: SvgPicture.asset('assets/images/assignment.svg'),
+                    child: Align(
+                      child:
+                          Stack(alignment: Alignment.center, children: <Widget>[
+                        if (state.pindex == 3)
+                          Container(
+                            width: size.width * 0.18,
+                            height: size.width * 0.16,
+                            margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                            child: SvgPicture.asset('assets/images/select.svg',
+                                color: Theme.of(context).colorScheme.primary),
+                          )
+                        else
+                          SizedBox(
+                            width: size.width * 0.18,
+                            height: size.width * 0.16,
+                          ),
+                        SizedBox(
+                          width: size.width * 0.18,
+                          height: size.width * 0.06,
+                          child: Icon(Icons.assignment,
+                              color: state.pindex == 3
+                                  ? Theme.of(context).colorScheme.primary
+                                  : Theme.of(context).colorScheme.onSurface),
+                        )
+                      ]),
+                    ),
                   ),
                   onTap: () => context.read<NavBloc>().add(
-                        const NavChangeEvent(page: AssignmentScreen()),
+                        const NavChangeEvent(
+                            page: AssignmentScreen(), pindex: 3),
                       ),
                 ),
                 GestureDetector(
                   child: Container(
-                    width: size.width * 0.2,
-                    height: size.width * 0.06,
-                    child: SvgPicture.asset('assets/images/note.svg'),
+                    child: Align(
+                      child:
+                          Stack(alignment: Alignment.center, children: <Widget>[
+                        if (state.pindex == 4)
+                          Container(
+                            width: size.width * 0.18,
+                            height: size.width * 0.16,
+                            margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                            child: SvgPicture.asset('assets/images/select.svg',
+                                color: Theme.of(context).colorScheme.primary),
+                          )
+                        else
+                          SizedBox(
+                            width: size.width * 0.18,
+                            height: size.width * 0.16,
+                          ),
+                        SizedBox(
+                          width: size.width * 0.18,
+                          height: size.width * 0.06,
+                          child: Icon(Icons.note,
+                              color: state.pindex == 4
+                                  ? Theme.of(context).colorScheme.primary
+                                  : Theme.of(context).colorScheme.onSurface),
+                        )
+                      ]),
+                    ),
                   ),
                   onTap: () => context.read<NavBloc>().add(
-                        const NavChangeEvent(page: StudentNotes()),
+                        const NavChangeEvent(page: StudentNotes(), pindex: 4),
                       ),
                 ),
                 GestureDetector(
                   child: Container(
-                    width: size.width * 0.2,
-                    height: size.width * 0.06,
-                    child: SvgPicture.asset('assets/images/message.svg'),
+                    child: Align(
+                      child:
+                          Stack(alignment: Alignment.center, children: <Widget>[
+                        if (state.pindex == 5)
+                          Container(
+                            width: size.width * 0.18,
+                            height: size.width * 0.16,
+                            margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                            child: SvgPicture.asset('assets/images/select.svg',
+                                color: Theme.of(context).colorScheme.primary),
+                          )
+                        else
+                          SizedBox(
+                            width: size.width * 0.18,
+                            height: size.width * 0.16,
+                          ),
+                        SizedBox(
+                          width: size.width * 0.18,
+                          height: size.width * 0.06,
+                          child: Icon(Icons.message,
+                              color: state.pindex == 5
+                                  ? Theme.of(context).colorScheme.primary
+                                  : Theme.of(context).colorScheme.onSurface),
+                        )
+                      ]),
+                    ),
                   ),
                   onTap: () => context.read<NavBloc>().add(
-                        const NavChangeEvent(page: StudentNotes()),
+                        const NavChangeEvent(page: StudentNotes(), pindex: 5),
                       ),
                 ),
               ],
