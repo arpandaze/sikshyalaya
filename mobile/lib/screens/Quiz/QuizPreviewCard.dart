@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sikshyalaya/screens/Signup/signup_screen.dart';
-import 'package:sikshyalaya/screens/Welcome/components/CustomFilledButton.dart';
+import 'package:sikshyalaya/components/CustomFilledButton.dart';
 
 class QuizPreviewCard extends StatelessWidget {
   final Color colorType;
@@ -31,17 +31,14 @@ class QuizPreviewCard extends StatelessWidget {
         Container(
           margin: const EdgeInsets.fromLTRB(10, 10, 0, 10),
           width: size.width * 0.20,
-          height: 100,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
                 margin: const EdgeInsets.all(0),
-                child: Text(
-                  month,
-                  style: Theme.of(context).textTheme.headline5,
-                ),
+                child:
+                    Text(month, style: Theme.of(context).textTheme.subtitle1),
               ),
               Container(
                 height: size.width * 0.11,
@@ -53,7 +50,7 @@ class QuizPreviewCard extends StatelessWidget {
                   alignment: Alignment.center,
                   child: Text(
                     day,
-                    style: Theme.of(context).textTheme.headline6,
+                    style: Theme.of(context).textTheme.subtitle1,
                   ),
                 ),
               )
@@ -86,7 +83,7 @@ class QuizPreviewCard extends StatelessWidget {
                 width: size.width * 0.55,
                 child: Text(
                   description,
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context).textTheme.bodyText1,
                 ),
               ),
               Container(
@@ -94,7 +91,7 @@ class QuizPreviewCard extends StatelessWidget {
                 width: size.width * 0.55,
                 child: Text(
                   instructor,
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context).textTheme.subtitle1,
                 ),
               ),
               Row(
@@ -103,9 +100,10 @@ class QuizPreviewCard extends StatelessWidget {
                 children: [
                   Positioned(
                     child: Container(
-                      margin: const EdgeInsets.fromLTRB(0, 0, 15, 0),
-                      width: size.width * 0.4,
+                      margin: const EdgeInsets.fromLTRB(0, 0, 12, 0),
+                      width: size.width * 0.35,
                       child: CustomFilledButton(
+                        height: size.width * 0.04,
                         buttonText: "Attempt Quiz",
                         onPressed: const SignupScreen(),
                         textColor: Theme.of(context).colorScheme.onSurface,

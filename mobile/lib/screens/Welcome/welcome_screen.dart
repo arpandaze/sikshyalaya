@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sikshyalaya/screens/Signup/signup_screen.dart';
-import 'package:sikshyalaya/screens/Welcome/components/CustomFilledButton.dart';
+import 'package:sikshyalaya/components/CustomFilledButton.dart';
 
 import '../Login/login_screen.dart';
 
