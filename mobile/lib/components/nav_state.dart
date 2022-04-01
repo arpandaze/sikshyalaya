@@ -1,16 +1,16 @@
-part of 'route_bloc.dart';
+part of 'nav_bloc.dart';
 
-class RouteState extends Equatable {
+class NavState extends Equatable {
   final Widget page;
   final Object? context;
 
-  const RouteState({this.page = STARTING_PAGE, this.context});
+  const NavState({this.page = const StudentDashboard(), this.context});
 
-  RouteState copyWith({
+  NavState copyWith({
     Widget? page,
     Object? context,
   }) {
-    return RouteState(
+    return NavState(
       page: page ?? this.page,
       context: context ?? this.context,
     );

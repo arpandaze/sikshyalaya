@@ -5,12 +5,11 @@ import 'package:sikshyalaya/screens/Quiz/QuizPreviewCard.dart';
 class StudentQuiz extends StatelessWidget {
   const StudentQuiz({
     Key? key,
-    required this.size,
   }) : super(key: key);
 
-  final Size size;
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return ListView(
       children: <Widget>[
         Row(

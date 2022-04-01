@@ -33,7 +33,8 @@ class _MyAppState extends State<MyApp> {
         buildWhen: (prev, next) => prev != next,
         builder: (context, state) {
           return MaterialApp(
-            home: SafeArea(top: true, bottom: true, child: state.page),
+            /* home: SafeArea(top: true, bottom: true, child: state.page), */
+            home: const SafeArea(top: true, bottom: true, child: Student()),
             title: 'Sikshyalaya',
             theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,

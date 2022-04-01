@@ -4,13 +4,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 class StudentDashboard extends StatelessWidget {
   const StudentDashboard({
     Key? key,
-    required this.size,
   }) : super(key: key);
-
-  final Size size;
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return ListView(
       children: <Widget>[
         Row(

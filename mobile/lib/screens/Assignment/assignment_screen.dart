@@ -7,12 +7,11 @@ import 'assignment_submission.dart';
 class AssignmentScreen extends StatelessWidget {
   const AssignmentScreen({
     Key? key,
-    required this.size,
   }) : super(key: key);
 
-  final Size size;
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return ListView(
       children: <Widget>[
         Row(

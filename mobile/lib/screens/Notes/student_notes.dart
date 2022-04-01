@@ -6,13 +6,11 @@ import 'package:sikshyalaya/screens/Notes/components/CustomTextField.dart';
 class StudentNotes extends StatelessWidget {
   const StudentNotes({
     Key? key,
-    required this.size,
   }) : super(key: key);
-
-  final Size size;
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return ListView(
       children: <Widget>[
         Row(
