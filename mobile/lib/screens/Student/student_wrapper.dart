@@ -34,7 +34,6 @@ class Student extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: <Widget>[
-                          0, size.height * 0.10, 0, size.height * 0.08),
               BlocBuilder<NavBloc, NavState>(
                   buildWhen: (prev, next) => true,
                   builder: (context, state) {

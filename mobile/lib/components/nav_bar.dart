@@ -30,10 +30,9 @@ class NavBar extends StatelessWidget {
               children: [
                 GestureDetector(
                   child: Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, size.height * 0.02),
+                    width: size.width * 0.2,
                     height: size.width * 0.06,
-                    child: Image.asset('assets/images/home.png',
-                        fit: BoxFit.cover),
+                    child: SvgPicture.asset('assets/images/home.svg'),
                   ),
                   onTap: () => context.read<NavBloc>().add(
                         const NavChangeEvent(page: StudentDashboard()),
@@ -41,21 +40,18 @@ class NavBar extends StatelessWidget {
                 ),
                 GestureDetector(
                   child: Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, size.height * 0.02),
-                    height: size.width * 0.06,
-                    child: Image.asset('assets/images/quiz.png',
-                        fit: BoxFit.cover),
-                  ),
+                      width: size.width * 0.2,
+                      height: size.width * 0.06,
+                      child: SvgPicture.asset('assets/images/quiz.svg')),
                   onTap: () => context.read<NavBloc>().add(
                         const NavChangeEvent(page: StudentQuiz()),
                       ),
                 ),
                 GestureDetector(
                   child: Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, size.height * 0.02),
+                    width: size.width * 0.2,
                     height: size.width * 0.06,
-                    child: Image.asset('assets/images/assignment.png',
-                        fit: BoxFit.cover),
+                    child: SvgPicture.asset('assets/images/assignment.svg'),
                   ),
                   onTap: () => context.read<NavBloc>().add(
                         const NavChangeEvent(page: AssignmentScreen()),
@@ -63,10 +59,9 @@ class NavBar extends StatelessWidget {
                 ),
                 GestureDetector(
                   child: Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, size.height * 0.02),
+                    width: size.width * 0.2,
                     height: size.width * 0.06,
-                    child: Image.asset('assets/images/note.png',
-                        fit: BoxFit.cover),
+                    child: SvgPicture.asset('assets/images/note.svg'),
                   ),
                   onTap: () => context.read<NavBloc>().add(
                         const NavChangeEvent(page: StudentNotes()),
@@ -74,10 +69,9 @@ class NavBar extends StatelessWidget {
                 ),
                 GestureDetector(
                   child: Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, size.height * 0.02),
+                    width: size.width * 0.2,
                     height: size.width * 0.06,
-                    child: Image.asset('assets/images/message.png',
-                        fit: BoxFit.cover),
+                    child: SvgPicture.asset('assets/images/message.svg'),
                   ),
                   onTap: () => context.read<NavBloc>().add(
                         const NavChangeEvent(page: StudentNotes()),
