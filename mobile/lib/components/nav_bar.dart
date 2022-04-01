@@ -26,6 +26,7 @@ class NavBar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 GestureDetector(
+                  behavior: HitTestBehavior.opaque,
                   child: Container(
                     child: Align(
                       child:
@@ -46,10 +47,10 @@ class NavBar extends StatelessWidget {
                         SizedBox(
                           width: size.width * 0.18,
                           height: size.width * 0.06,
-                          child: Icon(Icons.home,
+                          child: Icon(Icons.home_rounded,
                               color: state.pindex == 1
                                   ? Theme.of(context).colorScheme.primary
-                                  : Theme.of(context).colorScheme.onSurface),
+                                  : Theme.of(context).colorScheme.secondary),
                         )
                       ]),
                     ),
@@ -60,6 +61,7 @@ class NavBar extends StatelessWidget {
                       ),
                 ),
                 GestureDetector(
+                  behavior: HitTestBehavior.opaque,
                   child: Container(
                     child: Align(
                       child:
@@ -80,10 +82,10 @@ class NavBar extends StatelessWidget {
                         SizedBox(
                           width: size.width * 0.18,
                           height: size.width * 0.06,
-                          child: Icon(Icons.quiz,
+                          child: Icon(Icons.quiz_rounded,
                               color: state.pindex == 2
                                   ? Theme.of(context).colorScheme.primary
-                                  : Theme.of(context).colorScheme.onSurface),
+                                  : Theme.of(context).colorScheme.secondary),
                         )
                       ]),
                     ),
@@ -93,6 +95,7 @@ class NavBar extends StatelessWidget {
                       ),
                 ),
                 GestureDetector(
+                  behavior: HitTestBehavior.opaque,
                   child: Container(
                     child: Align(
                       child:
@@ -113,10 +116,10 @@ class NavBar extends StatelessWidget {
                         SizedBox(
                           width: size.width * 0.18,
                           height: size.width * 0.06,
-                          child: Icon(Icons.assignment,
+                          child: Icon(Icons.assignment_rounded,
                               color: state.pindex == 3
                                   ? Theme.of(context).colorScheme.primary
-                                  : Theme.of(context).colorScheme.onSurface),
+                                  : Theme.of(context).colorScheme.secondary),
                         )
                       ]),
                     ),
@@ -127,6 +130,7 @@ class NavBar extends StatelessWidget {
                       ),
                 ),
                 GestureDetector(
+                  behavior: HitTestBehavior.opaque,
                   child: Container(
                     child: Align(
                       child:
@@ -147,10 +151,10 @@ class NavBar extends StatelessWidget {
                         SizedBox(
                           width: size.width * 0.18,
                           height: size.width * 0.06,
-                          child: Icon(Icons.note,
+                          child: Icon(Icons.note_rounded,
                               color: state.pindex == 4
                                   ? Theme.of(context).colorScheme.primary
-                                  : Theme.of(context).colorScheme.onSurface),
+                                  : Theme.of(context).colorScheme.secondary),
                         )
                       ]),
                     ),
@@ -160,6 +164,7 @@ class NavBar extends StatelessWidget {
                       ),
                 ),
                 GestureDetector(
+                  behavior: HitTestBehavior.opaque,
                   child: Container(
                     child: Align(
                       child:
@@ -180,10 +185,10 @@ class NavBar extends StatelessWidget {
                         SizedBox(
                           width: size.width * 0.18,
                           height: size.width * 0.06,
-                          child: Icon(Icons.message,
+                          child: Icon(Icons.message_rounded,
                               color: state.pindex == 5
                                   ? Theme.of(context).colorScheme.primary
-                                  : Theme.of(context).colorScheme.onSurface),
+                                  : Theme.of(context).colorScheme.secondary),
                         )
                       ]),
                     ),
