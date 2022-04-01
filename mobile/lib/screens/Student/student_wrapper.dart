@@ -1,8 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:sikshyalaya/screens/Profile/profile.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:sikshyalaya/components/nav_bar.dart';
 import 'package:sikshyalaya/screens/Dashboard/student_dashboard.dart';
+import 'package:sikshyalaya/screens/Notes/student_notes.dart';
+import 'package:sikshyalaya/screens/Quiz/student_quiz.dart';
 import 'package:sikshyalaya/components/top_bar.dart';
 import 'package:sikshyalaya/screens/Assignment/assignment_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,12 +34,13 @@ class Student extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: <Widget>[
+                          0, size.height * 0.10, 0, size.height * 0.08),
               BlocBuilder<NavBloc, NavState>(
                   buildWhen: (prev, next) => true,
                   builder: (context, state) {
                     return Container(
                       padding: EdgeInsets.fromLTRB(
-                          0, size.height * 0.14, 0, size.height * 0.12),
+                          0, size.height * 0.10, 0, size.height * 0.08),
                       child: state.page,
                     );
                   }),
