@@ -6,6 +6,7 @@ import 'package:sikshyalaya/screens/Assignment/assignment_screen.dart';
 import 'package:sikshyalaya/screens/Dashboard/student_dashboard.dart';
 import 'package:sikshyalaya/screens/Notes/student_notes.dart';
 import 'package:sikshyalaya/screens/Quiz/student_quiz.dart';
+import 'package:sikshyalaya/screens/Chat/student_chat.dart';
 
 class NavBar extends StatelessWidget {
   const NavBar({
