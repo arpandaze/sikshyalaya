@@ -1,15 +1,13 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sikshyalaya/global/route/route_bloc.dart';
 
 class CustomFilledButton extends StatelessWidget {
   final String buttonText;
   final Color colorType;
   final Color textColor;
-  final Widget? onPressed;
   final double height;
+  final String? onPressed;
   const CustomFilledButton({
     Key? key,
     required this.buttonText,
@@ -31,7 +29,10 @@ class CustomFilledButton extends StatelessWidget {
       child: Text(buttonText, style: TextStyle(color: textColor)),
       onPressed: () {
         if (onPressed != null) {
-          context.read<RouteBloc>().add(RouteChangeEvent(page: onPressed!));
+          Navigator.pushNamed(
+            context,
+            onPressed!,
+          );
         }
       },
     );

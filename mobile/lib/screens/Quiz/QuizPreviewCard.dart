@@ -105,7 +105,7 @@ class QuizPreviewCard extends StatelessWidget {
                       child: CustomFilledButton(
                         height: size.width * 0.04,
                         buttonText: "Attempt Quiz",
-                        onPressed: const SignupScreen(),
+                        /* onPressed: const SignupScreen(), */
                         textColor: Theme.of(context).colorScheme.onSurface,
                         colorType: Theme.of(context).colorScheme.onPrimary,
                       ),

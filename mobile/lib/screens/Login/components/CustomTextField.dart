@@ -5,6 +5,7 @@ class CustomTextField extends StatelessWidget {
   final String placeHolder;
   final bool isPassword;
   final ValueChanged? onChanged;
+  final TextInputType? keyboardType;
 
   const CustomTextField({
     Key? key,
@@ -12,6 +13,7 @@ class CustomTextField extends StatelessWidget {
     this.isPassword = false,
     this.margin = const EdgeInsets.all(0),
     this.onChanged,
+    this.keyboardType = TextInputType.text,
   }) : super(key: key);
 
   @override
@@ -23,6 +25,7 @@ class CustomTextField extends StatelessWidget {
       child: TextField(
         obscureText: isPassword,
         onChanged: onChanged,
+        keyboardType: keyboardType,
         decoration: InputDecoration(
           contentPadding:
               const EdgeInsets.symmetric(vertical: 25, horizontal: 20),

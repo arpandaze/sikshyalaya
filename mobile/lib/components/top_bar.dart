@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sikshyalaya/global/authentication/auth_bloc.dart';
 
 class TopBar extends StatelessWidget {
   const TopBar({
@@ -11,6 +13,13 @@ class TopBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return content(context);
+  }
+
+  Container content(BuildContext context) {
+    final authBloc = BlocProvider.of<AuthBloc>(context);
+
+    print(authBloc.state.user);
     return Container(
       width: size.width,
       height: size.height * 0.10,
@@ -36,13 +45,13 @@ class TopBar extends StatelessWidget {
                     children: [
                       Container(
                         child: Text(
-                          'Hello, Yugesh',
+                          'Hello, ${authBloc.state.user?["full_name"] ?? "User"}',
                           style: Theme.of(context).textTheme.subtitle1,
                         ),
                       ),
                       Container(
                         child: Text(
-                          'CS II/II',
+                          authBloc.state.getGroupString(),
                           style: Theme.of(context).textTheme.caption,
                           textAlign: TextAlign.right,
                         ),

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sikshyalaya/screens/Signup/signup_screen.dart';
 import 'package:sikshyalaya/components/CustomFilledButton.dart';
-
-import '../Login/login_screen.dart';
+import 'package:sikshyalaya/routes.dart';
+import 'package:sikshyalaya/components/CustomFilledButton.dart';
+import 'package:sikshyalaya/screens/Login/login_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -12,8 +13,9 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        body: body(context));
+      backgroundColor: Theme.of(context).colorScheme.background,
+      body: body(context),
+    );
   }
 
   Widget body(BuildContext context) {
@@ -75,7 +77,7 @@ class WelcomeScreen extends StatelessWidget {
                                   child: SizedBox(
                                     width: size.width * 0.38,
                                     child: CustomFilledButton(
-                                      onPressed: const LoginScreen(),
+                                      onPressed: "/login",
                                       buttonText: "Login",
                                       textColor: Theme.of(context)
                                           .colorScheme
@@ -96,7 +98,7 @@ class WelcomeScreen extends StatelessWidget {
                                       textColor: Theme.of(context)
                                           .colorScheme
                                           .onPrimary,
-                                      onPressed: const SignupScreen(),
+                                      onPressed: "/signup",
                                     ),
                                   ),
                                 )
