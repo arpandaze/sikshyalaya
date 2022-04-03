@@ -85,7 +85,7 @@ class AppTheme with ChangeNotifier {
             fontWeight: FontWeight.w400,
             letterSpacing: 0.9,
             color: const Color(0xFFA0A6AC),
-            height: 2),
+            height: 1.5),
         button: GoogleFonts.openSans(
             fontSize: 14,
             fontWeight: FontWeight.w600,

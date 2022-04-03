@@ -1,16 +1,20 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 class CustomFilledButton extends StatelessWidget {
   final String buttonText;
   final Color colorType;
   final Color textColor;
-  final Widget onPressed;
+  final double height;
+  final String? onPressed;
   const CustomFilledButton({
     Key? key,
     required this.buttonText,
     required this.colorType,
     required this.textColor,
-    required this.onPressed,
+    this.height = 20,
+    this.onPressed,
   }) : super(key: key);
 
   @override
@@ -18,16 +22,18 @@ class CustomFilledButton extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return MaterialButton(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(height * 0.75),
       ),
-      padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+      padding: EdgeInsets.fromLTRB(0, height, 0, height),
       color: colorType,
       child: Text(buttonText, style: TextStyle(color: textColor)),
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => onPressed),
-        );
+        if (onPressed != null) {
+          Navigator.pushNamed(
+            context,
+            onPressed!,
+          );
+        }
       },
     );
   }

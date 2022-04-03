@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sikshyalaya/screens/Signup/components/personal_information.dart';
 
-class Signup extends StatelessWidget {
-  const Signup({Key? key}) : super(key: key);
+class SignupScreen extends StatelessWidget {
+  const SignupScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
