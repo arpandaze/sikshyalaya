@@ -36,11 +36,15 @@ class AuthState extends Equatable {
   }
 
   String getGroupString() {
-    final group = user?["group"];
-    final sem = numToRoman(group?["sem"] % 2);
-    final year = numToRoman((group?["sem"] ~/ 2) + 1);
+    if (user != null) {
+      var group = user?["group"];
+      var sem = numToRoman(group?["sem"] % 2);
+      var year = numToRoman((group?["sem"] ~/ 2) + 1);
 
-    return '${group?["program"]?["name"] ?? "Unknown"} $year/$sem';
+      return '${group?["program"]?["name"] ?? "Unknown"} $year/$sem';
+    } else {
+      return "";
+    }
   }
 
   static Future<AuthState> load() async {

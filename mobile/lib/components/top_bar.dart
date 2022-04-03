@@ -19,7 +19,6 @@ class TopBar extends StatelessWidget {
   Container content(BuildContext context) {
     final authBloc = BlocProvider.of<AuthBloc>(context);
 
-    print(authBloc.state.user);
     return Container(
       width: size.width,
       height: size.height * 0.10,
