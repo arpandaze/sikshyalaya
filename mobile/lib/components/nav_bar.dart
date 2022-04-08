@@ -20,7 +20,9 @@ class NavBar extends StatelessWidget {
     return BlocBuilder<NavBloc, NavState>(
         buildWhen: (prev, next) => prev != next,
         builder: (context, state) {
-          return SizedBox(
+          return Container(
+            decoration:
+                BoxDecoration(color: Theme.of(context).colorScheme.background),
             width: size.width,
             height: size.height * 0.10,
             child: Row(
