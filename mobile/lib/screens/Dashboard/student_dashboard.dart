@@ -162,7 +162,7 @@ class StudentDashboard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Container(
-                              margin: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+                              margin: const EdgeInsets.fromLTRB(0, 15, 0, 20),
                               width: size.width * 0.90,
                               height: 100,
                               decoration: BoxDecoration(
@@ -172,36 +172,39 @@ class StudentDashboard extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        margin: const EdgeInsets.fromLTRB(
-                                            20, 0, 0, 0),
-                                        child: Text(
-                                          state.upcoming[i].course!
-                                                  .course_code ??
-                                              '',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline5,
+                                  Container(
+                                    width: size.width * 0.48,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          margin: const EdgeInsets.fromLTRB(
+                                              20, 0, 0, 0),
+                                          child: Text(
+                                            state.upcoming[i].course!
+                                                    .course_code ??
+                                                '',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline5,
+                                          ),
                                         ),
-                                      ),
-                                      Container(
-                                        margin: const EdgeInsets.fromLTRB(
-                                            20, 0, 0, 0),
-                                        child: Text(
-                                          studentInstructor(
-                                              state.upcoming[i].instructor),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .subtitle2,
-                                        ),
-                                      )
-                                    ],
+                                        Container(
+                                          margin: const EdgeInsets.fromLTRB(
+                                              20, 0, 0, 0),
+                                          child: Text(
+                                            studentInstructor(
+                                                state.upcoming[i].instructor),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .subtitle2,
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
