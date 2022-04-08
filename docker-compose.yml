@@ -12,6 +12,8 @@ services:
       - internal
     ports:
       - "8080:80"
+    volumes:
+      - ./.files:/file_server
 
   web:
     image: registry.gitlab.com/arpandaze/sikshyalaya/web:latest
@@ -66,7 +68,7 @@ services:
     networks:
       - internal
     volumes:
-      - ./.files:/contents/files
+      - ./.files:/content/
     ports:
       - "8081:80"
 
