@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:sikshyalaya/repository/models/content.dart';
 
 part 'student_note.g.dart';
 
@@ -8,7 +7,7 @@ class Note {
   final int? user_id;
   final List<String>? tags;
   final String? title;
-  final List<Content>? content;
+  final String? content;
   final String? last_updated_time;
   final int? id;
 
@@ -25,7 +24,7 @@ class Note {
     user_id: 0,
     tags: [''],
     title: '',
-    content: [Content.empty],
+    content: '',
     last_updated_time: '',
     id: 0,
   );

@@ -35,7 +35,6 @@ class StudentNoteRepository {
 
     if (response.body.isNotEmpty) {
       var listDecodedRespose = jsonDecode(response.body);
-      print(listDecodedRespose[0]["content"]);
 
       final List<Note> listNote = [];
 

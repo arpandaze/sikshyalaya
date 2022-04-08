@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -94,7 +96,8 @@ class StudentNotes extends StatelessWidget {
                 itemBuilder: (context, int i) {
                   return NotePreview(
                     title: state.noteList[i].title,
-                    content: state.noteList[i].title,
+                    content: jsonDecode(state.noteList[i].content!)[0]
+                        ["insert"],
                   );
                 },
               ),
