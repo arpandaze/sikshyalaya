@@ -11,4 +11,5 @@ node_modules/
 **/whls/*
 static/
 uploaded_files/
+.files/
 !.keep

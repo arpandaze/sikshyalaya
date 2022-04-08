@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sikshyalaya/screens/Login/login_screen.dart';
 import 'package:sikshyalaya/screens/Signup/signup_screen.dart';
 import 'package:sikshyalaya/screens/Student/student_wrapper.dart';
+import 'package:sikshyalaya/screens/Welcome/splash.dart';
 import 'package:sikshyalaya/screens/Welcome/welcome_screen.dart';
 
 /* class Route{ */
@@ -12,6 +13,7 @@ import 'package:sikshyalaya/screens/Welcome/welcome_screen.dart';
 /* } */
 
 final routes = {
+  '/splash': (context) => const SplashScreen(),
   '/welcome': (context) => const WelcomeScreen(),
   '/login': (context) => const LoginScreen(),
   '/signup': (context) => const SignupScreen(),

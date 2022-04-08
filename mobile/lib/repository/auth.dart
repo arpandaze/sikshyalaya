@@ -5,6 +5,7 @@ import 'dart:convert';
 
 class AuthenticationRepository {
   final client = http.Client();
+
   static const storage = FlutterSecureStorage();
 
   Future<Object> login({
@@ -41,6 +42,7 @@ class AuthenticationRepository {
   }
 
   Future<Object> logout() async {
+    await storage.deleteAll();
     return "Logged out successfully!";
   }
 }
