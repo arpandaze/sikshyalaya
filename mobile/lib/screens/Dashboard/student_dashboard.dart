@@ -34,6 +34,7 @@ class StudentDashboard extends StatelessWidget {
       buildWhen: (((previous, current) => (previous != current))),
       builder: (context, state) {
         return ListView(
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
           children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -162,7 +163,7 @@ class StudentDashboard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Container(
-                              margin: const EdgeInsets.fromLTRB(0, 15, 0, 20),
+                              margin: const EdgeInsets.fromLTRB(0, 15, 0, 0),
                               width: size.width * 0.90,
                               height: 100,
                               decoration: BoxDecoration(
