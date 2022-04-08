@@ -13,3 +13,4 @@ static/
 uploaded_files/
 .files/
 !.keep
+.DS_Store

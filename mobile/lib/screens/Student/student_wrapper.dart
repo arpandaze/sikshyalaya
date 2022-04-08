@@ -57,7 +57,7 @@ class Student extends StatelessWidget {
       bottom: true,
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
-        body: SizedBox(
+        body: Container(
           width: double.infinity,
           height: size.height,
           child: Stack(
@@ -68,7 +68,7 @@ class Student extends StatelessWidget {
                   builder: (context, state) {
                     return Container(
                       padding: EdgeInsets.fromLTRB(
-                          0, size.height * 0.10, 0, size.height * 0.08),
+                          0, size.height * 0.12, 0, size.height * 0.08),
                       child: state.page,
                     );
                   }),

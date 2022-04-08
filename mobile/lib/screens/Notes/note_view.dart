@@ -7,13 +7,11 @@ QuillController _controller = QuillController.basic();
 class NoteView extends StatelessWidget {
   const NoteView({
     Key? key,
-    required this.size,
   }) : super(key: key);
-
-  final Size size;
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     final FocusNode _focusNode = FocusNode();
     var quillEditor = QuillEditor(
       controller: _controller,
