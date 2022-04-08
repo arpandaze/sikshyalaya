@@ -12,29 +12,30 @@ part 'auth_event.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthenticationRepository auth = AuthenticationRepository();
+  static const storage = FlutterSecureStorage();
 
   AuthBloc() : super(const AuthState()) {
-    on<StudentLoggedIn>(_onStudentLoggedIn);
-    on<TeacherLoggedIn>(_onTeacherLoggedIn);
+    on<LoggedIn>(_onLoggedIn);
+    on<LoadAuthStatus>(_onLoadAuthStatus);
     on<LoggedOut>(_onLoggedOut);
   }
 
-  void _onStudentLoggedIn(
-    StudentLoggedIn event,
+  void _onLoggedIn(
+    LoggedIn event,
     Emitter<AuthState> emit,
   ) async {
     emit(await AuthState.load());
   }
 
-  void _onTeacherLoggedIn(
-    TeacherLoggedIn event,
+  void _onLoadAuthStatus(
+    LoadAuthStatus event,
     Emitter<AuthState> emit,
   ) async {
     emit(await AuthState.load());
   }
 
   void _onLoggedOut(LoggedOut event, Emitter<AuthState> emit) async {
-    auth.logout();
+    await auth.logout();
     emit(await AuthState.load());
   }
 }

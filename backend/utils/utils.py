@@ -89,7 +89,7 @@ async def send_verification_email(user: User) -> None:
 
     server_host = settings.FRONTEND_URL_BASE
 
-    link = f"{server_host}/verify/?token={verification_token}"
+    link = f"{server_host}/verify?token={verification_token}"
     send_email(
         email_to=user.email,
         subject_template=subject,

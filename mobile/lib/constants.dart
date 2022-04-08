@@ -7,12 +7,14 @@ import 'package:flutter/material.dart';
 
 const Widget startingPage = WelcomeScreen();
 
-const backendBase = "http://192.168.1.66:8080/api/v1";
+const backendBase = "http://192.168.1.170:8080/api/v1";
+const fileServerBase = "http://192.168.1.170:8081";
 
 enum AuthStatus {
   studentSession,
   teacherSession,
   anonSession,
+  notLoaded,
 }
 
 enum UserTypes { student, teacher }

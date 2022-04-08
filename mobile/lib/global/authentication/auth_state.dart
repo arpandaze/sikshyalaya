@@ -1,6 +1,7 @@
 part of 'auth_bloc.dart';
 
 class AuthState extends Equatable {
+  final bool loaded;
   final AuthStatus status;
   final String? token;
   final Map<String, dynamic>? user;
@@ -8,7 +9,8 @@ class AuthState extends Equatable {
   static const storage = FlutterSecureStorage();
 
   const AuthState({
-    this.status = AuthStatus.anonSession,
+    this.status = AuthStatus.notLoaded,
+    this.loaded = false,
     this.token,
     this.user,
   });
@@ -48,13 +50,15 @@ class AuthState extends Equatable {
   }
 
   static Future<AuthState> load() async {
-    var optionalUser = jsonDecode((await storage.read(key: "user"))!);
-    var optionalToken = await storage.read(key: "token");
+    var storedUser = await storage.read(key: "user");
+    var storedToken = await storage.read(key: "token");
 
-    var authStatus = AuthStatus.anonSession;
+    if (storedUser != null && storedToken != null) {
+      var userMap = jsonDecode(storedUser);
 
-    if (optionalUser != null && optionalToken != null) {
-      switch (optionalUser["user_type"]) {
+      var authStatus = AuthStatus.anonSession;
+
+      switch (userMap["user_type"]) {
         case 4:
           {
             authStatus = AuthStatus.studentSession;
@@ -67,12 +71,18 @@ class AuthState extends Equatable {
           }
           break;
       }
+
+      return AuthState(
+        status: authStatus,
+        user: userMap,
+        token: storedToken,
+        loaded: true,
+      );
     }
 
-    return AuthState(
-      status: authStatus,
-      user: optionalUser,
-      token: optionalToken,
+    return const AuthState(
+      status: AuthStatus.anonSession,
+      loaded: true,
     );
   }
 

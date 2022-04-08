@@ -21,7 +21,7 @@ class LoginScreen extends StatelessWidget {
             if (state.loginSuccess)
               {
                 Navigator.of(context).pushNamed("/student_dashboard"),
-                context.read<AuthBloc>().add(StudentLoggedIn())
+                context.read<AuthBloc>().add(LoggedIn())
               }
           },
           child: Scaffold(

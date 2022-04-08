@@ -1,5 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:sikshyalaya/constants.dart';
+import 'package:sikshyalaya/global/authentication/auth_bloc.dart';
 import 'package:sikshyalaya/screens/Profile/profile.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:sikshyalaya/components/nav_bar.dart';
@@ -16,10 +18,36 @@ class Student extends StatelessWidget {
   const Student({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => NavBloc(),
-      child: body(context),
-    );
+    return BlocListener<AuthBloc, AuthState>(
+        listener: (context, state) {
+          switch (state.status) {
+            case AuthStatus.anonSession:
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                "/login",
+                (route) => false,
+              );
+              break;
+
+            case AuthStatus.teacherSession:
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                "/student_dashboard",
+                (route) => false,
+              );
+              break;
+
+            case AuthStatus.notLoaded:
+              context.read<AuthBloc>().add(LoadAuthStatus());
+              break;
+
+            default: null;
+          }
+        },
+        child: BlocProvider(
+          create: (context) => NavBloc(),
+          child: body(context),
+        ));
   }
 
   Widget body(BuildContext context) {
@@ -56,6 +84,43 @@ class Student extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Widget appWrapper(Widget child) {
+    return BlocListener<AuthBloc, AuthState>(
+      listener: (context, state) {
+        switch (state.status) {
+          case AuthStatus.anonSession:
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              "/login",
+              (route) => false,
+            );
+            break;
+
+          case AuthStatus.studentSession:
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              "/student_dashboard",
+              (route) => false,
+            );
+            break;
+
+          case AuthStatus.teacherSession:
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              "/student_dashboard",
+              (route) => false,
+            );
+            break;
+
+          case AuthStatus.notLoaded:
+            context.read<AuthBloc>().add(LoadAuthStatus());
+            break;
+        }
+      },
+      child: const Text("Loading"),
     );
   }
 }
