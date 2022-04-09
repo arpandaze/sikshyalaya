@@ -23,6 +23,13 @@ class StudentNoteBloc extends Bloc<StudentNoteEvent, StudentNoteState> {
       url: event.url,
       token: newState.token!,
     );
-    emit(state.copyWith(noteList: studentNote, token: newState.token));
+
+    emit(
+      state.copyWith(
+        recentList: studentNote.sublist(0, 2),
+        noteList: studentNote.sublist(2, studentNote.length),
+        token: newState.token,
+      ),
+    );
   }
 }

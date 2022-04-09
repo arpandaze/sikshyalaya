@@ -37,7 +37,6 @@ class StudentNoteRepository {
       var listDecodedRespose = jsonDecode(response.body);
 
       final List<Note> listNote = [];
-
       listDecodedRespose
           .forEach((element) => {listNote.add(Note.fromJson((element)))});
       return listNote;

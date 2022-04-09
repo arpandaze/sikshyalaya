@@ -24,7 +24,7 @@ class Note {
     user_id: 0,
     tags: [''],
     title: '',
-    content: '',
+    content: '[{"insert": ""},{"insert": "\\n"}]',
     last_updated_time: '',
     id: 0,
   );
