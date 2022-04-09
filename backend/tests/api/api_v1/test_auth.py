@@ -64,7 +64,7 @@ def test_verification_email(client: TestClient) -> None:
             decoded_email_content = payload.decode()
 
     link = re.findall(
-        settings.FRONTEND_URL_BASE+"/verify/\?token=.{40}", decoded_email_content
+        settings.FRONTEND_URL_BASE+"/verify\?token=.{40}", decoded_email_content
     )[0]
     token = link[-40:]
 
@@ -146,7 +146,7 @@ def test_reset_password(client: TestClient) -> None:
             decoded_email_content = payload.decode()
 
     link = re.findall(
-        settings.FRONTEND_URL_BASE+"/reset/\?token=.{40}", decoded_email_content
+        settings.FRONTEND_URL_BASE+"/reset\?token=.{40}", decoded_email_content
     )[0]
     token = link[-40:]
 

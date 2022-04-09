@@ -64,7 +64,7 @@ async def send_reset_password_email(user: User) -> None:
     server_host = settings.FRONTEND_URL_BASE
 
     reset_token = await generate_password_reset_token(uid=user.id)
-    link = f"{server_host}/reset/?token={reset_token}"
+    link = f"{server_host}/reset?token={reset_token}"
     send_email(
         email_to=user.email,
         subject_template=subject,
