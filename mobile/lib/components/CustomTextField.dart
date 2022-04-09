@@ -8,7 +8,7 @@ class CustomTextField extends StatelessWidget {
 
   const CustomTextField({
     Key? key,
-    required this.placeHolder,
+    this.placeHolder = "",
     this.isPassword = false,
     this.margin = const EdgeInsets.all(0),
     this.onChanged,
