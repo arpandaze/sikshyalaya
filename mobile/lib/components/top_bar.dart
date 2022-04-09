@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sikshyalaya/global/authentication/auth_bloc.dart';
+import 'package:sikshyalaya/screens/Profile/profile.dart';
 
 class TopBar extends StatelessWidget {
   const TopBar({
@@ -58,14 +59,22 @@ class TopBar extends StatelessWidget {
                     ],
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.fromLTRB(8, 0, 0, 0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(14), // Image border
-                    child: SizedBox.fromSize(
-                      size: const Size.fromRadius(30), // Image radius
-                      child: Image.asset('assets/images/pp.jpg',
-                          fit: BoxFit.cover),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const Profile()),
+                    );
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.fromLTRB(8, 0, 0, 0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(14), // Image border
+                      child: SizedBox.fromSize(
+                        size: const Size.fromRadius(30), // Image radius
+                        child: Image.asset('assets/images/pp.jpg',
+                            fit: BoxFit.cover),
+                      ),
                     ),
                   ),
                 )
