@@ -12,7 +12,7 @@ class Assignment(Base):
     id = Column(Integer, primary_key=True)
     due_date = Column(DateTime, nullable=True)
     marks = Column(Integer, nullable = True)
-    title = Column(String(length=32))
+    title = Column(String(length=2048))
     contents = Column(String(length = 32168))
     files = Column(ARRAY(String), nullable= True)
     instructor = relationship("User", secondary = assignment_instructor_association_table, backref = "assignments")
