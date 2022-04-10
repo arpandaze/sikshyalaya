@@ -19,15 +19,14 @@
     margin: 0px auto !important;
     position: relative;
   }
-  .quizLanding_titlContainer{
+  .quizLanding_titlContainer {
     position: relative;
   }
-  .quizLanding_addquizButtoncontainer{
-    position:absolute;
-    right:50px;
+  .quizLanding_addquizButtoncontainer {
+    position: absolute;
+    right: 50px;
   }
-  .quizLanding_addquizButton{
-    
+  .quizLanding_addquizButton {
   }
   .quiz_activeCourseBar {
     position: relative;

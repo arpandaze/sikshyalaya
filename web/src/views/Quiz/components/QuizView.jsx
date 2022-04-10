@@ -68,7 +68,7 @@ const QuizView = ({ location }) => {
     }
   }, [location]);
   const onSubmit = async (values) => {
-    console.log(values)
+    console.log(values);
     let temp = Object.entries(values.questions);
     let single = [];
     let multiple = [];
@@ -88,7 +88,7 @@ const QuizView = ({ location }) => {
       });
       data[value[0]] = temp;
     });
-    console.log(data)
+    console.log(data);
     const submitResponse = await callAPI({
       endpoint: `/api/v1/quizanswer/${location.state.quiz.id}/`,
       method: "POST",
@@ -132,9 +132,13 @@ const QuizView = ({ location }) => {
             <p className="quizView_quizTitle">
               {location.state && location.state.quiz.title}
             </p>
-            {location.state.marks_obtained!==undefined ? <p className="quizView_quizMarksObtained">
-              Marks Obtained: {location.state.marks_obtained} Marks
-            </p> : <></>}
+            {location.state.marks_obtained !== undefined ? (
+              <p className="quizView_quizMarksObtained">
+                Marks Obtained: {location.state.marks_obtained} Marks
+              </p>
+            ) : (
+              <></>
+            )}
           </Grid>
         </Grid>
         <Grid item className="quizView_botBar">
@@ -159,7 +163,11 @@ const QuizView = ({ location }) => {
                         position={index}
                         length={allQuestion.length}
                         multiple={question.is_multiple}
-                        completed={location.state.marks_obtained!==undefined?true:false}
+                        completed={
+                          location.state.marks_obtained !== undefined
+                            ? true
+                            : false
+                        }
                       />
                     </Grid>
                   ))

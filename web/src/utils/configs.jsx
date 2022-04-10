@@ -1,6 +1,6 @@
 const configs = {
-  API_HOST: "http://localhost:8080",
-  WEBSOCKET_HOST: "ws://localhost:8080",
+  API_HOST: "http://localhost:8181",
+  WEBSOCKET_HOST: "ws://localhost:8181",
   PRIVATE_ROUTE_ACCESS: false,
   AUTO_REDIRECT: true,
   PUBLIC_FILES_PATH: "http://localhost:8081",
