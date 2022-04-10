@@ -73,24 +73,8 @@ class TopBar extends StatelessWidget {
                                 BorderRadius.circular(14), // Image border
                             child: SizedBox.fromSize(
                               size: const Size.fromRadius(30), // Image radius
-                              child: CachedNetworkImage(
-                                imageUrl:
-                                    '$fileServerBase/${authBloc.state.user!["profile_image"]}',
-                                imageBuilder: (context, imageProvider) =>
-                                    Container(
-                                        decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: imageProvider,
-                                    fit: BoxFit.cover,
-                                  ),
-                                )),
-                                placeholder: (context, url) =>
-                                    const CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    const Icon(Icons.error),
-                              ),
-                              /* child: Image.asset('assets/images/pp.jpg', */
-                              /*     fit: BoxFit.cover), */
+                              child: getProfileImage(
+                                  authBloc.state.user?["profile_image"]),
                             ),
                           ),
                         ),
@@ -108,5 +92,28 @@ class TopBar extends StatelessWidget {
             );
           }),
     );
+  }
+
+  Widget getProfileImage(String? profilePath) {
+    if (profilePath != null) {
+      return CachedNetworkImage(
+        imageUrl: '$fileServerBase/${profilePath}',
+        imageBuilder: (context, imageProvider) => Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: imageProvider,
+              fit: BoxFit.contain,
+            ),
+          ),
+        ),
+        placeholder: (context, url) => const CircularProgressIndicator(),
+        errorWidget: (context, url, error) => const Icon(Icons.error),
+      );
+    } else {
+      return SvgPicture.asset(
+        "assets/images/defaultProfile.svg",
+        fit: BoxFit.cover,
+      );
+    }
   }
 }
