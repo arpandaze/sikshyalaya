@@ -27,6 +27,7 @@ UPLOAD_DIR_ROOT : ../file_server
 
 BACKEND_CORS_ORIGINS :
   - http://localhost:3001
+  - http://localhost:3000
   - http://localhost
 
 ALLOWED_EMAIL_HOST:
