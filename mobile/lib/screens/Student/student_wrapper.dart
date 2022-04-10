@@ -9,7 +9,7 @@ import 'package:sikshyalaya/screens/Dashboard/student_dashboard.dart';
 import 'package:sikshyalaya/screens/Notes/student_notes.dart';
 import 'package:sikshyalaya/screens/Quiz/student_quiz.dart';
 import 'package:sikshyalaya/components/top_bar.dart';
-import 'package:sikshyalaya/screens/Assignment/assignment_screen.dart';
+import 'package:sikshyalaya/screens/Assignment/student_assignment_screen.dart';
 import 'package:sikshyalaya/screens/Chat/student_chat.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sikshyalaya/components/nav_bloc.dart';
