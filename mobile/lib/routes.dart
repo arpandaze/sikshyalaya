@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:sikshyalaya/screens/Dashboard/student_dashboard.dart';
 import 'package:sikshyalaya/screens/Login/login_screen.dart';
+import 'package:sikshyalaya/screens/Quiz/student_quiz.dart';
 import 'package:sikshyalaya/screens/Signup/signup_screen.dart';
-import 'package:sikshyalaya/screens/Student/student_wrapper.dart';
 import 'package:sikshyalaya/screens/Welcome/splash.dart';
 import 'package:sikshyalaya/screens/Welcome/welcome_screen.dart';
 
@@ -19,5 +19,6 @@ final routes = {
   '/signup': (context) => const SignupScreen(),
   '/forgot': (context) => const WelcomeScreen(),
   '/reset': (context) => const WelcomeScreen(),
-  '/student_dashboard': (context) => const Student(),
+  '/student_dashboard': (context) => const StudentDashboard(),
+  '/quiz': (context) => const StudentQuiz(),
 };

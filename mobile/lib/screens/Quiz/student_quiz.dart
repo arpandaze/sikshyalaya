@@ -7,6 +7,7 @@ import 'package:sikshyalaya/screens/Login/components/CustomTextField.dart';
 import 'package:sikshyalaya/screens/Quiz/QuizPreviewCard.dart';
 import 'package:sikshyalaya/screens/Quiz/student_quiz_bloc.dart';
 import 'package:sikshyalaya/helpers/helper.dart';
+import 'package:sikshyalaya/screens/Student/student_wrapper.dart';
 
 class StudentQuiz extends StatelessWidget {
   const StudentQuiz({
@@ -15,13 +16,16 @@ class StudentQuiz extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
-      create: (context) => StudentQuizRepository(),
-      child: BlocProvider(
-        create: (context) => StudentQuizBloc(
-            studentQuizRepository: context.read<StudentQuizRepository>())
-          ..add(GetStudentQuiz(url: 'quiz')),
-        child: body(context),
+    return StudentWrapper(
+      pageName: "Quiz",
+      child: RepositoryProvider(
+        create: (context) => StudentQuizRepository(),
+        child: BlocProvider(
+          create: (context) => StudentQuizBloc(
+              studentQuizRepository: context.read<StudentQuizRepository>())
+            ..add(GetStudentQuiz(url: 'quiz')),
+          child: body(context),
+        ),
       ),
     );
   }

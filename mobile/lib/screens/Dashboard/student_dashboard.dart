@@ -4,6 +4,7 @@ import 'package:sikshyalaya/components/not_available.dart';
 import 'package:sikshyalaya/helpers/helper.dart';
 import 'package:sikshyalaya/repository/models/student_dash.dart';
 import 'package:sikshyalaya/repository/student_dash.dart';
+import 'package:sikshyalaya/screens/Student/student_wrapper.dart';
 import 'student_dashboard_bloc.dart';
 
 class StudentDashboard extends StatelessWidget {
@@ -13,16 +14,19 @@ class StudentDashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
-      create: (context) => StudentDashboardRepository(),
-      child: BlocProvider(
-        create: (context) => StudentDashboardBloc(
-            studentDashboardRepository:
-                context.read<StudentDashboardRepository>())
-          ..add(
-            GetStudentDash(url: 'class_session'),
-          ),
-        child: body(context),
+    return StudentWrapper(
+      pageName: "Dashboard",
+      child: RepositoryProvider(
+        create: (context) => StudentDashboardRepository(),
+        child: BlocProvider(
+          create: (context) => StudentDashboardBloc(
+              studentDashboardRepository:
+                  context.read<StudentDashboardRepository>())
+            ..add(
+              GetStudentDash(url: 'class_session'),
+            ),
+          child: body(context),
+        ),
       ),
     );
   }

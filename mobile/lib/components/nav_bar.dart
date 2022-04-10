@@ -58,10 +58,13 @@ class NavBar extends StatelessWidget {
                       ]),
                     ),
                   ),
-                  onTap: () => context.read<NavBloc>().add(
-                        const NavChangeEvent(
-                            page: StudentDashboard(), pindex: 1),
-                      ),
+                  onTap: () => Navigator.of(context).push(
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation1, animation2) => const StudentDashboard(),
+                      transitionDuration: Duration.zero,
+                      reverseTransitionDuration: Duration.zero,
+                    ),
+                  ),
                 ),
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
@@ -93,9 +96,16 @@ class NavBar extends StatelessWidget {
                       ]),
                     ),
                   ),
-                  onTap: () => context.read<NavBloc>().add(
-                        const NavChangeEvent(page: StudentQuiz(), pindex: 2),
-                      ),
+                  /* onTap: () => context.read<NavBloc>().add( */
+                  /*       const NavChangeEvent(page: StudentQuiz(), pindex: 2), */
+                  /*     ), */
+                  onTap: () => Navigator.of(context).push(
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation1, animation2) => const StudentQuiz(),
+                      transitionDuration: Duration.zero,
+                      reverseTransitionDuration: Duration.zero,
+                    ),
+                  ),
                 ),
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
@@ -127,10 +137,17 @@ class NavBar extends StatelessWidget {
                       ]),
                     ),
                   ),
-                  onTap: () => context.read<NavBloc>().add(
-                        const NavChangeEvent(
-                            page: AssignmentScreen(), pindex: 3),
-                      ),
+                  /* onTap: () => context.read<NavBloc>().add( */
+                  /*       const NavChangeEvent( */
+                  /*           page: AssignmentScreen(), pindex: 3), */
+                  /*     ), */
+                  onTap: () => Navigator.of(context).push(
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation1, animation2) => const AssignmentScreen(),
+                      transitionDuration: Duration.zero,
+                      reverseTransitionDuration: Duration.zero,
+                    ),
+                  ),
                 ),
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
@@ -162,9 +179,16 @@ class NavBar extends StatelessWidget {
                       ]),
                     ),
                   ),
-                  onTap: () => context.read<NavBloc>().add(
-                        const NavChangeEvent(page: StudentNotes(), pindex: 4),
-                      ),
+                  /* onTap: () => context.read<NavBloc>().add( */
+                  /*       const NavChangeEvent(page: StudentNotes(), pindex: 4), */
+                  /*     ), */
+                  onTap: () => Navigator.of(context).push(
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation1, animation2) => const StudentNotes(),
+                      transitionDuration: Duration.zero,
+                      reverseTransitionDuration: Duration.zero,
+                    ),
+                  ),
                 ),
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
@@ -196,9 +220,17 @@ class NavBar extends StatelessWidget {
                       ]),
                     ),
                   ),
-                  onTap: () => context.read<NavBloc>().add(
-                        const NavChangeEvent(page: StudentChat(), pindex: 5),
-                      ),
+                  /* onTap: () => context.read<NavBloc>().add( */
+                  /*       const NavChangeEvent(page: StudentNotes(), pindex: 5), */
+                  /*     ), */
+
+                  onTap: () => Navigator.of(context).push(
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation1, animation2) => const StudentChat(),
+                      transitionDuration: Duration.zero,
+                      reverseTransitionDuration: Duration.zero,
+                    ),
+                  ),
                 ),
               ],
             ),

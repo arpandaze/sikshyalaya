@@ -8,8 +8,10 @@ import 'package:sikshyalaya/constants.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class TopBar extends StatelessWidget {
+  final String pageName;
   const TopBar({
     Key? key,
+    required this.pageName,
     required this.size,
   }) : super(key: key);
 
@@ -35,7 +37,7 @@ class TopBar extends StatelessWidget {
               children: <Widget>[
                 Container(
                   margin: EdgeInsets.fromLTRB(20, size.height * 0.025, 0, 0),
-                  child: Text('Dashboard',
+                  child: Text(pageName,
                       style: Theme.of(context).textTheme.headline4),
                 ),
                 Container(
@@ -78,12 +80,20 @@ class TopBar extends StatelessWidget {
                             ),
                           ),
                         ),
-                        onTap: () => {
-                          context
-                              .read<NavBloc>()
-                              .add(const NavChangeEvent(page: Profile())),
-                          /* Navigator.of(context).pushNamed('/profile') */
-                        },
+                        onTap: () => Navigator.of(context).push(
+                          PageRouteBuilder(
+                            pageBuilder: (context, animation1, animation2) =>
+                                const Profile(),
+                            transitionDuration: Duration.zero,
+                            reverseTransitionDuration: Duration.zero,
+                          ),
+                        ),
+                        /* onTap: () => { */
+                        /*   context */
+                        /*       .read<NavBloc>() */
+                        /*       .add(const NavChangeEvent(page: Profile())), */
+                        /*   /* Navigator.of(context).pushNamed('/profile') */ */
+                        /* }, */
                       )
                     ],
                   ),
