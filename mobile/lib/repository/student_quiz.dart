@@ -2,32 +2,15 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:sikshyalaya/constants.dart';
+import 'package:sikshyalaya/repository/models/quiz.dart';
 import 'package:sikshyalaya/repository/models/student_dash.dart';
 
-class StudentDashboardRepository {
+class StudentQuizRepository {
   final Client httpclient = http.Client();
-  // static const storage = FlutterSecureStorage();
-  // final String token;
 
-  StudentDashboardRepository(
-      //{required this.token}
-      );
+  StudentQuizRepository();
 
-  // static Future<StudentDashboardRepository> loadWithToken() async {
-  //   final token = await storage.read(key: "token");
-  //   return StudentDashboardRepository(token: token!);
-  // }
-
-  // Uri getUrl({
-  //   required String url,
-  //   Map<String, String>? queryParameters,
-  // }) {
-  //   return Uri.parse('$backendBase/$url').replace(
-  //     queryParameters: queryParameters,
-  //   );
-  // }
-
-  Future<List<ClassSession>> getStudentDashboard(
+  Future<List<Quiz>> getStudentQuiz(
       {required String url, required String token}) async {
     final headers = {"Cookie": "Session=$token"};
     final response = await httpclient.get(Uri.parse('$backendBase/$url'),
@@ -38,7 +21,7 @@ class StudentDashboardRepository {
 
     if (response.statusCode != 200) {
       print(response.statusCode);
-      throw Exception('Retrieve Failed! Error getting student dashboard info.');
+      throw Exception('Retrieve Failed! Error getting student quiz info.');
     }
 
     if (response.body.isNotEmpty) {
@@ -46,14 +29,14 @@ class StudentDashboardRepository {
 
       var listDecodedRespose = jsonDecode(response.body);
 
-      final List<ClassSession> listClassSession = [];
+      final List<Quiz> listQuiz = [];
 
-      listDecodedRespose.forEach((element) =>
-          {listClassSession.add(ClassSession.fromJson((element)))});
+      listDecodedRespose
+          .forEach((element) => {listQuiz.add(Quiz.fromJson((element)))});
       // listClassSession.add(ClassSession.fromJson(json.decode(element)))});
 
       // print(listClassSession);
-      return listClassSession;
+      return listQuiz;
     } else {
       throw Exception('Body Empty');
     }
