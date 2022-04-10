@@ -16,6 +16,7 @@ class Settings(BaseSettings):
     SECRET_KEY: str
     SESSION_EXPIRE_TIME: int
     SESSION_EXPIRE_TIME_EXTENDED: int
+    TWO_FA_TIMEOUT: int
     SERVER_NAME: str
 
     PROTOCAL: str
@@ -136,4 +137,4 @@ with open(config_path, "r") as config_file:
     custom_configs = yaml.load(config_file.read(), yaml.Loader)
     configs.update(custom_configs)
 
-settings = Settings(**configs["backend"])
+settings = Settings(**configs)

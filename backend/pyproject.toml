@@ -30,6 +30,7 @@ aiofiles = "^0.6.0"
 cryptography = "^36.0.2"
 PyYAML = "^6.0"
 Jinja2 = "^3.0.3"
+pyotp = "^2.6.0"
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.812"

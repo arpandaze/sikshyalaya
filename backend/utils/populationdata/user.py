@@ -32,7 +32,7 @@ users: List[Json] = [
     },
     {
         "full_name": "Arpan Koirala",
-        "email": "arpan.koirala@gmail.com",
+        "email": "arpankoirala12@gmail.com",
         "is_active": True,
         "user_type": 4,
         "roll": 34,

@@ -1,11 +1,11 @@
-import React, {useEffect, useState, useMemo} from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import Routes from "./Routes";
 import "./App.css";
-import {UserContext} from "./utils/Contexts/UserContext";
-import {MuiThemeProvider, createMuiTheme} from "@material-ui/core/styles";
-import {WebsocketContext} from "./utils/Contexts/WebsocketContext";
-import {AlertContext} from "./components/DashboardLayout/AlertContext";
-import {get, set} from "idb-keyval";
+import { UserContext } from "./utils/Contexts/UserContext";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import { WebsocketContext } from "./utils/Contexts/WebsocketContext";
+import { AlertContext } from "./components/DashboardLayout/AlertContext";
+import { get, set } from "idb-keyval";
 import useChat from "./utils/useChat";
 import colorscheme from "./utils/colors";
 
@@ -31,7 +31,7 @@ function App() {
     group: {
       id: null,
       sem: null,
-      program: {name: null, department_id: null, id: null},
+      program: { name: null, department_id: null, id: null },
       course: [
         {
           course_code: null,
@@ -75,12 +75,12 @@ function App() {
   };
 
   const user_context_value = useMemo(
-    () => ({user, setUser}),
+    () => ({ user, setUser }),
     [user, setUser]
   );
 
   const alert_context_value = useMemo(
-    () => ({alert, setAlert}),
+    () => ({ alert, setAlert }),
     [alert, setAlert]
   );
 
@@ -91,7 +91,7 @@ function App() {
     setClassIDState,
     onlineState,
     classmatesState,
-  ] = useChat({user: user});
+  ] = useChat({ user: user });
 
   const websocket_context_value = useMemo(
     () => ({

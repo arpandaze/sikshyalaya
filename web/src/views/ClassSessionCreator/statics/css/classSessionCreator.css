@@ -11,9 +11,10 @@
   border: none;
   cursor: pointer;
 }
-.classSession_submit:hover,.classSession_addInstructor:hover{
-  transform:scale(1.05);
-  transition:350ms ease;
+.classSession_submit:hover,
+.classSession_addInstructor:hover {
+  transform: scale(1.05);
+  transition: 350ms ease;
 }
 .classSession_root {
   flex-grow: 1;

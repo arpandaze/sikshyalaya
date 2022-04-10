@@ -21,6 +21,7 @@ class AuthenticationRepository {
         "remember_me": true,
       }),
     );
+
     if (response.statusCode != 200) {
       throw Exception("Login failed! Check email or password!");
     }
@@ -35,7 +36,7 @@ class AuthenticationRepository {
 
     storage.write(
       key: "user",
-      value: jsonEncode(decodedResponse),
+      value: jsonEncode(decodedResponse["user"]),
     );
 
     return decodedResponse;

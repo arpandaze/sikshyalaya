@@ -137,6 +137,15 @@ class UserReturn(BaseModel):
         orm_mode = True
 
 
+class UserLoginReturn(BaseModel):
+    user: Optional[UserReturn]
+    msg: str
+    two_fa_required: Optional[bool]
+
+    class Config:
+        orm_mode = True
+
+
 # Additional properties stored in DB
 class UserInDB(UserInDBBase):
     hashed_password: str

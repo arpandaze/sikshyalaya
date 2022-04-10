@@ -35,13 +35,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       return emit(state.copyWith(errorText: "Invalid password!"));
     }
 
-    await auth
-        .login(username: state.email, password: state.password)
-        .onError(
-          (error, stackTrace) =>
-              {emit(state.copyWith(errorText: "Email or password incorrect!"))},
-        );
-
-    emit(state.copyWith(loginSuccess: true));
+    try {
+      await auth.login(username: state.email, password: state.password);
+      emit(state.copyWith(loginSuccess: true));
+    } catch (e) {
+      print(e);
+      emit(state.copyWith(errorText: "Email or password incorrect!"));
+    }
   }
 }

@@ -14,7 +14,7 @@ from models import User
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
-async def create_sesssion_token(user: User, request: Request, remember_me: bool) -> str:
+async def create_sesssion_token(user: User, remember_me: bool, request: Request) -> str:
     session_token = secrets.token_hex(nbytes=16)
     expire_time = (
         settings.SESSION_EXPIRE_TIME_EXTENDED
@@ -47,6 +47,27 @@ async def create_sesssion_token(user: User, request: Request, remember_me: bool)
     await redis_session_client.client.mset(data)
     await redis_session_client.client.expire(session_token, expire_time)
     return session_token
+
+
+async def create_2fa_temp_token(user: User, remember_me: bool) -> str:
+    session_token = secrets.token_hex(nbytes=16)
+
+    await redis_session_client.client.setex(
+        f"two_fa_temp_{session_token}",
+        settings.TWO_FA_TIMEOUT * 1000,
+        json.dumps({"user": user.id, "remember_me": remember_me}),
+    )
+
+    return session_token
+
+
+async def create_2fa_enable_temp_token(user: User, totp_secret: str):
+    await redis_session_client.client.setex(
+        f"two_fa_enable_temp_{user.id}",
+        settings.TWO_FA_TIMEOUT * 1000,
+        totp_secret
+    )
+    return
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
