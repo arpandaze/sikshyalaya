@@ -6,6 +6,7 @@ import 'package:sikshyalaya/repository/models/student_assignment.dart';
 import 'package:sikshyalaya/screens/Assignment/components/Assignments.dart';
 import 'package:sikshyalaya/helpers/helper.dart';
 import 'package:sikshyalaya/components/not_available.dart';
+import 'package:sikshyalaya/screens/Student/student_wrapper.dart';
 
 class AssignmentScreen extends StatelessWidget {
   const AssignmentScreen({
@@ -14,16 +15,19 @@ class AssignmentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
-      create: (context) => StudentAssignmentRepository(),
-      child: BlocProvider(
-        create: (context) => StudentAssignmentBloc(
-          studentAssignmentRepository:
-              context.read<StudentAssignmentRepository>(),
-        )..add(
-            GetStudentAssignment(url: 'assignment'),
-          ),
-        child: body(context),
+    return StudentWrapper(
+      pageName: "Assignment",
+      child: RepositoryProvider(
+        create: (context) => StudentAssignmentRepository(),
+        child: BlocProvider(
+          create: (context) => StudentAssignmentBloc(
+            studentAssignmentRepository:
+                context.read<StudentAssignmentRepository>(),
+          )..add(
+              GetStudentAssignment(url: 'assignment'),
+            ),
+          child: body(context),
+        ),
       ),
     );
   }

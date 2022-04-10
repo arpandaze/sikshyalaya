@@ -7,6 +7,7 @@ import 'package:sikshyalaya/repository/student_note.dart';
 import 'package:sikshyalaya/screens/Notes/components/NotePreview.dart';
 import 'package:sikshyalaya/screens/Notes/components/CustomTextField.dart';
 import 'package:sikshyalaya/screens/Notes/student_notes_bloc.dart';
+import 'package:sikshyalaya/screens/Student/student_wrapper.dart';
 
 class StudentNotes extends StatelessWidget {
   const StudentNotes({
@@ -15,15 +16,18 @@ class StudentNotes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
-      create: (context) => StudentNoteRepository(),
-      child: BlocProvider(
-        create: (context) => StudentNoteBloc(
-            studentNoteRepository: context.read<StudentNoteRepository>())
-          ..add(
-            GetStudentNote(url: 'personal_note'),
-          ),
-        child: body(context),
+    return StudentWrapper(
+      pageName: "Notes",
+      child: RepositoryProvider(
+        create: (context) => StudentNoteRepository(),
+        child: BlocProvider(
+          create: (context) => StudentNoteBloc(
+              studentNoteRepository: context.read<StudentNoteRepository>())
+            ..add(
+              GetStudentNote(url: 'personal_note'),
+            ),
+          child: body(context),
+        ),
       ),
     );
   }
