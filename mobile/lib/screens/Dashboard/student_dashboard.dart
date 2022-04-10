@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sikshyalaya/global/authentication/auth_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sikshyalaya/components/not_available.dart';
+import 'package:sikshyalaya/helpers/helper.dart';
 import 'package:sikshyalaya/repository/models/student_dash.dart';
 import 'package:sikshyalaya/repository/student_dash.dart';
 import 'student_dashboard_bloc.dart';
@@ -128,7 +127,9 @@ class StudentDashboard extends StatelessWidget {
                         ),
                       ),
                     ]
-                  : <Widget>[],
+                  : <Widget>[
+                      NotAvailable(size: size, text: "No Ongoing Class Found")
+                    ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -153,7 +154,7 @@ class StudentDashboard extends StatelessWidget {
             // ),
             SizedBox(
               child: state.upcoming[0] == ClassSession.empty
-                  ? null
+                  ? NotAvailable(size: size, text: "No Upcoming Classess Found")
                   : ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
@@ -241,84 +242,5 @@ class StudentDashboard extends StatelessWidget {
         );
       },
     );
-  }
-
-  String studentInstructor(instructors) {
-    final List instructorNames = [];
-    if (instructors.length > 0) {
-      instructors.forEach((element) => instructorNames.add(element.full_name));
-      return instructorNames.join(' and ');
-    }
-    return '';
-  }
-
-  Map dateHandler(String dateTime) {
-    String hour = "";
-    String minute = "";
-    String ampm = "";
-    int day;
-    String weekDay = "";
-    DateTime? dateTimeParsed;
-    String completeDate = "";
-
-    dateTimeParsed = DateTime.tryParse(dateTime);
-
-    if (dateTimeParsed != null) {
-      if (dateTimeParsed.hour > 12) {
-        hour = (dateTimeParsed.hour - 12).toString().padLeft(2, '0');
-        minute = dateTimeParsed.minute.toString().padLeft(2, '0');
-        ampm = "PM";
-        day = dateTimeParsed.weekday;
-      } else {
-        hour = dateTimeParsed.hour.toString().padLeft(2, '0');
-        minute = dateTimeParsed.minute.toString().padLeft(2, '0');
-        ampm = "AM";
-        day = dateTimeParsed.weekday;
-      }
-
-      switch (day) {
-        case 1:
-          weekDay = "Monday";
-          break;
-
-        case 2:
-          weekDay = "Tuesday";
-          break;
-
-        case 3:
-          weekDay = "Wednesday";
-          break;
-
-        case 4:
-          weekDay = "Thursday";
-          break;
-
-        case 5:
-          weekDay = "Friday";
-          break;
-
-        case 6:
-          weekDay = "Saturday";
-          break;
-
-        case 7:
-          weekDay = "Sunday";
-          break;
-
-        default:
-          weekDay = "";
-          break;
-      }
-
-      completeDate = '$weekDay, $hour:$minute $ampm';
-    }
-
-    return {
-      "hour": hour,
-      "minute": minute,
-      "ampm": ampm,
-      "day": weekDay,
-      "completeDate": completeDate,
-    };
   }
 }
