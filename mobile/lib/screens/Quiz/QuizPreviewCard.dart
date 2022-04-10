@@ -63,7 +63,7 @@ class QuizPreviewCard extends StatelessWidget {
           alignment: Alignment.center,
           margin: const EdgeInsets.fromLTRB(0, 0, 10, 10),
           width: size.width * 0.65,
-          height: 200,
+          // height: 200,
           decoration: BoxDecoration(
             color: colorType,
             borderRadius: BorderRadius.circular(20),
@@ -103,6 +103,7 @@ class QuizPreviewCard extends StatelessWidget {
                   Positioned(
                     child: Container(
                       margin: const EdgeInsets.fromLTRB(0, 0, 12, 0),
+                      padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                       width: size.width * 0.35,
                       child: CustomFilledButton(
                         height: size.width * 0.04,
