@@ -6,6 +6,7 @@ import 'package:sikshyalaya/global/authentication/auth_bloc.dart';
 import 'package:sikshyalaya/constants.dart';
 import 'package:sikshyalaya/screens/Student/student_wrapper.dart';
 import 'package:sikshyalaya/screens/Welcome/splash.dart';
+import 'package:sikshyalaya/screens/2fa/twoFactorAuthentication.dart';
 
 class Profile extends StatelessWidget {
   const Profile({
@@ -65,7 +66,6 @@ class Profile extends StatelessWidget {
                       ),
                       Container(
                         width: size.width * 0.95,
-                        height: size.height * 0.38,
                         decoration: BoxDecoration(
                             color: Theme.of(context).colorScheme.surface,
                             borderRadius: const BorderRadius.only(
@@ -110,7 +110,7 @@ class Profile extends StatelessWidget {
                                             "Personal Info",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline6,
+                                                .subtitle1,
                                           ),
                                         ),
                                         const Icon(
@@ -147,7 +147,7 @@ class Profile extends StatelessWidget {
                                             "Change your password",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline6,
+                                                .subtitle1,
                                           ),
                                         ),
                                         const Icon(
@@ -184,7 +184,7 @@ class Profile extends StatelessWidget {
                                             "Sessions",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline6,
+                                                .subtitle1,
                                           ),
                                         ),
                                         const Icon(
@@ -223,7 +223,55 @@ class Profile extends StatelessWidget {
                                               "Log Out",
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .headline6,
+                                                  .subtitle1,
+                                            ),
+                                          ),
+                                        ),
+                                        const Icon(
+                                          Icons.keyboard_arrow_right_rounded,
+                                          color: Color(0xFF000000),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: size.width * 0.78,
+                                    height: size.height * 0.086,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          width: size.width * 0.1,
+                                          height: size.width * 0.1,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .background),
+                                          child: const Icon(
+                                              Icons.phone_android_rounded
+                                              // color: Color(0xFF000000),
+                                              ),
+                                        ),
+                                        GestureDetector(
+                                          onTap: () => Navigator.of(context)
+                                              .push(PageRouteBuilder(
+                                            pageBuilder: (context, animation1,
+                                                    animation2) =>
+                                                Twofactorauthentication(),
+                                            transitionDuration: Duration.zero,
+                                            reverseTransitionDuration:
+                                                Duration.zero,
+                                          )),
+                                          child: SizedBox(
+                                            width: size.width * 0.55,
+                                            child: Text(
+                                              "Two-Factor Authentication",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .subtitle1,
                                             ),
                                           ),
                                         ),
