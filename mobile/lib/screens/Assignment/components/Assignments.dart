@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sikshyalaya/components/nav_bloc.dart';
 import 'package:sikshyalaya/screens/Assignment/student_assignment_submission.dart';
 import 'package:sikshyalaya/components/not_available.dart';
+import 'package:sikshyalaya/screens/Student/student_wrapper.dart';
+
 
 class Assignments extends StatelessWidget {
   const Assignments({
@@ -76,11 +78,18 @@ class Assignments extends StatelessWidget {
           ],
         ),
       ),
-      // onTap: () => {
-      //   context.read<NavBloc>().add(NavChangeEvent(
-      //       page: AssignmentSubmission(
-      //           title: title, dueDate: dueDate, contents: contents, files: "")))
-      // },
+      onTap: () => Navigator.of(context).push(
+        PageRouteBuilder(
+          pageBuilder: (context, animation1, animation2) =>
+              AssignmentSubmission(
+                  title: title,
+                  dueDate: dueDate,
+                  contents: contents,
+                  files: ""),
+          transitionDuration: Duration.zero,
+          reverseTransitionDuration: Duration.zero,
+        ),
+      ),
     );
   }
 }

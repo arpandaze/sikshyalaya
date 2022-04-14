@@ -45,6 +45,8 @@ dependencies:
   flutter_quill: ^4.0.10
   cached_network_image: ^3.2.0
   flutter_spinkit: ^5.1.0
+  intl_phone_number_input: ^0.7.0+2
+  otp_text_field: ^1.1.2
 
 #state management
 get: ^4.1.4
