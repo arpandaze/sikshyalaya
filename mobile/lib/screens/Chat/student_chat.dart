@@ -119,11 +119,15 @@ class StudentChat extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () => {
-                        messages.add(
-                          ChatMessage(
-                              messageContent: messageController.text,
-                              isMe: true),
-                        )
+                        if (messageController.text.isNotEmpty)
+                          {
+                            messages.add(
+                              ChatMessage(
+                                  messageContent: messageController.text,
+                                  isMe: true),
+                            )
+                          }
+                       
                       },
                       child: Container(
                         margin: const EdgeInsets.fromLTRB(0, 0, 10, 0),

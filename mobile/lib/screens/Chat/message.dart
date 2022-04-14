@@ -13,10 +13,11 @@ class Message extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Container(
       margin: !isMe
-          ? const EdgeInsets.fromLTRB(00, 20, 0, 20)
-          : const EdgeInsets.fromLTRB(100, 20, 0, 20),
+          ? const EdgeInsets.fromLTRB(00, 15, 0, 5)
+          : const EdgeInsets.fromLTRB(100, 15, 0, 5),
       padding: const EdgeInsets.fromLTRB(15, 15, 10, 10),
       alignment: !isMe ? Alignment.centerLeft : Alignment.centerRight,
       decoration: BoxDecoration(
