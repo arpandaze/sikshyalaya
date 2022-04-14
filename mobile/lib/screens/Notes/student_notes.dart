@@ -35,7 +35,6 @@ class StudentNotes extends StatelessWidget {
   }
 
   Widget body(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return BlocBuilder<StudentNoteBloc, StudentNoteState>(
         buildWhen: (((previous, current) => (previous != current))),
         builder: (context, state) {

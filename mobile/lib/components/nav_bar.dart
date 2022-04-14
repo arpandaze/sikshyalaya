@@ -93,9 +93,6 @@ class NavBar extends StatelessWidget {
                 ]),
               ),
             ),
-            /* onTap: () => context.read<NavBloc>().add( */
-            /*       const NavChangeEvent(page: StudentQuiz(), pageName: 2), */
-            /*     ), */
             onTap: () => Navigator.of(context).push(
               PageRouteBuilder(
                 pageBuilder: (context, animation1, animation2) =>
@@ -134,10 +131,6 @@ class NavBar extends StatelessWidget {
                 ]),
               ),
             ),
-            /* onTap: () => context.read<NavBloc>().add( */
-            /*       const NavChangeEvent( */
-            /*           page: AssignmentScreen(), pageName: 3), */
-            /*     ), */
             onTap: () => Navigator.of(context).push(
               PageRouteBuilder(
                 pageBuilder: (context, animation1, animation2) =>
@@ -176,9 +169,6 @@ class NavBar extends StatelessWidget {
                 ]),
               ),
             ),
-            /* onTap: () => context.read<NavBloc>().add( */
-            /*       const NavChangeEvent(page: StudentNotes(), pageName: 4), */
-            /*     ), */
             onTap: () => Navigator.of(context).push(
               PageRouteBuilder(
                 pageBuilder: (context, animation1, animation2) =>
@@ -217,10 +207,6 @@ class NavBar extends StatelessWidget {
                 ]),
               ),
             ),
-            /* onTap: () => context.read<NavBloc>().add( */
-            /*       const NavChangeEvent(page: StudentNotes(), pageName: 5), */
-            /*     ), */
-
             onTap: () => Navigator.of(context).push(
               PageRouteBuilder(
                 pageBuilder: (context, animation1, animation2) =>
