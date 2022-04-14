@@ -80,15 +80,15 @@
     font-weight: 500;
     text-indent: 35px;
   }
-  
-  .teacherLanding_header{
-    width:100%;
+
+  .teacherLanding_header {
+    width: 100%;
     position: relative;
   }
-  .landing_addsessionButton{
+  .landing_addsessionButton {
     position: absolute;
-    right:50px;
-    top:30px
+    right: 50px;
+    top: 30px;
   }
 }
 

@@ -9,3 +9,4 @@ from .teacher_note import teacherNotes
 from .quiz import quizzes, quizQuestions
 from .class_session import classSessions
 from .quiz_answer import quizAnswers
+from .assignment import assignments

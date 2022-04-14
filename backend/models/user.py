@@ -20,6 +20,8 @@ class User(Base):
     full_name = Column(String, index=True)
     email = Column(String, index=True, nullable=False, unique=True)
 
+    two_fa_secret = Column(String)
+
     roll = Column(SmallInteger, nullable=True)
 
     group_id = Column(Integer, ForeignKey("group.id", ondelete="cascade"))

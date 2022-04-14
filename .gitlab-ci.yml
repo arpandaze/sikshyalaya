@@ -31,15 +31,15 @@ test-backend:
     - python manage.py pytest
 
   rules:
-    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
+    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"'
       changes:
         - backend/*
-      when: always
-      allow_failure: true
 
-    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_COMMIT_BRANCH == "main"'
       changes:
         - backend/*
+
+
 
 build-backend:
   image: docker:latest
@@ -54,57 +54,49 @@ build-backend:
     - docker push "$CI_REGISTRY_IMAGE/backend"
 
   rules:
-    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
+    - if: '$CI_COMMIT_BRANCH == "main"'
       changes:
         - backend/*
-      when: always
-      allow_failure: true
 
-    - if: '$CI_COMMIT_BRANCH == "master"'
-      changes:
-        - backend/*
+
 
 build-file-server:
   image: docker:latest
   stage: build
   services:
     - docker:dind
+
   before_script:
     - echo $CI_BUILD_TOKEN | docker login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+
   script:
     - cd file_server
     - docker build --pull -t "$CI_REGISTRY_IMAGE/file_server" .
     - docker push "$CI_REGISTRY_IMAGE/file_server"
+  
   rules:
-    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
+    - if: '$CI_COMMIT_BRANCH == "main"'
       changes:
         - file_server/*
-      when: always
-      allow_failure: true
 
-    - if: '$CI_COMMIT_BRANCH == "master"'
-      changes:
-        - file_server/*
 
 build-web:
   image: docker:latest
   stage: build
   services:
     - docker:dind
+
   before_script:
     - echo $CI_BUILD_TOKEN | docker login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+
   script:
     - cd web
     - docker build --pull -t "$CI_REGISTRY_IMAGE/web" .
     - docker push "$CI_REGISTRY_IMAGE/web"
 
   rules:
-    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
+    - if: '$CI_COMMIT_BRANCH == "main"'
       changes:
         - web/*
-      when: always
-      allow_failure: true
 
-    - if: '$CI_COMMIT_BRANCH == "master"'
-      changes:
-        - web/*
+

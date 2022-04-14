@@ -1,7 +1,5 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart';
 import 'package:sikshyalaya/constants.dart';
 import 'package:sikshyalaya/repository/models/student_dash.dart';
@@ -44,8 +42,6 @@ class StudentDashboardRepository {
     }
 
     if (response.body.isNotEmpty) {
-      print(response.body);
-
       var listDecodedRespose = jsonDecode(response.body);
 
       final List<ClassSession> listClassSession = [];

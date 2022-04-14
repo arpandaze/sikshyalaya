@@ -16,7 +16,6 @@ class NavBloc extends Bloc<NavChangeEvent, NavState> {
   }
 
   void _onNavChange(NavChangeEvent event, Emitter<NavState> emit) {
-    emit(state.copyWith(
-        page: event.page, pindex: event.pindex, context: event.context));
+    emit(state.copyWith(pindex: event.pindex, context: event.context));
   }
 }

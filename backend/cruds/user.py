@@ -26,7 +26,7 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
     ) -> Optional[User]:
         return db.query(User).filter(User.email == email).first()
 
-    def get_by_id(self, db: Session, *, id: id) -> Optional[User]:
+    def get_by_id(self, db: Session, *, id: int) -> Optional[User]:
         return db.query(User).filter(User.id == id).first()
 
     def create(
@@ -75,6 +75,23 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         db_obj: User,
     ):
         super().update(db=db, db_obj=db_obj, obj_in={"is_active": True})
+
+    def enable_2fa(
+        self,
+        db: Session,
+        *,
+        secret: str,
+        db_obj: User,
+    ):
+        super().update(db=db, db_obj=db_obj, obj_in={"two_fa_secret": secret})
+
+    def disable_2fa(
+        self,
+        db: Session,
+        *,
+        db_obj: User,
+    ):
+        super().update(db=db, db_obj=db_obj, obj_in={"two_fa_secret": None})
 
     def update(
         self,

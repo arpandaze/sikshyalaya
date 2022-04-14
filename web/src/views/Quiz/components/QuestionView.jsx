@@ -8,7 +8,14 @@ import Image from "../../../components/Image";
 import configs from "../../../utils/configs";
 import colorscheme from "../../../utils/colors";
 
-const QuestionView = ({ data, position, length, multiple, completed, ...rest }) => {
+const QuestionView = ({
+  data,
+  position,
+  length,
+  multiple,
+  completed,
+  ...rest
+}) => {
   const [isPopUp, setIsPopUp] = useState(false);
   const [popUpImage, setPopUpImage] = useState("");
   const handleImagePopUp = (image) => {

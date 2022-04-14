@@ -31,6 +31,7 @@ from .user_permission import (
     UserPermissionInDB,
 )
 from .token import Token, TokenPayload
+from .two_fa import Two_FA_Confirm
 from .user import (
     User,
     UserCreate,

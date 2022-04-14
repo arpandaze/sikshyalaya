@@ -5,6 +5,7 @@ from api.endpoints import (
     program,
     users,
     auth,
+    two_fa,
     utils,
     course,
     school,
@@ -17,6 +18,9 @@ from api.endpoints import (
 
 api_router = APIRouter()
 api_router.include_router(auth.router, prefix="/auth", tags=["Authentication"])
+api_router.include_router(
+    two_fa.router, prefix="/2fa", tags=["Two Factor Authentication"]
+)
 api_router.include_router(users.router, prefix="/users", tags=["Users"])
 api_router.include_router(utils.router, prefix="/utils", tags=["Utils"])
 api_router.include_router(school.router, prefix="/school", tags=["Schools"])

@@ -1,6 +1,6 @@
-import {useState, useEffect, useContext} from "react";
+import { useState, useEffect, useContext } from "react";
 import useSocket from "./useSocket";
-import {UserContext} from "./Contexts/UserContext";
+import { UserContext } from "./Contexts/UserContext";
 
 const ChatMessageTypes = {
   MESSAGE_HISTORY: 1,
@@ -11,7 +11,7 @@ const ChatMessageTypes = {
   ACTIVE_USER_LIST: 6,
 };
 
-const useChat = ({classmates, classID, user}) => {
+const useChat = ({ classmates, classID, user }) => {
   const [classmatesState, setClassmatesState] = useState(null);
   const [classIDState, setClassIDState] = useState(null);
 
@@ -39,8 +39,7 @@ const useChat = ({classmates, classID, user}) => {
               text: item.data,
               sentTime: item.time,
             };
-          }
-          else {
+          } else {
             return {
               id: item.user,
               name: user.full_name,
@@ -64,7 +63,7 @@ const useChat = ({classmates, classID, user}) => {
           return item;
         }
       });
-      return {multi: true, data: history_message};
+      return { multi: true, data: history_message };
     } else if (data.msg_type === ChatMessageTypes.PUBLIC_MESSAGE) {
       if (parseInt(data.user) !== user.id) {
         let msgInst = {
@@ -74,9 +73,8 @@ const useChat = ({classmates, classID, user}) => {
           text: data.data,
           sentTime: data.time,
         };
-        return {multi: false, data: msgInst};
-      }
-      else {
+        return { multi: false, data: msgInst };
+      } else {
         let msgInst = {
           id: user.id,
           name: user.full_name,
@@ -84,7 +82,7 @@ const useChat = ({classmates, classID, user}) => {
           text: data.data,
           sentTime: data.time,
         };
-        return {multi: false, data: msgInst};
+        return { multi: false, data: msgInst };
       }
     } else if (data.msg_type === ChatMessageTypes.ANON_MESSAGE) {
       let msgInst = {
@@ -94,7 +92,7 @@ const useChat = ({classmates, classID, user}) => {
         text: data.data,
         sentTime: data.time,
       };
-      return {multi: false, data: msgInst};
+      return { multi: false, data: msgInst };
     } else if (data.msg_type === ChatMessageTypes.ACTIVE_USER_LIST) {
       setOnlineState(JSON.parse(data.data));
     } else if (data.msg_type === ChatMessageTypes.USER_JOINED) {
@@ -108,7 +106,7 @@ const useChat = ({classmates, classID, user}) => {
   };
 
   const onConnect = (event) => {
-    event.currentTarget.send(JSON.stringify({msg_type: 1}));
+    event.currentTarget.send(JSON.stringify({ msg_type: 1 }));
   };
 
   const [websocket, history, setEndpointState] = useSocket({
@@ -124,8 +122,8 @@ const useChat = ({classmates, classID, user}) => {
     }
   });
 
-  const sendMessage = ({message, anon}) => {
-    websocket.send(JSON.stringify({message: message, anon: anon}));
+  const sendMessage = ({ message, anon }) => {
+    websocket.send(JSON.stringify({ message: message, anon: anon }));
   };
 
   return [

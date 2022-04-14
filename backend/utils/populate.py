@@ -17,6 +17,7 @@ from utils.populationdata import (
     classSessions,
     quizQuestions,
     quizAnswers,
+    assignments,
 )
 from utils.utils import send_verification_email
 from core.db import redis_session_client
@@ -37,6 +38,7 @@ from cruds import (
     crud_class_session,
     crud_question,
     crud_quiz_answer,
+    crud_assignment,
 )
 
 from schemas import (
@@ -53,6 +55,7 @@ from schemas import (
     QuizCreate,
     QuizQuestionCreate,
     QuizAnswer,
+    AssignmentCreate,
 )
 
 db = SessionLocal()
@@ -284,6 +287,30 @@ def populate_quiz_answer():
             eprint(e)
 
 
+def populate_assignment():
+    for assignment in assignments:
+        try:
+            print(f"Populating Assignments: {assignment}")
+
+            instructor=[created_users[i-1] for i in assignment["instructor"]]
+            course_id=created_courses[assignment["course_id"]-1]
+            group=[created_groups[i-1] for i in assignment["group"]]
+
+            assignment = AssignmentCreate(
+                due_date=assignment["due_date"],
+                marks=assignment["marks"],
+                instructor=instructor,
+                group=group,
+                course_id=course_id,
+                title=assignment["title"],
+                contents=assignment["contents"],
+            )
+            crud_assignment.create(db, obj_in=assignment)
+        except Exception as e:
+            eprint(e)
+
+
+
 def populate_all():
     populate_school()
     populate_department()
@@ -297,3 +324,4 @@ def populate_all():
     populate_class_session()
     populate_quiz_question()
     populate_quiz_answer()
+    populate_assignment()

@@ -9,6 +9,7 @@ class QuizPreviewCard extends StatelessWidget {
   final String course;
   final String description;
   final String instructor;
+  final String quizText;
   const QuizPreviewCard({
     Key? key,
     required this.size,
@@ -18,6 +19,7 @@ class QuizPreviewCard extends StatelessWidget {
     required this.course,
     required this.description,
     required this.instructor,
+    this.quizText = "Attempt Quiz",
   }) : super(key: key);
 
   final Size size;
@@ -61,7 +63,7 @@ class QuizPreviewCard extends StatelessWidget {
           alignment: Alignment.center,
           margin: const EdgeInsets.fromLTRB(0, 0, 10, 10),
           width: size.width * 0.65,
-          height: 200,
+          // height: 200,
           decoration: BoxDecoration(
             color: colorType,
             borderRadius: BorderRadius.circular(20),
@@ -101,10 +103,11 @@ class QuizPreviewCard extends StatelessWidget {
                   Positioned(
                     child: Container(
                       margin: const EdgeInsets.fromLTRB(0, 0, 12, 0),
+                      padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                       width: size.width * 0.35,
                       child: CustomFilledButton(
                         height: size.width * 0.04,
-                        buttonText: "Attempt Quiz",
+                        buttonText: quizText,
                         /* onPressed: const SignupScreen(), */
                         textColor: Theme.of(context).colorScheme.onSurface,
                         colorType: Theme.of(context).colorScheme.onPrimary,
