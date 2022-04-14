@@ -45,7 +45,7 @@ class StudentQuiz extends StatelessWidget {
                   child: Container(
                       child: const CustomTextField(
                     placeHolder: "Search Quiz",
-                    margin: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+                    margin: EdgeInsets.fromLTRB(20, 10, 20, 5),
                   )),
                 )
               ],
@@ -57,7 +57,7 @@ class StudentQuiz extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Container(
                     alignment: Alignment.centerLeft,
-                    padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
+                    padding: const EdgeInsets.fromLTRB(20, 20, 0, 0),
                     child: Text(
                       "Active Quiz",
                       style: Theme.of(context).textTheme.headline5,
@@ -157,7 +157,7 @@ class StudentQuiz extends StatelessWidget {
                         return QuizPreviewCard(
                           quizText: "View Attempt",
                           size: size,
-                          colorType: Theme.of(context).colorScheme.primary,
+                          colorType: Theme.of(context).colorScheme.surface,
                           month:
                               dateHandler(state.past![i].start_time!)["month"],
                           day: dateHandler(

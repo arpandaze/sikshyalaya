@@ -51,14 +51,14 @@ class Profile extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
-                            margin:
-                                EdgeInsets.fromLTRB(0, size.height * 0.018, 0, 0),
+                            margin: EdgeInsets.fromLTRB(
+                                0, size.height * 0.018, 0, 0),
                             child: Text(state.user!["full_name"],
                                 style: Theme.of(context).textTheme.headline5),
                           ),
                           Container(
-                            margin:
-                                EdgeInsets.fromLTRB(0, size.height * 0.018, 0, 0),
+                            margin: EdgeInsets.fromLTRB(
+                                0, size.height * 0.018, 0, 0),
                             child: Text(state.getGroupString(),
                                 style: Theme.of(context).textTheme.bodyText1),
                           )
@@ -72,7 +72,8 @@ class Profile extends StatelessWidget {
                               topLeft: Radius.circular(15),
                               topRight: Radius.circular(15),
                             )),
-                        margin: EdgeInsets.fromLTRB(0, size.height * 0.04, 0, 0),
+                        margin:
+                            EdgeInsets.fromLTRB(0, size.height * 0.04, 0, 0),
                         child: Container(
                           margin:
                               EdgeInsets.fromLTRB(0, size.height * 0.02, 0, 0),
@@ -216,7 +217,8 @@ class Profile extends StatelessWidget {
                                           ),
                                         ),
                                         GestureDetector(
-                                          onTap: () => authBloc.add(LoggedOut()),
+                                          onTap: () =>
+                                              authBloc.add(LoggedOut()),
                                           child: SizedBox(
                                             width: size.width * 0.55,
                                             child: Text(

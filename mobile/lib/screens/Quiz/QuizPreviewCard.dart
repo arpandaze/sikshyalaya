@@ -61,7 +61,8 @@ class QuizPreviewCard extends StatelessWidget {
         ),
         Container(
           alignment: Alignment.center,
-          margin: const EdgeInsets.fromLTRB(0, 0, 10, 10),
+          padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+          margin: const EdgeInsets.fromLTRB(0, 10, 10, 20),
           width: size.width * 0.65,
           // height: 200,
           decoration: BoxDecoration(
@@ -95,26 +96,6 @@ class QuizPreviewCard extends StatelessWidget {
                   instructor,
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Positioned(
-                    child: Container(
-                      margin: const EdgeInsets.fromLTRB(0, 0, 12, 0),
-                      padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                      width: size.width * 0.35,
-                      child: CustomFilledButton(
-                        height: size.width * 0.04,
-                        buttonText: quizText,
-                        /* onPressed: const SignupScreen(), */
-                        textColor: Theme.of(context).colorScheme.onSurface,
-                        colorType: Theme.of(context).colorScheme.onPrimary,
-                      ),
-                    ),
-                  )
-                ],
               ),
             ],
           ),

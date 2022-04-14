@@ -63,7 +63,6 @@ class AssignmentScreen extends StatelessWidget {
                                   state.assignmentList[index].instructor!));
                         },
                       ),
-              
               ),
             ],
           );

@@ -1,16 +1,28 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
+import 'package:google_fonts/google_fonts.dart';
+import 'package:sikshyalaya/repository/models/student_note.dart';
+import 'package:sikshyalaya/screens/Notes/components/CustomEditTextField.dart';
 import 'package:tuple/tuple.dart';
 
-QuillController _controller = QuillController.basic();
-
 class NoteView extends StatelessWidget {
+  final Note noteData;
   const NoteView({
     Key? key,
+    this.noteData = Note.empty,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    // QuillController _controller = QuillController.basic();
+    QuillController _controller = QuillController(
+        document: Document.fromJson(jsonDecode(noteData.content!)),
+        selection: const TextSelection.collapsed(offset: 0));
+
+    final String title = noteData.title != null ? noteData.title! : "";
+
     Size size = MediaQuery.of(context).size;
     final FocusNode _focusNode = FocusNode();
     var quillEditor = QuillEditor(
@@ -24,32 +36,26 @@ class NoteView extends StatelessWidget {
       expands: false,
       padding: EdgeInsets.zero,
       customStyles: DefaultStyles(
-        h1: DefaultTextBlockStyle(
-            const TextStyle(
-              fontSize: 32,
-              color: Colors.black,
-              height: 1.15,
-              fontWeight: FontWeight.w300,
-            ),
-            const Tuple2(16, 0),
-            const Tuple2(0, 0),
-            null),
-        h2: DefaultTextBlockStyle(
-            const TextStyle(
-              fontSize: 20,
-              color: Colors.black,
-              height: 1.15,
-              fontWeight: FontWeight.w300,
-            ),
-            const Tuple2(16, 0),
-            const Tuple2(0, 0),
-            null),
-        sizeSmall: const TextStyle(fontSize: 9),
+        h1: DefaultTextBlockStyle(Theme.of(context).textTheme.headline2!,
+            const Tuple2(16, 0), const Tuple2(0, 0), null),
+        h2: DefaultTextBlockStyle(Theme.of(context).textTheme.headline3!,
+            const Tuple2(16, 0), const Tuple2(0, 0), null),
+        h3: DefaultTextBlockStyle(Theme.of(context).textTheme.headline4!,
+            const Tuple2(16, 0), const Tuple2(0, 0), null),
+        paragraph: DefaultTextBlockStyle(Theme.of(context).textTheme.bodyText1!,
+            const Tuple2(16, 0), const Tuple2(0, 0), null),
       ),
     );
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => {},
+          backgroundColor: Theme.of(context).colorScheme.tertiary,
+          child: const Icon(
+            Icons.edit,
+            size: 30,
+          ),
+        ),
         body: SizedBox(
           width: double.infinity,
           height: size.height,
@@ -57,11 +63,10 @@ class NoteView extends StatelessWidget {
             alignment: Alignment.center,
             children: <Widget>[
               Container(
-                width: size.width * 0.95,
-                margin: EdgeInsets.fromLTRB(0, size.height * 0.10, 0, 0),
-                decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.surface,
-                    borderRadius: BorderRadius.circular(20)),
+                width: size.width * 0.904,
+                margin: EdgeInsets.fromLTRB(0, size.height * 0.16, 0, 0),
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(20)),
                 child: Column(
                   children: [
                     QuillToolbar.basic(controller: _controller),
@@ -74,9 +79,9 @@ class NoteView extends StatelessWidget {
                 ),
               ),
               Positioned(
-                top: 0,
+                top: size.height * 0.04,
                 left: 0,
-                child: Container(
+                child: SizedBox(
                   width: size.width,
                   height: size.height * 0.10,
                   child: Row(
@@ -86,15 +91,54 @@ class NoteView extends StatelessWidget {
                       Container(
                         margin:
                             EdgeInsets.fromLTRB(20, size.height * 0.025, 0, 0),
-                        child: Text(
-                          "Title Text Goes Here",
-                          style: Theme.of(context).textTheme.headline4,
+                        child: CustomEditTextField(
+                          title: title,
+                          placeHolder: "Enter Text Here",
                         ),
                       ),
                     ],
                   ),
                 ),
-              )
+              ),
+              Positioned(
+                top: size.height * 0.02,
+                left: 10,
+                child: SizedBox(
+                  width: size.width,
+                  height: size.height * 0.10,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        child: GestureDetector(
+                          onTap: () => {Navigator.pop(context)},
+                          child: Icon(
+                            Icons.close,
+                            size: 30,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              // Container(
+              //   width: 50,
+              //   height: 50,
+              //   child: FittedBox(
+              //     child: FloatingActionButton(
+
+              //       onPressed: () => {},
+              //       backgroundColor: Theme.of(context).colorScheme.primary,
+              //       child: const Icon(
+              //         Icons.save,
+              //         size: 30,
+              //       ),
+              //     ),
+              //   ),
+              // )
             ],
           ),
         ),

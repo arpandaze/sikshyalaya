@@ -17,6 +17,7 @@ class AppTheme with ChangeNotifier {
       colorScheme: const ColorScheme(
           brightness: Brightness.light,
           primary: Color(0xFFF14B4B),
+          tertiary: Color(0xff01d78d),
           onPrimary: Color(0xFFFFFFFF),
           secondary: Color(0xFF363636),
           onSecondary: Color(0xFFFFFFFF),
@@ -99,7 +100,10 @@ class AppTheme with ChangeNotifier {
           color: const Color(0xFFF14B4B),
         ),
         overline: GoogleFonts.openSans(
-            fontSize: 10, fontWeight: FontWeight.w400, letterSpacing: 1.5),
+          fontSize: 10,
+          fontWeight: FontWeight.w400,
+          letterSpacing: 1.5,
+        ),
       ),
     );
   }
