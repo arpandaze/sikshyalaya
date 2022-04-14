@@ -18,7 +18,8 @@ class StudentWrapper extends StatelessWidget {
   final Widget? child;
   final String pageName;
 
-  const StudentWrapper({Key? key, this.child, required this.pageName}) : super(key: key);
+  const StudentWrapper({Key? key, this.child, required this.pageName})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
@@ -44,7 +45,8 @@ class StudentWrapper extends StatelessWidget {
               context.read<AuthBloc>().add(LoadAuthStatus());
               break;
 
-            default: null;
+            default:
+              null;
           }
         },
         child: BlocProvider(
@@ -60,35 +62,11 @@ class StudentWrapper extends StatelessWidget {
       bottom: true,
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
-        bottomNavigationBar: NavBar(size: size),
-        appBar: PreferredSize(child: TopBar(size: size, pageName: pageName), preferredSize: const Size.fromHeight(100)),
+        bottomNavigationBar: NavBar(size: size, pageName: pageName),
+        appBar: PreferredSize(
+            child: TopBar(size: size, pageName: pageName),
+            preferredSize: const Size.fromHeight(100)),
         body: child,
-        /* body: Container( */
-        /*   width: double.infinity, */
-        /*   height: size.height, */
-        /*   child: Stack( */
-        /*     alignment: Alignment.center, */
-        /*     children: <Widget>[ */
-        /*       BlocBuilder<NavBloc, NavState>( */
-        /*           buildWhen: (prev, next) => true, */
-        /*           builder: (context, state) { */
-        /*             return Container( */
-        /*               padding: EdgeInsets.fromLTRB( */
-        /*                   0, size.height * 0.12, 0, size.height * 0.08), */
-        /*               child: Text("Hello"), */
-        /*             ); */
-        /*           }), */
-        /*       //TopBar */
-        /*       Positioned( */
-        /*         top: 0, */
-        /*         left: 0, */
-        /*         child: TopBar(size: size), */
-        /*       ), */
-        /*       //NavBar */
-        /*       Positioned(bottom: 0, left: 0, child: NavBar(size: size)) */
-        /*     ], */
-        /*   ), */
-        /* ), */
       ),
     );
   }

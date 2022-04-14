@@ -76,11 +76,11 @@ class Assignments extends StatelessWidget {
           ],
         ),
       ),
-      onTap: () => {
-        context.read<NavBloc>().add(NavChangeEvent(
-            page: AssignmentSubmission(
-                title: title, dueDate: dueDate, contents: contents, files: "")))
-      },
+      // onTap: () => {
+      //   context.read<NavBloc>().add(NavChangeEvent(
+      //       page: AssignmentSubmission(
+      //           title: title, dueDate: dueDate, contents: contents, files: "")))
+      // },
     );
   }
 }

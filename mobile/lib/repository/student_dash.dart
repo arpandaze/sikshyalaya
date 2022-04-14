@@ -42,8 +42,6 @@ class StudentDashboardRepository {
     }
 
     if (response.body.isNotEmpty) {
-      print(response.body);
-
       var listDecodedRespose = jsonDecode(response.body);
 
       final List<ClassSession> listClassSession = [];

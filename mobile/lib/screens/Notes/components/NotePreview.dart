@@ -1,24 +1,27 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sikshyalaya/screens/Notes/components/CustomTextField.dart';
+import 'package:sikshyalaya/repository/models/student_note.dart';
 import 'package:sikshyalaya/screens/Notes/note_view.dart';
 
 class NotePreview extends StatelessWidget {
+  final Note? noteData;
   const NotePreview({
     Key? key,
-    required this.title,
-    required this.content,
+    this.noteData,
   }) : super(key: key);
-
-  final String? title;
-  final String? content;
 
   @override
   Widget build(BuildContext context) {
+    final Note? noteDefault = noteData;
     return GestureDetector(
       onTap: () => Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const NoteView()),
+        MaterialPageRoute(
+          builder: (context) => NoteView(
+            noteData: noteData!,
+          ),
+        ),
       ),
       child: Container(
         decoration: BoxDecoration(
@@ -33,7 +36,7 @@ class NotePreview extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                 child: Text(
-                  title!,
+                  noteData!.title!,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.bodyText1,
@@ -44,7 +47,7 @@ class NotePreview extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                 child: Text(
-                  content!,
+                  jsonDecode(noteData!.content!)[0]["insert"],
                   maxLines: 4,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.bodyText2,
