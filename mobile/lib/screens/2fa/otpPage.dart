@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:sikshyalaya/screens/Student/student_wrapper.dart';
 import 'package:sikshyalaya/screens/2fa/success.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:sikshyalaya/screens/2fa/components/CustomOutlinedButton.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
