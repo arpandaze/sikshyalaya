@@ -127,7 +127,6 @@ class StudentChat extends StatelessWidget {
                                   isMe: true),
                             )
                           }
-                       
                       },
                       child: Container(
                         margin: const EdgeInsets.fromLTRB(0, 0, 10, 0),

@@ -12,7 +12,7 @@ class CustomFilledButton extends StatelessWidget {
     Key? key,
     required this.buttonText,
     required this.colorType,
-    required this.textColor,
+    this.textColor = Colors.black,
     this.height = 20,
     this.onPressed,
   }) : super(key: key);
