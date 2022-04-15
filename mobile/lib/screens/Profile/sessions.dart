@@ -11,8 +11,8 @@ import 'package:sikshyalaya/screens/Student/student_wrapper.dart';
 import 'package:sikshyalaya/screens/Welcome/splash.dart';
 import 'package:sikshyalaya/screens/2fa/twoFactorAuthentication.dart';
 
-class Profile extends StatelessWidget {
-  const Profile({
+class SessionPage extends StatelessWidget {
+  const SessionPage({
     Key? key,
   }) : super(key: key);
 
@@ -105,7 +105,7 @@ class Profile extends StatelessWidget {
                                           PageRouteBuilder(
                                             pageBuilder: (context, animation1,
                                                     animation2) =>
-                                                const PersonalInfo(),
+                                                const SessionPage(),
                                             transitionDuration: Duration.zero,
                                             reverseTransitionDuration:
                                                 Duration.zero,
@@ -116,12 +116,16 @@ class Profile extends StatelessWidget {
                                         width: size.width * 0.78,
                                         height: size.height * 0.090,
                                         child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Container(
                                               width: size.width * 0.1,
                                               height: size.width * 0.1,
+                                              margin: EdgeInsets.fromLTRB(
+                                                  0, 20, 0, 0),
                                               decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(10),
@@ -129,75 +133,33 @@ class Profile extends StatelessWidget {
                                                       .colorScheme
                                                       .background),
                                               child: const Icon(
-                                                Icons.person,
+                                                Icons.laptop_mac,
                                                 color: Color(0xFF000000),
                                               ),
                                             ),
-                                            SizedBox(
-                                              width: size.width * 0.55,
-                                              child: Text(
-                                                "Personal Info",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .subtitle1,
-                                              ),
-                                            ),
-                                            const Icon(
-                                              Icons
-                                                  .keyboard_arrow_right_rounded,
-                                              color: Color(0xFF000000),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () => {
-                                        Navigator.of(context).push(
-                                          PageRouteBuilder(
-                                            pageBuilder: (context, animation1,
-                                                    animation2) =>
-                                                const ChangePassword(),
-                                            transitionDuration: Duration.zero,
-                                            reverseTransitionDuration:
-                                                Duration.zero,
-                                          ),
-                                        ),
-                                      },
-                                      child: SizedBox(
-                                        width: size.width * 0.78,
-                                        height: size.height * 0.090,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
                                             Container(
-                                              width: size.width * 0.1,
-                                              height: size.width * 0.1,
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .background),
-                                              child: const Icon(
-                                                Icons.lock,
-                                                color: Color(0xFF000000),
-                                              ),
-                                            ),
-                                            SizedBox(
                                               width: size.width * 0.55,
-                                              child: Text(
-                                                "Security",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .subtitle1,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "Edge Chromium",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .subtitle1,
+                                                  ),
+                                                  Text(
+                                                    "Windows PC",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .subtitle1,
+                                                  ),
+                                                ],
                                               ),
-                                            ),
-                                            const Icon(
-                                              Icons
-                                                  .keyboard_arrow_right_rounded,
-                                              color: Color(0xFF000000),
                                             ),
                                           ],
                                         ),
@@ -216,16 +178,22 @@ class Profile extends StatelessWidget {
                                           ),
                                         ),
                                       },
-                                      child: SizedBox(
+                                      child: Container(
                                         width: size.width * 0.78,
                                         height: size.height * 0.090,
+                                        margin:
+                                            EdgeInsets.fromLTRB(0, 20, 0, 0),
                                         child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Container(
                                               width: size.width * 0.1,
                                               height: size.width * 0.1,
+                                              margin: EdgeInsets.fromLTRB(
+                                                  0, 10, 0, 0),
                                               decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(10),
@@ -233,72 +201,33 @@ class Profile extends StatelessWidget {
                                                       .colorScheme
                                                       .background),
                                               child: const Icon(
-                                                Icons.laptop_mac,
+                                                Icons.phone_android_rounded,
                                                 color: Color(0xFF000000),
                                               ),
                                             ),
-                                            SizedBox(
-                                              width: size.width * 0.55,
-                                              child: Text(
-                                                "Sessions",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .subtitle1,
-                                              ),
-                                            ),
-                                            const Icon(
-                                              Icons
-                                                  .keyboard_arrow_right_rounded,
-                                              color: Color(0xFF000000),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () => Navigator.of(context)
-                                          .push(PageRouteBuilder(
-                                        pageBuilder:
-                                            (context, animation1, animation2) =>
-                                                Twofactorauthentication(),
-                                        transitionDuration: Duration.zero,
-                                        reverseTransitionDuration:
-                                            Duration.zero,
-                                      )),
-                                      child: SizedBox(
-                                        width: size.width * 0.78,
-                                        height: size.height * 0.090,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
                                             Container(
-                                              width: size.width * 0.1,
-                                              height: size.width * 0.1,
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .background),
-                                              child: const Icon(
-                                                  Icons.qr_code_scanner
-                                                  // color: Color(0xFF000000),
-                                                  ),
-                                            ),
-                                            SizedBox(
                                               width: size.width * 0.55,
-                                              child: Text(
-                                                "QR Login",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .subtitle1,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "Chrome",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .subtitle1,
+                                                  ),
+                                                  Text(
+                                                    "Android Mobile",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .subtitle1,
+                                                  ),
+                                                ],
                                               ),
-                                            ),
-                                            const Icon(
-                                              Icons
-                                                  .keyboard_arrow_right_rounded,
-                                              color: Color(0xFF000000),
                                             ),
                                           ],
                                         ),
@@ -330,16 +259,11 @@ class Profile extends StatelessWidget {
                                             SizedBox(
                                               width: size.width * 0.55,
                                               child: Text(
-                                                "Log Out",
+                                                "Log Out of all Session",
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .subtitle1,
                                               ),
-                                            ),
-                                            const Icon(
-                                              Icons
-                                                  .keyboard_arrow_right_rounded,
-                                              color: Color(0xFF000000),
                                             ),
                                           ],
                                         ),

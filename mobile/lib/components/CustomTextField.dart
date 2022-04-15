@@ -6,10 +6,12 @@ class CustomTextField extends StatelessWidget {
   final bool isPassword;
   final double height;
   final ValueChanged? onChanged;
+  final double? width;
 
   const CustomTextField({
     Key? key,
     this.placeHolder = "",
+    this.width,
     this.height = 20,
     this.isPassword = false,
     this.margin = const EdgeInsets.all(0),
@@ -20,7 +22,7 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      width: size.width * 0.9,
+      width: width,
       margin: margin,
       child: TextField(
         obscureText: isPassword,

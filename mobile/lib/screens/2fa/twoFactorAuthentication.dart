@@ -12,18 +12,33 @@ class Twofactorauthentication extends StatelessWidget {
   Widget build(BuildContext context) {
     PhoneNumber number = PhoneNumber(isoCode: 'NP', dialCode: '977');
     Size size = MediaQuery.of(context).size;
-    return StudentWrapper(
-      pageName: "2-FA",
-      child: ListView(children: [
-        Column(
-          children: [
-            Container(
-              margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
-              child: Text("Enter phone number to verify.",
-                  style: Theme.of(context).textTheme.headline4),
-            ),
-            Flexible(
+    return SafeArea(
+      top: true,
+      bottom: true,
+      child: Scaffold(
+        body: ListView(children: [
+          Align(
+            alignment: Alignment.topRight,
+            child: GestureDetector(
+              onTap: () => {Navigator.pop(context)},
               child: Container(
+                margin: EdgeInsets.fromLTRB(0, size.height * 0.02, 10, 0),
+                child: Icon(
+                  Icons.close,
+                  color: Theme.of(context).colorScheme.primary,
+                  size: 35,
+                ),
+              ),
+            ),
+          ),
+          Column(
+            children: [
+              Container(
+                margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                child: Text("Enter phone number to verify.",
+                    style: Theme.of(context).textTheme.headline4),
+              ),
+              Container(
                 margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
                 height: size.height * 0.4,
                 child: Column(
@@ -44,10 +59,10 @@ class Twofactorauthentication extends StatelessWidget {
                   ],
                 ),
               ),
-            ),
-          ],
-        ),
-      ]),
+            ],
+          ),
+        ]),
+      ),
     );
   }
 }

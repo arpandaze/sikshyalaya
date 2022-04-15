@@ -112,7 +112,7 @@ class StudentChat extends StatelessWidget {
                   children: [
                     Container(
                       margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                      child: CustomTextField(
+                      child: CustomChatTextField(
                         messageController: messageController,
                         placeHolder: "Type your message here",
                       ),
