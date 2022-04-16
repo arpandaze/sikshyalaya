@@ -18,27 +18,32 @@ class StudentDashboardBloc
 
   void _onGetStudentDash(
       GetStudentDash event, Emitter<StudentDashboardState> emit) async {
-    print("GetDash");
     final newState = await StudentDashboardState.load();
     final studentDash = await studentDashboardRepository.getStudentDashboard(
         url: event.url, token: newState.token!);
 
-    int index = 0;
+    int index = -1;
+
     for (int i = 0; i < studentDash.length; i++) {
-      final parsedStartDate = DateTime.tryParse(studentDash[i].start_time!);
-      final parsedEndDate = DateTime.tryParse(studentDash[i].end_time!);
+      var parsedStartDate = DateTime.tryParse(studentDash[i].start_time!);
+      var parsedEndDate = DateTime.tryParse(studentDash[i].end_time!);
 
       if (parsedEndDate != null || parsedStartDate != null) {
-        if (parsedEndDate!.isAfter(DateTime.now()) &&
-            parsedStartDate!.isBefore(DateTime.now())) {
+        parsedStartDate = parsedStartDate!.add(parsedStartDate.timeZoneOffset);
+        parsedEndDate = parsedEndDate!.add(parsedEndDate.timeZoneOffset);
+
+        if (parsedEndDate.isAfter(DateTime.now()) &&
+            parsedStartDate.isBefore(DateTime.now())) {
           index = i;
           break;
         }
       }
     }
+
     emit(
       state.copyWith(
-          ongoing: studentDash.removeAt(index),
+          ongoing:
+              index != -1 ? studentDash.removeAt(index) : ClassSession.empty,
           upcoming: studentDash,
           token: newState.token),
     );

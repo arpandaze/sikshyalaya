@@ -2,21 +2,20 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:sikshyalaya/constants.dart';
-import 'package:sikshyalaya/repository/models/quiz.dart';
-import 'package:sikshyalaya/repository/models/student_dash.dart';
+import 'package:sikshyalaya/repository/models/quiz_view.dart';
 
-class StudentQuizRepository {
+class StudentQuizViewRepository {
   final Client httpclient = http.Client();
 
-  StudentQuizRepository();
+  StudentQuizViewRepository();
 
-  Future<List<Quiz>> getStudentQuiz(
+  Future<List<QuizView>> getStudentQuizView(
       {required String url, required String token}) async {
     final headers = {"Cookie": "Session=$token"};
     final response = await httpclient.get(Uri.parse('$backendBase/$url'),
         headers: {"Cookie": "session=$token"});
 
-    print(headers);
+    // headers: {"Authorization": tok
 
     if (response.statusCode != 200) {
       print(response.statusCode);
@@ -28,14 +27,14 @@ class StudentQuizRepository {
 
       var listDecodedRespose = jsonDecode(response.body);
 
-      final List<Quiz> listQuiz = [];
+      final List<QuizView> listQuizView = [];
 
-      listDecodedRespose
-          .forEach((element) => {listQuiz.add(Quiz.fromJson((element)))});
+      listDecodedRespose.forEach(
+          (element) => {listQuizView.add(QuizView.fromJson((element)))});
       // listClassSession.add(ClassSession.fromJson(json.decode(element)))});
 
       // print(listClassSession);
-      return listQuiz;
+      return listQuizView;
     } else {
       throw Exception('Body Empty');
     }
