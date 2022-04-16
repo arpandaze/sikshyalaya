@@ -118,6 +118,22 @@ class Twofactorauthentication extends StatelessWidget {
                 ],
               ),
             ]),
+            Positioned(
+              top: size.height * 0.02,
+              right: 10,
+              child: GestureDetector(
+                onTap: () => {
+                  Navigator.pop(context),
+                },
+                child: SizedBox(
+                  child: Icon(
+                    Icons.close,
+                    color: Theme.of(context).colorScheme.primary,
+                    size: 30,
+                  ),
+                ),
+              ),
+            )
             
           ],
         ),
