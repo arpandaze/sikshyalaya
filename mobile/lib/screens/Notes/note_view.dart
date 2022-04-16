@@ -102,7 +102,7 @@ class NoteView extends StatelessWidget {
               ),
               Positioned(
                 top: size.height * 0.02,
-                left: 10,
+                left: size.width * 0.90,
                 child: SizedBox(
                   width: size.width,
                   height: size.height * 0.10,
