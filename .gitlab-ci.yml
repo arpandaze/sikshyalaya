@@ -92,9 +92,9 @@ build-web:
 
   script:
     - cd web
-    - docker build --pull -t "$CI_REGISTRY_IMAGE/web:latest" .
+    - docker build --no-cache --pull -t "$CI_REGISTRY_IMAGE/web:latest" .
     - docker push "$CI_REGISTRY_IMAGE/web:latest"
-    - docker build --build-arg BUILD_TARGET_ENV=local --pull -t "$CI_REGISTRY_IMAGE/web:local" .
+    - docker build --no-cache --build-arg TARGET_BUILD_ENV=local --pull -t "$CI_REGISTRY_IMAGE/web:local" .
     - docker push "$CI_REGISTRY_IMAGE/web:local"
 
   rules:
@@ -123,4 +123,3 @@ deploy:
         - backend/*
         - file_server/*
         - web/*
-

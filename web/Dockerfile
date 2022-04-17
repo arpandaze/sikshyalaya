@@ -1,6 +1,5 @@
 FROM node:15-alpine as reactbuilder
 
-ARG TARGET_BUILD_ENV="prod"
 
 WORKDIR /app
 
@@ -10,6 +9,8 @@ RUN apk add yarn
 RUN yarn install
 
 COPY ./ /app/
+
+ARG TARGET_BUILD_ENV="prod"
 
 RUN yarn build-$TARGET_BUILD_ENV
 
