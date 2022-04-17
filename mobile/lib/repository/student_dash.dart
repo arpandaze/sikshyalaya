@@ -1,17 +1,17 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:sikshyalaya/constants.dart';
 import 'package:sikshyalaya/repository/models/student_dash.dart';
 
 class StudentDashboardRepository {
-  final Client httpclient = http.Client();
+  final Client httpclient = Client();
+  final String path = "class_session/";
   // static const storage = FlutterSecureStorage();
-  // final String token;
+  final String? token;
 
-  StudentDashboardRepository(
-      //{required this.token}
-      );
+  StudentDashboardRepository({
+    required this.token,
+  });
 
   // static Future<StudentDashboardRepository> loadWithToken() async {
   //   final token = await storage.read(key: "token");
@@ -27,33 +27,33 @@ class StudentDashboardRepository {
   //   );
   // }
 
-  Future<List<ClassSession>> getStudentDashboard(
-      {required String url, required String token}) async {
-    final headers = {"Cookie": "Session=$token"};
-    final response = await httpclient.get(Uri.parse('$backendBase/$url'),
-        headers: {"Cookie": "session=$token"});
+  Future<List<ClassSession>> getStudentDashboard() async {
+    if (token != null) {
+      final headers = {"Cookie": "session=$token"};
+      final response = await httpclient.get(
+        Uri.parse('$backendBase/$path'),
+        headers: headers,
+      );
 
-    print(headers);
-    // headers: {"Authorization": tok
+      if (response.statusCode != 200) {
+        throw Exception(
+            'Retrieve Failed! Error getting student dashboard info.');
+      }
 
-    if (response.statusCode != 200) {
-      print(response.statusCode);
-      throw Exception('Retrieve Failed! Error getting student dashboard info.');
-    }
+      if (response.body.isNotEmpty) {
+        var listDecodedRespose = jsonDecode(response.body);
 
-    if (response.body.isNotEmpty) {
-      var listDecodedRespose = jsonDecode(response.body);
+        final List<ClassSession> listClassSession = [];
 
-      final List<ClassSession> listClassSession = [];
+        listDecodedRespose.forEach((element) =>
+            {listClassSession.add(ClassSession.fromJson((element)))});
 
-      listDecodedRespose.forEach((element) =>
-          {listClassSession.add(ClassSession.fromJson((element)))});
-      // listClassSession.add(ClassSession.fromJson(json.decode(element)))});
-
-      // print(listClassSession);
-      return listClassSession;
+        return listClassSession;
+      } else {
+        throw Exception('Body Empty');
+      }
     } else {
-      throw Exception('Body Empty');
+      throw Exception("Not logged in!");
     }
   }
 }

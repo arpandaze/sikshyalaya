@@ -225,8 +225,7 @@ class NavBar extends StatelessWidget {
             ),
             onTap: () => Navigator.of(context).push(
               PageRouteBuilder(
-                pageBuilder: (context, animation1, animation2) =>
-                    const StudentChat(),
+                pageBuilder: (context, animation1, animation2) => StudentChat(),
                 transitionDuration: Duration.zero,
                 reverseTransitionDuration: Duration.zero,
               ),

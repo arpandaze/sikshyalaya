@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sikshyalaya/constants.dart';
 import 'package:sikshyalaya/screens/Login/components/CustomTextField.dart';
 
 class Message extends StatefulWidget {
@@ -7,7 +9,7 @@ class Message extends StatefulWidget {
   final bool isMe;
   final String senderName;
   final String time;
-  final String senderImage;
+  final String? senderImage;
   const Message({
     Key? key,
     required this.message,
@@ -29,9 +31,9 @@ class _MessageState extends State<Message> {
       _isVisible = !_isVisible;
     });
   }
+
   @override
   Widget build(BuildContext context) {
-
     Size size = MediaQuery.of(context).size;
     return Container(
       alignment: widget.isMe ? Alignment.centerRight : Alignment.centerLeft,
@@ -43,7 +45,7 @@ class _MessageState extends State<Message> {
             widget.isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: widget.isMe
             ? [
-                Container(
+                SizedBox(
                   width: size.width * 0.8,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -62,16 +64,16 @@ class _MessageState extends State<Message> {
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15),
-                                color: Color.fromARGB(255, 226, 95, 95),
+                                color: const Color.fromARGB(255, 226, 95, 95),
                                 // border: Border.all(color: Colors.black),
                               ),
-                              padding: EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(10),
                               constraints: BoxConstraints(
                                   minWidth: size.width * 0.05,
                                   maxWidth: size.width * 0.6),
                               child: Text(
                                 widget.message,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w500,
                                   fontSize: 13,
@@ -86,8 +88,9 @@ class _MessageState extends State<Message> {
                               borderRadius:
                                   BorderRadius.circular(80), // Image border
                               child: SizedBox.fromSize(
-                                size: const Size.fromRadius(12), // Image radius
-                                child: Image.asset(widget.senderImage),
+                                size: const Size.fromRadius(18), // Image radius
+                                /* child: Image.asset(widget.senderImage), */
+                                child: getProfileImage(widget.senderImage),
                               ),
                             ),
                           ),
@@ -98,7 +101,7 @@ class _MessageState extends State<Message> {
                 ),
               ]
             : [
-                Container(
+                SizedBox(
                   width: size.width * 0.8,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -110,8 +113,8 @@ class _MessageState extends State<Message> {
                               borderRadius:
                                   BorderRadius.circular(50), // Image border
                               child: SizedBox.fromSize(
-                                size: const Size.fromRadius(12), // Image radius
-                                child: Image.asset(widget.senderImage),
+                                size: const Size.fromRadius(18), // Image radius
+                                child: getProfileImage(widget.senderImage),
                               ),
                             ),
                           ),
@@ -120,10 +123,10 @@ class _MessageState extends State<Message> {
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15),
-                                color: Color.fromARGB(255, 88, 88, 88),
+                                color: const Color.fromARGB(255, 88, 88, 88),
                                 // border: Border.all(color: Colors.black),
                               ),
-                              padding: EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(10),
                               margin: const EdgeInsets.fromLTRB(8, 0, 0, 0),
                               constraints: BoxConstraints(
                                   minWidth: size.width * 0.05,
@@ -133,7 +136,7 @@ class _MessageState extends State<Message> {
                                 children: [
                                   Text(
                                     widget.senderName,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Color.fromARGB(255, 155, 155, 155),
                                       fontWeight: FontWeight.w600,
                                       fontSize: 10,
@@ -142,7 +145,7 @@ class _MessageState extends State<Message> {
                                   ),
                                   Text(
                                     widget.message,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w600,
                                       fontSize: 13,
@@ -169,5 +172,27 @@ class _MessageState extends State<Message> {
       ),
     );
   }
-}
 
+  Widget getProfileImage(String? profilePath) {
+    if (profilePath != null) {
+      return CachedNetworkImage(
+        imageUrl: '$fileServerBase/$profilePath',
+        imageBuilder: (context, imageProvider) => Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: imageProvider,
+              fit: BoxFit.contain,
+            ),
+          ),
+        ),
+        placeholder: (context, url) => const CircularProgressIndicator(),
+        errorWidget: (context, url, error) => const Icon(Icons.error),
+      );
+    } else {
+      return SvgPicture.asset(
+        "assets/images/defaultProfile.svg",
+        fit: BoxFit.cover,
+      );
+    }
+  }
+}

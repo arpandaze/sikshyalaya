@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sikshyalaya/components/not_available.dart';
+import 'package:sikshyalaya/global/authentication/auth_bloc.dart';
 import 'package:sikshyalaya/helpers/helper.dart';
 import 'package:sikshyalaya/repository/models/student_dash.dart';
 import 'package:sikshyalaya/repository/student_dash.dart';
@@ -16,17 +17,12 @@ class StudentDashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return StudentWrapper(
       pageName: "Dashboard",
-      child: RepositoryProvider(
-        create: (context) => StudentDashboardRepository(),
-        child: BlocProvider(
-          create: (context) => StudentDashboardBloc(
-              studentDashboardRepository:
-                  context.read<StudentDashboardRepository>())
-            ..add(
-              GetStudentDash(url: 'class_session'),
-            ),
-          child: body(context),
+      child: BlocProvider(
+        create: (context) => StudentDashboardBloc(
+          studentDashboardRepository: StudentDashboardRepository(
+              token: context.read<AuthBloc>().state.token),
         ),
+        child: body(context),
       ),
     );
   }
