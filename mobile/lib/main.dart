@@ -83,7 +83,7 @@ class AppWrapper extends StatelessWidget {
             Timer(const Duration(microseconds: 0), () {
               Navigator.pushNamedAndRemoveUntil(
                 context,
-                "/student_dashboard",
+                "/teacher_dashboard",
                 (route) => false,
               );
             });
