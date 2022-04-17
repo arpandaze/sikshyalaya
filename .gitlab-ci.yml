@@ -1,6 +1,7 @@
 stages:
   - test
   - build
+  - deploy
 
 test-backend:
   image: python:latest
@@ -14,7 +15,7 @@ test-backend:
     REDIS_HOST: redis
 
   services:
-    - name: postgres:13-alpine 
+    - name: postgres:13-alpine
     - name: redis:6-alpine
       alias: redis
       command: [ "--requirepass redispass" ]
@@ -73,7 +74,7 @@ build-file-server:
     - cd file_server
     - docker build --pull -t "$CI_REGISTRY_IMAGE/file_server" .
     - docker push "$CI_REGISTRY_IMAGE/file_server"
-  
+ 
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
       changes:
@@ -91,12 +92,35 @@ build-web:
 
   script:
     - cd web
-    - docker build --pull -t "$CI_REGISTRY_IMAGE/web" .
-    - docker push "$CI_REGISTRY_IMAGE/web"
+    - docker build --pull -t "$CI_REGISTRY_IMAGE/web:latest" .
+    - docker push "$CI_REGISTRY_IMAGE/web:latest"
+    - docker build --build-arg BUILD_TARGET_ENV=local --pull -t "$CI_REGISTRY_IMAGE/web:local" .
+    - docker push "$CI_REGISTRY_IMAGE/web:local"
 
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
       changes:
         - web/*
 
+deploy:
+  stage: deploy
+  image: kroniak/ssh-client
+  variables:
+    DEPLOY_SSH_HOST: $DEPLOY_SSH_HOST
+    DEPLOY_PRIVATE_KEY: $DEPLOY_PRIVATE_KEY
+  script:
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - echo "$DEPLOY_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - echo $DEPLOY_SSH_HOST
+    - echo $DEPLOY_SSH_HOST
+    - ssh -tt daze@$DEPLOY_SSH_HOST 'cd ~/app && docker-compose down && docker-compose pull && docker-compose up -d'
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      changes:
+        - backend/*
+        - file_server/*
+        - web/*
 
