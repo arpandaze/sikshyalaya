@@ -34,7 +34,7 @@ class QuizAttemptCard extends StatelessWidget {
 
   Widget body(BuildContext context) {
     return BlocBuilder<AnswerBloc, AnswerState>(
-      buildWhen: (previous, current) => x(previous, current),
+      buildWhen: (previous, current) => (previous != current),
       builder: (context, state) {
         return Column(
           children: [
@@ -172,11 +172,5 @@ class QuizAttemptCard extends StatelessWidget {
         );
       },
     );
-  }
-
-  bool x(p, c) {
-    print(p);
-    print(c);
-    return p != c;
   }
 }

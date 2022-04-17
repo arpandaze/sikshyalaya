@@ -8,7 +8,9 @@ abstract class AnswerEvent extends Equatable {
 class RadioValueChanged extends AnswerEvent {
   final int value;
 
-  RadioValueChanged({required this.value});
+  RadioValueChanged({
+    required this.value,
+  });
 
   @override
   List<Object> get props => [value];
@@ -17,7 +19,9 @@ class RadioValueChanged extends AnswerEvent {
 class CheckedValueChanged extends AnswerEvent {
   final int addValue;
 
-  CheckedValueChanged({required this.addValue});
+  CheckedValueChanged({
+    required this.addValue,
+  });
 
   @override
   List<Object> get props => [addValue];

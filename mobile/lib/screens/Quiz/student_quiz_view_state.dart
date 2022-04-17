@@ -9,6 +9,7 @@ class StudentQuizViewState extends Equatable {
 
   static const defaultQuizViews = [QuizView.empty];
   static const defaultQuizAnswer = QuizAnswer.empty;
+  // static const defaultAttemptedAnswer = [QuizAnswer.empty];
 
   const StudentQuizViewState({
     this.token,
@@ -17,11 +18,12 @@ class StudentQuizViewState extends Equatable {
     this.answerExists = false,
   });
 
-  StudentQuizViewState copyWith(
-      {String? token,
-      List<QuizView>? quizViews,
-      QuizAnswer? quizAnswer,
-      bool? answerExists}) {
+  StudentQuizViewState copyWith({
+    String? token,
+    List<QuizView>? quizViews,
+    QuizAnswer? quizAnswer,
+    bool? answerExists,
+  }) {
     return StudentQuizViewState(
       token: token ?? this.token,
       quizViews: quizViews ?? this.quizViews,

@@ -13,6 +13,7 @@ class StudentQuizViewBloc
   StudentQuizViewBloc({required this.studentQuizViewRepository})
       : super(const StudentQuizViewState()) {
     on<GetStudentQuizView>(_getStudentQuizView);
+    on<StudentAnswerPost>(_studentAnswerPost);
   }
 
   final StudentQuizViewRepository studentQuizViewRepository;
@@ -30,5 +31,11 @@ class StudentQuizViewBloc
         quizAnswer: quizAnswer["quiz_answer"],
         answerExists: quizAnswer["exists"],
         token: newState.token));
+  }
+
+  void _studentAnswerPost(
+      StudentAnswerPost event, Emitter<StudentQuizViewState> emit) {
+    print(event.attempt);
+    print(event.postUrl);
   }
 }

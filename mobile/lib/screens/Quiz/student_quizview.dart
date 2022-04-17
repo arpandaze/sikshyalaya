@@ -75,7 +75,12 @@ class StudentQuizView extends StatelessWidget {
                               Container(
                                 child: CustomFilledButton(
                                   text: "Sumbit",
-                                  onPressed: () => {print(attemptedAnswers)},
+                                  onPressed: () => {
+                                    context.read<StudentQuizViewBloc>()
+                                      ..add(StudentAnswerPost(
+                                          postUrl: "postUrl",
+                                          attempt: attemptedAnswers))
+                                  },
                                 ),
                               ),
                             ],

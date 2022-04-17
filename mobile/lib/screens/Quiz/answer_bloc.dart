@@ -29,7 +29,6 @@ class AnswerBloc extends Bloc<AnswerEvent, AnswerState> {
       }
       print(state.checkValues);
     }
-
     emit(state.copyWith(checkValues: newValue));
   }
 }
