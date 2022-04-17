@@ -185,7 +185,7 @@ class QuizAttemptCard extends StatelessWidget {
     }
 
     if (p.radioValueGroup != c.radioValueGroup) {
-      attemptedAnswers["$question_id"] = c.radioValueGroup;
+      attemptedAnswers["$question_id"] = [c.radioValueGroup];
     }
     return p != c;
   }

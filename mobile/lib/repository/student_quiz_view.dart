@@ -77,16 +77,12 @@ class StudentQuizViewRepository {
   }
 
   Future<QuizAnswer> postStudentAnswer(
-      {required String url,
-      required String token,
-      required QuizAnswer body}) async {
-    var response = await http.post(Uri.parse('$backendBase/$url/'),
+      {required String url, required String token, required Map body}) async {
+    print(jsonEncode(body));
+    var response = await http.post(Uri.parse('$backendBase/$url'),
         headers: <String, String>{"Cookie": "session=$token"},
-        body: jsonEncode(body.toJson()));
-    print(url);
-    print('$backendBase/$url/');
-    print(response.statusCode);
-    print(response.body);
+        body: jsonEncode(body));
+
     if (response.statusCode != 200) {
       throw Exception("Post Failed");
     }

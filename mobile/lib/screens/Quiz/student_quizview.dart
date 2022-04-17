@@ -79,7 +79,7 @@ class StudentQuizView extends StatelessWidget {
                                   onPressed: () => {
                                     context.read<StudentQuizViewBloc>()
                                       ..add(StudentAnswerPost(
-                                        postUrl: "quizAnswer/$quiz_id",
+                                        postUrl: "quizanswer/$quiz_id",
                                         attempt: attemptedAnswers,
                                         quiz_id: quiz_id,
                                         token:
