@@ -4,19 +4,30 @@ class StudentQuizViewState extends Equatable {
   static const storage = FlutterSecureStorage();
   final String? token;
   final List<QuizView> quizViews;
-  // final List<Quiz>? active;
-  // final List<Quiz>? past;
-  // final List<Quiz>? other;
+  final QuizAnswer quizAnswer;
+  final bool answerExists;
+
   static const defaultQuizViews = [QuizView.empty];
+  static const defaultQuizAnswer = QuizAnswer.empty;
 
   const StudentQuizViewState({
     this.token,
     this.quizViews = defaultQuizViews,
+    this.quizAnswer = defaultQuizAnswer,
+    this.answerExists = false,
   });
 
-  StudentQuizViewState copyWith({String? token, List<QuizView>? quizViews}) {
+  StudentQuizViewState copyWith(
+      {String? token,
+      List<QuizView>? quizViews,
+      QuizAnswer? quizAnswer,
+      bool? answerExists}) {
     return StudentQuizViewState(
-        token: token ?? this.token, quizViews: quizViews ?? this.quizViews);
+      token: token ?? this.token,
+      quizViews: quizViews ?? this.quizViews,
+      quizAnswer: quizAnswer ?? this.quizAnswer,
+      answerExists: answerExists ?? this.answerExists,
+    );
   }
 
   static Future<StudentQuizViewState> load() async {

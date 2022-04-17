@@ -22,10 +22,12 @@ class QuizPreviewCard extends StatelessWidget {
     required this.course,
     required this.description,
     required this.instructor,
+    this.isActive = false,
   }) : super(key: key);
 
   final Size size;
   final int id;
+  final bool isActive;
 
   @override
   Widget build(BuildContext context) {
@@ -63,56 +65,58 @@ class QuizPreviewCard extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          child: Container(
-            alignment: Alignment.center,
-            padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-            margin: const EdgeInsets.fromLTRB(0, 10, 10, 20),
-            width: size.width * 0.65,
-            // height: 200,
-            decoration: BoxDecoration(
-              color: colorType,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  margin: const EdgeInsets.fromLTRB(20, 10, 10, 5),
-                  width: size.width * 0.55,
-                  child: Text(
-                    course,
-                    style: Theme.of(context).textTheme.headline5,
+            child: Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+              margin: const EdgeInsets.fromLTRB(0, 10, 10, 20),
+              width: size.width * 0.65,
+              // height: 200,
+              decoration: BoxDecoration(
+                color: colorType,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(20, 10, 10, 5),
+                    width: size.width * 0.55,
+                    child: Text(
+                      course,
+                      style: Theme.of(context).textTheme.headline5,
+                    ),
                   ),
-                ),
-                Container(
-                  margin: const EdgeInsets.fromLTRB(20, 0, 10, 5),
-                  width: size.width * 0.55,
-                  child: Text(
-                    description,
-                    style: Theme.of(context).textTheme.bodyText1,
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(20, 0, 10, 5),
+                    width: size.width * 0.55,
+                    child: Text(
+                      description,
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
                   ),
-                ),
-                Container(
-                  margin: const EdgeInsets.fromLTRB(20, 0, 10, 5),
-                  width: size.width * 0.55,
-                  child: Text(
-                    instructor,
-                    style: Theme.of(context).textTheme.subtitle1,
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(20, 0, 10, 5),
+                    width: size.width * 0.55,
+                    child: Text(
+                      instructor,
+                      style: Theme.of(context).textTheme.subtitle1,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          onTap: () => Navigator.of(context).push(
-            PageRouteBuilder(
-              pageBuilder: (context, animation1, animation2) =>
-                  StudentQuizView(size: size, quiz_id: id),
-              transitionDuration: Duration.zero,
-              reverseTransitionDuration: Duration.zero,
-            ),
-          ),
-        ),
+            onTap: () => {
+                  Navigator.of(context).push(
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation1, animation2) =>
+                          StudentQuizView(
+                              size: size, quiz_id: id, isActive: isActive),
+                      transitionDuration: Duration.zero,
+                      reverseTransitionDuration: Duration.zero,
+                    ),
+                  ),
+                }),
       ],
     );
   }

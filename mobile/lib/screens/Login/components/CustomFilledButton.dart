@@ -7,7 +7,7 @@ class CustomFilledButton extends StatelessWidget {
   const CustomFilledButton({
     Key? key,
     this.onPressed,
-    required this.text,
+    this.text = "Login",
   }) : super(key: key);
 
   @override
@@ -21,7 +21,7 @@ class CustomFilledButton extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
       color: Theme.of(context).colorScheme.primary,
       child: Text(
-        "Login",
+        text,
         style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
       ),
       onPressed: () {

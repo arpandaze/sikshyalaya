@@ -76,6 +76,7 @@ class StudentQuiz extends StatelessWidget {
                       itemCount: state.active!.length,
                       itemBuilder: (context, i) {
                         return QuizPreviewCard(
+                          isActive: true,
                           id: state.active![i].id!,
                           size: size,
                           colorType: Theme.of(context).colorScheme.primary,

@@ -5,22 +5,22 @@ from datetime import datetime, timedelta
 
 classSessions: List[Json] = [
     {
-        "start_time": datetime.utcnow() + timedelta(hours=4),
+        "start_time": datetime.utcnow() + timedelta(hours=-1),
         "is_active": True,
         "instructor": [10, 9],
         "course_id": 1,
         "group_id": 3,
         "description": "Mathematical Structures, what are they?",
-        "end_time": datetime(2022, 6, 12, 14, 00, 00),
+        "end_time": datetime.utcnow() + timedelta(hours=2),
     },
     {
-        "start_time": datetime(2021, 8, 20, 14, 00, 00),
+        "start_time": datetime.utcnow() + timedelta(hours=2),
         "is_active": True,
         "instructor": [10, 9],
         "course_id": 1,
         "group_id": 3,
         "description": "This is another class session",
-        "end_time": datetime(2021, 8, 20, 16, 00, 00),
+        "end_time": datetime.utcnow() + timedelta(hours=4),
     },
     {
         "start_time": datetime(2021, 8, 20, 16, 00, 00),

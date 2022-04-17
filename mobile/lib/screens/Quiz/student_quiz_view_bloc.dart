@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:sikshyalaya/repository/models/quiz_answer.dart';
 import 'package:sikshyalaya/repository/models/quiz_view.dart';
 import 'package:sikshyalaya/repository/student_quiz_view.dart';
 
@@ -18,37 +19,16 @@ class StudentQuizViewBloc
 
   void _getStudentQuizView(
       GetStudentQuizView event, Emitter<StudentQuizViewState> emit) async {
-    print("GetQuiz");
-
     final newState = await StudentQuizViewState.load();
-
+    final quizAnswer = await studentQuizViewRepository.getStudentAnswer(
+        url: event.urlAnswer, token: newState.token!);
     final studentQuizView = await studentQuizViewRepository.getStudentQuizView(
-        url: event.url, token: newState.token!);
+        url: event.urlView, token: newState.token!);
 
-    // var active = [QuizView.empty];
-    // var past = [QuizView.empty];
-    // var other = [QuizView.empty];
-
-    // for (var quiz in studentQuizView) {
-    //   final parsedStartDate = DateTime.tryParse(quiz.start_time!);
-    //   final parsedEndDate = DateTime.tryParse(quiz.end_time!);
-
-    //   if (parsedEndDate != null || parsedStartDate != null) {
-    //     if (parsedEndDate!.isAfter(DateTime.now()) &&
-    //         parsedStartDate!.isBefore(DateTime.now())) {
-    //       active.add(quiz);
-    //     } else if (parsedEndDate.isBefore(DateTime.now())) {
-    //       past.add(quiz);
-    //     } else {
-    //       other.add(quiz);
-    //     }
-    //   }
-    // }
-
-    // if (active.length != 1) active.removeAt(0);
-    // if (past.length != 1) past.removeAt(0);
-    // if (other.length != 1) other.removeAt(0);
-    print(studentQuizView);
-    emit(state.copyWith(quizViews: studentQuizView, token: newState.token));
+    emit(state.copyWith(
+        quizViews: studentQuizView,
+        quizAnswer: quizAnswer["quiz_answer"],
+        answerExists: quizAnswer["exists"],
+        token: newState.token));
   }
 }

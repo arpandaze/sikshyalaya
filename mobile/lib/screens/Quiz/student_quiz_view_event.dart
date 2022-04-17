@@ -6,10 +6,11 @@ abstract class StudentQuizViewEvent extends Equatable {
 }
 
 class GetStudentQuizView extends StudentQuizViewEvent {
-  final String url;
+  final String urlAnswer;
+  final String urlView;
 
-  GetStudentQuizView({required this.url});
+  GetStudentQuizView({required this.urlAnswer, required this.urlView});
 
   @override
-  List<Object> get props => [url];
+  List<Object> get props => [urlAnswer, urlView];
 }

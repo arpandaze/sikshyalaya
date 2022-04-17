@@ -1,6 +1,6 @@
 from typing import List
 from pydantic import Json
-from datetime import datetime
+from datetime import datetime, timedelta
 import json
 
 quizQuestionOptionJSON = [
@@ -74,8 +74,8 @@ quizQuestionOptionFourwithImageJSON = json.dumps(quizQuestionOptionFourwithImage
 
 quizzes: List[Json] = [
     {
-        "end_time": datetime(2021, 6, 28, 13, 00, 00),
-        "start_time": datetime(2021, 6, 28, 10, 00, 00),
+        "end_time": datetime.utcnow() + timedelta(hours=6),
+        "start_time": datetime.utcnow() - timedelta(hours=1),
         "title": "Fundamentals of Computer First Quiz",
         "description": "Quiz for Course COMP101, which is to test the understanding of students on the basic fundamentals of Computer Programming.",
         "is_randomized": True,
