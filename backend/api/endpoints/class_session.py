@@ -36,7 +36,7 @@ from schemas.class_session import (
 )
 from schemas.file import FileCreate
 from utils import deps
-from utils.deps import get_current_active_teacher_or_above, get_current_active_user
+from utils.deps import get_current_active_teacher_or_above, get_current_active_user, get_current_active_ws_user
 
 router = APIRouter()
 
@@ -167,8 +167,7 @@ async def update_class_session(
             )
         )
         db.commit()
-    return {"msg":"success"}
-
+    return {"msg": "success"}
 
 
 @router.put("/{id}/attendance")
@@ -228,7 +227,7 @@ async def websocket_endpoint(
     db: Session = Depends(deps.get_db),
     *,
     websocket: WebSocket,
-    req_user=Depends(get_current_active_user),
+    req_user=Depends(get_current_active_ws_user),
     id: int,
 ):
     user_id = req_user.id
