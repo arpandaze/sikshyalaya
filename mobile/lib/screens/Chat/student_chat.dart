@@ -7,21 +7,61 @@ import 'package:sikshyalaya/screens/Student/student_wrapper.dart';
 class ChatMessage {
   String messageContent;
   bool isMe;
-  ChatMessage({required this.messageContent, required this.isMe});
+  String senderName;
+  String time;
+  String senderImage;
+  ChatMessage({
+    required this.messageContent,
+    required this.isMe,
+    required this.senderName,
+    required this.time,
+    required this.senderImage,
+  });
 }
 
 List<ChatMessage> messages = [
-  ChatMessage(messageContent: "Hello, Atis", isMe: true),
-  ChatMessage(messageContent: "How have you been?", isMe: true),
   ChatMessage(
-      messageContent:
-          "Hey NIglet, I am d dude.wegqjwehgqjhegqjhgejqhgejqS wbu?",
-      isMe: false),
-  ChatMessage(messageContent: "ehhhh, doing OK.", isMe: true),
-  ChatMessage(messageContent: "ok lol?", isMe: true),
-  ChatMessage(messageContent: "ok lol?", isMe: true),
-  ChatMessage(messageContent: "ok lol?", isMe: true),
-  ChatMessage(messageContent: "ok lol?", isMe: true),
+      messageContent: "hello sir",
+      isMe: true,
+      senderName: "Me",
+      time: "12:00",
+      senderImage: "assets/images/pp.jpg"),
+  ChatMessage(
+      messageContent: "hi how are you sir",
+      isMe: true,
+      senderName: "Me",
+      time: "12:00",
+      senderImage: "assets/images/pp.jpg"),
+  ChatMessage(
+      messageContent: "I am fine sir ok sdsad dsadasd fine very fine i am ok",
+      isMe: false,
+      senderName: "Atis",
+      time: "12:00",
+      senderImage: "assets/images/pp.jpg"),
+  ChatMessage(
+      messageContent: "whatr u doing sir",
+      isMe: false,
+      senderName: "Atis",
+      time: "12:00",
+      senderImage: "assets/images/pp.jpg"),
+  ChatMessage(
+      messageContent: "nothing much sir",
+      isMe: true,
+      senderName: "Me",
+      time: "12:00",
+      senderImage: "assets/images/pp.jpg"),
+  ChatMessage(
+      messageContent: "ok then sir",
+      isMe: false,
+      senderName: "Atis",
+      time: "12:00",
+      senderImage: "assets/images/pp.jpg"),
+  ChatMessage(
+      messageContent: "thank you sir",
+      isMe: true,
+      senderName: "Me",
+      time: "12:00",
+      senderImage: "assets/images/pp.jpg"),
 ];
 
 class StudentChat extends StatelessWidget {
@@ -72,8 +112,7 @@ class StudentChat extends StatelessWidget {
                   )),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          Column(
             children: [
               Container(
                   width: size.width * 0.92,
@@ -90,10 +129,14 @@ class StudentChat extends StatelessWidget {
                         padding: const EdgeInsets.only(left: 16, right: 16),
                         child: Message(
                             message: messages[index].messageContent,
-                            isMe: messages[index].isMe),
+                          isMe: messages[index].isMe,
+                          senderName: messages[index].senderName,
+                          time: messages[index].time,
+                          senderImage: messages[index].senderImage,
+                        ),
                       );
                     },
-                  ))
+                  )),
             ],
           ),
           Row(
@@ -124,7 +167,10 @@ class StudentChat extends StatelessWidget {
                             messages.add(
                               ChatMessage(
                                   messageContent: messageController.text,
-                                  isMe: true),
+                                  isMe: true,
+                                  senderImage: "assets/images/pp.jpg",
+                                  senderName: "Me",
+                                  time: "12:00"),
                             )
                           }
                       },
