@@ -17,7 +17,7 @@ class StudentQuizViewBloc
   }
 
   final StudentQuizViewRepository studentQuizViewRepository;
-
+  static const storage = FlutterSecureStorage();
   void _getStudentQuizView(
       GetStudentQuizView event, Emitter<StudentQuizViewState> emit) async {
     final newState = await StudentQuizViewState.load();
@@ -34,8 +34,12 @@ class StudentQuizViewBloc
   }
 
   void _studentAnswerPost(
-      StudentAnswerPost event, Emitter<StudentQuizViewState> emit) {
-    print(event.attempt);
-    print(event.postUrl);
+      StudentAnswerPost event, Emitter<StudentQuizViewState> emit) async {
+    final newState = await StudentQuizViewState.load();
+    var postAnswer =
+        QuizAnswer(quiz_id: event.quiz_id, options_selected: event.attempt);
+    var returnAnswer = await studentQuizViewRepository.postStudentAnswer(
+        url: event.postUrl, token: newState.token!, body: postAnswer);
+    print(returnAnswer);
   }
 }

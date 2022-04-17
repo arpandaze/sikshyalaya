@@ -75,4 +75,28 @@ class StudentQuizViewRepository {
       throw Exception('Body Empty');
     }
   }
+
+  Future<QuizAnswer> postStudentAnswer(
+      {required String url,
+      required String token,
+      required QuizAnswer body}) async {
+    var response = await http.post(Uri.parse('$backendBase/$url/'),
+        headers: <String, String>{"Cookie": "session=$token"},
+        body: jsonEncode(body.toJson()));
+    print(url);
+    print('$backendBase/$url/');
+    print(response.statusCode);
+    print(response.body);
+    if (response.statusCode != 200) {
+      throw Exception("Post Failed");
+    }
+
+    if (response.body.isNotEmpty) {
+      var decodedResponse = jsonDecode(response.body);
+      final QuizAnswer quizAnswer = QuizAnswer.fromJson(decodedResponse);
+      return quizAnswer;
+    } else {
+      throw Exception("Body Empty");
+    }
+  }
 }

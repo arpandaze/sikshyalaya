@@ -34,7 +34,7 @@ class QuizAttemptCard extends StatelessWidget {
 
   Widget body(BuildContext context) {
     return BlocBuilder<AnswerBloc, AnswerState>(
-      buildWhen: (previous, current) => (previous != current),
+      buildWhen: (previous, current) => checker(previous, current),
       builder: (context, state) {
         return Column(
           children: [
@@ -131,9 +131,7 @@ class QuizAttemptCard extends StatelessWidget {
                                       activeColor:
                                           Theme.of(context).colorScheme.primary,
                                       onChanged: (int? value) =>
-                                          context.read<AnswerBloc>()
-                                            ..add(RadioValueChanged(
-                                                value: value ?? -1)))
+                                          onRadioChanged(context, value))
                                   : CheckboxListTile(
                                       controlAffinity:
                                           ListTileControlAffinity.leading,
@@ -151,10 +149,8 @@ class QuizAttemptCard extends StatelessWidget {
                                       value: state.checkValues != null
                                           ? state.checkValues!.contains(i)
                                           : false,
-                                      onChanged: (value) => {
-                                        context.read<AnswerBloc>().add(
-                                            CheckedValueChanged(addValue: i))
-                                      },
+                                      onChanged: (value) =>
+                                          onCheckChanged(context, i),
                                       activeColor:
                                           Theme.of(context).colorScheme.primary,
                                     );
@@ -172,5 +168,25 @@ class QuizAttemptCard extends StatelessWidget {
         );
       },
     );
+  }
+
+  void onCheckChanged(BuildContext context, int i) {
+    BlocProvider.of<AnswerBloc>(context).add(CheckedValueChanged(addValue: i));
+  }
+
+  void onRadioChanged(BuildContext context, int? value) {
+    BlocProvider.of<AnswerBloc>(context)
+        .add(RadioValueChanged(value: value ?? -1));
+  }
+
+  bool checker(AnswerState p, AnswerState c) {
+    if (p.checkValues != c.checkValues) {
+      attemptedAnswers["$question_id"] = c.checkValues;
+    }
+
+    if (p.radioValueGroup != c.radioValueGroup) {
+      attemptedAnswers["$question_id"] = c.radioValueGroup;
+    }
+    return p != c;
   }
 }

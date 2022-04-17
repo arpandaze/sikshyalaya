@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sikshyalaya/global/authentication/auth_bloc.dart';
 import 'package:sikshyalaya/repository/models/quiz_answer.dart';
 import 'package:sikshyalaya/repository/student_quiz_view.dart';
 import 'package:sikshyalaya/screens/Login/components/CustomFilledButton.dart';
@@ -78,8 +79,14 @@ class StudentQuizView extends StatelessWidget {
                                   onPressed: () => {
                                     context.read<StudentQuizViewBloc>()
                                       ..add(StudentAnswerPost(
-                                          postUrl: "postUrl",
-                                          attempt: attemptedAnswers))
+                                        postUrl: "quizAnswer/$quiz_id",
+                                        attempt: attemptedAnswers,
+                                        quiz_id: quiz_id,
+                                        token:
+                                            BlocProvider.of<AuthBloc>(context)
+                                                .state
+                                                .token,
+                                      ))
                                   },
                                 ),
                               ),

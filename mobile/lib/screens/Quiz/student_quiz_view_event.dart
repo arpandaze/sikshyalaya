@@ -17,9 +17,16 @@ class GetStudentQuizView extends StudentQuizViewEvent {
 
 class StudentAnswerPost extends StudentQuizViewEvent {
   final Map attempt;
+  final int quiz_id;
   final String postUrl;
+  final String? token;
 
-  StudentAnswerPost({required this.postUrl, required this.attempt});
+  StudentAnswerPost({
+    required this.postUrl,
+    required this.attempt,
+    required this.quiz_id,
+    this.token,
+  });
 
   @override
   List<Object> get props => [postUrl, attempt];

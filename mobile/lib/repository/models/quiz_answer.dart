@@ -29,6 +29,8 @@ class QuizAnswer extends Equatable {
   factory QuizAnswer.fromJson(Map<String, dynamic> json) =>
       _$QuizAnswerFromJson(json);
 
+  Map<String, dynamic> toJson() => _$QuizAnswerToJson(this);
+
   @override
   List<Object?> get props =>
       [id, student_id, quiz_id, marks_obtained, options_selected];
