@@ -29,9 +29,11 @@ class QuizViewCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-              width: size.width * 0.070,
-              height: size.width * 0.070,
+              width: size.width * 0.10,
+              height: size.width * 0.10,
+              alignment: Alignment.center,
               decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface,
                 shape: BoxShape.circle,
                 border: Border.all(
                   color: Theme.of(context).colorScheme.surface,
@@ -40,7 +42,7 @@ class QuizViewCard extends StatelessWidget {
               child: Text(
                 "$index",
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.subtitle1,
+                style: Theme.of(context).textTheme.headline5,
               ),
             ),
             SizedBox(
@@ -48,8 +50,9 @@ class QuizViewCard extends StatelessWidget {
             ),
             Container(
               width: size.width * 0.800,
-              height: size.height * 0.90,
+              height: size.height * 0.9,
               decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
                   color: Theme.of(context).colorScheme.surface,
