@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sikshyalaya/constants.dart';
+import 'package:sikshyalaya/repository/models/quiz.dart';
+import 'package:sikshyalaya/screens/Assignment/Add-Assignment/add_assignment.dart';
+import 'package:sikshyalaya/screens/Assignment/Teacher-Assignment/teacher_assignment.dart';
+import 'package:sikshyalaya/screens/ClassCreator/class_creator.dart';
 import 'package:sikshyalaya/screens/Assignment/student_assignment_screen.dart';
 import 'package:sikshyalaya/screens/Dashboard/student_dashboard.dart';
 import 'package:sikshyalaya/screens/Notes/student_notes.dart';
 import 'package:sikshyalaya/screens/Quiz/student_quiz.dart';
 import 'package:sikshyalaya/screens/Chat/student_chat.dart';
+import 'package:sikshyalaya/screens/Teacher-Dashboard/teacher-dashboard.dart';
+import 'package:sikshyalaya/screens/Teacher-Quiz/teacher_quiz.dart';
+
+import '../global/authentication/auth_bloc.dart';
 
 class NavBar extends StatelessWidget {
   final String pageName;
@@ -18,6 +27,7 @@ class NavBar extends StatelessWidget {
   final Size size;
   @override
   Widget build(BuildContext context) {
+    final authBloc = BlocProvider.of<AuthBloc>(context);
     return Container(
       decoration:
           BoxDecoration(color: Theme.of(context).colorScheme.background),
@@ -58,7 +68,9 @@ class NavBar extends StatelessWidget {
             onTap: () => Navigator.of(context).push(
               PageRouteBuilder(
                 pageBuilder: (context, animation1, animation2) =>
-                    const StudentDashboard(),
+                    authBloc.state.status == AuthStatus.studentSession
+                        ? const StudentDashboard()
+                        : const TeacherDashboard(),
                 transitionDuration: Duration.zero,
                 reverseTransitionDuration: Duration.zero,
               ),
@@ -96,7 +108,9 @@ class NavBar extends StatelessWidget {
             onTap: () => Navigator.of(context).push(
               PageRouteBuilder(
                 pageBuilder: (context, animation1, animation2) =>
-                    const StudentQuiz(),
+                    authBloc.state.status == AuthStatus.studentSession
+                        ? const StudentQuiz()
+                        : const TeacherQuiz(),
                 transitionDuration: Duration.zero,
                 reverseTransitionDuration: Duration.zero,
               ),
@@ -134,7 +148,9 @@ class NavBar extends StatelessWidget {
             onTap: () => Navigator.of(context).push(
               PageRouteBuilder(
                 pageBuilder: (context, animation1, animation2) =>
-                    const AssignmentScreen(),
+                    authBloc.state.status == AuthStatus.studentSession
+                        ? const AssignmentScreen()
+                        : const TeacherAssignment(),
                 transitionDuration: Duration.zero,
                 reverseTransitionDuration: Duration.zero,
               ),

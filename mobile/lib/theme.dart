@@ -94,10 +94,10 @@ class AppTheme with ChangeNotifier {
             height: 1.0,
             color: Color(0xFFFFFFFF)),
         caption: GoogleFonts.openSans(
-          fontSize: 12,
-          fontWeight: FontWeight.w500,
+          fontSize: 14,
+          fontWeight: FontWeight.w600,
           letterSpacing: 0.4,
-          color: const Color(0xFFF14B4B),
+          color: const Color(0xFF000000),
         ),
         overline: GoogleFonts.openSans(
           fontSize: 10,
