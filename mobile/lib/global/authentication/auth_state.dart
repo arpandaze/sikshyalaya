@@ -39,11 +39,15 @@ class AuthState extends Equatable {
 
   String getGroupString() {
     if (user != null) {
-      var group = user?["group"];
-      var sem = numToRoman(group?["sem"] % 2);
-      var year = numToRoman((group?["sem"] ~/ 2) + 1);
+      if (status == AuthStatus.studentSession) {
+        var group = user?["group"];
+        var sem = numToRoman(group?["sem"] % 2);
+        var year = numToRoman((group?["sem"] ~/ 2) + 1);
 
-      return '${group?["program"]?["name"] ?? "Unknown"} $year/$sem';
+        return '${group?["program"]?["name"] ?? "Unknown"} $year/$sem';
+      } else {
+        return "";
+      }
     } else {
       return "";
     }
