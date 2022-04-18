@@ -13,14 +13,13 @@ class AuthenticationRepository {
     required String password,
   }) async {
     final url = Uri.parse('$backendBase/auth/web/');
-    var response = await http.post(
-      url,
-      body: jsonEncode({
-        "username": username,
-        "password": password,
-        "remember_me": true,
-      }),
-    );
+    var response = await http.post(url,
+        body: jsonEncode({
+          "username": username,
+          "password": password,
+          "remember_me": true,
+        }),
+        headers: {"Content-Type": "application/json"});
 
     if (response.statusCode != 200) {
       throw Exception("Login failed! Check email or password!");
