@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sikshyalaya/components/not_available.dart';
-import 'package:sikshyalaya/global/authentication/auth_bloc.dart';
 import 'package:sikshyalaya/helpers/helper.dart';
-import 'package:sikshyalaya/repository/models/student_dash.dart';
-import 'package:sikshyalaya/repository/student_dash.dart';
+import 'package:sikshyalaya/repository/models/teacher_dash.dart';
+import 'package:sikshyalaya/repository/teacher_dash.dart';
+import 'package:sikshyalaya/screens/ClassCreator/class_creator.dart';
 import 'package:sikshyalaya/screens/Student/student_wrapper.dart';
-import 'student_dashboard_bloc.dart';
+import 'teacher_dashboard_bloc.dart';
 
-class StudentDashboard extends StatelessWidget {
-  const StudentDashboard({
+class TeacherDashboard extends StatelessWidget {
+  const TeacherDashboard({
     Key? key,
   }) : super(key: key);
 
@@ -17,19 +17,24 @@ class StudentDashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return StudentWrapper(
       pageName: "Dashboard",
-      child: BlocProvider(
-        create: (context) => StudentDashboardBloc(
-          studentDashboardRepository: StudentDashboardRepository(
-              token: context.read<AuthBloc>().state.token),
+      child: RepositoryProvider(
+        create: (context) => TeacherDashboardRepository(),
+        child: BlocProvider(
+          create: (context) => TeacherDashboardBloc(
+              teacherDashboardRepository:
+                  context.read<TeacherDashboardRepository>())
+            ..add(
+              GetTeacherDash(url: 'class_session'),
+            ),
+          child: body(context),
         ),
-        child: body(context),
       ),
     );
   }
 
   Widget body(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return BlocBuilder<StudentDashboardBloc, StudentDashboardState>(
+    return BlocBuilder<TeacherDashboardBloc, TeacherDashboardState>(
       buildWhen: (((previous, current) => (previous != current))),
       builder: (context, state) {
         return ListView(
@@ -37,7 +42,7 @@ class StudentDashboard extends StatelessWidget {
           children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: state.ongoing != ClassSession.empty
+              children: state.ongoing != TeacherClassSession.empty
                   ? <Widget>[
                       Container(
                         width: size.width * 0.50,
@@ -142,8 +147,21 @@ class StudentDashboard extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  width: size.width * 0.3,
-                )
+                    alignment: Alignment.centerRight,
+                    margin: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+                    width: size.width * 0.3,
+                    child: IconButton(
+                      onPressed: () => Navigator.of(context).push(
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation1, animation2) =>
+                              ClassCreator(),
+                          transitionDuration: Duration.zero,
+                          reverseTransitionDuration: Duration.zero,
+                        ),
+                      ),
+                      icon: Icon(Icons.add),
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ))
               ],
             ),
             // ListView.builder(
@@ -153,7 +171,7 @@ class StudentDashboard extends StatelessWidget {
             //   },
             // ),
             SizedBox(
-              child: state.upcoming[0] == ClassSession.empty
+              child: state.upcoming[0] == TeacherClassSession.empty
                   ? NotAvailable(size: size, text: "No Upcoming Classess Found")
                   : ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),

@@ -9,19 +9,19 @@ part 'student_dashboard_state.dart';
 
 class StudentDashboardBloc
     extends Bloc<StudentDashboardEvent, StudentDashboardState> {
-  StudentDashboardBloc({required this.studentDashboardRepository})
-      : super(const StudentDashboardState()) {
+  StudentDashboardBloc({
+    required this.studentDashboardRepository,
+  }) : super(const StudentDashboardState()) {
     on<GetStudentDash>(_onGetStudentDash);
+    add(GetStudentDash());
   }
 
   final StudentDashboardRepository studentDashboardRepository;
 
   void _onGetStudentDash(
       GetStudentDash event, Emitter<StudentDashboardState> emit) async {
-    print("GetDash");
     final newState = await StudentDashboardState.load();
-    final studentDash = await studentDashboardRepository.getStudentDashboard(
-        url: event.url, token: newState.token!);
+    final studentDash = await studentDashboardRepository.getStudentDashboard();
 
     int index = 0;
     for (int i = 0; i < studentDash.length; i++) {

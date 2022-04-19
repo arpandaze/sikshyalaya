@@ -33,7 +33,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start-nondock": "REACT_APP_TARGET_BUILD_ENV=nondock react-scripts start",
     "build": "react-scripts build",
+    "build-local": "REACT_APP_TARGET_BUILD_ENV=local react-scripts build",
+    "build-prod": "REACT_APP_TARGET_BUILD_ENV=prod react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

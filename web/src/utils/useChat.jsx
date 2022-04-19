@@ -27,7 +27,12 @@ const useChat = ({ classmates, classID, user }) => {
       classID = classIDState;
     }
     if (data.msg_type === ChatMessageTypes.MESSAGE_HISTORY) {
-      history_message = JSON.parse(data.data);
+      console.log(data.data);
+      if (data.data) {
+        history_message = JSON.parse(data.data);
+      } else {
+        history_message = [];
+      }
 
       history_message = history_message.map((item) => {
         if (item.msg_type === ChatMessageTypes.PUBLIC_MESSAGE) {
@@ -94,7 +99,9 @@ const useChat = ({ classmates, classID, user }) => {
       };
       return { multi: false, data: msgInst };
     } else if (data.msg_type === ChatMessageTypes.ACTIVE_USER_LIST) {
-      setOnlineState(JSON.parse(data.data));
+      if (data.data) {
+        setOnlineState(JSON.parse(data.data));
+      }
     } else if (data.msg_type === ChatMessageTypes.USER_JOINED) {
       setOnlineState([...onlineState, parseInt(data.user)]);
     } else if (data.msg_type === ChatMessageTypes.USER_LEFT) {

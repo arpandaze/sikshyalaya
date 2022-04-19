@@ -48,6 +48,45 @@ def get_current_active_user(
         raise HTTPException(status_code=400, detail="Error ID: 140")  # Inactive user
     return current_user
 
+def get_current_active_ws_users(
+    current_user: models.User = Depends(get_current_user),
+) -> models.User:
+    if not cruds.crud_user.is_active(current_user):
+        raise HTTPException(status_code=400, detail="Error ID: 140")  # Inactive user
+    return current_user
+
+async def auth_token(token: Optional[str] = None):
+    if token:
+        return {"token": token}
+    else:
+        return None
+
+async def get_current_active_ws_user(
+    db: Session = Depends(get_db),
+    params: dict = Depends(auth_token),
+    session: str = Cookie(None),
+) -> models.User:
+    if not (session or params):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Error ID: 137"
+        )  # Invalid Session Token!
+
+    if session:
+        session_token = session
+    else:
+        session_token = params.get("token")
+
+    user_id = await redis_session_client.client.get(session_token, encoding="utf-8")
+    if not user_id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Error ID: 138"
+        )  # Invalid Session Token!
+    user = cruds.crud_user.get(db, id=user_id)
+
+    if not user:
+        raise HTTPException(status_code=404, detail="Error ID: 139")  # User not found
+    return user
+
 
 def get_current_active_teacher(
     current_user: models.User = Depends(get_current_active_user),

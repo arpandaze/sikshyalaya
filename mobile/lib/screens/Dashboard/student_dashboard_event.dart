@@ -5,10 +5,4 @@ abstract class StudentDashboardEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetStudentDash extends StudentDashboardEvent {
-  final String url;
-
-  GetStudentDash({required this.url});
-  @override
-  List<Object> get props => [url];
-}
+class GetStudentDash extends StudentDashboardEvent {}
