@@ -47,6 +47,8 @@ dependencies:
   flutter_spinkit: ^5.1.0
   intl_phone_number_input: ^0.7.0+2
   otp_text_field: ^1.1.2
+  web_socket_channel: ^2.1.0
+  intl: ^0.17.0
 
 #state management
 get: ^4.1.4

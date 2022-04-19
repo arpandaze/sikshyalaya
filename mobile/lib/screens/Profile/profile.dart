@@ -262,7 +262,10 @@ class Profile extends StatelessWidget {
                                               .push(PageRouteBuilder(
                                             pageBuilder: (context, animation1,
                                                     animation2) =>
-                                                Twofactorauthentication(),
+                                                Twofactorauthentication(
+                                                    fullname: state.user![
+                                                            "full_name"] ??
+                                                        ""),
                                             transitionDuration: Duration.zero,
                                             reverseTransitionDuration:
                                                 Duration.zero,
