@@ -8,66 +8,6 @@ import 'package:sikshyalaya/components/CustomChatTextField.dart';
 import 'package:sikshyalaya/screens/Student/student_wrapper.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
-/* class ChatMessage { */
-/*   String messageContent; */
-/*   bool isMe; */
-/*   String senderName; */
-/*   String time; */
-/*   String senderImage; */
-/*   ChatMessage({ */
-/*     required this.messageContent, */
-/*     required this.isMe, */
-/*     required this.senderName, */
-/*     required this.time, */
-/*     required this.senderImage, */
-/*   }); */
-/* } */
-/**/
-/* List<ChatMessage> messages = [ */
-/*   ChatMessage( */
-/*       messageContent: "hello sir", */
-/*       isMe: true, */
-/*       senderName: "Me", */
-/*       time: "12:00", */
-/*       senderImage: "assets/images/pp.jpg"), */
-/*   ChatMessage( */
-/*       messageContent: "hi how are you sir", */
-/*       isMe: true, */
-/*       senderName: "Me", */
-/*       time: "12:00", */
-/*       senderImage: "assets/images/pp.jpg"), */
-/*   ChatMessage( */
-/*       messageContent: "I am fine sir ok sdsad dsadasd fine very fine i am ok", */
-/*       isMe: false, */
-/*       senderName: "Atis", */
-/*       time: "12:00", */
-/*       senderImage: "assets/images/pp.jpg"), */
-/*   ChatMessage( */
-/*       messageContent: "whatr u doing sir", */
-/*       isMe: false, */
-/*       senderName: "Atis", */
-/*       time: "12:00", */
-/*       senderImage: "assets/images/pp.jpg"), */
-/*   ChatMessage( */
-/*       messageContent: "nothing much sir", */
-/*       isMe: true, */
-/*       senderName: "Me", */
-/*       time: "12:00", */
-/*       senderImage: "assets/images/pp.jpg"), */
-/*   ChatMessage( */
-/*       messageContent: "ok then sir", */
-/*       isMe: false, */
-/*       senderName: "Atis", */
-/*       time: "12:00", */
-/*       senderImage: "assets/images/pp.jpg"), */
-/*   ChatMessage( */
-/*       messageContent: "thank you sir", */
-/*       isMe: true, */
-/*       senderName: "Me", */
-/*       time: "12:00", */
-/*       senderImage: "assets/images/pp.jpg"), */
-/* ]; */
-
 class StudentChat extends StatelessWidget {
   StudentChat({
     Key? key,
@@ -198,7 +138,7 @@ class StudentChat extends StatelessWidget {
                       children: [
                         Container(
                           margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                          child: CustomTextField(
+                          child: CustomChatTextField(
                             messageController: messageController,
                             placeHolder: "Type your message here",
                           ),

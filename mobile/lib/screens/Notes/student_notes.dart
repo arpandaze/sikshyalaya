@@ -35,6 +35,7 @@ class StudentNotes extends StatelessWidget {
   }
 
   Widget body(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return BlocBuilder<StudentNoteBloc, StudentNoteState>(
         buildWhen: (((previous, current) => (previous != current))),
         builder: (context, state) {
@@ -60,10 +61,11 @@ class StudentNotes extends StatelessWidget {
               children: <Widget>[
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     CustomTextField(
+                      width: size.width * 0.9,
                       placeHolder: "Search Notes",
-                      margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                      margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                     ),
                   ],
                 ),

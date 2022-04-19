@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:sikshyalaya/screens/Chat/student_chat.dart';
 
-class CustomChatTextField extends StatelessWidget {
+class CustomControlledTextField extends StatelessWidget {
   final EdgeInsets margin;
   final String placeHolder;
   final bool isPassword;
   final double height;
-  final ValueChanged? onSend;
   final ValueChanged? onChanged;
+  final double? width;
   final TextEditingController? messageController;
 
-  const CustomChatTextField({
+  const CustomControlledTextField({
     Key? key,
     this.placeHolder = "",
+    this.width,
     this.height = 20,
     this.isPassword = false,
     this.margin = const EdgeInsets.all(0),
     this.onChanged,
-    this.onSend,
     this.messageController,
   }) : super(key: key);
 
@@ -25,16 +24,16 @@ class CustomChatTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      width: size.width * 0.75,
+      width: width,
       margin: margin,
       child: TextField(
         controller: messageController,
         obscureText: isPassword,
         onChanged: onChanged,
         decoration: InputDecoration(
-          border: InputBorder.none,
           contentPadding:
-              EdgeInsets.symmetric(vertical: height, horizontal: height - 10),
+              EdgeInsets.symmetric(vertical: height, horizontal: height),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
           hintText: placeHolder,
         ),
       ),
