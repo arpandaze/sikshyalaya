@@ -1,3 +1,5 @@
+import 'dart:async';
+
 String studentInstructor(instructors) {
   final List instructorNames = [];
   if (instructors.length > 0) {
@@ -18,10 +20,12 @@ Map dateHandler(String dateTime) {
   int monthInt;
   String month = "";
   String monthDay = "";
+  bool passed = false;
 
   dateTimeParsed = DateTime.tryParse(dateTime);
 
   if (dateTimeParsed != null) {
+    dateTimeParsed = dateTimeParsed.add(dateTimeParsed.timeZoneOffset);
     if (dateTimeParsed.hour > 12) {
       hour = (dateTimeParsed.hour - 12).toString().padLeft(2, '0');
       ampm = "PM";
@@ -34,6 +38,9 @@ Map dateHandler(String dateTime) {
     day = dateTimeParsed.weekday;
     monthInt = dateTimeParsed.month;
     monthDay = dateTimeParsed.day.toString().padLeft(2, '0');
+
+    final differenceInDays = dateTimeParsed.difference(DateTime.now()).inDays;
+    var completeDateDay;
 
     switch (day) {
       case 1:
@@ -68,6 +75,7 @@ Map dateHandler(String dateTime) {
         weekDay = "";
         break;
     }
+
     switch (monthInt) {
       case 1:
         month = "Jan";
@@ -122,7 +130,21 @@ Map dateHandler(String dateTime) {
         break;
     }
 
-    completeDate = '$weekDay, $hour:$minute $ampm';
+    if (differenceInDays < 0) {
+      passed = true;
+    }
+
+    if (differenceInDays == 0) {
+      completeDateDay = "Today";
+    } else if (differenceInDays == 1) {
+      completeDateDay = "Tomorrow";
+    } else if (differenceInDays < 7) {
+      completeDateDay = weekDay;
+    } else {
+      completeDateDay = monthDay + " " + month;
+    }
+
+    completeDate = '$completeDateDay, $hour:$minute $ampm';
   }
 
   return {
@@ -133,5 +155,6 @@ Map dateHandler(String dateTime) {
     "completeDate": completeDate,
     "month": month,
     "monthDay": monthDay,
+    "passed": passed,
   };
 }

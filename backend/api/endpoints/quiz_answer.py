@@ -39,19 +39,22 @@ async def get_answers_quiz(
         db=db, quizId=quizid, studentId=current_user.id
     )
 
-    marks = answer.marks_obtained
-    answer.marks_obtained = None
+    if answer:
+        marks = answer.marks_obtained
+        answer.marks_obtained = None
 
-    quiz = crud_quiz.get(db=db, id=quizid)
+        quiz = crud_quiz.get(db=db, id=quizid)
 
-    if (
-        quiz
-        and quiz.end_time
-        and quiz.end_time <= (datetime.utcnow() - timedelta(seconds=15))
-    ):
-        answer.marks_obtained = marks
+        if (
+            quiz
+            and quiz.end_time
+            and quiz.end_time <= (datetime.utcnow() - timedelta(seconds=15))
+        ):
+            answer.marks_obtained = marks
 
-    return answer
+        return answer
+
+    raise HTTPException(status_code=404, detail="Error ID: 144")
 
 
 @router.get("/{quizid}/getAnswersAsTeacher/", response_model=List[QuizAnswerwithName])

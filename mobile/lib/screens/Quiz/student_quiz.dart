@@ -4,7 +4,7 @@ import 'package:sikshyalaya/components/not_available.dart';
 import 'package:sikshyalaya/repository/models/quiz.dart';
 import 'package:sikshyalaya/repository/student_quiz.dart';
 import 'package:sikshyalaya/screens/Login/components/CustomTextField.dart';
-import 'package:sikshyalaya/screens/Quiz/QuizPreviewCard.dart';
+import 'package:sikshyalaya/screens/Quiz/components/QuizPreviewCard.dart';
 import 'package:sikshyalaya/screens/Quiz/student_quiz_bloc.dart';
 import 'package:sikshyalaya/helpers/helper.dart';
 import 'package:sikshyalaya/screens/Student/student_wrapper.dart';
@@ -73,19 +73,21 @@ class StudentQuiz extends StatelessWidget {
                   : ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: state.active!.length - 1,
+                      itemCount: state.active!.length,
                       itemBuilder: (context, i) {
                         return QuizPreviewCard(
+                          isActive: true,
+                          id: state.active![i].id!,
                           size: size,
                           colorType: Theme.of(context).colorScheme.primary,
                           month: dateHandler(
-                              state.active![i + 1].start_time!)["month"],
+                              state.active![i].start_time!)["month"],
                           day: dateHandler(
-                              state.active![i + 1].start_time!)["monthDay"],
-                          course: state.active![i + 1].course!.course_code!,
-                          description: state.active![i + 1].description!,
+                              state.active![i].start_time!)["monthDay"],
+                          course: state.active![i].course!.course_code!,
+                          description: state.active![i].description!,
                           instructor:
-                              studentInstructor(state.past![i + 1].instructor),
+                              studentInstructor(state.past![i].instructor),
                         );
                       }),
             ),
@@ -115,7 +117,7 @@ class StudentQuiz extends StatelessWidget {
                       itemCount: state.other!.length,
                       itemBuilder: (context, i) {
                         return QuizPreviewCard(
-                          quizText: "View Details",
+                          id: state.other![i].id!,
                           size: size,
                           colorType: Theme.of(context).colorScheme.primary,
                           month:
@@ -155,7 +157,7 @@ class StudentQuiz extends StatelessWidget {
                       itemCount: state.past!.length,
                       itemBuilder: (context, i) {
                         return QuizPreviewCard(
-                          quizText: "View Attempt",
+                          id: state.past![i].id!,
                           size: size,
                           colorType: Theme.of(context).colorScheme.surface,
                           month:

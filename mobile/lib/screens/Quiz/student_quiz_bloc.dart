@@ -29,12 +29,15 @@ class StudentQuizBloc extends Bloc<StudentQuizEvent, StudentQuizState> {
     var other = [Quiz.empty];
 
     for (var quiz in studentQuiz) {
-      final parsedStartDate = DateTime.tryParse(quiz.start_time!);
-      final parsedEndDate = DateTime.tryParse(quiz.end_time!);
+      var parsedStartDate = DateTime.tryParse(quiz.start_time!);
+      var parsedEndDate = DateTime.tryParse(quiz.end_time!);
 
       if (parsedEndDate != null || parsedStartDate != null) {
-        if (parsedEndDate!.isAfter(DateTime.now()) &&
-            parsedStartDate!.isBefore(DateTime.now())) {
+        parsedStartDate = parsedStartDate!.add(parsedStartDate.timeZoneOffset);
+        parsedEndDate = parsedEndDate!.add(parsedEndDate.timeZoneOffset);
+
+        if (parsedEndDate.isAfter(DateTime.now()) &&
+            parsedStartDate.isBefore(DateTime.now())) {
           active.add(quiz);
         } else if (parsedEndDate.isBefore(DateTime.now())) {
           past.add(quiz);
@@ -47,6 +50,10 @@ class StudentQuizBloc extends Bloc<StudentQuizEvent, StudentQuizState> {
     if (active.length != 1) active.removeAt(0);
     if (past.length != 1) past.removeAt(0);
     if (other.length != 1) other.removeAt(0);
+
+    print(active);
+    print(past);
+    print(other);
 
     emit(state.copyWith(
         active: active, past: past, other: other, token: newState.token));

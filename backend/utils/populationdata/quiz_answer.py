@@ -35,4 +35,15 @@ quizAnswers: List[Json] = [
             "28": [0, 2],
         },
     },
+    {
+        "student_id": 3,
+        "quiz_id": 1,
+        "marks_obtained": 32,
+        "options_selected": {
+            "1": [2, 3],
+            "6": 1,
+            "15": [1, 4],
+            "18": 3,
+        },
+    },
 ]

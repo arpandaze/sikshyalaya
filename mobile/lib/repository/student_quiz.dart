@@ -17,7 +17,6 @@ class StudentQuizRepository {
         headers: {"Cookie": "session=$token"});
 
     print(headers);
-    // headers: {"Authorization": tok
 
     if (response.statusCode != 200) {
       print(response.statusCode);
