@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sikshyalaya/global/authentication/auth_bloc.dart';
-import 'package:sikshyalaya/repository/chat.dart';
 import 'package:sikshyalaya/screens/Dashboard/student_dashboard.dart';
 import 'package:sikshyalaya/screens/Login/login_screen.dart';
 import 'package:sikshyalaya/screens/Welcome/welcome_screen.dart';
