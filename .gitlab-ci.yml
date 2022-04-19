@@ -38,7 +38,7 @@ test-backend:
 
     - if: '$CI_COMMIT_BRANCH == "main"'
       changes:
-        - backend/*
+        - backend/**/*
 
 
 
@@ -57,7 +57,7 @@ build-backend:
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
       changes:
-        - backend/*
+        - backend/**/*
 
 
 
@@ -78,7 +78,7 @@ build-file-server:
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
       changes:
-        - file_server/*
+        - file_server/**/*
 
 
 build-web:
@@ -100,7 +100,7 @@ build-web:
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
       changes:
-        - web/*
+        - web/**/*
 
 deploy:
   stage: deploy
@@ -120,6 +120,6 @@ deploy:
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
       changes:
-        - backend/*
-        - file_server/*
-        - web/*
+        - backend/**/*
+        - file_server/**/*
+        - web/**/*
