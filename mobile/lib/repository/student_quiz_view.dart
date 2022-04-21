@@ -88,7 +88,10 @@ class StudentQuizViewRepository {
   Future<QuizAnswer> postStudentAnswer(
       {required String url, required Map body}) async {
     if (token != null) {
-      final headers = {"Cookie": "session=$token"};
+      final headers = {
+        "Cookie": "session=$token",
+        "Content-Type": "application/json"
+      };
       var response = await http.post(
         Uri.parse('$backendBase/$url'),
         headers: headers,
