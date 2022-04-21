@@ -45,6 +45,7 @@ class StudentDashboardBloc
       state.copyWith(
           ongoing:
               index != -1 ? studentDash.removeAt(index) : ClassSession.empty,
+          isLoaded: true,
           upcoming: studentDash,
           token: newState.token),
     );
