@@ -7,6 +7,10 @@ import 'package:sikshyalaya/screens/Profile/profile.dart';
 import 'package:sikshyalaya/constants.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
+String getInitials(String accName) => accName.isNotEmpty
+    ? accName.trim().split(RegExp(' +')).map((s) => s[0]).take(2).join()
+    : '';
+
 class TopBar extends StatelessWidget {
   final String pageName;
   const TopBar({
@@ -51,15 +55,33 @@ class TopBar extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Container(
-                              child: Text(
-                                'Hello, ${authBloc.state.user?["full_name"] ?? "User"}',
-                                style: Theme.of(context).textTheme.subtitle1,
-                              ),
+                            Row(
+                              children: [
+                                Container(
+                                  child: Text(
+                                    'Hello, ',
+                                    style:
+                                        Theme.of(context).textTheme.subtitle1,
+                                  ),
+                                ),
+                                Container(
+                                  child: Text(
+                                    '${authBloc.state.user?["full_name"] ?? "User"}'
+                                        .split(' ')[0],
+                                    style:
+                                        Theme.of(context).textTheme.subtitle1,
+                                  ),
+                                ),
+                              ],
                             ),
                             Container(
                               child: Text(
-                                authBloc.state.getGroupString(),
+                                getInitials(authBloc.state.getGroupString()) +
+                                    ' ' +
+                                    authBloc.state
+                                        .getGroupString()
+                                        .split(' ')
+                                        .last,
                                 style: Theme.of(context).textTheme.caption,
                                 textAlign: TextAlign.right,
                               ),
