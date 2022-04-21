@@ -7,18 +7,26 @@ class StudentNoteState extends Equatable {
   static const List<Note> recentListDefault = [Note.empty];
   final List<Note> noteList;
   static const List<Note> noteListDefault = [Note.empty];
+  final bool isLoaded;
 
-  const StudentNoteState(
-      {this.recentList = recentListDefault,
-      this.noteList = noteListDefault,
-      this.token});
+  const StudentNoteState({
+    this.recentList = recentListDefault,
+    this.noteList = noteListDefault,
+    this.token,
+    this.isLoaded = false,
+  });
 
-  StudentNoteState copyWith(
-      {List<Note>? recentList, List<Note>? noteList, String? token}) {
+  StudentNoteState copyWith({
+    List<Note>? recentList,
+    List<Note>? noteList,
+    String? token,
+    bool? isLoaded,
+  }) {
     return StudentNoteState(
       recentList: recentList ?? this.recentList,
       noteList: noteList ?? this.noteList,
       token: token ?? this.token,
+      isLoaded: isLoaded ?? this.isLoaded,
     );
   }
 

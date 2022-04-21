@@ -26,6 +26,7 @@ class StudentNoteBloc extends Bloc<StudentNoteEvent, StudentNoteState> {
 
     emit(
       state.copyWith(
+        isLoaded: true,
         recentList: studentNote.sublist(0, 2),
         noteList: studentNote.sublist(2, studentNote.length),
         token: newState.token,
