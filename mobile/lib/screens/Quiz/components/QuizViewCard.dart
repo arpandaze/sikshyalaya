@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sikshyalaya/constants.dart';
 import 'package:sikshyalaya/repository/models/quiz_view.dart';
 
 class QuizViewCard extends StatelessWidget {
@@ -90,7 +91,7 @@ class QuizViewCard extends StatelessWidget {
                         : 0,
                     itemBuilder: (BuildContext context, int index) {
                       return Image.network(
-                        quizView.question_image![index],
+                        '$fileServerBase/${quizView.question_image![index]}',
                       );
                     },
                   ),
@@ -121,7 +122,7 @@ class QuizViewCard extends StatelessWidget {
                                       )
                                     : quizView.options![i].image != ""
                                         ? Image.network(
-                                            quizView.options![i].image!)
+                                            '$fileServerBase/${quizView.options![i].image!}')
                                         : Container(),
                               ),
                             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sikshyalaya/constants.dart';
 import 'package:sikshyalaya/repository/models/quiz_answer.dart';
 import 'package:sikshyalaya/repository/models/quiz_view.dart';
 import 'package:sikshyalaya/screens/Quiz/answer_bloc.dart';
@@ -101,7 +102,7 @@ class QuizAttemptCard extends StatelessWidget {
                             : 0,
                         itemBuilder: (BuildContext context, int index) {
                           return Image.network(
-                            quizView.question_image![index],
+                            '$fileServerBase/${quizView.question_image![index]}',
                           );
                         },
                       ),
