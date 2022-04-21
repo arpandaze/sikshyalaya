@@ -83,16 +83,7 @@ class StudentQuizView extends StatelessWidget {
                                     child: CustomFilledButton(
                                       text: "Sumbit",
                                       onPressed: () => {
-                                        context.read<StudentQuizViewBloc>()
-                                          ..add(StudentAnswerPost(
-                                            postUrl: "quizanswer/$quiz_id",
-                                            attempt: attemptedAnswers,
-                                            quiz_id: quiz_id,
-                                            token: BlocProvider.of<AuthBloc>(
-                                                    context)
-                                                .state
-                                                .token,
-                                          ))
+                                        onPressed(context, attemptedAnswers)
                                       },
                                     ),
                                   ),
@@ -170,5 +161,15 @@ class StudentQuizView extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void onPressed(BuildContext context, Map attemptedAnswers) {
+    context.read<StudentQuizViewBloc>().add(StudentAnswerPost(
+          postUrl: "quizanswer/$quiz_id",
+          attempt: attemptedAnswers,
+          quiz_id: quiz_id,
+          token: BlocProvider.of<AuthBloc>(context).state.token,
+        ));
+    Navigator.pop(context);
   }
 }
