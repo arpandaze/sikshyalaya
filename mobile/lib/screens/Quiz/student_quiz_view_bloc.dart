@@ -21,12 +21,13 @@ class StudentQuizViewBloc
   void _getStudentQuizView(
       GetStudentQuizView event, Emitter<StudentQuizViewState> emit) async {
     final newState = await StudentQuizViewState.load();
-    final quizAnswer = await studentQuizViewRepository.getStudentAnswer(
-        url: event.urlAnswer, token: newState.token!);
     final studentQuizView = await studentQuizViewRepository.getStudentQuizView(
         url: event.urlView, token: newState.token!);
+    final quizAnswer = await studentQuizViewRepository.getStudentAnswer(
+        url: event.urlAnswer, token: newState.token!);
 
     emit(state.copyWith(
+        isLoaded: true,
         quizViews: studentQuizView,
         quizAnswer: quizAnswer["quiz_answer"],
         answerExists: quizAnswer["exists"],

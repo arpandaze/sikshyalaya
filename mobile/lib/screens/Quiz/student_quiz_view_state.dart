@@ -6,6 +6,7 @@ class StudentQuizViewState extends Equatable {
   final List<QuizView> quizViews;
   final QuizAnswer quizAnswer;
   final bool answerExists;
+  final bool isLoaded;
 
   static const defaultQuizViews = [QuizView.empty];
   static const defaultQuizAnswer = QuizAnswer.empty;
@@ -16,6 +17,7 @@ class StudentQuizViewState extends Equatable {
     this.quizViews = defaultQuizViews,
     this.quizAnswer = defaultQuizAnswer,
     this.answerExists = false,
+    this.isLoaded = false,
   });
 
   StudentQuizViewState copyWith({
@@ -23,8 +25,10 @@ class StudentQuizViewState extends Equatable {
     List<QuizView>? quizViews,
     QuizAnswer? quizAnswer,
     bool? answerExists,
+    bool? isLoaded,
   }) {
     return StudentQuizViewState(
+      isLoaded: isLoaded ?? this.isLoaded,
       token: token ?? this.token,
       quizViews: quizViews ?? this.quizViews,
       quizAnswer: quizAnswer ?? this.quizAnswer,

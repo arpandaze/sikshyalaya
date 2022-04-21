@@ -56,6 +56,10 @@ class StudentQuizBloc extends Bloc<StudentQuizEvent, StudentQuizState> {
     print(other);
 
     emit(state.copyWith(
-        active: active, past: past, other: other, token: newState.token));
+        isLoaded: true,
+        active: active,
+        past: past,
+        other: other,
+        token: newState.token));
   }
 }

@@ -50,7 +50,7 @@ class QuizViewCard extends StatelessWidget {
             ),
             Container(
               width: size.width * 0.800,
-              height: size.height * 0.9,
+              height: size.height * 0.85,
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.circular(10),
@@ -139,7 +139,7 @@ class QuizViewCard extends StatelessWidget {
           ],
         ),
         SizedBox(
-          height: size.height * 0.009,
+          height: size.height * 0.03,
         ),
       ],
     );
