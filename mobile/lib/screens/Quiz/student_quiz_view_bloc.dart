@@ -20,25 +20,27 @@ class StudentQuizViewBloc
   static const storage = FlutterSecureStorage();
   void _getStudentQuizView(
       GetStudentQuizView event, Emitter<StudentQuizViewState> emit) async {
-    final newState = await StudentQuizViewState.load();
     final studentQuizView = await studentQuizViewRepository.getStudentQuizView(
-        url: event.urlView, token: newState.token!);
+      url: event.urlView,
+    );
     final quizAnswer = await studentQuizViewRepository.getStudentAnswer(
-        url: event.urlAnswer, token: newState.token!);
+      url: event.urlAnswer,
+    );
 
     emit(state.copyWith(
-        isLoaded: true,
-        quizViews: studentQuizView,
-        quizAnswer: quizAnswer["quiz_answer"],
-        answerExists: quizAnswer["exists"],
-        token: newState.token));
+      isLoaded: true,
+      quizViews: studentQuizView,
+      quizAnswer: quizAnswer["quiz_answer"],
+      answerExists: quizAnswer["exists"],
+    ));
   }
 
   void _studentAnswerPost(
       StudentAnswerPost event, Emitter<StudentQuizViewState> emit) async {
-    final newState = await StudentQuizViewState.load();
     var returnAnswer = await studentQuizViewRepository.postStudentAnswer(
-        url: event.postUrl, token: newState.token!, body: event.attempt);
+      url: event.postUrl,
+      body: event.attempt,
+    );
     emit(state.copyWith(quizAnswer: returnAnswer));
   }
 }

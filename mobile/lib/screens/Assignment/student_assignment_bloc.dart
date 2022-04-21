@@ -13,22 +13,23 @@ class StudentAssignmentBloc
   StudentAssignmentBloc({required this.studentAssignmentRepository})
       : super(const StudentAssignmentState()) {
     on<GetStudentAssignment>(_onGetStudentAssignment);
+
+    add(
+      GetStudentAssignment(url: 'assignment'),
+    );
   }
 
   final StudentAssignmentRepository studentAssignmentRepository;
 
   void _onGetStudentAssignment(
       GetStudentAssignment event, Emitter<StudentAssignmentState> emit) async {
-    final newState = await StudentAssignmentState.load();
     final studentAssignment =
         await studentAssignmentRepository.getStudentAssignment(
       url: event.url,
-      token: newState.token!,
     );
     emit(state.copyWith(
       isLoaded: true,
       assignmentList: studentAssignment,
-      token: newState.token,
     ));
   }
 }

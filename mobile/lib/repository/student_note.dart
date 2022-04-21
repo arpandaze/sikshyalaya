@@ -7,41 +7,33 @@ import 'package:sikshyalaya/repository/models/student_note.dart';
 
 class StudentNoteRepository {
   final Client httpclient = http.Client();
+  final String? token;
 
-  // Future<List<Note>> loadWithToken() async {
-  //   final token = await storage.read(key: "token");
-  //   return StudentNoteRepository(token: token!);
-  // }
+  StudentNoteRepository({required this.token});
 
-  // Uri getUrl({
-  //   required String url,
-  //   Map<String, String>? queryParameters,
-  // }) {
-  //   return Uri.parse('$backendBase/$url').replace(
-  //     queryParameters: queryParameters,
-  //   );
-  // }
+  Future<List<Note>> getStudentNote({required String url}) async {
+    if (token != null) {
+      final headers = {"Cookie": "session=$token"};
+      final response = await httpclient.get(Uri.parse('$backendBase/$url'),
+          headers: headers);
 
-  Future<List<Note>> getStudentNote(
-      {required String url, required String token}) async {
-    final headers = {"Cookie": "Session=$token"};
-    final response = await httpclient.get(Uri.parse('$backendBase/$url'),
-        headers: {"Cookie": "session=$token"});
+      if (response.statusCode != 200) {
+        throw Exception(
+            'Retrieve Failed! Error getting student dashboard info.');
+      }
 
-    if (response.statusCode != 200) {
-      print(response.statusCode);
-      throw Exception('Retrieve Failed! Error getting student dashboard info.');
-    }
+      if (response.body.isNotEmpty) {
+        var listDecodedRespose = jsonDecode(response.body);
 
-    if (response.body.isNotEmpty) {
-      var listDecodedRespose = jsonDecode(response.body);
-
-      final List<Note> listNote = [];
-      listDecodedRespose
-          .forEach((element) => {listNote.add(Note.fromJson((element)))});
-      return listNote;
+        final List<Note> listNote = [];
+        listDecodedRespose
+            .forEach((element) => {listNote.add(Note.fromJson((element)))});
+        return listNote;
+      } else {
+        throw Exception('Body Empty');
+      }
     } else {
-      throw Exception('Body Empty');
+      throw Exception("No Session Found!!");
     }
   }
 }

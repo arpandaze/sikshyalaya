@@ -23,20 +23,17 @@ class StudentQuizView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // return body(context);
-    return RepositoryProvider(
-      create: (context) => StudentQuizViewRepository(),
-      child: BlocProvider(
-        create: (context) => StudentQuizViewBloc(
-            studentQuizViewRepository:
-                context.read<StudentQuizViewRepository>())
-          ..add(
-            GetStudentQuizView(
-              urlView: 'quiz/$quiz_id/question',
-              urlAnswer: 'quizanswer/$quiz_id',
-            ),
+    return BlocProvider(
+      create: (context) => StudentQuizViewBloc(
+          studentQuizViewRepository: StudentQuizViewRepository(
+              token: context.read<AuthBloc>().state.token))
+        ..add(
+          GetStudentQuizView(
+            urlView: 'quiz/$quiz_id/question',
+            urlAnswer: 'quizanswer/$quiz_id',
           ),
-        child: body(context),
-      ),
+        ),
+      child: body(context),
     );
   }
 

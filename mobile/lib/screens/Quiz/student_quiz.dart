@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sikshyalaya/components/not_available.dart';
+import 'package:sikshyalaya/global/authentication/auth_bloc.dart';
 import 'package:sikshyalaya/repository/models/quiz.dart';
 import 'package:sikshyalaya/repository/student_quiz.dart';
 import 'package:sikshyalaya/screens/Login/components/CustomTextField.dart';
@@ -18,14 +19,11 @@ class StudentQuiz extends StatelessWidget {
   Widget build(BuildContext context) {
     return StudentWrapper(
       pageName: "Quiz",
-      child: RepositoryProvider(
-        create: (context) => StudentQuizRepository(),
-        child: BlocProvider(
-          create: (context) => StudentQuizBloc(
-              studentQuizRepository: context.read<StudentQuizRepository>())
-            ..add(GetStudentQuiz(url: 'quiz')),
-          child: body(context),
-        ),
+      child: BlocProvider(
+        create: (context) => StudentQuizBloc(
+            studentQuizRepository: StudentQuizRepository(
+                token: context.read<AuthBloc>().state.token)),
+        child: body(context),
       ),
     );
   }

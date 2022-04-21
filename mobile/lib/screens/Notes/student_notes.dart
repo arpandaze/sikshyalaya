@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sikshyalaya/global/authentication/auth_bloc.dart';
 import 'package:sikshyalaya/repository/models/student_note.dart';
 import 'package:sikshyalaya/repository/student_note.dart';
 import 'package:sikshyalaya/screens/Notes/components/NotePreview.dart';
@@ -20,16 +21,11 @@ class StudentNotes extends StatelessWidget {
   Widget build(BuildContext context) {
     return StudentWrapper(
       pageName: 'Notes',
-      child: RepositoryProvider(
-        create: (context) => StudentNoteRepository(),
-        child: BlocProvider(
-          create: (context) => StudentNoteBloc(
-              studentNoteRepository: context.read<StudentNoteRepository>())
-            ..add(
-              GetStudentNote(url: 'personal_note'),
-            ),
-          child: body(context),
-        ),
+      child: BlocProvider(
+        create: (context) => StudentNoteBloc(
+            studentNoteRepository: StudentNoteRepository(
+                token: context.read<AuthBloc>().state.token)),
+        child: body(context),
       ),
     );
   }

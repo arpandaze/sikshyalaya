@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sikshyalaya/global/authentication/auth_bloc.dart';
 import 'package:sikshyalaya/screens/Assignment/student_assignment_bloc.dart';
 import 'package:sikshyalaya/repository/student_assignment.dart';
 import 'package:sikshyalaya/repository/models/student_assignment.dart';
@@ -17,17 +18,12 @@ class AssignmentScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return StudentWrapper(
       pageName: "Assignment",
-      child: RepositoryProvider(
-        create: (context) => StudentAssignmentRepository(),
-        child: BlocProvider(
-          create: (context) => StudentAssignmentBloc(
-            studentAssignmentRepository:
-                context.read<StudentAssignmentRepository>(),
-          )..add(
-              GetStudentAssignment(url: 'assignment'),
-            ),
-          child: body(context),
+      child: BlocProvider(
+        create: (context) => StudentAssignmentBloc(
+          studentAssignmentRepository: StudentAssignmentRepository(
+              token: context.read<AuthBloc>().state.token),
         ),
+        child: body(context),
       ),
     );
   }
