@@ -12,23 +12,25 @@ class StudentNoteBloc extends Bloc<StudentNoteEvent, StudentNoteState> {
   StudentNoteBloc({required this.studentNoteRepository})
       : super(const StudentNoteState()) {
     on<GetStudentNote>(_onGetStudentNote);
+
+    add(
+      GetStudentNote(url: 'personal_note'),
+    );
   }
 
   final StudentNoteRepository studentNoteRepository;
 
   void _onGetStudentNote(
       GetStudentNote event, Emitter<StudentNoteState> emit) async {
-    final newState = await StudentNoteState.load();
     final studentNote = await studentNoteRepository.getStudentNote(
       url: event.url,
-      token: newState.token!,
     );
 
     emit(
       state.copyWith(
+        isLoaded: true,
         recentList: studentNote.sublist(0, 2),
         noteList: studentNote.sublist(2, studentNote.length),
-        token: newState.token,
       ),
     );
   }

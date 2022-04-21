@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sikshyalaya/global/authentication/auth_bloc.dart';
 import 'package:sikshyalaya/repository/models/student_note.dart';
 import 'package:sikshyalaya/repository/student_note.dart';
 import 'package:sikshyalaya/screens/Notes/components/NotePreview.dart';
@@ -20,16 +21,11 @@ class StudentNotes extends StatelessWidget {
   Widget build(BuildContext context) {
     return StudentWrapper(
       pageName: 'Notes',
-      child: RepositoryProvider(
-        create: (context) => StudentNoteRepository(),
-        child: BlocProvider(
-          create: (context) => StudentNoteBloc(
-              studentNoteRepository: context.read<StudentNoteRepository>())
-            ..add(
-              GetStudentNote(url: 'personal_note'),
-            ),
-          child: body(context),
-        ),
+      child: BlocProvider(
+        create: (context) => StudentNoteBloc(
+            studentNoteRepository: StudentNoteRepository(
+                token: context.read<AuthBloc>().state.token)),
+        child: body(context),
       ),
     );
   }
@@ -37,9 +33,9 @@ class StudentNotes extends StatelessWidget {
   Widget body(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return BlocBuilder<StudentNoteBloc, StudentNoteState>(
-        buildWhen: (((previous, current) => (previous != current))),
-        builder: (context, state) {
-          return Scaffold(
+      buildWhen: (((previous, current) => (previous != current))),
+      builder: (context, state) {
+        return Scaffold(
             floatingActionButton: Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
               child: FloatingActionButton(
@@ -57,75 +53,81 @@ class StudentNotes extends StatelessWidget {
                 backgroundColor: Theme.of(context).colorScheme.primary,
               ),
             ),
-            body: ListView(
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CustomTextField(
-                      width: size.width * 0.9,
-                      placeHolder: "Search Notes",
-                      margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: <Widget>[
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(20, 30, 0, 30),
-                      child: Text(
-                        'Recent Notes',
-                        style: Theme.of(context).textTheme.headline5,
+            body: state.isLoaded
+                ? ListView(
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CustomTextField(
+                            width: size.width * 0.9,
+                            placeHolder: "Search Notes",
+                            margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                          ),
+                        ],
                       ),
-                    )
-                  ],
-                ),
-                GridView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 30),
-                  shrinkWrap: true,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 20,
-                    mainAxisSpacing: 20,
-                  ),
-                  itemCount: state.recentList.length,
-                  itemBuilder: (context, int i) {
-                    return NotePreview(
-                      noteData: state.recentList[i],
-                    );
-                  },
-                ),
-                Row(
-                  children: <Widget>[
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(20, 30, 0, 30),
-                      child: Text(
-                        'Others',
-                        style: Theme.of(context).textTheme.headline5,
+                      Row(
+                        children: <Widget>[
+                          Container(
+                            margin: const EdgeInsets.fromLTRB(20, 30, 0, 30),
+                            child: Text(
+                              'Recent Notes',
+                              style: Theme.of(context).textTheme.headline5,
+                            ),
+                          )
+                        ],
                       ),
-                    )
-                  ],
-                ),
-                GridView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 30),
-                  shrinkWrap: true,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 20,
-                    mainAxisSpacing: 20,
-                  ),
-                  itemCount: state.noteList.length,
-                  itemBuilder: (context, int i) {
-                    return NotePreview(
-                      noteData: state.noteList[i],
-                    );
-                  },
-                ),
-              ],
-            ),
-          );
-        });
+                      GridView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        padding: const EdgeInsets.fromLTRB(20, 0, 20, 30),
+                        shrinkWrap: true,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 20,
+                          mainAxisSpacing: 20,
+                        ),
+                        itemCount: state.recentList.length,
+                        itemBuilder: (context, int i) {
+                          return NotePreview(
+                            noteData: state.recentList[i],
+                          );
+                        },
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Container(
+                            margin: const EdgeInsets.fromLTRB(20, 30, 0, 30),
+                            child: Text(
+                              'Others',
+                              style: Theme.of(context).textTheme.headline5,
+                            ),
+                          )
+                        ],
+                      ),
+                      GridView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        padding: const EdgeInsets.fromLTRB(20, 0, 20, 30),
+                        shrinkWrap: true,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 20,
+                          mainAxisSpacing: 20,
+                        ),
+                        itemCount: state.noteList.length,
+                        itemBuilder: (context, int i) {
+                          return NotePreview(
+                            noteData: state.noteList[i],
+                          );
+                        },
+                      ),
+                    ],
+                  )
+                : Container(
+                    alignment: Alignment.center,
+                    child: CircularProgressIndicator()));
+      },
+    );
   }
 }
