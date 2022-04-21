@@ -25,8 +25,10 @@ class StudentAssignmentBloc
       url: event.url,
       token: newState.token!,
     );
-    print(studentAssignment);
     emit(state.copyWith(
-        assignmentList: studentAssignment, token: newState.token));
+      isLoaded: true,
+      assignmentList: studentAssignment,
+      token: newState.token,
+    ));
   }
 }

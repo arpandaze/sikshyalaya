@@ -35,8 +35,9 @@ class AssignmentScreen extends StatelessWidget {
   Widget body(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return BlocBuilder<StudentAssignmentBloc, StudentAssignmentState>(
-        buildWhen: (previous, current) => previous != current,
-        builder: (context, state) {
+      buildWhen: (previous, current) => previous != current,
+      builder: (context, state) {
+        if (state.isLoaded) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -66,6 +67,11 @@ class AssignmentScreen extends StatelessWidget {
               ),
             ],
           );
-        });
+        } else {
+          return Container(
+              alignment: Alignment.center, child: CircularProgressIndicator());
+        }
+      },
+    );
   }
 }
