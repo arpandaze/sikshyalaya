@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sikshyalaya/components/AuthStateWrapper.dart';
 
 import './components/CustomFilledButton.dart';
 import './components/CustomTextField.dart';
@@ -12,21 +13,22 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider<AuthenticationRepository>(
-      create: (_) => AuthenticationRepository(),
-      child: BlocProvider(
-        create: (context) => LoginBloc(),
-        child: BlocListener<LoginBloc, LoginState>(
-          listener: (context, state) => {
-            if (state.loginSuccess)
-              {
-                Navigator.of(context).pushNamed("/student_dashboard"),
-                context.read<AuthBloc>().add(LoggedIn())
-              }
-          },
-          child: Scaffold(
-            backgroundColor: Theme.of(context).colorScheme.background,
-            body: body(context),
+    return AuthStateWrapper(
+      child: RepositoryProvider<AuthenticationRepository>(
+        create: (_) => AuthenticationRepository(),
+        child: BlocProvider(
+          create: (context) => LoginBloc(),
+          child: BlocListener<LoginBloc, LoginState>(
+            listener: (context, state) => {
+              if (state.loginSuccess)
+                {
+                  context.read<AuthBloc>().add(LoggedIn())
+                }
+            },
+            child: Scaffold(
+              backgroundColor: Theme.of(context).colorScheme.background,
+              body: body(context),
+            ),
           ),
         ),
       ),
