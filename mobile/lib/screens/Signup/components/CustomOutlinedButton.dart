@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sikshyalaya/screens/Signup/signup_bloc.dart';
 
 class CustomOutlinedButton extends StatelessWidget {
   final Icon icon;
@@ -16,10 +18,11 @@ class CustomOutlinedButton extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return OutlinedButton.icon(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => press),
-          );
+          context.read<SignupBloc>().add(NextPage());
+          /* Navigator.push( */
+          /*   context, */
+          /*   SlideLeftRoute(widget: press), */
+          /* ); */
         },
         icon: icon,
         label: const Text(''),
@@ -30,4 +33,24 @@ class CustomOutlinedButton extends StatelessWidget {
               color: Theme.of(context).colorScheme.primary, width: 1),
         ));
   }
+}
+
+class SlideLeftRoute extends PageRouteBuilder {
+  final Widget widget;
+  SlideLeftRoute({required this.widget})
+      : super(pageBuilder: (BuildContext context, Animation<double> animation,
+            Animation<double> secondaryAnimation) {
+          return widget;
+        }, transitionsBuilder: (BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+            Widget child) {
+          return SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(1.0, 0.0),
+              end: Offset.zero,
+            ).animate(animation),
+            child: child,
+          );
+        });
 }

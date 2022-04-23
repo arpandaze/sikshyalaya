@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sikshyalaya/components/AuthStateWrapper.dart';
 
 import './components/CustomFilledButton.dart';
 import './components/CustomTextField.dart';
@@ -12,21 +13,19 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider<AuthenticationRepository>(
-      create: (_) => AuthenticationRepository(),
-      child: BlocProvider(
-        create: (context) => LoginBloc(),
-        child: BlocListener<LoginBloc, LoginState>(
-          listener: (context, state) => {
-            if (state.loginSuccess)
-              {
-                Navigator.of(context).pushNamed("/student_dashboard"),
-                context.read<AuthBloc>().add(LoggedIn())
-              }
-          },
-          child: Scaffold(
-            backgroundColor: Theme.of(context).colorScheme.background,
-            body: body(context),
+    return AuthStateWrapper(
+      child: RepositoryProvider<AuthenticationRepository>(
+        create: (_) => AuthenticationRepository(),
+        child: BlocProvider(
+          create: (context) => LoginBloc(),
+          child: BlocListener<LoginBloc, LoginState>(
+            listener: (context, state) => {
+              if (state.loginSuccess) {context.read<AuthBloc>().add(LoggedIn())}
+            },
+            child: Scaffold(
+              backgroundColor: Theme.of(context).colorScheme.background,
+              body: body(context),
+            ),
           ),
         ),
       ),
@@ -69,10 +68,15 @@ class LoginScreen extends StatelessWidget {
                     margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                   ),
                   Text(state.errorText as String),
-                  Container(
-                    alignment: Alignment.centerRight,
-                    child: const Text("Forgot Password"),
-                    margin: const EdgeInsets.fromLTRB(0, 20, 40, 0),
+                  GestureDetector(
+                    onTap: () {
+                        Navigator.of(context).pushNamed("/forgot");
+                      },
+                    child: Container(
+                      alignment: Alignment.centerRight,
+                      child: const Text("Forgot Password?"),
+                      margin: const EdgeInsets.fromLTRB(0, 20, 40, 0),
+                    ),
                   ),
                   Expanded(
                     child: Container(
@@ -81,16 +85,21 @@ class LoginScreen extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
-                          Container(
-                            alignment: Alignment.bottomCenter,
-                            child:
-                                const Text("Don't have an account? Register"),
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                          ),
                           CustomFilledButton(
                             text: "Login",
                             onPressed: () =>
                                 context.read<LoginBloc>().add(FormSubmitted()),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).pushNamed("/signup");
+                            },
+                            child: Container(
+                              alignment: Alignment.bottomCenter,
+                              child:
+                                  const Text("Don't have an account? Register"),
+                              padding: const EdgeInsets.symmetric(vertical: 30),
+                            ),
                           ),
                         ],
                       ),

@@ -18,6 +18,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LoggedIn>(_onLoggedIn);
     on<LoadAuthStatus>(_onLoadAuthStatus);
     on<LoggedOut>(_onLoggedOut);
+
+    add(LoadAuthStatus());
   }
 
   void _onLoggedIn(
