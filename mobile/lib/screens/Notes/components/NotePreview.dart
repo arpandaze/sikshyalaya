@@ -14,48 +14,38 @@ class NotePreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Note? noteDefault = noteData;
-    return GestureDetector(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => NoteView(
-            noteData: noteData!,
-          ),
-        ),
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25),
+        color: Theme.of(context).colorScheme.surface,
       ),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(25),
-          color: Theme.of(context).colorScheme.surface,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Flexible(
-              child: Container(
-                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                child: Text(
-                  noteData!.title!,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodyText1,
-                ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Flexible(
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+              child: Text(
+                noteData!.title!,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.bodyText1,
               ),
             ),
-            Flexible(
-              child: Container(
-                padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                child: Text(
-                  jsonDecode(noteData!.content!)[0]["insert"],
-                  maxLines: 4,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodyText2,
-                ),
+          ),
+          Flexible(
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+              child: Text(
+                jsonDecode(noteData!.content!)[0]["insert"],
+                maxLines: 4,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.bodyText2,
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

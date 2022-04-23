@@ -36,4 +36,88 @@ class StudentNoteRepository {
       throw Exception("No Session Found!!");
     }
   }
+
+  Future<Note> submitNotes({required String url, required Map body}) async {
+    if (token != null) {
+      final headers = {
+        "Cookie": "session=$token",
+        "Content-Type": "application/json"
+      };
+      print(body);
+      var response = await http.post(
+        Uri.parse('$backendBase/$url'),
+        headers: headers,
+        body: jsonEncode(body),
+      );
+
+      if (response.statusCode != 200) {
+        throw Exception("Note Submit Failed");
+      }
+
+      if (response.body.isNotEmpty) {
+        var decodedResponse = jsonDecode(response.body);
+        final Note createdNote = Note.fromJson(decodedResponse);
+        return createdNote;
+      } else {
+        throw Exception("Body Empty");
+      }
+    } else {
+      throw Exception("No Session not found!!");
+    }
+  }
+
+  Future<Note> editNotes({required String url, required Map body}) async {
+    if (token != null) {
+      final headers = {
+        "Cookie": "session=$token",
+        "Content-Type": "application/json"
+      };
+      var response = await http.put(
+        Uri.parse('$backendBase/$url'),
+        headers: headers,
+        body: jsonEncode(body),
+      );
+
+      if (response.statusCode != 200) {
+        throw Exception("Note Submit Failed");
+      }
+
+      if (response.body.isNotEmpty) {
+        var decodedResponse = jsonDecode(response.body);
+        final Note createdNote = Note.fromJson(decodedResponse);
+        return createdNote;
+      } else {
+        throw Exception("Body Empty");
+      }
+    } else {
+      throw Exception("No Session not found!!");
+    }
+  }
+
+  Future<Note> deleteNotes({required String url}) async {
+    if (token != null) {
+      final headers = {
+        "Cookie": "session=$token",
+        "Content-Type": "application/json"
+      };
+      var response = await http.delete(
+        Uri.parse('$backendBase/$url'),
+        headers: headers,
+      );
+
+      if (response.statusCode != 200) {
+        throw Exception("Note Delete Failed");
+      }
+
+      if (response.body.isNotEmpty) {
+        var decodedResponse = jsonDecode(response.body);
+        final Note createdNote = Note.fromJson(decodedResponse);
+        return createdNote;
+      } else {
+        throw Exception("Body Empty");
+      }
+    } else {
+      throw Exception("No Session not found!!");
+    }
+  }
 }
