@@ -7,37 +7,34 @@ import 'package:sikshyalaya/repository/models/student_dash.dart';
 
 class StudentQuizRepository {
   final Client httpclient = http.Client();
+  final String? token;
 
-  StudentQuizRepository();
+  StudentQuizRepository({required this.token});
 
-  Future<List<Quiz>> getStudentQuiz(
-      {required String url, required String token}) async {
-    final headers = {"Cookie": "Session=$token"};
-    final response = await httpclient.get(Uri.parse('$backendBase/$url'),
-        headers: {"Cookie": "session=$token"});
+  Future<List<Quiz>> getStudentQuiz({required String url}) async {
+    if (token != null) {
+      final headers = {"Cookie": "session=$token"};
+      final response = await httpclient.get(Uri.parse('$backendBase/$url'),
+          headers: headers);
 
-    print(headers);
+      if (response.statusCode != 200) {
+        throw Exception('Retrieve Failed! Error getting student quiz info.');
+      }
 
-    if (response.statusCode != 200) {
-      print(response.statusCode);
-      throw Exception('Retrieve Failed! Error getting student quiz info.');
-    }
+      if (response.body.isNotEmpty) {
+        var listDecodedRespose = jsonDecode(response.body);
 
-    if (response.body.isNotEmpty) {
-      print(response.body);
+        final List<Quiz> listQuiz = [];
 
-      var listDecodedRespose = jsonDecode(response.body);
+        listDecodedRespose
+            .forEach((element) => {listQuiz.add(Quiz.fromJson((element)))});
 
-      final List<Quiz> listQuiz = [];
-
-      listDecodedRespose
-          .forEach((element) => {listQuiz.add(Quiz.fromJson((element)))});
-      // listClassSession.add(ClassSession.fromJson(json.decode(element)))});
-
-      // print(listClassSession);
-      return listQuiz;
+        return listQuiz;
+      } else {
+        throw Exception('Body Empty');
+      }
     } else {
-      throw Exception('Body Empty');
+      throw Exception("No Session Found!");
     }
   }
 }

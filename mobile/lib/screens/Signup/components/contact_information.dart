@@ -3,6 +3,8 @@ import 'package:sikshyalaya/screens/Login/components/CustomTextField.dart';
 import 'package:sikshyalaya/screens/Signup/components/CustomOutlinedButton.dart';
 import 'package:sikshyalaya/screens/Signup/components/contact_information.dart';
 import 'package:sikshyalaya/screens/Signup/components/program_information.dart';
+import 'package:provider/provider.dart';
+import 'package:sikshyalaya/screens/Signup/signup_bloc.dart';
 
 class ContactInformation extends StatelessWidget {
   @override
@@ -31,13 +33,27 @@ class ContactInformation extends StatelessWidget {
                   ),
                   padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
                 ),
-                const CustomTextField(
-                  placeHolder: "Address",
-                  margin: EdgeInsets.fromLTRB(0, 40, 0, 0),
+                CustomTextField(
+                  placeHolder: "Email",
+                  keyboardType: TextInputType.emailAddress,
+                  margin: const EdgeInsets.fromLTRB(0, 40, 0, 0),
+                  onChanged: (value) => context.read<SignupBloc>().add(
+                        EmailChanged(email: value),
+                      ),
                 ),
-                const CustomTextField(
+                CustomTextField(
+                  placeHolder: "Address",
+                  margin: const EdgeInsets.fromLTRB(0, 40, 0, 0),
+                  onChanged: (value) => context.read<SignupBloc>().add(
+                        AddressChanged(address: value),
+                      ),
+                ),
+                CustomTextField(
                   placeHolder: "Phone number",
-                  margin: EdgeInsets.fromLTRB(0, 40, 0, 0),
+                  margin: const EdgeInsets.fromLTRB(0, 40, 0, 0),
+                  onChanged: (value) => context.read<SignupBloc>().add(
+                        PhoneNumberChanged(phoneNumber: value),
+                      ),
                 ),
                 Expanded(
                     child: Container(

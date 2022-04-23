@@ -103,8 +103,11 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
       List<dynamic> classSessions = jsonDecode(response.body);
       for (var classSession in classSessions) {
-        final startTime = DateTime.parse(classSession["start_time"]);
-        final endTime = DateTime.parse(classSession["end_time"]);
+        var startTime = DateTime.parse(classSession["start_time"]);
+        var endTime = DateTime.parse(classSession["end_time"]);
+
+        startTime = startTime.add(startTime.timeZoneOffset);
+        endTime = endTime.add(endTime.timeZoneOffset);
 
         if (endTime.isAfter(DateTime.now()) &&
             startTime.isBefore(DateTime.now())) {

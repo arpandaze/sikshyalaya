@@ -11,6 +11,8 @@ class StudentQuizBloc extends Bloc<StudentQuizEvent, StudentQuizState> {
   StudentQuizBloc({required this.studentQuizRepository})
       : super(const StudentQuizState()) {
     on<GetStudentQuiz>(_getStudentQuiz);
+
+    add(GetStudentQuiz(url: 'quiz'));
   }
 
   final StudentQuizRepository studentQuizRepository;
@@ -19,10 +21,9 @@ class StudentQuizBloc extends Bloc<StudentQuizEvent, StudentQuizState> {
       GetStudentQuiz event, Emitter<StudentQuizState> emit) async {
     print("GetQuiz");
 
-    final newState = await StudentQuizState.load();
-
     final studentQuiz = await studentQuizRepository.getStudentQuiz(
-        url: event.url, token: newState.token!);
+      url: event.url,
+    );
 
     var active = [Quiz.empty];
     var past = [Quiz.empty];
@@ -56,6 +57,10 @@ class StudentQuizBloc extends Bloc<StudentQuizEvent, StudentQuizState> {
     print(other);
 
     emit(state.copyWith(
-        active: active, past: past, other: other, token: newState.token));
+      isLoaded: true,
+      active: active,
+      past: past,
+      other: other,
+    ));
   }
 }

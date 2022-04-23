@@ -7,6 +7,8 @@ class CustomTextField extends StatelessWidget {
   final ValueChanged? onChanged;
   final TextInputType? keyboardType;
 
+  final TextEditingController? controller;
+
   const CustomTextField({
     Key? key,
     required this.placeHolder,
@@ -14,6 +16,7 @@ class CustomTextField extends StatelessWidget {
     this.margin = const EdgeInsets.all(0),
     this.onChanged,
     this.keyboardType = TextInputType.text,
+    this.controller,
   }) : super(key: key);
 
   @override
@@ -24,6 +27,7 @@ class CustomTextField extends StatelessWidget {
       margin: margin,
       child: TextField(
         obscureText: isPassword,
+        controller: controller,
         onChanged: onChanged,
         keyboardType: keyboardType,
         decoration: InputDecoration(
