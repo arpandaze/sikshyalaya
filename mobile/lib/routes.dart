@@ -1,6 +1,7 @@
 import 'package:sikshyalaya/screens/Dashboard/student_dashboard.dart';
 import 'package:sikshyalaya/screens/Login/login_screen.dart';
 import 'package:sikshyalaya/screens/Quiz/student_quiz.dart';
+import 'package:sikshyalaya/screens/Signup/components/personal_information.dart';
 import 'package:sikshyalaya/screens/Signup/signup_screen.dart';
 import 'package:sikshyalaya/screens/Teacher-Dashboard/teacher-dashboard.dart';
 import 'package:sikshyalaya/screens/Welcome/splash.dart';
