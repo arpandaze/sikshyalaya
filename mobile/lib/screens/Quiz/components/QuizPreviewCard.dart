@@ -44,11 +44,15 @@ class QuizPreviewCard extends StatelessWidget {
             children: [
               Container(
                 margin: const EdgeInsets.all(0),
+                padding: EdgeInsets.symmetric(
+                  vertical: 10,
+                ),
                 child:
                     Text(month, style: Theme.of(context).textTheme.subtitle1),
               ),
               Container(
                 height: size.width * 0.11,
+              
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
@@ -92,7 +96,7 @@ class QuizPreviewCard extends StatelessWidget {
                     width: size.width * 0.55,
                     child: Text(
                       description,
-                      style: Theme.of(context).textTheme.bodyText1,
+                      style: Theme.of(context).textTheme.subtitle1,
                     ),
                   ),
                   Container(
@@ -100,7 +104,7 @@ class QuizPreviewCard extends StatelessWidget {
                     width: size.width * 0.55,
                     child: Text(
                       instructor,
-                      style: Theme.of(context).textTheme.subtitle1,
+                      style: Theme.of(context).textTheme.caption,
                     ),
                   ),
                 ],
@@ -111,7 +115,13 @@ class QuizPreviewCard extends StatelessWidget {
                     PageRouteBuilder(
                       pageBuilder: (context, animation1, animation2) =>
                           StudentQuizView(
-                              size: size, quiz_id: id, isActive: isActive),
+                              quiz_id: id,
+                              isActive: isActive,
+                              description: description,
+                              instructor: instructor,
+                              course: course,
+                              day: day,
+                              month: month),
                       transitionDuration: Duration.zero,
                       reverseTransitionDuration: Duration.zero,
                     ),
