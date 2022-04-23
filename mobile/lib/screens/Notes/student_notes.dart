@@ -23,8 +23,11 @@ class StudentNotes extends StatelessWidget {
       pageName: 'Notes',
       child: BlocProvider(
         create: (context) => StudentNoteBloc(
-            studentNoteRepository: StudentNoteRepository(
-                token: context.read<AuthBloc>().state.token)),
+          studentNoteRepository: StudentNoteRepository(
+            token: context.read<AuthBloc>().state.token,
+          ),
+          userId: context.read<AuthBloc>().state.user!['id'],
+        ),
         child: body(context),
       ),
     );
@@ -35,98 +38,138 @@ class StudentNotes extends StatelessWidget {
     return BlocBuilder<StudentNoteBloc, StudentNoteState>(
       buildWhen: (((previous, current) => (previous != current))),
       builder: (context, state) {
-        return Scaffold(
-            floatingActionButton: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-              child: FloatingActionButton(
-                onPressed: () => {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            const NoteView(noteData: Note.empty)),
-                  )
-                },
-                child: const Icon(
-                  Icons.add,
-                ),
-                backgroundColor: Theme.of(context).colorScheme.primary,
-              ),
+        return Stack(
+          children: [
+            Visibility(
+              visible: !state.isEditor,
+              child: Scaffold(
+                  floatingActionButton: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                    child: FloatingActionButton(
+                      onPressed: () => {
+                        context.read<StudentNoteBloc>().add(
+                              ToggleEditor(
+                                mode: 1,
+                              ),
+                            )
+                      },
+                      child: const Icon(
+                        Icons.add,
+                      ),
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                  body: state.isLoaded
+                      ? ListView(
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CustomTextField(
+                                  width: size.width * 0.9,
+                                  placeHolder: "Search Notes",
+                                  margin:
+                                      const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  margin:
+                                      const EdgeInsets.fromLTRB(20, 30, 0, 30),
+                                  child: Text(
+                                    'Recent Notes',
+                                    style:
+                                        Theme.of(context).textTheme.headline5,
+                                  ),
+                                )
+                              ],
+                            ),
+                            GridView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              padding: const EdgeInsets.fromLTRB(20, 0, 20, 30),
+                              shrinkWrap: true,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 20,
+                                mainAxisSpacing: 20,
+                              ),
+                              itemCount: state.recentList.length,
+                              itemBuilder: (context, int i) {
+                                return GestureDetector(
+                                  onTap: () => {
+                                    context.read<StudentNoteBloc>().add(
+                                          ToggleEditor(
+                                            cNote: state.recentList[i],
+                                            mode: 2,
+                                          ),
+                                        ),
+                                  },
+                                  child: NotePreview(
+                                    noteData: state.recentList[i],
+                                  ),
+                                );
+                              },
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  margin:
+                                      const EdgeInsets.fromLTRB(20, 30, 0, 30),
+                                  child: Text(
+                                    'Others',
+                                    style:
+                                        Theme.of(context).textTheme.headline5,
+                                  ),
+                                )
+                              ],
+                            ),
+                            GridView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              padding: const EdgeInsets.fromLTRB(20, 0, 20, 30),
+                              shrinkWrap: true,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 20,
+                                mainAxisSpacing: 20,
+                              ),
+                              itemCount: state.noteList.length,
+                              itemBuilder: (context, int i) {
+                                return GestureDetector(
+                                  onTap: () => {
+                                    context.read<StudentNoteBloc>().add(
+                                          ToggleEditor(
+                                            cNote: state.noteList[i],
+                                            mode: 2,
+                                          ),
+                                        ),
+                                  },
+                                  child: NotePreview(
+                                    noteData: state.noteList[i],
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
+                        )
+                      : Container(
+                          alignment: Alignment.center,
+                          child: CircularProgressIndicator())),
             ),
-            body: state.isLoaded
-                ? ListView(
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CustomTextField(
-                            width: size.width * 0.9,
-                            placeHolder: "Search Notes",
-                            margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Container(
-                            margin: const EdgeInsets.fromLTRB(20, 30, 0, 30),
-                            child: Text(
-                              'Recent Notes',
-                              style: Theme.of(context).textTheme.headline5,
-                            ),
-                          )
-                        ],
-                      ),
-                      GridView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        padding: const EdgeInsets.fromLTRB(20, 0, 20, 30),
-                        shrinkWrap: true,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 20,
-                          mainAxisSpacing: 20,
-                        ),
-                        itemCount: state.recentList.length,
-                        itemBuilder: (context, int i) {
-                          return NotePreview(
-                            noteData: state.recentList[i],
-                          );
-                        },
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Container(
-                            margin: const EdgeInsets.fromLTRB(20, 30, 0, 30),
-                            child: Text(
-                              'Others',
-                              style: Theme.of(context).textTheme.headline5,
-                            ),
-                          )
-                        ],
-                      ),
-                      GridView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        padding: const EdgeInsets.fromLTRB(20, 0, 20, 30),
-                        shrinkWrap: true,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 20,
-                          mainAxisSpacing: 20,
-                        ),
-                        itemCount: state.noteList.length,
-                        itemBuilder: (context, int i) {
-                          return NotePreview(
-                            noteData: state.noteList[i],
-                          );
-                        },
-                      ),
-                    ],
-                  )
-                : Container(
-                    alignment: Alignment.center,
-                    child: CircularProgressIndicator()));
+            Visibility(
+              child: Scaffold(
+                body: NoteView(
+                  noteData: state.currentNote,
+                ),
+              ),
+              visible: state.isEditor,
+              maintainState: true,
+            ),
+          ],
+        );
       },
     );
   }
