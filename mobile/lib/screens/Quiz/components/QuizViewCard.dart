@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sikshyalaya/constants.dart';
+import 'package:sikshyalaya/repository/models/instructor.dart';
 import 'package:sikshyalaya/repository/models/quiz_view.dart';
 
 class QuizViewCard extends StatelessWidget {
@@ -8,8 +9,9 @@ class QuizViewCard extends StatelessWidget {
     required this.quizView,
     required this.size,
     required this.index,
-    this.selectedAnswer,
+    required this.selectedAnswer,
     required this.toShow,
+   
   }) : super(key: key);
   final QuizView quizView;
   final Size size;
@@ -23,126 +25,96 @@ class QuizViewCard extends StatelessWidget {
   }
 
   Widget body(BuildContext context) {
-    return Column(
-      children: [
-        Row(
+    return Container(
+      padding: EdgeInsets.only(top: 10),
+      child: Container(
+        width: size.width * 0.800,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: const Color(0xFFB4B4B4)),
+        ),
+        child: Column(
           mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              width: size.width * 0.10,
-              height: size.width * 0.10,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: Theme.of(context).colorScheme.surface,
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                Container(
+                  width: size.width * 0.95,
+                  padding: const EdgeInsets.fromLTRB(
+                    10,
+                    10,
+                    10,
+                    10,
+                  ),
+                  child: Text(
+                    "${index}. ${quizView.question_text}",
+                    textAlign: TextAlign.left,
+                    style: Theme.of(context).textTheme.headline4,
+                  ),
                 ),
-              ),
-              child: Text(
-                "$index",
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline5,
-              ),
+              ],
             ),
-            SizedBox(
-              width: size.width * 0.02,
-            ),
+            if (quizView.question_image!.isNotEmpty)
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                child: (GridView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                  shrinkWrap: true,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 5,
+                    mainAxisSpacing: 5,
+                  ),
+                  itemCount: quizView.question_image != null
+                      ? quizView.question_image!.length
+                      : 0,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Image.network(
+                      '$fileServerBase/${quizView.question_image![index]}',
+                    );
+                  },
+                )),
+              ),
             Container(
-              width: size.width * 0.800,
-              height: size.height * 0.85,
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  color: Theme.of(context).colorScheme.surface,
-                ),
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
+              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+              child: ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount:
+                    quizView.options != null ? quizView.options!.length : 0,
+                itemBuilder: (context, i) {
+                  return Column(
+                    children: [
                       Container(
-                        padding: const EdgeInsets.only(
-                            left: 8.0, top: 6.0, right: 4.0, bottom: 8.0),
-                        child: Text(
-                          quizView.question_text ?? "",
-                          textAlign: TextAlign.left,
-                          style: Theme.of(context).textTheme.headline6,
+                        margin: EdgeInsets.symmetric(vertical: 10),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: colorPicker(i, context),
+                          ),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: ListTile(
+                          title: quizView.options![i].text != ""
+                              ? Text(
+                                  quizView.options![i].text!,
+                                  style: Theme.of(context).textTheme.subtitle1,
+                                )
+                              : quizView.options![i].image != ""
+                                  ? Image.network(
+                                      '$fileServerBase/${quizView.options![i].image!}')
+                                  : Container(),
                         ),
                       ),
                     ],
-                  ),
-                  GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                    shrinkWrap: true,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 5,
-                      mainAxisSpacing: 5,
-                    ),
-                    itemCount: quizView.question_image != null
-                        ? quizView.question_image!.length
-                        : 0,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Image.network(
-                        '$fileServerBase/${quizView.question_image![index]}',
-                      );
-                    },
-                  ),
-                  Expanded(
-                    child: ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: false,
-                      itemCount: quizView.options != null
-                          ? quizView.options!.length
-                          : 0,
-                      itemBuilder: (context, i) {
-                        return Column(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: colorPicker(i, context),
-                                ),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: ListTile(
-                                title: quizView.options![i].text != ""
-                                    ? Text(
-                                        quizView.options![i].text!,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .subtitle1,
-                                      )
-                                    : quizView.options![i].image != ""
-                                        ? Image.network(
-                                            '$fileServerBase/${quizView.options![i].image!}')
-                                        : Container(),
-                              ),
-                            ),
-                            SizedBox(
-                              height: size.height * 0.005,
-                            )
-                          ],
-                        );
-                      },
-                    ),
-                  ),
-                ],
+                  );
+                },
               ),
             ),
           ],
         ),
-        SizedBox(
-          height: size.height * 0.03,
-        ),
-      ],
+      ),
     );
   }
 
@@ -155,10 +127,10 @@ class QuizViewCard extends StatelessWidget {
         }
       } else {
         if (selectedAnswer["${quizView.id}"] == index) {
-          return Theme.of(context).colorScheme.primary;
+          return Theme.of(context).colorScheme.tertiary;
         }
       }
     }
-    return Theme.of(context).colorScheme.background;
+    return Theme.of(context).colorScheme.surface;
   }
 }
