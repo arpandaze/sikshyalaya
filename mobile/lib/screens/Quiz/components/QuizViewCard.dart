@@ -11,7 +11,6 @@ class QuizViewCard extends StatelessWidget {
     required this.index,
     required this.selectedAnswer,
     required this.toShow,
-   
   }) : super(key: key);
   final QuizView quizView;
   final Size size;
@@ -55,7 +54,7 @@ class QuizViewCard extends StatelessWidget {
                 ),
               ],
             ),
-            if (quizView.question_image!.isNotEmpty)
+            if (quizView.question_image != null)
               Container(
                 padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                 child: (GridView.builder(

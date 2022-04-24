@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sikshyalaya/repository/models/quiz_view.dart';
+import 'package:sikshyalaya/screens/Quiz/student_quiz_bloc.dart';
 import 'package:sikshyalaya/screens/Quiz/student_quizview.dart';
 import 'package:sikshyalaya/screens/Signup/signup_screen.dart';
 import 'package:sikshyalaya/components/CustomFilledButton.dart';
@@ -23,8 +25,10 @@ class QuizPreviewCard extends StatelessWidget {
     required this.description,
     required this.instructor,
     this.isActive = false,
+    this.endDate,
   }) : super(key: key);
 
+  final endDate;
   final Size size;
   final int id;
   final bool isActive;
@@ -52,7 +56,6 @@ class QuizPreviewCard extends StatelessWidget {
               ),
               Container(
                 height: size.width * 0.11,
-              
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
@@ -115,6 +118,7 @@ class QuizPreviewCard extends StatelessWidget {
                     PageRouteBuilder(
                       pageBuilder: (context, animation1, animation2) =>
                           StudentQuizView(
+                              endDate: endDate,
                               quiz_id: id,
                               isActive: isActive,
                               description: description,

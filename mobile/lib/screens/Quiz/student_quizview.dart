@@ -7,11 +7,13 @@ import 'package:sikshyalaya/repository/student_quiz_view.dart';
 import 'package:sikshyalaya/screens/Login/components/CustomFilledButton.dart';
 import 'package:sikshyalaya/screens/Quiz/components/QuizAttemptCard.dart';
 import 'package:sikshyalaya/screens/Quiz/components/QuizViewCard.dart';
+import 'package:sikshyalaya/screens/Quiz/student_quiz_bloc.dart';
 import 'package:sikshyalaya/screens/Quiz/student_quiz_view_bloc.dart';
 
 class StudentQuizView extends StatelessWidget {
   const StudentQuizView({
     Key? key,
+    required this.endDate,
     required this.quiz_id,
     this.course,
     this.description,
@@ -22,13 +24,13 @@ class StudentQuizView extends StatelessWidget {
   }) : super(key: key);
 
   final int quiz_id;
+  final DateTime endDate;
   final bool isActive;
   final String? description;
   final String? course;
   final String? instructor;
   final String? month;
   final String? day;
-
 
   @override
   Widget build(BuildContext context) {
@@ -88,9 +90,11 @@ class StudentQuizView extends StatelessWidget {
                                           padding: EdgeInsets.only(left: 10),
                                           child: TweenAnimationBuilder<
                                                   Duration>(
-                                              duration: Duration(minutes: 03),
+                                              duration: endDate
+                                                  .difference(DateTime.now()),
                                               tween: Tween(
-                                                  begin: Duration(minutes: 03),
+                                                  begin: endDate.difference(
+                                                      DateTime.now()),
                                                   end: Duration.zero),
                                               onEnd: () {
                                                 onPressed(
@@ -175,6 +179,7 @@ class StudentQuizView extends StatelessWidget {
                                         //   child: Text(
                                         //       "${_controller.page!.toInt() + 1}/${state.quizViews.length}"),
                                         // ),
+
                                         SizedBox(
                                           width: size.width * 0.2,
                                           child: CustomFilledButtonSecond(
@@ -189,7 +194,6 @@ class StudentQuizView extends StatelessWidget {
                                     )
                                   ],
                                 )
-
                               : state.answerExists == true
                                   ? Column(
                                       children: [
@@ -424,6 +428,4 @@ class StudentQuizView extends StatelessWidget {
         ));
     Navigator.pop(context);
   }
-
-  
 }
