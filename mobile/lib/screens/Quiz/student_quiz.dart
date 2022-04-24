@@ -74,11 +74,11 @@ class StudentQuiz extends StatelessWidget {
                         shrinkWrap: true,
                         itemCount: state.active!.length,
                         itemBuilder: (context, i) {
-                         
                           return QuizPreviewCard(
                             // startTime: state.active![i].start_time,
                             // endTime: state.active![i].end_time,
                             isActive: true,
+                            endDate: state.endDate["${state.active![i].id!}"],
                             id: state.active![i].id!,
                             size: size,
                             colorType: Theme.of(context).colorScheme.primary,

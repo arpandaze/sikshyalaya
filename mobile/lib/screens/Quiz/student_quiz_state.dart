@@ -7,12 +7,15 @@ class StudentQuizState extends Equatable {
   final List<Quiz>? other;
   static const defaultQuiz = [Quiz.empty];
   final bool isLoaded;
+  final Map endDate;
+  static const defaultDuration = {};
 
   const StudentQuizState({
     this.active = defaultQuiz,
     this.past = defaultQuiz,
     this.other = defaultQuiz,
     this.isLoaded = false,
+    this.endDate = defaultDuration,
   });
 
   StudentQuizState copyWith({
@@ -21,12 +24,15 @@ class StudentQuizState extends Equatable {
     List<Quiz>? past,
     List<Quiz>? other,
     bool? isLoaded,
+    Map? endDate,
   }) {
     return StudentQuizState(
-        isLoaded: isLoaded ?? this.isLoaded,
-        active: active ?? this.active,
-        past: past ?? this.past,
-        other: other ?? this.other);
+      isLoaded: isLoaded ?? this.isLoaded,
+      active: active ?? this.active,
+      past: past ?? this.past,
+      other: other ?? this.other,
+      endDate: endDate ?? this.endDate,
+    );
   }
 
   // static Future<StudentQuizState> load() async {

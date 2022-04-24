@@ -28,6 +28,7 @@ class StudentQuizBloc extends Bloc<StudentQuizEvent, StudentQuizState> {
     var active = [Quiz.empty];
     var past = [Quiz.empty];
     var other = [Quiz.empty];
+    var endDate = {};
 
     for (var quiz in studentQuiz) {
       var parsedStartDate = DateTime.tryParse(quiz.start_time!);
@@ -40,6 +41,7 @@ class StudentQuizBloc extends Bloc<StudentQuizEvent, StudentQuizState> {
         if (parsedEndDate.isAfter(DateTime.now()) &&
             parsedStartDate.isBefore(DateTime.now())) {
           active.add(quiz);
+          endDate["${quiz.id}"] = parsedEndDate;
         } else if (parsedEndDate.isBefore(DateTime.now())) {
           past.add(quiz);
         } else {
@@ -61,6 +63,7 @@ class StudentQuizBloc extends Bloc<StudentQuizEvent, StudentQuizState> {
       active: active,
       past: past,
       other: other,
+      endDate: endDate,
     ));
   }
 }

@@ -63,7 +63,6 @@ class QuizAttemptCard extends StatelessWidget {
               ),
               if (quizView.question_image!.isNotEmpty)
                 Container(
-                  
                   child: (GridView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
@@ -91,7 +90,7 @@ class QuizAttemptCard extends StatelessWidget {
                 ),
                 child: Expanded(
                   child: ListView.builder(
-                      // physics: AlwaysScrollableScrollPhysics(),
+                      // physics: AlwaysScrollableScrollPhysics(),s
                       shrinkWrap: true,
                       itemCount: quizView.options != null
                           ? quizView.options!.length
@@ -108,7 +107,7 @@ class QuizAttemptCard extends StatelessWidget {
                                       )
                                     : quizView.options![i].image != ""
                                         ? Image.network(
-                                            quizView.options![i].image!)
+                                            '$fileServerBase/${quizView.options![i].image!}')
                                         : Container(),
                                 value: i,
                                 groupValue: state.radioValueGroup,
@@ -129,7 +128,7 @@ class QuizAttemptCard extends StatelessWidget {
                                       )
                                     : quizView.options![i].image != ""
                                         ? Image.network(
-                                            quizView.options![i].image!)
+                                            '$fileServerBase/${quizView.options![i].image!}')
                                         : Container(),
                                 value: state.checkValues != null
                                     ? state.checkValues!.contains(i)
