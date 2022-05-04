@@ -6,8 +6,8 @@ class CustomDateButton extends StatefulWidget {
   final bool isPassword;
   final double? width;
   final double height;
-  final ValueChanged? onSend;
-  final ValueChanged? onChanged;
+  final DateTime? initialD;
+  final Function(DateTime date) dob;
   const CustomDateButton({
     Key? key,
     this.placeHolder = "",
@@ -15,8 +15,8 @@ class CustomDateButton extends StatefulWidget {
     this.height = 55,
     this.isPassword = false,
     this.margin = const EdgeInsets.all(0),
-    this.onChanged,
-    this.onSend,
+    this.initialD,
+    required this.dob,
   }) : super(key: key);
 
   @override
@@ -25,7 +25,7 @@ class CustomDateButton extends StatefulWidget {
 
 class _CustomDateButtonState extends State<CustomDateButton> {
   DateTime selectedDate = DateTime(2004, 8);
-
+  bool initialSet = false;
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -35,6 +35,7 @@ class _CustomDateButtonState extends State<CustomDateButton> {
       initialEntryMode: DatePickerEntryMode.input,
     );
     if (picked != null && picked != selectedDate) {
+      widget.dob(selectedDate);
       setState(() {
         selectedDate = picked.toLocal();
       });
@@ -43,6 +44,19 @@ class _CustomDateButtonState extends State<CustomDateButton> {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance?.addPostFrameCallback(
+      (_) {
+        if (!initialSet) {
+          widget.dob(selectedDate);
+          setState(
+            () {
+              selectedDate = widget.initialD! ?? DateTime(2004, 08);
+              initialSet = true;
+            },
+          );
+        }
+      },
+    );
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),

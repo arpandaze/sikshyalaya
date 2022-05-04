@@ -7,6 +7,7 @@ class CustomTextField extends StatelessWidget {
   final double height;
   final ValueChanged? onChanged;
   final double? width;
+  final TextEditingController? titleController;
 
   const CustomTextField({
     Key? key,
@@ -16,6 +17,7 @@ class CustomTextField extends StatelessWidget {
     this.isPassword = false,
     this.margin = const EdgeInsets.all(0),
     this.onChanged,
+    this.titleController,
   }) : super(key: key);
 
   @override
@@ -25,6 +27,7 @@ class CustomTextField extends StatelessWidget {
       width: width,
       margin: margin,
       child: TextField(
+        controller: titleController,
         obscureText: isPassword,
         onChanged: onChanged,
         decoration: InputDecoration(
