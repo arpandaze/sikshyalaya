@@ -5,12 +5,13 @@ from typing import Any, List, Optional
 import aiofiles
 from fastapi import APIRouter, Body
 from fastapi import Cookie as ReqCookie
-from fastapi import Depends, File, HTTPException, Request, UploadFile
+from fastapi import Depends, File, HTTPException, Request, UploadFile, Form
 from fastapi.params import Cookie
 from sqlalchemy.orm import Session
 from sqlalchemy.sql.expression import update
 from sqlalchemy.sql.functions import current_user
 from starlette.responses import JSONResponse, Response
+from starlette.status import HTTP_401_UNAUTHORIZED
 
 import cruds
 import models
@@ -18,7 +19,7 @@ import schemas
 from core import throttle
 from core.config import settings
 from core.db import redis_session_client
-from core.security import create_sesssion_token, get_password_hash, create_2fa_temp_token
+from core.security import create_sesssion_token, get_password_hash, create_2fa_temp_token, create_passwordless_create_token, authorize_passwordless_token, verify_passwordless_token
 from cruds import group
 from schemas.user import UserUpdate, VerifyUser
 from utils import deps
@@ -67,6 +68,46 @@ async def login_web_session(
         session_token = await create_sesssion_token(user, form_data.remember_me, request)
         response.set_cookie("session", session_token, httponly=True)
         return {"msg": "Logged in successfully!", "user": user, "two_fa_required": False}
+
+
+@router.get("/password-less/create")
+async def generate_passwordless_login_token(
+    db: Session = Depends(deps.get_db),
+):
+    token = await create_passwordless_create_token()
+
+    return {"token": token}
+
+
+@router.post("/password-less/authorize")
+async def authorize_passwordless_login(
+    db: Session = Depends(deps.get_db),
+    current_user: models.User = Depends(deps.get_current_active_user),
+    token: str = Form(None),
+):
+    _ = await authorize_passwordless_token(current_user, token)
+
+    return {"msg": "Success"}
+
+
+@router.post("/password-less/verify")
+async def verify_passwordless_login(
+    response: Response,
+    request: Request,
+    db: Session = Depends(deps.get_db),
+    token: str = Form(None),
+):
+    user_id = await verify_passwordless_token(token)
+
+    user = cruds.crud_user.get_by_id(db, id=user_id)
+
+    if not user:
+        raise HTTPException(
+            status_code=HTTP_401_UNAUTHORIZED, detail="Invalid user!")
+
+    session_token = await create_sesssion_token(user, True, request)
+    response.set_cookie("session", session_token, httponly=True)
+    return {"msg": "Logged in successfully!", "user": user, "two_fa_required": False}
 
 
 @router.post("/signup/", response_model=schemas.Msg)

@@ -6,6 +6,8 @@ from hashlib import sha1
 
 from fastapi import Request
 from passlib.context import CryptContext
+from starlette.exceptions import HTTPException
+from starlette.status import HTTP_102_PROCESSING, HTTP_404_NOT_FOUND
 
 from core.config import settings
 from core.db import redis_session_client
@@ -59,6 +61,53 @@ async def create_2fa_temp_token(user: User, remember_me: bool) -> str:
     )
 
     return session_token
+
+
+async def create_passwordless_create_token() -> str:
+    token = secrets.token_hex(nbytes=16)
+
+    await redis_session_client.client.setex(
+        f"password_less_{token}",
+        settings.PASSWORD_LESS_CREATE_TIMEOUT * 1000,
+        "-1",
+    )
+
+    return token
+
+
+async def authorize_passwordless_token(user: User, token: str) -> bool:
+    value = await redis_session_client.client.get(
+        f"password_less_{token}",
+    )
+
+    if value == None:
+        raise HTTPException(status_code=HTTP_404_NOT_FOUND,
+                            detail="Invalid token!")
+    elif int(value) == -1:
+        await redis_session_client.client.setex(
+            f"password_less_{token}",
+            settings.PASSWORD_LESS_CREATE_TIMEOUT * 1000,
+            user.id,
+        )
+        return True
+
+
+async def verify_passwordless_token(token: str) -> int:
+    value = await redis_session_client.client.get(
+        f"password_less_{token}",
+    )
+
+    if value == None:
+        raise HTTPException(status_code=HTTP_404_NOT_FOUND,
+                            detail="Invalid token!")
+    elif value == "-1":
+        raise HTTPException(status_code=HTTP_102_PROCESSING,
+                            detail="Waiting for authorization!")
+    else:
+        await redis_session_client.client.delete(
+            f"password_less_{token}",
+        )
+        return int(value)
 
 
 async def create_2fa_enable_temp_token(user: User, totp_secret: str):
