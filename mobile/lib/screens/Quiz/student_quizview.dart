@@ -24,7 +24,7 @@ class StudentQuizView extends StatelessWidget {
   }) : super(key: key);
 
   final int quiz_id;
-  final DateTime endDate;
+  final DateTime? endDate;
   final bool isActive;
   final String? description;
   final String? course;
@@ -51,6 +51,10 @@ class StudentQuizView extends StatelessWidget {
 
   Widget body(BuildContext context) {
     var check = false;
+    var duration = Duration(minutes: 10);
+    if (endDate != null) {
+      duration = endDate!.difference(DateTime.now());
+    }
     PageController _controller = PageController();
     Size size = MediaQuery.of(context).size;
     Map attemptedAnswers = {};
@@ -90,11 +94,9 @@ class StudentQuizView extends StatelessWidget {
                                           padding: EdgeInsets.only(left: 10),
                                           child: TweenAnimationBuilder<
                                                   Duration>(
-                                              duration: endDate
-                                                  .difference(DateTime.now()),
+                                              duration: duration,
                                               tween: Tween(
-                                                  begin: endDate.difference(
-                                                      DateTime.now()),
+                                                  begin: duration,
                                                   end: Duration.zero),
                                               onEnd: () {
                                                 onPressed(
