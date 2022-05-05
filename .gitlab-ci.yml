@@ -34,7 +34,7 @@ test-backend:
   rules:
     - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"'
       changes:
-        - backend/*
+        - backend/**/*
 
     - if: '$CI_COMMIT_BRANCH == "main"'
       changes:
