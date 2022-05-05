@@ -7,7 +7,7 @@ class CustomTextField extends StatelessWidget {
   final double height;
   final ValueChanged? onChanged;
   final double? width;
-  final TextEditingController? titleController;
+  final String? initialVal;
 
   const CustomTextField({
     Key? key,
@@ -17,17 +17,21 @@ class CustomTextField extends StatelessWidget {
     this.isPassword = false,
     this.margin = const EdgeInsets.all(0),
     this.onChanged,
-    this.titleController,
+    this.initialVal,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    TextEditingController messageController =
+        TextEditingController(text: initialVal);
+    messageController.selection = TextSelection.fromPosition(
+        TextPosition(offset: messageController.text.length));
     return Container(
       width: width,
       margin: margin,
       child: TextField(
-        controller: titleController,
+        controller: messageController,
         obscureText: isPassword,
         onChanged: onChanged,
         decoration: InputDecoration(
