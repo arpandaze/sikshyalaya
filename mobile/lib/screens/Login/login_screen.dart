@@ -70,8 +70,8 @@ class LoginScreen extends StatelessWidget {
                   Text(state.errorText as String),
                   GestureDetector(
                     onTap: () {
-                        Navigator.of(context).pushNamed("/forgot");
-                      },
+                      Navigator.of(context).pushNamed("/forgot");
+                    },
                     child: Container(
                       alignment: Alignment.centerRight,
                       child: const Text("Forgot Password?"),

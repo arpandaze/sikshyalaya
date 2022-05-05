@@ -1,26 +1,34 @@
 part of 'personal_bloc.dart';
 
 class PersonalState extends Equatable {
-  final String fullname;
+  final String firstname;
+  final String middlename;
+  final String lastname;
   final String address;
   final String dob;
   final String contactNumber;
 
   const PersonalState({
-    this.fullname = "",
+    this.firstname = "",
+    this.middlename = "",
+    this.lastname = "",
     this.address = "",
     this.dob = "",
     this.contactNumber = "",
   });
 
   PersonalState copyWith({
-    fullname,
+    firstname,
+    middlename,
+    lastname,
     address,
     dob,
     contactNumber,
   }) {
     return PersonalState(
-      fullname: fullname ?? this.fullname,
+      firstname: firstname ?? this.firstname,
+      middlename: middlename ?? this.middlename,
+      lastname: lastname ?? this.lastname,
       address: address ?? this.address,
       dob: dob ?? this.dob,
       contactNumber: contactNumber ?? this.contactNumber,
@@ -28,5 +36,6 @@ class PersonalState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [fullname, address, dob, contactNumber];
+  List<Object?> get props =>
+      [firstname, middlename, lastname, address, dob, contactNumber];
 }

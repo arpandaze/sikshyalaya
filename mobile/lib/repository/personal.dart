@@ -33,24 +33,37 @@ class PersonalRepository {
   }
 
   Future<Map> editPersonal({required Map body}) async {
-    print(jsonEncode(body));
+    // var formData = FormData();
+    // formData.add('full_name', body['full_name']);
+    // formData.add('address', body['address']);
+    // formData.add('contact_number', body['contact_number']);
+    // formData.add('dob', body['dob']);
+    print("this is body");
+    print(body);
     if (token != null) {
-      final headers = {
-        "Cookie": "session=$token",
-        "Content-Type": "application/json"
-      };
-      var response = await http.put(
-        Uri.parse('$backendBase/users/me/'),
-        headers: headers,
-        body: jsonEncode(body),
-      );
+      var uri = Uri.parse('$backendBase/users/me/');
+      var request = http.MultipartRequest(
+        'PUT',
+        uri,
+      )
+        ..fields['full_name'] = body['full_name']
+        ..fields['address'] = body['address']
+        ..fields['contact_number'] = body['contact_number']
+        ..fields['dob'] = body['dob'];
+      // ..files.add(await http.MultipartFile.fromPath(
+      //     'package', 'build/package.tar.gz',
+      //     contentType: MediaType('application', 'x-tar')));
+      request.headers['Cookie'] = "session=$token";
+
+      var response = await request.send();
+      if (response.statusCode == 200) print('Uploaded!');
 
       if (response.statusCode != 200) {
-        throw Exception("Note Submit Failed");
+        throw Exception("Submit Failed");
       }
-
-      if (response.body.isNotEmpty) {
-        var decodedResponse = jsonDecode(response.body);
+      var responseBody = await response.stream.bytesToString();
+      if (responseBody != "") {
+        var decodedResponse = jsonDecode(responseBody);
         return decodedResponse;
       } else {
         throw Exception("Body Empty");

@@ -2,15 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sikshyalaya/components/CustomChatTextField.dart';
 import 'package:sikshyalaya/components/CustomDateButton.dart';
 import 'package:sikshyalaya/components/CustomOutlinedButton.dart';
-import 'package:sikshyalaya/components/CustomTextField.dart';
 import 'package:sikshyalaya/global/authentication/auth_bloc.dart';
 import 'package:sikshyalaya/constants.dart';
 import 'package:sikshyalaya/helpers/helper.dart';
 import 'package:sikshyalaya/repository/personal.dart';
 import 'package:sikshyalaya/screens/Profile/change_password.dart';
+import 'package:sikshyalaya/screens/Profile/components/CustomTextField.dart';
 import 'package:sikshyalaya/screens/Profile/personal_bloc.dart';
 import 'package:sikshyalaya/screens/Profile/personal_info.dart';
 import 'package:sikshyalaya/screens/Profile/sessions.dart';
@@ -39,11 +38,11 @@ class PersonalInfo extends StatelessWidget {
   Widget body(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    TextEditingController firstName = TextEditingController()..text = "";
-    TextEditingController middleName = TextEditingController()..text = "";
-    TextEditingController lastName = TextEditingController()..text = "";
-    TextEditingController address = TextEditingController()..text = "";
-    TextEditingController contactNumber = TextEditingController()..text = "";
+    String firstName = "";
+    String middleName = "";
+    String lastName = "";
+    String address = "";
+    String contactNumber = "";
     String currdob = "";
 
     var authBloc = BlocProvider.of<AuthBloc>(context);
@@ -54,6 +53,7 @@ class PersonalInfo extends StatelessWidget {
             buildWhen: (prev, next) => prev != next,
             builder: (context, personalState) {
               if (state.user != null) {
+                print(personalState);
                 return SafeArea(
                   top: true,
                   bottom: true,
@@ -121,9 +121,12 @@ class PersonalInfo extends StatelessWidget {
                                     Container(
                                       padding: EdgeInsets.all(10),
                                       child: CustomTextField(
-                                        titleController: firstName
-                                          ..text = nameHandler(personalState
-                                              .fullname)["firstName"],
+                                        initialVal: personalState.firstname,
+                                        onChanged: (value) => {
+                                          context.read<PersonalBloc>().add(
+                                              FirstNameChanged(
+                                                  firstname: value))
+                                        },
                                         width: size.width * 0.78,
                                         placeHolder: "First Name",
                                       ),
@@ -131,9 +134,12 @@ class PersonalInfo extends StatelessWidget {
                                     Container(
                                       padding: EdgeInsets.all(10),
                                       child: CustomTextField(
-                                        titleController: middleName
-                                          ..text = nameHandler(personalState
-                                              .fullname)["middleName"],
+                                        initialVal: personalState.middlename,
+                                        onChanged: (value) => {
+                                          context.read<PersonalBloc>().add(
+                                              MiddleNameChanged(
+                                                  middlename: value))
+                                        },
                                         width: size.width * 0.78,
                                         placeHolder: "Middle Name",
                                       ),
@@ -141,9 +147,11 @@ class PersonalInfo extends StatelessWidget {
                                     Container(
                                       padding: EdgeInsets.all(10),
                                       child: CustomTextField(
-                                        titleController: lastName
-                                          ..text = nameHandler(personalState
-                                              .fullname)["lastName"],
+                                        initialVal: personalState.lastname,
+                                        onChanged: (value) => {
+                                          context.read<PersonalBloc>().add(
+                                              LastNameChanged(lastname: value))
+                                        },
                                         width: size.width * 0.78,
                                         placeHolder: "Last Name",
                                       ),
@@ -151,8 +159,11 @@ class PersonalInfo extends StatelessWidget {
                                     Container(
                                       padding: EdgeInsets.all(10),
                                       child: CustomTextField(
-                                        titleController: address
-                                          ..text = personalState.address,
+                                        initialVal: personalState.address,
+                                        onChanged: (value) => {
+                                          context.read<PersonalBloc>().add(
+                                              AddressChanged(address: value))
+                                        },
                                         width: size.width * 0.78,
                                         placeHolder: "Address",
                                       ),
@@ -160,8 +171,12 @@ class PersonalInfo extends StatelessWidget {
                                     Container(
                                       padding: EdgeInsets.all(10),
                                       child: CustomTextField(
-                                        titleController: contactNumber
-                                          ..text = personalState.contactNumber,
+                                        initialVal: personalState.contactNumber,
+                                        onChanged: (value) => {
+                                          context.read<PersonalBloc>().add(
+                                              ContactChanged(
+                                                  contactNumber: value))
+                                        },
                                         width: size.width * 0.78,
                                         placeHolder: "Phone Number",
                                       ),
@@ -169,8 +184,15 @@ class PersonalInfo extends StatelessWidget {
                                     Container(
                                       padding: const EdgeInsets.all(10),
                                       child: CustomDateButton(
-                                        dob: (dob) =>
-                                            {currdob = dob.toString()},
+                                        onChangeVal: (dob) => {
+                                          context.read<PersonalBloc>().add(
+                                                DateChanged(
+                                                  dob: dob
+                                                      .toString()
+                                                      .split(" ")[0],
+                                                ),
+                                              )
+                                        },
                                         initialD: DateTime.tryParse(
                                             personalState.dob),
                                         // titleController: dob,
@@ -182,22 +204,26 @@ class PersonalInfo extends StatelessWidget {
                                       onTap: () => {
                                         context.read<PersonalBloc>().add(
                                               EditPersonal(
-                                                firstname: firstName.text,
-                                                middlename: middleName.text,
-                                                lastname: lastName.text,
-                                                address: address.text,
+                                                firstname:
+                                                    personalState.firstname,
+                                                middlename:
+                                                    personalState.middlename,
+                                                lastname:
+                                                    personalState.lastname,
+                                                address: personalState.address,
                                                 contactNumber:
-                                                    contactNumber.text,
-                                                dob: currdob,
+                                                    personalState.contactNumber,
+                                                dob: personalState.dob,
                                               ),
                                             ),
+                                        Navigator.pop(context)
                                       },
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.end,
                                         children: [
                                           Container(
-                                            width: 60,
+                                            width: 65,
                                             decoration: BoxDecoration(
                                                 border: Border.all(
                                                     color: Theme.of(context)

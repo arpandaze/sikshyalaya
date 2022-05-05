@@ -7,7 +7,7 @@ class CustomDateButton extends StatefulWidget {
   final double? width;
   final double height;
   final DateTime? initialD;
-  final Function(DateTime date) dob;
+  final Function(DateTime date) onChangeVal;
   const CustomDateButton({
     Key? key,
     this.placeHolder = "",
@@ -16,7 +16,7 @@ class CustomDateButton extends StatefulWidget {
     this.isPassword = false,
     this.margin = const EdgeInsets.all(0),
     this.initialD,
-    required this.dob,
+    required this.onChangeVal,
   }) : super(key: key);
 
   @override
@@ -35,10 +35,10 @@ class _CustomDateButtonState extends State<CustomDateButton> {
       initialEntryMode: DatePickerEntryMode.input,
     );
     if (picked != null && picked != selectedDate) {
-      widget.dob(selectedDate);
       setState(() {
         selectedDate = picked.toLocal();
       });
+      widget.onChangeVal(selectedDate);
     }
   }
 
@@ -47,13 +47,16 @@ class _CustomDateButtonState extends State<CustomDateButton> {
     WidgetsBinding.instance?.addPostFrameCallback(
       (_) {
         if (!initialSet) {
-          widget.dob(selectedDate);
           setState(
             () {
-              selectedDate = widget.initialD! ?? DateTime(2004, 08);
-              initialSet = true;
+              selectedDate =
+                  widget.initialD != "" ? widget.initialD! : DateTime(2004, 8);
+              if (widget.initialD != "") {
+                initialSet = true;
+              }
             },
           );
+          widget.onChangeVal(widget.initialD!);
         }
       },
     );
