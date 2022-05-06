@@ -14,6 +14,7 @@ from api.endpoints import (
     personal_note,
     teacher_note,
     assignment,
+    assignment_upload,
 )
 
 api_router = APIRouter()
@@ -42,3 +43,6 @@ api_router.include_router(
     quiz_answer.router, prefix="/quizanswer", tags=["Quiz Answers"]
 )
 api_router.include_router(assignment.router, prefix="/assignment", tags=["Assignments"])
+api_router.include_router(
+    assignment_upload.router, prefix="/assignmentupload", tags=["Assignment Uploads"]
+)
