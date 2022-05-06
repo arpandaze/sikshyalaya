@@ -36,6 +36,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider<AuthBloc>(create: (context) => AuthBloc()),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         routes: routes,
         title: 'Sikshyalaya',
         theme: AppTheme.lightTheme,
