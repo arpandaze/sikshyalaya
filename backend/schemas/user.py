@@ -154,6 +154,7 @@ class UserInDB(UserInDBBase):
 class Name(BaseModel):
     id: int
     full_name: str
+    profile_image: str
 
     class Config:
         orm_mode = True
