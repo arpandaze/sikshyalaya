@@ -31,9 +31,9 @@
     margin: 20px auto !important;
   }
   .profile_tabsContainer {
-    height: 320px;
     border-radius: 15px;
     border: 1px solid var(--grey6);
+    padding: 10px;
   }
   .profile_profileBox {
     margin-left: 20px !important;
@@ -48,8 +48,6 @@
     margin: 20px auto !important;
   }
   .profile_tabsContainer {
-    height: 320px;
     border-radius: 15px;
-    border: 1px solid var(--grey6);
   }
 }

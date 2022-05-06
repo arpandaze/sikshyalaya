@@ -31,6 +31,7 @@ import HomeRedirector from "./components/HomeRedirector";
 import ExploreView from "./views/Admin/ExploreView";
 import QuizView from "./views/Quiz/components/QuizView";
 import StudentView from "./views/Admin/StudentView";
+import TwoFactorLogin from "./components/TwoFactorLogin.jsx";
 
 const Routes = () => {
   return (
@@ -80,6 +81,7 @@ const Routes = () => {
       <Route exact path="/login" component={Login} />
       <Route exact path="/reset" component={ResetPassword} />
       <Route exact path="/signup" component={Signup} />
+      <Route exact path="/two-fa" component={TwoFactorLogin} />
       <Route exact path="/verify" component={Verify} />
       <Route exact path="/logout" component={Logout} />
       <HomeRedirector />

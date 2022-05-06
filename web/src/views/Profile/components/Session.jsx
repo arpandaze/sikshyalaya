@@ -49,52 +49,42 @@ const Session = () => {
   };
 
   return (
-    <>
+    <Grid
+      container
+      direction="column"
+      justify="center"
+      className="session_root"
+    >
       <Grid
+        item
+        container
         direction="column"
-        alignItems="center"
         justify="center"
-        className="session_root"
+        className="session_titleContainer"
       >
-        <Grid item>
+        <div className="session_title">Active Sessions</div>
+      </Grid>
+      <Grid item>
+        <Grid container direction="column" className="session_bodyRoot">
           <Grid
+            item
             container
-            direction="row"
-            alignItems="center"
-            className="session_titleContainer"
+            direction="column"
+            className="session_sessionContainer"
           >
             <Grid item>
-              <p className="session_title">Active Sessions</p>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item>
-          <Grid container direction="column" className="session_bodyRoot">
-            <Grid item>
-              <Grid
-                container
-                direction="column"
-                className="session_sessionContainer"
-              >
-                <Grid item>
-                  {allSessions &&
-                    allSessions.map((item) => <EachSession sessions={item} />)}
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item>
-          <Grid container className="session_logout">
-            <Grid item>
-              <p className="session_logoutText" onClick={handleLogOut}>
-                Logout of all sessions
-              </p>
+              {allSessions &&
+                allSessions.map((item) => <EachSession sessions={item} />)}
             </Grid>
           </Grid>
         </Grid>
       </Grid>
-    </>
+      <Grid item className="session_logout">
+        <div className="session_logoutText" onClick={handleLogOut}>
+          Logout of all sessions
+        </div>
+      </Grid>
+    </Grid>
   );
 };
 

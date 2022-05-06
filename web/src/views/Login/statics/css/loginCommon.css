@@ -39,6 +39,69 @@
     text-decoration: underline;
     cursor: pointer;
   }
+  .loginCommon_loginButtonContainer {
+    position: relative;
+  }
+  .loginCommon_qrButton {
+    color: var(-black);
+    width: 50px !important;
+    height: 45px;
+    background-color: var(--black);
+    color: var(--white);
+    margin: 20px 0px 0px 10px;
+    border-radius: 12px;
+    font-size: 1em;
+    position: absolute;
+    right: 0px;
+    text-align: center;
+    cursor: pointer;
+  }
+  .loginCommon_qrCodeButtonIcon {
+    margin: 5px !important;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+  }
+  .loginCommon_qrPopUp {
+    z-index: 2;
+    position: absolute;
+    right: -80px;
+    bottom: -120px;
+    border-radius: 10px;
+    border: 1px solid var(--grey2);
+    background-color: var(--white);
+    padding: 100px 100px 50px 100px;
+  }
+  .loginCommon_qrCode {
+    margin: 0px auto;
+  }
+  .loginCommon_qrCodeClose {
+    margin: 5px !important;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+  }
+  .loginCommon_qrCodeClose:hover {
+    border-radius: 50%;
+    background-color: var(--red4);
+    color: var(--white);
+  }
+
+  .loginCommon_qrCodeText {
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: 600;
+    margin: 0px auto;
+    padding: 20px 10px 0px 10px;
+  }
+  .loginCommon_qrCodeText2 {
+    text-align: center;
+    font-size: 0.75em;
+    margin: 20px auto;
+  }
 }
 
 @media only screen and (min-width: 1920px) {

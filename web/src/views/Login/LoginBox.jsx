@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Formik, Form } from "formik";
 import CustomButton from "../../components/CustomButton";
 import * as yup from "yup";
@@ -10,6 +10,8 @@ import { UserContext } from "../../utils/Contexts/UserContext";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import callAPI from "../../utils/API";
 import CustomTextField from "./../../components/CustomTextField";
+import { BiBarcodeReader } from "react-icons/bi";
+import CustomQRCode from "../../components/CustomQRCode.jsx";
 
 const validationSchema = yup.object({
   email: yup
@@ -23,6 +25,8 @@ const validationSchema = yup.object({
 });
 const StudentLoginBox = () => {
   const history = useHistory();
+  const [qrShow, setQrShow] = useState(false);
+  const [qrToken, setQrToken] = useState("");
   const { user, setUser } = useContext(UserContext);
   const onSubmit = async (values) => {
     let data = {
@@ -38,10 +42,24 @@ const StudentLoginBox = () => {
     });
     if (resp.status === 200 && resp.data["two_fa_required"] === false) {
       setUser(resp.data["user"]);
+    } else if (resp.data["two_fa_required"] === true) {
+      history.push("/two-fa");
     } else {
       throw "Login failed!";
     }
   };
+
+  const onQrHandler = async () => {
+    try {
+      const response = await callAPI({
+        endpoint: "/api/v1/auth/password-less/create",
+        method: "GET",
+      });
+      setQrShow(true);
+      setQrToken(response.data.token);
+    } catch (e) {}
+  };
+
   return (
     <Login>
       <Grid
@@ -103,12 +121,45 @@ const StudentLoginBox = () => {
                 justify="center"
                 alignItems="center"
               >
-                <Grid item>
+                <Grid
+                  container
+                  item
+                  direction="row"
+                  alignItems="center"
+                  justify="center"
+                  className="loginCommon_loginButtonContainer"
+                >
                   <CustomButton
                     type="submit"
                     name="Login"
                     addStyles="loginCommon_loginButton"
                   />
+                  <Grid item>
+                    <Grid
+                      container
+                      direction="column"
+                      alignItems="center"
+                      justify="center"
+                    >
+                      {console.log(qrShow)}
+                      {qrShow ? (
+                        <CustomQRCode
+                          qrToken={qrToken}
+                          onClose={() => {
+                            setQrShow(0);
+                          }}
+                        />
+                      ) : (
+                        <></>
+                      )}
+                      <div
+                        className="loginCommon_qrButton"
+                        onClick={onQrHandler}
+                      >
+                        <BiBarcodeReader className="loginCommon_qrCodeButtonIcon" />
+                      </div>
+                    </Grid>
+                  </Grid>
                 </Grid>
                 <Grid item>
                   <CustomButton
