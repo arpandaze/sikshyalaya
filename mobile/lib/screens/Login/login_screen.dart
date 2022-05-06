@@ -67,14 +67,22 @@ class LoginScreen extends StatelessWidget {
                         context.read<LoginBloc>().add(PasswordChanged(value)),
                     margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                   ),
-                  Text(state.errorText as String),
+                  Text(
+                    state.errorText as String,
+                    style: (Theme.of(context).textTheme.subtitle2)!.merge(
+                      TextStyle(color: Colors.red),
+                    ),
+                  ),
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).pushNamed("/forgot");
                     },
                     child: Container(
                       alignment: Alignment.centerRight,
-                      child: const Text("Forgot Password?"),
+                      child: Text(
+                        "Forgot Password?",
+                        style: Theme.of(context).textTheme.subtitle1,
+                      ),
                       margin: const EdgeInsets.fromLTRB(0, 20, 40, 0),
                     ),
                   ),
@@ -96,8 +104,10 @@ class LoginScreen extends StatelessWidget {
                             },
                             child: Container(
                               alignment: Alignment.bottomCenter,
-                              child:
-                                  const Text("Don't have an account? Register"),
+                              child: Text(
+                                "Don't have an account? Register",
+                                style: Theme.of(context).textTheme.subtitle1,
+                              ),
                               padding: const EdgeInsets.symmetric(vertical: 30),
                             ),
                           ),
