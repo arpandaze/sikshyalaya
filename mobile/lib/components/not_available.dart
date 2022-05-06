@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
 class NotAvailable extends StatelessWidget {
-  const NotAvailable({
-    Key? key,
-    required this.size,
-    required this.text,
-  }) : super(key: key);
+  const NotAvailable(
+      {Key? key, required this.size, required this.text, this.large = false})
+      : super(key: key);
 
   final Size size;
   final String text;
+  final bool large;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +34,10 @@ class NotAvailable extends StatelessWidget {
             height: size.height * 0.01,
           ),
           Center(
-            child: Text(text, style: Theme.of(context).textTheme.subtitle1),
+            child: Text(text,
+                style: large
+                    ? Theme.of(context).textTheme.headline6
+                    : Theme.of(context).textTheme.subtitle1),
           ),
           SizedBox(
             height: size.height * 0.01,
