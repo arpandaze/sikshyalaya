@@ -37,19 +37,6 @@ class TeacherQuiz extends StatelessWidget {
       builder: (context, state) {
         return ListView(
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Container(
-                  width: size.width,
-                  child: Container(
-                      child: const CustomTextField(
-                    placeHolder: "Search Quiz",
-                    margin: EdgeInsets.fromLTRB(20, 10, 20, 5),
-                  )),
-                )
-              ],
-            ),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -73,19 +60,21 @@ class TeacherQuiz extends StatelessWidget {
                   : ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: state.active!.length - 1,
+                      itemCount: state.active!.length,
                       itemBuilder: (context, i) {
+                        print("quiz");
+                        print(state.active![i]);
                         return QuizPreview(
                           size: size,
                           colorType: Theme.of(context).colorScheme.primary,
                           month: dateHandler(
-                              state.active![i + 1].start_time!)["month"],
+                              state.active![i].start_time!)["month"],
                           day: dateHandler(
-                              state.active![i + 1].start_time!)["monthDay"],
-                          course: state.active![i + 1].course!.course_code!,
-                          description: state.active![i + 1].description!,
+                              state.active![i].start_time!)["monthDay"],
+                          course: state.active![i].course!.course_code!,
+                          description: state.active![i].description!,
                           instructor:
-                              studentInstructor(state.past![i + 1].instructor),
+                              studentInstructor(state.past![i].instructor),
                         );
                       }),
             ),

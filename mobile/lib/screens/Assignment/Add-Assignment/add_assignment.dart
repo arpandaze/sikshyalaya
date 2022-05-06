@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sikshyalaya/components/CustomNumberField.dart';
+import 'package:sikshyalaya/global/authentication/auth_bloc.dart';
+import 'package:sikshyalaya/screens/Assignment/Add-Assignment/bloc/add_assignment_bloc.dart';
 
-import '../../../components/CustomFilledButton.dart';
+import '../../../components/CustomDateButton.dart';
+import '../../Login/components/CustomFilledButton.dart';
 import '../../../components/CustomTextField.dart';
 
 class AddAssignment extends StatelessWidget {
@@ -8,177 +13,312 @@ class AddAssignment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      top: true,
-      bottom: true,
-      child: Scaffold(body: body(context)),
+    return BlocProvider<AddAssignmentBloc>(
+      create: (context) =>
+          AddAssignmentBloc(token: context.read<AuthBloc>().state.token),
+      child: SafeArea(
+        top: true,
+        bottom: true,
+        child: Scaffold(body: body(context)),
+      ),
     );
   }
 
   Widget body(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Stack(
-      children: <Widget>[
-        ListView(
-          padding: EdgeInsets.fromLTRB(0, size.width * 0.10, 0, 0),
-          scrollDirection: Axis.vertical,
+    return BlocBuilder<AddAssignmentBloc, AddAssignmentState>(
+      buildWhen: (previous, current) => previous != current,
+      builder: (context, state) {
+        return Stack(
           children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            ListView(
+              padding: EdgeInsets.fromLTRB(0, size.width * 0.10, 0, 0),
+              scrollDirection: Axis.vertical,
               children: <Widget>[
-                Container(
-                  margin: EdgeInsets.fromLTRB(size.width * 0.05, 0, 0, 10),
-                  alignment: Alignment.centerLeft,
-                  child: Text("Add Assignment",
-                      style: Theme.of(context).textTheme.headline5),
-                ),
-                Container(
-                  width: size.width * 0.90,
-                  padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-                  margin: const EdgeInsets.fromLTRB(0, 10, 10, 20),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.surface,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        margin: EdgeInsets.fromLTRB(0, 0, 0, 8),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: <Widget>[
-                            Container(
-                              margin: EdgeInsets.fromLTRB(
-                                  0, 0, size.width * 0.08, 0),
-                              child: Text("Publish time",
-                                  style: Theme.of(context).textTheme.caption),
-                            ),
-                            Container(
-                              child: Text("date picker"),
-                            ),
-                            Container(
-                              child: Icon(Icons.timer_outlined),
-                            )
-                          ],
-                        ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.fromLTRB(size.width * 0.05, 0, 0, 10),
+                      alignment: Alignment.centerLeft,
+                      child: Text("Add Assignment",
+                          style: Theme.of(context).textTheme.headline5),
+                    ),
+                    Container(
+                      width: size.width * 0.90,
+                      padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                      margin: const EdgeInsets.fromLTRB(0, 10, 10, 20),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.surface,
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        margin: EdgeInsets.fromLTRB(0, 0, 0, 8),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: <Widget>[
-                            Container(
-                              child: Text("Submission time",
-                                  style: Theme.of(context).textTheme.caption),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            margin: EdgeInsets.fromLTRB(0, 0, 0, 8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: <Widget>[
+                                Container(
+                                  child: Text("Submission time",
+                                      style:
+                                          Theme.of(context).textTheme.caption),
+                                ),
+                                Container(
+                                  child: CustomDateButton(
+                                    onChangeVal: (value) => {
+                                      context.read<AddAssignmentBloc>().add(
+                                          EndTimeChanged(
+                                              end_time:
+                                                  value.toUtc().toString()))
+                                    },
+                                    initialD: DateTime.tryParse("2000-08-01"),
+                                    width: size.width * 0.27,
+                                  ),
+                                ),
+                              ],
                             ),
-                            Container(
-                              child: Text("date picker"),
-                            ),
-                            Container(
-                              child: Icon(Icons.hourglass_bottom_rounded),
-                            )
-                          ],
-                        ),
-                      ),
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        margin: EdgeInsets.fromLTRB(0, 0, 0, 8),
-                        width: size.width * 0.8,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Container(
-                              margin: EdgeInsets.fromLTRB(
-                                  0, 0, size.width * 0.18, 0),
-                              child: Text("Group",
-                                  style: Theme.of(context).textTheme.caption),
-                            ),
-                            Container(
-                              child: Text("Dropdown"),
-                            ),
-                            Container(
-                              width: size.width * 0.06,
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.fromLTRB(size.width * 0.05, 0, 0, 0),
-                  alignment: Alignment.centerLeft,
-                  child: Text("Description",
-                      style: Theme.of(context).textTheme.headline5),
-                ),
-                Container(
-                  child: CustomTextField(
-                    margin: EdgeInsets.all(20),
-                    height: size.height * 0.04,
-                  ),
-                )
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: size.width * 0.89,
-                  margin: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: const Color(0xFFB4B4B4)),
-                  ),
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-                          child: Text('Add File(s)',
-                              style: Theme.of(context).textTheme.headline5),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.fromLTRB(70, 0, 70, 0),
-                          width: size.width * 0.5,
-                          child: const CustomFilledButton(
-                            colorType: Colors.black,
-                            textColor: Colors.white,
-                            buttonText: "Upload File(s)",
                           ),
-                        ),
-                      ]),
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            margin: EdgeInsets.fromLTRB(0, 0, 0, 8),
+                            width: size.width * 0.8,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Container(
+                                  margin: EdgeInsets.fromLTRB(
+                                      0, 10, size.width * 0.2, 0),
+                                  child: Text("Group",
+                                      style:
+                                          Theme.of(context).textTheme.caption),
+                                ),
+                                Container(
+                                  margin:
+                                      const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                  width: size.width * 0.4,
+                                  child: DropdownButton<int>(
+                                    icon: const Icon(Icons.arrow_downward),
+                                    elevation: 16,
+                                    value: state.group,
+                                    menuMaxHeight: size.height / 3,
+                                    isExpanded: true,
+                                    isDense: true,
+                                    hint: const Text("Group"),
+                                    onChanged: (value) {
+                                      context
+                                          .read<AddAssignmentBloc>()
+                                          .add(GroupChanged(group: value));
+                                    },
+                                    items: state.groupList != null
+                                        ? state.groupList!
+                                            .map((group) => DropdownMenuItem(
+                                                  child: Text(
+                                                      "${group.program!.name}\nSem : ${group.sem}"),
+                                                  value: group.id,
+                                                ))
+                                            .toList()
+                                        : [],
+                                  ),
+                                ),
+                                Container(
+                                  width: size.width * 0.06,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            margin: EdgeInsets.fromLTRB(0, 0, 0, 8),
+                            width: size.width * 0.8,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Container(
+                                  margin: EdgeInsets.fromLTRB(
+                                      0, 20, size.width * 0.2, 0),
+                                  child: Text("Course",
+                                      style:
+                                          Theme.of(context).textTheme.caption),
+                                ),
+                                Container(
+                                  margin:
+                                      const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                                  width: size.width * 0.4,
+                                  child: DropdownButton<int>(
+                                    icon: const Icon(Icons.arrow_downward),
+                                    elevation: 16,
+                                    value: state.course,
+                                    menuMaxHeight: size.height / 3,
+                                    isExpanded: true,
+                                    isDense: true,
+                                    enableFeedback: true,
+                                    itemHeight: size.height * 0.08,
+                                    hint: const Text("Course"),
+                                    onChanged: (value) {
+                                      context
+                                          .read<AddAssignmentBloc>()
+                                          .add(CourseChanged(course: value));
+                                    },
+                                    items: state.courseList != null
+                                        ? state.courseList!
+                                            .map((course) => DropdownMenuItem(
+                                                  child: Text(
+                                                      "${course.course_code}: ${course.course_name}"),
+                                                  value: course.id,
+                                                ))
+                                            .toList()
+                                        : [],
+                                  ),
+                                ),
+                                Container(
+                                  width: size.width * 0.06,
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
                 ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.fromLTRB(size.width * 0.05, 0, 0, 0),
+                      alignment: Alignment.centerLeft,
+                      child: Text("Title",
+                          style: Theme.of(context).textTheme.headline5),
+                    ),
+                    Container(
+                      child: CustomTextField(
+                        margin: EdgeInsets.all(20),
+                        height: size.height * 0.03,
+                        onChanged: (value) => {
+                          context
+                              .read<AddAssignmentBloc>()
+                              .add(DescriptionChanged(description: value))
+                        },
+                      ),
+                    )
+                  ],
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.fromLTRB(size.width * 0.05, 0, 0, 0),
+                      alignment: Alignment.centerLeft,
+                      child: Text("Description",
+                          style: Theme.of(context).textTheme.headline5),
+                    ),
+                    Container(
+                      child: CustomTextField(
+                        margin: EdgeInsets.all(20),
+                        height: size.height * 0.04,
+                        onChanged: (value) => {
+                          context
+                              .read<AddAssignmentBloc>()
+                              .add(DescriptionChanged(description: value))
+                        },
+                      ),
+                    )
+                  ],
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.fromLTRB(size.width * 0.05, 0, 0, 0),
+                      alignment: Alignment.centerLeft,
+                      child: Text("Marks",
+                          style: Theme.of(context).textTheme.headline5),
+                    ),
+                    Container(
+                      child: CustomNumberField(
+                        margin: EdgeInsets.all(20),
+                        width: size.width * 0.2,
+                        height: size.height * 0.01,
+                        onChanged: (value) => {
+                          context
+                              .read<AddAssignmentBloc>()
+                              .add(MarksChanged(marks: value))
+                        },
+                      ),
+                    )
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: size.width * 0.89,
+                      margin: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: const Color(0xFFB4B4B4)),
+                      ),
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                              padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                              child: Text('Add File(s)',
+                                  style: Theme.of(context).textTheme.headline5),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.fromLTRB(70, 0, 70, 0),
+                              width: size.width * 0.5,
+                              child: const CustomFilledButton(
+                                text: "Upload File(s)",
+                              ),
+                            ),
+                          ]),
+                    ),
+                  ],
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      width: size.width * 0.5,
+                      margin: const EdgeInsets.fromLTRB(70, 20, 70, 50),
+                      child: CustomFilledButton(
+                        text: "Submit",
+                        onPressed: () =>
+                            context.read<AddAssignmentBloc>().add(Submit()),
+                      ),
+                    ),
+                  ],
+                )
               ],
             ),
-          ],
-        ),
-        Positioned(
-          top: size.height * 0.02,
-          right: 10,
-          child: GestureDetector(
-            onTap: () => {
-              Navigator.pop(context),
-            },
-            child: SizedBox(
-              child: Icon(
-                Icons.close,
-                color: Theme.of(context).colorScheme.primary,
-                size: 30,
+            Positioned(
+              top: size.height * 0.02,
+              right: 10,
+              child: GestureDetector(
+                onTap: () => {
+                  Navigator.pop(context),
+                },
+                child: SizedBox(
+                  child: Icon(
+                    Icons.close,
+                    color: Theme.of(context).colorScheme.primary,
+                    size: 30,
+                  ),
+                ),
               ),
-            ),
-          ),
-        )
-      ],
+            )
+          ],
+        );
+      },
     );
   }
 }

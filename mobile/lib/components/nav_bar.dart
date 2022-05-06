@@ -12,6 +12,7 @@ import 'package:sikshyalaya/screens/Notes/student_notes.dart';
 import 'package:sikshyalaya/screens/Quiz/student_quiz.dart';
 import 'package:sikshyalaya/screens/Chat/student_chat.dart';
 import 'package:sikshyalaya/screens/Teacher-Dashboard/teacher-dashboard.dart';
+import 'package:sikshyalaya/screens/Teacher-Notes/teacher_notes.dart';
 import 'package:sikshyalaya/screens/Teacher-Quiz/teacher_quiz.dart';
 
 import '../global/authentication/auth_bloc.dart';
@@ -188,7 +189,9 @@ class NavBar extends StatelessWidget {
             onTap: () => Navigator.of(context).push(
               PageRouteBuilder(
                 pageBuilder: (context, animation1, animation2) =>
-                    const StudentNotes(),
+                    authBloc.state.status == AuthStatus.studentSession
+                        ? const StudentNotes()
+                        : const TeacherNotes(),
                 transitionDuration: Duration.zero,
                 reverseTransitionDuration: Duration.zero,
               ),
@@ -225,7 +228,10 @@ class NavBar extends StatelessWidget {
             ),
             onTap: () => Navigator.of(context).push(
               PageRouteBuilder(
-                pageBuilder: (context, animation1, animation2) => StudentChat(),
+                pageBuilder: (context, animation1, animation2) =>
+                    authBloc.state.status == AuthStatus.studentSession
+                        ? StudentChat()
+                        : StudentChat(),
                 transitionDuration: Duration.zero,
                 reverseTransitionDuration: Duration.zero,
               ),

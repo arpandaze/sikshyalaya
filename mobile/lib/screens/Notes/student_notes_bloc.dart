@@ -34,8 +34,9 @@ class StudentNoteBloc extends Bloc<StudentNoteEvent, StudentNoteState> {
     emit(
       state.copyWith(
         isLoaded: true,
-        recentList:
-            studentNote.sublist(studentNote.length - 2, studentNote.length),
+        recentList: studentNote.sublist(
+            studentNote.length - 2 > 0 ? studentNote.length - 2 : 0,
+            studentNote.length),
         noteList: studentNote.sublist(0, studentNote.length - 1),
       ),
     );

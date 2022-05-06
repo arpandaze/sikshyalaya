@@ -49,6 +49,7 @@ dependencies:
   otp_text_field: ^1.1.2
   web_socket_channel: ^2.1.0
   intl: ^0.17.0
+  multi_select_flutter: ^4.1.2
 
 #state management
 get: ^4.1.4
