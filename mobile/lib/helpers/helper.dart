@@ -21,6 +21,7 @@ Map dateHandler(String dateTime) {
   String month = "";
   String monthDay = "";
   bool passed = false;
+  int differenceInDays = 0;
 
   dateTimeParsed = DateTime.tryParse(dateTime);
 
@@ -39,7 +40,7 @@ Map dateHandler(String dateTime) {
     monthInt = dateTimeParsed.month;
     monthDay = dateTimeParsed.day.toString().padLeft(2, '0');
 
-    final differenceInDays = dateTimeParsed.difference(DateTime.now()).inDays;
+    differenceInDays = dateTimeParsed.difference(DateTime.now()).inDays;
     var completeDateDay;
 
     switch (day) {
@@ -156,6 +157,7 @@ Map dateHandler(String dateTime) {
     "month": month,
     "monthDay": monthDay,
     "passed": passed,
+    "passedDays": differenceInDays,
   };
 }
 
