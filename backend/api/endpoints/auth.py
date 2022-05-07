@@ -19,7 +19,14 @@ import schemas
 from core import throttle
 from core.config import settings
 from core.db import redis_session_client
-from core.security import create_sesssion_token, get_password_hash, create_2fa_temp_token, create_passwordless_create_token, authorize_passwordless_token, verify_passwordless_token
+from core.security import (
+    create_sesssion_token,
+    get_password_hash,
+    create_2fa_temp_token,
+    create_passwordless_create_token,
+    authorize_passwordless_token,
+    verify_passwordless_token,
+)
 from cruds import group
 from schemas.user import UserUpdate, VerifyUser
 from utils import deps
@@ -36,7 +43,9 @@ router = APIRouter()
 
 
 @router.post(
-    "/web/", response_model=Optional[schemas.user.UserLoginReturn], response_model_exclude_none=True
+    "/web/",
+    response_model=Optional[schemas.user.UserLoginReturn],
+    response_model_exclude_none=True,
 )
 async def login_web_session(
     db: Session = Depends(deps.get_db),
@@ -57,17 +66,26 @@ async def login_web_session(
             status_code=401, detail="Error ID: 111"
         )  # Incorrect email or password
     elif not user.is_active:
-        raise HTTPException(
-            status_code=401, detail="Error ID: 112")  # Inactive user
+        raise HTTPException(status_code=401, detail="Error ID: 112")  # Inactive user
 
     if user.two_fa_secret:
         temp_token = await create_2fa_temp_token(user, form_data.remember_me)
         response.set_cookie("temp_session", temp_token, httponly=True)
-        return {"msg": "2FA required before proceeding!", "two_fa_required": True, "user": None}
+        return {
+            "msg": "2FA required before proceeding!",
+            "two_fa_required": True,
+            "user": None,
+        }
     else:
-        session_token = await create_sesssion_token(user, form_data.remember_me, request)
+        session_token = await create_sesssion_token(
+            user, form_data.remember_me, request
+        )
         response.set_cookie("session", session_token, httponly=True)
-        return {"msg": "Logged in successfully!", "user": user, "two_fa_required": False}
+        return {
+            "msg": "Logged in successfully!",
+            "user": user,
+            "two_fa_required": False,
+        }
 
 
 @router.get("/password-less/create")
@@ -102,8 +120,7 @@ async def verify_passwordless_login(
     user = cruds.crud_user.get_by_id(db, id=user_id)
 
     if not user:
-        raise HTTPException(
-            status_code=HTTP_401_UNAUTHORIZED, detail="Invalid user!")
+        raise HTTPException(status_code=HTTP_401_UNAUTHORIZED, detail="Invalid user!")
 
     session_token = await create_sesssion_token(user, True, request)
     response.set_cookie("session", session_token, httponly=True)
@@ -127,7 +144,7 @@ async def sign_up(
             status_code=400,
             detail="Email is associated with another user!",
         )  # The user with this username already exists in the system
-    email_host = user_in.email[user_in.email.index("@") + 1:]
+    email_host = user_in.email[user_in.email.index("@") + 1 :]
 
     if email_host not in settings.ALLOWED_EMAIL_HOST:
         raise HTTPException(
@@ -252,8 +269,7 @@ async def reset_password(
             detail="Error ID: 114",
         )  # The user with this username does not exist in the system.
     elif not cruds.crud_user.is_active(user):
-        raise HTTPException(
-            status_code=400, detail="Error ID: 115")  # Inactive user
+        raise HTTPException(status_code=400, detail="Error ID: 115")  # Inactive user
     hashed_password = get_password_hash(new_password)
     user.hashed_password = hashed_password
     db.add(user)

@@ -7,7 +7,7 @@ from hashlib import sha1
 from fastapi import Request
 from passlib.context import CryptContext
 from starlette.exceptions import HTTPException
-from starlette.status import HTTP_102_PROCESSING, HTTP_404_NOT_FOUND
+from starlette.status import HTTP_102_PROCESSING, HTTP_404_NOT_FOUND, HTTP_425_TOO_EARLY
 
 from core.config import settings
 from core.db import redis_session_client
@@ -93,16 +93,21 @@ async def authorize_passwordless_token(user: User, token: str) -> bool:
 
 
 async def verify_passwordless_token(token: str) -> int:
-    value = await redis_session_client.client.get(
+    value = (await redis_session_client.client.get(
         f"password_less_{token}",
-    )
+    )).decode("UTF-8")
 
     if value == None:
-        raise HTTPException(status_code=HTTP_404_NOT_FOUND,
-                            detail="Invalid token!")
+        raise HTTPException(
+            status_code=HTTP_404_NOT_FOUND,
+            detail="Invalid token!"
+        )
+
     elif value == "-1":
-        raise HTTPException(status_code=HTTP_102_PROCESSING,
-                            detail="Waiting for authorization!")
+        raise HTTPException(
+            status_code=HTTP_425_TOO_EARLY,
+            detail="Waiting for authorization!"
+        )
     else:
         await redis_session_client.client.delete(
             f"password_less_{token}",
