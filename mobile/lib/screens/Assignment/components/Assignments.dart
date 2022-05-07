@@ -109,18 +109,34 @@ class Assignments extends StatelessWidget {
                   dueDate: dueDate,
                   contents: contents,
                   files: files,
-                )
-              : AssignmentSubmission(
-                  assignmentid: assignmentid,
-                  title: title,
-                  dueDate: dueDate,
-                  contents: contents,
-                  files: files,
-                ),
-          transitionDuration: Duration.zero,
-          reverseTransitionDuration: Duration.zero,
+                        )
+                  : TAssignmentView(
+                      assignmentId: assignmentid,
+                      title: title,
+                      dueDate: dueDate,
+                      contents: contents,
+                      files: files,
+                    ),
+          // pageBuilder: (context, animation1, animation2) => submitted == true
+          //     ? AssignmentSubmissionView(
+          //         assignmentid: assignmentid,
+          //         title: title,
+          //         dueDate: dueDate,
+          //         contents: contents,
+          //         files: files,
+          //       )
+          //     : AssignmentSubmission(
+          //         assignmentid: assignmentid,
+          //         title: title,
+          //         dueDate: dueDate,
+          //         contents: contents,
+          //         files: files,
+          //       ),
+          // transitionDuration: Duration.zero,
+          // reverseTransitionDuration: Duration.zero,
         ),
       ),
     );
   }
 }
+
