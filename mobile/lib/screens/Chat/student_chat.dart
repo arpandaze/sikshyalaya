@@ -31,10 +31,18 @@ class StudentChat extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     TextEditingController messageController = TextEditingController();
     ScrollController scrollController = ScrollController();
-
     return BlocBuilder<ChatBloc, ChatState>(
       buildWhen: (prev, next) => prev != next,
       builder: (context, state) {
+        if (state.isReady == false) {
+          return StudentWrapper(
+            pageName: "Chat",
+            child: Container(
+              alignment: Alignment.center,
+              child: const CircularProgressIndicator(),
+            ),
+          );
+        }
         WidgetsBinding.instance?.addPostFrameCallback(
           (_) {
             scrollController
@@ -54,6 +62,7 @@ class StudentChat extends StatelessWidget {
             ).onError((error, stackTrace) => null);
           },
         );
+
         return StudentWrapper(
           pageName: "Chat",
           child: ListView(
