@@ -26,104 +26,116 @@ class TopBar extends StatelessWidget {
     return content(context);
   }
 
-  Container content(BuildContext context) {
+  Widget content(BuildContext context) {
     final authBloc = BlocProvider.of<AuthBloc>(context);
 
-    return Container(
-      width: size.width,
-      height: size.height * 0.10,
-      child: BlocBuilder<NavBloc, NavState>(
-          buildWhen: (prev, next) => prev != next,
-          builder: (context, snapshot) {
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.fromLTRB(20, size.height * 0.025, 0, 0),
-                  child: Text(pageName,
-                      style: Theme.of(context).textTheme.headline4),
-                ),
-                Container(
-                  margin: EdgeInsets.fromLTRB(0, size.height * 0.012, 20, 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+    return BlocBuilder<AuthBloc, AuthState>(
+        buildWhen: (prev, next) => prev != next,
+        builder: (context, authSnapshot) {
+          return Container(
+            width: size.width,
+            height: size.height * 0.10,
+            child: BlocBuilder<NavBloc, NavState>(
+                buildWhen: (prev, next) => prev != next,
+                builder: (context, navSnapshot) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                    children: <Widget>[
                       Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.end,
+                        margin:
+                            EdgeInsets.fromLTRB(20, size.height * 0.025, 0, 0),
+                        child: Text(pageName,
+                            style: Theme.of(context).textTheme.headline4),
+                      ),
+                      Container(
+                        margin:
+                            EdgeInsets.fromLTRB(0, size.height * 0.012, 20, 0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              children: [
-                                Container(
-                                  child: Text(
-                                    'Hello, ',
-                                    style:
-                                        Theme.of(context).textTheme.subtitle1,
-                                  ),
-                                ),
-                                Container(
-                                  child: Text(
-                                    '${authBloc.state.user?["full_name"] ?? "User"}'
-                                        .split(' ')[0],
-                                    style:
-                                        Theme.of(context).textTheme.subtitle1,
-                                  ),
-                                ),
-                              ],
-                            ),
                             Container(
-                              child: Text(
-                                getInitials(authBloc.state.getGroupString()) +
-                                    ' ' +
-                                    authBloc.state
-                                        .getGroupString()
-                                        .split(' ')
-                                        .last,
-                                style: Theme.of(context).textTheme.caption,
-                                textAlign: TextAlign.right,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        child: Text(
+                                          'Hello, ',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle1,
+                                        ),
+                                      ),
+                                      Container(
+                                        child: Text(
+                                          '${authBloc.state.user?["full_name"] ?? "User"}'
+                                              .split(' ')[0],
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle1,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Container(
+                                    child: Text(
+                                      getInitials(
+                                              authBloc.state.getGroupString()) +
+                                          ' ' +
+                                          authBloc.state
+                                              .getGroupString()
+                                              .split(' ')
+                                              .last,
+                                      style:
+                                          Theme.of(context).textTheme.caption,
+                                      textAlign: TextAlign.right,
+                                    ),
+                                  )
+                                ],
                               ),
+                            ),
+                            GestureDetector(
+                              child: Container(
+                                margin: const EdgeInsets.fromLTRB(8, 0, 0, 0),
+                                child: ClipRRect(
+                                  borderRadius:
+                                      BorderRadius.circular(14), // Image border
+                                  child: SizedBox.fromSize(
+                                    size: const Size.fromRadius(
+                                        30), // Image radius
+                                    child: getProfileImage(
+                                        authSnapshot.user?["profile_image"]),
+                                  ),
+                                ),
+                              ),
+                              onTap: () => Navigator.of(context).push(
+                                PageRouteBuilder(
+                                  pageBuilder:
+                                      (context, animation1, animation2) =>
+                                          const Profile(),
+                                  transitionDuration: Duration.zero,
+                                  reverseTransitionDuration: Duration.zero,
+                                ),
+                              ),
+                              /* onTap: () => { */
+                              /*   context */
+                              /*       .read<NavBloc>() */
+                              /*       .add(const NavChangeEvent(page: Profile())), */
+                              /*   /* Navigator.of(context).pushNamed('/profile') */ */
+                              /* }, */
                             )
                           ],
                         ),
                       ),
-                      GestureDetector(
-                        child: Container(
-                          margin: const EdgeInsets.fromLTRB(8, 0, 0, 0),
-                          child: ClipRRect(
-                            borderRadius:
-                                BorderRadius.circular(14), // Image border
-                            child: SizedBox.fromSize(
-                              size: const Size.fromRadius(30), // Image radius
-                              child: getProfileImage(
-                                  authBloc.state.user?["profile_image"]),
-                            ),
-                          ),
-                        ),
-                        onTap: () => Navigator.of(context).push(
-                          PageRouteBuilder(
-                            pageBuilder: (context, animation1, animation2) =>
-                                const Profile(),
-                            transitionDuration: Duration.zero,
-                            reverseTransitionDuration: Duration.zero,
-                          ),
-                        ),
-                        /* onTap: () => { */
-                        /*   context */
-                        /*       .read<NavBloc>() */
-                        /*       .add(const NavChangeEvent(page: Profile())), */
-                        /*   /* Navigator.of(context).pushNamed('/profile') */ */
-                        /* }, */
-                      )
                     ],
-                  ),
-                ),
-              ],
-            );
-          }),
-    );
+                  );
+                }),
+          );
+        });
   }
 
   Widget getProfileImage(String? profilePath) {

@@ -8,10 +8,10 @@ from schemas import TeacherShort, CourseMin, GroupReturn
 
 class AssignmentBase(BaseModel):
     due_date: datetime
-    marks: int=None
+    marks: int = None
     title: str
-    contents: str=None
-    files:List[str]=None
+    contents: str = None
+    files: List[str] = None
     instructor: List[int]
     group: List[int]
     course_id: int
@@ -26,7 +26,7 @@ class AssignmentUpdate(AssignmentBase):
     marks: int = None
     title: str = None
     contents: str = None
-    files:List[str] = None
+    files: List[str] = None
     instructor: List[int] = None
     group: List[int] = None
     course_id: int = None
@@ -45,14 +45,15 @@ class AssignmentInDB(AssignmentInDBBase):
 
 class Assignment(BaseModel):
     id: Optional[int]
-    due_date: datetime=None
-    marks: int=None
+    due_date: datetime = None
+    marks: int = None
     title: str
-    contents: str=None
-    files:List[str]=None
+    contents: str = None
+    files: List[str] = None
     instructor: List[TeacherShort]
     group: List[GroupReturn]
     course: CourseMin
+    exists: Optional[bool]
 
     class Config:
         orm_mode = True

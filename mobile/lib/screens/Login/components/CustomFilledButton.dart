@@ -22,7 +22,8 @@ class CustomFilledButton extends StatelessWidget {
       color: Theme.of(context).colorScheme.primary,
       child: Text(
         text,
-        style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+        style: (Theme.of(context).textTheme.subtitle1)!
+            .merge(TextStyle(color: Theme.of(context).colorScheme.onPrimary)),
       ),
       onPressed: () {
         onPressed?.call();

@@ -11,6 +11,7 @@ class TeacherQuizBloc extends Bloc<TeacherQuizEvent, TeacherQuizState> {
   TeacherQuizBloc({required this.teacherQuizRepository})
       : super(const TeacherQuizState()) {
     on<GetTeacherQuiz>(_getTeacherQuiz);
+    on<DeleteQuiz>(_onDeleteQuiz);
   }
 
   final TeacherQuizRepository teacherQuizRepository;
@@ -19,10 +20,9 @@ class TeacherQuizBloc extends Bloc<TeacherQuizEvent, TeacherQuizState> {
       GetTeacherQuiz event, Emitter<TeacherQuizState> emit) async {
     print("GetQuiz");
 
-    final newState = await TeacherQuizState.load();
 
     final teacherQuiz = await teacherQuizRepository.getTeacherQuiz(
-        url: event.url, token: newState.token!);
+        url: event.url);
 
     var active = [TQuiz.empty];
     var past = [TQuiz.empty];
@@ -48,6 +48,13 @@ class TeacherQuizBloc extends Bloc<TeacherQuizEvent, TeacherQuizState> {
     if (past.length != 1) past.removeAt(0);
     if (other.length != 1) other.removeAt(0);
     emit(state.copyWith(
-        active: active, past: past, other: other, token: newState.token));
+        active: active, past: past, other: other));
+  }
+
+  void _onDeleteQuiz(DeleteQuiz event, Emitter<TeacherQuizState> emit) async {
+    var returnQuiz = await teacherQuizRepository.deleteQuiz(
+      quiz_id: event.quiz_id,
+    );
+    print(returnQuiz);
   }
 }

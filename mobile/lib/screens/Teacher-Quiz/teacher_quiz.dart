@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sikshyalaya/components/not_available.dart';
+import 'package:sikshyalaya/global/authentication/auth_bloc.dart';
 import 'package:sikshyalaya/repository/teacher_quiz.dart';
 import 'package:sikshyalaya/repository/models/teacher_quiz.dart';
 import 'package:sikshyalaya/screens/Login/components/CustomTextField.dart';
@@ -19,7 +20,8 @@ class TeacherQuiz extends StatelessWidget {
     return StudentWrapper(
       pageName: "Quiz",
       child: RepositoryProvider(
-        create: (context) => TeacherQuizRepository(),
+        create: (context) =>
+            TeacherQuizRepository(token: context.read<AuthBloc>().state.token),
         child: BlocProvider(
           create: (context) => TeacherQuizBloc(
               teacherQuizRepository: context.read<TeacherQuizRepository>())
@@ -65,6 +67,7 @@ class TeacherQuiz extends StatelessWidget {
                         print("quiz");
                         print(state.active![i]);
                         return QuizPreview(
+                          quizId: state.active![i].id,
                           size: size,
                           colorType: Theme.of(context).colorScheme.primary,
                           month: dateHandler(
@@ -104,6 +107,7 @@ class TeacherQuiz extends StatelessWidget {
                       itemCount: state.other!.length,
                       itemBuilder: (context, i) {
                         return QuizPreview(
+                          quizId: state.other![i].id,
                           size: size,
                           colorType: Theme.of(context).colorScheme.primary,
                           month:
@@ -144,6 +148,8 @@ class TeacherQuiz extends StatelessWidget {
                       itemBuilder: (context, i) {
                         return QuizPreview(
                           size: size,
+                          quizId: state.past![i].id,
+
                           colorType: Theme.of(context).colorScheme.surface,
                           month:
                               dateHandler(state.past![i].start_time!)["month"],

@@ -13,3 +13,11 @@ class GetTeacherQuiz extends TeacherQuizEvent {
   @override
   List<Object> get props => [url];
 }
+class DeleteQuiz extends TeacherQuizEvent {
+  final int quiz_id;
+
+  DeleteQuiz({required this.quiz_id});
+
+  @override
+  List<Object> get props => [quiz_id];
+}

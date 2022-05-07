@@ -21,3 +21,4 @@ from .quiz_answer import crud_quiz_answer
 from .quiz import crud_quiz, crud_question
 from .file import crud_file
 from .assignment import crud_assignment
+from .assignment_upload import crud_assignment_upload

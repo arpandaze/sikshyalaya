@@ -41,6 +41,29 @@ class AuthenticationRepository {
     return decodedResponse;
   }
 
+  Future<Object> refetchProfile() async {
+    final url = Uri.parse('$backendBase/users/me/');
+
+    final token = await storage.read(key: "token");
+    final headers = {"Cookie": "session=$token"};
+
+    var response = await http.get(url, headers: headers);
+
+    if (response.statusCode != 200) {
+      throw Exception("Profile refetch failed!");
+    }
+
+    var decodedResponse =
+        jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
+
+    storage.write(
+      key: "user",
+      value: jsonEncode(decodedResponse),
+    );
+
+    return decodedResponse;
+  }
+
   Future<Object> logout() async {
     await storage.deleteAll();
     return "Logged out successfully!";
