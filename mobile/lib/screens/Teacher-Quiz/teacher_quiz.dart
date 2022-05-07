@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sikshyalaya/components/not_available.dart';
+import 'package:sikshyalaya/global/authentication/auth_bloc.dart';
 import 'package:sikshyalaya/repository/teacher_quiz.dart';
 import 'package:sikshyalaya/repository/models/teacher_quiz.dart';
 import 'package:sikshyalaya/screens/Login/components/CustomTextField.dart';
@@ -19,7 +20,8 @@ class TeacherQuiz extends StatelessWidget {
     return StudentWrapper(
       pageName: "Quiz",
       child: RepositoryProvider(
-        create: (context) => TeacherQuizRepository(),
+        create: (context) =>
+            TeacherQuizRepository(token: context.read<AuthBloc>().state.token),
         child: BlocProvider(
           create: (context) => TeacherQuizBloc(
               teacherQuizRepository: context.read<TeacherQuizRepository>())
@@ -73,19 +75,20 @@ class TeacherQuiz extends StatelessWidget {
                   : ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: state.active!.length - 1,
+                      itemCount: state.active!.length,
                       itemBuilder: (context, i) {
                         return QuizPreview(
+                          quizId: state.active![i].id,
                           size: size,
                           colorType: Theme.of(context).colorScheme.primary,
                           month: dateHandler(
-                              state.active![i + 1].start_time!)["month"],
+                              state.active![i].start_time!)["month"],
                           day: dateHandler(
-                              state.active![i + 1].start_time!)["monthDay"],
-                          course: state.active![i + 1].course!.course_code!,
-                          description: state.active![i + 1].description!,
+                              state.active![i].start_time!)["monthDay"],
+                          course: state.active![i].course!.course_code!,
+                          description: state.active![i].description!,
                           instructor:
-                              studentInstructor(state.past![i + 1].instructor),
+                              studentInstructor(state.past![i].instructor),
                         );
                       }),
             ),
@@ -115,6 +118,7 @@ class TeacherQuiz extends StatelessWidget {
                       itemCount: state.other!.length,
                       itemBuilder: (context, i) {
                         return QuizPreview(
+                          quizId: state.other![i].id,
                           size: size,
                           colorType: Theme.of(context).colorScheme.primary,
                           month:
@@ -155,6 +159,8 @@ class TeacherQuiz extends StatelessWidget {
                       itemBuilder: (context, i) {
                         return QuizPreview(
                           size: size,
+                          quizId: state.past![i].id,
+
                           colorType: Theme.of(context).colorScheme.surface,
                           month:
                               dateHandler(state.past![i].start_time!)["month"],

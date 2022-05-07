@@ -94,7 +94,7 @@ class StudentWrapper extends StatelessWidget {
           case AuthStatus.teacherSession:
             Navigator.pushNamedAndRemoveUntil(
               context,
-              "/student_dashboard",
+              "/teacher_dashboard",
               (route) => false,
             );
             break;
