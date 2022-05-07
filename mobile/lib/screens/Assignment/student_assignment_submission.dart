@@ -56,12 +56,14 @@ class AssignmentSubmission extends StatelessWidget {
     //           scrollDirection: Axis.vertical,
 
     return BlocBuilder<AssignmentUploadBloc, AssignmentUploadState>(
-      builder: (context, state) {
-        return SafeArea(
-          top: true,
-          bottom: true,
-          child: Scaffold(
-            body: Stack(alignment: Alignment.center, children: <Widget>[
+        builder: (context, state) {
+      return SafeArea(
+        top: true,
+        bottom: true,
+        child: Scaffold(
+          body: Stack(
+            alignment: Alignment.center,
+            children: <Widget>[
               ListView(
                 padding: EdgeInsets.fromLTRB(0, size.width * 0.10, 0, 0),
                 scrollDirection: Axis.vertical,
@@ -102,8 +104,7 @@ class AssignmentSubmission extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text("Due, ${dueDate!}",
-                                    style:
-                                        Theme.of(context).textTheme.caption),
+                                    style: Theme.of(context).textTheme.caption),
                                 Text(
                                   "Assigned",
                                   style: Theme.of(context).textTheme.subtitle2,
@@ -191,8 +192,6 @@ class AssignmentSubmission extends StatelessWidget {
                           ],
                         ),
                       ),
-                      
-                   
                     ],
                   ),
                   Row(
@@ -250,7 +249,6 @@ class AssignmentSubmission extends StatelessWidget {
                                                   .subtitle1,
                                             ),
                                           ),
-                                          
                                           GestureDetector(
                                             child: Icon(
                                               Icons.delete_forever_outlined,
@@ -288,109 +286,28 @@ class AssignmentSubmission extends StatelessWidget {
                                           .map((path) => File(path!))
                                           .toList();
 
-                                        context
-                                            .read<AssignmentUploadBloc>()
-                                            .add(NewFilePicked(
-                                                file: files,
-                                                paths: result.paths));
-                                      } else {
-                                        // User canceled the picker
-                                      }
-                                    },
-                                  ),
+                                      context.read<AssignmentUploadBloc>().add(
+                                          NewFilePicked(
+                                              file: files,
+                                              paths: result.paths));
+                                    } else {
+                                      // User canceled the picker
+                                    }
+                                  },
                                 ),
-                              ]),
-                        ),
-                      ],
-                    ),
-                    Container(
-                      padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
-                      margin: const EdgeInsets.fromLTRB(70, 0, 70, 0),
-                      width: size.width * 0.5,
-                      child: state.uploadStat == uploadStatus.uploadNotStarted
-                          ? CustomFilledButtonSecond(
-                              colorType: Theme.of(context).colorScheme.primary,
-                              textColor: Colors.black,
-                              buttonText: "Submit",
-                              onPressed: () async {
-                                if (state.toUpload.length > 0) {
-                                  context.read<AssignmentUploadBloc>().add(
-                                        SubmitAssignment(
-                                            assignmentid: assignmentid ?? 0),
-                                      );
-                                } else {
-                                  //donot allow post
-                                }
-                              },
-                            )
-                          : state.uploadStat == uploadStatus.uploadStart
-                              ? Container(
-                                  child: Center(
-                                  child: CircularProgressIndicator(),
-                                ))
-                              : state.uploadStat == uploadStatus.uploadFailed
-                                  ? Column(
-                                      children: [
-                                        Center(
-                                          child: Text('Upload Failed'),
-                                        ),
-                                        CustomFilledButtonSecond(
-                                          colorType: Theme.of(context)
-                                              .colorScheme
-                                              .primary,
-                                          textColor: Colors.black,
-                                          buttonText: "Submit",
-                                          onPressed: () async {
-                                            if (state.toUpload.length > 0) {
-                                              context
-                                                  .read<AssignmentUploadBloc>()
-                                                  .add(
-                                                    SubmitAssignment(
-                                                        assignmentid:
-                                                            assignmentid ?? 0),
-                                                  );
-                                            } else {
-                                              //donot allow post
-                                            }
-                                          },
-                                        ),
-                                      ],
-                                    )
-                                  : Container(
-                                      width: size.width * 0.9,
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        "Uploaded",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .subtitle1,
-                                      ),
-                                    ),
-                    ),
-                  ],
-                ),
-                Positioned(
-                  top: size.height * 0.02,
-                  right: 10,
-                  child: GestureDetector(
-                    onTap: () => {
-                      Navigator.pop(context),
-                    },
-                    child: SizedBox(
-                      child: Icon(
-                        Icons.close,
-                        color: Theme.of(context).colorScheme.primary,
-                        size: 30,
+                              ),
+                            ]),
                       ),
                     ],
                   ),
                   Container(
                     padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
-                    margin: const EdgeInsets.fromLTRB(150, 0, 150, 0),
+                    margin: const EdgeInsets.fromLTRB(70, 0, 70, 0),
+                    width: size.width * 0.5,
                     child: state.uploadStat == uploadStatus.uploadNotStarted
                         ? CustomFilledButtonSecond(
                             colorType: Theme.of(context).colorScheme.primary,
-                            textColor: Theme.of(context).colorScheme.primary,
+                            textColor: Colors.black,
                             buttonText: "Submit",
                             onPressed: () async {
                               if (state.toUpload.length > 0) {
@@ -440,16 +357,13 @@ class AssignmentSubmission extends StatelessWidget {
                                     width: size.width * 0.9,
                                     alignment: Alignment.center,
                                     child: Text(
-                                      "Uploaded!",
+                                      "Uploaded",
                                       style:
                                           Theme.of(context).textTheme.subtitle1,
                                     ),
                                   ),
-                                 
-                                   
                   ),
                 ],
-                
               ),
               Positioned(
                 top: size.height * 0.02,
@@ -466,12 +380,12 @@ class AssignmentSubmission extends StatelessWidget {
                     ),
                   ),
                 ),
-              )
-            ]),
+              ),
+            ],
           ),
-        );
-      },
-    );
+        ),
+      );
+    });
   }
 
   Widget iconPicker(String filetype) {
