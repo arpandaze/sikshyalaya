@@ -34,9 +34,9 @@ class StudentQuizBloc extends Bloc<StudentQuizEvent, StudentQuizState> {
       var parsedStartDate = DateTime.tryParse(quiz.start_time!);
       var parsedEndDate = DateTime.tryParse(quiz.end_time!);
 
-      if (parsedEndDate != null || parsedStartDate != null) {
-        parsedStartDate = parsedStartDate!.add(parsedStartDate.timeZoneOffset);
-        parsedEndDate = parsedEndDate!.add(parsedEndDate.timeZoneOffset);
+      if (parsedEndDate != null && parsedStartDate != null) {
+        parsedStartDate = parsedStartDate.add(parsedStartDate.timeZoneOffset);
+        parsedEndDate = parsedEndDate.add(parsedEndDate.timeZoneOffset);
 
         if (parsedEndDate.isAfter(DateTime.now()) &&
             parsedStartDate.isBefore(DateTime.now())) {

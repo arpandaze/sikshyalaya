@@ -9,14 +9,19 @@ class ClassSessionCreateForm:
         self,
         start_time: datetime = Form(...),
         end_time: datetime = Form(...),
-        instructor: Optional[List[int]] = Form([]),
+        instructor: Optional[str] = Form(None),
         group: int = Form(...),
         description: str = Form(...),
         file: Optional[List[UploadFile]] = File(None),
     ):
         self.start_time = start_time
         self.end_time = end_time
-        self.instructor = instructor
+
+        if instructor:
+            self.instructor = instructor.split(",")
+        else:
+            self.instructor = []
+
         self.group = group
         self.description = description
         self.file = file

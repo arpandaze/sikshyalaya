@@ -51,7 +51,11 @@ def send_test_email(email_to: str) -> None:
         email_to=email_to,
         subject_template=subject,
         html_template=template_str,
-        environment={"project_name": settings.PROJECT_NAME, "email": email_to},
+        environment={
+            "project_name": settings.PROJECT_NAME,
+            "email": email_to,
+            "frontbase": settings.FRONTEND_URL_BASE,
+        },
     )
 
 
@@ -74,6 +78,7 @@ async def send_reset_password_email(user: User) -> None:
             "username": user.email,
             "name": user.full_name,
             "email": user.email,
+            "frontbase": settings.FRONTEND_URL_BASE,
             "valid_hours": settings.EMAIL_RESET_TOKEN_EXPIRE_HOURS,
             "link": link,
         },
@@ -97,6 +102,7 @@ async def send_verification_email(user: User) -> None:
         environment={
             "name": user.full_name,
             "link": link,
+            "frontbase": settings.FRONTEND_URL_BASE,
         },
     )
 

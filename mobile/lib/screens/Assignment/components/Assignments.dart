@@ -5,7 +5,6 @@ import 'package:sikshyalaya/screens/Assignment/student_assignment_submission.dar
 import 'package:sikshyalaya/components/not_available.dart';
 import 'package:sikshyalaya/screens/Student/student_wrapper.dart';
 
-
 class Assignments extends StatelessWidget {
   const Assignments({
     Key? key,
@@ -14,6 +13,8 @@ class Assignments extends StatelessWidget {
     required this.dueDate,
     required this.instructor,
     required this.contents,
+    required this.files,
+    this.passed = false,
   }) : super(key: key);
 
   final String? title;
@@ -21,6 +22,8 @@ class Assignments extends StatelessWidget {
   final String courseCode;
   final String instructor;
   final String contents;
+  final List<String> files;
+  final bool passed;
 
   @override
   Widget build(BuildContext context) {
@@ -82,10 +85,11 @@ class Assignments extends StatelessWidget {
         PageRouteBuilder(
           pageBuilder: (context, animation1, animation2) =>
               AssignmentSubmission(
-                  title: title,
-                  dueDate: dueDate,
-                  contents: contents,
-                  files: ""),
+            title: title,
+            dueDate: dueDate,
+            contents: contents,
+            files: files,
+          ),
           transitionDuration: Duration.zero,
           reverseTransitionDuration: Duration.zero,
         ),

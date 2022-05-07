@@ -170,18 +170,31 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         List<ChatMessage> messageList = [];
 
         for (var oneMsg in history) {
-          final sender = students!.where((element) {
-            return element.id == int.parse(oneMsg["user"]);
-          }).toList()[0];
+          if (oneMsg["msg_type"] != 3) {
+            final sender = students!.where((element) {
+              return element.id == int.parse(oneMsg["user"]);
+            }).toList()[0];
 
-          messageList.add(
-            ChatMessage(
+            messageList.add(
+              ChatMessage(
                 messageContent: oneMsg["data"],
                 isMe: user["id"] == sender.id,
                 senderName: sender.fullName,
                 time: formatTime(oneMsg["time"]),
-                senderImage: sender.profileImage),
-          );
+                senderImage: sender.profileImage,
+              ),
+            );
+          } else {
+            messageList.add(
+              ChatMessage(
+                messageContent: oneMsg["data"],
+                isMe: user["id"] == false,
+                senderName: "Anon",
+                time: formatTime(oneMsg["time"]),
+                senderImage: null,
+              ),
+            );
+          }
         }
 
         emit(state.copyWith(messageList: messageList));

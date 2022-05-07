@@ -21,6 +21,7 @@ Map dateHandler(String dateTime) {
   String month = "";
   String monthDay = "";
   bool passed = false;
+  int differenceInDays = 0;
 
   dateTimeParsed = DateTime.tryParse(dateTime);
 
@@ -39,7 +40,7 @@ Map dateHandler(String dateTime) {
     monthInt = dateTimeParsed.month;
     monthDay = dateTimeParsed.day.toString().padLeft(2, '0');
 
-    final differenceInDays = dateTimeParsed.difference(DateTime.now()).inDays;
+    differenceInDays = dateTimeParsed.difference(DateTime.now()).inDays;
     var completeDateDay;
 
     switch (day) {
@@ -156,6 +157,38 @@ Map dateHandler(String dateTime) {
     "month": month,
     "monthDay": monthDay,
     "passed": passed,
+    "passedDays": differenceInDays,
+  };
+}
+
+Map nameHandler(String fullName) {
+  String firstName = "";
+  String middleName = "";
+  String lastName = "";
+
+  if (fullName.length == 0) {
+    return {
+      "firstName": firstName,
+      "middleName": middleName,
+      "lastName": lastName,
+    };
+  }
+
+  List nameList = fullName.split(" ");
+
+  if (nameList.length > 2) {
+    firstName = nameList[0];
+    middleName = nameList[1];
+    lastName = nameList[2];
+  } else {
+    firstName = nameList[0];
+    lastName = nameList[1];
+  }
+
+  return {
+    "firstName": firstName,
+    "middleName": middleName,
+    "lastName": lastName,
   };
 }
 

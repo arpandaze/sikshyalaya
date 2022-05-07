@@ -68,3 +68,14 @@ from .file import File, FileCreate, FileUpdate, FileInDB
 from .auth import LoginData
 
 from .assignment import Assignment, AssignmentCreate, AssignmentUpdate, AssignmentInDB
+
+
+from .assignment_upload import (
+    AssignmentUpload,
+    AssignmentUploadBase,
+    AssignmentUploadCreate,
+    AssignmentUploadInDB,
+    AssignmentUploadInDBBase,
+    AssignmentUploadUpdate,
+    AssignmentUploadwithName,
+)

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:sikshyalaya/components/CustomFilledButton.dart';
+import 'package:sikshyalaya/constants.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AssignmentSubmission extends StatelessWidget {
   final String? title;
   final String? dueDate;
   final String? contents;
-  final String? files;
+  final List<String>? files;
 
   const AssignmentSubmission({
     required this.title,
@@ -17,6 +19,7 @@ class AssignmentSubmission extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(files);
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       top: true,
@@ -74,20 +77,39 @@ class AssignmentSubmission extends StatelessWidget {
                                 contents!,
                                 style: Theme.of(context).textTheme.bodyText1,
                               )),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Image.asset(
-                                "assets/images/logo.png",
-                                width: 150,
-                                height: 150,
-                              ),
-                              Image.asset(
-                                "assets/images/logo.png",
-                                width: 150,
-                                height: 150,
-                              ),
-                            ],
+                          Container(
+                            // decoration: BoxDecoration(
+                            //     border: Border.all(color: Colors.black)),
+                            padding: EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 0),
+                            child: (ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              padding:
+                                  const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                              shrinkWrap: true,
+                              itemCount: files == null ? 0 : files!.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Container(
+                                  padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
+                                  child: files == null && files!.length == 0
+                                      ? null
+                                      : InkWell(
+                                          onTap: () => _launchUrl(
+                                              '$fileServerBase/${files![index]}'),
+                                          child: Text(
+                                            '${index + 1}. ${files![index].split("/").last}',
+                                            style: (Theme.of(context)
+                                                    .textTheme
+                                                    .subtitle1)!
+                                                .merge(TextStyle(
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary)),
+                                          ),
+                                        ),
+                                );
+                              },
+                            )),
                           ),
                         ],
                       ),
@@ -149,5 +171,13 @@ class AssignmentSubmission extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _launchUrl(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

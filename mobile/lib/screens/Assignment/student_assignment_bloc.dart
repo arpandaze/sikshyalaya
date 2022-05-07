@@ -27,9 +27,38 @@ class StudentAssignmentBloc
         await studentAssignmentRepository.getStudentAssignment(
       url: event.url,
     );
+
+    var submittedAssignmentList = [Assignment.empty];
+    var dueAssignmentList = [Assignment.empty];
+    var missedAssignmentList = [Assignment.empty];
+
+    for (var assignment in studentAssignment) {
+      if (assignment.exists) {
+        submittedAssignmentList.add(assignment);
+      } else {
+        var parsedDueDate = DateTime.tryParse(assignment.due_date!);
+        if (parsedDueDate != null) {
+          parsedDueDate = parsedDueDate.add(parsedDueDate.timeZoneOffset);
+          if (parsedDueDate.isAfter(DateTime.now())) {
+            dueAssignmentList.add(assignment);
+          } else {
+            missedAssignmentList.add(assignment);
+          }
+        }
+      }
+    }
+
+    if (missedAssignmentList.length != 1) missedAssignmentList.removeAt(0);
+    if (dueAssignmentList.length != 1) dueAssignmentList.removeAt(0);
+    if (submittedAssignmentList.length != 1)
+      submittedAssignmentList.removeAt(0);
+
     emit(state.copyWith(
       isLoaded: true,
       assignmentList: studentAssignment,
+      missedAssignmentList: missedAssignmentList,
+      dueAssignmentList: dueAssignmentList,
+      submittedAssignmentList: submittedAssignmentList,
     ));
   }
 }
