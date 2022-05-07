@@ -154,40 +154,48 @@ class StudentDashboard extends StatelessWidget {
                           ],
                   ),
                   Container(
-                    height: size.height * 0.07,
-                    child: GestureDetector(
-                      onTap: () => {
-                        // context
-                        //     .read<StudentDashboardBloc>()
-                        //     .add(GetStudentDash()),
-                        Navigator.of(context).push(
-                          PageRouteBuilder(
-                            pageBuilder: (context, animation1, animation2) =>
-                                ResourceViewer(
-                              classid: state.ongoing.id,
-                              title: state.ongoing.course?.course_name ?? '',
-                              description: state.ongoing.description ?? '',
-                              instructors:
-                                  studentInstructor(state.ongoing.instructor),
-                              courseCode:
-                                  state.ongoing.course?.course_code ?? '',
+                    height: state.ongoing != ClassSession.empty
+                        ? size.height * 0.07
+                        : 0,
+                    child: state.ongoing != ClassSession.empty
+                        ? GestureDetector(
+                            onTap: () => {
+                              // context
+                              //     .read<StudentDashboardBloc>()
+                              //     .add(GetStudentDash()),
+                              Navigator.of(context).push(
+                                PageRouteBuilder(
+                                  pageBuilder:
+                                      (context, animation1, animation2) =>
+                                          ResourceViewer(
+                                    classid: state.ongoing.id,
+                                    title:
+                                        state.ongoing.course?.course_name ?? '',
+                                    description:
+                                        state.ongoing.description ?? '',
+                                    instructors: studentInstructor(
+                                        state.ongoing.instructor),
+                                    courseCode:
+                                        state.ongoing.course?.course_code ?? '',
+                                  ),
+                                  transitionDuration: Duration.zero,
+                                  reverseTransitionDuration: Duration.zero,
+                                ),
+                              ),
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              width: size.width * 0.90,
+                              alignment: Alignment.center,
+                              child: Text("View Resources",
+                                  style: Theme.of(context).textTheme.subtitle1),
                             ),
-                            transitionDuration: Duration.zero,
-                            reverseTransitionDuration: Duration.zero,
-                          ),
-                        ),
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                color:
-                                    Theme.of(context).colorScheme.background)),
-                        width: size.width * 0.90,
-                        alignment: Alignment.center,
-                        child: Text("View Resources",
-                            style: Theme.of(context).textTheme.subtitle1),
-                      ),
-                    ),
+                          )
+                        : null,
                   ),
                   Divider(
                     color: Colors.grey,

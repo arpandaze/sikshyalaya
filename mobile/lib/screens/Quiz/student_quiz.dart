@@ -36,19 +36,19 @@ class StudentQuiz extends StatelessWidget {
         if (state.isLoaded) {
           return ListView(
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Container(
-                    width: size.width,
-                    child: Container(
-                        child: const CustomTextField(
-                      placeHolder: "Search Quiz",
-                      margin: EdgeInsets.fromLTRB(20, 10, 20, 5),
-                    )),
-                  )
-                ],
-              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //   children: <Widget>[
+              //     Container(
+              //       width: size.width,
+              //       child: Container(
+              //           child: const CustomTextField(
+              //         placeHolder: "Search Quiz",
+              //         margin: EdgeInsets.fromLTRB(20, 10, 20, 5),
+              //       )),
+              //     )
+              //   ],
+              // ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[

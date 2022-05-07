@@ -9,9 +9,8 @@ part of 'student_assignment.dart';
 Assignment _$AssignmentFromJson(Map<String, dynamic> json) => Assignment(
       id: json['id'] as int?,
       due_date: json['due_date'] as String?,
-      files: (json['files'] as List<dynamic>?)
-          ?.map((e) => File.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      files:
+          (json['files'] as List<dynamic>?)?.map((e) => e as String).toList(),
       title: json['title'] as String?,
       contents: json['contents'] as String?,
       marks: json['marks'] as int?,
@@ -24,6 +23,7 @@ Assignment _$AssignmentFromJson(Map<String, dynamic> json) => Assignment(
       group: (json['group'] as List<dynamic>?)
           ?.map((e) => Group.fromJson(e as Map<String, dynamic>))
           .toList(),
+      exists: json['exists'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$AssignmentToJson(Assignment instance) =>
@@ -37,4 +37,5 @@ Map<String, dynamic> _$AssignmentToJson(Assignment instance) =>
       'instructor': instance.instructor,
       'course': instance.course,
       'group': instance.group,
+      'exists': instance.exists,
     };

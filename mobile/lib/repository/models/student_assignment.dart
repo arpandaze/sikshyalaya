@@ -47,12 +47,13 @@ class Assignment {
   final int? id;
   final int? marks;
   final String? due_date;
-  final List<File>? files;
+  final List<String>? files;
   final String? title;
   final String? contents;
   final List<Instructor>? instructor;
   final Course? course;
   final List<Group>? group;
+  final bool exists;
 
   const Assignment({
     this.id,
@@ -64,12 +65,13 @@ class Assignment {
     this.instructor,
     this.course,
     this.group,
+    this.exists = false,
   });
 
   static const empty = Assignment(
     id: 0,
     due_date: "",
-    files: [File.empty],
+    files: null,
     title: '',
     contents: '',
     marks: 0,
@@ -91,5 +93,6 @@ class Assignment {
         instructor,
         course,
         group,
+        exists
       ];
 }

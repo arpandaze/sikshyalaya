@@ -46,18 +46,72 @@ class AssignmentScreen extends StatelessWidget {
                 child: state.assignmentList[0] == Assignment.empty
                     ? NotAvailable(size: size, text: "No Assignments")
                     : ListView.builder(
-                        itemCount: state.assignmentList.length,
+                        itemCount: state.dueAssignmentList.length,
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
                           return Assignments(
-                              courseCode: state
-                                  .assignmentList[index].course!.course_code!,
-                              dueDate: dateHandler(state.assignmentList[index]
-                                  .due_date!)["completeDate"],
-                              title: state.assignmentList[index].title!,
-                              contents: state.assignmentList[index].contents!,
-                              instructor: studentInstructor(
-                                  state.assignmentList[index].instructor!));
+                            courseCode: state
+                                .dueAssignmentList[index].course!.course_code!,
+                            dueDate: dateHandler(state.dueAssignmentList[index]
+                                .due_date!)["completeDate"],
+                            title: state.dueAssignmentList[index].title!,
+                            contents: state.dueAssignmentList[index].contents!,
+                            instructor: studentInstructor(
+                                state.dueAssignmentList[index].instructor!),
+                            files: state.assignmentList[index].files ?? [],
+                          );
+                        },
+                      ),
+              ),
+              Container(
+                margin: const EdgeInsets.fromLTRB(20, 0, 0, 20),
+                child: Text("Missing",
+                    style: Theme.of(context).textTheme.headline5),
+              ),
+              Flexible(
+                child: state.assignmentList[0] == Assignment.empty
+                    ? NotAvailable(size: size, text: "No Assignments")
+                    : ListView.builder(
+                        itemCount: state.dueAssignmentList.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return Assignments(
+                            courseCode: state
+                                .dueAssignmentList[index].course!.course_code!,
+                            dueDate:
+                                "${dateHandler(state.dueAssignmentList[index].due_date!)["passedDays"]} days ago",
+                            title: state.dueAssignmentList[index].title!,
+                            contents: state.dueAssignmentList[index].contents!,
+                            instructor: studentInstructor(
+                                state.dueAssignmentList[index].instructor!),
+                            files: state.assignmentList[index].files ?? [],
+                          );
+                        },
+                      ),
+              ),
+              Container(
+                margin: const EdgeInsets.fromLTRB(20, 0, 0, 20),
+                child:
+                    Text("Due", style: Theme.of(context).textTheme.headline5),
+              ),
+              Flexible(
+                child: state.assignmentList[0] == Assignment.empty
+                    ? NotAvailable(size: size, text: "No Assignments")
+                    : ListView.builder(
+                        itemCount: state.dueAssignmentList.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return Assignments(
+                            courseCode: state
+                                .dueAssignmentList[index].course!.course_code!,
+                            dueDate: dateHandler(state.dueAssignmentList[index]
+                                .due_date!)["completeDate"],
+                            title: state.dueAssignmentList[index].title!,
+                            contents: state.dueAssignmentList[index].contents!,
+                            instructor: studentInstructor(
+                                state.dueAssignmentList[index].instructor!),
+                            files: state.assignmentList[index].files ?? [],
+                          );
                         },
                       ),
               ),

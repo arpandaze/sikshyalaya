@@ -9,9 +9,8 @@ part of 'teacher_assignment.dart';
 TAssignment _$TAssignmentFromJson(Map<String, dynamic> json) => TAssignment(
       id: json['id'] as int?,
       due_date: json['due_date'] as String?,
-      files: (json['files'] as List<dynamic>?)
-          ?.map((e) => File.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      files:
+          (json['files'] as List<dynamic>?)?.map((e) => e as String).toList(),
       title: json['title'] as String?,
       contents: json['contents'] as String?,
       marks: json['marks'] as int?,
