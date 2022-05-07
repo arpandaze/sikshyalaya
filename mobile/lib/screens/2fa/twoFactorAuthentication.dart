@@ -55,23 +55,22 @@ class Twofactorauthentication extends StatelessWidget {
                     body: Stack(
                       children: [
                         Container(
-                          margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                          margin: const EdgeInsets.all(20),
                           child: Text("QR-code",
                               style: Theme.of(context).textTheme.headline4),
                         ),
                         twoState.tFASecret['uri'] != null
                             ? ListView(children: [
                                 Container(
-                                  margin: const EdgeInsets.fromLTRB(
-                                      20, 100, 20, 00),
+                                  margin:
+                                      const EdgeInsets.fromLTRB(0, 100, 0, 0),
                                 ),
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Container(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          20, 20, 20, 20),
+                                      padding: const EdgeInsets.all(20),
                                       decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(25),
@@ -79,7 +78,7 @@ class Twofactorauthentication extends StatelessWidget {
                                             color: const Color(0xFFB4B4B4),
                                           )),
                                       margin: const EdgeInsets.fromLTRB(
-                                          50, 20, 20, 20),
+                                          0, 20, 0, 20),
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
