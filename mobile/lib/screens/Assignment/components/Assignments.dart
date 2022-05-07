@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sikshyalaya/components/nav_bloc.dart';
+import 'package:sikshyalaya/constants.dart';
+import 'package:sikshyalaya/global/authentication/auth_bloc.dart';
 import 'package:sikshyalaya/repository/models/file.dart';
+import 'package:sikshyalaya/screens/Assignment/Teacher-Assignment/teacher_assignment_view.dart';
 import 'package:sikshyalaya/screens/Assignment/components/AssignmentView.dart';
 import 'package:sikshyalaya/screens/Assignment/student_assignment_submission.dart';
 import 'package:sikshyalaya/components/not_available.dart';
@@ -34,6 +37,7 @@ class Assignments extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final authBloc = BlocProvider.of<AuthBloc>(context);
     return GestureDetector(
       child: Container(
         margin: const EdgeInsets.fromLTRB(20, 10, 20, 5),
@@ -89,23 +93,47 @@ class Assignments extends StatelessWidget {
       ),
       onTap: () => Navigator.of(context).push(
         PageRouteBuilder(
-          pageBuilder: (context, animation1, animation2) => submitted == true
-              ? AssignmentSubmissionView(
+          pageBuilder: (context, animation1, animation2) =>
+              authBloc.state.status == AuthStatus.studentSession
+                  ? submitted == true
+                      ? AssignmentSubmissionView(
+                          title: title,
+                          dueDate: dueDate,
+                          contents: contents,
+                          files: files,
+                          assignmentid: assignmentid,
+                        )
+                      : AssignmentSubmission(
                   assignmentid: assignmentid,
                   title: title,
                   dueDate: dueDate,
                   contents: contents,
                   files: files,
-                )
-              : AssignmentSubmission(
-                  assignmentid: assignmentid,
-                  title: title,
-                  dueDate: dueDate,
-                  contents: contents,
-                  files: files,
-                ),
-          transitionDuration: Duration.zero,
-          reverseTransitionDuration: Duration.zero,
+                        )
+                  : TAssignmentView(
+                      assignmentId: assignmentid,
+                      title: title,
+                      dueDate: dueDate,
+                      contents: contents,
+                      files: files,
+                    ),
+          // pageBuilder: (context, animation1, animation2) => submitted == true
+          //     ? AssignmentSubmissionView(
+          //         assignmentid: assignmentid,
+          //         title: title,
+          //         dueDate: dueDate,
+          //         contents: contents,
+          //         files: files,
+          //       )
+          //     : AssignmentSubmission(
+          //         assignmentid: assignmentid,
+          //         title: title,
+          //         dueDate: dueDate,
+          //         contents: contents,
+          //         files: files,
+          //       ),
+          // transitionDuration: Duration.zero,
+          // reverseTransitionDuration: Duration.zero,
         ),
       ),
     );

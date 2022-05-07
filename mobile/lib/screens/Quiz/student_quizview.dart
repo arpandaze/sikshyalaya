@@ -126,6 +126,7 @@ class StudentQuizView extends StatelessWidget {
                                         ),
                                         Container(
                                           width: size.width * 0.2,
+                                          height: size.height * 0.05,
                                           child: CustomFilledButton(
                                             text: "Sumbit",
                                             onPressed: () => {
@@ -137,10 +138,12 @@ class StudentQuizView extends StatelessWidget {
                                       ],
                                     ),
                                     Container(
-                                      height: size.height * 0.8,
-                                      padding: EdgeInsets.only(
-                                          top: size.height * 0.01,
-                                          bottom: size.height * 0.01),
+                                      constraints: BoxConstraints(
+                                          maxHeight: 1.5 * size.height,
+                                          minHeight: 0.5 * size.height),
+                                      // padding: EdgeInsets.only(
+                                      //     top: size.height * 0.01,
+                                      //     bottom: size.height * 0.01),
                                       // width: size.width * 0.5,
                                       child: PageView.builder(
                                           controller: _controller,
@@ -159,41 +162,12 @@ class StudentQuizView extends StatelessWidget {
                                                     false,
                                                 quizView:
                                                     state.quizViews[index],
-                                                index: index + 1);
+                                              index: index + 1,
+                                              controller: _controller,
+                                            );
                                           }),
                                     ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        SizedBox(
-                                          width: size.width * 0.2,
-                                          child: CustomFilledButtonSecond(
-                                              buttonText: 'Previous',
-                                              onPressed: () =>
-                                                  (_controller.previousPage(
-                                                      duration: Duration(
-                                                          milliseconds: 250),
-                                                      curve: Curves.linear))),
-                                        ),
-                                        // SizedBox(
-                                        //   width: size.width * 0.2,
-                                        //   child: Text(
-                                        //       "${_controller.page!.toInt() + 1}/${state.quizViews.length}"),
-                                        // ),
-
-                                        SizedBox(
-                                          width: size.width * 0.2,
-                                          child: CustomFilledButtonSecond(
-                                              buttonText: 'Next',
-                                              onPressed: () =>
-                                                  (_controller.nextPage(
-                                                      duration: Duration(
-                                                          milliseconds: 250),
-                                                      curve: Curves.linear))),
-                                        ),
-                                      ],
-                                    )
+                                    
                                   ],
                                 )
                               : state.answerExists == true

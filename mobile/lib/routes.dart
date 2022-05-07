@@ -1,3 +1,4 @@
+import 'package:sikshyalaya/screens/Assignment/student_assignment_screen.dart';
 import 'package:sikshyalaya/screens/Dashboard/student_dashboard.dart';
 import 'package:sikshyalaya/screens/Login/TwoFALogin.dart';
 import 'package:sikshyalaya/screens/Login/login_screen.dart';
@@ -28,4 +29,5 @@ final routes = {
   '/teacher_dashboard': (context) => const TeacherDashboard(),
   '/quiz': (context) => const StudentQuiz(),
   '/tquiz': (context) => const TeacherQuiz(),
+  '/student_assignment': (context) => const AssignmentScreen(),
 };

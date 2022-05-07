@@ -15,5 +15,5 @@ Student _$StudentFromJson(Map<String, dynamic> json) => Student(
 Map<String, dynamic> _$StudentToJson(Student instance) => <String, dynamic>{
       'id': instance.id,
       'full_name': instance.full_name,
-      'profile_image': instance.profile_image,
+      'profile_img': instance.profile_image,
     };

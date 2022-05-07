@@ -275,7 +275,8 @@ class StudentDashboard extends StatelessWidget {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Container(
-                                        width: size.width * 0.48,
+                                        width: size.width * 0.45,
+                                        
                                         child: Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceEvenly,
@@ -308,29 +309,36 @@ class StudentDashboard extends StatelessWidget {
                                           ],
                                         ),
                                       ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          const Icon(
-                                            Icons.calendar_today,
-                                            size: 20,
-                                          ),
-                                          Container(
-                                            margin: const EdgeInsets.fromLTRB(
-                                                8, 0, 20, 0),
-                                            child: Text(
-                                              dateHandler(state
-                                                      .upcoming[i].start_time ??
-                                                  '')["completeDate"],
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .subtitle2,
+                                      Container(
+                                        padding: EdgeInsets.only(right: 10),
+                                        alignment: Alignment.centerLeft,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            const Icon(
+                                              Icons.calendar_today,
+                                              size: 20,
                                             ),
-                                          )
-                                        ],
+                                            Container(
+                                              padding:
+                                                  EdgeInsets.only(left: 10),
+
+                                              // margin: const EdgeInsets.fromLTRB(
+                                              //     8, 0, 20, 0),
+                                              child: Text(
+                                                dateHandler(state.upcoming[i]
+                                                        .start_time ??
+                                                    '')["completeDate"],
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .subtitle2,
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       )
                                     ],
                                   ),
