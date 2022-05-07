@@ -1,8 +1,8 @@
+import 'package:date_time_picker/date_time_picker.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sikshyalaya/components/CustomDateButton.dart';
-import 'package:sikshyalaya/repository/models/file.dart';
 import '../../../components/CustomTextField.dart';
 import 'package:sikshyalaya/global/authentication/auth_bloc.dart';
 import 'package:sikshyalaya/repository/models/group.dart';
@@ -11,7 +11,10 @@ import 'package:sikshyalaya/screens/ClassCreator/bloc/class_creator_bloc.dart';
 import 'package:sikshyalaya/screens/Signup/signup_bloc.dart';
 import 'package:sikshyalaya/screens/Student/student_wrapper.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
-
+import 'dart:io';
+import 'dart:convert';
+import 'package:url_launcher/url_launcher.dart';
+import '../../components/CustomDateTime.dart';
 import '../Login/components/CustomFilledButton.dart';
 
 class ClassCreator extends StatelessWidget {
@@ -35,6 +38,9 @@ class ClassCreator extends StatelessWidget {
     return BlocBuilder<ClassCreatorBloc, ClassCreatorState>(
       buildWhen: (previous, current) => previous != current,
       builder: (context, state) {
+        if (state.success == true) {
+          Navigator.pop(context);
+        }
         return Stack(
           children: <Widget>[
             ListView(
@@ -82,8 +88,9 @@ class ClassCreator extends StatelessWidget {
                                               start_time:
                                                   value.toIso8601String()))
                                     },
-                                    initialD: DateTime.tryParse("2004-08-01"),
-                                    lastDate: DateTime.now(),
+                                    initialD: DateTime.now(),
+                                    lastDate:
+                                        DateTime.now().add(Duration(days: 120)),
                                     width: size.width * 0.4,
                                   ),
                                 ),
@@ -111,8 +118,9 @@ class ClassCreator extends StatelessWidget {
                                               end_time:
                                                   value.toIso8601String()))
                                     },
-                                    initialD: DateTime.tryParse("2004-08-01"),
-                                    lastDate: DateTime.now(),
+                                    initialD: DateTime.now(),
+                                    lastDate:
+                                        DateTime.now().add(Duration(days: 120)),
                                     width: size.width * 0.4,
                                   ),
                                 ),
@@ -214,12 +222,45 @@ class ClassCreator extends StatelessWidget {
                                   style: Theme.of(context).textTheme.headline5),
                             ),
                             Container(
+                              child: ListView.builder(
+                                physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: state.toUpload.length,
+                                itemBuilder: (context, index) => Container(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 10, horizontal: 0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Text(
+                                          "${state.toUpload[index].path.split('/').last}",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle1,
+                                        ),
+                                        GestureDetector(
+                                          child: Icon(
+                                            Icons.delete_forever_outlined,
+                                            size: size.height * 0.03,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary,
+                                          ),
+                                          onTap: () => context
+                                              .read<ClassCreatorBloc>()
+                                              .add(RemoveFile(index: index)),
+                                        ),
+                                      ],
+                                    )),
+                              ),
+                            ),
+                            Container(
                               margin: const EdgeInsets.fromLTRB(70, 0, 70, 0),
                               width: size.width * 0.5,
                               child: CustomFilledButton(
                                 text: "Upload File(s)",
                                 onPressed: () async {
-                                  print("arporn");
                                   FilePickerResult? result = await FilePicker
                                       .platform
                                       .pickFiles(allowMultiple: true);
@@ -227,13 +268,13 @@ class ClassCreator extends StatelessWidget {
                                   if (result != null) {
                                     List<File> files = result.paths
                                         .map(
-                                          (path) => File(),
+                                          (path) => File(path!),
                                         )
                                         .toList();
 
-                                    // context
-                                    //     .read<AssignmentUploadBloc>()
-                                    //     .add(NewFilePicked(file: files));
+                                    context.read<ClassCreatorBloc>().add(
+                                        NewFilePicked(
+                                            file: files, paths: result.paths));
                                   } else {
                                     // User canceled the picker
                                   }

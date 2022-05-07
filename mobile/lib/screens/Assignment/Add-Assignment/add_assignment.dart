@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:sikshyalaya/components/CustomNumberField.dart';
 import 'package:sikshyalaya/global/authentication/auth_bloc.dart';
-import 'package:sikshyalaya/repository/models/file.dart';
 import 'package:sikshyalaya/screens/Assignment/Add-Assignment/bloc/add_assignment_bloc.dart';
+import 'dart:io';
 
 import '../../../components/CustomDateButton.dart';
 import '../../Login/components/CustomFilledButton.dart';
@@ -29,9 +29,13 @@ class AddAssignment extends StatelessWidget {
 
   Widget body(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return BlocBuilder<AddAssignmentBloc, AddAssignmentState>(
       buildWhen: (previous, current) => previous != current,
       builder: (context, state) {
+        if (state.success == true) {
+          Navigator.pop(context);
+        }
         return Stack(
           children: <Widget>[
             ListView(
@@ -75,9 +79,11 @@ class AddAssignment extends StatelessWidget {
                                       context.read<AddAssignmentBloc>().add(
                                           EndTimeChanged(
                                               end_time:
-                                                  value.toUtc().toString()))
+                                                  value.toIso8601String()))
                                     },
-                                    initialD: DateTime.tryParse("2000-08-01"),
+                                    initialD: DateTime.now(),
+                                    lastDate:
+                                        DateTime.now().add(Duration(days: 120)),
                                     width: size.width * 0.27,
                                   ),
                                 ),
@@ -203,7 +209,7 @@ class AddAssignment extends StatelessWidget {
                         onChanged: (value) => {
                           context
                               .read<AddAssignmentBloc>()
-                              .add(DescriptionChanged(description: value))
+                              .add(TitleChanged(title: value))
                         },
                       ),
                     )
@@ -231,30 +237,6 @@ class AddAssignment extends StatelessWidget {
                     )
                   ],
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.fromLTRB(size.width * 0.05, 0, 0, 0),
-                      alignment: Alignment.centerLeft,
-                      child: Text("Marks",
-                          style: Theme.of(context).textTheme.headline5),
-                    ),
-                    Container(
-                      child: CustomNumberField(
-                        margin: EdgeInsets.all(20),
-                        width: size.width * 0.2,
-                        height: size.height * 0.01,
-                        onChanged: (value) => {
-                          context
-                              .read<AddAssignmentBloc>()
-                              .add(MarksChanged(marks: value))
-                        },
-                      ),
-                    )
-                  ],
-                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -276,11 +258,44 @@ class AddAssignment extends StatelessWidget {
                                   style: Theme.of(context).textTheme.headline5),
                             ),
                             Container(
+                              child: ListView.builder(
+                                physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: state.toUpload.length,
+                                itemBuilder: (context, index) => Container(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 10, horizontal: 0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Text(
+                                          "${state.toUpload[index].path.split('/').last}",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle1,
+                                        ),
+                                        GestureDetector(
+                                          child: Icon(
+                                            Icons.delete_forever_outlined,
+                                            size: size.height * 0.03,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary,
+                                          ),
+                                          onTap: () => context
+                                              .read<AddAssignmentBloc>()
+                                              .add(RemoveFile(index: index)),
+                                        ),
+                                      ],
+                                    )),
+                              ),
+                            ),
+                            Container(
                               margin: const EdgeInsets.fromLTRB(70, 0, 70, 0),
                               width: size.width * 0.5,
                               child: CustomFilledButton(
                                 onPressed: () async {
-                                  print("arporn");
                                   FilePickerResult? result = await FilePicker
                                       .platform
                                       .pickFiles(allowMultiple: true);
@@ -288,13 +303,13 @@ class AddAssignment extends StatelessWidget {
                                   if (result != null) {
                                     List<File> files = result.paths
                                         .map(
-                                          (path) => File(),
+                                          (path) => File(path!),
                                         )
                                         .toList();
 
-                                    // context
-                                    //     .read<AssignmentUploadBloc>()
-                                    //     .add(NewFilePicked(file: files));
+                                    context.read<AddAssignmentBloc>().add(
+                                        NewFilePicked(
+                                            file: files, paths: result.paths));
                                   } else {
                                     // User canceled the picker
                                   }

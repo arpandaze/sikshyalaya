@@ -1,5 +1,12 @@
 part of 'add_assignment_bloc.dart';
 
+enum uploadStatus {
+  uploadNotStarted,
+  uploadStart,
+  uploadSuccess,
+  uploadFailed,
+}
+
 class AddAssignmentState extends Equatable {
   final String? end_time;
   final List<Group>? groupList;
@@ -11,6 +18,12 @@ class AddAssignmentState extends Equatable {
   final String? description;
   final List<Object?> instructor;
   final List<Instructor>? instructorList;
+  final Map assignmentUpload;
+  final bool assignmentUploadLoading;
+  final List<File> toUpload;
+  final List<String?> paths;
+  final uploadStatus uploadStat;
+  final bool? success;
 
   const AddAssignmentState({
     this.end_time = "",
@@ -23,6 +36,12 @@ class AddAssignmentState extends Equatable {
     this.description = "",
     this.instructor = const [],
     this.instructorList = null,
+    this.assignmentUpload = const {},
+    this.assignmentUploadLoading = false,
+    this.toUpload = const [],
+    this.paths = const [],
+    this.uploadStat = uploadStatus.uploadNotStarted,
+    this.success = false,
   });
 
   AddAssignmentState copyWith({
@@ -36,6 +55,12 @@ class AddAssignmentState extends Equatable {
     List<Object?>? instructor,
     List<Instructor>? instructorList,
     String? title,
+    Map? assignmentUpload,
+    bool? assignmentUploadLoading,
+    List<File>? toUpload,
+    List<String?>? paths,
+    uploadStatus? uploadStat,
+    bool? success,
   }) {
     return AddAssignmentState(
       end_time: end_time ?? this.end_time,
@@ -48,6 +73,13 @@ class AddAssignmentState extends Equatable {
       instructor: instructor ?? this.instructor,
       instructorList: instructorList ?? this.instructorList,
       title: title ?? this.title,
+      toUpload: toUpload ?? this.toUpload,
+      assignmentUpload: assignmentUpload ?? this.assignmentUpload,
+      assignmentUploadLoading:
+          assignmentUploadLoading ?? this.assignmentUploadLoading,
+      paths: paths ?? this.paths,
+      uploadStat: uploadStat ?? this.uploadStat,
+      success: success ?? this.success,
     );
   }
 
@@ -62,6 +94,12 @@ class AddAssignmentState extends Equatable {
         description,
         instructor,
         instructorList,
-        title
+        title,
+        toUpload,
+        assignmentUpload,
+        assignmentUploadLoading,
+        paths,
+        uploadStat,
+        success,
       ];
 }

@@ -15,6 +15,14 @@ class InstructorChanged extends ClassCreatorEvent {
   List<Object?> get props => [instructor];
 }
 
+class Success extends ClassCreatorEvent {
+  final bool? success;
+  Success({this.success});
+
+  @override
+  List<Object?> get props => [success];
+}
+
 class StartTimeChanged extends ClassCreatorEvent {
   final String? start_time;
   StartTimeChanged({this.start_time});
@@ -53,6 +61,33 @@ class FileChanged extends ClassCreatorEvent {
 
   @override
   List<Object?> get props => [file];
+}
+
+class NewFilePicked extends ClassCreatorEvent {
+  final List<File> file;
+  final List<String?> paths;
+  NewFilePicked({required this.file, required this.paths});
+
+  @override
+  List<Object> get props => [file, paths];
+}
+
+class RemoveFile extends ClassCreatorEvent {
+  final int index;
+
+  RemoveFile({required this.index});
+
+  @override
+  List<Object> get props => [index];
+}
+
+class SubmitAssignment extends ClassCreatorEvent {
+  final int assignmentid;
+
+  SubmitAssignment({required this.assignmentid});
+
+  @override
+  List<Object> get props => [assignmentid];
 }
 
 class FetchInstructor extends ClassCreatorEvent {}

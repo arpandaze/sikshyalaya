@@ -1,8 +1,6 @@
 part of 'add_assignment_bloc.dart';
 
 abstract class AddAssignmentEvent extends Equatable {
-  const AddAssignmentEvent();
-
   @override
   List<Object?> get props => [];
 }
@@ -13,6 +11,14 @@ class StartTimeChanged extends AddAssignmentEvent {
 
   @override
   List<Object?> get props => [start_time];
+}
+
+class Success extends AddAssignmentEvent {
+  final bool? success;
+  Success({this.success});
+
+  @override
+  List<Object?> get props => [success];
 }
 
 class EndTimeChanged extends AddAssignmentEvent {
@@ -39,14 +45,6 @@ class InstructorChanged extends AddAssignmentEvent {
   List<Object?> get props => [instructor];
 }
 
-class MarksChanged extends AddAssignmentEvent {
-  final int? marks;
-  MarksChanged({this.marks});
-
-  @override
-  List<Object?> get props => [marks];
-}
-
 class CourseChanged extends AddAssignmentEvent {
   final int? course;
   CourseChanged({this.course});
@@ -69,6 +67,33 @@ class TitleChanged extends AddAssignmentEvent {
 
   @override
   List<Object?> get props => [title];
+}
+
+class NewFilePicked extends AddAssignmentEvent {
+  final List<File> file;
+  final List<String?> paths;
+  NewFilePicked({required this.file, required this.paths});
+
+  @override
+  List<Object> get props => [file, paths];
+}
+
+class RemoveFile extends AddAssignmentEvent {
+  final int index;
+
+  RemoveFile({required this.index});
+
+  @override
+  List<Object> get props => [index];
+}
+
+class SubmitAssignment extends AddAssignmentEvent {
+  final int assignmentid;
+
+  SubmitAssignment({required this.assignmentid});
+
+  @override
+  List<Object> get props => [assignmentid];
 }
 
 class FetchInstructor extends AddAssignmentEvent {}

@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,6 +8,8 @@ import 'package:sikshyalaya/constants.dart';
 import 'package:sikshyalaya/repository/models/group.dart';
 import 'package:sikshyalaya/repository/models/instructor.dart';
 import 'package:http/http.dart' as http;
+import 'package:mime/mime.dart';
+import 'package:http_parser/http_parser.dart';
 
 part 'class_creator_event.dart';
 part 'class_creator_state.dart';
@@ -24,6 +26,9 @@ class ClassCreatorBloc extends Bloc<ClassCreatorEvent, ClassCreatorState> {
     on<FetchInstructor>(_onFetchInstructor);
     on<FetchGroup>(_onFetchGroup);
     on<Submit>(_onSubmit);
+    on<Success>(_onSuccess);
+    on<NewFilePicked>(_onNewFilePicked);
+    on<RemoveFile>(_onRemoveFile);
 
     add(FetchInstructor());
     add(FetchGroup());
@@ -41,8 +46,6 @@ class ClassCreatorBloc extends Bloc<ClassCreatorEvent, ClassCreatorState> {
 
   void _onInstructorChanged(
       InstructorChanged event, Emitter<ClassCreatorState> emit) {
-    print("event");
-    print(event.instructor);
     emit(state.copyWith(instructor: event.instructor));
   }
 
@@ -57,6 +60,30 @@ class ClassCreatorBloc extends Bloc<ClassCreatorEvent, ClassCreatorState> {
 
   void _onFileChanged(FileChanged event, Emitter<ClassCreatorState> emit) {
     emit(state.copyWith(files: event.file));
+  }
+
+  void _onSuccess(Success event, Emitter<ClassCreatorState> emit) {
+    emit(state.copyWith(success: event.success));
+  }
+
+  void _onNewFilePicked(NewFilePicked event, Emitter<ClassCreatorState> emit) {
+    var oldFile = [...state.toUpload];
+    event.file.forEach((element) => oldFile.add(element));
+
+    var oldpaths = [...state.paths];
+    event.paths.forEach((element) => oldpaths.add(element));
+
+    emit(state.copyWith(toUpload: oldFile, paths: oldpaths));
+  }
+
+  void _onRemoveFile(RemoveFile event, Emitter<ClassCreatorState> emit) {
+    var oldFile = [...state.toUpload];
+    oldFile.removeAt(event.index);
+
+    var oldpaths = [...state.paths];
+    oldpaths.removeAt(event.index);
+
+    emit(state.copyWith(toUpload: oldFile, paths: oldpaths));
   }
 
   void _onFetchInstructor(
@@ -89,6 +116,7 @@ class ClassCreatorBloc extends Bloc<ClassCreatorEvent, ClassCreatorState> {
   }
 
   void _onSubmit(_, Emitter<ClassCreatorState> emit) async {
+    print(state.paths);
     if (state.start_time != null &&
         state.end_time != null &&
         state.description != null &&
@@ -120,11 +148,42 @@ class ClassCreatorBloc extends Bloc<ClassCreatorEvent, ClassCreatorState> {
         ..fields['instructor'] = values['instructor'];
 
       groupResp.headers['Cookie'] = "session=$token";
-      print(groupResp.fields);
       var response = await groupResp.send();
+
+      var id = await response.stream.bytesToString();
+      int class_id = jsonDecode(id)['id'];
+
       if (response.statusCode == 200) {
-        //state clear garna baki
-        print("clear state");
+        final filesUri =
+            Uri.parse("$backendBase/class_session/$class_id/files");
+        var request = http.MultipartRequest(
+          'PUT',
+          filesUri,
+        );
+        state.paths.forEach(
+          (e) async => request.files.add(
+            await http.MultipartFile.fromPath(
+              "files",
+              e!,
+              contentType: MediaType.parse(
+                lookupMimeType(e)!,
+              ),
+            ),
+          ),
+        );
+        request.headers['Cookie'] = "session=$token";
+        var response = await request.send();
+
+        print(response.statusCode);
+        if (response.statusCode == 200) {
+          emit(state.copyWith(uploadStat: uploadStatus.uploadSuccess));
+        } else {
+          emit(state.copyWith(uploadStat: uploadStatus.uploadFailed));
+        }
+      }
+
+      if (response.statusCode == 200) {
+        emit(state.copyWith(success: true));
       }
     }
   }
