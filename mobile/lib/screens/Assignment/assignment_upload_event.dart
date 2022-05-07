@@ -18,9 +18,27 @@ class GetAssignmentUpload extends AssignmentUploadEvent {
 
 class NewFilePicked extends AssignmentUploadEvent {
   final List<File> file;
-
-  NewFilePicked({required this.file});
+  final List<String?> paths;
+  NewFilePicked({required this.file, required this.paths});
 
   @override
-  List<Object> get props => [file];
+  List<Object> get props => [file, paths];
+}
+
+class RemoveFile extends AssignmentUploadEvent {
+  final int index;
+
+  RemoveFile({required this.index});
+
+  @override
+  List<Object> get props => [index];
+}
+
+class SubmitAssignment extends AssignmentUploadEvent {
+  final int assignmentid;
+
+  SubmitAssignment({required this.assignmentid});
+
+  @override
+  List<Object> get props => [assignmentid];
 }
