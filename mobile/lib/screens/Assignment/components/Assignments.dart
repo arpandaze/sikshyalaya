@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sikshyalaya/components/nav_bloc.dart';
+import 'package:sikshyalaya/repository/models/file.dart';
+import 'package:sikshyalaya/screens/Assignment/components/AssignmentView.dart';
 import 'package:sikshyalaya/screens/Assignment/student_assignment_submission.dart';
 import 'package:sikshyalaya/components/not_available.dart';
 import 'package:sikshyalaya/screens/Student/student_wrapper.dart';
@@ -14,7 +16,9 @@ class Assignments extends StatelessWidget {
     required this.instructor,
     required this.contents,
     required this.files,
+    required this.assignmentid,
     this.passed = false,
+    this.submitted = false,
   }) : super(key: key);
 
   final String? title;
@@ -24,6 +28,8 @@ class Assignments extends StatelessWidget {
   final String contents;
   final List<String> files;
   final bool passed;
+  final bool submitted;
+  final int assignmentid;
 
   @override
   Widget build(BuildContext context) {
@@ -83,13 +89,20 @@ class Assignments extends StatelessWidget {
       ),
       onTap: () => Navigator.of(context).push(
         PageRouteBuilder(
-          pageBuilder: (context, animation1, animation2) =>
-              AssignmentSubmission(
-            title: title,
-            dueDate: dueDate,
-            contents: contents,
-            files: files,
-          ),
+          pageBuilder: (context, animation1, animation2) => submitted == true
+              ? AssignmentSubmissionView(
+                  assignmentid: assignmentid,
+                  title: title,
+                  dueDate: dueDate,
+                  contents: contents,
+                  files: files,
+                )
+              : AssignmentSubmission(
+                  title: title,
+                  dueDate: dueDate,
+                  contents: contents,
+                  files: files,
+                ),
           transitionDuration: Duration.zero,
           reverseTransitionDuration: Duration.zero,
         ),

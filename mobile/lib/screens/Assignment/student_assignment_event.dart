@@ -15,3 +15,11 @@ class GetStudentAssignment extends StudentAssignmentEvent {
   @override
   List<Object> get props => [url];
 }
+
+class GetStudentAssignmentUploads extends StudentAssignmentEvent {
+  final int assignmentid;
+
+  GetStudentAssignmentUploads({required this.assignmentid});
+  @override
+  List<Object> get props => [assignmentid];
+}

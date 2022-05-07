@@ -22,6 +22,7 @@ Map dateHandler(String dateTime) {
   String monthDay = "";
   bool passed = false;
   int differenceInDays = 0;
+  String passedDays = "";
 
   dateTimeParsed = DateTime.tryParse(dateTime);
 
@@ -133,10 +134,12 @@ Map dateHandler(String dateTime) {
 
     if (differenceInDays < 0) {
       passed = true;
+      passedDays = '${(-differenceInDays).toString()} days ago';
     }
 
     if (differenceInDays == 0) {
       completeDateDay = "Today";
+      passedDays = 'Today';
     } else if (differenceInDays == 1) {
       completeDateDay = "Tomorrow";
     } else if (differenceInDays < 7) {
@@ -157,7 +160,7 @@ Map dateHandler(String dateTime) {
     "month": month,
     "monthDay": monthDay,
     "passed": passed,
-    "passedDays": differenceInDays,
+    "passedDays": passedDays,
   };
 }
 
