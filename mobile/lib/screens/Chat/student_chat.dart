@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,11 +9,16 @@ import 'package:sikshyalaya/components/CustomChatTextField.dart';
 import 'package:sikshyalaya/screens/Student/student_wrapper.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
-class StudentChat extends StatelessWidget {
+class StudentChat extends StatefulWidget {
   StudentChat({
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<StudentChat> createState() => _StudentChatState();
+}
+
+class _StudentChatState extends State<StudentChat> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthBloc, AuthState>(
@@ -26,6 +32,7 @@ class StudentChat extends StatelessWidget {
           );
         });
   }
+  var toggle = false;
 
   Widget content(context) {
     Size size = MediaQuery.of(context).size;
@@ -68,38 +75,72 @@ class StudentChat extends StatelessWidget {
           child: ListView(
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                          // width: size.width * 0.45,
+                          // height: 30,
+                          child: Text(
+                            state.course,
+                            style: Theme.of(context).textTheme.caption,
+                          )),
+                      Container(
+                          // height: 30,
+                          alignment: Alignment.topRight,
+                          // width: size.width * 0.45,
+                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                state.onlineCount.toString(),
+                                style: Theme.of(context).textTheme.caption,
+                              ),
+                              Container(
+                                margin: const EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                child: SvgPicture.asset(
+                                  "assets/images/people.svg",
+                                  height: 15,
+                                  width: 15,
+                                ),
+                              ),
+                            ],
+                          )),
+                    ],
+                  ),
                   Container(
-                      margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                      width: size.width * 0.45,
-                      height: 30,
-                      child: Text(
-                        state.course,
-                        style: Theme.of(context).textTheme.headline6,
-                      )),
-                  Container(
-                      height: 30,
-                      alignment: Alignment.topRight,
-                      width: size.width * 0.45,
-                      margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text(
-                            state.onlineCount.toString(),
-                            style: Theme.of(context).textTheme.headline6,
-                          ),
-                          Container(
-                            margin: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                            child: SvgPicture.asset(
-                              "assets/images/people.svg",
-                              height: 20,
-                              width: 20,
+                    padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          "Anonymous",
+                          style: Theme.of(context).textTheme.caption,
+                        ),
+                        Container(
+                          child: Transform.scale(
+                            scale: 0.8,
+                            child: CupertinoSwitch(
+                              activeColor:
+                                  Theme.of(context).colorScheme.primary,
+                              value: toggle,
+                              onChanged: (value) {
+                                setState(() {
+                                  toggle = !toggle;
+                                });
+                              },
                             ),
                           ),
-                        ],
-                      )),
+                        ),
+                      ],
+                    ),
+                  ),
+                  
                 ],
               ),
               Column(
@@ -135,7 +176,9 @@ class StudentChat extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    width: size.width * 0.92,
+                    // width: size.width * 0.92,
+                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+
                     decoration: BoxDecoration(
                         border: Border.all(
                           color: const Color(0xFFB4B4B4),
@@ -145,8 +188,9 @@ class StudentChat extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        
                         Container(
-                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                          // margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
                           child: CustomChatTextField(
                             messageController: messageController,
                             placeHolder: "Type your message here",
@@ -157,12 +201,14 @@ class StudentChat extends StatelessWidget {
                             if (messageController.text.isNotEmpty) {
                               FocusScope.of(context).unfocus();
                               context.read<ChatBloc>().add(SendMessageEvent(
-                                  message: messageController.text));
+                                    message: messageController.text,
+                                    isAnon: toggle,
+                                  ));
                               messageController.clear();
                             }
                           },
                           child: Container(
-                            margin: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                            //  padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
                             child: Icon(
                               Icons.send,
                               color: Theme.of(context).colorScheme.primary,

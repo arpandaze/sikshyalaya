@@ -150,7 +150,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     SendMessageEvent event,
     Emitter<ChatState> emit,
   ) async {
-    ws?.sink.add(jsonEncode({"message": event.message, "anon": false}));
+    ws?.sink.add(jsonEncode({"message": event.message, "anon": event.isAnon}));
   }
 
   void _onLoadStudentListEvent(
