@@ -9,6 +9,7 @@ from schemas import (
     AssignmentUpload,
     AssignmentUploadCreate,
     AssignmentUploadUpdate,
+    AssignmentUploadwithName,
 )
 import os
 from fastapi.responses import FileResponse
@@ -55,7 +56,7 @@ async def get_assignment_upload(
 
 
 @router.get(
-    "/{assignmentid}/getUploadsAsTeacher", response_model=List[AssignmentUpload]
+    "/{assignmentid}/getUploadsAsTeacher", response_model=List[AssignmentUploadwithName]
 )
 async def get_assignment_upload_as_teacher(
     db: Session = Depends(deps.get_db),

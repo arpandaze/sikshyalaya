@@ -3,7 +3,7 @@ from typing import Optional, List  # noqa
 
 from datetime import datetime
 from pydantic import BaseModel
-from schemas import TeacherShort, CourseMin, GroupReturn
+from schemas import TeacherShort, CourseMin, GroupReturn, Name
 
 
 class AssignmentUploadBase(BaseModel):
@@ -39,3 +39,16 @@ class AssignmentUploadInDB(AssignmentUploadInDBBase):
 
 class AssignmentUpload(AssignmentUploadInDBBase):
     pass
+
+
+class AssignmentUploadwithName(BaseModel):
+    id: Optional[int]
+    submission_date: datetime
+    marks_obtained: int = None
+    assignment_id: int
+    files: List[str] = None
+    student: Name
+    student_id: int
+
+    class Config:
+        orm_mode = True

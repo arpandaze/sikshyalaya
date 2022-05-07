@@ -77,4 +77,5 @@ from .assignment_upload import (
     AssignmentUploadInDB,
     AssignmentUploadInDBBase,
     AssignmentUploadUpdate,
+    AssignmentUploadwithName,
 )
