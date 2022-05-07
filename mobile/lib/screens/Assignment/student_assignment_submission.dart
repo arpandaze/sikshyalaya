@@ -142,7 +142,7 @@ class AssignmentSubmission extends StatelessWidget {
                                         ? null
                                         : GestureDetector(
                                             onTap: () => _launchUrl(
-                                                '$fileServerBase/${_files![index]}'),
+                                                '$fileServerBase/${_files![index]["path"]}'),
                                             child: AbsorbPointer(
                                               child: Container(
                                                 // width: size.width,
