@@ -1,22 +1,33 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import icon from "../assets/qrLogo.png";
 import callAPI from "../utils/API";
 import { QRCode } from "react-qrcode-logo";
 import { IoIosClose } from "react-icons/io";
+import { UserContext } from "../utils/Contexts/UserContext";
 
 const CustomQRCode = ({ qrToken, onClose }) => {
+  const { user, setUser } = useContext(UserContext);
   const pollFunction = async () => {
     try {
-      await callAPI({
-        endpoint: "/api/v1/auth/password-less/verify",
-        method: "POST",
-        data: { token: qrToken },
-      });
+      if (qrToken != "") {
+        let formData = new FormData();
+        formData.append("token", qrToken);
+        var response = await callAPI({
+          endpoint: "/api/v1/auth/password-less/verify",
+          method: "POST",
+          data: formData,
+        });
+
+        if ((response.status = 200)) {
+          setUser(response.data["user"]);
+        }
+      }
     } catch (e) {}
   };
   useEffect(async () => {
-    setInterval(pollFunction, 1000);
+    setInterval(pollFunction, 2000);
   }, [qrToken]);
+
   return (
     <div className="loginCommon_qrPopUp">
       <IoIosClose onClick={onClose} className="loginCommon_qrCodeClose" />

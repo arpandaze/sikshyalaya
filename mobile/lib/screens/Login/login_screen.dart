@@ -24,7 +24,7 @@ class LoginScreen extends StatelessWidget {
             },
             child: Scaffold(
               backgroundColor: Theme.of(context).colorScheme.background,
-              body: body(context),
+              body: SingleChildScrollView(child: body(context)),
             ),
           ),
         ),
@@ -43,80 +43,123 @@ class LoginScreen extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: <Widget>[
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    child: Image.asset(
-                      "assets/images/logo.png",
-                      width: size.width * 0.5,
-                    ),
-                    padding: const EdgeInsets.fromLTRB(0, 60, 0, 0),
+              Scaffold(
+                  body: ListView(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        child: Image.asset(
+                          "assets/images/logo.png",
+                          width: size.width * 0.5,
+                        ),
+                        padding: const EdgeInsets.fromLTRB(0, 60, 0, 0),
+                      ),
+                    ],
                   ),
-                  CustomTextField(
-                    placeHolder: "Email",
-                    keyboardType: TextInputType.emailAddress,
-                    margin: const EdgeInsets.fromLTRB(0, 60, 0, 0),
-                    onChanged: (value) =>
-                        context.read<LoginBloc>().add(EmailChanged(value)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      CustomTextField(
+                        placeHolder: "Email",
+                        keyboardType: TextInputType.emailAddress,
+                        margin: const EdgeInsets.fromLTRB(0, 60, 0, 0),
+                        onChanged: (value) =>
+                            context.read<LoginBloc>().add(EmailChanged(value)),
+                      ),
+                    ],
                   ),
-                  CustomTextField(
-                    placeHolder: "Password",
-                    isPassword: true,
-                    onChanged: (value) =>
-                        context.read<LoginBloc>().add(PasswordChanged(value)),
-                    margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      CustomTextField(
+                        placeHolder: "Password",
+                        isPassword: true,
+                        onChanged: (value) => context
+                            .read<LoginBloc>()
+                            .add(PasswordChanged(value)),
+                        margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                      ),
+                    ],
                   ),
-                  Text(
-                    state.errorText as String,
-                    style: (Theme.of(context).textTheme.subtitle2)!.merge(
-                      TextStyle(color: Colors.red),
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        state.errorText as String,
+                        style: (Theme.of(context).textTheme.subtitle2)!.merge(
+                          const TextStyle(color: Colors.red),
+                        ),
+                      ),
+                    ],
                   ),
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).pushNamed("/forgot");
                     },
-                    child: Container(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        "Forgot Password?",
-                        style: Theme.of(context).textTheme.subtitle1,
-                      ),
-                      margin: const EdgeInsets.fromLTRB(0, 20, 40, 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Container(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            "Forgot Password?",
+                            style: Theme.of(context).textTheme.subtitle1,
+                          ),
+                          margin: const EdgeInsets.fromLTRB(0, 20, 40, 0),
+                        ),
+                      ],
                     ),
                   ),
-                  Expanded(
-                    child: Container(
-                      alignment: Alignment.bottomCenter,
-                      margin: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          CustomFilledButton(
-                            text: "Login",
-                            onPressed: () =>
-                                context.read<LoginBloc>().add(FormSubmitted()),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).pushNamed("/signup");
-                            },
-                            child: Container(
-                              alignment: Alignment.bottomCenter,
-                              child: Text(
-                                "Don't have an account? Register",
-                                style: Theme.of(context).textTheme.subtitle1,
+                  Container(
+                    height: size.height * 0.3,
+                  ),
+                  Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          alignment: Alignment.bottomCenter,
+                          margin: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              CustomFilledButton(
+                                text: "Login",
+                                onPressed: () => context
+                                    .read<LoginBloc>()
+                                    .add(FormSubmitted()),
                               ),
-                              padding: const EdgeInsets.symmetric(vertical: 30),
-                            ),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).pushNamed("/signup");
+                                },
+                                child: Container(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Text(
+                                    "Don't have an account? Register",
+                                    style:
+                                        Theme.of(context).textTheme.subtitle1,
+                                  ),
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 30),
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
-              )
+              ))
             ],
           ),
         );

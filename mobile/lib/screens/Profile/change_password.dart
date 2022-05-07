@@ -116,29 +116,6 @@ class ChangePassword extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Container(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          'Two Factor Authorization',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1,
-                                        ),
-                                        Switch(
-                                          value: true,
-                                          activeColor: Theme.of(context)
-                                              .colorScheme
-                                              .primary,
-                                          onChanged: (bool value) {},
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
                                     padding: EdgeInsets.all(10),
                                     child: CustomTextField(
                                       initialVal: passwordState.currentPassword,

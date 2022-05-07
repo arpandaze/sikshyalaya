@@ -254,7 +254,67 @@ class Profile extends StatelessWidget {
                                                   SizedBox(
                                                     width: size.width * 0.55,
                                                     child: Text(
-                                                      "Security",
+                                                      "Password",
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .subtitle1,
+                                                    ),
+                                                  ),
+                                                  const Icon(
+                                                    Icons
+                                                        .keyboard_arrow_right_rounded,
+                                                    color: Color(0xFF000000),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          GestureDetector(
+                                            onTap: () => {
+                                              Navigator.of(context).push(
+                                                PageRouteBuilder(
+                                                  pageBuilder: (context,
+                                                          animation1,
+                                                          animation2) =>
+                                                      Twofactorauthentication(
+                                                    fullname: authSnapshot
+                                                        .user!['full_name'],
+                                                  ),
+                                                  transitionDuration:
+                                                      Duration.zero,
+                                                  reverseTransitionDuration:
+                                                      Duration.zero,
+                                                ),
+                                              ),
+                                            },
+                                            child: SizedBox(
+                                              width: size.width * 0.78,
+                                              height: size.height * 0.090,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Container(
+                                                    width: size.width * 0.1,
+                                                    height: size.width * 0.1,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        color: Theme.of(context)
+                                                            .colorScheme
+                                                            .background),
+                                                    child: const Icon(
+                                                      Icons
+                                                          .screen_lock_portrait,
+                                                      color: Color(0xFF000000),
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: size.width * 0.55,
+                                                    child: Text(
+                                                      "TwoFactor Auth",
                                                       style: Theme.of(context)
                                                           .textTheme
                                                           .subtitle1,
