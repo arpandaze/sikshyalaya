@@ -67,9 +67,15 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     ConnectWSEvent event,
     Emitter<ChatState> emit,
   ) async {
-    final currentClass = await getCurrentClass();
+    final currentClass = await getCurrentClassDetails();
 
     if (currentClass == null) {
+      return;
+    }
+
+    students = await getParticipants(currentClass["id"]);
+
+    if (students == null) {
       return;
     }
 
@@ -77,23 +83,24 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       Uri.parse('$wsBase/${currentClass["id"]}/?token=${authState!.token!}'),
     );
 
-    emit(ChatState(course: currentClass["course"]["course_code"]));
-
     chatSteamSubscription = ws?.stream.listen(
-      (event) => {
-        add(RawChatEvent(event: event)),
+      (event) {
+        add(RawChatEvent(event: event));
       },
     );
 
-    add(LoadStudentListEvent());
+    emit(state.copyWith(
+        course: currentClass["course"]["course_code"], isReady: true));
+
+    ws?.sink.add(jsonEncode({"msg_type": 1}));
   }
 
-  Future<Map<String, dynamic>?> getCurrentClass() async {
+  Future<Map<String, dynamic>?> getCurrentClassDetails() async {
     if (authState != null) {
       final headers = {"Cookie": "session=${authState?.token}"};
       final httpclient = http.Client();
       final response = await httpclient.get(
-        Uri.parse('$backendBase/class_session'),
+        Uri.parse('$backendBase/class_session/active'),
         headers: headers,
       );
 
@@ -102,22 +109,41 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       }
 
       List<dynamic> classSessions = jsonDecode(response.body);
-      for (var classSession in classSessions) {
-        var startTime = DateTime.parse(classSession["start_time"]);
-        var endTime = DateTime.parse(classSession["end_time"]);
 
-        startTime = startTime.add(startTime.timeZoneOffset);
-        endTime = endTime.add(endTime.timeZoneOffset);
-
-        if (endTime.isAfter(DateTime.now()) &&
-            startTime.isBefore(DateTime.now())) {
-          return classSession;
-        }
+      if (classSessions.isNotEmpty) {
+        return classSessions[0];
       }
-      return null;
     } else {
       throw Exception("Not logged in!");
     }
+    return null;
+  }
+
+  Future<List<Students>?> getParticipants(id) async {
+    if (authState != null) {
+      final headers = {"Cookie": "session=${authState?.token}"};
+      final httpclient = http.Client();
+
+      final resp = await httpclient.get(
+        Uri.parse('$backendBase/class_session/$id/participants'),
+        headers: {
+          "Cookie": 'session=${authState!.token!}',
+        },
+      );
+
+      if (resp.statusCode == 200) {
+        List<dynamic> studentsDyn = jsonDecode(resp.body);
+        return studentsDyn
+            .map(
+              (item) => Students(
+                  id: item["id"],
+                  fullName: item["full_name"],
+                  profileImage: item?["profile_image"]),
+            )
+            .toList();
+      }
+    }
+    return null;
   }
 
   void _onSendMessageEvent(
@@ -130,43 +156,31 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   void _onLoadStudentListEvent(
     LoadStudentListEvent event,
     Emitter<ChatState> emit,
-  ) async {
-    Map<dynamic, dynamic>? user = authState?.user;
-
-    if (user == null) {
-      return;
-    }
-    final client = http.Client();
-
-    final resp = await client.get(
-        Uri.parse('$backendBase/group/${user["group"]["id"]}/student/'),
-        headers: {
-          "Cookie": 'session=${authState!.token!}',
-        });
-
-    if (resp.statusCode == 200) {
-      List<dynamic> studentsDyn = jsonDecode(resp.body)["student"];
-      students = studentsDyn
-          .map((item) => Students(
-              id: item["id"],
-              fullName: item["full_name"],
-              profileImage: item?["profile_image"]))
-          .toList();
-    }
-    ws?.sink.add(jsonEncode({"msg_type": 1}));
-  }
+  ) async {}
 
   void _onRawChatEvent(RawChatEvent event, Emitter<ChatState> emit) {
     final message = jsonDecode(event.event.toString());
     Map<dynamic, dynamic>? user = authState?.user;
 
+    print("Got event type: ${message['msg_type']}");
+    print(message == null);
+    print(user == null);
+    print(students == null);
+
     if (message == null || user == null || students == null) {
       return;
     }
 
+    print("Got event type: ${message['msg_type']}");
+
     switch (message["msg_type"]) {
       case 1:
-        final history = jsonDecode(message["data"]) as List<dynamic>;
+        var history;
+        if (message["data"] != null) {
+          history = jsonDecode(message["data"]) as List<dynamic>;
+        } else {
+          history = [];
+        }
         List<ChatMessage> messageList = [];
 
         for (var oneMsg in history) {
@@ -197,6 +211,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           }
         }
 
+        print(messageList);
         emit(state.copyWith(messageList: messageList));
         break;
 
@@ -215,6 +230,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
               time: formatTime(message["time"]),
               senderImage: sender.profileImage),
         );
+        print(messageList);
         emit(state.copyWith(messageList: messageList));
         break;
 
@@ -229,6 +245,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
               time: formatTime(message["time"]),
               senderImage: null),
         );
+        print(messageList);
         emit(state.copyWith(messageList: messageList));
         break;
 
