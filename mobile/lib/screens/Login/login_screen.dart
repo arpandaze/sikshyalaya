@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sikshyalaya/components/AuthStateWrapper.dart';
+import 'package:sikshyalaya/screens/Login/TwoFALogin.dart';
 
 import './components/CustomFilledButton.dart';
 import './components/CustomTextField.dart';
@@ -34,9 +35,21 @@ class LoginScreen extends StatelessWidget {
 
   Widget body(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return BlocBuilder<LoginBloc, LoginState>(
+    return BlocConsumer<LoginBloc, LoginState>(
+      listener: (context, state) {
+        if (state.twoFARequired != null) {}
+      },
       buildWhen: (prev, next) => true,
       builder: (context, state) {
+        if (state.twoFARequired != null) {
+          if (state.twoFARequired! == true) {
+            return SizedBox(
+              width: double.infinity,
+              height: size.height,
+              child: TwoFALogin(tempToken: state.tempToken!),
+            );
+          }
+        }
         return SizedBox(
           width: double.infinity,
           height: size.height,

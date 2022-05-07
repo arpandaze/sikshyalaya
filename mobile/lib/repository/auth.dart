@@ -8,7 +8,7 @@ class AuthenticationRepository {
 
   static const storage = FlutterSecureStorage();
 
-  Future<Object> login({
+  Future<Map<String, dynamic>?> login({
     required String username,
     required String password,
   }) async {
@@ -25,20 +25,26 @@ class AuthenticationRepository {
       throw Exception("Login failed! Check email or password!");
     }
 
-    storage.write(
-      key: "token",
-      value: response.headers["set-cookie"]!.substring(8, 40),
-    );
-
     var decodedResponse =
         jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
 
-    storage.write(
-      key: "user",
-      value: jsonEncode(decodedResponse["user"]),
-    );
+    if (decodedResponse["two_fa_required"] == true) {
+      return {
+        "temp-token": response.headers["set-cookie"]!.substring(13, 45),
+        "two_fa_required": true
+      };
+    } else {
+      storage.write(
+        key: "token",
+        value: response.headers["set-cookie"]!.substring(8, 40),
+      );
 
-    return decodedResponse;
+      storage.write(
+        key: "user",
+        value: jsonEncode(decodedResponse["user"]),
+      );
+      return {"response": decodedResponse, "two_fa_required": false};
+    }
   }
 
   Future<Object> refetchProfile() async {
