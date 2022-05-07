@@ -34,10 +34,14 @@ from schemas.class_session import (
     ClassSessionUpdate,
     ClassSessionTeacherReturn,
     AttendanceUpdate,
+    ParticipantOfClassSession,
 )
 from schemas.file import FileCreate
+from schemas.group import GroupStudentReturn
 from utils import deps
 from utils.deps import get_current_active_teacher_or_above, get_current_active_user, get_current_active_ws_user
+import datetime
+import cruds
 
 router = APIRouter()
 
@@ -53,6 +57,21 @@ def get_class_session(
     return class_sessions
 
 
+@router.get("/active", response_model=List[ClassSessionReturn])
+def get_active_class_session(
+    db: Session = Depends(deps.get_db),
+    user=Depends(get_current_active_user),
+) -> Any:
+    class_sessions = crud_class_session.get_user_class_session(db, user=user)
+    active_class_sessions = []
+
+    for class_session in class_sessions:
+        if(class_session.start_time < datetime.datetime.now() and class_session.end_time > datetime.datetime.now()):
+            active_class_sessions.append(class_session)
+
+    return active_class_sessions
+
+
 @router.post("/", response_model=ClassSession)
 async def create_class_session(
     db: Session = Depends(deps.get_db),
@@ -65,7 +84,8 @@ async def create_class_session(
         course_id = item.course.id if item.group.id == form.group else course_id
 
     if(course_id == None):
-        raise HTTPException(status_code=HTTP_406_NOT_ACCEPTABLE, detail="Invalid group id!")
+        raise HTTPException(
+            status_code=HTTP_406_NOT_ACCEPTABLE, detail="Invalid group id!")
 
     data = ClassSessionCreate(
         start_time=form.start_time,
@@ -117,6 +137,22 @@ def get_specific_class_session(
     class_session = crud_class_session.get_user_class_session(
         db=db, user=user, id=id)
     return class_session
+
+
+@router.get("/{id}/participants", response_model=List[ParticipantOfClassSession])
+def get_specific_class_session(
+    db: Session = Depends(deps.get_db),
+    current_user=Depends(get_current_active_user),
+    *,
+    id: int,
+) -> Any:
+    class_session = crud_class_session.get(db, id)
+
+    group = cruds.crud_group.get(db, class_session.group_id)
+
+    participants = group.student + class_session.instructor
+
+    return participants
 
 
 @router.get("/{id}/attendance", response_model=ClassSessionTeacherReturn)

@@ -66,7 +66,8 @@ async def login_web_session(
             status_code=401, detail="Error ID: 111"
         )  # Incorrect email or password
     elif not user.is_active:
-        raise HTTPException(status_code=401, detail="Error ID: 112")  # Inactive user
+        raise HTTPException(
+            status_code=401, detail="Error ID: 112")  # Inactive user
 
     if user.two_fa_secret:
         temp_token = await create_2fa_temp_token(user, form_data.remember_me)
@@ -108,7 +109,11 @@ async def authorize_passwordless_login(
     return {"msg": "Success"}
 
 
-@router.post("/password-less/verify")
+@router.post(
+    "/password-less/verify",
+    response_model=Optional[schemas.user.UserLoginReturn],
+    response_model_exclude_none=True,
+)
 async def verify_passwordless_login(
     response: Response,
     request: Request,
@@ -120,7 +125,8 @@ async def verify_passwordless_login(
     user = cruds.crud_user.get_by_id(db, id=user_id)
 
     if not user:
-        raise HTTPException(status_code=HTTP_401_UNAUTHORIZED, detail="Invalid user!")
+        raise HTTPException(
+            status_code=HTTP_401_UNAUTHORIZED, detail="Invalid user!")
 
     session_token = await create_sesssion_token(user, True, request)
     response.set_cookie("session", session_token, httponly=True)
@@ -144,7 +150,7 @@ async def sign_up(
             status_code=400,
             detail="Email is associated with another user!",
         )  # The user with this username already exists in the system
-    email_host = user_in.email[user_in.email.index("@") + 1 :]
+    email_host = user_in.email[user_in.email.index("@") + 1:]
 
     if email_host not in settings.ALLOWED_EMAIL_HOST:
         raise HTTPException(
@@ -269,7 +275,8 @@ async def reset_password(
             detail="Error ID: 114",
         )  # The user with this username does not exist in the system.
     elif not cruds.crud_user.is_active(user):
-        raise HTTPException(status_code=400, detail="Error ID: 115")  # Inactive user
+        raise HTTPException(
+            status_code=400, detail="Error ID: 115")  # Inactive user
     hashed_password = get_password_hash(new_password)
     user.hashed_password = hashed_password
     db.add(user)
