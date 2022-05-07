@@ -18,6 +18,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LoggedIn>(_onLoggedIn);
     on<LoadAuthStatus>(_onLoadAuthStatus);
     on<LoggedOut>(_onLoggedOut);
+    on<RefetchUser>(_onRefetchUser);
 
     add(LoadAuthStatus());
   }
@@ -33,6 +34,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     LoadAuthStatus event,
     Emitter<AuthState> emit,
   ) async {
+    emit(await AuthState.load());
+  }
+
+  void _onRefetchUser(
+    RefetchUser event,
+    Emitter<AuthState> emit,
+  ) async {
+    await auth.refetchProfile();
     emit(await AuthState.load());
   }
 

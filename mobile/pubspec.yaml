@@ -51,6 +51,8 @@ dependencies:
   intl: ^0.17.0
   file_picker: ^4.5.1
   open_file: ^3.2.1
+  image_picker: ^0.8.5
+  mime: ^1.0.2
 
 #state management
 get: ^4.1.4
