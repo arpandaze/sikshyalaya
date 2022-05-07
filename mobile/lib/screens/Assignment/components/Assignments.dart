@@ -98,6 +98,7 @@ class Assignments extends StatelessWidget {
                   files: files,
                 )
               : AssignmentSubmission(
+                  assignmentid: assignmentid,
                   title: title,
                   dueDate: dueDate,
                   contents: contents,
