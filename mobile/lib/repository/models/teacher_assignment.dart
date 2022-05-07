@@ -11,7 +11,7 @@ class TAssignment {
   final int? id;
   final int? marks;
   final String? due_date;
-  final List<File>? files;
+  final List<String>? files;
   final String? title;
   final String? contents;
   final List<Instructor>? instructor;
@@ -33,7 +33,7 @@ class TAssignment {
   static const empty = TAssignment(
     id: 0,
     due_date: "",
-    files: [File.empty],
+    files: null,
     title: '',
     contents: '',
     marks: 0,

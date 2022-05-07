@@ -1,5 +1,5 @@
 from tokenize import group
-from typing import Optional, List  # noqa
+from typing import Optional, List, Any  # noqa
 
 from datetime import datetime
 from pydantic import BaseModel
@@ -10,7 +10,7 @@ class AssignmentUploadBase(BaseModel):
     submission_date: datetime
     marks_obtained: int = None
     assignment_id: int
-    files: List[str] = None
+    files: List[Any] = None
     student_id: int
 
 
@@ -22,7 +22,7 @@ class AssignmentUploadUpdate(AssignmentUploadBase):
     submission_date: Optional[datetime]
     marks_obtained: Optional[int]
     assignment_id: Optional[int]
-    files: List[str] = None
+    files: List[Any] = None
     student_id: Optional[int]
 
 

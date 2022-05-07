@@ -58,8 +58,18 @@ async def get_assignment(
 
 @router.post("/", response_model=Assignment)
 async def create_assignment(
-    db: Session = Depends(deps.get_db), *, obj_in: AssignmentCreate
+    db: Session = Depends(deps.get_db),
+    *,
+    obj_in: AssignmentCreate,
+    current_user: User = Depends(deps.get_current_active_user),
 ) -> Any:
+
+    if obj_in.instructor:
+        if current_user.id not in obj_in.instructor:
+            obj_in.instructor.append(current_user.id)
+    else:
+        obj_in.instructor = [current_user.id]
+
     assignment = crud_assignment.create(db, obj_in=obj_in)
     return assignment
 
@@ -108,7 +118,10 @@ async def post_files(
             content = await file.read()
             await f.write(content)
         assignmentFiles.append(
-            f"{FILE_ASSIGNMENT_PATH}/{hashedFileName.hexdigest()}{fileExtension}"
+            {
+                "path": f"{FILE_ASSIGNMENT_PATH}/{hashedFileName.hexdigest()}{fileExtension}",
+                "name": file.filename,
+            }
         )
 
     obj_in = AssignmentUpdate(files=assignmentFiles)

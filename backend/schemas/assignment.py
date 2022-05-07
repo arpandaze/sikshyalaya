@@ -1,5 +1,5 @@
 from tokenize import group
-from typing import Optional, List  # noqa
+from typing import Optional, List, Any  # noqa
 
 from datetime import datetime
 from pydantic import BaseModel
@@ -11,14 +11,14 @@ class AssignmentBase(BaseModel):
     marks: int = None
     title: str
     contents: str = None
-    files: List[str] = None
+    files: List[Any] = None
     instructor: List[int]
     group: List[int]
     course_id: int
 
 
 class AssignmentCreate(AssignmentBase):
-    pass
+    instructor: Optional[List[int]]
 
 
 class AssignmentUpdate(AssignmentBase):
@@ -26,7 +26,7 @@ class AssignmentUpdate(AssignmentBase):
     marks: int = None
     title: str = None
     contents: str = None
-    files: List[str] = None
+    files: List[Any] = None
     instructor: List[int] = None
     group: List[int] = None
     course_id: int = None
@@ -49,7 +49,7 @@ class Assignment(BaseModel):
     marks: int = None
     title: str
     contents: str = None
-    files: List[str] = None
+    files: List[Any] = None
     instructor: List[TeacherShort]
     group: List[GroupReturn]
     course: CourseMin

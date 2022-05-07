@@ -143,7 +143,10 @@ async def post_files(
             content = await file.read()
             await f.write(content)
         assignmentFiles.append(
-            f"{FILE_ASSIGNMENT_PATH}/{hashedFileName.hexdigest()}{fileExtension}"
+            {
+                "path": f"{FILE_ASSIGNMENT_PATH}/{hashedFileName.hexdigest()}{fileExtension}",
+                "name": file.filename,
+            }
         )
 
     assignmentUpload = crud_assignment_upload.get_by_assignment_id(

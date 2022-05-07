@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sikshyalaya/constants.dart';
 import 'package:sikshyalaya/repository/models/instructor.dart';
 import 'package:sikshyalaya/repository/models/quiz_view.dart';
+import 'package:sikshyalaya/screens/Quiz/components/ImageViewer.dart';
 
 class QuizViewCard extends StatelessWidget {
   QuizViewCard({
@@ -70,8 +71,13 @@ class QuizViewCard extends StatelessWidget {
                       ? quizView.question_image!.length
                       : 0,
                   itemBuilder: (BuildContext context, int index) {
-                    return Image.network(
-                      '$fileServerBase/${quizView.question_image![index]}',
+                    return GestureDetector(
+                      onTap: () => imageDialog(
+                          quizView.question_image![index],
+                          '$fileServerBase/${quizView.question_image![index]}',
+                          context),
+                      child: Image.network(
+                          '$fileServerBase/${quizView.question_image![index]}'),
                     );
                   },
                 )),
@@ -101,8 +107,13 @@ class QuizViewCard extends StatelessWidget {
                                   style: Theme.of(context).textTheme.subtitle1,
                                 )
                               : quizView.options![i].image != ""
-                                  ? Image.network(
-                                      '$fileServerBase/${quizView.options![i].image!}')
+                                  ? GestureDetector(
+                                      onTap: () => imageDialog(
+                                          quizView.options![i].image,
+                                          '$fileServerBase/${quizView.options![i].image!}',
+                                          context),
+                                      child: Image.network(
+                                          '$fileServerBase/${quizView.options![i].image!}'))
                                   : Container(),
                         ),
                       ),
