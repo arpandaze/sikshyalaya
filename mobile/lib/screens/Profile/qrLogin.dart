@@ -1,9 +1,15 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:sikshyalaya/constants.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
+import 'package:sikshyalaya/global/authentication/auth_bloc.dart';
 
 class QRLogin extends StatefulWidget {
   const QRLogin({Key? key}) : super(key: key);
@@ -81,10 +87,49 @@ class _QRLoginState extends State<QRLogin> {
       this.controller = controller;
     });
     controller.scannedDataStream.listen((scanData) {
-      setState(() {
-        result = scanData;
-      });
+      if (scanData != result) {
+        setState(() {
+          result = scanData;
+        });
+        loginAuthorize();
+      }
     });
+  }
+
+  void loginAuthorize() async {
+    var token = context.read<AuthBloc>().state.token;
+    if (result!.code != null && token != null) {
+      var uri = Uri.parse('$backendBase/auth/password-less/authorize');
+      var request = http.MultipartRequest(
+        'POST',
+        uri,
+      )..fields['token'] = result!.code!;
+
+      request.headers['Cookie'] = "session=$token";
+
+      final headers = {
+        "Cookie": "session=$token",
+        "Content-Type": "application/json"
+      };
+      var response = await request.send();
+      if (response.statusCode == 200) {
+        print('Sucessfully Authenticated');
+        Navigator.pop(context);
+      }
+
+      if (response.statusCode != 200) {
+        throw Exception("Submit Failed");
+      }
+      var responseBody = await response.stream.bytesToString();
+      if (responseBody != "") {
+        var decodedResponse = jsonDecode(responseBody);
+        return decodedResponse;
+      } else {
+        throw Exception("Body Empty");
+      }
+    } else {
+      throw Exception("No Session not found!!");
+    }
   }
 
   void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {

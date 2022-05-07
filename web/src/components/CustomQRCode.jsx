@@ -7,16 +7,21 @@ import { IoIosClose } from "react-icons/io";
 const CustomQRCode = ({ qrToken, onClose }) => {
   const pollFunction = async () => {
     try {
-      await callAPI({
-        endpoint: "/api/v1/auth/password-less/verify",
-        method: "POST",
-        data: { token: qrToken },
-      });
+      if (qrToken != "") {
+        let formData = new FormData();
+        formData.append("token", qrToken);
+        await callAPI({
+          endpoint: "/api/v1/auth/password-less/verify",
+          method: "POST",
+          data: formData,
+        });
+      }
     } catch (e) {}
   };
   useEffect(async () => {
-    setInterval(pollFunction, 1000);
+    setInterval(pollFunction, 2000);
   }, [qrToken]);
+
   return (
     <div className="loginCommon_qrPopUp">
       <IoIosClose onClick={onClose} className="loginCommon_qrCodeClose" />
