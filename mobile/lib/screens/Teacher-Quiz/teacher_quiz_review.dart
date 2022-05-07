@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sikshyalaya/components/not_available.dart';
 import 'package:sikshyalaya/global/authentication/auth_bloc.dart';
+import 'package:sikshyalaya/repository/models/answer.dart';
 import 'package:sikshyalaya/repository/teacher_quiz.dart';
 import 'package:sikshyalaya/repository/teacher_quiz_review.dart';
 import 'package:sikshyalaya/screens/Teacher-Quiz/QuizReviewCard.dart';
@@ -137,15 +138,15 @@ class TeacherQuizReview extends StatelessWidget {
                                   ),
                                 ),
                                 Container(
-                                    child: !state.reviewList.isEmpty
+                                    child: state.reviewList[0] == Answer.empty
                                         ? Text(
-                                            "Total Attempts: ${state.reviewList.length}",
+                                            "Total Attempts: 0",
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .caption,
                                           )
                                         : Text(
-                                            "Total Attempts: 0",
+                                            "Total Attempts: ${state.reviewList.length}",
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .caption,
@@ -160,7 +161,7 @@ class TeacherQuizReview extends StatelessWidget {
                       border: Border(
                           bottom: BorderSide(
                         width: 2.0,
-                        color: Color.fromARGB(255, 175, 174, 174),
+                        color: Color(0xFFF14B4B),
                       )),
                     ),
                     padding: EdgeInsets.symmetric(
@@ -172,6 +173,7 @@ class TeacherQuizReview extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
+                            padding: EdgeInsets.only(left: 10),
                             child: Text("Students",
                                 style: TextStyle(
                                     fontSize: 20,
@@ -179,17 +181,18 @@ class TeacherQuizReview extends StatelessWidget {
                                     color: Colors.black)),
                           ),
                           Container(
-                            padding: EdgeInsets.only(top: 10),
+
+                            padding: EdgeInsets.only(top: 10, right: 10),
                             child: Text("Marks",
                                 style: TextStyle(
                                     fontSize: 15,
                                     fontFamily: "OpenSans",
-                                    color: Colors.black)),
+                                    color: Color.fromARGB(255, 121, 119, 119))),
                           ),
                         ]),
                   ),
                   state.isLoaded
-                      ? !state.reviewList.isEmpty
+                      ? state.reviewList[0] != Answer.empty
                           ? ListView.builder(
                               physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
@@ -198,7 +201,9 @@ class TeacherQuizReview extends StatelessWidget {
                                 return QuizReviewCard(
                                   id: state.reviewList[i].id!,
                                   profile_image: state
-                                      .reviewList[i].student!.profile_image!,
+                                          .reviewList[i].student!
+                                          .profile_image ??
+                                      "",
                                   quiz_id: quizId,
                                   studentName:
                                       state.reviewList[i].student!.full_name!,
@@ -206,10 +211,10 @@ class TeacherQuizReview extends StatelessWidget {
                                       state.reviewList[i].marks_obtained!,
                                 );
                               })
-                          : NotAvailable(size: size, text: "No attempts yet")
-                      : Container(
-                          alignment: Alignment.center,
-                          child: CircularProgressIndicator())
+                          : Container(
+                              alignment: Alignment.center,
+                              child: CircularProgressIndicator())
+                      : NotAvailable(size: size, text: "No attempts yet")
                 ],
               ),
             ],

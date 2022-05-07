@@ -10,7 +10,7 @@ class Student extends Equatable {
   final String? profile_image;
   const Student({this.id, this.full_name, this.profile_image});
 
-  static const empty = Student(id: 0, full_name: "");
+  static const empty = Student(id: 0, full_name: "", profile_image: "");
   factory Student.fromJson(Map<String, dynamic> json) =>
       _$StudentFromJson(json);
 
