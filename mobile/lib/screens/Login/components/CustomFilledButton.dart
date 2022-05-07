@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class CustomFilledButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
+  final double? height;
 
   const CustomFilledButton({
     Key? key,
     this.onPressed,
     this.text = "Login",
+    this.height = 60,
   }) : super(key: key);
 
   @override
@@ -18,6 +20,7 @@ class CustomFilledButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
       ),
       minWidth: size.width * 0.8,
+      height: height!,
       padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
       color: Theme.of(context).colorScheme.primary,
       child: Text(
