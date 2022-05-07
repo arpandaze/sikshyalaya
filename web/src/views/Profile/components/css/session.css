@@ -2,7 +2,8 @@
 
 @media only screen and (min-width: 1280px) {
   .session_root {
-    height: 330px;
+    padding-bottom: 10px;
+    position: relative;
   }
   .session_titleContainer {
     height: 60px;
@@ -16,10 +17,8 @@
     text-indent: 15px;
   }
   .session_bodyRoot {
-    height: 210px;
   }
   .session_sessionContainer {
-    overflow-y: scroll;
   }
   .session_eachSessionRoot {
     height: 70px;
@@ -66,11 +65,12 @@
     width: 100px !important;
   }
   .session_logout {
-    position: relative;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    padding: 20px;
   }
   .session_logoutText {
-    position: absolute;
-    right: 20px;
     font-weight: bold;
     font-size: 1.1em;
     color: var(--accentColor);

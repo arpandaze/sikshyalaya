@@ -191,3 +191,34 @@ Map nameHandler(String fullName) {
     "lastName": lastName,
   };
 }
+
+Map nameHandler(String fullName) {
+  String firstName = "";
+  String middleName = "";
+  String lastName = "";
+
+  if (fullName.length == 0) {
+    return {
+      "firstName": firstName,
+      "middleName": middleName,
+      "lastName": lastName,
+    };
+  }
+
+  List nameList = fullName.split(" ");
+
+  if (nameList.length > 2) {
+    firstName = nameList[0];
+    middleName = nameList[1];
+    lastName = nameList[2];
+  } else {
+    firstName = nameList[0];
+    lastName = nameList[1];
+  }
+
+  return {
+    "firstName": firstName,
+    "middleName": middleName,
+    "lastName": lastName,
+  };
+}

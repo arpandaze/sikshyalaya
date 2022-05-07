@@ -31,7 +31,8 @@
 
 @media only screen and (min-width: 1920px) {
   .tabIcons_nameContainer {
-    width: 80%;
+    padding-left: 5px;
+    width: 85%;
     font-weight: 500;
     font-size: 1.1em;
     text-indent: 15px;

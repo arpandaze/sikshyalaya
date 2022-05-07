@@ -2,7 +2,7 @@
 
 @media only screen and (min-width: 1280px) {
   .generalInfo_root {
-    height: 550px;
+    padding: 20px 0px 20px 0px;
   }
   .generalInfo_titleBar {
     width: 100%;
@@ -51,7 +51,6 @@
 
 @media only screen and (min-width: 1920px) {
   .generalInfo_root {
-    height: 630px;
   }
 
   .generalInfo_imageWrapper {
