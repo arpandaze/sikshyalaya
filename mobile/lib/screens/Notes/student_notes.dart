@@ -64,17 +64,6 @@ class StudentNotes extends StatelessWidget {
                       ? ListView(
                           children: <Widget>[
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CustomTextField(
-                                  width: size.width * 0.9,
-                                  placeHolder: "Search Notes",
-                                  margin:
-                                      const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                                ),
-                              ],
-                            ),
-                            Row(
                               children: <Widget>[
                                 Container(
                                   margin:
