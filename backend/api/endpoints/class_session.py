@@ -18,6 +18,7 @@ from fastapi import (
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import FileResponse, HTMLResponse
 from sqlalchemy.orm import Session
+from starlette.status import HTTP_406_NOT_ACCEPTABLE
 
 from core.config import settings
 from core.security import get_uid_hash
@@ -63,10 +64,13 @@ async def create_class_session(
     for item in user.teacher_group:
         course_id = item.course.id if item.group.id == form.group else course_id
 
+    if(course_id == None):
+        raise HTTPException(status_code=HTTP_406_NOT_ACCEPTABLE, detail="Invalid group id!")
+
     data = ClassSessionCreate(
         start_time=form.start_time,
         end_time=form.end_time,
-        instructor=list(set([user.id, *form.instructor])),
+        instructor=[user.id]+(form.instructor or []),
         description=form.description,
         group_id=form.group,
         course_id=course_id,
@@ -110,7 +114,8 @@ def get_specific_class_session(
     *,
     id: int,
 ) -> Any:
-    class_session = crud_class_session.get_user_class_session(db=db, user=user, id=id)
+    class_session = crud_class_session.get_user_class_session(
+        db=db, user=user, id=id)
     return class_session
 
 
@@ -121,7 +126,8 @@ def get_class_session_with_attendance(
     *,
     id: int,
 ) -> Any:
-    class_session = crud_class_session.get_user_class_session(db=db, user=user, id=id)
+    class_session = crud_class_session.get_user_class_session(
+        db=db, user=user, id=id)
     return class_session
 
 
@@ -130,7 +136,8 @@ def update_class_session(
     db: Session = Depends(deps.get_db), *, id: int, obj_in: ClassSessionUpdate
 ) -> Any:
     class_session = crud_class_session.get(db, id)
-    class_session = crud_class_session.update(db, db_obj=class_session, obj_in=obj_in)
+    class_session = crud_class_session.update(
+        db, db_obj=class_session, obj_in=obj_in)
     return class_session
 
 
@@ -182,7 +189,8 @@ def attendance_of_class_session(
         db=db, user=current_teacher, id=id
     )
     if not class_session:
-        raise HTTPException(status_code=403, detail="Class session access denied!")
+        raise HTTPException(
+            status_code=403, detail="Class session access denied!")
     class_session = crud_class_session.attendance_update(
         db, db_obj=class_session, obj_in=obj_in
     )
