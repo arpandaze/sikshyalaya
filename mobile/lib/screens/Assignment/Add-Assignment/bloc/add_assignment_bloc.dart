@@ -24,10 +24,12 @@ class AddAssignmentBloc extends Bloc<AddAssignmentEvent, AddAssignmentState> {
     on<CourseChanged>(_onCourseChanged);
     on<Submit>(_onSubmit);
     on<FetchCourse>(_onFetchCourse);
+    on<FetchInstructor>(_onFetchInstructor);
     on<TitleChanged>(_onTitleChanged);
     on<MarksChanged>(_onMarksChanged);
 
     add(FetchGroup());
+    add(FetchInstructor());
     add(FetchCourse());
   }
 
@@ -80,6 +82,23 @@ class AddAssignmentBloc extends Bloc<AddAssignmentEvent, AddAssignmentState> {
     List<Course>? tempList = [];
     course.forEach((element) => {tempList.add(Course.fromJson((element)))});
     emit(state.copyWith(courseList: tempList));
+  }
+
+  void _onFetchInstructor(
+      FetchInstructor event, Emitter<AddAssignmentState> emit) async {
+    final client = http.Client();
+
+    final headers = {"Cookie": "session=$token"};
+    final instructorUri = Uri.parse("$backendBase/users/teacher");
+    final instructorResp = await client.get(instructorUri, headers: headers);
+    assert(instructorResp.statusCode == 200);
+    var instructor = jsonDecode(instructorResp.body);
+    List<Instructor>? tempList = [];
+    instructor
+        .forEach((element) => {tempList.add(Instructor.fromJson(element))});
+    emit(state.copyWith(
+      instructorList: tempList,
+    ));
   }
 
   void _onSubmit(_, Emitter<AddAssignmentState> emit) async {

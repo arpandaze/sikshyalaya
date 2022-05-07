@@ -8,8 +8,8 @@ abstract class ClassCreatorEvent extends Equatable {
 }
 
 class InstructorChanged extends ClassCreatorEvent {
-  final List<Instructor>? instructor;
-  InstructorChanged({this.instructor});
+  final List<Object?> instructor;
+  InstructorChanged({this.instructor = const []});
 
   @override
   List<Object?> get props => [instructor];

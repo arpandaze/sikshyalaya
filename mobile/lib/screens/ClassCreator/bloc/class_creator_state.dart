@@ -6,7 +6,7 @@ class ClassCreatorState extends Equatable {
   final List<Group>? groupList;
   final int? group;
   final String? description;
-  final List<Instructor>? instructor;
+  final List<Object?> instructor;
   final List<Instructor>? instructorList;
   final List<String>? files;
 
@@ -16,7 +16,7 @@ class ClassCreatorState extends Equatable {
       this.group,
       this.groupList,
       this.description,
-      this.instructor = null,
+      this.instructor = const [],
       this.instructorList = null,
       this.files = null});
 
@@ -26,7 +26,7 @@ class ClassCreatorState extends Equatable {
     int? group,
     List<Group>? groupList,
     String? description,
-    List<Instructor>? instructor,
+    List<Object?>? instructor,
     List<Instructor>? instructorList,
     List<String>? files,
   }) {

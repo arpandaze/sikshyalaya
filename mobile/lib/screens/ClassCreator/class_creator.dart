@@ -33,14 +33,6 @@ class ClassCreator extends StatelessWidget {
     return BlocBuilder<ClassCreatorBloc, ClassCreatorState>(
       buildWhen: (previous, current) => previous != current,
       builder: (context, state) {
-        // final instructorTemp = state.instructorList != null
-        //     ? state.instructorList!
-        //         .map(
-        //           (e) => MultiSelectItem<Instructor>(e, e.full_name!),
-        //         )
-        //         .toList()
-        //     : [];
-        // print(instructorTemp);
         return Stack(
           children: <Widget>[
             ListView(
@@ -86,9 +78,10 @@ class ClassCreator extends StatelessWidget {
                                       context.read<ClassCreatorBloc>().add(
                                           StartTimeChanged(
                                               start_time:
-                                                  value.toUtc().toString()))
+                                                  value.toIso8601String()))
                                     },
-                                    initialD: DateTime.tryParse("2000-08-01"),
+                                    initialD: DateTime.tryParse("2004-08-01"),
+                                    lastDate: DateTime.now(),
                                     width: size.width * 0.4,
                                   ),
                                 ),
@@ -114,9 +107,10 @@ class ClassCreator extends StatelessWidget {
                                       context.read<ClassCreatorBloc>().add(
                                           EndTimeChanged(
                                               end_time:
-                                                  value.toUtc().toString()))
+                                                  value.toIso8601String()))
                                     },
-                                    initialD: DateTime.tryParse("2000-08-01"),
+                                    initialD: DateTime.tryParse("2004-08-01"),
+                                    lastDate: DateTime.now(),
                                     width: size.width * 0.4,
                                   ),
                                 ),
@@ -249,33 +243,25 @@ class ClassCreator extends StatelessWidget {
                               child: Text('Add Instructor',
                                   style: Theme.of(context).textTheme.headline5),
                             ),
-                            // Container(
-                            //   margin: const EdgeInsets.fromLTRB(70, 0, 70, 0),
-                            //   width: size.width * 0.5,
-                            //   child: DropDownMultiSelect(
-                            //     onChanged: (value) {
-                            //       context.read<ClassCreatorBloc>().add(
-                            //           InstructorChanged(instructor: value));
-                            //     },
-                            //     options: state.instructorList != null
-                            //         ? state.instructorList!
-                            //             .map((e) => e.full_name!)
-                            //             .toList()
-                            //         : [],
-                            //     selectedValues: state.instructor != null
-                            //         ? state.instructor!
-                            //             .map(
-                            //               (e) => e.id.toString(),
-                            //             )
-                            //             .toList()
-                            //         : [],
-                            //     whenEmpty: "Add Instructor",
-                            //     isDense: true,
-                            //     decoration: InputDecoration(
-                            //       isCollapsed: false,
-                            //     ),
-                            //   ),
-                            // ),
+                            Container(
+                              margin: const EdgeInsets.fromLTRB(70, 0, 70, 0),
+                              width: size.width * 0.5,
+                              child: MultiSelectBottomSheetField(
+                                items: state.instructorList != null
+                                    ? state.instructorList!
+                                        .map((e) =>
+                                            MultiSelectItem(e.id, e.full_name!))
+                                        .toList()
+                                    : [],
+                                searchable: true,
+                                onConfirm: (results) {
+                                  context.read<ClassCreatorBloc>().add(
+                                      InstructorChanged(instructor: results));
+                                },
+                                selectedColor:
+                                    Theme.of(context).colorScheme.onSurface,
+                              ),
+                            ),
                           ]),
                     ),
                   ],

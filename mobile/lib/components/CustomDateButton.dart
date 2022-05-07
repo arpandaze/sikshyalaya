@@ -7,6 +7,7 @@ class CustomDateButton extends StatefulWidget {
   final double? width;
   final double height;
   final DateTime? initialD;
+  final DateTime? lastDate;
   final Function(DateTime date) onChangeVal;
   const CustomDateButton({
     Key? key,
@@ -16,6 +17,7 @@ class CustomDateButton extends StatefulWidget {
     this.isPassword = false,
     this.margin = const EdgeInsets.all(0),
     this.initialD,
+    this.lastDate,
     required this.onChangeVal,
   }) : super(key: key);
 
@@ -31,7 +33,7 @@ class _CustomDateButtonState extends State<CustomDateButton> {
       context: context,
       initialDate: selectedDate,
       firstDate: DateTime(1900, 8),
-      lastDate: DateTime(2004, 8),
+      lastDate: widget.lastDate != null ? widget.lastDate! : DateTime(2004, 8),
       initialEntryMode: DatePickerEntryMode.input,
     );
     if (picked != null && picked != selectedDate) {

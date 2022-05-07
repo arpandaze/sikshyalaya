@@ -41,6 +41,8 @@ class ClassCreatorBloc extends Bloc<ClassCreatorEvent, ClassCreatorState> {
 
   void _onInstructorChanged(
       InstructorChanged event, Emitter<ClassCreatorState> emit) {
+    print("event");
+    print(event.instructor);
     emit(state.copyWith(instructor: event.instructor));
   }
 
@@ -88,16 +90,19 @@ class ClassCreatorBloc extends Bloc<ClassCreatorEvent, ClassCreatorState> {
 
   void _onSubmit(_, Emitter<ClassCreatorState> emit) async {
     if (state.start_time != null &&
-            state.end_time != null &&
-            state.description != null &&
-            state.group != null
-        //state.instructor != null
-        ) {
+        state.end_time != null &&
+        state.description != null &&
+        state.group != null) {
+      final ins = state.instructor
+          .map(
+            (e) => e.toString(),
+          )
+          .toList();
+      String csvID = ins.reduce((value, element) => value + "," + element);
       final Map<dynamic, dynamic> values = {
         "start_time": state.start_time,
         "end_time": state.end_time,
-        // "instructor": [],
-        // "instructor": state.instructor?.map((e) => e).toList(),
+        "instructor": state.instructor == [] ? null : csvID,
         "description": state.description,
         // "files": "",
         "group": state.group,
@@ -111,10 +116,16 @@ class ClassCreatorBloc extends Bloc<ClassCreatorEvent, ClassCreatorState> {
         ..fields['start_time'] = values['start_time']
         ..fields['end_time'] = values['end_time']
         ..fields['description'] = values['description']
-        ..fields['group'] = values['group'].toString();
+        ..fields['group'] = values['group'].toString()
+        ..fields['instructor'] = values['instructor'];
 
       groupResp.headers['Cookie'] = "session=$token";
+      print(groupResp.fields);
       var response = await groupResp.send();
+      if (response.statusCode == 200) {
+        //state clear garna baki
+        print("clear state");
+      }
     }
   }
 }

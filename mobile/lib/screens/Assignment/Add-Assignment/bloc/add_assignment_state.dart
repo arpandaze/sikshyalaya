@@ -9,6 +9,8 @@ class AddAssignmentState extends Equatable {
   final int? marks;
   final String? title;
   final String? description;
+  final List<Object?> instructor;
+  final List<Instructor>? instructorList;
 
   const AddAssignmentState({
     this.end_time = "",
@@ -19,6 +21,8 @@ class AddAssignmentState extends Equatable {
     this.title = "",
     this.marks = null,
     this.description = "",
+    this.instructor = const [],
+    this.instructorList = null,
   });
 
   AddAssignmentState copyWith({
@@ -29,6 +33,8 @@ class AddAssignmentState extends Equatable {
     List<Group>? groupList,
     List<Course>? courseList,
     String? description,
+    List<Object?>? instructor,
+    List<Instructor>? instructorList,
     String? title,
   }) {
     return AddAssignmentState(
@@ -39,6 +45,8 @@ class AddAssignmentState extends Equatable {
       groupList: groupList ?? this.groupList,
       courseList: courseList ?? this.courseList,
       description: description ?? this.description,
+      instructor: instructor ?? this.instructor,
+      instructorList: instructorList ?? this.instructorList,
       title: title ?? this.title,
     );
   }
@@ -52,5 +60,8 @@ class AddAssignmentState extends Equatable {
         groupList,
         courseList,
         description,
+        instructor,
+        instructorList,
+        title
       ];
 }

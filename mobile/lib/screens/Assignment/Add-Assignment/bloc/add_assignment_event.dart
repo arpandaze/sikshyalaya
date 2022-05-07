@@ -31,6 +31,14 @@ class GroupChanged extends AddAssignmentEvent {
   List<Object?> get props => [group];
 }
 
+class InstructorChanged extends AddAssignmentEvent {
+  final List<Object?> instructor;
+  InstructorChanged({this.instructor = const []});
+
+  @override
+  List<Object?> get props => [instructor];
+}
+
 class MarksChanged extends AddAssignmentEvent {
   final int? marks;
   MarksChanged({this.marks});
