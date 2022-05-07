@@ -43,13 +43,38 @@ class StudentAssignmentRepository {
         var listDecodedRespose = jsonDecode(response.body);
 
         final List<Assignment> listAssignment = [];
-
+        print(listDecodedRespose[0]);
         listDecodedRespose.forEach(
-            (element) => {listAssignment.add(Assignment.fromJson((element)))});
+          (element) => {
+            listAssignment.add(
+              Assignment.fromJson(element),
+            ),
+          },
+        );
 
         return listAssignment;
       } else {
         throw Exception('Body Empty');
+      }
+    } else {
+      throw Exception("No Session found");
+    }
+  }
+
+  Future<Map> getStudentAssignmentUploads({required int assignmentid}) async {
+    if (token != null) {
+      final headers = {"Cookie": "session=$token"};
+      final response = await httpclient.get(
+          Uri.parse('$backendBase/assignmentupload/$assignmentid'),
+          headers: headers);
+
+      if (response.statusCode != 200) {
+        throw Exception(
+            'Retrieve Failed! Error getting student dashboard info.');
+      } else {
+        var decodedResponse = jsonDecode(response.body);
+
+        return decodedResponse;
       }
     } else {
       throw Exception("No Session found");

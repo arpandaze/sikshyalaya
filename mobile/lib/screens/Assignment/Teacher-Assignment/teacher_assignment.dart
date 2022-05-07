@@ -86,6 +86,8 @@ class TeacherAssignment extends StatelessWidget {
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
                           return Assignments(
+                              assignmentid:
+                                  state.tAssignmentList[index].id ?? 0,
                               files: state.tAssignmentList[index].files ?? [],
                               courseCode: state
                                   .tAssignmentList[index].course!.course_code!,

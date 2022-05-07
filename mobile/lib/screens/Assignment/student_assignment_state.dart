@@ -7,6 +7,9 @@ class StudentAssignmentState extends Equatable {
   final List<Assignment> missedAssignmentList;
   final List<Assignment> submittedAssignmentList;
   static const List<Assignment> assignmentListDefault = [Assignment.empty];
+
+  final Map assignmentUpload;
+  final bool assignmentUploadLoading;
   final bool isLoaded;
 
   const StudentAssignmentState({
@@ -15,6 +18,8 @@ class StudentAssignmentState extends Equatable {
     this.missedAssignmentList = assignmentListDefault,
     this.submittedAssignmentList = assignmentListDefault,
     this.isLoaded = false,
+    this.assignmentUpload = const {},
+    this.assignmentUploadLoading = false,
   });
 
   StudentAssignmentState copyWith({
@@ -22,6 +27,8 @@ class StudentAssignmentState extends Equatable {
     List<Assignment>? dueAssignmentList,
     List<Assignment>? missedAssignmentList,
     List<Assignment>? submittedAssignmentList,
+    Map? assignmentUpload,
+    bool? assignmentUploadLoading,
     bool? isLoaded,
   }) {
     return StudentAssignmentState(
@@ -30,7 +37,10 @@ class StudentAssignmentState extends Equatable {
         missedAssignmentList: missedAssignmentList ?? this.missedAssignmentList,
         submittedAssignmentList:
             submittedAssignmentList ?? this.submittedAssignmentList,
-        isLoaded: isLoaded ?? this.isLoaded);
+        isLoaded: isLoaded ?? this.isLoaded,
+        assignmentUpload: assignmentUpload ?? this.assignmentUpload,
+        assignmentUploadLoading:
+            assignmentUploadLoading ?? this.assignmentUploadLoading);
   }
 
   // static Future<StudentAssignmentState> load() async {
@@ -45,5 +55,7 @@ class StudentAssignmentState extends Equatable {
         missedAssignmentList,
         submittedAssignmentList,
         isLoaded,
+        assignmentUpload,
+        assignmentUploadLoading,
       ];
 }

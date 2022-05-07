@@ -13,6 +13,7 @@ class StudentAssignmentBloc
   StudentAssignmentBloc({required this.studentAssignmentRepository})
       : super(const StudentAssignmentState()) {
     on<GetStudentAssignment>(_onGetStudentAssignment);
+    on<GetStudentAssignmentUploads>(_onGetStudentAssignmentUploads);
 
     add(
       GetStudentAssignment(url: 'assignment'),
@@ -50,8 +51,9 @@ class StudentAssignmentBloc
 
     if (missedAssignmentList.length != 1) missedAssignmentList.removeAt(0);
     if (dueAssignmentList.length != 1) dueAssignmentList.removeAt(0);
-    if (submittedAssignmentList.length != 1)
+    if (submittedAssignmentList.length != 1) {
       submittedAssignmentList.removeAt(0);
+    }
 
     emit(state.copyWith(
       isLoaded: true,
@@ -60,5 +62,19 @@ class StudentAssignmentBloc
       dueAssignmentList: dueAssignmentList,
       submittedAssignmentList: submittedAssignmentList,
     ));
+  }
+
+  void _onGetStudentAssignmentUploads(GetStudentAssignmentUploads event,
+      Emitter<StudentAssignmentState> emit) async {
+    print("Here");
+    final studentAssignmentUpload = await studentAssignmentRepository
+        .getStudentAssignmentUploads(assignmentid: event.assignmentid);
+
+    emit(
+      state.copyWith(
+        assignmentUpload: studentAssignmentUpload,
+        assignmentUploadLoading: true,
+      ),
+    );
   }
 }
