@@ -14,6 +14,7 @@ import 'package:sikshyalaya/screens/Profile/sessions.dart';
 import 'package:sikshyalaya/screens/Student/student_wrapper.dart';
 import 'package:sikshyalaya/screens/Welcome/splash.dart';
 import 'package:sikshyalaya/screens/2fa/twoFactorAuthentication.dart';
+import 'package:sikshyalaya/screens/Profile/qrLogin.dart';
 import 'dart:async';
 import 'dart:io';
 
@@ -106,7 +107,8 @@ class Profile extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              profileSnapshot.newProfile != null && profileSnapshot.profileSaveSuccess != true
+                              profileSnapshot.newProfile != null &&
+                                      profileSnapshot.profileSaveSuccess != true
                                   ? CustomFilledButton(
                                       text: "Save",
                                       onPressed: () {
@@ -328,10 +330,7 @@ class Profile extends StatelessWidget {
                                                 .push(PageRouteBuilder(
                                               pageBuilder: (context, animation1,
                                                       animation2) =>
-                                                  Twofactorauthentication(
-                                                fullname: authSnapshot
-                                                    .user!["full_name"],
-                                              ),
+                                                  QRLogin(),
                                               transitionDuration: Duration.zero,
                                               reverseTransitionDuration:
                                                   Duration.zero,

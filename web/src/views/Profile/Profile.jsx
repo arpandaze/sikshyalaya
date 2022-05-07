@@ -19,13 +19,18 @@ const tabs = [
   },
   {
     id: 2,
-    name: "Security",
+    name: "Password",
     icon: <BiShieldQuarter className="profile_icons" />,
   },
   {
     id: 3,
     name: "Sessions",
     icon: <MdDevices className="profile_icons" />,
+  },
+  {
+    id: 4,
+    name: "Two Factor Auth",
+    icon: <BiShieldQuarter className="profile_icons" />,
   },
 ];
 

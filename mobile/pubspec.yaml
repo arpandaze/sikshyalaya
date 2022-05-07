@@ -54,6 +54,7 @@ dependencies:
   open_file: ^3.2.1
   image_picker: ^0.8.5
   mime: ^1.0.2
+  qr_code_scanner: ^0.7.0
 
 #state management
 get: ^4.1.4

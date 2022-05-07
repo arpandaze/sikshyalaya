@@ -3,6 +3,7 @@ import { ProfileContext } from "../ProfileContext";
 import GeneralInfo from "./GeneralInfo";
 import PasswordChange from "./PasswordChange";
 import Session from "./Session";
+import TwoFactor from "./TwoFactor";
 
 const RenderForm = () => {
   const { tabId } = useContext(ProfileContext);
@@ -13,6 +14,8 @@ const RenderForm = () => {
       return <PasswordChange />;
     case 3:
       return <Session />;
+    case 4:
+      return <TwoFactor />;
     default:
       return <GeneralInfo />;
   }

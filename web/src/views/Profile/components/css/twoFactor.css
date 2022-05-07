@@ -1,28 +1,28 @@
 @import "../../../../utils/colors.css";
 
 @media only screen and (min-width: 1280px) {
-  .changePw_root {
+  .tfa_root {
     width: 100%;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
   }
-  .changePw_topPart {
+  .tfa_topPart {
     height: 60px;
     margin-top: 20px !important;
   }
 
-  .changePw_title {
+  .tfa_title {
     font-size: 1.4em;
     font-weight: bold;
     text-indent: 30px;
     margin: 0 !important;
   }
-  .changePw_formContainer {
+  .tfa_formContainer {
     margin-top: 20px !important;
   }
-  .changePw_inputField {
-    width: 100% !important;
+  .tfa_inputField {
+    width: 40% !important;
   }
-  .changePw_button {
+  .tfa_button {
     max-width: 150px;
     min-width: 150px;
     height: 50px;
@@ -32,7 +32,7 @@
     border-radius: 15px;
     font-size: 1.3em;
   }
-  .changePw_button:hover {
+  .tfa_button:hover {
     border-bottom: 2px solid var(--red4);
     transform: scale(1.03);
     transition: transform 100ms ease-in-out;
@@ -40,9 +40,9 @@
 }
 
 @media only screen and (min-width: 1920px) {
-  .changePw_root {
+  .tfa_root {
   }
-  .changePw_button {
+  .tfa_button {
     max-width: 150px;
     min-width: 150px;
   }

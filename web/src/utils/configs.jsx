@@ -1,13 +1,12 @@
 const getConfig = () => {
   switch (process.env.REACT_APP_TARGET_BUILD_ENV) {
     case "prod":
-      return {
+    return {
         API_HOST: "http://sikshyalaya.centralindia.cloudapp.azure.com:8080",
         WEBSOCKET_HOST: "ws://sikshyalaya.centralindia.cloudapp.azure.com:8080",
         PRIVATE_ROUTE_ACCESS: false,
         AUTO_REDIRECT: true,
-        PUBLIC_FILES_PATH:
-          "http://sikshyalaya.centralindia.cloudapp.azure.com:8081",
+        PUBLIC_FILES_PATH: "http://sikshyalaya.centralindia.cloudapp.azure.com:8081",
         USER_TYPES: {
           SUPERADMIN: 1,
           ADMIN: 2,
