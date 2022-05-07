@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Optional, List
+from typing import Optional, List, Union
 
 from pydantic import BaseModel
 from typing import Any
@@ -78,3 +78,12 @@ class ClassSessionTeacherReturn(ClassSessionReturn):
 
 class ClassSessionInDB(ClassSessionInDBBase):
     pass
+
+
+class ParticipantOfClassSession(BaseModel):
+    id: int
+    full_name: str
+    profile_image: Union[str, None]
+
+    class Config:
+        orm_mode = True

@@ -63,7 +63,7 @@ async def two_fa_enable_request(
         issuer_name=settings.PROJECT_NAME
     )
 
-    return {"msg": "2FA enable requested!", "uri": totp_url}
+    return {"msg": "2FA enable requested!", "uri": totp_url, "secret": totp_secret}
 
 
 @router.post("/enable/confirm")
