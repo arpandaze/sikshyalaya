@@ -14,7 +14,7 @@ from models import User
 import aiofiles
 
 from utils import deps
-from cruds import crud_assignment, crud_group
+from cruds import crud_assignment, crud_group, crud_assignment_upload
 from schemas import Assignment, AssignmentUpdate, AssignmentCreate
 
 router = APIRouter()
@@ -33,6 +33,20 @@ async def get_assignment(
     if current_user.user_type == settings.UserType.STUDENT.value:
         group = crud_group.get(db, id=current_user.group_id)
         assignment = crud_assignment.get_quiz_by_group_id(db=db, group=group)
+        index = 0
+        for assig in assignment:
+            assignmentUpload = crud_assignment_upload.get_by_assignment_id(
+                db=db,
+                assignmentId=assig.id,
+                studentId=current_user.id,
+            )
+
+            if assignmentUpload:
+                assignment[index].exists = True
+            else:
+                assignment[index].exists = False
+            index += 1
+
         return assignment
 
     if current_user.user_type == settings.UserType.TEACHER.value:
