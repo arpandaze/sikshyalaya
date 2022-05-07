@@ -45,31 +45,31 @@ Map dateHandler(String dateTime) {
 
     switch (day) {
       case 1:
-        weekDay = "Monday";
+        weekDay = "Mon";
         break;
 
       case 2:
-        weekDay = "Tuesday";
+        weekDay = "Tue";
         break;
 
       case 3:
-        weekDay = "Wednesday";
+        weekDay = "Wed";
         break;
 
       case 4:
-        weekDay = "Thursday";
+        weekDay = "Thur";
         break;
 
       case 5:
-        weekDay = "Friday";
+        weekDay = "Fri";
         break;
 
       case 6:
-        weekDay = "Saturday";
+        weekDay = "Sat";
         break;
 
       case 7:
-        weekDay = "Sunday";
+        weekDay = "Sun";
         break;
 
       default:

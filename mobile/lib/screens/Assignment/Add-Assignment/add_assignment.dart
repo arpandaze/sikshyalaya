@@ -1,8 +1,10 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:sikshyalaya/components/CustomNumberField.dart';
 import 'package:sikshyalaya/global/authentication/auth_bloc.dart';
+import 'package:sikshyalaya/repository/models/file.dart';
 import 'package:sikshyalaya/screens/Assignment/Add-Assignment/bloc/add_assignment_bloc.dart';
 
 import '../../../components/CustomDateButton.dart';
@@ -276,7 +278,27 @@ class AddAssignment extends StatelessWidget {
                             Container(
                               margin: const EdgeInsets.fromLTRB(70, 0, 70, 0),
                               width: size.width * 0.5,
-                              child: const CustomFilledButton(
+                              child: CustomFilledButton(
+                                onPressed: () async {
+                                  print("arporn");
+                                  FilePickerResult? result = await FilePicker
+                                      .platform
+                                      .pickFiles(allowMultiple: true);
+
+                                  if (result != null) {
+                                    List<File> files = result.paths
+                                        .map(
+                                          (path) => File(),
+                                        )
+                                        .toList();
+
+                                    // context
+                                    //     .read<AssignmentUploadBloc>()
+                                    //     .add(NewFilePicked(file: files));
+                                  } else {
+                                    // User canceled the picker
+                                  }
+                                },
                                 text: "Upload File(s)",
                               ),
                             ),

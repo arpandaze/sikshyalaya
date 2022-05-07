@@ -1,6 +1,8 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sikshyalaya/components/CustomDateButton.dart';
+import 'package:sikshyalaya/repository/models/file.dart';
 import '../../../components/CustomTextField.dart';
 import 'package:sikshyalaya/global/authentication/auth_bloc.dart';
 import 'package:sikshyalaya/repository/models/group.dart';
@@ -216,7 +218,26 @@ class ClassCreator extends StatelessWidget {
                               width: size.width * 0.5,
                               child: CustomFilledButton(
                                 text: "Upload File(s)",
-                                onPressed: () => print("s"),
+                                onPressed: () async {
+                                  print("arporn");
+                                  FilePickerResult? result = await FilePicker
+                                      .platform
+                                      .pickFiles(allowMultiple: true);
+
+                                  if (result != null) {
+                                    List<File> files = result.paths
+                                        .map(
+                                          (path) => File(),
+                                        )
+                                        .toList();
+
+                                    // context
+                                    //     .read<AssignmentUploadBloc>()
+                                    //     .add(NewFilePicked(file: files));
+                                  } else {
+                                    // User canceled the picker
+                                  }
+                                },
                               ),
                             ),
                           ]),
