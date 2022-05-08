@@ -12,10 +12,11 @@ class GetTwoFA extends TwoFALoginEvent {
 
 class SendTwoFA extends TwoFALoginEvent {
   final String totpCode;
-  SendTwoFA({required this.totpCode});
+  final String tempToken;
+  SendTwoFA({required this.totpCode, required this.tempToken});
 
   @override
-  List<Object> get props => [totpCode];
+  List<Object> get props => [totpCode, tempToken];
 }
 
 class DisableTwoFA extends TwoFALoginEvent {

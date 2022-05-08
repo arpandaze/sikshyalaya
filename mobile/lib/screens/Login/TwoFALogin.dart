@@ -5,7 +5,6 @@ import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:sikshyalaya/repository/reset_password.dart';
 import 'package:sikshyalaya/repository/twoFALogin.dart';
-import 'package:sikshyalaya/screens/2fa/twoFA_bloc.dart';
 import 'package:sikshyalaya/screens/Login/components/CustomEditTextField.dart';
 import 'package:sikshyalaya/screens/Login/components/CustomFilledButton.dart';
 import 'package:sikshyalaya/screens/Login/reset_password_bloc.dart';
@@ -14,7 +13,8 @@ import 'package:sikshyalaya/screens/Login/twoFALogin_bloc.dart';
 import '../../global/authentication/auth_bloc.dart';
 
 class TwoFALogin extends StatelessWidget {
-  const TwoFALogin({Key? key}) : super(key: key);
+  final String tempToken;
+  const TwoFALogin({Key? key, required this.tempToken}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -36,7 +36,12 @@ class TwoFALogin extends StatelessWidget {
     return BlocBuilder<AuthBloc, AuthState>(
         buildWhen: (prev, next) => prev != next,
         builder: (context, state) {
-          return BlocBuilder<TwoFALoginBloc, TwoFALoginState>(
+          return BlocConsumer<TwoFALoginBloc, TwoFALoginState>(
+              listener: (context, state) {
+                if (state.twoFASuccess) {
+                  context.read<AuthBloc>().add(LoggedIn());
+                }
+              },
               buildWhen: (prev, next) => prev != next,
               builder: (context, twoState) {
                 return SafeArea(
@@ -93,7 +98,14 @@ class TwoFALogin extends StatelessWidget {
                                       textFieldAlignment:
                                           MainAxisAlignment.spaceAround,
                                       fieldStyle: FieldStyle.box,
-                                      onCompleted: (pin) {},
+                                      onCompleted: (pin) {
+                                        context
+                                            .read<TwoFALoginBloc>()
+                                            .add(SendTwoFA(
+                                              tempToken: tempToken,
+                                              totpCode: pin,
+                                            ));
+                                      },
                                     ),
                                   ),
                                 ],

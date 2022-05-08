@@ -36,8 +36,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }
 
     try {
-      await auth.login(username: state.email, password: state.password);
-      emit(state.copyWith(loginSuccess: true));
+      final loginResp =
+          await auth.login(username: state.email, password: state.password);
+
+      if (loginResp!["two_fa_required"] == true) {
+        emit(state.copyWith(twoFARequired: true, tempToken: loginResp["temp-token"]));
+      } else {
+        emit(state.copyWith(loginSuccess: true));
+      }
     } catch (e) {
       print(e);
       emit(state.copyWith(errorText: "Email or password incorrect!"));

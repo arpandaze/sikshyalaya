@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sikshyalaya/global/authentication/auth_bloc.dart';
-import 'package:sikshyalaya/repository/models/student_note.dart';
-import 'package:sikshyalaya/repository/student_note.dart';
-import 'package:sikshyalaya/screens/Notes/components/NotePreview.dart';
+import 'package:sikshyalaya/repository/models/teacher_note.dart';
+import 'package:sikshyalaya/repository/teacher_note.dart';
+import 'package:sikshyalaya/screens/Teacher-Notes/components/NotePreview.dart';
 import 'package:sikshyalaya/components/CustomTextField.dart';
-import 'package:sikshyalaya/screens/Notes/note_view.dart';
-import 'package:sikshyalaya/screens/Notes/student_notes_bloc.dart';
+import 'package:sikshyalaya/screens/Teacher-Notes/note_view.dart';
+import 'package:sikshyalaya/screens/Teacher-Notes/teacher_notes_bloc.dart';
 import 'package:sikshyalaya/screens/Student/student_wrapper.dart';
 
-class StudentNotes extends StatelessWidget {
-  const StudentNotes({
+class TeacherNotes extends StatelessWidget {
+  const TeacherNotes({
     Key? key,
   }) : super(key: key);
 
@@ -22,8 +22,8 @@ class StudentNotes extends StatelessWidget {
     return StudentWrapper(
       pageName: 'Notes',
       child: BlocProvider(
-        create: (context) => StudentNoteBloc(
-          studentNoteRepository: StudentNoteRepository(
+        create: (context) => TeacherNoteBloc(
+          teacherNoteRepository: TeacherNoteRepository(
             token: context.read<AuthBloc>().state.token,
           ),
           userId: context.read<AuthBloc>().state.user!['id'],
@@ -36,7 +36,7 @@ class StudentNotes extends StatelessWidget {
   Widget body(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return BlocBuilder<StudentNoteBloc, StudentNoteState>(
+    return BlocBuilder<TeacherNoteBloc, TeacherNoteState>(
       buildWhen: (((previous, current) => (previous != current))),
       builder: (context, state) {
         return Stack(
@@ -48,7 +48,7 @@ class StudentNotes extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
                     child: FloatingActionButton(
                       onPressed: () => {
-                        context.read<StudentNoteBloc>().add(
+                        context.read<TeacherNoteBloc>().add(
                               ToggleEditor(
                                 mode: 1,
                               ),
@@ -63,6 +63,17 @@ class StudentNotes extends StatelessWidget {
                   body: state.isLoaded
                       ? ListView(
                           children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CustomTextField(
+                                  width: size.width * 0.9,
+                                  placeHolder: "Search Notes",
+                                  margin:
+                                      const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                ),
+                              ],
+                            ),
                             Row(
                               children: <Widget>[
                                 Container(
@@ -90,7 +101,7 @@ class StudentNotes extends StatelessWidget {
                               itemBuilder: (context, int i) {
                                 return GestureDetector(
                                   onTap: () => {
-                                    context.read<StudentNoteBloc>().add(
+                                    context.read<TeacherNoteBloc>().add(
                                           ToggleEditor(
                                             cNote: state.recentList[i],
                                             mode: 2,
@@ -130,7 +141,7 @@ class StudentNotes extends StatelessWidget {
                               itemBuilder: (context, int i) {
                                 return GestureDetector(
                                   onTap: () => {
-                                    context.read<StudentNoteBloc>().add(
+                                    context.read<TeacherNoteBloc>().add(
                                           ToggleEditor(
                                             cNote: state.noteList[i],
                                             mode: 2,

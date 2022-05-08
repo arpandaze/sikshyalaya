@@ -34,6 +34,7 @@ class StudentDashboardRepository {
         Uri.parse('$backendBase/$path'),
         headers: headers,
       );
+      print(token);
 
       if (response.statusCode != 200) {
         throw Exception(

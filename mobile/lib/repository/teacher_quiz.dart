@@ -19,17 +19,13 @@ class TeacherQuizRepository {
     final response = await httpclient.get(Uri.parse('$backendBase/$url'),
         headers: {"Cookie": "session=$token"});
 
-    print(headers);
     // headers: {"Authorization": tok
 
     if (response.statusCode != 200) {
-      print(response.statusCode);
       throw Exception('Retrieve Failed! Error getting Teacher quiz info.');
     }
 
     if (response.body.isNotEmpty) {
-      print(response.body);
-
       var listDecodedRespose = jsonDecode(response.body);
 
       final List<TQuiz> listQuiz = [];
