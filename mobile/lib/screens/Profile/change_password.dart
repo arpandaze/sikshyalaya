@@ -118,6 +118,7 @@ class ChangePassword extends StatelessWidget {
                                   Container(
                                     padding: EdgeInsets.all(10),
                                     child: CustomTextField(
+                                      isPassword: true,
                                       initialVal: passwordState.currentPassword,
                                       onChanged: (value) => {
                                         context.read<PasswordBloc>().add(
@@ -131,6 +132,7 @@ class ChangePassword extends StatelessWidget {
                                   Container(
                                     padding: EdgeInsets.all(10),
                                     child: CustomTextField(
+                                      isPassword: true,
                                       initialVal: passwordState.newPassword,
                                       onChanged: (value) => {
                                         context
@@ -144,6 +146,7 @@ class ChangePassword extends StatelessWidget {
                                   Container(
                                     padding: EdgeInsets.all(10),
                                     child: CustomTextField(
+                                      isPassword: true,
                                       initialVal: passwordState.confirmPassword,
                                       onChanged: (value) => {
                                         context.read<PasswordBloc>().add(
