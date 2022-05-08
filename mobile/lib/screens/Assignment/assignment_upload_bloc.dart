@@ -41,7 +41,7 @@ class AssignmentUploadBloc
             'Retrieve Failed! Error getting student dashboard info.');
       } else {
         var decodedResponse = jsonDecode(response.body);
-
+        print(decodedResponse);
         emit(
           state.copyWith(
             assignmentUpload: decodedResponse,

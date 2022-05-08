@@ -238,7 +238,7 @@ class AssignmentSubmissionView extends StatelessWidget {
                                                               0xFFB4B4B4))),
                                                   child: InkWell(
                                                     onTap: () => _launchUrl(
-                                                        '$fileServerBase/${jsonDecode(state.assignmentUpload["files"][index])["path"]}'),
+                                                        '$fileServerBase/${state.assignmentUpload["files"][index]["path"]}'),
                                                     child: Row(
                                                       children: [
                                                         Container(
@@ -246,11 +246,11 @@ class AssignmentSubmissionView extends StatelessWidget {
                                                               EdgeInsets.only(
                                                                   right: 10),
                                                           child: iconPicker(
-                                                              "${jsonDecode(state.assignmentUpload["files"][index])["name"].split(".").last}"),
+                                                              "${state.assignmentUpload["files"][index]["name"].split(".").last}"),
                                                         ),
                                                         Container(
                                                           child: Text(
-                                                            '${jsonDecode(state.assignmentUpload["files"][index])["name"]}',
+                                                            '${state.assignmentUpload["files"][index]["name"]}',
                                                             style: (Theme.of(
                                                                         context)
                                                                     .textTheme

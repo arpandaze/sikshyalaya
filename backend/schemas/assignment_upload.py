@@ -46,7 +46,7 @@ class AssignmentUploadwithName(BaseModel):
     submission_date: datetime
     marks_obtained: int = None
     assignment_id: int
-    files: List[str] = None
+    files: List[Any] = None
     student: Name
     student_id: int
 

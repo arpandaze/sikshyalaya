@@ -19,12 +19,15 @@ class AssignmentReviewCard extends StatefulWidget {
     required this.profile_image,
     required this.assignment_id,
     required this.studentName,
+    this.isLoadedTeacher = false,
+    
   }) : super(key: key);
   final int id;
   final int assignment_id;
   final String studentName;
   final String profile_image;
   final List<String> files;
+  final bool isLoadedTeacher;
 
   @override
   State<AssignmentReviewCard> createState() => _AssignmentReviewCardState();
