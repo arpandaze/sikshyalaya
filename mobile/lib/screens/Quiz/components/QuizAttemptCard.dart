@@ -58,7 +58,8 @@ class QuizAttemptCard extends StatelessWidget {
                       style: Theme.of(context).textTheme.headline4,
                     ),
                   ),
-                  if (quizView.question_image!.isNotEmpty)
+                  if (quizView.question_image != null &&
+                      quizView.question_image!.isNotEmpty)
                     Container(
                       constraints: BoxConstraints(),
                       child: (GridView.builder(

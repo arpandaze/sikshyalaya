@@ -89,7 +89,7 @@ class StudentQuiz extends StatelessWidget {
                             course: state.active![i].course!.course_code!,
                             description: state.active![i].description!,
                             instructor:
-                                studentInstructor(state.past![i].instructor),
+                                studentInstructor(state.active![i].instructor),
                           );
                         }),
               ),
