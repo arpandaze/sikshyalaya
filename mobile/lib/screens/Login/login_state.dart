@@ -8,7 +8,17 @@ class LoginState extends Equatable {
 
   final bool loginSuccess;
 
-  const LoginState({this.email = "", this.password = "", this.errorText = "", this.loginSuccess = false});
+  final bool? twoFARequired;
+  final String? tempToken;
+
+  const LoginState({
+    this.email = "",
+    this.password = "",
+    this.errorText = "",
+    this.loginSuccess = false,
+    this.twoFARequired,
+    this.tempToken,
+  });
 
   bool get isEmailValid => EmailValidator.validate(email);
 
@@ -21,15 +31,20 @@ class LoginState extends Equatable {
     String? password,
     String? errorText,
     bool? loginSuccess,
+    bool? twoFARequired,
+    String? tempToken,
   }) {
     return LoginState(
       email: email ?? this.email,
       password: password ?? this.password,
       errorText: errorText ?? this.errorText,
       loginSuccess: loginSuccess ?? this.loginSuccess,
+      twoFARequired: twoFARequired ?? this.twoFARequired,
+      tempToken: tempToken ?? this.tempToken,
     );
   }
 
   @override
-  List<Object?> get props => [email, password, errorText, loginSuccess];
+  List<Object?> get props =>
+      [email, password, errorText, loginSuccess, twoFARequired];
 }

@@ -39,19 +39,6 @@ class TeacherQuiz extends StatelessWidget {
       builder: (context, state) {
         return ListView(
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Container(
-                  width: size.width,
-                  child: Container(
-                      child: const CustomTextField(
-                    placeHolder: "Search Quiz",
-                    margin: EdgeInsets.fromLTRB(20, 10, 20, 5),
-                  )),
-                )
-              ],
-            ),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -77,6 +64,8 @@ class TeacherQuiz extends StatelessWidget {
                       shrinkWrap: true,
                       itemCount: state.active!.length,
                       itemBuilder: (context, i) {
+                        print("quiz");
+                        print(state.active![i]);
                         return QuizPreview(
                           quizId: state.active![i].id,
                           size: size,

@@ -47,7 +47,6 @@ class TeacherQuizBloc extends Bloc<TeacherQuizEvent, TeacherQuizState> {
     if (active.length != 1) active.removeAt(0);
     if (past.length != 1) past.removeAt(0);
     if (other.length != 1) other.removeAt(0);
-
     emit(state.copyWith(
         active: active, past: past, other: other));
   }
